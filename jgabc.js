@@ -64,8 +64,10 @@ var indices = {
 var staffheight = 60;
 var spaceheight = staffheight / 4;
 var fontsize = spaceheight * 1.5;
+var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
+var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight;
 var svg;
 var textElem;
 var codea = 'a'.charCodeAt(0);
@@ -81,14 +83,15 @@ var transforms = [['/',' ',',',';',':','`',''],
 				  [/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
 var abcs = {};
 var defs = null;
-var vowelDefs = {A:null,E:null,I:null,O:null,U:null,Y:null,a:null,e:null,i:null,o:null,u:null,y:null};
+var defText = null;
+var defChant = null;
 
 function updatePreview(text) {
 	var old = textElem;
 	textElem = getChant(text);
 	textElem.setAttribute("id", "1");
-	textElem.setAttribute("transform", "translate(0,85)");
-	textElem.setAttribute("style", "font-family: 'Caeciliae Staffless'; font-size:" + staffheight);
+	textElem.setAttribute("transform", "translate(0," + staffoffset + ")");
+	textElem.setAttribute("style", styleCaeciliae);
 	svg.replaceChild(textElem,old);
 }
 
@@ -119,24 +122,21 @@ function getChant(text) {
 			ltone = 3;
 			ltone = (3 - ltone);
 			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-			span.setAttribute("y",1.5*staffheight + fontsize + ltone);
+			span.setAttribute("y",0.1*staffheight + fontsize + ltone);
 			
 			regexVowel.lastIndex = 0;
-			vowel = match[3].match(regexVowel);
+			vowel = regexVowel.exec(match[3]);
 			var offset = 0;
 			if(vowel) {
-				var vWidth = vowelDefs[vowel[0]].getBBox().width;
-				var prevowel = match[3].substring(regexVowel.lastIndex);
-				offset = vWidth / 2;
-				if(prevowel.length > 0) {
-					span.appendChild(document.createTextNode(prevowel));
-					defs.appendChild(span);
-					offset += span.getBBox().width;
-					defs.removeChild(span);
-					span.removeChild(span.firstChild);
-				}
+				var len = regexVowel.lastIndex;
+				defText.firstChild.data = match[3].substring(0,len);
+				offset -= defText.getSubStringLength(0, len - 1);
+				offset -= defText.getSubStringLength(len - 1, 1) / 2;
+				
+				// TODO: some noteheads may have a different width, so this will need to happen differently
+				offset += defChant.getComputedTextLength() / 2;
 			}
-			span.setAttribute("x",-offset);
+			span.setAttribute("x",offset);
 			span.appendChild(document.createTextNode(match[3]));
 			
 			result.appendChild(span);
@@ -323,31 +323,20 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 		"@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}"));
 	svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
-	for(var v in vowelDefs) {
-		var text = vowelDefs[v] = make('text');
-		text.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
-		text.appendChild(document.createTextNode(v));
-		defs.appendChild(text);
-	}
-//	var fontface = document.createElementNS(svgns, "font-face");
-//	fontface.setAttributeNS(svgns, "font-family", "Caeciliae-web");
-//	var fontfacesrc = document.createElementNS(svgns, "font-face-src");
-//	var fontfaceuri = document.createElementNS(svgns, "font-face-uri");
-//	var fontfaceformat = document.createElementNS(svgns, "font-face-format");
-//	fontfaceformat.setAttributeNS(null, "string", "opentype");
-//	fontfaceuri.setAttributeNS(xlinkns, "href", "caeciliae-Regular.ttf");
-//	fontfaceuri.appendChild(fontfaceformat);
-//	fontfacesrc.appendChild(fontfaceuri);
-//	fontface.appendChild(fontfacesrc);
-//	defs.appendChild(fontface);
+	defText = make('text');
+	defText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
+	defText.appendChild(document.createTextNode(''));
+	defs.appendChild(defText);
+	defChant = make('text');
+	defChant.setAttribute('style', styleCaeciliae);
+	defChant.appendChild(document.createTextNode('p'));
+	defs.appendChild(defChant);
+	
 	var gStaff = document.createElementNS(svgns, "g");
 	gStaff.setAttributeNS(null, "id", "staff");
-	//gStaff.setAttributeNS(null, "transform", "translate(0," + (-increment * 3));
-	var line;
-	var increment = staffheight / 4;
 	var height = staffheight * 16 / 1000;
-	line = document.createElementNS(svgns, "path");
-	var stringLine = "h1v" + height + "h-1zm0 -" + increment;
+	var line = document.createElementNS(svgns, "path");
+	var stringLine = "h1v" + height + "h-1zm0 -" + spaceheight;
 	line.setAttributeNS(null, "d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
 	gStaff.appendChild(line);
 	defs.appendChild(gStaff);
@@ -360,7 +349,7 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 	textElem.setAttributeNS(null, "id", "test");
 	textElem.setAttributeNS(null, "x", 0);
 	textElem.setAttributeNS(null, "y", 85);
-	textElem.setAttributeNS(null, "style", "font-family: 'Caeciliae Staffless'; font-size:" + staffheight);
+	textElem.setAttributeNS(null, "style", styleCaeciliae);
 	textElem.appendChild(document.createTextNode(data));
 	svg.appendChild(textElem);
   
