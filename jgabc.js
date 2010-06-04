@@ -319,7 +319,7 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
   var data = "d";
     var style = document.createElementNS(svgns, "style");
 	style.setAttributeNS(null, "type", "text/css");
-	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/tags/web/Caeciliae-Staffless.ttf) format(opentype)}" +
+	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}" +
 		"@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}"));
 	svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
