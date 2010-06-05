@@ -90,7 +90,7 @@ function updatePreview(text) {
 	var old = textElem;
 	textElem = getChant(text);
 	textElem.setAttribute("id", "1");
-	textElem.setAttribute("transform", "translate(0," + staffoffset + ")");
+	textElem.setAttribute("transform", "translate(10," + staffoffset + ")");
 	textElem.setAttribute("style", styleCaeciliae);
 	svg.replaceChild(textElem,old);
 }
@@ -104,15 +104,15 @@ function getChant(text) {
 	var count = 0;
 	var result;
 	regexOuter.lastIndex = 0;
+	var result = make('g');
+	var xoffset = 0;
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
 			getChantFragment(match[5]);
-			var result = make('g');
 			var use = make('use');
 			use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
+			use.setAttribute('x', xoffset);
 			result.appendChild(use);
-		} else {
-			result = make('g');
 		}
 		if(match[3]) {
 			var span = make('text');
@@ -122,21 +122,38 @@ function getChant(text) {
 			ltone = 3;
 			ltone = (3 - ltone);
 			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-			span.setAttribute("y",0.1*staffheight + fontsize + ltone);
+			span.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
 			
-			regexVowel.lastIndex = 0;
-			vowel = regexVowel.exec(match[3]);
-			var offset = 0;
-			if(vowel) {
-				var len = regexVowel.lastIndex;
-				defText.firstChild.data = match[3].substring(0,len);
-				offset -= defText.getSubStringLength(0, len - 1);
-				offset -= defText.getSubStringLength(len - 1, 1) / 2;
-				
-				// TODO: some noteheads may have a different width, so this will need to happen differently
-				offset += defChant.getComputedTextLength() / 2;
+			// Don't worry about placing the vowel correctly if there is no neume.
+			if(use) {
+				regexVowel.lastIndex = 0;
+				vowel = regexVowel.exec(match[3]);
+				var offset = 0;
+				if(vowel) {
+					var len = regexVowel.lastIndex;
+					defText.firstChild.data = match[3].substring(0,len);
+					offset -= defText.getSubStringLength(0, len - 1);
+					offset -= defText.getSubStringLength(len - 1, 1) / 2;
+					
+					// TODO: some noteheads may have a different width, so this will need to happen differently
+					offset += defChant.getComputedTextLength() / 2;
+				}
+				defText.firstChild.data = match[3];
+				var wText = defText.getComputedTextLength();
+				var wChant = document.getElementById(match[5]).getComputedTextLength();
+				if(offset > 0) {
+					span.setAttribute('x',offset + xoffset);
+					wText += offset;
+				} else {
+					use.setAttribute('transform', "translate(" + (-offset) + ")");
+					span.setAttribute('x',xoffset);
+					wChant -= offset;
+				}
+				xoffset += Math.max(wText, wChant);
+			} else {
+				defText.firstChild.data = match[3];
+				xoffset += defText.getComputedTextLength();
 			}
-			span.setAttribute("x",offset);
 			span.appendChild(document.createTextNode(match[3]));
 			
 			result.appendChild(span);
@@ -316,7 +333,6 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 
   svg = document.createElementNS(svgns, 'svg');
   
-  var data = "d";
     var style = document.createElementNS(svgns, "style");
 	style.setAttributeNS(null, "type", "text/css");
 	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}" +
@@ -346,11 +362,6 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 	staff.setAttribute("transform", "translate(0, 85) scale(1000,1)");
 	svg.appendChild(staff);
 	textElem = document.createElementNS(svgns, "text");
-	textElem.setAttributeNS(null, "id", "test");
-	textElem.setAttributeNS(null, "x", 0);
-	textElem.setAttributeNS(null, "y", 85);
-	textElem.setAttributeNS(null, "style", styleCaeciliae);
-	textElem.appendChild(document.createTextNode(data));
 	svg.appendChild(textElem);
   
 	$("#chant-preview").append(svg);
