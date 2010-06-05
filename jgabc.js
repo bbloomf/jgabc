@@ -63,7 +63,9 @@ var indices = {
 };
 var staffheight = 60;
 var spaceheight = staffheight / 4;
+var spaceBetweenNeumes = spaceheight;
 var fontsize = spaceheight * 1.5;
+var spaceWidth = fontsize / 2;
 var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
@@ -108,6 +110,8 @@ function getChant(text) {
 	var result = make('g');
 	var xoffset = 0;
 	var use;
+	var span = null;
+	var lastSpan;
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
 			getChantFragment(match[5]);
@@ -121,7 +125,8 @@ function getChant(text) {
 			if(match[3] && match[7]) {
 				txt += match[7];
 			}
-			var span = make('text');
+			lastSpan = span;
+			span = make('text');
 			span.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
 			// TODO: calculate this based on the lowest note in this line, if the lowest note is lower than d (3);
 			// (Just add ((3 - ltone) * spaceheight)/2 to the y attribute below, if 3 - ltone is positive.
@@ -224,8 +229,21 @@ function getChantFragment(gabc) {
 			tone = tones[i];
 			var nextTone = (tones.length > i+1)? tones[i+1] : null;
 			var thirdTone = (tones.length > i+2)? tones[i+2] : null;
+			var lastTone = (i > 0)? tones[i-1]: null;
 			base = indices.punctum;
-			if(tone.modifiers) {
+			if(tone.diamond) {
+				base = 0xE113;
+				var di = Math.abs(tone.relativeTone);
+				if(lastTone && lastTone.diamond && di ==  1 || di == 2) {
+					if(newdata.length > 0) {
+						span.appendChild(document.createTextNode(newdata));
+						result.appendChild(span);
+						span = make('tspan');
+						newdata = '';
+					}
+					span.setAttribute('dx', staffheight / (di == 1? -20 : 30));
+				}	
+			} else if(tone.modifiers) {
 				if((tone.index == 2 || tone.index == 5) && tone.modifiers[0].match(/[1-4]/)) {
 					// TODO: put some of these in other functions
 					var currentdy=0;
@@ -277,7 +295,7 @@ function getChantFragment(gabc) {
 						}
 					}
 				}
-			} else if(nextTone) {
+			} else if(nextTone && !nextTone.diamond) {
 				// no modifers, and there is at least one more tone on the stack.
 				if(nextTone.relativeTone > 0 && nextTone.relativeTone <=4) {
 					base = indices.podatus[nextTone.relativeTone];
@@ -294,19 +312,6 @@ function getChantFragment(gabc) {
 					}
 					++i;
 				}
-			}
-			if(tone.diamond) {
-				base = 0xE113;
-				var di = Math.abs(prevIndex - index);
-				if(di ==  1 || di == 2) {
-					if(newdata.length > 0) {
-						span.appendChild(document.createTextNode(newdata));
-						result.appendChild(span);
-						span = make('tspan');
-						newdata = '';
-					}
-					span.setAttribute('dx', staffheight / (di == 1? -20 : 30));
-				}	
 			}
 			newdata += String.fromCharCode(base + tone.index);
 		}
