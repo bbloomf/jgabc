@@ -77,7 +77,7 @@ var codeM = codeA + 12;
 var regexOuter = /((([^\(]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
 var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
 var regexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
-var regexVowel = /[AEIOUYaeiouy]/g;
+var regexVowel = /[IYiy]?([AEIOUYaeiouy])/g;
 var transforms = [['/',' ',',',';',':','`',''],
 				  ["'",'_','+',';','|',',',''],
 				  [/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
@@ -90,9 +90,10 @@ function updatePreview(text) {
 	var old = textElem;
 	textElem = getChant(text);
 	textElem.setAttribute("id", "1");
-	textElem.setAttribute("transform", "translate(10," + staffoffset + ")");
+	textElem.setAttribute("transform", "translate(0," + staffoffset + ")");
 	textElem.setAttribute("style", styleCaeciliae);
 	svg.replaceChild(textElem,old);
+	svg.setAttribute('height',textElem.getBBox().height);
 }
 
 function make(tag) {
@@ -106,14 +107,15 @@ function getChant(text) {
 	regexOuter.lastIndex = 0;
 	var result = make('g');
 	var xoffset = 0;
+	var use;
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
 			getChantFragment(match[5]);
-			var use = make('use');
+			use = make('use');
 			use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
 			use.setAttribute('x', xoffset);
 			result.appendChild(use);
-		}
+		} else use = null;
 		if(match[3]) {
 			var span = make('text');
 			span.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
@@ -157,6 +159,8 @@ function getChant(text) {
 			span.appendChild(document.createTextNode(match[3]));
 			
 			result.appendChild(span);
+		} else if(use) {
+			xoffset += document.getElementById(match[5]).getComputedTextLength();
 		}
 		if(match[7]) {
 			// TODO: do something with this whitespace from after the chant notation.
@@ -331,9 +335,8 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 }
 
 
-  svg = document.createElementNS(svgns, 'svg');
-  
-    var style = document.createElementNS(svgns, "style");
+	svg = document.createElementNS(svgns, 'svg');
+	var style = document.createElementNS(svgns, "style");
 	style.setAttributeNS(null, "type", "text/css");
 	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}" +
 		"@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}"));
