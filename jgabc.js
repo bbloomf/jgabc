@@ -172,9 +172,6 @@ function getChant(text) {
 		} else if(use) {
 			xoffset += document.getElementById(match[5]).getComputedTextLength();
 		}
-		if(match[7]) {
-			// TODO: do something with this whitespace from after the chant notation.
-		}
 		count++;
 	}
 	if(!result)
