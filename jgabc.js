@@ -377,7 +377,15 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 		function(){
 			updatePreview($("#editor")[0].value);
 		});
-	}
+	var init = function() {
+		if(defChant.getBBox().width == 0) {
+			setTimeout(init,100);
+		} else {
+			updatePreview($("#editor")[0].value);
+		}
+	};
+	setTimeout(init,300);
+}
 );
 
 
