@@ -116,7 +116,11 @@ function getChant(text) {
 			use.setAttribute('x', xoffset);
 			result.appendChild(use);
 		} else use = null;
-		if(match[3]) {
+		if(match[3] || match[7]) {
+			var txt = match[3] || match[7];
+			if(match[3] && match[7]) {
+				txt += match[7];
+			}
 			var span = make('text');
 			span.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
 			// TODO: calculate this based on the lowest note in this line, if the lowest note is lower than d (3);
@@ -129,19 +133,19 @@ function getChant(text) {
 			// Don't worry about placing the vowel correctly if there is no neume.
 			if(use) {
 				regexVowel.lastIndex = 0;
-				vowel = regexVowel.exec(match[3]);
+				vowel = regexVowel.exec(txt);
 				var offset = 0;
 				if(vowel) {
 					var len = regexVowel.lastIndex;
-					defText.firstChild.data = match[3].substring(0,len);
+					defText.firstChild.data = txt.substring(0,len);
 					offset -= defText.getSubStringLength(0, len - 1);
 					offset -= defText.getSubStringLength(len - 1, 1) / 2;
 					
 					// TODO: some noteheads may have a different width, so this will need to happen differently
 					offset += defChant.getComputedTextLength() / 2;
 				}
-				defText.firstChild.data = match[3];
-				var wText = defText.getComputedTextLength();
+				defText.firstChild.data = '.' + txt + '.';
+				var wText = defText.getSubStringLength(1, txt.length);
 				var wChant = document.getElementById(match[5]).getComputedTextLength();
 				if(offset > 0) {
 					span.setAttribute('x',offset + xoffset);
@@ -153,10 +157,11 @@ function getChant(text) {
 				}
 				xoffset += Math.max(wText, wChant);
 			} else {
-				defText.firstChild.data = match[3];
-				xoffset += defText.getComputedTextLength();
+				span.setAttribute('x', xoffset);
+				defText.firstChild.data = '.' + txt + '.';
+				xoffset += defText.getSubStringLength(1, txt.length);
 			}
-			span.appendChild(document.createTextNode(match[3]));
+			span.appendChild(document.createTextNode(match[3] || ''));
 			
 			result.appendChild(span);
 		} else if(use) {
