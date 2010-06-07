@@ -111,10 +111,13 @@ function getChant(text) {
 	var xoffset = 0;
 	var use;
 	var span = null;
+	var eText = make('text');
 	var lastSpan;
+	var ltone = 3;
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
-			getChantFragment(match[5]);
+			var l = getChantFragment(match[5]);
+			ltone = Math.min(ltone, l);
 			use = make('use');
 			use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
 			use.setAttribute('x', xoffset);
@@ -126,14 +129,8 @@ function getChant(text) {
 				txt += match[7];
 			}
 			lastSpan = span;
-			span = make('text');
+			span = make('tspan');
 			span.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
-			// TODO: calculate this based on the lowest note in this line, if the lowest note is lower than d (3);
-			// (Just add ((3 - ltone) * spaceheight)/2 to the y attribute below, if 3 - ltone is positive.
-			ltone = 3;
-			ltone = (3 - ltone);
-			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-			span.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
 			
 			// Don't worry about placing the vowel correctly if there is no neume.
 			if(use) {
@@ -168,23 +165,30 @@ function getChant(text) {
 			}
 			span.appendChild(document.createTextNode(match[3] || ''));
 			
-			result.appendChild(span);
+			eText.appendChild(span);
 		} else if(use) {
 			xoffset += document.getElementById(match[5]).getComputedTextLength();
 		}
 		count++;
 	}
-	if(!result)
+	if(result) {
+		ltone = (3 - ltone);
+		ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
+		eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
+		result.appendChild(eText);
+	} else {
 		result = make('g');
+	}
 	return result;
 	return count;
 }
 
 function getChantFragment(gabc) {
-	if(abcs[gabc]) {
-		return;
+	if(abcs[gabc] != undefined) {
+		return abcs[gabc];
 	}
-	var result = abcs[gabc] = make('text');
+	var result = make('text');
+	var ltone = 3;
 	result.setAttribute('id', gabc);
 	var newdata = '';
 	var code;
@@ -212,6 +216,9 @@ function getChantFragment(gabc) {
 				newdata += tone;
 			} else {
 				var toneId = tone.charCodeAt(0) - (cmatch[2]? codeA : codea);
+				if(tone.length == 1) {
+					ltone = Math.min(ltone,toneId);
+				}
 				tones.push(
 				{
 					index: toneId,
@@ -269,6 +276,7 @@ function getChantFragment(gabc) {
 					span.setAttribute('dy', -dy);
 					continue;
 				}
+				ltone = Math.min(ltone,toneId);
 				if(tone.modifiers == 'x' || tone.modifiers == 'y') {
 					var aname = (tone.modifiers == 'x')? 'flat' : 'natural';
 					if(tone.index%2 == 1) {
@@ -318,7 +326,7 @@ function getChantFragment(gabc) {
 		}
 	}
 	defs.appendChild(result);
-	return;
+	return abcs[gabc] = ltone;
 }
 
 $(function() {
