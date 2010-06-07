@@ -6,9 +6,11 @@ var indices = {
 	natural_line: 0xe346,
 	punctum: 0xE103,
 	diamond: 0xE113,
+	virga: 0xE123,
 	v: 0xE123,
-	stemOnLeft: 0xE133,
-	w: 0xE143, //quilisma
+	leftVirga: 0xE133,
+	quilisma: 0xE143,
+	w: 0xE143,
 	bottomPartPodatus: 0xE153,
 	topPartPodatus: 0xE163,
 	podatus: [
@@ -38,7 +40,7 @@ var indices = {
 	dot: 0xe2b3,
 	apos: 0xe2c2, //ichtus
 	underscore: 0xe2d2,
-	unerscore_longer: 0xe2e2,
+	underscore_longer: 0xe2e2,
 	clivis: [
 		null,
 		0xe303,
@@ -79,6 +81,39 @@ var codeM = codeA + 12;
 var regexOuter = /((([^\(]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
 var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
 var regexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
+
+var newRegexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
+var tonesGroups = {
+	whitespace: 1,
+	keychange: 2,
+	initioDebilis: 3,
+	toneUpper: 4, // diamond
+	toneLower: 5,
+	ictus: 6,
+	dot: 7,
+	episema: 8,
+	noteType: 9,			// (([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|([oO])|([xy])|(q)]|(R|r0|r(?![1-5]))|(r[1-5]))
+	virga: 10,				// [Vv]{1,3}
+	stropha: 11,			// s{1,3}
+	liquescentia: 12,			// [<>~]
+	diminutiveLiquescentia: 15,	// ~
+	ascendingLiquescentia: 13,	// <
+	descendingLiquescentia: 14,	// >
+	quilisma: 16,			// w
+	oriscus: 17,			// o
+	oriscusReverse: 18,		// O
+	accidental: 19,			// [xy]
+	flat: 20,				// x
+	natural: 21,			// y
+	q: 22,				// q
+	punctumCavum: 26,			// r
+	lineaPunctum: 24,			// R
+	lineaPunctumCavum: 25,		// r0
+	rNumber: 27,			// r[1-5]
+	custos: 28				// z0
+};
+
+
 var regexVowel = /[IYiy]?([AEIOUYaeiouy])/g;
 var transforms = [['/',' ',',',';',':','`',''],
 				  ["'",'_','+',';','|',',',''],
