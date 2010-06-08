@@ -80,10 +80,10 @@ var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
 var regexOuter = /((([^\(]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
 var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
-var regexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
+var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
 
-var newRegexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
-var tonesGroups = {
+var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
+var rtg = {
 	whitespace: 1,
 	keychange: 2,
 	initioDebilis: 3,
@@ -179,7 +179,8 @@ function getChant(text) {
 					offset -= defText.getSubStringLength(len - 1, 1) / 2;
 					
 					// TODO: some noteheads may have a different width, so this will need to happen differently
-					offset += defChant.getComputedTextLength() / 2;
+					offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
+					//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
 				}
 				defText.firstChild.data = '.' + txt + '.';
 				var wText = defText.getSubStringLength(1, txt.length);
@@ -243,23 +244,24 @@ function getChantFragment(gabc) {
 		regexTones.lastMatch = 0;
 		while(cmatch = regexTones.exec(chant)) {
 			tone = cmatch[0];
-			if(cmatch[1]) {
+			if(cmatch[rtg.whitespace]) {
 				// merely some kind of text substitution.
 				for(var i=0; i < transforms[0].length; ++i) {
 					tone = tone.replace(transforms[2][i],transforms[1][i]);
 				}
 				newdata += tone;
 			} else {
-				var toneId = tone.charCodeAt(0) - (cmatch[2]? codeA : codea);
+				var toneId = tone.charCodeAt(0) - (cmatch[rtg.toneUpper]? codeA : codea);
 				if(tone.length == 1) {
 					ltone = Math.min(ltone,toneId);
 				}
 				tones.push(
 				{
+					match: cmatch,
 					index: toneId,
 					relativeTone: toneId - previousToneId,
 					modifiers: tone.length == 1? null : tone.substring(1),
-					diamond: cmatch[2]? true: false
+					diamond: cmatch[rtg.toneUpper]? true: false
 				});
 				previousToneId = toneId;
 			}
@@ -429,7 +431,7 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 			updatePreview($("#editor")[0].value);
 		}
 	};
-	setTimeout(init,300);
+	setTimeout(init,0);
 }
 );
 
