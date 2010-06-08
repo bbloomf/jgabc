@@ -147,25 +147,66 @@ function getChant(text) {
 	var use;
 	var span = null;
 	var eText = make('text');
+	eText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
 	var lastSpan;
 	var ltone = 3;
+	var line = 0;
+	var lineOffsets = [0];
+	var width = svg.width.baseVal.value;
+	var neumeInfo = null;
+	var needCustos = false;
+	addStaff(result,lineOffsets[line]);
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
-			var l = getChantFragment(match[5]);
-			ltone = Math.min(ltone, l);
+			neumeInfo = getChantFragment(match[5]);
+		}
+		var wChant = match[5]? document.getElementById(match[5]).getComputedTextLength() : 0;
+		var wText;
+		var txt = match[3] || match[7];
+		if(match[3] && match[7]) {
+			txt += match[7];
+		}
+		if(txt) {
+			defText.firstChild.data = '.' + txt + '.';
+			wText = defText.getSubStringLength(1, txt.length);
+		} else {
+			wText = 0;
+		}
+		var nextXoffset = xoffset + Math.max(wText, wChant);
+		if(nextXoffset >= width) {
+			needCustos = true;
+			ltone = (3 - ltone);
+			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
+			var y = Math.ceil(0.1*staffheight + fontsize + ltone);
+			eText.setAttribute("y",y);
+			result.appendChild(eText);
+			eText = make('text');
+			eText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
+			ltone = 3;
+			line++;
+			lineOffsets.push(staffoffset + y);
+			eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
+			addStaff(result,lineOffsets[line]);
+			nextXoffset -= xoffset;
+			xoffset = 0;
+		}
+			
+		if(match[5]) {
+			if(needCustos) {
+				addCustos(result,neumeInfo.ftone,lineOffsets[line - 1]);
+				needCustos = false;
+			}
+			ltone = Math.min(ltone, neumeInfo.ltone);
 			use = make('use');
 			use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
 			use.setAttribute('x', xoffset);
+			use.setAttribute('y', lineOffsets[line]);
 			result.appendChild(use);
 		} else use = null;
 		if(match[3] || match[7]) {
-			var txt = match[3] || match[7];
-			if(match[3] && match[7]) {
-				txt += match[7];
-			}
+			
 			lastSpan = span;
 			span = make('tspan');
-			span.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
 			
 			// Don't worry about placing the vowel correctly if there is no neume.
 			if(use) {
@@ -182,9 +223,6 @@ function getChant(text) {
 					offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
 					//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
 				}
-				defText.firstChild.data = '.' + txt + '.';
-				var wText = defText.getSubStringLength(1, txt.length);
-				var wChant = document.getElementById(match[5]).getComputedTextLength();
 				if(offset > 0) {
 					span.setAttribute('x',offset + xoffset);
 					wText += offset;
@@ -193,12 +231,10 @@ function getChant(text) {
 					span.setAttribute('x',xoffset);
 					wChant -= offset;
 				}
-				xoffset += Math.max(wText, wChant);
 			} else {
 				span.setAttribute('x', xoffset);
-				defText.firstChild.data = '.' + txt + '.';
-				xoffset += defText.getSubStringLength(1, txt.length);
 			}
+			xoffset = nextXoffset;
 			span.appendChild(document.createTextNode(match[3] || ''));
 			
 			eText.appendChild(span);
@@ -207,16 +243,21 @@ function getChant(text) {
 		}
 		count++;
 	}
-	if(result) {
-		ltone = (3 - ltone);
-		ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-		eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
-		result.appendChild(eText);
-	} else {
-		result = make('g');
-	}
+	
+	ltone = (3 - ltone);
+	ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
+	eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
+	result.appendChild(eText);
 	return result;
-	return count;
+}
+
+function addCustos(result,tone,y) {
+	var t = make('text');
+	t.setAttribute('style',defChant.getAttribute('style'));
+	t.setAttribute('x',svg.width.baseVal.value - (staffheight/15));
+	t.setAttribute('y',y);
+	t.appendChild(document.createTextNode(String.fromCharCode(indices.custos + tone)));
+	result.appendChild(t);
 }
 
 function getChantFragment(gabc) {
@@ -225,6 +266,8 @@ function getChantFragment(gabc) {
 	}
 	var result = make('text');
 	var ltone = 3;
+	var htone = 0;
+	var ftone = null;
 	result.setAttribute('id', gabc);
 	var newdata = '';
 	var code;
@@ -254,6 +297,8 @@ function getChantFragment(gabc) {
 				var toneId = tone.charCodeAt(0) - (cmatch[rtg.toneUpper]? codeA : codea);
 				if(tone.length == 1) {
 					ltone = Math.min(ltone,toneId);
+					htone = Math.max(htone,toneId);
+					ftone = ftone || toneId;
 				}
 				tones.push(
 				{
@@ -314,6 +359,8 @@ function getChantFragment(gabc) {
 					continue;
 				}
 				ltone = Math.min(ltone,toneId);
+				htone = Math.max(htone,toneId);
+				ftone = ftone || toneId;
 				if(tone.modifiers == 'x' || tone.modifiers == 'y') {
 					var aname = (tone.modifiers == 'x')? 'flat' : 'natural';
 					if(tone.index%2 == 1) {
@@ -363,7 +410,19 @@ function getChantFragment(gabc) {
 		}
 	}
 	defs.appendChild(result);
-	return abcs[gabc] = ltone;
+	return abcs[gabc] = { 
+		ltone: ltone,
+		htone: htone,
+		ftone: ftone
+	};
+}
+
+function addStaff(result,y,width) {
+	var staff = document.createElementNS(svgns, "use");
+	staff.setAttributeNS(xlinkns, "href", "#staff");
+	if(!width) width = svg.width.baseVal.value;
+	staff.setAttribute("transform", "translate(0, " + (y) +") scale(" + width + ",1)");
+	result.appendChild(staff);
 }
 
 $(function() {
@@ -388,6 +447,7 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 
 
 	svg = document.createElementNS(svgns, 'svg');
+	svg.setAttribute('style','width:100%');
 	var style = document.createElementNS(svgns, "style");
 	style.setAttributeNS(null, "type", "text/css");
 	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}" +
@@ -412,26 +472,21 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 	gStaff.appendChild(line);
 	defs.appendChild(gStaff);
 	svg.appendChild(defs);
-	var staff = document.createElementNS(svgns, "use");
-	staff.setAttributeNS(xlinkns, "href", "#staff");
-	staff.setAttribute("transform", "translate(0, 85) scale(1000,1)");
-	svg.appendChild(staff);
 	textElem = document.createElementNS(svgns, "text");
 	svg.appendChild(textElem);
-  
 	$("#chant-preview").append(svg);
 	$("#editor").keyup(
 		function(){
 			updatePreview($("#editor")[0].value);
 		});
 	var init = function() {
-		if(defChant.getBBox().width == 0) {
-			setTimeout(init,100);
+		if(svg.width.baseVal.value == 0) {
+			setTimeout(init, 100);
 		} else {
 			updatePreview($("#editor")[0].value);
 		}
 	};
-	setTimeout(init,0);
+	setTimeout(init, 100);
 }
 );
 
