@@ -122,6 +122,7 @@ var abcs = {};
 var defs = null;
 var defText = null;
 var defChant = null;
+var masks = [];
 
 function updatePreview(text) {
 	var old = textElem;
@@ -145,6 +146,7 @@ function getChant(text) {
 	var result = make('g');
 	var xoffset = 0;
 	var use;
+	var use2;
 	var span = null;
 	var eText = make('text');
 	eText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
@@ -155,7 +157,7 @@ function getChant(text) {
 	var width = svg.width.baseVal.value;
 	var neumeInfo = null;
 	var needCustos = false;
-	addStaff(result,lineOffsets[line]);
+	addStaff(result,lineOffsets[line], line);
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
 			neumeInfo = getChantFragment(match[5]);
@@ -185,7 +187,7 @@ function getChant(text) {
 			ltone = 3;
 			lineOffsets.push(staffoffset + y + lineOffsets[line++]);
 			eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
-			addStaff(result,lineOffsets[line]);
+			curStaff = addStaff(result,lineOffsets[line], line);
 			nextXoffset -= xoffset;
 			xoffset = 0;
 		}
@@ -195,13 +197,23 @@ function getChant(text) {
 				addCustos(result,neumeInfo.ftone,lineOffsets[line - 1]);
 				needCustos = false;
 			}
+			if(neumeInfo.mask) {
+				use2 = make('use');
+				use2.setAttributeNS(xlinkns, 'href', '#' + neumeInfo.mask);
+				use2.setAttribute('x', xoffset);
+				use2.setAttribute('y', lineOffsets[line]);
+				
+				//TODO: up above, if the following is true, remove all those elements that aren't the first element...
+				// if(masks[line].firstChild.childElementCount > 1)
+				masks[line].firstChild.appendChild(use2);
+			}
 			ltone = Math.min(ltone, neumeInfo.ltone);
 			use = make('use');
 			use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
 			use.setAttribute('x', xoffset);
 			use.setAttribute('y', lineOffsets[line]);
 			result.appendChild(use);
-		} else use = null;
+		} else use = use2 = null;
 		if(match[3] || match[7]) {
 			
 			lastSpan = span;
@@ -227,6 +239,8 @@ function getChant(text) {
 					wText += offset;
 				} else {
 					use.setAttribute('transform', "translate(" + (-offset) + ")");
+					if(use2)
+						use2.setAttribute('transform', "translate(" + (-offset) + ")");
 					span.setAttribute('x',xoffset);
 					wChant -= offset;
 				}
@@ -262,6 +276,11 @@ function addCustos(result,tone,y) {
 function getChantFragment(gabc) {
 	if(abcs[gabc] != undefined) {
 		return abcs[gabc];
+	}
+	var mask = undefined;
+	if(gabc.indexOf('r') > -1) {
+		var mask = gabc.replace('r','!');
+		getChantFragment(mask);
 	}
 	var result = make('text');
 	var ltone = 3;
@@ -412,16 +431,37 @@ function getChantFragment(gabc) {
 	return abcs[gabc] = { 
 		ltone: ltone,
 		htone: htone,
-		ftone: ftone
+		ftone: ftone,
+		mask: mask
 	};
 }
 
-function addStaff(result,y,width) {
-	var staff = document.createElementNS(svgns, "use");
+function addStaff(result,y,line,width) {
+	var maskId = 'staffmask' + line;
+	if(!masks[line]) {
+		var mask = masks[line] = make('mask');
+		var g = make('g');
+		g.setAttribute('style', styleCaeciliae);
+		mask.appendChild(g);
+var T = make('rect');
+T.setAttribute('y', 1-staffheight);
+T.setAttribute('width', '10000');
+T.setAttribute('height', staffheight);
+T.setAttribute('fill', 'white');
+g.appendChild(T);
+		mask.setAttribute('id', maskId);
+		
+		defs.appendChild(mask);
+	}
+	var group = make('g');
+	group.setAttribute('mask','url(#' + maskId + ')');
+	var staff = make("use");
 	staff.setAttributeNS(xlinkns, "href", "#staff");
 	if(!width) width = svg.width.baseVal.value;
 	staff.setAttribute("transform", "translate(0, " + (y) +") scale(" + width + ",1)");
-	result.appendChild(staff);
+	group.appendChild(staff);
+	result.appendChild(group);
+	return staff;
 }
 
 $(function() {
