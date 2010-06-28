@@ -203,10 +203,13 @@ function getChant(text) {
 				use2.setAttribute('x', xoffset);
 				use2.setAttribute('y', lineOffsets[line]);
 				
-				//TODO: up above, if the following is true, remove all those elements that aren't the first element...
-				// if(masks[line].firstChild.childElementCount > 1)
+				//use2 = make('circle');
+				//use2.setAttribute('cx', xoffset + (64 * staffheight / 1000));
+				//use2.setAttribute('cy', lineOffsets[line] - (132 * staffheight / 1000) - spaceheight/2);
+				//use2.setAttribute('r', 250 * staffheight / 1000);
+				//use2.setAttribute('fill','black');
 				masks[line].firstChild.appendChild(use2);
-			}
+			} else use2 = null;
 			ltone = Math.min(ltone, neumeInfo.ltone);
 			use = make('use');
 			use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
@@ -279,7 +282,7 @@ function getChantFragment(gabc) {
 	}
 	var mask = undefined;
 	if(gabc.indexOf('r') > -1) {
-		var mask = gabc.replace('r','!');
+		var mask = gabc.replace(/r/g,'!');
 		getChantFragment(mask);
 	}
 	var result = make('text');
@@ -438,7 +441,12 @@ function getChantFragment(gabc) {
 
 function addStaff(result,y,line,width) {
 	var maskId = 'staffmask' + line;
-	if(!masks[line]) {
+	if(masks[line]) {
+		var tmp = masks[line].firstChild;
+		while(tmp.childElementCount > 1) {
+			tmp.removeChild(tmp.childNodes[1]);
+		}
+	} else {
 		var mask = masks[line] = make('mask');
 		var g = make('g');
 		g.setAttribute('style', styleCaeciliae);
