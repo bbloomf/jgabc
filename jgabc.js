@@ -127,11 +127,23 @@ var masks = [];
 function updatePreview(text) {
 	var old = textElem;
 	textElem = getChant(text);
-	textElem.setAttribute("id", "1");
-	textElem.setAttribute("transform", "translate(0," + staffoffset + ")");
-	textElem.setAttribute("style", styleCaeciliae);
 	svg.replaceChild(textElem,old);
 	svg.setAttribute('height',textElem.getBBox().height);
+}
+
+function updateChant(text, svg) {
+	var nodes = svg.childNodes;
+	var old = null;
+	for(i = nodes.length - 1; i >= 0; --i) {
+		if(nodes[i].tagName == 'g') {
+			old = nodes[i];
+			break;
+		}
+	}
+	if(!old) return;
+	var newElem = getChant(text);
+	svg.replaceChild(newElem,old);
+	svg.setAttribute('height',newElem.getBBox().height);
 }
 
 function make(tag) {
@@ -144,6 +156,10 @@ function getChant(text) {
 	var result;
 	regexOuter.lastIndex = 0;
 	var result = make('g');
+	//result.setAttribute("id", "1");
+	result.setAttribute("transform", "translate(0," + staffoffset + ")");
+	result.setAttribute("style", styleCaeciliae);
+
 	var xoffset = 0;
 	var use;
 	var use2;
@@ -474,24 +490,25 @@ g.appendChild(T);
 
 $(function() {
 
-var table = $("#tbl");
-for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
-	var row = document.createElement('row');
-	var td1 = document.createElement('td');
-	var td2 = document.createElement('td');
-	td1.innerText = '0x' + code.toString(16);
-	var s = '';
-	for(var i=0; i < 16; ++i) {
-		s += String.fromCharCode(code+i) + '_';
+	var table = $("#tbl");
+	if(table) {
+		for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
+			var row = document.createElement('row');
+			var td1 = document.createElement('td');
+			var td2 = document.createElement('td');
+			td1.innerText = '0x' + code.toString(16);
+			var s = '';
+			for(var i=0; i < 16; ++i) {
+				s += String.fromCharCode(code+i) + '_';
+			}
+			td2.innerText = s;
+			
+			td2.className = 'caeciliae';
+			row.appendChild(td1);
+			row.appendChild(td2);
+			table.append(row);
+		}
 	}
-	td2.innerText = s;
-	
-	td2.className = 'caeciliae';
-	row.appendChild(td1);
-	row.appendChild(td2);
-	table.append(row);
-}
-
 
 	svg = document.createElementNS(svgns, 'svg');
 	svg.setAttribute('style','width:100%');
@@ -519,18 +536,36 @@ for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
 	gStaff.appendChild(line);
 	defs.appendChild(gStaff);
 	svg.appendChild(defs);
-	textElem = document.createElementNS(svgns, "text");
+	textElem = document.createElementNS(svgns, "g");
 	svg.appendChild(textElem);
 	$("#chant-preview").append(svg);
+	var elements = $('.jgabc');
+	elements.each(function(index, element) {
+		$(svg).clone().appendTo(element);
+	});
+	
 	$("#editor").keyup(
 		function(){
-			updatePreview($("#editor")[0].value);
+			updateChant($("#editor")[0].value, svg);
 		});
 	var init = function() {
 		if(svg.width.baseVal.value == 0) {
 			setTimeout(init, 100);
 		} else {
-			updatePreview($("#editor")[0].value);
+			updateChant($("#editor")[0].value, svg);
+			elements.each(function(index, element) {
+				var nodes = element.childNodes;
+				var old = null;
+				for(i = nodes.length - 1; i >= 0; --i) {
+					if(nodes[i].tagName == 'svg') {
+						old = nodes[i];
+						break;
+					}
+				}
+				if(!old) return;
+				
+				updateChant(element.innerText, old);
+			});
 		}
 	};
 	setTimeout(init, 100);
