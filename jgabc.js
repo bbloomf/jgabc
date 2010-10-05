@@ -116,8 +116,8 @@ var rtg = {
 
 var regexVowel = /[IYiy]?([AEIOUYaeiouy])/g;
 var transforms = [['/',' ',',',';',':','`',''],
-				  ["'",'_','+',';','|',',',''],
-				  [/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
+			["'",'_','+',';','|',',',''],
+			[/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
 var abcs = {};
 var defs = null;
 var defText = null;
@@ -381,10 +381,10 @@ function getChantFragment(gabc) {
 					line = parseInt(tone.modifiers[0]);
 					var dy = 0;
 					if(tone.index == 2) {
-						char = 'd';
+						char = "d''";
 						dy = 2 - line;
 					} else {
-						char = 'f';
+						char = "f''";
 						dy = 3 - line;
 					}
 					dy *= spaceheight;
