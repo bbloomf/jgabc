@@ -39,6 +39,7 @@ var indices = {
 	custos: 0xe2a3,
 	dot: 0xe2b3,
 	apos: 0xe2c2, //ichtus
+	ictus: 0xe2c2,
 	underscore: 0xe2d2,
 	underscore_longer: 0xe2e2,
 	clivis: [
@@ -440,6 +441,10 @@ function getChantFragment(gabc) {
 				}
 			}
 			newdata += String.fromCharCode(base + tone.index);
+			//TEST CODE
+			if(tone.match[rtg.ictus]) {
+				newdata += String.fromCharCode(indices.ictus + tone.index);
+			}
 		}
 		if(newdata.length > 0) {
 			span.appendChild(document.createTextNode(newdata));
