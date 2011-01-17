@@ -83,7 +83,7 @@ var regexOuter = /((([^\(]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
 var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
 
-var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
+var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
 var rtg = {
 	whitespace: 1,
 	keychange: 2,
@@ -350,6 +350,7 @@ function getChantFragment(gabc) {
 			}
 		}
 		for(var i=0; i < tones.length; ++i) {
+			var tonesInGlyph = 1;
 			tone = tones[i];
 			var nextTone = (tones.length > i+1)? tones[i+1] : null;
 			var thirdTone = (tones.length > i+2)? tones[i+2] : null;
@@ -426,6 +427,7 @@ function getChantFragment(gabc) {
 				// no modifers, and there is at least one more tone on the stack.
 				if(nextTone.relativeTone > 0 && nextTone.relativeTone <=4) {
 					base = indices.podatus[nextTone.relativeTone];
+					tonesInGlyph = 2;
 					++i;
 				} else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -4) {
 					if(thirdTone && thirdTone.relativeTone == 1) {
@@ -433,9 +435,11 @@ function getChantFragment(gabc) {
 						newdata += String.fromCharCode(base + tone.index);
 						base = indices.topPartPodatus;
 						tone = thirdTone;
+						tonesInGlyph = 3;
 						++i;
 					} else {
 						base = indices.clivis[-nextTone.relativeTone];
+						tonesInGlyph = 2;
 					}
 					++i;
 				}
@@ -444,6 +448,25 @@ function getChantFragment(gabc) {
 			//TEST CODE
 			if(tone.match[rtg.ictus]) {
 				newdata += String.fromCharCode(indices.ictus + tone.index);
+			}
+			var temp = tone.match[rtg.dot];
+			if(temp) temp = temp.length;
+				else if(tonesInGlyph == 2) {
+					temp = nextTone.match[rtg.dot];
+					if(temp) temp = temp.length;
+						else temp = 0;
+				} else temp = 0;
+			if(temp > 1 && nextTone) {
+				var low = Math.min(nextTone.index, tone.index);
+				var hi = Math.max(nextTone.index, tone.index);
+				if(low%2 == 1)
+					--low;
+				newdata += String.fromCharCode(indices.dot + low);
+				newdata += String.fromCharCode(indices.dot + hi);
+			} else if(temp > 0) {
+				if(tonesInGlyph == 2)
+					newdata += String.fromCharCode(indices.dot + nextTone.index);
+				else newdata += String.fromCharCode(indices.dot + tone.index);
 			}
 		}
 		if(newdata.length > 0) {
