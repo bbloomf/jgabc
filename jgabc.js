@@ -186,6 +186,7 @@ function getChant(text) {
 			txt += match[7];
 		}
 		if(txt) {
+			txt = txt.trimLeft();
 			defText.firstChild.data = '.' + txt + '.';
 			wText = defText.getSubStringLength(1, txt.length);
 		} else {
