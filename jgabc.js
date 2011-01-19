@@ -115,7 +115,7 @@ var rtg = {
 };
 
 
-var regexVowel = /[iy]?([ao][eé]?|[eiuyáéíóúýæœ])/gi;
+var regexVowel = /(?:qu|[iy])?([aá]u|[ao][eé]?|[aeiouyáéíóúýæœ])/gi;
 var transforms = [['/',' ',',',';',':','`',''],
 			["'",'_','+',';','|',',',''],
 			[/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
