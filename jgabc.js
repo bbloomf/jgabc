@@ -248,8 +248,11 @@ function getChant(text) {
 				if(vowel) {
 					var len = regexVowel.lastIndex;
 					defText.firstChild.data = txt.substring(0,len);
-					offset -= defText.getSubStringLength(0, len - 1);
-					offset -= defText.getSubStringLength(len - 1, 1) / 2;
+					try {
+						offset -= defText.getSubStringLength(0, len - 1);
+						offset -= defText.getSubStringLength(len - 1, 1) / 2;
+					} catch(e) {
+					}
 					
 					// TODO: some noteheads may have a different width, so this will need to happen differently
 					offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
