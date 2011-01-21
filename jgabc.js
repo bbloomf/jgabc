@@ -73,6 +73,7 @@ var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
 var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight;
+var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';";
 var svg;
 var textElem;
 var codea = 'a'.charCodeAt(0);
@@ -166,7 +167,7 @@ function getChant(text) {
 	var use2;
 	var span = null;
 	var eText = make('text');
-	eText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
+	eText.setAttribute("style", styleGoudy + " font-size: " + fontsize);
 	var lastSpan;
 	var ltone = 3;
 	var line = 0;
@@ -547,7 +548,9 @@ $(function() {
 	var style = document.createElementNS(svgns, "style");
 	style.setAttributeNS(null, "type", "text/css");
 	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}" +
-		"@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}"));
+		"@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}" +
+		"@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('http://themes.googleusercontent.com/font?kit=4zlbkWdiblhTyAxV3yYOK1Map0k-03pf3IKr-TpLv1-glnMp3_3A8V8Ai8YosRtX') format('truetype');}" +
+		"@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('http://themes.googleusercontent.com/font?kit=9ZZVVBRCceNnPBXqWLH8IBaCi8XR2Wndwbau3-eaE1g') format('truetype');}"));
 	svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
 	defText = make('text');
