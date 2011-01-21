@@ -1,4 +1,4 @@
-// lower-staff ext: 0xe1, upper: 0xe2
+﻿// lower-staff ext: 0xe1, upper: 0xe2
 var indices = {
 	flat: 0xE0F1, // these only exist for spaces (acegikm)
 	natural: 0xE0F9, // ditto
@@ -80,7 +80,7 @@ var codea = 'a'.charCodeAt(0);
 var codem = codea + 12;
 var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
-var regexOuter = /((([^\(]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
+var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
 var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
 
@@ -175,6 +175,7 @@ function getChant(text) {
 	var width = svg.width.baseVal.value;
 	var neumeInfo = null;
 	var needCustos = false;
+	var previousMatch;
 	addStaff(result,lineOffsets[line], line);
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
@@ -186,14 +187,29 @@ function getChant(text) {
 		if(match[3] && match[7]) {
 			txt += match[7];
 		}
+		var offset = 0;
 		if(txt) {
-			txt = txt.trimLeft();
+			txt = txt.trimLeft().replace('\r\n',' ').replace('\n',' ');
 			defText.firstChild.data = '.' + txt + '.';
 			wText = defText.getSubStringLength(1, txt.length);
+			regexVowel.lastIndex = 0;
+			vowel = regexVowel.exec(txt);
+			if(vowel) {
+				var len = regexVowel.lastIndex;
+				defText.firstChild.data = txt.substring(0,len);
+				try {
+					offset -= defText.getSubStringLength(0, len - 1);
+					offset -= defText.getSubStringLength(len - 1, 1) / 2;
+				} catch(e) {
+				}
+				// TODO: some noteheads may have a different width, so this will need to happen differently
+				offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
+				//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
+			}
 		} else {
 			wText = 0;
 		}
-		var nextXoffset = xoffset + Math.max(wText, wChant);
+		var nextXoffset = xoffset + Math.max(wText, wChant + 5 - offset);
 		if(nextXoffset >= width - 5) {
 			needCustos = true;
 			ltone = (3 - ltone);
@@ -240,46 +256,47 @@ function getChant(text) {
 			
 			lastSpan = span;
 			span = make('tspan');
-			
+			var spanXoffset = xoffset;
 			// Don't worry about placing the vowel correctly if there is no neume.
 			if(use) {
-				regexVowel.lastIndex = 0;
-				vowel = regexVowel.exec(txt);
-				var offset = 0;
-				if(vowel) {
-					var len = regexVowel.lastIndex;
-					defText.firstChild.data = txt.substring(0,len);
-					try {
-						offset -= defText.getSubStringLength(0, len - 1);
-						offset -= defText.getSubStringLength(len - 1, 1) / 2;
-					} catch(e) {
-					}
-					
-					// TODO: some noteheads may have a different width, so this will need to happen differently
-					offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
-					//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
-				}
 				if(offset > 0) {
-					span.setAttribute('x',offset + xoffset);
+					spanXoffset += offset;
 					wText += offset;
 				} else {
 					use.setAttribute('transform', "translate(" + (-offset) + ")");
 					if(use2)
 						use2.setAttribute('transform', "translate(" + (-offset) + ")");
-					span.setAttribute('x',xoffset);
 					wChant -= offset;
 				}
-			} else {
-				span.setAttribute('x', xoffset);
 			}
+			if(previousMatch && previousMatch[3] && !previousMatch[7]) {
+				defText.firstChild.data = lastSpan.firstChild.data;
+				var lastXoffset = parseInt(lastSpan.getAttribute('x'));
+				var lastSpanX2 = lastXoffset + defText.getComputedTextLength();
+				if(lastSpanX2 < spanXoffset) {
+					lastSpan.firstChild.data += '-';
+					defText.firstChild.data += '-';
+					lastSpanX2 = lastXoffset + defText.getComputedTextLength();
+					if(lastSpanX2 > spanXoffset) {
+						var additionalOffset = lastSpanX2 - spanXoffset;
+						spanXoffset = lastSpanX2;
+						if(use) {
+							use.setAttribute('x', xoffset + additionalOffset);
+						}
+					}
+				}
+			}
+			span.setAttribute('x', spanXoffset);
+			
 			xoffset = nextXoffset;
-			span.appendChild(document.createTextNode(match[3] || ''));
+			span.appendChild(document.createTextNode(txt || ''));
 			
 			eText.appendChild(span);
 		} else if(use) {
 			xoffset += document.getElementById(match[5]).getComputedTextLength();
 		}
 		count++;
+		previousMatch = match;
 	}
 	
 	ltone = (3 - ltone);
