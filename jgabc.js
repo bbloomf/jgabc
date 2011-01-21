@@ -210,7 +210,7 @@ function getChant(text) {
 			wText = 0;
 		}
 		var nextXoffsetMax = xoffset + Math.max(wText, wChant + 5 - offset);
-		var nextXoffsetMin = xOffset + wText;
+		var nextXoffsetMin = xoffset + wText;
 		//var nextXoffset = (nextXoffsetMax == nextXoffsetMin)? nextXoffsetMin;
 		var nextXoffset = nextXoffsetMax;
 //TODO: make use of these max and min
