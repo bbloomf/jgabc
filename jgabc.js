@@ -211,7 +211,8 @@ function getChant(text) {
 		}
 		var nextXoffsetMax = xoffset + Math.max(wText, wChant + 5 - offset);
 		var nextXoffsetMin = xOffset + wText;
-		var nextXoffset = (nextXoffsetMax == nextXoffsetMin)? nextXoffsetMin;
+		//var nextXoffset = (nextXoffsetMax == nextXoffsetMin)? nextXoffsetMin;
+		var nextXoffset = nextXoffsetMax;
 //TODO: make use of these max and min
 		if(nextXoffsetMax >= width - 5) {
 			needCustos = true;
