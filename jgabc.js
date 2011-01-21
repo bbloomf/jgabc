@@ -198,8 +198,8 @@ function getChant(text) {
 				var len = regexVowel.lastIndex;
 				defText.firstChild.data = txt.substring(0,len);
 				try {
-					offset -= defText.getSubStringLength(0, len - 1);
-					offset -= defText.getSubStringLength(len - 1, 1) / 2;
+					offset -= defText.getSubStringLength(0, vowel.index);
+					offset -= defText.getSubStringLength(vowel.index, vowel[0].length) / 2;
 				} catch(e) {
 				}
 				// TODO: some noteheads may have a different width, so this will need to happen differently
@@ -209,8 +209,11 @@ function getChant(text) {
 		} else {
 			wText = 0;
 		}
-		var nextXoffset = xoffset + Math.max(wText, wChant + 5 - offset);
-		if(nextXoffset >= width - 5) {
+		var nextXoffsetMax = xoffset + Math.max(wText, wChant + 5 - offset);
+		var nextXoffsetMin = xOffset + wText;
+		var nextXoffset = (nextXoffsetMax == nextXoffsetMin)? nextXoffsetMin;
+//TODO: make use of these max and min
+		if(nextXoffsetMax >= width - 5) {
 			needCustos = true;
 			ltone = (3 - ltone);
 			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
