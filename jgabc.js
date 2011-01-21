@@ -194,7 +194,7 @@ function getChant(text) {
 			wText = 0;
 		}
 		var nextXoffset = xoffset + Math.max(wText, wChant);
-		if(nextXoffset >= width) {
+		if(nextXoffset >= width - 5) {
 			needCustos = true;
 			ltone = (3 - ltone);
 			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
@@ -501,7 +501,7 @@ function addStaff(result,y,line,width) {
 		g.setAttribute('style', styleCaeciliae);
 		mask.appendChild(g);
 var T = make('rect');
-T.setAttribute('y', 1-staffheight);
+T.setAttribute('y', y + 1-staffheight);
 T.setAttribute('width', '10000');
 T.setAttribute('height', staffheight);
 T.setAttribute('fill', 'white');
