@@ -218,7 +218,7 @@ function getChant(text) {
 			eText.setAttribute("y",y);
 			result.appendChild(eText);
 			eText = make('text');
-			eText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
+			eText.setAttribute("style", styleGoudy + " font-size: " + fontsize);
 			ltone = 3;
 			lineOffsets.push(staffoffset + y + lineOffsets[line++]);
 			eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
