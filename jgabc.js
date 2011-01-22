@@ -66,7 +66,8 @@ var indices = {
 };
 var staffheight = 60;
 var spaceheight = staffheight / 4;
-var spaceBetweenNeumes = spaceheight;
+var notewidth = staffheight / 6;
+var spaceBetweenNeumes = notewidth;
 var fontsize = spaceheight * 1.5;
 var spaceWidth = fontsize / 2;
 var staffoffset = Math.ceil(staffheight * 1.4);
@@ -163,6 +164,7 @@ function getChant(text) {
 	result.setAttribute("style", styleCaeciliae);
 
 	var xoffset = 0;
+	var xoffsetChantMin = 0;
 	var use;
 	var use2;
 	var span = null;
@@ -205,18 +207,23 @@ function getChant(text) {
 			} catch(e) {
 			}
 			// TODO: some noteheads may have a different width, so this will need to happen differently
-			offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
+			offset += notewidth / 2;//defChant.getComputedTextLength() / 2;
 			//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
 		} else {
 			wText = 0;
 		}
-		var nextXoffset = xoffset + Math.max(wText, wChant + 5 - offset);
+		// if there aren't enough characters before the vowel so that the neume begins far enough to the right of the previous neume,
+		// add extra space in the text:
+		xoffsetChantMin += offset;
+		if(wChant > 0 && xoffset < xoffsetChantMin) {
+			xoffset = xoffsetChantMin;
+		}
 		var nextXoffsetTextMin = xoffset + wText;
-		var nextXoffsetChantMin = xoffset + wChant + 5 - offset;
-		//var nextXoffset = (nextXoffsetMax == nextXoffsetMin)? nextXoffsetMin;
-		//var nextXoffset = nextXoffsetMax;
-//TODO: make use of these max and min
-		if(nextXoffset >= width - 5) {
+		var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - offset;
+		var nextXoffset = Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
+		if(wText == 0)
+			nextXoffsetTextMin = nextXoffsetChantMin;
+		if(nextXoffset >= width - spaceBetweenNeumes) {
 			needCustos = true;
 			ltone = (3 - ltone);
 			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
@@ -230,6 +237,8 @@ function getChant(text) {
 			eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
 			curStaff = addStaff(result,lineOffsets[line], line);
 			nextXoffset -= xoffset;
+			nextXoffsetTextMin -= xoffset;
+			nextXoffsetChantMin -= xoffset;
 			xoffset = 0;
 		}
 			
@@ -289,12 +298,15 @@ function getChant(text) {
 						if(use) {
 							use.setAttribute('x', xoffset + additionalOffset);
 						}
+						nextXoffsetTextMin += additionalOffset;
+						nextXoffsetChantMin += additionalOffset;
 					}
 				}
 			}
 			span.setAttribute('x', spanXoffset);
 			
-			xoffset = nextXoffset;
+			xoffset = nextXoffsetTextMin;
+			xoffsetChantMin = nextXoffsetChantMin;
 			span.appendChild(document.createTextNode(txt || ''));
 			
 			eText.appendChild(span);
