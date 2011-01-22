@@ -197,13 +197,14 @@ function getChant(text) {
 			regexVowel.lastIndex = 0;
 			vowel = regexVowel.exec(txt);
 			if(!vowel) {
-				vowel = {index: 0, "0":txt};
+				vowel = {index: 0, "0":txt, "1":txt};
 			}
 			var len = vowel.index + vowel[0].length;
 			defText.firstChild.data = txt.substring(0,len);
 			try {
-				offset -= defText.getSubStringLength(0, vowel.index);
-				offset -= defText.getSubStringLength(vowel.index, vowel[0].length) / 2;
+				var index = vowel.index + vowel[0].length - vowel[1].length;
+				offset -= defText.getSubStringLength(0, index);
+				offset -= defText.getSubStringLength(index, vowel[1].length) / 2;
 			} catch(e) {
 			}
 			// TODO: some noteheads may have a different width, so this will need to happen differently
