@@ -194,27 +194,29 @@ function getChant(text) {
 			wText = defText.getSubStringLength(1, txt.length);
 			regexVowel.lastIndex = 0;
 			vowel = regexVowel.exec(txt);
-			if(vowel) {
-				var len = regexVowel.lastIndex;
-				defText.firstChild.data = txt.substring(0,len);
-				try {
-					offset -= defText.getSubStringLength(0, vowel.index);
-					offset -= defText.getSubStringLength(vowel.index, vowel[0].length) / 2;
-				} catch(e) {
-				}
-				// TODO: some noteheads may have a different width, so this will need to happen differently
-				offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
-				//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
+			if(!vowel) {
+				vowel = {index: 0, "0":txt};
 			}
+			var len = vowel.index + vowel[0].length;
+			defText.firstChild.data = txt.substring(0,len);
+			try {
+				offset -= defText.getSubStringLength(0, vowel.index);
+				offset -= defText.getSubStringLength(vowel.index, vowel[0].length) / 2;
+			} catch(e) {
+			}
+			// TODO: some noteheads may have a different width, so this will need to happen differently
+			offset += staffheight / 15;//defChant.getComputedTextLength() / 2;
+			//alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
 		} else {
 			wText = 0;
 		}
-		var nextXoffsetMax = xoffset + Math.max(wText, wChant + 5 - offset);
-		var nextXoffsetMin = xoffset + wText;
+		var nextXoffset = xoffset + Math.max(wText, wChant + 5 - offset);
+		var nextXoffsetTextMin = xoffset + wText;
+		var nextXoffsetChantMin = xoffset + wChant + 5 - offset;
 		//var nextXoffset = (nextXoffsetMax == nextXoffsetMin)? nextXoffsetMin;
-		var nextXoffset = nextXoffsetMax;
+		//var nextXoffset = nextXoffsetMax;
 //TODO: make use of these max and min
-		if(nextXoffsetMax >= width - 5) {
+		if(nextXoffset >= width - 5) {
 			needCustos = true;
 			ltone = (3 - ltone);
 			ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
@@ -297,7 +299,7 @@ function getChant(text) {
 			
 			eText.appendChild(span);
 		} else if(use) {
-			xoffset += document.getElementById(match[5]).getComputedTextLength();
+			xoffset += document.getElementById(match[5]).getComputedTextLength() + 5;
 		}
 		count++;
 		previousMatch = match;
@@ -575,7 +577,7 @@ $(function() {
 	svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
 	defText = make('text');
-	defText.setAttribute("style", "font-family: Serif; font-size: " + fontsize);
+	defText.setAttribute("style", styleGoudy + " font-size: " + fontsize);
 	defText.appendChild(document.createTextNode(''));
 	defs.appendChild(defText);
 	defChant = make('text');
