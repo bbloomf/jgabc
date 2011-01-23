@@ -1,4 +1,4 @@
-﻿var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;
+var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;
 var regexAccent = /[áéíóúý]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var sym_flex = '†';
@@ -35,29 +35,24 @@ function getTones() {
   var sheetTones = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Tones");
   var range = sheetTones.getRange(2, 1, sheetTones.getMaxRows() - 1, 2);
   var row = range.getValues();
-  var result = [];
+  var tones = [];
   for(var i in row) {
     var tone = String(row[i][0]);
     if(tone.length == 0)
       break;
     var end = String(row[i][1]);
-    result.push({name:tone + "." + end, functionName:"doToneRow1"});
+    tones.push({name:tone + "." + end, functionName:"doToneRow1"});
   }
-  return result;
+  return tones;
 }
 
 function applyPsalmTone(text,gabc) {
   var syl = getSyllables(text);
-  var tones = getGabcTones(gabc);
+  var toneList = getGabcTones(gabc);
+  var tones = toneList.tones;
   var r = [];
   var si = syl.length - 1;
   var lastOpen;
-//  var countIntonation = 0;
-//  for(; countIntonation < tones.length; ++countIntonation) {
-//    var tone = tones[countIntonation];
-//    if(tone.open || tone.accent)
-//      break;
-//  }
   for(var ti = tones.length - 1; ti >= 0; --ti,--si) {
     var tone = tones[ti];
     var s = syl[si];
@@ -123,7 +118,42 @@ function getGabcTones(gabc) {
   while(match=regexToneGabc.exec(gabc)) {
     tones.push(toneGabc(match));
   }
-  return tones;
+  var intonation = 0;
+  var accents = 0;
+  var preparatory = 0;
+  var afterLastAccent = 0;
+  var state=3;
+  var isOpen = false;
+  for(int i=tones.length - 1; i>=0; --i) {
+    var ton = tones[i];
+    if(ton.accent) {
+      ++accents;
+      state = 1;
+      isOpen = false;
+    }
+    else if(ton.open) {
+      if(state==3) {
+        afterLastAccent = 0;
+        state = 2;
+      }
+      isOpen = true;
+    } else if(state==3) {
+      afterLastAccent++;
+    } else if(state==1) {
+      if(!isOpen) {
+        ++preparatory;
+      } else {
+        ++intonation;
+      }
+      isOpen = false;
+    }
+  }
+  return {tones: tones,
+          intonation: intonation,
+          accents: accents,
+          preparatory: preparatory,
+          afterLastAccent: afterLastAccent
+         };
 }
 
 function getSyllables(text) {
