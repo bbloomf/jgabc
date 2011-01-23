@@ -144,6 +144,7 @@ function getGabcTones(gabc) {
         ++preparatory;
       } else {
         ++intonation;
+        continue;
       }
       isOpen = false;
     }
