@@ -124,7 +124,7 @@ function getGabcTones(gabc) {
   var afterLastAccent = 0;
   var state=3;
   var isOpen = false;
-  for(int i=tones.length - 1; i>=0; --i) {
+  for(var i=tones.length - 1; i>=0; --i) {
     var ton = tones[i];
     if(ton.accent) {
       ++accents;
