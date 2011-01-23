@@ -1,7 +1,7 @@
-ο»Ώvar regexLatin = /((?:s[uϊ]bs|tr[aα]ns|p[oσ]st|[aα]bs|[oσ]bs|[eι]x|(?:[cgq]u(?=[aeiouyαιλνσϊύζ])|[bcdfghjklmnprstvwxz])*([aα]u|[ao][eι]?|[eiuyαιλνσϊύζ])(?:[\wαινσϊύ]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wαινσϊύ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sαινσϊύ]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uϊ]bs|tr[aα]ns|p[oσ]st|[aα]bs|[oσ]bs|[eι]x|(?:[cgq]u(?=[aeiouyαιλνσϊύζ])|[bcdfghjklmnprstvwxz])*([aα]u|[ao][eι]?|[eiuyαιλνσϊύζ])(?:[\wαινσϊύ]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wαινσϊύ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sαινσϊύ]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uϊ]bs|tr[aα]ns|p[oσ]st|[aα]bs|[oσ]bs|[eι]x|(?:[cgq]u(?=[aeiouyαιλνσϊύζ])|[bcdfghjklmnprstvwxz])*([aα]u|[ao][eι]?|[eiuyαιλνσϊύζ])(?:[\wαινσϊύ]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wαινσϊύ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sαινσϊύ]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uϊ]bs|tr[aα]ns|p[oσ]st|[aα]bs|[oσ]bs|[eι]x|(?:[cgq]u(?=[aeiouyαιλνσϊύζ])|[bcdfghjklmnprstvwxz])*([aα]u|[ao][eι]?|[eiuyαιλνσϊύζ])(?:[\wαινσϊύ]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wαινσϊύ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sαινσϊύ]+(?=\s|$))?)(\s*|$)/gi;
-var regexAccent = /[αινσϊύ]/i;
+ο»Ώvar regexLatin = /((?:s[uΓΊ]bs|tr[aΓ΅]ns|p[oΓ³]st|[aΓ΅]bs|[oΓ³]bs|[eΓ©]x|(?:[cgq]u(?=[aeiouyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])|[bcdfghjklmnprstvwxz])*([aΓ΅]u|[ao][eΓ©]?|[eiuyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])(?:[\wΓ΅Γ©Γ­Γ³ΓΊΓ½]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wΓ΅Γ©Γ­Γ³ΓΊΓ½])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sΓ΅Γ©Γ­Γ³ΓΊΓ½]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uΓΊ]bs|tr[aΓ΅]ns|p[oΓ³]st|[aΓ΅]bs|[oΓ³]bs|[eΓ©]x|(?:[cgq]u(?=[aeiouyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])|[bcdfghjklmnprstvwxz])*([aΓ΅]u|[ao][eΓ©]?|[eiuyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])(?:[\wΓ΅Γ©Γ­Γ³ΓΊΓ½]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wΓ΅Γ©Γ­Γ³ΓΊΓ½])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sΓ΅Γ©Γ­Γ³ΓΊΓ½]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uΓΊ]bs|tr[aΓ΅]ns|p[oΓ³]st|[aΓ΅]bs|[oΓ³]bs|[eΓ©]x|(?:[cgq]u(?=[aeiouyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])|[bcdfghjklmnprstvwxz])*([aΓ΅]u|[ao][eΓ©]?|[eiuyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])(?:[\wΓ΅Γ©Γ­Γ³ΓΊΓ½]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wΓ΅Γ©Γ­Γ³ΓΊΓ½])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sΓ΅Γ©Γ­Γ³ΓΊΓ½]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uΓΊ]bs|tr[aΓ΅]ns|p[oΓ³]st|[aΓ΅]bs|[oΓ³]bs|[eΓ©]x|(?:[cgq]u(?=[aeiouyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])|[bcdfghjklmnprstvwxz])*([aΓ΅]u|[ao][eΓ©]?|[eiuyΓ΅Γ©Γ«Γ­Γ³ΓΊΓ½Γ¦Ε“])(?:[\wΓ΅Γ©Γ­Γ³ΓΊΓ½]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wΓ΅Γ©Γ­Γ³ΓΊΓ½])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sΓ΅Γ©Γ­Γ³ΓΊΓ½]+(?=\s|$))?)(\s*|$)/gi;
+var regexAccent = /[Γ΅Γ©Γ­Γ³ΓΊΓ½]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
-var sym_flex = '†';
+var sym_flex = 'β€ ';
 var sym_med = '*';
 var bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
                   tex: {bold:  ["{\\bf ", "}"], italic:  ["{\\it ", "}"]}
@@ -71,12 +71,12 @@ function applyPsalmTone(text,gabc) {
           s = syl[si];
         }
         lastOpen = undefined;
-	  r.push(s.space);
+        r.push(s.space);
         r.push(tone.gabcClosed);
         r.push(s.syl);
       } else {
         lastOpen = tone;
-	  ++si;
+    ++si;
       }
     } else if(tone.accent) {
       if(lastOpen) {
