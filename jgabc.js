@@ -117,7 +117,7 @@ var rtg = {
 };
 
 
-var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ]|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/gi;
+var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/gi;
 var transforms = [['/',' ',',',';',':','`',''],
 			["'",'_','+',';','|',',',''],
 			[/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
