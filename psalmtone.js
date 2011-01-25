@@ -1,4 +1,4 @@
-var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;
+﻿var regexLatin = /((?:s[uú]bs|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnprstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;
 var regexAccent = /[áéíóúý]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var sym_flex = '†';
@@ -163,7 +163,26 @@ function getSyllables(text) {
   while(match=regexLatin.exec(text)) {
     syl.push(syllable(match));
   }
+  getWords(syl);
   return syl;
+}
+
+function getWords(syls) {
+  var len = syls.length;
+  var curWord = [];
+  var r = [];
+  for(var i = 0; i < len; ++i) {
+    var syl = syls[i];
+	curWord.push(syl);
+	if(i == (len - 1) || (syl.space && syl.space.length > 0)) {
+	  if(curWord.length == 2 && !curWord[0].accent && !curWord[1].accent) {
+	    curWord[0].accent = true;
+	  }
+	  r.push(curWord);
+	  curWord = [];
+	}
+  }
+  return r;
 }
 
 function addBoldItalic(text,accents,preperatory,sylsAfterBold,format) {
