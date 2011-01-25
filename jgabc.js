@@ -73,8 +73,8 @@ var spaceWidth = fontsize / 2;
 var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
-var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight;
-var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';";
+var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight + ";";
+var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + ";";
 var svg;
 var textElem;
 var codea = 'a'.charCodeAt(0);
@@ -82,8 +82,13 @@ var codem = codea + 12;
 var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
+var regexTag = /<(\/)?(b|i|sc)>/i;
 var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
+var tagStyle = {b:"font-weight:bold;",
+                i:"font-style:italic;",
+                sc:"font-variant:small-caps"
+               };
 
 var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
 var rtg = {
@@ -169,7 +174,7 @@ function getChant(text) {
 	var use2;
 	var span = null;
 	var eText = make('text');
-	eText.setAttribute("style", styleGoudy + " font-size: " + fontsize);
+	eText.setAttribute("style", styleGoudy);
 	var lastSpan;
 	var ltone = 3;
 	var line = 0;
@@ -178,6 +183,9 @@ function getChant(text) {
 	var neumeInfo = null;
 	var needCustos = false;
 	var previousMatch;
+	var activeTags = [];
+	var tagsToPop = [];
+	var activeStyle = "";
 	addStaff(result,lineOffsets[line], line);
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
@@ -192,6 +200,31 @@ function getChant(text) {
 		var offset = 0;
 		if(txt) {
 			txt = txt.trimLeft().replace('\r\n',' ').replace('\n',' ');
+			while(t = tagsToPop.pop()) {
+				activeTags.splice(activeTags.indexOf(t),1);
+			}
+			var tm;
+			while(tm = regexTag.exec(txt)) {
+				if(tm[1] != "/") {
+					if(activeTags.indexOf(tm[2]) < 0) {
+						activeTags.push(tm[2]);
+					}
+				}
+				else {
+					if(tagsToPop.indexOf(tm[2]) < 0) {
+						tagsToPop.push(tm[2]);
+					}
+				}
+				var lastIndex = tm.index + tm[0].length;
+				if(tm.index == 0)
+					txt = txt.substring(tm[0].length);
+				else txt = txt.substring(0,tm.index) + txt.substring(lastIndex, txt.length);
+			}
+			activeStyle = "";
+			for(var tagIndex in activeTags) {
+				activeStyle += tagStyle[activeTags[tagIndex]];
+			}
+			defText.setAttribute("style", styleGoudy + activeStyle);
 			defText.firstChild.data = '.' + txt + '.';
 			wText = defText.getSubStringLength(1, txt.length);
 			regexVowel.lastIndex = 0;
@@ -232,7 +265,7 @@ function getChant(text) {
 			eText.setAttribute("y",y);
 			result.appendChild(eText);
 			eText = make('text');
-			eText.setAttribute("style", styleGoudy + " font-size: " + fontsize);
+			eText.setAttribute("style", styleGoudy);
 			ltone = 3;
 			lineOffsets.push(staffoffset + y + lineOffsets[line++]);
 			eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
@@ -305,7 +338,7 @@ function getChant(text) {
 				}
 			}
 			span.setAttribute('x', spanXoffset);
-			
+			span.setAttribute("style", activeStyle);
 			xoffset = nextXoffsetTextMin;
 			xoffsetChantMin = nextXoffsetChantMin;
 			span.appendChild(document.createTextNode(txt || ''));
@@ -590,7 +623,7 @@ $(function() {
 	svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
 	defText = make('text');
-	defText.setAttribute("style", styleGoudy + " font-size: " + fontsize);
+	defText.setAttribute("style", styleGoudy);
 	defText.appendChild(document.createTextNode(''));
 	defs.appendChild(defText);
 	defChant = make('text');
