@@ -47,16 +47,22 @@ function getTones() {
 }
 
 function applyPsalmTone(text,gabc) {
+  var italiciseIntonation = false;
   var syl = getSyllables(text);
   var toneList = getGabcTones(gabc);
   var tones = toneList.tones;
   var r = [];
   var si = syl.length - 1;
   var lastOpen;
+  var italic=true;
   for(var ti = tones.length - 1; ti >= 0; --ti,--si) {
     var tone = tones[ti];
     var s = syl[si];
     if(tone.open) {
+	  if(italic) {
+	    r.push("<i>");
+	    italic = false;
+	  }
       if(lastOpen && lastOpen.accent) {
         while(!s.accent) {
           r.push(s.space);
@@ -69,12 +75,15 @@ function applyPsalmTone(text,gabc) {
         r.push(s.space);
         r.push(tone.gabcClosed);
         r.push(s.syl);
+		if(s.accent)
+		  r.push("<b>");
       } else {
         lastOpen = tone;
-    ++si;
+        ++si;
       }
     } else if(tone.accent) {
-      if(lastOpen) {
+	  italic = false;
+	  if(lastOpen) {
         while(!s.accent) {
           r.push(s.space);
           r.push(lastOpen.gabcClosed);
@@ -88,8 +97,11 @@ function applyPsalmTone(text,gabc) {
       }
       r.push(s.space);
       r.push(tone.gabc);
+	  r.push("</b>");
       r.push(s.syl);
-      //--si;
+	  if(!lastOpen) {
+		r.push("<b>");
+      }
     } else {
       if(lastOpen) {
         while(si > ti) {
@@ -102,13 +114,15 @@ function applyPsalmTone(text,gabc) {
         lastOpen = undefined;
       }
       r.push(s.space);
-      //if(!lastOpen)
-        r.push(tone.gabc);
-      //else r.push(lastOpen.gabcClosed);
+      r.push(tone.gabc);
+	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && italiciseIntonation))) {
+        r.push("</i>");
+		italic = true;
+	  }
       r.push(s.syl);
-      //--si;
     }
   }
+  if(italic) r.push("<i>");
   return r.reverse().join('');
 }
 
