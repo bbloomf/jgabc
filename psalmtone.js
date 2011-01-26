@@ -97,7 +97,7 @@ function applyPsalmTone(text,gabc) {
           r.push(s.space);
 		  if(useOpenNotes) {
 			++openCount;
-			if(syl[si-1].accent) {
+			if(syl[si-1].accent && openCount > 1) {
 			  r.push(lastOpen.gabc);
 			} else {
 			  r.push(lastOpen.gabcClosed);
@@ -109,8 +109,8 @@ function applyPsalmTone(text,gabc) {
           --si;
           s = syl[si];
         }
-		if(openCount == 0 && useOpenNotes) {
-		  r.push(" " + lastOpen.gabc + " ");
+		if(useOpenNotes && openCount <= 1) {
+		  r.push(lastOpen.gabc + s.space);
 		}
         lastOpen = undefined;
       } else if(!s.accent) {
