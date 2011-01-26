@@ -58,6 +58,8 @@ function applyPsalmTone(text,gabc) {
   var si = syl.length - 1;
   var lastOpen;
   var italic=false;
+  var lastAccentI = si;
+  
   for(var ti = tones.length - 1; ti >= 0; --ti,--si) {
     var tone = tones[ti];
     var s = syl[si];
@@ -93,7 +95,21 @@ function applyPsalmTone(text,gabc) {
 	  var openNoteBeforeAccent = useOpenNotes && !lastOpen && s.accent;
 	  italic = false;
 	  if(lastOpen) {
-        while(!s.accent) {
+	    var originalSi = si;
+	    while(!s.accent) {
+		  --si;
+		  s = syl[si];
+		}
+		var countToNext = lastAccentI - si;
+        while(countToNext > 3) {
+		  si += 2;
+		  s = syl[si];
+		  countToNext = lastAccentI - si;
+        }
+		s.accent = true;
+		si = originalSi;
+		s = syl[si];
+		while(!s.accent) {
           r.push(s.space);
 		  if(useOpenNotes) {
 			++openCount;
@@ -123,6 +139,7 @@ function applyPsalmTone(text,gabc) {
       r.push(s.syl);
 	  if(!lastOpen) {
 		r.push(bi.bold[0]);
+		lastAccentI = si;
       }
 	  if(openNoteBeforeAccent) {
 	    tone = tones[ti-1];
@@ -239,6 +256,7 @@ function addBoldItalic(text,accents,preperatory,sylsAfterBold,format) {
   var sylCount = 0;
   var sylEndIndex = 0;
   var i=syl.length - 1;
+  var lastAccentI = i;
   for(; i >= 0 && doneAccents < accents; --i) {
     var s = syl[i];
     len = s.all.length;
@@ -251,6 +269,15 @@ function addBoldItalic(text,accents,preperatory,sylsAfterBold,format) {
       continue;
     }
     if(s.accent) {
+	  var countToNext = lastAccentI - i;
+	  while(countToNext > 3) {
+		i += 2;
+		s = syl[i];
+		countToNext = lastAccentI - i;
+		len = s.all.length;
+		index = s.index;
+	  }
+	  lastAccentI = i;
       var stext = s.syl;
       if(sylEndIndex != 0) {
         len = sylEndIndex - index;
