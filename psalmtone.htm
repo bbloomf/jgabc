@@ -11,19 +11,27 @@
 
 	<script src="jgabc.js" type="text/javascript"></script>
 	<script src="psalmtone.js" type="text/javascript"></script>
-	<style type="text/css">
-	p {margin: 6pt 0px;}
-	</style>
 </head>
 <body>
-Verse GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.</textarea>
+Verse GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>
-Verse Text<br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tíbi, Dómine, in tóto córde méo:</textarea>
+Verse Text<br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
+Magna ópera Dómini: * exquisíta in omnes voluntátes ejus.
+Conféssio et magnificéntia opus ejus: * et justítia ejus manet in sæculum sæculi.
+Memóriam fecit mirabílium suórum, miséricors et miserátor Dóminus: * escam dedit timéntibus se.
+Memor erit in sæculum testaménti sui: * virtútem óperum suórum annuntiábit pópulo suo:
+Ut det illis hereditátem géntium: * ópera mánuum ejus véritas, et judícium.
+Fidélia ómnia mandáta ejus: confirmáta in saéculum saéculi, * facta in veritáte et æquitáte.
+Redemptiónem misit pópulo suo: * mandávit in ætérnum testaméntum suum.
+Sanctum, et terríbile nomen ejus: * inítium sapiéntiæ timor Dómini.
+Intelléctus bonus ómnibus faciéntibus eum: * laudátio ejus manet in sæculum sæculi.
+Glória Patri, et Fílio, * et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, * et in sæcula sæculórum. Amen.</textarea>
 <br/>
 GABC<br/><textarea height="50%" id="editor" style="height: 220pt; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%;padding: 0 6pt 0 6pt">
 </div>
-<div id="verses" style="width: 95%; padding: 0px 6pt; text-indent:9pt;"></div>
+<div id="verses" style="width: 95%; padding: 0px 6pt; text-indent:9pt;font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
 <script>
 var gSyl;
 var syl;
@@ -32,8 +40,26 @@ function updateEditor() {
   if(!gSyl) gSyl = $("#versegabc")[0].value;
   if(!syl)  syl = $("#versetext")[0].value;
 
-  $("#editor")[0].value = applyPsalmTone(syl,gSyl);
+  var lines = syl.split('\n');
+  var gabcs = gSyl.split('\n');
+  var gMediant = gabcs[0];
+  var gTermination = gabcs.length == 1? "" : gabcs[1];
+  var firstLine = lines[0].split(' * ');
+  var gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " (:) * " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
+  $("#editor")[0].value = gabc;
   $("#editor").keyup();
+  
+  var medTones = getGabcTones(gMediant);
+  var terTones = getGabcTones(gTermination);
+  var r = [];
+  for(var i=1; i<lines.length; ++i) {
+    var line = lines[i].split(' * ');
+	r.push("<p style='margin: 6pt 0px;'>" + String(i + 1) + ". "
+		+ addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, 'html')
+		+ (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, 'html'))
+		+ "</p>");
+  }
+  $("#verses")[0].innerHTML = r.join('');
 }
 
 function updateGabc() {
