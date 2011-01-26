@@ -47,6 +47,8 @@ function getTones() {
 }
 
 function applyPsalmTone(text,gabc) {
+  var useOpenNotes = true;
+  var openCount = 0;
   var italiciseIntonation = false;
   var syl = getSyllables(text);
   var toneList = getGabcTones(gabc);
@@ -65,7 +67,7 @@ function applyPsalmTone(text,gabc) {
 	  }
       if(lastOpen && lastOpen.accent) {
         while(!s.accent) {
-          r.push(s.space);
+		  r.push(s.space);
           r.push(tone.gabcClosed);
           r.push(s.syl);
           --si;
@@ -73,27 +75,46 @@ function applyPsalmTone(text,gabc) {
         }
         lastOpen = undefined;
         r.push(s.space);
-        r.push(tone.gabcClosed);
+		if(useOpenNotes) {
+			r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
+		} else {
+			r.push(tone.gabcClosed);
+		}
         r.push(s.syl);
 		if(s.accent)
 		  r.push("<b>");
       } else {
         lastOpen = tone;
+		openCount = 0;
         ++si;
       }
     } else if(tone.accent) {
+	  var openNoteBeforeAccent = useOpenNotes && !lastOpen && s.accent;
 	  italic = false;
 	  if(lastOpen) {
         while(!s.accent) {
           r.push(s.space);
-          r.push(lastOpen.gabcClosed);
+		  if(useOpenNotes) {
+			++openCount;
+			if(syl[si-1].accent) {
+			  r.push(lastOpen.gabc);
+			} else {
+			  r.push(lastOpen.gabcClosed);
+			}
+		  } else {
+            r.push(lastOpen.gabcClosed);
+          }
           r.push(s.syl);
           --si;
           s = syl[si];
         }
+		if(openCount == 0 && useOpenNotes) {
+		  r.push(" " + lastOpen.gabc + " ");
+		}
         lastOpen = undefined;
       } else if(!s.accent) {
         lastOpen = tone;
+		openCount = 0;
       }
       r.push(s.space);
       r.push(tone.gabc);
@@ -102,6 +123,12 @@ function applyPsalmTone(text,gabc) {
 	  if(!lastOpen) {
 		r.push("<b>");
       }
+	  if(openNoteBeforeAccent) {
+	    tone = tones[ti-1];
+		if(useOpenNotes && tone && tone.open) {
+		  r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
+		}
+	  }
     } else {
       if(lastOpen) {
         while(si > ti) {

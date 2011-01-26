@@ -83,14 +83,14 @@ var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))([ \t]*)/g;
 var regexTag = /<(\/)?(b|i|sc)>/i;
-var regexInner = /[!\/ ,;:`]+|[^\)!\/ ,;:`]+/g;
+var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
 var tagStyle = {b:"font-weight:bold;",
                 i:"font-style:italic;",
                 sc:"font-variant:small-caps"
                };
 
-var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))/g;
+var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
 var rtg = {
 	whitespace: 1,
 	keychange: 2,
@@ -118,7 +118,8 @@ var rtg = {
 	lineaPunctum: 24,			// R
 	lineaPunctumCavum: 25,		// r0
 	rNumber: 27,			// r[1-5]
-	custos: 28				// z0
+	custos: 28,				// z0
+	bracketed: 29			// [text]
 };
 
 
@@ -398,6 +399,7 @@ function getChantFragment(gabc) {
 		chant=match[0];
 		regexTones.lastMatch = 0;
 		while(cmatch = regexTones.exec(chant)) {
+			if(cmatch[rtg.bracketed]) continue;
 			tone = cmatch[0];
 			if(cmatch[rtg.whitespace]) {
 				// merely some kind of text substitution.
