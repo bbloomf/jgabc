@@ -12,7 +12,7 @@ function syllable(match) {
           syl: match[1],
           vowel: match[2],
           separator: match[3], // - or *
-          punctuation: match[4]? match[4] : "",
+          punctuation: match[4]? (match[4]==":"? " :" : match[4]) : "",
           space: match[5],
           accent: match[3] == '*' || regexAccent.test(match[2])
          };
@@ -70,9 +70,7 @@ function applyPsalmTone(text,gabc) {
 	  }
       if(lastOpen && lastOpen.accent) {
         while(!s.accent) {
-		  r.push(s.space);
-          r.push(tone.gabcClosed);
-          r.push(s.syl);
+		  r.push(s.syl + s.punctuation + tone.gabcClosed + s.space);
           --si;
           s = syl[si];
         }
@@ -83,7 +81,7 @@ function applyPsalmTone(text,gabc) {
 		} else {
 			r.push(tone.gabcClosed);
 		}
-        r.push(s.syl);
+        r.push(s.syl + s.punctuation);
 		if(s.accent)
 		  r.push(bi.bold[0]);
       } else {
@@ -121,7 +119,7 @@ function applyPsalmTone(text,gabc) {
 		  } else {
             r.push(lastOpen.gabcClosed);
           }
-          r.push(s.syl);
+          r.push(s.syl + s.punctuation);
           --si;
           s = syl[si];
         }
@@ -133,10 +131,7 @@ function applyPsalmTone(text,gabc) {
         lastOpen = tone;
 		openCount = 0;
       }
-      r.push(s.space);
-      r.push(tone.gabc);
-	  r.push(bi.bold[1]);
-      r.push(s.syl);
+      r.push(s.syl + bi.bold[1] + s.punctuation + tone.gabc + s.space);
 	  if(!lastOpen) {
 		r.push(bi.bold[0]);
 		lastAccentI = si;
@@ -150,16 +145,13 @@ function applyPsalmTone(text,gabc) {
     } else {
       if(lastOpen) {
         while(si > ti) {
-          r.push(s.space);
-          r.push(lastOpen.gabcClosed);
-          r.push(s.syl);
+          r.push(s.syl + s.punctuation + lastOpen.gabcClosed + s.space);
           --si;
           s = syl[si];
         }
         lastOpen = undefined;
       }
-      r.push(s.space);
-      r.push(tone.gabc);
+      r.push(s.punctuation + tone.gabc + s.space);
 	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && italiciseIntonation))) {
         r.push(bi.italic[1]);
 		italic = true;

@@ -31,7 +31,7 @@ Sicut erat in princípio, et nunc, et semper, * et in sæcula sæculórum. Amen.</te
 GABC<br/><textarea height="50%" id="editor" style="height: 220pt; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%;padding: 0 6pt 0 6pt">
 </div>
-<div id="verses" style="width: 95%; padding: 0px 6pt; text-indent:9pt;font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
+<div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
 <script>
 var gSyl;
 var syl;
@@ -54,7 +54,7 @@ function updateEditor() {
   var r = [];
   for(var i=1; i<lines.length; ++i) {
     var line = lines[i].split(' * ');
-	r.push("<p style='margin: 6pt 0px;'>" + String(i + 1) + ". "
+	r.push("<p style='margin: 6pt 0px;'><span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
 		+ addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, 'html')
 		+ (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, 'html'))
 		+ "</p>");
