@@ -15,7 +15,8 @@
 <body>
 Tone: <select id="selTones"></select><select id="selEnd"></select><br/>
 Verse GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
-<br/>
+<br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
+<br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
 Verse Text<br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
 Magna ópera Dómini: * exquisíta in omnes voluntátes ejus.
 Conféssio et magnificéntia opus ejus: * et justítia ejus manet in sæculum sæculi.
@@ -29,7 +30,7 @@ Intelléctus bonus ómnibus faciéntibus eum: * laudátio ejus manet in sæculum sæcu
 Glória Patri, et Fílio, * et Spirítui Sancto.
 Sicut erat in princípio, et nunc, et semper, * et in sæcula sæculórum. Amen.</textarea>
 <br/>
-GABC<br/><textarea height="50%" id="editor" style="height: 220pt; width: 95%;"></textarea>
+GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%;padding: 0 6pt 0 6pt">
 </div>
 <div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
@@ -52,6 +53,26 @@ function updateEditor() {
   
   var medTones = getGabcTones(gMediant);
   var terTones = getGabcTones(gTermination);
+  $("#sMedAccent")[0].innerText = String(medTones.accents);
+  $("#sMedAccentS")[0].innerText = (medTones.accents == 1)? "" : "s";
+  if(medTones.preparatory == 0) {
+    $("#sMedPrepOuter").hide();
+  } else {
+    $("#sMedPrep")[0].innerText = String(medTones.preparatory);
+    $("#sMedPrepS")[0].innerText = (medTones.preparatory == 1)? "" : "s";
+    $("#sMedPrepOuter").show();
+  }
+  if(gTermination) {
+	$("#sTermAccent")[0].innerText = String(terTones.accents);
+    $("#sTermAccentS")[0].innerText = (terTones.accents == 1)? "" : "s";
+    if(terTones.preparatory == 0) {
+      $("#sTermPrepOuter").hide();
+    } else {
+      $("#sTermPrep")[0].innerText = String(terTones.preparatory);
+      $("#sTermPrepS")[0].innerText = (terTones.preparatory == 1)? "" : "s";
+      $("#sTermPrepOuter").show();
+    }
+  }
   var r = [];
   for(var i=1; i<lines.length; ++i) {
     var line = lines[i].split(' * ');

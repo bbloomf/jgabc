@@ -7,8 +7,8 @@ var bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
                   tex: {bold:  ["{\\bf ", "}"], italic:  ["{\\it ", "}"]}
                  };
 var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
-				  terminations:{'D':"h hr g f 'gh gr gFED.",
-				                'D-':"h hr g f 'g gr gFED.",
+				  terminations:{'D':"h hr g f 'gh gr gvFED.",
+				                'D-':"h hr g f 'g gr gvFED.",
 								'D2':"h hr g f gr 'gf d.",
 								'f':"h hr g f 'gh gr gf.",
 								'g':"h hr g f 'gh gr g.",
@@ -20,7 +20,7 @@ var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
 							   }
 			     },
 			 '2':{mediant:"e f h hr 'i hr h.",
-				  termination:"h hr g 'e f f."
+				  termination:"h hr g 'e fr f."
 				 },
 			 '3':{mediant:"g hj jr 'k jr jr 'ih j.",
 				  terminations:{'b':"j jr h 'j jr i.",
@@ -65,7 +65,7 @@ var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
 								'c':"j jr h j 'k jr j."
 							   }
 				 },
-			 'per.':{mediant:"ixhi hr g ixi h 'g f. f",
+			 'per.':{mediant:"ixhi hr g ixi h 'g fr f.",
 				     termination:"g gr d 'f fr ed.."
 				    }
 			};
@@ -219,7 +219,7 @@ function applyPsalmTone(text,gabc) {
 		lastAccentI = si;
       }
 	  if(openNoteBeforeAccent) {
-	    tone = tones[ti-1];
+	    tone = tones[--ti];
 		if(useOpenNotes && tone && tone.open) {
 		  r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
 		}
@@ -234,7 +234,7 @@ function applyPsalmTone(text,gabc) {
         lastOpen = undefined;
       }
       r.push(s.punctuation + tone.gabc + s.space);
-	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && italiciseIntonation))) {
+	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || (tones[ti+2] && tones[ti+2].accent))))) {
         r.push(bi.italic[1]);
 		italic = true;
 	  }
@@ -262,7 +262,11 @@ function getGabcTones(gabc) {
     if(ton.accent) {
       ++accents;
       state = 1;
-      isOpen = false;
+	  if(isOpen) {
+        isOpen = false;
+	  } else if(tones[i-1].open) {
+	    --i;
+	  }
     }
     else if(ton.open) {
       if(state==3) {
