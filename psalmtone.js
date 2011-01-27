@@ -234,7 +234,7 @@ function applyPsalmTone(text,gabc) {
         lastOpen = undefined;
       }
       r.push(s.punctuation + tone.gabc + s.space);
-	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || (tones[ti+2] && tones[ti+2].accent))))) {
+	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti)))) {
         r.push(bi.italic[1]);
 		italic = true;
 	  }
