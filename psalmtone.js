@@ -6,6 +6,69 @@ var sym_med = '*';
 var bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
                   tex: {bold:  ["{\\bf ", "}"], italic:  ["{\\it ", "}"]}
                  };
+var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
+				  terminations:{'D':"h hr g f 'gh gr gFED.",
+				                'D-':"h hr g f 'g gr gFED.",
+								'D2':"h hr g f gr 'gf d.",
+								'f':"h hr g f 'gh gr gf.",
+								'g':"h hr g f 'gh gr g.",
+								'g2':"h hr g f 'g gr ghg.",
+								'g3':"h hr g f 'g gr g.",
+								'a':"h hr g f 'g hr h.",
+								'a2':"h hr g f 'g gr gh..",
+								'a3':"h hr g f 'gh gr gh.."
+							   }
+			     },
+			 '2':{mediant:"e f h hr 'i hr h.",
+				  termination:"h hr g 'e f f."
+				 },
+			 '3':{mediant:"g hj jr 'k jr jr 'ih j.",
+				  terminations:{'b':"j jr h 'j jr i.",
+							    'a':"j jr h 'j jr ih..",
+								'a2':"j jr ji hi 'h gr gh..",
+								'g':"j jr ji hi 'h gr g.",
+								'g2': "j jr h j i 'h gr g."
+							   }
+				 },
+			 '4':{mediant:"h gh hr g h 'i hr h.",
+				  terminations:{'g':"h hr 'h gr g.",
+							    'E':"h hr g h ih gr 'gf e."
+							   }
+				 },
+			 '4 alt':{mediant:"i hi ir h i 'j ir i.",
+				      terminations:{'c':"i ir 'i hr h.",
+									'A':"i ir h i j 'h fr f.",
+									'A*':"i ir h i j 'h fr fg..",
+									'd':"i ir h i j 'h ir i."
+								   }
+					 },
+			 '5':{mediant:"d f h hr 'i hr h.",
+				  termination:"h hr 'i gr 'h fr f."
+				 },
+			 '6':{mediant:"f gh hr 'ixi hr 'g hr h.",
+				  termination:"h hr f gh 'g fr f."
+				 },
+			 '6 alt':{mediant:"f gh hr g 'h fr f.",
+				      termination:"h hr f gh 'g fr f."
+				     },
+			 '7':{mediant:"hg hi ir 'k jr 'i jr j.",
+				  terminations:{'a':"i ir 'j ir 'h hr gf..",
+								'b':"i ir 'j ir 'h hr g.",
+								'c':"i ir 'j ir 'h hr gh..",
+								'c2':"i ir 'j ir 'h hr ih..",
+								'd':"i ir 'j ir 'h hr gi.."
+				               },
+				 },
+			 '8':{mediant:"g h jr 'k jr j.",
+				  terminations:{'G':"j jr i j 'h gr g.",
+								'G*':"j jr i j 'h gr gh..",
+								'c':"j jr h j 'k jr j."
+							   }
+				 },
+			 'per.':{mediant:"ixhi hr g ixi h 'g f. f",
+				     termination:"g gr d 'f fr ed.."
+				    }
+			};
 function syllable(match) {
   return {index: match.index,
           all: match[0],
@@ -25,6 +88,25 @@ function toneGabc(match) {
           gabcClosed: "(" + match[3] + ")",
           open: match[4] == "r"
          };
+}
+function getPsalmTones() {
+	var tones = [];
+	var i;
+	for(i in g_tones) {
+		tones.push(i);
+	}
+	return tones;
+}
+function getEndings(tone) {
+	var endings = [];
+	var t = g_tones[tone];
+	if(t && t.terminations) {
+		var i;
+		for(i in t.terminations) {
+			endings.push(i);
+		}
+	}
+	return endings;
 }
 function onOpen() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
