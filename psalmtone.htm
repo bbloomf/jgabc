@@ -13,6 +13,7 @@
 	<script src="psalmtone.js" type="text/javascript"></script>
 </head>
 <body>
+Tone: <select id="selTones"></select><select id="selEnd"></select><br/>
 Verse GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>
 Verse Text<br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
@@ -72,9 +73,39 @@ function updateText() {
   updateEditor();
 }
 
+function updateEndings() {
+  $("#selEnd").empty();
+  var tone = $("#selTones")[0].value;
+  var endings = getEndings(tone);
+  var t = g_tones[tone];
+  var vgabc = t.mediant + "\n";
+  if(endings.length == 0) {
+    vgabc += t.termination;
+  } else {
+	$("#selEnd").append('<option>' + endings.join('</option><option>') + '</option>');
+	vgabc += t.terminations[$("#selEnd")[0].value];
+  }
+  $("#versegabc")[0].value = vgabc;
+  gSyl = vgabc;
+  updateEditor();
+}
+
+function updateEnding() {
+  var tone = $("#selTones")[0].value;
+  var t = g_tones[tone];
+  var vgabc = t.mediant + "\n" + t.terminations[$("#selEnd")[0].value];
+  $("#versegabc")[0].value = vgabc;
+  gSyl = vgabc;
+  updateEditor();
+}
+
 $(function() {
+  $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateGabc);
   $("#versetext").keyup(updateText);
+  $("#selTones").change(updateEndings);
+  $("#selEnd").change(updateEnding);
+  updateEndings();
   updateEditor();
 });
 </script>
