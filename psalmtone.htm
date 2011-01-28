@@ -47,7 +47,7 @@ function updateEditor() {
   var gMediant = gabcs[0];
   var gTermination = gabcs.length == 1? "" : gabcs[1];
   var firstLine = lines[0].split(' * ');
-  var gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " (:) * " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
+  var gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
   $("#editor")[0].value = gabc;
   $("#editor").keyup();
   
