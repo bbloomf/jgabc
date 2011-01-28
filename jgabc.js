@@ -162,9 +162,8 @@ function make(tag) {
 function getChant(text) {
 	var match;
 	var count = 0;
-	var result;
-	regexOuter.lastIndex = 0;
 	var result = make('g');
+	regexOuter.lastIndex = 0;
 	//result.setAttribute("id", "1");
 	result.setAttribute("transform", "translate(0," + staffoffset + ")");
 	result.setAttribute("style", styleCaeciliae);
@@ -187,7 +186,7 @@ function getChant(text) {
 	var activeTags = [];
 	var tagsToPop = [];
 	var activeStyle = "";
-	addStaff(result,lineOffsets[line], line);
+	addStaff(result,lineOffsets[line], line, null);
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
 			neumeInfo = getChantFragment(match[5]);
@@ -270,7 +269,7 @@ function getChant(text) {
 			ltone = 3;
 			lineOffsets.push(staffoffset + y + lineOffsets[line++]);
 			eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
-			curStaff = addStaff(result,lineOffsets[line], line);
+			curStaff = addStaff(result,lineOffsets[line], line, null);
 			nextXoffset -= xoffset;
 			nextXoffsetTextMin -= xoffset;
 			nextXoffsetChantMin -= xoffset;
@@ -321,7 +320,7 @@ function getChant(text) {
 			}
 			if(previousMatch && previousMatch[3] && !previousMatch[7]) {
 				defText.firstChild.data = lastSpan.firstChild.data;
-				var lastXoffset = parseInt(lastSpan.getAttribute('x'));
+				var lastXoffset = parseInt(lastSpan.getAttribute('x'),10);
 				var lastSpanX2 = lastXoffset + defText.getComputedTextLength();
 				if(lastSpanX2 < spanXoffset) {
 					lastSpan.firstChild.data += '-';
@@ -374,7 +373,7 @@ function getChantFragment(gabc) {
 	}
 	var mask = undefined;
 	if(gabc.indexOf('r') > -1) {
-		var mask = gabc.replace(/r/g,'!');
+		mask = gabc.replace(/r/g,'!');
 		getChantFragment(mask);
 	}
 	var result = make('text');
@@ -385,7 +384,7 @@ function getChantFragment(gabc) {
 	var newdata = '';
 	var code;
 	var span = make('tspan');
-	var char, nextChar;
+	var curChar, nextChar;
 	var charsLeft = gabc.length;
 	var index = 0;
 	var prevIndex = 0;
@@ -454,20 +453,20 @@ function getChantFragment(gabc) {
 						span = make('tspan');
 						newdata = '';
 					} else {
-						currentdy = parseInt(span.getAttribute('dy') || 0);
+						currentdy = parseInt(span.getAttribute('dy') || 0, 10);
 					}
-					line = parseInt(tone.modifiers[0]);
+					line = parseInt(tone.modifiers[0],10);
 					var dy = 0;
 					if(tone.index == 2) {
-						char = "d''";
+						curChar = "d''";
 						dy = 2 - line;
 					} else {
-						char = "f''";
+						curChar = "f''";
 						dy = 3 - line;
 					}
 					dy *= spaceheight;
 					span.setAttribute('dy', dy + currentdy);
-					span.appendChild(document.createTextNode(char));
+					span.appendChild(document.createTextNode(curChar));
 					result.appendChild(span);
 					span = make('tspan');
 					span.setAttribute('dy', -dy);
@@ -596,7 +595,7 @@ $(function() {
 
 	var table = $("#tbl");
 	if(table) {
-		for(var char, code = 0xE0E0; code < 0xFFFF; code += 16) {
+		for(var code = 0xE0E0; code < 0xFFFF; code += 16) {
 			var row = document.createElement('row');
 			var td1 = document.createElement('td');
 			var td2 = document.createElement('td');
@@ -617,7 +616,7 @@ $(function() {
 	svg = document.createElementNS(svgns, 'svg');
 	svg.setAttribute('style','width:100%');
 	var style = document.createElementNS(svgns, "style");
-	style.setAttributeNS(null, "type", "text/css");
+	style.setAttribute("type", "text/css");
 	style.appendChild(document.createTextNode("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}" +
 		"@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}" +
 		"@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('http://themes.googleusercontent.com/font?kit=4zlbkWdiblhTyAxV3yYOK1Map0k-03pf3IKr-TpLv1-glnMp3_3A8V8Ai8YosRtX') format('truetype');}" +
@@ -634,11 +633,11 @@ $(function() {
 	defs.appendChild(defChant);
 	
 	var gStaff = document.createElementNS(svgns, "g");
-	gStaff.setAttributeNS(null, "id", "staff");
+	gStaff.setAttribute("id", "staff");
 	var height = staffheight * 16 / 1000;
 	var line = document.createElementNS(svgns, "path");
 	var stringLine = "h1v" + height + "h-1zm0 -" + spaceheight;
-	line.setAttributeNS(null, "d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
+	line.setAttribute("d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
 	gStaff.appendChild(line);
 	defs.appendChild(gStaff);
 	svg.appendChild(defs);
@@ -678,4 +677,5 @@ $(function() {
 }
 );
 
-
+window['updatePreview']=updatePreview;
+window['updateChant']=updateChant;

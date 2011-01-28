@@ -59,7 +59,7 @@ var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
                                 'c':"i ir 'j ir 'h hr gh..",
                                 'c2':"i ir 'j ir 'h hr ih..",
                                 'd':"i ir 'j ir 'h hr gi.."
-                               },
+                               }
                  },
              '8':{mediant:"g h jr 'k jr j.",
                   terminations:{'G':"j jr i j 'h gr g.",
@@ -406,3 +406,8 @@ function addBoldItalic(text,accents,preperatory,sylsAfterBold,format) {
   }
   return text;
 }
+window['getPsalmTones'] = getPsalmTones;
+window['getEndings'] = getEndings;
+window['applyPsalmTone'] = applyPsalmTone;
+window['getSyllables'] = getSyllables;
+window['addBoldItalic'] = addBoldItalic;
