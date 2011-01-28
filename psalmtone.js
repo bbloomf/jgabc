@@ -146,84 +146,85 @@ function applyPsalmTone(text,gabc) {
     var tone = tones[ti];
     var s = syl[si];
     if(tone.open) {
-	  if(italic) {
-	    r.push(bi.italic[0]);
-	    italic = false;
-	  }
+      if(italic) {
+        italic = false;
+      }
       if(lastOpen && lastOpen.accent) {
         while(!s.accent) {
-		  r.push(s.syl + s.punctuation + tone.gabcClosed + s.space);
+          r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation + tone.gabcClosed + s.space);
           --si;
           s = syl[si];
         }
         lastOpen = undefined;
         r.push(s.space);
-		if(useOpenNotes) {
-			r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
-		} else {
-			r.push(tone.gabcClosed);
-		}
-        r.push(s.syl + s.punctuation);
-		if(s.accent)
-		  r.push(bi.bold[0]);
+        if(useOpenNotes) {
+          r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
+        } else {
+          r.push(tone.gabcClosed);
+        }
+        if(s.accent) {
+          r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation);
+          lastAccentI = si;
+        } else {
+          r.push(s.syl + s.punctuation);
+        }
       } else {
         lastOpen = tone;
-		openCount = 0;
+        openCount = 0;
         ++si;
       }
     } else if(tone.accent) {
-	  var openNoteBeforeAccent = useOpenNotes && !lastOpen && s.accent;
-	  italic = false;
-	  if(lastOpen) {
-	    var originalSi = si;
-	    while(!s.accent) {
-		  --si;
-		  s = syl[si];
-		}
-		var countToNext = lastAccentI - si;
-        while(countToNext > 3) {
-		  si += 2;
-		  s = syl[si];
-		  countToNext = lastAccentI - si;
+      var openNoteBeforeAccent = useOpenNotes && !lastOpen && s.accent;
+      italic = false;
+      if(lastOpen) {
+        var originalSi = si;
+        while(!s.accent) {
+          --si;
+          s = syl[si];
         }
-		s.accent = true;
-		si = originalSi;
-		s = syl[si];
-		while(!s.accent) {
+        var countToNext = lastAccentI - si;
+        while(countToNext > 3) {
+          si += 2;
+          s = syl[si];
+          countToNext = lastAccentI - si;
+        }
+        s.accent = true;
+        si = originalSi;
+        s = syl[si];
+        while(!s.accent) {
           r.push(s.space);
-		  if(useOpenNotes) {
-			++openCount;
-			if(syl[si-1].accent && openCount > 1) {
-			  r.push(lastOpen.gabc);
-			} else {
-			  r.push(lastOpen.gabcClosed);
-			}
-		  } else {
+          if(useOpenNotes) {
+            ++openCount;
+            if(syl[si-1].accent && openCount > 1) {
+              r.push(lastOpen.gabc);
+            } else {
+              r.push(lastOpen.gabcClosed);
+            }
+          } else {
             r.push(lastOpen.gabcClosed);
           }
           r.push(s.syl + s.punctuation);
           --si;
           s = syl[si];
         }
-		if(useOpenNotes && openCount <= 1) {
-		  r.push(lastOpen.gabc + s.space);
-		}
+        if(useOpenNotes && openCount <= 1) {
+          r.push(lastOpen.gabc + s.space);
+        }
         lastOpen = undefined;
       } else if(!s.accent) {
         lastOpen = tone;
-		openCount = 0;
+        openCount = 0;
       }
-      r.push(s.syl + bi.bold[1] + s.punctuation + tone.gabc + s.space);
-	  if(!lastOpen) {
-		r.push(bi.bold[0]);
-		lastAccentI = si;
+      r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation + tone.gabc + s.space);
+      if(!lastOpen) {
+        lastAccentI = si;
       }
-	  if(openNoteBeforeAccent) {
-	    tone = tones[--ti];
-		if(useOpenNotes && tone && tone.open) {
-		  r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
-		}
-	  }
+      if(openNoteBeforeAccent) {
+        tone = tones[--ti];
+        if(useOpenNotes && tone && tone.open) {
+          r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
+        }
+      }
     } else {
       if(lastOpen) {
         while(si > ti) {
@@ -234,14 +235,16 @@ function applyPsalmTone(text,gabc) {
         lastOpen = undefined;
       }
       r.push(s.punctuation + tone.gabc + s.space);
-	  if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti)))) {
-        r.push(bi.italic[1]);
-		italic = true;
-	  }
-      r.push(s.syl);
+      if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti)))) {
+        italic = true;
+      }
+      if(italic) {
+        r.push(bi.italic[0] + s.syl + bi.italic[1]);
+      } else {
+        r.push(s.syl);
+      }
     }
   }
-  if(italic) r.push("<i>");
   return r.reverse().join('');
 }
 
