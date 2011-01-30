@@ -17,7 +17,8 @@ var algorithmTwoAfter = false; //count as an accent the syllable two after the l
 var bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
                   tex: {bold:  ["{\\bf ", "}"], italic:  ["{\\it ", "}"]}
                  };
-var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
+var g_tones = {'1':{clef:"c4",
+                  mediant:"f gh hr 'ixi hr 'g hr h.",
                   terminations:{'D':"h hr g f 'gh gr gvFED.",
                                 'D-':"h hr g f 'g gr gvFED.",
                                 'D2':"h hr g f gr 'gf d.",
@@ -30,10 +31,12 @@ var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
                                 'a3':"h hr g f 'gh gr gh.."
                                }
                  },
-             '2':{mediant:"e f h hr 'i hr h.",
+             '2':{clef:"f3",
+                  mediant:"e f h hr 'i hr h.",
                   termination:"h hr g 'e fr f."
                  },
-             '3':{mediant:"g hj jr 'k jr jr 'ih j.",
+             '3':{clef:"c4",
+                  mediant:"g hj jr 'k jr jr 'ih j.",
                   terminations:{'b':"j jr h 'j jr i.",
                                 'a':"j jr h 'j jr ih..",
                                 'a2':"j jr ji hi 'h gr gh..",
@@ -41,28 +44,34 @@ var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
                                 'g2': "j jr h j i 'h gr g."
                                }
                  },
-             '4':{mediant:"h gh hr g h 'i hr h.",
+             '4':{clef:"c4",
+                  mediant:"h gh hr g h 'i hr h.",
                   terminations:{'g':"h hr 'h gr g.",
                                 'E':"h hr g h ih gr 'gf e."
                                }
                  },
-             '4 alt':{mediant:"i hi ir h i 'j ir i.",
+             '4 alt':{clef:"c3",
+                      mediant:"i hi ir h i 'j ir i.",
                       terminations:{'c':"i ir 'i hr h.",
                                     'A':"i ir h i j 'h fr f.",
                                     'A*':"i ir h i j 'h fr fg..",
                                     'd':"i ir h i j 'h ir i."
                                    }
                      },
-             '5':{mediant:"d f h hr 'i hr h.",
+             '5':{clef:"c3",
+                  mediant:"d f h hr 'i hr h.",
                   termination:"h hr 'i gr 'h fr f."
                  },
-             '6':{mediant:"f gh hr 'ixi hr 'g hr h.",
+             '6':{clef:"c4",
+                  mediant:"f gh hr 'ixi hr 'g hr h.",
                   termination:"h hr f gh 'g fr f."
                  },
-             '6 alt':{mediant:"f gh hr g 'h fr f.",
+             '6 alt':{clef:"c4",
+                      mediant:"f gh hr g 'h fr f.",
                       termination:"h hr f gh 'g fr f."
                      },
-             '7':{mediant:"hg hi ir 'k jr 'i jr j.",
+             '7':{clef:"c3",
+                  mediant:"hg hi ir 'k jr 'i jr j.",
                   terminations:{'a':"i ir 'j ir 'h hr gf..",
                                 'b':"i ir 'j ir 'h hr g.",
                                 'c':"i ir 'j ir 'h hr gh..",
@@ -70,13 +79,15 @@ var g_tones = {'1':{mediant:"f gh hr 'ixi hr 'g hr h.",
                                 'd':"i ir 'j ir 'h hr gi.."
                                }
                  },
-             '8':{mediant:"g h jr 'k jr j.",
+             '8':{clef:"c4",
+                  mediant:"g h jr 'k jr j.",
                   terminations:{'G':"j jr i j 'h gr g.",
                                 'G*':"j jr i j 'h gr gh..",
                                 'c':"j jr h j 'k jr j."
                                }
                  },
-             'per.':{mediant:"ixhi hr g ixi h 'g fr f.",
+             'per.':{clef:"c4",
+                     mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"g gr d 'f fr ed.."
                     }
             };

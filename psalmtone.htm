@@ -37,6 +37,7 @@ GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <script>
 var gSyl;
 var syl;
+var _clef;
 
 function updateEditor() {
   if(!gSyl) gSyl = $("#versegabc")[0].value;
@@ -81,6 +82,7 @@ function updateEditor() {
         var syls = getSyllables(line[0].slice(0,flexI));
         var index = syls.length - 1;
         syls[index].punctuation += ' ' + sym_flex;
+        syls[index].space = "";
         var sylcount = syls[index].word.length;
         index -= sylcount - 1;
         while((syls.length - index) < 3) {
@@ -96,8 +98,14 @@ function updateEditor() {
             break;
           }
         }
-        var toneNext = 'g';
+        var clef = (_clef[0] == "f")? 4 : 0;
+        clef += (parseInt(_clef[1]) * 2) + 1;
+        var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
+        var code = toneTenor.charCodeAt(0);
+        code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
+        var toneNext = String.fromCharCode(code);
         gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneNext + "r " + toneNext + ".");
+        gabc = gabc.slice(0,-1) + new Array(4).join(" " + toneTenor) + ")";
         flex = true;
       }
     }
@@ -128,6 +136,7 @@ function updateEndings() {
   var tone = $("#selTones")[0].value;
   var endings = getEndings(tone);
   var t = g_tones[tone];
+  _clef = t.clef;
   var vgabc = t.mediant + "\n";
   if(endings.length == 0) {
     vgabc += t.termination;
