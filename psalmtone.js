@@ -12,6 +12,8 @@ var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var sym_flex = '†';
 var sym_med = '*';
+var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in saécula sæculórum. Amen.";
+var gloria_patri_end_vowels = "E u o* u a e.";
 var algorithmTwoBefore = true; //count as an accent the syllable two prior to the next accent
 var algorithmTwoAfter = false; //count as an accent the syllable two after the last accent
 var bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
@@ -151,10 +153,13 @@ function getTones() {
   return tones;
 }
 
-function applyPsalmTone(text,gabc,useOpenNotes) {
+function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
   var bi = bi_formats.html;
   if(useOpenNotes == undefined) {
     useOpenNotes = true;
+  }
+  if(useBoldItalic == undefined) {
+    useBoldItalic = true;
   }
   var openCount = 0;
   var italiciseIntonation = false;
@@ -176,7 +181,11 @@ function applyPsalmTone(text,gabc,useOpenNotes) {
       }
       if(lastOpen && lastOpen.accent) {
         while(!s.accent) {
-          r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation + tone.gabcClosed + s.space);
+          if(useBoldItalic) {
+            r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation + tone.gabcClosed + s.space);
+          } else {
+            r.push(s.syl + s.punctuation + tone.gabcClosed + s.space);
+          }
           --si;
           s = syl[si];
         }
@@ -188,7 +197,11 @@ function applyPsalmTone(text,gabc,useOpenNotes) {
           r.push(tone.gabcClosed);
         }
         if(s.accent) {
-          r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation);
+          if(useBoldItalic) {
+            r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation);
+          } else {
+            r.push(s.syl + s.punctuation);
+          }
           lastAccentI = si;
         } else {
           r.push(s.syl + s.punctuation);
@@ -246,7 +259,11 @@ function applyPsalmTone(text,gabc,useOpenNotes) {
         lastOpen = tone;
         openCount = 0;
       }
-      r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation + tone.gabc + s.space);
+      if(useBoldItalic) {
+        r.push(bi.bold[0] + s.syl + bi.bold[1] + s.punctuation + tone.gabc + s.space);
+      } else {
+        r.push(s.syl + s.punctuation + tone.gabc + s.space);
+      }
       if(!lastOpen) {
         lastAccentI = si;
       }
@@ -266,7 +283,7 @@ function applyPsalmTone(text,gabc,useOpenNotes) {
         lastOpen = undefined;
       }
       r.push(s.punctuation + tone.gabc + s.space);
-      if(!italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti)))) {
+      if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti)))) {
         italic = true;
       }
       if(italic) {

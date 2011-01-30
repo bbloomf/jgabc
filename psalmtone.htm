@@ -105,7 +105,7 @@ function updateEditor() {
         code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
         var toneNext = String.fromCharCode(code);
         gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneNext + "r " + toneNext + ".");
-        gabc = gabc.slice(0,-1) + new Array(4).join(" " + toneTenor) + ")";
+        gabc = gabc.slice(0,-1) + new Array(4).join(" " + toneTenor) + "  ::)";
         flex = true;
       }
     }
@@ -116,6 +116,9 @@ function updateEditor() {
       + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, 'html'))
       + "</p>");
   }
+  try {
+    gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false);
+  } catch(e) { }
   $("#editor")[0].value = gabc;
   $("#editor").keyup();
   $("#verses")[0].innerHTML = r.join('');
