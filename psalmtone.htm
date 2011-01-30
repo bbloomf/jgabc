@@ -80,7 +80,7 @@ function updateEditor() {
       if(flexI >= 0) {
         var syls = getSyllables(line[0].slice(0,flexI));
         var index = syls.length - 1;
-        //syls[index].punctuation += ' ' + sym_flex;
+        syls[index].punctuation += ' ' + sym_flex;
         var sylcount = syls[index].word.length;
         index -= sylcount - 1;
         while((syls.length - index) < 3) {
