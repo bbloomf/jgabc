@@ -1,4 +1,4 @@
-﻿/*   Words known to parse incorrectly
+/*   Words known to parse incorrectly
 Ju-stus
 Re-ctis
 tabe-scet
@@ -172,7 +172,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
   var italic=false;
   var lastAccentI = si + 1;
   
-  for(var ti = tones.length - 1; ti >= 0; --ti,--si) {
+  for(var ti = tones.length - 1; ti >= 0 && si >= 0; --ti,--si) {
     var tone = tones[ti];
     var s = syl[si];
     if(tone.open) {
@@ -216,12 +216,12 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
       italic = false;
       if(lastOpen) {
         var originalSi = si;
-        while(!s.accent) {
+        while(s && !s.accent) {
           --si;
           s = syl[si];
         }
         var countToNext = lastAccentI - si;
-        if(countToNext > 3) {
+        if(countToNext > 3 || si < 0) {
           if(algorithmTwoAfter) {
             while(countToNext > 3) {
               si += 2;
