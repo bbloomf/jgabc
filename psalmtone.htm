@@ -89,7 +89,15 @@ function updateEditor() {
           index -= sylcount - 1;
         }
         syls.splice(0,index);
-        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,"f fr 'f er e.");
+        var toneTenor;
+        for(var x = 0; x < medTones.tones.length; ++x) {
+          if(medTones.tones[x].open) {
+            toneTenor = medTones.tones[x].all[0];
+            break;
+          }
+        }
+        var toneNext = 'g';
+        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneNext + "r " + toneNext + ".");
         flex = true;
       }
     }
