@@ -48,8 +48,6 @@ function updateEditor() {
   var gTermination = gabcs.length == 1? "" : gabcs[1];
   var firstLine = lines[0].split(' * ');
   var gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
-  $("#editor")[0].value = gabc;
-  $("#editor").keyup();
   
   var medTones = getGabcTones(gMediant);
   var terTones = getGabcTones(gTermination);
@@ -74,15 +72,36 @@ function updateEditor() {
     }
   }
   var r = [];
+  var flex = false;
   for(var i=1; i<lines.length; ++i) {
     var line = lines[i].split(' * ');
-	r.push("<p style='margin: 6pt 0px;'>" +
-  //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
-  "&#09;"+ String(i+1) + "."
-		+ addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, 'html')
-		+ (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, 'html'))
-		+ "</p>");
+    if(!flex) {
+      var flexI = line[0].indexOf(sym_flex);
+      if(flexI >= 0) {
+        var syls = getSyllables(line[0].slice(0,flexI));
+        var index = syls.length - 1;
+        //syls[index].punctuation += ' ' + sym_flex;
+        var sylcount = syls[index].word.length;
+        index -= sylcount - 1;
+        while((syls.length - index) < 3) {
+          --index;
+          sylcount = syls[index].word.length;
+          index -= sylcount - 1;
+        }
+        syls.splice(0,index);
+        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,"f fr 'f er e.");
+        flex = true;
+      }
+    }
+    r.push("<p style='margin: 6pt 0px;'>" +
+    //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
+    "&#09;"+ String(i+1) + "."
+      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, 'html')
+      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, 'html'))
+      + "</p>");
   }
+  $("#editor")[0].value = gabc;
+  $("#editor").keyup();
   $("#verses")[0].innerHTML = r.join('');
 }
 

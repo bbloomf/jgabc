@@ -88,7 +88,8 @@ function syllable(match) {
           separator: match[3], // - or *
           punctuation: match[4]? (match[4]==":"? " :" : match[4]) : "",
           space: match[5],
-          accent: match[3] == '*' || regexAccent.test(match[2])
+          accent: match[3] == '*' || regexAccent.test(match[2]),
+          word: undefined
          };
 }
 function toneGabc(match) {
@@ -139,9 +140,11 @@ function getTones() {
   return tones;
 }
 
-function applyPsalmTone(text,gabc) {
+function applyPsalmTone(text,gabc,useOpenNotes) {
   var bi = bi_formats.html;
-  var useOpenNotes = true;
+  if(useOpenNotes == undefined) {
+    useOpenNotes = true;
+  }
   var openCount = 0;
   var italiciseIntonation = false;
   var syl = getSyllables(text);
@@ -315,6 +318,9 @@ function getGabcTones(gabc) {
 }
 
 function getSyllables(text) {
+  if(typeof(text)!="string") {
+    return text;
+  }
   var syl = [];
   var match;
   while(match=regexLatin.exec(text)) {
@@ -332,6 +338,7 @@ function getWords(syls) {
   for(var i = 0; i < len; ++i) {
     var syl = syls[i];
     curWord.push(syl);
+    syl.word = curWord;
     if(syl.accent) ++curWordAccents;
     if(i == (len - 1) || (syl.space && syl.space.length > 0)) {
       if(curWordAccents == 0) {
