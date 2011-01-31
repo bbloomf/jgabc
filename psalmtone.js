@@ -33,7 +33,7 @@ var g_tones = {'1':{clef:"c4",
                                }
                  },
              '2':{clef:"f3",
-                  mediant:"e f h hr 'i hr h.",
+                  mediant:"e f hr 'i hr h.",
                   termination:"h hr g 'e fr f."
                  },
              '3':{clef:"c4",
@@ -60,7 +60,7 @@ var g_tones = {'1':{clef:"c4",
                                    }
                      },
              '5':{clef:"c3",
-                  mediant:"d f h hr 'i hr h.",
+                  mediant:"d f hr 'i hr h.",
                   termination:"h hr 'i gr 'h fr f."
                  },
              '6':{clef:"c4",
@@ -170,6 +170,9 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
   var lastOpen;
   var italic=false;
   var lastAccentI = si + 1;
+  if(toneList.intonation > 0 && syl.length < tones.length) {
+    tones.splice(toneList.intonation + 1, tones.length - toneList.intonation - 1);
+  }
   
   for(var ti = tones.length - 1; ti >= 0 && si >= 0; --ti,--si) {
     var tone = tones[ti];
@@ -306,14 +309,14 @@ function getGabcTones(gabc) {
   var preparatory = 0;
   var afterLastAccent = 0;
   var state=3;
-  var isOpen = false;
+  var lastOpen = undefined;
   for(var i=tones.length - 1; i>=0; --i) {
     var ton = tones[i];
     if(ton.accent) {
       ++accents;
       state = 1;
-      if(isOpen) {
-        isOpen = false;
+      if(lastOpen) {
+        lastOpen = undefined;
       } else if(tones[i-1].open) {
         --i;
       }
@@ -323,17 +326,18 @@ function getGabcTones(gabc) {
         afterLastAccent = 0;
         state = 2;
       }
-      isOpen = true;
+      lastOpen = ton;
     } else if(state==3) {
       afterLastAccent++;
     } else if(state==1) {
-      if(!isOpen) {
+      if(!lastOpen) {
         ++preparatory;
       } else {
-        ++intonation;
+        if(intonation > 0 || ton.gabcClosed != lastOpen.gabcClosed)
+          ++intonation;
         continue;
       }
-      isOpen = false;
+      lastOpen = undefined;
     }
   }
   return {tones: tones,
