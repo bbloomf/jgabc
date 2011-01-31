@@ -104,7 +104,7 @@ function updateEditor() {
         var code = toneTenor.charCodeAt(0);
         code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
         var toneNext = String.fromCharCode(code);
-        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneNext + "r " + toneNext + ".");
+        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneNext + "r " + toneNext + ".",false,false);
         gabc = gabc.slice(0,-1) + new Array(4).join(" " + toneTenor) + "  ::)";
         flex = true;
       }
