@@ -6,8 +6,7 @@ per-i-bit
 us-que
 in-opem
 */
-//var regexLatin = /((?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n|(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lr]|sc[ei]|[sc]t[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?=\s|$))?)(\s*|$)/gi;
-var regexLatin = /((?:\s+(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n)|(?:\s*(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lrh]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?))))(?:([\*-])|([^\w\sáéíóúý]+(?:\s†)?(?=\s|$))?)(?=(\s*|$))/gi;
+var regexLatin = /(?:\s*)(((?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n)|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lrh]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]+(?:\s†)?(?=\s|$))?)(?=(\s*|$)))/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var sym_flex = '†';
@@ -95,13 +94,13 @@ var g_tones = {'1':{clef:"c4",
             };
 function syllable(match) {
   return {index: match.index,
-          all: match[0],
-          syl: match[1],
-          vowel: match[2],
-          separator: match[3], // - or *
-          punctuation: match[4]? (match[4][0]==":"? " " + match[4] : match[4]) : "",
-          space: match[5],
-          accent: match[3] == '*' || regexAccent.test(match[2]),
+          all: match[1],
+          syl: match[2],
+          vowel: match[3],
+          separator: match[4], // - or *
+          punctuation: match[5]? (match[5][0]==":"? " " + match[5] : match[5]) : "",
+          space: match[6],
+          accent: match[4] == '*' || regexAccent.test(match[2]),
           word: undefined
          };
 }
