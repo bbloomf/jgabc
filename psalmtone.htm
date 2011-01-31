@@ -98,8 +98,8 @@ function updateEditor() {
             break;
           }
         }
-        var clef = (_clef[0] == "f")? 4 : 0;
-        clef += (parseInt(_clef[1]) * 2) + 1;
+        var clef = (_clef[0] == "f")? 6 : 1;
+        clef += (parseInt(_clef[1]) * 2);
         var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
         var code = toneTenor.charCodeAt(0);
         code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
