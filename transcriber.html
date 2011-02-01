@@ -1,0 +1,98 @@
+<script src="jquery.min.js" type="text/javascript"></script>
+<script src="jgabc.js"></script>
+<script src="psalmtone.js"></script>
+Verse GABC<br><textarea id="hymngabc" style="height: 50pt; width: 95%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea>
+<br>Hymn Text<br><textarea id="hymntext" style="height: 110pt; width: 95%;">Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea>
+<br><br>Hymn GABC<br><textarea height="50%" id="editor" style="height: 220pt; width: 95%;"></textarea>
+<div height="50%" id="chant-preview" style="width: 95%;padding: 0 6pt 0 6pt">
+</div>
+<script>
+var regexGabc = /(([`,;:]+)|(\S+))(?:\s+|$)/g;
+String.prototype.repeat = function( num )
+{
+    return new Array( num + 1 ).join( this );
+}
+function applyGabc() {
+  var result = [];
+  var match;
+  var iG = 0;
+  var iT = 0;
+  var newLines = 0;
+  for(i in syl) {
+    if(newLines > 0) {
+      result.push("\n".repeat(newLines));
+      newLines = 0;
+    }
+    var cSyl = syl[i];
+    var cGabc = gSyl[iG++];
+    result.push(cSyl.syl);
+    if(cSyl.punctuation.length > 0 && cSyl.punctuation != ":")
+      result.push(cSyl.punctuation);
+    result.push(cGabc.gabc);
+    if(cSyl.punctuation == ":")
+      result.push(" :");
+    if(iG >= gSyl.length)
+      iG = 0;
+    cGabc = gSyl[iG];
+    while(!cGabc.hasSyllable) {
+      result.push(cGabc.gabc);
+      //newLines = 1;
+      ++iG;
+      if(iG >= gSyl.length) {
+        iG = 0;
+        //++newLines;
+      }
+      cGabc = gSyl[iG];
+    }
+    if(cSyl.space.length > 0)
+      result.push(cSyl.space);
+  }
+  return result.join('');
+}
+
+var gSyl;
+var syl;
+
+function updateEditor() {
+  if(!gSyl) gSyl = splitGabc($("#hymngabc")[0].value);
+  if(!syl)  syl = splitText($("#hymntext")[0].value);
+
+  $("#editor")[0].value = applyGabc();
+  $("#editor").keyup();
+}
+
+function splitGabc(gabc) {
+  var gSyl = [];
+  while((match = regexGabc.exec(gabc))) {
+    gSyl.push({match: match,
+               hasSyllable: match[3],
+               gabc: '(' + match[1] + ')'
+              });
+  }
+  return gSyl;
+}
+
+function splitText(text) {
+  var syl = [];
+  while((match = regexLatin.exec(text))) {
+    syl.push(syllable(match));
+  }
+  return syl;
+}
+
+function updateGabc() {
+  gSyl = splitGabc($("#hymngabc")[0].value);
+  updateEditor();
+}
+
+function updateText() {
+  syl = splitText($("#hymntext")[0].value);
+  updateEditor();
+}
+
+$(function() {
+  $("#hymngabc").keyup(updateGabc);
+  $("#hymntext").keyup(updateText);
+  updateEditor();
+});
+</script>
