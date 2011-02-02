@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Psalm Tone Tool</title>
-	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="jquery-1.5.js"></script>
 
 	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>-->
 
@@ -14,10 +14,10 @@
 <a href="transcriber.html">GABC Transcription Tool</a>
 <br/><br/>
 Tone: <select id="selTones"></select><select id="selEnd"></select><br/>
-Verse GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
+Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
-Verse Text<br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
+Psalm <select id="selPsalm"></select><br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
 Magna ópera Dómini: * exquisíta in omnes voluntátes ejus.
 Conféssio et magnificéntia opus ejus: * et justítia ejus manet in sæculum sæculi.
 Memóriam fecit mirabílium suórum, miséricors et miserátor Dóminus: * escam dedit timéntibus se.
@@ -76,6 +76,10 @@ function updateEditor() {
   var flex = false;
   for(var i=1; i<lines.length; ++i) {
     var line = lines[i].split(' * ');
+    if(line.length == 3) {
+      var temp = line.splice(0,2);
+      line.splice(0,0,temp.join(' ' + sym_flex + ' '));
+    }
     if(!flex) {
       var flexI = line[0].indexOf(sym_flex);
       if(flexI >= 0) {
@@ -161,23 +165,39 @@ function updateEnding() {
   updateEditor();
 }
 
+function getPsalms() {
+  var r = Array(150);
+  for(var i=1; i <= 150; ++i) {
+    r[i-1] = i;
+  }
+  return r;
+}
+
+function updatePsalm() {
+  var psalmNum = $("#selPsalm")[0].value;
+  var t = $.ajax({url:"psalms/" + ("00" + psalmNum).slice(-3),
+    success: function(data) {
+      $("#versetext")[0].value = data;
+    },
+    complete: function(jqXHR, textStatus) {
+      $("#versetext")[0].value = t.responseText;
+    },
+    dataType:"text"});
+}
+
 $(function() {
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
+  $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateGabc);
   $("#versetext").keyup(updateText);
   $("#selTones").change(updateEndings);
   $("#selEnd").change(updateEnding);
+  $("#selPsalm").change(updatePsalm);
+  $("#selPsalm")[0].value = "109";
+  updatePsalm();
   updateEndings();
   updateEditor();
 });
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
