@@ -33,16 +33,13 @@ function applyGabc() {
     var cSyl = syl[i];
     var cGabc = gSyl[iG++];
     result.push(cSyl.syl);
-    if(cSyl.punctuation.length > 0 && cSyl.punctuation != ":")
-      result.push(cSyl.punctuation);
+    if(cSyl.punctuation.length > 0) result.push(cSyl.punctuation);
     result.push(cGabc.gabc);
-    if(cSyl.punctuation == ":")
-      result.push(" :");
     if(iG >= gSyl.length)
       iG = 0;
     cGabc = gSyl[iG];
     while(!cGabc.hasSyllable) {
-      result.push(cGabc.gabc);
+      result.push(" " + cGabc.gabc);
       //newLines = 1;
       ++iG;
       if(iG >= gSyl.length) {
