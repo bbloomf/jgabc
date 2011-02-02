@@ -1,4 +1,5 @@
 ﻿// lower-staff ext: 0xe1, upper: 0xe2
+var _local;
 var indices = {
 	flat: 0xE0F1, // these only exist for spaces (acegikm)
 	natural: 0xE0F9, // ditto
