@@ -452,29 +452,37 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format) {
   }
   return result.reverse().join('');
 }
+function normalizePsalm(text) {
+  var i = text.length;
+  while(i >= 0) {
+    var code = text.charCodeAt(--i);
+    if(code != 10 && code != 13) break;
+  }
+  text = text.slice(0,i) + "\n" + gloria_patri;
+  return text;
+}
 function getPsalm(psalmNum, success) {
-  var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/") + "psalms/" + ("00" + psalmNum).slice(-3),
+  var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/web-") + "psalms/" + ("00" + psalmNum).slice(-3),
     type: "GET",
     crossDomain: _local?false : true,
     success: function(data) {
       if(data.responseText != undefined) {
         var temp = $(data.responseText);
-        data = temp[temp.length - 2].innerText;
+        temp = temp[temp.length - 2].innerHTML.split('\n');
+        for(var i in temp) {
+          temp[i] = temp[i].trim();
+        }
+        data = temp.join(' ').replace(/\s*<br>\s*/g,"\n");
+        if(data.charCodeAt(0) == 65279) data = data.slice(1);
       }
       if(data) {
-        success(data);
+        success(normalizePsalm(data));
       }
     },
     complete: function(jqXHR, textStatus) {
       if((t != undefined && t.responseText != undefined && t.responseText === "") || textStatus == "error") return;
       var text = t.responseText;
-      var i = text.length;
-      while(i >= 0) {
-        var code = text.charCodeAt(--i);
-        if(code != 10 && code != 13) break;
-      }
-      text = text.slice(0,i) + "\n" + gloria_patri;
-      success(text);
+      success(normalizePsalm(text));
     },
     dataType:_local?"text" : "text"});
 }
