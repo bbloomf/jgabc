@@ -454,12 +454,19 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format) {
 }
 function getPsalm(psalmNum, success) {
   var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/") + "psalms/" + ("00" + psalmNum).slice(-3),
+    type: "GET",
     crossDomain: _local?false : true,
     success: function(data) {
-      if(data) $("#versetext")[0].value = data;
+      if(data.responseText != undefined) {
+        var temp = $(data.responseText);
+        data = temp[temp.length - 2].innerText;
+      }
+      if(data) {
+        success(data);
+      }
     },
     complete: function(jqXHR, textStatus) {
-      if((t && t.responseText == "") || textStatus == "error") return;
+      if((t != undefined && t.responseText != undefined && t.responseText === "") || textStatus == "error") return;
       var text = t.responseText;
       var i = text.length;
       while(i >= 0) {
