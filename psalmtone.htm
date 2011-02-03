@@ -29,8 +29,7 @@ Sanctum, et terríbile nomen ejus: * inítium sapiéntiæ timor Dómini.
 Intelléctus bonus ómnibus faciéntibus eum: * laudátio ejus manet in sæculum sæculi.
 Glória Patri, et Fílio, * et Spirítui Sancto.
 Sicut erat in princípio, et nunc, et semper, * et in sæcula sæculórum. Amen.</textarea>
-<br/>
-GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
+<br/>GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%;padding: 0 6pt 0 6pt">
 </div>
 <div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
@@ -175,22 +174,10 @@ function getPsalms() {
 
 function updatePsalm() {
   var psalmNum = $("#selPsalm")[0].value;
-  var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/") + "psalms/" + ("00" + psalmNum).slice(-3),
-    success: function(data) {
-      $("#versetext")[0].value = data;
-    },
-    complete: function(jqXHR, textStatus) {
-      var text = t.responseText;
-      var i = text.length;
-      while(i >= 0) {
-        var code = text.charCodeAt(--i);
-        if(code != 10 && code != 13) break;
-      }
-      text = text.slice(0,i) + "\n" + gloria_patri;
-      $("#versetext")[0].value = text;
-      updateText();
-    },
-    dataType:"text"});
+  getPsalm(psalmNum,function(text) {
+    $("#versetext")[0].value = text;
+    updateText();
+  });
 }
 
 $(function() {
