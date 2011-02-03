@@ -456,7 +456,7 @@ function getPsalm(psalmNum, success) {
   var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/") + "psalms/" + ("00" + psalmNum).slice(-3),
     crossDomain: _local?false : true,
     success: function(data) {
-      $("#versetext")[0].value = data;
+      if(data) $("#versetext")[0].value = data;
     },
     complete: function(jqXHR, textStatus) {
       if((t && t.responseText == "") || textStatus == "error") return;
@@ -469,7 +469,7 @@ function getPsalm(psalmNum, success) {
       text = text.slice(0,i) + "\n" + gloria_patri;
       success(text);
     },
-    dataType:_local?"text" : "script"});
+    dataType:_local?"text" : "text"});
 }
 window['getPsalm'] = getPsalm;
 window['getPsalmTones'] = getPsalmTones;
