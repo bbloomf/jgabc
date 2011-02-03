@@ -454,11 +454,12 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format) {
 }
 function getPsalm(psalmNum, success) {
   var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/") + "psalms/" + ("00" + psalmNum).slice(-3),
+    crossDomain: _local?false : true,
     success: function(data) {
       $("#versetext")[0].value = data;
     },
     complete: function(jqXHR, textStatus) {
-      if(textStatus == "error") return;
+      if((t && t.responseText == "") || textStatus == "error") return;
       var text = t.responseText;
       var i = text.length;
       while(i >= 0) {
@@ -468,7 +469,7 @@ function getPsalm(psalmNum, success) {
       text = text.slice(0,i) + "\n" + gloria_patri;
       success(text);
     },
-    dataType:"text"});
+    dataType:_local?"text" : "script"});
 }
 window['getPsalm'] = getPsalm;
 window['getPsalmTones'] = getPsalmTones;
