@@ -17,7 +17,7 @@ Tone: <select id="selTones"></select><select id="selEnd"></select><br/>
 Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
-Psalm <select id="selPsalm"></select><br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
+<br/>Psalm <select id="selPsalm"></select><br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
 Magna ópera Dómini: * exquisíta in omnes voluntátes ejus.
 Conféssio et magnificéntia opus ejus: * et justítia ejus manet in sæculum sæculi.
 Memóriam fecit mirabílium suórum, miséricors et miserátor Dóminus: * escam dedit timéntibus se.
@@ -175,12 +175,20 @@ function getPsalms() {
 
 function updatePsalm() {
   var psalmNum = $("#selPsalm")[0].value;
-  var t = $.ajax({url:"psalms/" + ("00" + psalmNum).slice(-3),
+  var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/") + "psalms/" + ("00" + psalmNum).slice(-3),
     success: function(data) {
       $("#versetext")[0].value = data;
     },
     complete: function(jqXHR, textStatus) {
-      $("#versetext")[0].value = t.responseText;
+      var text = t.responseText;
+      var i = text.length;
+      while(i >= 0) {
+        var code = text.charCodeAt(--i);
+        if(code != 10 && code != 13) break;
+      }
+      text = text.slice(0,i) + "\n" + gloria_patri;
+      $("#versetext")[0].value = text;
+      updateText();
     },
     dataType:"text"});
 }
