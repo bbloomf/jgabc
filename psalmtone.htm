@@ -93,21 +93,8 @@ function updateEditor() {
           index -= sylcount - 1;
         }
         syls.splice(0,index);
-        var toneTenor;
-        for(var x = 0; x < medTones.tones.length; ++x) {
-          if(medTones.tones[x].open) {
-            toneTenor = medTones.tones[x].all[0];
-            break;
-          }
-        }
-        var clef = (_clef[0] == "f")? 6 : 1;
-        clef += (parseInt(_clef[1]) * 2);
-        var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
-        var code = toneTenor.charCodeAt(0);
-        code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
-        var toneNext = String.fromCharCode(code);
-        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneNext + "r " + toneNext + ".",false,false);
-        gabc = gabc.slice(0,-1) + new Array(4).join(" " + toneTenor) + "  ::)";
+        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,getFlexGabc(medTones),false,false);
+        gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
         flex = true;
       }
     }

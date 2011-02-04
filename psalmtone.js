@@ -153,6 +153,13 @@ function getTones() {
   return tones;
 }
 
+function getFlexGabc(mediant) {
+  if(typeof(mediant)=="string") mediant = getGabcTones(mediant);
+  var toneTenor = mediant.toneTenor;
+  var toneFlex = mediant.toneFlex;
+  return toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneFlex + "r " + toneFlex + ".";
+}
+
 function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
   var bi = bi_formats.html;
   if(useOpenNotes == undefined) {
@@ -278,8 +285,15 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
       }
     } else {
       if(lastOpen) {
+        var tenorUntilAccent = false;
         while(si > ti) {
-          r.push(s.syl + s.punctuation + lastOpen.gabcClosed + s.space);
+          if(s.punctuation.indexOf(sym_flex) > 0) {
+            r.push(s.syl + s.punctuation + "(" + toneList.toneFlex + ".)" + s.space);
+            tenorUntilAccent = "(" + toneList.toneFlex + ")";
+          } else {
+            tenorUntilAccent = tenorUntilAccent && !s.accent;
+            r.push(s.syl + s.punctuation + (tenorUntilAccent || lastOpen.gabcClosed) + s.space);
+          }
           --si;
           s = syl[si];
         }
@@ -311,6 +325,8 @@ function getGabcTones(gabc) {
   var afterLastAccent = 0;
   var state=3;
   var lastOpen = undefined;
+  var toneTenor;
+  var toneFlex;
   for(var i=tones.length - 1; i>=0; --i) {
     var ton = tones[i];
     if(ton.accent) {
@@ -323,6 +339,7 @@ function getGabcTones(gabc) {
       }
     }
     else if(ton.open) {
+      toneTenor = ton.all[0];
       if(state==3) {
         afterLastAccent = 0;
         state = 2;
@@ -341,11 +358,21 @@ function getGabcTones(gabc) {
       lastOpen = undefined;
     }
   }
+  if(toneTenor) {
+    var clef = (_clef[0] == "f")? 6 : 1;
+    clef += (parseInt(_clef[1]) * 2);
+    var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
+    var code = toneTenor.charCodeAt(0);
+    code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
+    var toneFlex = String.fromCharCode(code);
+  }
   return {tones: tones,
           intonation: intonation,
           accents: accents,
           preparatory: preparatory,
-          afterLastAccent: afterLastAccent
+          afterLastAccent: afterLastAccent,
+          toneTenor: toneTenor,
+          toneFlex: toneFlex
          };
 }
 
