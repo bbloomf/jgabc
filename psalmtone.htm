@@ -190,10 +190,13 @@ $(function() {
   $("#versegabc").keyup(updateGabc);
   $("#versetext").keyup(updateText);
   $("#selTones").change(updateEndings);
+  $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEndings);
   $("#selEnd").change(updateEnding);
+  $("#selEnd").keyup(updateEnding);
   $("#selPsalm").change(updatePsalm);
-  $("#selPsalm")[0].value = "109";
+  if(_local) $("#selPsalm").keyup(updatePsalm);
+  $("#selPsalm")[0].value = "Magnificat";
   updatePsalm();
   updateEndings();
   updateEditor();
