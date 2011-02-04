@@ -12,7 +12,7 @@
 <body>
 <a href="transcriber.html">GABC Transcription Tool</a>
 <br/><br/>
-Tone: <select id="selTones"></select><select id="selEnd"></select><br/>
+Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
 Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
@@ -142,7 +142,9 @@ function updateEndings() {
   var endings = getEndings(tone);
   var t = g_tones[tone];
   _clef = t.clef;
-  var vgabc = t.mediant + "\n";
+  var vgabc = $("#cbSolemn")[0].checked? t.solemn : t.mediant;
+  if(vgabc == undefined) vgabc = t.mediant;
+  vgabc += "\n";
   if(endings.length == 0) {
     vgabc += t.termination;
   } else {
@@ -157,17 +159,20 @@ function updateEndings() {
 function updateEnding() {
   var tone = $("#selTones")[0].value;
   var t = g_tones[tone];
-  var vgabc = t.mediant + "\n" + t.terminations[$("#selEnd")[0].value];
+  var vgabc = $("#cbSolemn")[0].checked? t.solemn : t.mediant;
+  if(vgabc == undefined) vgabc = t.mediant;
+  vgabc += "\n" + t.terminations[$("#selEnd")[0].value];
   $("#versegabc")[0].value = vgabc;
   gSyl = vgabc;
   updateEditor();
 }
 
 function getPsalms() {
-  var r = Array(150);
+  var r = Array(151);
   for(var i=1; i <= 150; ++i) {
     r[i-1] = i;
   }
+  r[150] = "Magnificat";
   return r;
 }
 
@@ -185,6 +190,7 @@ $(function() {
   $("#versegabc").keyup(updateGabc);
   $("#versetext").keyup(updateText);
   $("#selTones").change(updateEndings);
+  $("#cbSolemn").change(updateEndings);
   $("#selEnd").change(updateEnding);
   $("#selPsalm").change(updatePsalm);
   $("#selPsalm")[0].value = "109";
