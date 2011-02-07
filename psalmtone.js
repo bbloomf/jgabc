@@ -1,4 +1,4 @@
-﻿var regexLatin = /(?:\s*)(((?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n)|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúý]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúý])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]*(?:\s[:†\*])*(?=\s|$))?)(?=(\s*|$)))/gi;
+﻿var regexLatin = /(?:\s*)(((?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n)|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáéíóúý]*(?:\s[:†\*])*(?=\s|$))?)(?=(\s*|$)))/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var sym_flex = '†';
@@ -291,7 +291,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
             r.push(s.syl + s.punctuation + "(" + toneList.toneFlex + ".)" + s.space);
             tenorUntilAccent = "(" + toneList.toneFlex + ")";
           } else {
-            tenorUntilAccent = tenorUntilAccent && !s.accent;
+            tenorUntilAccent = !s.accent && tenorUntilAccent;
             r.push(s.syl + s.punctuation + (tenorUntilAccent || lastOpen.gabcClosed) + s.space);
           }
           --si;
@@ -523,6 +523,14 @@ function getPsalm(psalmNum, success) {
       success(normalizePsalm(text));
     },
     dataType:_local?"text" : "text"});
+}
+function splitLine(oLine) {
+  var line = oLine.split(' * ');
+  if(line.length == 3) {
+    var temp = line.splice(0,2);
+    line.splice(0,0,temp.join(' ' + sym_flex + ' '));
+  }
+  return line;
 }
 window['getPsalm'] = getPsalm;
 window['getPsalmTones'] = getPsalmTones;

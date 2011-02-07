@@ -45,8 +45,9 @@ function updateEditor() {
   var gabcs = gSyl.split('\n');
   var gMediant = gabcs[0];
   var gTermination = gabcs.length == 1? "" : gabcs[1];
-  var firstLine = lines[0].split(' * ');
+  var firstLine = splitLine(lines[0]);
   var gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
+  var flex = (firstLine[0].indexOf(sym_flex) >= 0);
   
   var medTones = getGabcTones(gMediant);
   var terTones = getGabcTones(gTermination);
@@ -71,13 +72,8 @@ function updateEditor() {
     }
   }
   var r = [];
-  var flex = false;
   for(var i=1; i<lines.length; ++i) {
-    var line = lines[i].split(' * ');
-    if(line.length == 3) {
-      var temp = line.splice(0,2);
-      line.splice(0,0,temp.join(' ' + sym_flex + ' '));
-    }
+    var line = splitLine(lines[i]);
     if(!flex) {
       var flexI = line[0].indexOf(sym_flex);
       if(flexI >= 0) {
