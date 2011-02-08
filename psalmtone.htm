@@ -33,9 +33,8 @@ Sicut erat in princípio, et nunc, et semper, * et in sæcula sæculórum. Amen.</te
 </div>
 <div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
 <script>
-var gSyl;
-var syl;
-var _clef;
+if(location.search.match(/dominican/i))g_tones=d_tones;
+var gSyl,syl,_clef;
 
 function updateEditor() {
   if(!gSyl) gSyl = $("#versegabc")[0].value;
