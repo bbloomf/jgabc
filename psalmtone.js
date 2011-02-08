@@ -93,6 +93,67 @@ var g_tones = {'1':{clef:"c4",
                      termination:"g gr d 'f fr ed.."
                     }
             };
+var d_tones = {'1':{clef:"c4",
+                  mediant:"f gh hr 'ixi hr 'g hr h",
+                  solemn:"f gh hr hg ixgi h hr 'hg gh",
+                  terminations:{'D':"h hr g f 'gh gr gvFED",
+                                'g':"h hr g f 'gh gr g",
+                                'a':"h hr g f 'g hr h"
+                               }
+                 },
+             '2':{clef:"f3",
+                  mediant:"e f hr 'i hr h",
+                  solemn:"e fe eh hr hg hi i 'hi hr h",
+                  termination:"h hr g 'e fr f"
+                 },
+             '3':{clef:"c4",
+                  mediant:"g hj jr 'k jr jr 'ih j",
+                  solemn:"g hj jr 'jk jr jr 'ih hj",
+                  terminations:{'a':"j jr h 'j jr ih",
+                                'a2':"j jr ji hi 'h gr gh"
+                               }
+                 },
+             '4':{clef:"c4",
+                  mediant:"h gh hr g h 'i hr h",
+                  solemn:"h gh hr hg gi i 'hi hr h",
+                  terminations:{'E':"h hr g h ih gr 'gf e"
+                               }
+                 },
+             '4 alt':{clef:"c3",
+                      mediant:"i hi ir h i 'j ir i",
+                      solemn:"i hi ir ih hj j 'ij ir i",
+                      terminations:{'A':"i ir h i j 'h fr f"
+                                   }
+                     },
+             '5':{clef:"c3",
+                  mediant:"d f hr 'i hr h",
+                  solemn:"d f hr i 'i hr h",
+                  termination:"h hr 'i gr 'h fr f"
+                 },
+             '6':{clef:"c4",
+                  mediant:"f gh hr 'ixi hr 'g hr h",
+                  solemn:"f gh hr hg ixgi h hr 'hg gh",
+                  termination:"h hr f gh 'g fr f"
+                 },
+             '7':{clef:"c3",
+                  mediant:"hg hi ir 'k jr 'i jr j",
+                  solemn:"ehg hi ir 'ik jr jr 'ji ij",
+                  terminations:{'a':"i ir 'j ir 'h hr gf",
+                                'd':"i ir 'j ir 'h hr gi"
+                               }
+                 },
+             '8':{clef:"c4",
+                  mediant:"g h jr 'k jr j",
+                  solemn:"g hg gj jr ji jk k 'jk jr j",
+                  terminations:{'G':"j jr i j 'h gr g",
+                                'c':"j jr h j 'k jr j"
+                               }
+                 },
+             'per.':{clef:"c4",
+                     mediant:"ixhi hr ixi h 'g fr f",
+                     termination:"g gr d 'f fr ed"
+                    }
+            };
 function syllable(match) {
   return {index: match.index,
           all: match[1],
@@ -300,7 +361,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
         lastOpen = undefined;
       }
       r.push(s.punctuation + tone.gabc + s.space);
-      if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti)))) {
+      if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))))) {
         italic = true;
       }
       if(italic) {

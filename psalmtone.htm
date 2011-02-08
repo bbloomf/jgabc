@@ -134,6 +134,7 @@ function updateEndings() {
 	$("#selEnd").append('<option>' + endings.join('</option><option>') + '</option>');
 	vgabc += t.terminations[$("#selEnd")[0].value];
   }
+  $("#selEnd")[0].disabled = (endings.length <= 1);
   $("#versegabc")[0].value = vgabc;
   gSyl = vgabc;
   updateEditor();
@@ -168,6 +169,7 @@ function updatePsalm() {
 }
 
 $(function() {
+//g_tones = d_tones;
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateGabc);
