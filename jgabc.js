@@ -187,6 +187,7 @@ function getChant(text) {
 	var activeTags = [];
 	var tagsToPop = [];
 	var activeStyle = "";
+  var lastStyle = "";
 	addStaff(result,lineOffsets[line], line, null);
 	while(match = regexOuter.exec(text)) {
 		if(match[5]) {
@@ -303,7 +304,7 @@ function getChant(text) {
 			result.appendChild(use);
 		} else use = use2 = null;
 		if(match[3] || match[7]) {
-			
+			lastSyle = activeStyle;
 			lastSpan = span;
 			span = make('tspan');
 			var spanXoffset = xoffset;
@@ -321,6 +322,7 @@ function getChant(text) {
 			}
 			if(previousMatch && previousMatch[3] && !previousMatch[7]) {
 				defText.firstChild.data = lastSpan.firstChild.data;
+        defText.setAttribute("style", styleGoudy + lastStyle);
 				var lastXoffset = parseInt(lastSpan.getAttribute('x'),10);
 				var lastSpanX2 = lastXoffset + defText.getComputedTextLength();
 				if(lastSpanX2 < spanXoffset) {
@@ -337,6 +339,7 @@ function getChant(text) {
 						nextXoffsetChantMin += additionalOffset;
 					}
 				}
+        defText.setAttribute("style", styleGoudy + activeStyle);
 			}
 			span.setAttribute('x', spanXoffset);
 			span.setAttribute("style", activeStyle);
