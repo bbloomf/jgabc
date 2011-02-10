@@ -436,7 +436,7 @@ function getChantFragment(gabc) {
 			var lastTone = (i > 0)? tones[i-1]: null;
 			base = indices.punctum;
 			if(tone.diamond) {
-				base = 0xE113;
+				base = indices.diamond;
 				var di = Math.abs(tone.relativeTone);
 				if(lastTone && lastTone.diamond && di ==  1 || di == 2) {
 					if(newdata.length > 0) {
@@ -504,9 +504,27 @@ function getChantFragment(gabc) {
 				}
 			} else if(nextTone && !nextTone.diamond) {
 				// no modifers, and there is at least one more tone on the stack.
-				if(nextTone.relativeTone > 0 && nextTone.relativeTone <=4) {
-					base = indices.podatus[nextTone.relativeTone];
-					tonesInGlyph = 2;
+				if(nextTone.relativeTone > 0 && nextTone.relativeTone <=5) {
+          if(thirdTone && thirdTone.relativeTone < 0 && thirdTone.relativeTone >= -4) {
+            base = indices.punctum;
+            newdata += String.fromCharCode(base + tone.index);
+            //if(nextTone.relativeTone > 1) newdata += String.fromCharCode(indices.connecting_lines[nextTone.relativeTone-2] + tone.index);
+            //newdata += String.fromCharCode(base + nextTone.index);
+            //if(thirdTone.relativeTone < -1) newdata += String.fromCharCode(indices.connecting_lines[-thirdTone.relativeTone-2] + thirdTone.index);
+            //tone = thirdTone;
+            if(nextTone.relativeTone > 1) {
+              base = indices.clivis[-thirdTone.relativeTone];
+              tone = nextTone;
+            } else {
+              newdata += String.fromCharCode(base + nextTone.index);
+              tone = thirdTone;
+            }
+            tonesInGlyph = 3;
+            ++i;
+          } else if(nextTone.relativeTone <=5) {
+            base = indices.podatus[nextTone.relativeTone];
+            tonesInGlyph = 2;
+          }
 					++i;
 				} else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -4) {
 					if(thirdTone && thirdTone.relativeTone == 1) {
