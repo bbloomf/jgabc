@@ -85,6 +85,7 @@ function updateEditor() {
     }
   }
   var r = [];
+  if(useTeX) r.push("<code>");
   for(var i=1; i<lines.length; ++i) {
     var line = splitLine(lines[i]);
     if(!flex) {
@@ -114,6 +115,7 @@ function updateEditor() {
       + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useTeX? 'tex' : 'html'))
       + "</p>");
   }
+  if(useTeX) r.push("</code>");
   try {
     gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false);
   } catch(e) { }
