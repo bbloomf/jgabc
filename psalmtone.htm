@@ -12,22 +12,33 @@
 <body>
 <a href="transcriber.html">GABC Transcription Tool</a>
 <br/><br/>
-Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
+<style>
+.latex {
+  font-family: Times, "Times New Roman", serif;	
+  letter-spacing: 1px;
+}
+
+.latex sup {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85em;
+  vertical-align: 0.15em;
+  margin-left: -0.36em;
+  margin-right: -0.15em;
+}
+
+.latex sub {
+  text-transform: uppercase;
+  vertical-align: -0.5ex;
+  margin-left: -0.1667em;
+  margin-right: -0.125em;
+  font-size: 1em;
+}
+</style>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
 Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
-<br/>Psalm <select id="selPsalm"></select><br/><textarea id="versetext" style="height: 50pt; width: 95%;">Confitébor tibi, Dómine, in toto corde meo: * in consílio justórum, et congregatióne.
-Magna ópera Dómini: * exquisíta in omnes voluntátes ejus.
-Conféssio et magnificéntia opus ejus: * et justítia ejus manet in sæculum sæculi.
-Memóriam fecit mirabílium suórum, miséricors et miserátor Dóminus: * escam dedit timéntibus se.
-Memor erit in sæculum testaménti sui: * virtútem óperum suórum annuntiábit pópulo suo:
-Ut det illis hereditátem géntium: * ópera mánuum ejus véritas, et judícium.
-Fidélia ómnia mandáta ejus: confirmáta in saéculum saéculi, * facta in veritáte et æquitáte.
-Redemptiónem misit pópulo suo: * mandávit in ætérnum testaméntum suum.
-Sanctum, et terríbile nomen ejus: * inítium sapiéntiæ timor Dómini.
-Intelléctus bonus ómnibus faciéntibus eum: * laudátio ejus manet in sæculum sæculi.
-Glória Patri, et Fílio, * et Spirítui Sancto.
-Sicut erat in princípio, et nunc, et semper, * et in sæcula sæculórum. Amen.</textarea>
+<br/>Psalm <select id="selPsalm"></select> <input type="checkbox" id="cbTeX" name="TeX"/>Generate <span class="latex">T<sub>E</sub>X</span> instead of HTML for 2nd verse and beyond<br/><textarea id="versetext" style="height: 50pt; width: 95%;"></textarea>
 <br/>GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%;padding: 0 6pt 0 6pt">
 </div>
@@ -37,6 +48,9 @@ if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
 
 function updateEditor() {
+  var useTeX = $("#cbTeX")[0].checked;
+  localStorage.cbTeX = useTeX;
+
   if(!gSyl) gSyl = $("#versegabc")[0].value;
   if(!syl)  syl = $("#versetext")[0].value;
 
@@ -96,8 +110,8 @@ function updateEditor() {
     r.push("<p style='margin: 6pt 0px;'>" +
     //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
     "&#09;"+ String(i+1) + "."
-      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, 'html')
-      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, 'html'))
+      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useTeX? 'tex' : 'html')
+      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useTeX? 'tex' : 'html'))
       + "</p>");
   }
   try {
@@ -121,6 +135,7 @@ function updateText() {
 function updateEndings() {
   $("#selEnd").empty();
   var tone = $("#selTones")[0].value;
+  localStorage.selTones = tone;
   var endings = getEndings(tone);
   var t = g_tones[tone];
   _clef = t.clef;
@@ -141,10 +156,18 @@ function updateEndings() {
 
 function updateEnding() {
   var tone = $("#selTones")[0].value;
+  var selEnd = $("#selEnd")[0].value;
+  var solemn = $("#cbSolemn")[0].checked;
+  localStorage.selEnd = selEnd;
+  localStorage.cbSolemn = solemn;
   var t = g_tones[tone];
-  var vgabc = $("#cbSolemn")[0].checked? t.solemn : t.mediant;
+  var vgabc = solemn? t.solemn : t.mediant;
   if(vgabc == undefined) vgabc = t.mediant;
-  vgabc += "\n" + t.terminations[$("#selEnd")[0].value];
+  if(t.terminations) {
+    vgabc += "\n" + t.terminations[selEnd];
+  } else {
+    vgabc += "\n" + t.termination;
+  }
   $("#versegabc")[0].value = vgabc;
   gSyl = vgabc;
   updateEditor();
@@ -161,6 +184,7 @@ function getPsalms() {
 
 function updatePsalm() {
   var psalmNum = $("#selPsalm")[0].value;
+  localStorage.selPsalm = psalmNum;
   getPsalm(psalmNum,function(text) {
     $("#versetext")[0].value = text;
     updateText();
@@ -176,13 +200,19 @@ $(function() {
   $("#selTones").change(updateEndings);
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
+  $("#cbTeX").change(updateText);
   $("#selEnd").change(updateEnding);
   $("#selEnd").keyup(updateEnding);
   $("#selPsalm").change(updatePsalm);
   if(_local) $("#selPsalm").keyup(updatePsalm);
-  $("#selPsalm")[0].value = "Magnificat";
-  updatePsalm();
+  $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
+  $("#cbTeX")[0].checked = (localStorage.cbTeX == "true");
+  $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
+  $("#selTones")[0].value = localStorage.selTones || "1";
   updateEndings();
+  if(("#selEnd")[0].firstChild) $("#selEnd")[0].value = localStorage.selEnd || $("#selEnd")[0].firstChild.innerText;
+  updateEnding();
+  updatePsalm();
   updateEditor();
 });
 </script>
