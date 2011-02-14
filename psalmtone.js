@@ -242,7 +242,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
   if(toneList.intonation > 0 && syl.length < tones.length) {
     tones.splice(toneList.intonation + 1, tones.length - toneList.intonation - 1);
   }
-  
+  var lastTone;
   for(var ti = tones.length - 1; ti >= 0 && si >= 0; --ti,--si) {
     var tone = tones[ti];
     var s = syl[si];
@@ -279,7 +279,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
         }
       } else {
         lastOpen = tone;
-        openCount = 0;
+        openCount = (lastTone && !lastTone.accent && !lastTone.open)? 1 : 0;
         ++si;
       }
     } else if(tone.accent) {
@@ -370,6 +370,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic) {
         r.push(s.syl);
       }
     }
+    lastTone = tone;
   }
   return r.reverse().join('');
 }
