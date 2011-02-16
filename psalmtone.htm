@@ -39,6 +39,8 @@ Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj j
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
 <br/>Psalm <select id="selPsalm"></select> <input type="checkbox" id="cbTeX" name="TeX"/>Generate <span class="latex">T<sub>E</sub>X</span> instead of HTML for 2nd verse and beyond<br/><textarea id="versetext" style="height: 50pt; width: 95%;"></textarea>
+<br/>Prefix: <input type="textbox" id="txtPrefix"></input>
+<br/>Suffix: <input type="textbox" id="txtSuffix"></input>
 <br/>GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%">
 </div>
@@ -46,7 +48,7 @@ Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj j
 <script>
 if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
-
+var g_prefix, g_suffix;
 function updateEditor() {
   var useTeX = $("#cbTeX")[0].checked;
   localStorage.cbTeX = useTeX;
@@ -110,10 +112,10 @@ function updateEditor() {
     }
     r.push("<p style='margin: 6pt 0px;'>" +
     //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
-    "&#09;"+ String(i+1) + "."
+    ((g_prefix && g_prefix.replace(/\$c/gi,String(i+1))) || "")
       + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useTeX? 'tex' : 'html')
       + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useTeX? 'tex' : 'html'))
-      + "</p>");
+      + ((g_suffix && g_suffix.replace(/$c/gi,String(i+1))) || "") + "</p>");
   }
   if(useTeX) r.push("</code>");
   try {
@@ -193,6 +195,18 @@ function updatePsalm() {
   });
 }
 
+function updatePrefix() {
+  g_prefix = $("#txtPrefix")[0].value;
+  localStorage.txtPrefix = g_prefix;
+  updateEditor();
+}
+
+function updateSuffix() {
+  g_suffix = $("#txtSuffix")[0].value;
+  localStorage.txtSuffix = g_suffix;
+  updateEditor();
+}
+
 $(function() {
 //g_tones = d_tones;
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
@@ -206,11 +220,15 @@ $(function() {
   $("#selEnd").change(updateEnding);
   $("#selEnd").keyup(updateEnding);
   $("#selPsalm").change(updatePsalm);
+  $("#txtPrefix").keyup(updatePrefix);
+  $("#txtSuffix").keyup(updateSuffix);
   if(_local) $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
   $("#cbTeX")[0].checked = (localStorage.cbTeX == "true");
   $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
   $("#selTones")[0].value = localStorage.selTones || "1";
+  g_prefix = $("#txtPrefix")[0].value = localStorage.txtPrefix || "$c.";
+  g_suffix = $("#txtSuffix")[0].value = localStorage.txtSuffix || "";
   updateEndings();
   if(("#selEnd")[0].firstChild) $("#selEnd")[0].value = localStorage.selEnd || $("#selEnd")[0].firstChild.innerText;
   updateEnding();
