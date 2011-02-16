@@ -246,7 +246,7 @@ $(function() {
   $("#cbTeX")[0].checked = (localStorage.cbTeX == "true");
   $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
   $("#selTones")[0].value = localStorage.selTones || "1";
-  g_prefix = $("#txtPrefix")[0].value = localStorage.txtPrefix || "$c.";
+  g_prefix = $("#txtPrefix")[0].value = localStorage.txtPrefix || "$c. ";
   g_suffix = $("#txtSuffix")[0].value = localStorage.txtSuffix || "";
   updateEndings();
   if(("#selEnd")[0].firstChild) $("#selEnd")[0].value = localStorage.selEnd || $("#selEnd")[0].firstChild.innerText;
