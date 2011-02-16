@@ -76,6 +76,7 @@ var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
 var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight + ";";
 var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + ";";
+var svgWidth;
 var svg;
 var textElem;
 var codea = 'a'.charCodeAt(0);
@@ -181,6 +182,13 @@ function getChant(text) {
 	var line = 0;
 	var lineOffsets = [0];
 	var width = svg.width.baseVal.value;
+  try {
+    var padding = $(svg.parentElement).css("padding-left");
+    if(padding) width -= parseInt(padding);
+    //padding = svg.parentElement.style.getPropertyValue("padding-left");
+    //if(padding) width -= parseInt(padding);
+  } catch(e) { }
+  svgWidth = width;
 	var neumeInfo = null;
 	var needCustos = false;
 	var previousMatch;
@@ -348,9 +356,12 @@ function getChant(text) {
 			span.appendChild(document.createTextNode(txt || ''));
 			
 			eText.appendChild(span);
-		} else if(use) {
-			xoffset += document.getElementById(match[5]).getComputedTextLength() + 5;
-		}
+		} else {
+      if(use) {
+        xoffset += document.getElementById(match[5]).getComputedTextLength() + 5;
+      }
+      xoffsetChantMin = xoffset;
+    }
 		count++;
 		previousMatch = match;
 	}
@@ -365,7 +376,7 @@ function getChant(text) {
 function addCustos(result,tone,y) {
 	var t = make('text');
 	t.setAttribute('style',defChant.getAttribute('style'));
-	t.setAttribute('x',svg.width.baseVal.value - (staffheight/15));
+	t.setAttribute('x',svgWidth - (staffheight/15));
 	t.setAttribute('y',y);
 	t.appendChild(document.createTextNode(String.fromCharCode(indices.custos + tone)));
 	result.appendChild(t);
