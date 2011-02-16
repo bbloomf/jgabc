@@ -48,49 +48,64 @@ Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj j
 <script>
 if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
+var last_syl,last_gSyl;
+var last_lines,last_gabcs,last_terTones,last_medTones;
 var g_prefix, g_suffix;
 function updateEditor() {
   var useTeX = $("#cbTeX")[0].checked;
   localStorage.cbTeX = useTeX;
 
   if(!gSyl) gSyl = $("#versegabc")[0].value;
-  if(!syl)  syl = $("#versetext")[0].value;
-
-  var lines = syl.split('\n');
-  var gabcs = gSyl.split('\n');
+  if(!syl) syl = $("#versetext")[0].value;
+  var sameSyl = (syl == last_syl);
+  var sameGSyl = (gSyl == last_gSyl);
+  var lines = sameSyl? last_lines : syl.split('\n');
+  var gabcs = sameGSyl? last_gabcs : gSyl.split('\n');
   var gMediant = gabcs[0];
   var gTermination = gabcs.length == 1? "" : gabcs[1];
-  var firstLine = splitLine(lines[0]);
-  var gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
-  var flex = (firstLine[0].indexOf(sym_flex) >= 0);
-  
-  var medTones = getGabcTones(gMediant);
-  var terTones = getGabcTones(gTermination);
-  $("#sMedAccent")[0].innerText = String(medTones.accents);
-  $("#sMedAccentS")[0].innerText = (medTones.accents == 1)? "" : "s";
-  if(medTones.preparatory == 0) {
-    $("#sMedPrepOuter").hide();
-  } else {
-    $("#sMedPrep")[0].innerText = String(medTones.preparatory);
-    $("#sMedPrepS")[0].innerText = (medTones.preparatory == 1)? "" : "s";
-    $("#sMedPrepOuter").show();
+  var gabc;
+  if(!sameSyl || !sameGSyl) {
+    var firstLine = splitLine(lines[0]);
+    gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
+    var flex = (firstLine[0].indexOf(sym_flex) >= 0);
+    last_lines = lines;
   }
-  if(gTermination) {
-	$("#sTermAccent")[0].innerText = String(terTones.accents);
-    $("#sTermAccentS")[0].innerText = (terTones.accents == 1)? "" : "s";
-    if(terTones.preparatory == 0) {
-      $("#sTermPrepOuter").hide();
+  var medTones, terTones;
+  if(sameGSyl) {
+    medTones = last_medTones;
+    terTones = last_terTones;
+  } else {
+    medTones = getGabcTones(gMediant);
+    terTones = getGabcTones(gTermination);
+    $("#sMedAccent")[0].innerText = String(medTones.accents);
+    $("#sMedAccentS")[0].innerText = (medTones.accents == 1)? "" : "s";
+    if(medTones.preparatory == 0) {
+      $("#sMedPrepOuter").hide();
     } else {
-      $("#sTermPrep")[0].innerText = String(terTones.preparatory);
-      $("#sTermPrepS")[0].innerText = (terTones.preparatory == 1)? "" : "s";
-      $("#sTermPrepOuter").show();
+      $("#sMedPrep")[0].innerText = String(medTones.preparatory);
+      $("#sMedPrepS")[0].innerText = (medTones.preparatory == 1)? "" : "s";
+      $("#sMedPrepOuter").show();
     }
+    if(gTermination) {
+    $("#sTermAccent")[0].innerText = String(terTones.accents);
+      $("#sTermAccentS")[0].innerText = (terTones.accents == 1)? "" : "s";
+      if(terTones.preparatory == 0) {
+        $("#sTermPrepOuter").hide();
+      } else {
+        $("#sTermPrep")[0].innerText = String(terTones.preparatory);
+        $("#sTermPrepS")[0].innerText = (terTones.preparatory == 1)? "" : "s";
+        $("#sTermPrepOuter").show();
+      }
+    }
+    last_gabcs = gabcs;
+    last_medTones = medTones;
+    last_terTones = terTones;
   }
   var r = [];
   if(useTeX) r.push("<code>");
   for(var i=1; i<lines.length; ++i) {
     var line = splitLine(lines[i]);
-    if(!flex) {
+    if(gabc && !flex) {
       var flexI = line[0].indexOf(sym_flex);
       if(flexI >= 0) {
         var syls = getSyllables(line[0].slice(0,flexI));
@@ -118,12 +133,16 @@ function updateEditor() {
       + ((g_suffix && g_suffix.replace(/$c/gi,String(i+1))) || "") + "</p>");
   }
   if(useTeX) r.push("</code>");
-  try {
-    gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false);
-  } catch(e) { }
-  $("#editor")[0].value = gabc;
-  $("#editor").keyup();
+  if(gabc) {
+    try {
+      gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false);
+    } catch(e) { }
+    $("#editor")[0].value = gabc;
+    $("#editor").keyup();
+  }
   $("#verses")[0].innerHTML = r.join('');
+  last_syl = syl;
+  last_gSyl = gSyl;
 }
 
 function updateGabc() {
