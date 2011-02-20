@@ -35,12 +35,13 @@
   font-size: 1em;
 }
 </style>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
-Psalm GABC<br/><textarea id="versegabc" style="height: 25pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
+Clef: <input type="textbox" id="txtClef" style="width:15pt"/><br/>
+Psalm GABC<br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
 <br/>Psalm <select id="selPsalm"></select> <input type="checkbox" id="cbTeX" name="TeX"/>Generate <span class="latex">T<sub>E</sub>X</span> instead of HTML for 2nd verse and beyond<br/><textarea id="versetext" style="height: 50pt; width: 95%;"></textarea>
-<br/>Prefix: <input type="textbox" id="txtPrefix"></input>
-<br/>Suffix: <input type="textbox" id="txtSuffix"></input>
+<br/>Prefix: <input type="textbox" id="txtPrefix"/>
+<br/>Suffix: <input type="textbox" id="txtSuffix"/>
 <br/>GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%">
 </div>
@@ -66,7 +67,7 @@ function updateEditor() {
   var gabc;
   if(!sameSyl || !sameGSyl) {
     var firstLine = splitLine(lines[0]);
-    gabc = "1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
+    gabc = "(" + _clef + ")1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
     var flex = (firstLine[0].indexOf(sym_flex) >= 0);
     last_lines = lines;
   }
@@ -173,6 +174,7 @@ function updateEndings() {
   }
   $("#selEnd")[0].disabled = (endings.length <= 1);
   $("#versegabc")[0].value = vgabc;
+  $("#txtClef")[0].value = t.clef;
   gSyl = vgabc;
   updateEditor();
 }
@@ -192,6 +194,7 @@ function updateEnding() {
     vgabc += "\n" + t.termination;
   }
   $("#versegabc")[0].value = vgabc;
+  $("#txtClef")[0].value = t.clef;
   gSyl = vgabc;
   updateEditor();
 }
@@ -226,6 +229,26 @@ function updateSuffix() {
   updateEditor();
 }
 
+function updateClef() {
+  var clef = $("#txtClef")[0].value;
+  if(clef.length < 2)return;
+  var baseClefI = parseInt(_clef[1],10);
+  var clefI = parseInt(clef[1],10);
+  var diff = (clefI - baseClefI) * 2;
+  var vgabc = gSyl;
+  var newGabc = [];
+  for(var i=vgabc.length - 1; i>=0; --i) {
+    var c = vgabc[i];
+    if(parseInt(c,23)>9)newGabc.push(String.fromCharCode(c.charCodeAt(0) + diff));
+      else newGabc.push(c);
+  }
+  vgabc = newGabc.reverse().join("");
+  $("#versegabc")[0].value = vgabc;
+  gSyl = vgabc;
+  _clef = clef;
+  updateEditor();
+}
+
 $(function() {
 //g_tones = d_tones;
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
@@ -241,6 +264,7 @@ $(function() {
   $("#selPsalm").change(updatePsalm);
   $("#txtPrefix").keyup(updatePrefix);
   $("#txtSuffix").keyup(updateSuffix);
+  $("#txtClef").keyup(updateClef);
   if(_local) $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
   $("#cbTeX")[0].checked = (localStorage.cbTeX == "true");
