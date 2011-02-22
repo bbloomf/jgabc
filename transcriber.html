@@ -9,7 +9,7 @@
 <a href="psalmtone.htm">Psalm Tone Tool</a>
 <br/><br/>
 Verse GABC<br><textarea id="hymngabc" style="height: 50pt; width: 95%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea>
-<br>Hymn Text<br><textarea id="hymntext" style="height: 110pt; width: 95%;">Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea>
+<br>Hymn Text<br><textarea id="hymntext" style="height: 110pt; width: 95%;">1. Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;2. Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea>
 <br><br>Hymn GABC<br><textarea height="50%" id="editor" style="height: 220pt; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%">
 </div>
@@ -34,7 +34,11 @@ function applyGabc() {
     var cGabc = gSyl[iG++];
     result.push(cSyl.syl);
     if(cSyl.punctuation.length > 0) result.push(cSyl.punctuation);
-    result.push(cGabc.gabc);
+    if(cSyl.syl) {
+      result.push(cGabc.gabc);
+    } else {
+      iG--;
+    }
     if(iG >= gSyl.length)
       iG = 0;
     cGabc = gSyl[iG];
@@ -78,8 +82,12 @@ function splitGabc(gabc) {
 
 function splitText(text) {
   var syl = [];
+  var index = 0,lastIndex = 0;
   while((match = regexLatin.exec(text))) {
+    index = match.index;
+    if(index>lastIndex) syl.push(syllable(text.slice(lastIndex,index) + match[1],index));
     syl.push(syllable(match));
+    lastIndex = index + match[0].length;
   }
   return syl;
 }

@@ -1,4 +1,4 @@
-﻿var regexLatin = /(?:\s*)(((?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n)|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*])*(?=\s|$))?)(?=(\s*|$)))/gi;
+﻿var regexLatin = /(\s*)(((?:^(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*])*(?=\s|$))?)(?=(\s*|$)))/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var sym_flex = '†';
@@ -91,7 +91,13 @@ var g_tones = {'1':{clef:"c4",
              'per.':{clef:"c4",
                      mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"g gr d 'f fr ed.."
-                    }
+                    },
+             'V.1':{clef:"c3",
+                    mediant:"h hr 'h ghvGFEfgf"
+                   },
+             'V.2':{clef:"c4",
+                    mediant:"h hr 'h h/hf,fgwhvGFEfg/gf"
+                   }
             };
 var d_tones = {'1':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h",
@@ -154,15 +160,21 @@ var d_tones = {'1':{clef:"c4",
                      termination:"g gr d 'f fr ed"
                     }
             };
-function syllable(match) {
-  return {index: match.index,
-          all: match[1],
-          syl: match[2],
-          vowel: match[3],
-          separator: match[4], // - or *
-          punctuation: match[5]? (match[5][0]==":"? " " + match[5] : match[5]) : "",
-          space: match[6],
-          accent: match[4] == '*' || regexAccent.test(match[2]),
+function syllable(match,index) {
+  return typeof(match)=="string"?
+         {index:index,
+          all:match,
+          punctuation:match,
+          space: "",
+          word: undefined
+     } : {index: match.index,
+          all: match[2],
+          syl: match[3],
+          vowel: match[4],
+          separator: match[5], // - or *
+          punctuation: match[6]? (match[6][0]==":"? " " + match[6] : match[6]) : "",
+          space: match[7],
+          accent: match[5] == '*' || regexAccent.test(match[3]),
           word: undefined
          };
 }
@@ -175,13 +187,16 @@ function toneGabc(match) {
           open: match[4] == "r"
          };
 }
-function getPsalmTones() {
-  var tones = [];
+function getKeys(aa) {
+  var result = [];
   var i;
-  for(i in g_tones) {
-    tones.push(i);
+  for(i in aa) {
+    result.push(i);
   }
-  return tones;
+  return result;
+}
+function getPsalmTones() {
+  return getKeys(g_tones);
 }
 function getEndings(tone) {
   var endings = [];

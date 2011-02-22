@@ -34,14 +34,38 @@
   margin-right: -0.125em;
   font-size: 1em;
 }
-</style>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
-Clef: <input type="textbox" id="txtClef" style="width:15pt"/><br/>
+table.bordered {
+  width:100%;
+}
+table {
+  border-collapse:collapse;
+}
+tr.bordered>td {
+  vertical-align:top;
+  border-width:1px;
+  border-style:solid;
+}
+</style>
+<table class="bordered"><tr class="bordered"><td>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
+Clef: <input type="text" id="txtClef" style="width:15pt"/><br/>
 Psalm GABC<br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
-<br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span><br/>
-<br/>Psalm <select id="selPsalm"></select> <input type="checkbox" id="cbTeX" name="TeX"/>Generate <span class="latex">T<sub>E</sub>X</span> instead of HTML for 2nd verse and beyond<br/><textarea id="versetext" style="height: 50pt; width: 95%;"></textarea>
-<br/>Prefix: <input type="textbox" id="txtPrefix"/>
-<br/>Suffix: <input type="textbox" id="txtSuffix"/>
+<br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span>
+</td><td>Psalm <select id="selPsalm"></select><br/><textarea id="versetext" style="height: 96pt; width: 95%;"></textarea>
+</td></tr>
+<tr class="bordered"><td>
+Format verses as: <select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
+<br/>Prefix: <input type="text" id="txtPrefix"/>
+<br/>Suffix: <input type="text" id="txtSuffix"/>
+</td><td style="border-left-style:solid;">
+<table class="">
+<tr><td>Begin Preparatory Syllable:</td><td><input type="text" id="txtBeginPrep"/></td>
+<td style="padding-left:12pt;">End Preparatory Syllable:</td><td><input type="text" id="txtEndPrep"/></td></tr>
+<tr><td>Begin Accented Syllable:</td><td><input type="text" id="txtBeginAccented"/></td>
+<td style="padding-left:12pt;">End Accented Syllable:</td><td><input type="text" id="txtEndAccented"/></td></tr>
+</table>
+</td></tr>
+</table>
 <br/>GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%">
 </div>
@@ -52,10 +76,8 @@ var gSyl,syl,_clef;
 var last_syl,last_gSyl;
 var last_lines,last_gabcs,last_terTones,last_medTones;
 var g_prefix, g_suffix;
+var useFormat;
 function updateEditor() {
-  var useTeX = $("#cbTeX")[0].checked;
-  localStorage.cbTeX = useTeX;
-
   if(!gSyl) gSyl = $("#versegabc")[0].value;
   if(!syl) syl = $("#versetext")[0].value;
   var sameSyl = (syl == last_syl);
@@ -103,7 +125,8 @@ function updateEditor() {
     last_terTones = terTones;
   }
   var r = [];
-  if(useTeX) r.push("<code>");
+  var asCode = !useFormat.match(/html/i);
+  if(asCode) r.push("<code>");
   for(var i=1; i<lines.length; ++i) {
     var line = splitLine(lines[i]);
     if(gabc && !flex) {
@@ -129,11 +152,11 @@ function updateEditor() {
     r.push("<p style='margin: 6pt 0px;'>" +
     //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
     ((g_prefix && g_prefix.replace(/\$c/gi,String(i+1))) || "")
-      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useTeX? 'tex' : 'html')
-      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useTeX? 'tex' : 'html'))
+      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat)
+      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat))
       + ((g_suffix && g_suffix.replace(/$c/gi,String(i+1))) || "") + "</p>");
   }
-  if(useTeX) r.push("</code>");
+  if(asCode) r.push("</code>");
   if(gabc) {
     try {
       gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false);
@@ -212,7 +235,10 @@ function updatePsalm() {
   var psalmNum = $("#selPsalm")[0].value;
   localStorage.selPsalm = psalmNum;
   getPsalm(psalmNum,function(text) {
-    $("#versetext")[0].value = text;
+    var vt = $("#versetext");
+    vt[0].value = text;
+    //vt.css("height","48pt");
+    //vt.css("height",vt[0].scrollHeight);
     updateText();
   });
 }
@@ -249,34 +275,100 @@ function updateClef() {
   updateEditor();
 }
 
+function updateFormat() {
+  useFormat = $("#selFormat").val();
+  localStorage.selFormat = useFormat;
+  var f = bi_formats[useFormat];
+  $("#txtBeginPrep").val(f.italic[0]);
+  $("#txtEndPrep").val(f.italic[1]);
+  $("#txtBeginAccented").val(f.bold[0]);
+  $("#txtEndAccented").val(f.bold[1]);
+  updateEditor();
+}
+
+function updateBeginAccented() {
+  bi_formats[useFormat].bold[0] = $("#txtBeginAccented").val();
+  localStorage.bi_formats = JSON.stringify(bi_formats);
+  updateEditor();
+}
+function updateEndAccented() {
+  bi_formats[useFormat].bold[1] = $("#txtEndAccented").val();
+  localStorage.bi_formats = JSON.stringify(bi_formats);
+  updateEditor();
+}
+function updateBeginPrep() {
+  bi_formats[useFormat].italic[0] = $("#txtBeginPrep").val();
+  localStorage.bi_formats = JSON.stringify(bi_formats);
+  updateEditor();
+}
+function updateEndPrep() {
+  bi_formats[useFormat].italic[1] = $("#txtEndPrep").val();
+  localStorage.bi_formats = JSON.stringify(bi_formats);
+  updateEditor();
+}
+
+function newFormat() {
+  var name = prompt("Please enter a name for the new custom format");
+  while(name.length>0 && name in bi_formats) {
+    name = prompt("There is already a format named '" + name + "'.  Please enter a new name.");
+  }
+  if(name.length > 0) {
+    bi_formats[name] = {italic:["(",")"],bold:["[","]"]};
+    $("#selFormat").append('<option>' + name + '</option>');
+    $("#selFormat").val(name);
+    updateFormat();
+  }
+}
+function deleteFormat() {
+  if(confirm("Really delete the format '" + useFormat + "'?")) {
+    delete bi_formats[useFormat];
+    localStorage.bi_formats = JSON.stringify(bi_formats);
+    var sel = $("#selFormat")[0];
+    $(sel.childNodes[sel.selectedIndex]).remove();
+    updateFormat();
+  }
+}
+
 $(function() {
 //g_tones = d_tones;
+  if(localStorage.bi_formats) {
+    bi_formats = JSON.parse(localStorage.bi_formats);
+  }
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
+  $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateGabc);
   $("#versetext").keyup(updateText);
   $("#selTones").change(updateEndings);
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
-  $("#cbTeX").change(updateText);
+  $("#selFormat").change(updateFormat);
+  $("#selFormat").keyup(updateFormat);
   $("#selEnd").change(updateEnding);
   $("#selEnd").keyup(updateEnding);
   $("#selPsalm").change(updatePsalm);
   $("#txtPrefix").keyup(updatePrefix);
   $("#txtSuffix").keyup(updateSuffix);
   $("#txtClef").keyup(updateClef);
+  $("#btnNewFormat").click(newFormat);
+  $("#btnDelFormat").click(deleteFormat);
   if(_local) $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
-  $("#cbTeX")[0].checked = (localStorage.cbTeX == "true");
+  $("#selFormat")[0].value = useFormat = localStorage.cbTeX? "tex" : (localStorage.selFormat || "html");
   $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
   $("#selTones")[0].value = localStorage.selTones || "1";
+  $("#txtBeginPrep").keyup(updateBeginPrep);
+  $("#txtEndPrep").keyup(updateEndPrep);
+  $("#txtBeginAccented").keyup(updateBeginAccented);
+  $("#txtEndAccented").keyup(updateEndAccented);
   g_prefix = $("#txtPrefix")[0].value = localStorage.txtPrefix || "$c. ";
   g_suffix = $("#txtSuffix")[0].value = localStorage.txtSuffix || "";
   updateEndings();
   if(("#selEnd")[0].firstChild) $("#selEnd")[0].value = localStorage.selEnd || $("#selEnd")[0].firstChild.innerText;
   updateEnding();
   updatePsalm();
-  updateEditor();
+  updateFormat();
+  localStorage.removeItem("cbTeX");
 });
 </script>
 </body>
