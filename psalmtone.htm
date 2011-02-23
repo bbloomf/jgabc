@@ -46,7 +46,7 @@ tr.bordered>td {
   border-style:solid;
 }
 </style>
-<table class="bordered"><tr class="bordered"><td>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/>Solemn Tone<br/>
+<table class="bordered"><tr class="bordered"><td>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/><label for="cbSolemn">Solemn Tone</label><br/>
 Clef: <input type="text" id="txtClef" style="width:15pt"/><br/>
 Psalm GABC<br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
@@ -55,8 +55,8 @@ Psalm GABC<br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj j
 </td></tr>
 <tr class="bordered"><td>
 Format verses as: <select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
-<br/>Prefix: <input type="text" id="txtPrefix"/>
-<br/>Suffix: <input type="text" id="txtSuffix"/>
+<br/><input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels">Only format vowels</label>
+<br/>Prefix: <input type="text" id="txtPrefix"/>&nbsp;&nbsp;Suffix: <input type="text" id="txtSuffix"/>
 </td><td style="border-left-style:solid;">
 <table class="">
 <tr><td>Begin Preparatory Syllable:</td><td><input type="text" id="txtBeginPrep"/></td>
@@ -76,8 +76,8 @@ var gSyl,syl,_clef;
 var last_syl,last_gSyl;
 var last_lines,last_gabcs,last_terTones,last_medTones;
 var g_prefix, g_suffix;
-var useFormat;
-function updateEditor() {
+var useFormat,onlyVowels,gabcFormat;
+function updateEditor(forceGabcUpdate) {
   if(!gSyl) gSyl = $("#versegabc")[0].value;
   if(!syl) syl = $("#versetext")[0].value;
   var sameSyl = (syl == last_syl);
@@ -87,9 +87,9 @@ function updateEditor() {
   var gMediant = gabcs[0];
   var gTermination = gabcs.length == 1? "" : gabcs[1];
   var gabc;
-  if(!sameSyl || !sameGSyl) {
+  if(!sameSyl || !sameGSyl || forceGabcUpdate) {
     var firstLine = splitLine(lines[0]);
-    gabc = "(" + _clef + ")1. " + applyPsalmTone(firstLine[0].trim(),gMediant) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination) + " (::)");
+    gabc = "(" + _clef + ")1. " + applyPsalmTone(firstLine[0].trim(),gMediant,true,true,onlyVowels,gabcFormat) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination,true,true,onlyVowels,gabcFormat) + " (::)");
     var flex = (firstLine[0].indexOf(sym_flex) >= 0);
     last_lines = lines;
   }
@@ -144,7 +144,7 @@ function updateEditor() {
           index -= sylcount - 1;
         }
         syls.splice(0,index);
-        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,getFlexGabc(medTones),false,false);
+        gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,getFlexGabc(medTones),false,false,onlyVowels,gabcFormat);
         gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
         flex = true;
       }
@@ -152,14 +152,14 @@ function updateEditor() {
     r.push("<p style='margin: 6pt 0px;'>" +
     //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
     ((g_prefix && g_prefix.replace(/\$c/gi,String(i+1))) || "")
-      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat)
-      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat))
+      + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels)
+      + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels))
       + ((g_suffix && g_suffix.replace(/$c/gi,String(i+1))) || "") + "</p>");
   }
   if(asCode) r.push("</code>");
   if(gabc) {
     try {
-      gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false);
+      gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat);
     } catch(e) { }
     $("#editor")[0].value = gabc;
     $("#editor").keyup();
@@ -276,35 +276,37 @@ function updateClef() {
 }
 
 function updateFormat() {
+  var oldGabcFormat = gabcFormat;
   useFormat = $("#selFormat").val();
+  gabcFormat = bi_formats["gabc-" + useFormat.slice(useFormat.lastIndexOf("-")+1)];
   localStorage.selFormat = useFormat;
+  $("#btnDelFormat").val(((useFormat in o_bi_formats)? "Reset" : "Delete") + " Current Format");
   var f = bi_formats[useFormat];
   $("#txtBeginPrep").val(f.italic[0]);
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
   $("#txtEndAccented").val(f.bold[1]);
-  updateEditor();
+  updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/));
 }
-
+function storeBiFormatsAndUpdate() {
+  localStorage.bi_formats = JSON.stringify(bi_formats);
+  updateEditor(useFormat.match(/gabc(?=$|-)/));
+}
 function updateBeginAccented() {
   bi_formats[useFormat].bold[0] = $("#txtBeginAccented").val();
-  localStorage.bi_formats = JSON.stringify(bi_formats);
-  updateEditor();
+  storeBiFormatsAndUpdate();
 }
 function updateEndAccented() {
   bi_formats[useFormat].bold[1] = $("#txtEndAccented").val();
-  localStorage.bi_formats = JSON.stringify(bi_formats);
-  updateEditor();
+  storeBiFormatsAndUpdate();
 }
 function updateBeginPrep() {
   bi_formats[useFormat].italic[0] = $("#txtBeginPrep").val();
-  localStorage.bi_formats = JSON.stringify(bi_formats);
-  updateEditor();
+  storeBiFormatsAndUpdate();
 }
 function updateEndPrep() {
   bi_formats[useFormat].italic[1] = $("#txtEndPrep").val();
-  localStorage.bi_formats = JSON.stringify(bi_formats);
-  updateEditor();
+  storeBiFormatsAndUpdate();
 }
 
 function newFormat() {
@@ -320,19 +322,35 @@ function newFormat() {
   }
 }
 function deleteFormat() {
-  if(confirm("Really delete the format '" + useFormat + "'?")) {
-    delete bi_formats[useFormat];
+  var onlyReset = (useFormat in o_bi_formats);
+  var q = "Really " + (onlyReset?"reset":"delete") + " the format '" + useFormat + "'?";
+  if(confirm(q)) {
+    if(onlyReset) {
+      bi_formats[useFormat] = $.extend(true,{},o_bi_formats[useFormat]);
+    } else {
+      delete bi_formats[useFormat];
+      var sel = $("#selFormat")[0];
+      $(sel.childNodes[sel.selectedIndex]).remove();
+    }
     localStorage.bi_formats = JSON.stringify(bi_formats);
-    var sel = $("#selFormat")[0];
-    $(sel.childNodes[sel.selectedIndex]).remove();
     updateFormat();
   }
+}
+
+function updateOnlyVowels() {
+  localStorage.cbOnlyVowels = onlyVowels = $("#cbOnlyVowels")[0].checked;
+  updateEditor(true);
 }
 
 $(function() {
 //g_tones = d_tones;
   if(localStorage.bi_formats) {
     bi_formats = JSON.parse(localStorage.bi_formats);
+    for(i in o_bi_formats) {
+      if(!(i in bi_formats)) {
+        bi_formats[i] = o_bi_formats[i];
+      }
+    }
   }
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
@@ -342,6 +360,7 @@ $(function() {
   $("#selTones").change(updateEndings);
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
+  $("#cbOnlyVowels").change(updateOnlyVowels);
   $("#selFormat").change(updateFormat);
   $("#selFormat").keyup(updateFormat);
   $("#selEnd").change(updateEnding);
@@ -354,6 +373,7 @@ $(function() {
   $("#btnDelFormat").click(deleteFormat);
   if(_local) $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
+  $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
   $("#selFormat")[0].value = useFormat = localStorage.cbTeX? "tex" : (localStorage.selFormat || "html");
   $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
   $("#selTones")[0].value = localStorage.selTones || "1";

@@ -125,7 +125,7 @@ var rtg = {
 };
 
 
-var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/gi;
+var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
 var transforms = [['/',' ',',',';',':','`',''],
 			["'",'_','+',';','|',',',''],
 			[/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
@@ -237,7 +237,6 @@ function getChant(text) {
 			defText.setAttribute("style", styleGoudy + activeStyle);
 			defText.firstChild.data = '.' + txt + '.';
 			wText = defText.getSubStringLength(1, txt.length);
-			regexVowel.lastIndex = 0;
 			vowel = regexVowel.exec(txt);
 			if(!vowel) {
 				vowel = {index: 0, "0":txt, "1":txt};
