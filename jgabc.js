@@ -74,8 +74,8 @@ var spaceWidth = fontsize / 2;
 var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
-var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight + ";";
-var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + ";";
+var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight + "px;";
+var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + "px;";
 var svgWidth;
 var svg;
 var textElem;
@@ -181,7 +181,8 @@ function getChant(text) {
 	var ltone = 3;
 	var line = 0;
 	var lineOffsets = [0];
-	var width = svg.width.baseVal.value;
+	//var width = svg.width.baseVal.value;
+  var width = svg.parentNode.clientWidth;
   try {
     var padding = $(svg.parentElement).css("padding-left");
     if(padding) width -= parseInt(padding);
@@ -616,7 +617,7 @@ g.appendChild(T);
 	group.setAttribute('mask','url(#' + maskId + ')');
 	var staff = make("use");
 	staff.setAttributeNS(xlinkns, "href", "#staff");
-	if(!width) width = svg.width.baseVal.value;
+	if(!width) width = svg.parentNode.clientWidth;
 	staff.setAttribute("transform", "translate(0, " + (y) +") scale(" + width + ",1)");
 	group.appendChild(staff);
 	result.appendChild(group);
@@ -693,7 +694,7 @@ $(function() {
 			updateChant($("#editor")[0].value, svg);
 		});
 	var init = function() {
-		if(svg.width.baseVal.value == 0) {
+		if(svg.parentNode.clientWidth == 0) {
 			setTimeout(init, 100);
 		} else {
 			updateChant($("#editor")[0].value, svg);
