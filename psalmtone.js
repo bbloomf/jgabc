@@ -1,7 +1,8 @@
 ﻿var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
-var regexLatin = /(\s*)(((?:\b(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*])*(?=\s|$))?)(?=(\s*|$)))/gi;
+var regexLatin = /(\b\s*)(((?:\b(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
+var regexVerseNumber = /(\d+)\.?\s*/;
 var sym_flex = '†';
 var sym_med = '*';
 var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in saécula sæculórum. Amen.";
@@ -172,6 +173,7 @@ function syllable(match,index) {
           all:match,
           punctuation:match,
           space: "",
+          prepunctuation: "",
           word: undefined
      } : {index: match.index,
           all: match[2],
@@ -181,6 +183,7 @@ function syllable(match,index) {
           punctuation: match[6]? (match[6][0]==":"? " " + match[6] : match[6]) : "",
           space: match[7],
           accent: match[5] == '*' || regexAccent.test(match[3]),
+          prepunctuation: typeof(index) == "string"? index : "",
           word: undefined
          };
 }
@@ -252,6 +255,11 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
   }
   var openCount = 0;
   var italiciseIntonation = false;
+  var verseNum = regexVerseNumber.exec(text);
+  if(verseNum) {
+    text = text.slice(verseNum[0].length);
+    verseNum = parseInt(verseNum[1]);
+  }
   var syl = getSyllables(text);
   var toneList = getGabcTones(gabc);
   var tones = toneList.tones;
@@ -284,6 +292,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
           } else {
             r.push(s.syl);
           }
+          r.push(s.prepunctuation);
           --si;
           s = syl[si];
         }
@@ -309,6 +318,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
         } else {
           r.push(s.syl);
         }
+        r.push(s.prepunctuation);
       } else {
         lastOpen = tone;
         openCount = (lastTone && !lastTone.accent && !lastTone.open)? 1 : 0;
@@ -350,7 +360,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
           } else {
             r.push(lastOpen.gabcClosed);
           }
-          r.push(s.syl + s.punctuation);
+          r.push(s.prepunctuation + s.syl + s.punctuation);
           --si;
           s = syl[si];
         }
@@ -372,6 +382,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
       } else {
         r.push(s.syl);
       }
+      r.push(s.prepunctuation);
       if(!lastOpen) {
         lastAccentI = si;
       }
@@ -386,11 +397,11 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
         var tenorUntilAccent = false;
         while(si > ti) {
           if(s.punctuation.indexOf(sym_flex) > 0) {
-            r.push(s.syl + s.punctuation + "(" + toneList.toneFlex + ".)" + s.space);
+            r.push(s.prepunctuation + s.syl + s.punctuation + "(" + toneList.toneFlex + ".)" + s.space);
             tenorUntilAccent = "(" + toneList.toneFlex + ")";
           } else {
             tenorUntilAccent = !s.accent && tenorUntilAccent;
-            r.push(s.syl + s.punctuation + (tenorUntilAccent || lastOpen.gabcClosed) + s.space);
+            r.push(s.prepunctuation + s.syl + s.punctuation + (tenorUntilAccent || lastOpen.gabcClosed) + s.space);
           }
           --si;
           s = syl[si];
@@ -414,6 +425,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
       } else {
         r.push(s.syl);
       }
+      r.push(s.prepunctuation);
     }
     lastTone = tone;
   }
@@ -489,8 +501,10 @@ function getSyllables(text) {
   }
   var syl = [];
   var match;
+  var lastI = 0;
   while(match=regexLatin.exec(text)) {
-    syl.push(syllable(match));
+    syl.push(syllable(match,text.slice(lastI,match.index)));
+    lastI = match.index + match[0].length;
   }
   getWords(syl);
   return syl;
@@ -536,11 +550,14 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
   if(!sylsAfterBold) sylsAfterBold = 0;
   var f = bi_formats[format];
   if(!f) f = bi_formats.html;
+  var verseNum = regexVerseNumber.exec(text);
+  if(verseNum) {
+    text = text.slice(verseNum[0].length);
+    verseNum = parseInt(verseNum[1]);
+  }
   var syl = getSyllables(text);
   var doneAccents = 0;
   var donePrep = 0;
-  var index = text.length;
-  var len;
   var sylCount = 0;
   var i=syl.length - 1;
   var lastAccentI = i + 1;
@@ -549,14 +566,12 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
   var vow;
   for(; i >= 0; --i) {
     var s = syl[i];
-    len = s.all.length;
-    index = s.index;
     if(sylCount < sylsAfterBold) {
       ++sylCount;
       if(sylCount == sylsAfterBold) {
         bold = true;
       }
-      result.push(s.syl + s.punctuation + s.space);
+      result.push(s.prepunctuation + s.syl + s.punctuation + s.space);
       continue;
     }
     if(doneAccents < accents && s.accent) {
@@ -576,8 +591,6 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
           }
         }
         s = syl[i];
-        len = s.all.length;
-        index = s.index;
         s.accent = true;
       }
       lastAccentI = i;
@@ -587,6 +600,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
       } else {
         result.push(f.bold[0] + s.syl + f.bold[1]);
       }
+      result.push(s.prepunctuation);
       ++doneAccents;
       bold = false;
     } else if(bold) {
@@ -596,6 +610,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
       } else {
         result.push(f.bold[0] + s.syl + f.bold[1]);
       }
+      result.push(s.prepunctuation);
     } else if(doneAccents == accents && donePrep < preparatory) {
       result.push(s.punctuation + s.space);
       if(onlyVowel) {
@@ -607,9 +622,10 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
       } else {
         result.push(f.italic[0] + s.syl + f.italic[1]);
       }
+      result.push(s.prepunctuation);
       ++donePrep;
     } else {
-      result.push(s.syl + s.punctuation + s.space);
+      result.push(s.prepunctuation + s.syl + s.punctuation + s.space);
     }
   }
   return result.reverse().join('');
