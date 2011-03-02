@@ -632,7 +632,9 @@ function getPsalm(psalmNum, success) {
     success: function(data) {
       if(data.responseText != undefined) {
         var temp = $(data.responseText);
-        temp = temp[temp.length - 2].innerHTML.split('\n');
+        var pI = temp.length;
+        while(pI >= 0 && !/p/i.test(temp[--pI].tagName)) ;
+        temp = temp[pI].innerHTML.split('\n');
         for(var i in temp) {
           temp[i] = temp[i].trim();
         }
