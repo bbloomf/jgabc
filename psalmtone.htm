@@ -47,26 +47,28 @@ tr.bordered>td {
 }
 </style>
 <table class="bordered"><tr class="bordered"><td>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/><label for="cbSolemn">Solemn Tone</label><br/>
-Clef: <input type="text" id="txtClef" style="width:15pt"/><br/>
-Psalm GABC<br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
+<label for="txtClef">Clef: </label><input type="text" id="txtClef" style="width:15pt"/><br/>
+<label for="versegabc" title="Text of the psalm">Psalm GABC</label><br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span>
-</td><td>Psalm <select id="selPsalm"></select> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Pátri</label><br/><textarea id="versetext" style="height: 96pt; width: 95%;"></textarea>
+</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Pátri</label><br/><textarea id="versetext" style="height: 96pt; width: 95%;"></textarea>
 </td></tr>
 <tr class="bordered"><td>
-Format verses as: <select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
-<br/><input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels">Only format vowels</label>
-<br/>Prefix: <input type="text" id="txtPrefix"/>&nbsp;&nbsp;Suffix: <input type="text" id="txtSuffix"/>
+<label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
+<br/><input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels" title="Only apply the formatting to the vowel rather than to the entire syllable, and only to first of any preparatory syllables rather than to all preparatory syllables.">Only format vowels</label>
+<br/><input type="checkbox" id="cbUsePunctaCava"/><label for="cbUsePunctaCava" title="Use a punctum cavum wherever a variable number of notes will be present depending on the specific verse.">Use puncta cava</label>
 </td><td style="border-left-style:solid;">
 <table class="">
-<tr><td>Begin Preparatory Syllable:</td><td><input type="text" id="txtBeginPrep"/></td>
-<td style="padding-left:12pt;">End Preparatory Syllable:</td><td><input type="text" id="txtEndPrep"/></td></tr>
-<tr><td>Begin Accented Syllable:</td><td><input type="text" id="txtBeginAccented"/></td>
-<td style="padding-left:12pt;">End Accented Syllable:</td><td><input type="text" id="txtEndAccented"/></td></tr>
+<tr><td><label for="txtBeginPrep" title="This text will be added just before each preparatory syllable.">Begin Preparatory Syllable:</label></td><td><input type="text" id="txtBeginPrep"/></td>
+<td style="padding-left:12pt;"><label for="txtEndPrep" title="This text will be added just after each preparatory syllable.">End Preparatory Syllable:</label></td><td><input type="text" id="txtEndPrep"/></td></tr>
+<tr><td><label for="txtBeginAccented" title="This text will be added just before each accented syllable that figures in the mediant/termination.">Begin Accented Syllable:</label></td><td><input type="text" id="txtBeginAccented"/></td>
+<td style="padding-left:12pt;"><label for="txtEndAccented" title="This text will be added just after each accented syllable that figures in the mediant/termination.">End Accented Syllable:</label></td><td><input type="text" id="txtEndAccented"/></td></tr>
+<tr><td><label for="txtPrefix" title="Inserted before every verse.&#10;$c will be replaced by the verse number.">Verse Prefix:</label></td><td><input type="text" id="txtPrefix"/></td>
+<td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</td><td></label><input type="text" id="txtSuffix"/></td></tr>
 </table>
 </td></tr>
 </table>
-<br/>GABC<br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
+<br/><label for="editor">GABC</label><br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
 <div height="50%" id="chant-preview" style="width: 95%">
 </div>
 <div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
@@ -75,8 +77,7 @@ if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
 var last_syl,last_gSyl;
 var last_lines,last_gabcs,last_terTones,last_medTones;
-var g_prefix, g_suffix;
-var useFormat,onlyVowels,gabcFormat;
+var useFormat,onlyVowels,gabcFormat,usePunctaCava;
 function updateEditor(forceGabcUpdate) {
   if(!gSyl) gSyl = $("#versegabc")[0].value;
   if(!syl) syl = $("#versetext")[0].value;
@@ -89,8 +90,8 @@ function updateEditor(forceGabcUpdate) {
   var gabc;
   if(!sameSyl || !sameGSyl || forceGabcUpdate) {
     var firstLine = splitLine(lines[0]);
-    gabc = "(" + _clef + ")" + ((g_prefix && g_prefix.replace(/\$c/gi,String(1))) || "")
-      + applyPsalmTone(firstLine[0].trim(),gMediant,true,true,onlyVowels,gabcFormat) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination,true,true,onlyVowels,gabcFormat) + " (::)");
+    gabc = "(" + _clef + ")"
+      + applyPsalmTone(firstLine[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,1,true) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,1,false,true) + " (::)");
     var flex = (firstLine[0].indexOf(sym_flex) >= 0);
     last_lines = lines;
   }
@@ -129,38 +130,38 @@ function updateEditor(forceGabcUpdate) {
   var asCode = !useFormat.match(/html/i);
   var asGabc = useFormat.match(/gabc/i);
   if(asCode) r.push("<code>");
-  for(var i=1; i<lines.length; ++i) {
-    var line = splitLine(lines[i]);
-    if(!asGabc) {
-      if(gabc && !flex) {
-        var flexI = line[0].indexOf(sym_flex);
-        if(flexI >= 0) {
-          var syls = getSyllables(line[0].slice(0,flexI));
-          var index = syls.length - 1;
-          syls[index].punctuation += ' ' + sym_flex;
-          syls[index].space = "";
-          var sylcount = syls[index].word.length;
-          index -= sylcount - 1;
-          while((syls.length - index) < 3) {
-            --index;
-            sylcount = syls[index].word.length;
+  if(!asGabc || !sameSyl || !sameGSyl || forceGabcUpdate) {
+    for(var i=1; i<lines.length; ++i) {
+      var line = splitLine(lines[i]);
+      if(asGabc) {
+        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true) + (line.length == 1? "" : " *(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true) + " (::)");
+      } else {
+        if(gabc && !flex) {
+          var flexI = line[0].indexOf(sym_flex);
+          if(flexI >= 0) {
+            var syls = getSyllables(line[0].slice(0,flexI));
+            var index = syls.length - 1;
+            syls[index].punctuation += ' ' + sym_flex;
+            syls[index].space = "";
+            var sylcount = syls[index].word.length;
             index -= sylcount - 1;
+            while((syls.length - index) < 3) {
+              --index;
+              sylcount = syls[index].word.length;
+              index -= sylcount - 1;
+            }
+            syls.splice(0,index);
+            gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,getFlexGabc(medTones),false,false,onlyVowels,gabcFormat);
+            gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
+            flex = true;
           }
-          syls.splice(0,index);
-          gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,getFlexGabc(medTones),false,false,onlyVowels,gabcFormat);
-          gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
-          flex = true;
         }
+        r.push("<p style='margin: 6pt 0px;'>"
+        //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
+          + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, i+1,true)
+          + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,i+1,false,true))
+          + "</p>");
       }
-      r.push("<p style='margin: 6pt 0px;'>" +
-      //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
-      ((g_prefix && g_prefix.replace(/\$c/gi,String(i+1))) || "")
-        + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels)
-        + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels))
-        + ((g_suffix && g_suffix.replace(/$c/gi,String(i+1))) || "") + "</p>");
-    } else {
-      gabc += ((g_prefix && g_prefix.replace(/\$c/gi,String(i+1))) || "")
-        + applyPsalmTone(line[0].trim(),gMediant,true,true,onlyVowels,gabcFormat) + (line.length == 1? "" : " *(:) " + applyPsalmTone(line[1].trim(),gTermination,true,true,onlyVowels,gabcFormat) + " (::)");
     }
   }
   if(asCode) r.push("</code>");
@@ -253,18 +254,6 @@ function updatePsalm() {
   });
 }
 
-function updatePrefix() {
-  g_prefix = $("#txtPrefix")[0].value;
-  localStorage.txtPrefix = g_prefix;
-  updateEditor();
-}
-
-function updateSuffix() {
-  g_suffix = $("#txtSuffix")[0].value;
-  localStorage.txtSuffix = g_suffix;
-  updateEditor();
-}
-
 function updateClef() {
   var clef = $("#txtClef")[0].value;
   if(clef.length < 2)return;
@@ -297,6 +286,8 @@ function updateFormat() {
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
   $("#txtEndAccented").val(f.bold[1]);
+  $("#txtPrefix").val(f.verse[0]||"");
+  $("#txtSuffix").val(f.verse[1]||"");
   updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/) || oldFormat.match(/gabc(?=$|-)/));
 }
 function storeBiFormatsAndUpdate() {
@@ -317,6 +308,16 @@ function updateBeginPrep() {
 }
 function updateEndPrep() {
   bi_formats[useFormat].italic[1] = $("#txtEndPrep").val();
+  storeBiFormatsAndUpdate();
+}
+
+function updatePrefix() {
+  bi_formats[useFormat].verse[0] = $("#txtPrefix").val();
+  storeBiFormatsAndUpdate();
+}
+
+function updateSuffix() {
+  bi_formats[useFormat].verse[1] = $("#txtSuffix").val();
   storeBiFormatsAndUpdate();
 }
 
@@ -353,16 +354,31 @@ function updateOnlyVowels() {
   updateEditor(true);
 }
 
+function updateUsePunctaCava() {
+  localStorage.cbUsePunctaCava = usePunctaCava = $("#cbUsePunctaCava")[0].checked;
+  updateEditor(true);
+}
+
 $(function() {
 //g_tones = d_tones;
   if(localStorage.bi_formats) {
     bi_formats = JSON.parse(localStorage.bi_formats);
     for(i in o_bi_formats) {
-      if(!(i in bi_formats)) {
+      if(i in bi_formats) {
+        for(j in o_bi_formats[i]) {
+          if(!(j in bi_formats[i])) {
+            bi_formats[i][j] = $.extend(true,{},o_bi_formats[i][j]);
+          }
+        }
+      } else {
         bi_formats[i] = o_bi_formats[i];
       }
     }
   }
+  $("label[title][for]").each(function() {
+    var forId = this.getAttribute('for');
+    $("#" + forId).attr('title',this.title);
+  });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
@@ -372,6 +388,7 @@ $(function() {
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
   $("#cbOnlyVowels").change(updateOnlyVowels);
+  $("#cbUsePunctaCava").change(updateUsePunctaCava);
   $("#selFormat").change(updateFormat);
   $("#selFormat").keyup(updateFormat);
   $("#selEnd").change(updateEnding);
@@ -385,6 +402,7 @@ $(function() {
   if(_local) $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
+  $("#cbUsePunctaCava")[0].checked = usePunctaCava = (localStorage.cbUsePunctaCava != "false");
   $("#selFormat")[0].value = useFormat = localStorage.cbTeX? "tex" : (localStorage.selFormat || "html");
   $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
   $("#selTones")[0].value = localStorage.selTones || "1";
@@ -393,8 +411,6 @@ $(function() {
   $("#txtBeginAccented").keyup(updateBeginAccented);
   $("#txtEndAccented").keyup(updateEndAccented);
   $("#cbIncludeGloriaPatri").change(updatePsalm);
-  g_prefix = $("#txtPrefix")[0].value = localStorage.txtPrefix || "$c. ";
-  g_suffix = $("#txtSuffix")[0].value = localStorage.txtSuffix || "";
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false")
   updateEndings();
   if(("#selEnd")[0].firstChild) $("#selEnd")[0].value = localStorage.selEnd || $("#selEnd")[0].firstChild.innerText;

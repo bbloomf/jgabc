@@ -9,13 +9,14 @@ var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut é
 var gloria_patri_end_vowels = "E u o* u a e.";
 var algorithmTwoBefore = true; //count as an accent the syllable two prior to the next accent
 var algorithmTwoAfter = false; //count as an accent the syllable two after the last accent
-var o_bi_formats, bi_formats;
+var bi_formats;
 var o_bi_formats = 
-    bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
-                  tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"]},
-                  gabc: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"]},
-                  "html-underline": {bold:["<u>","</u>"], italic:["<span style='border-bottom:3px double;'>","</span>"]},
-                  "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"]}
+    bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],verse: ["<span style='float:left;width:25pt;text-align:right;'>$c.&nbsp;</span>",""]},
+                  tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"],verse:["\\item ",""]},
+                  gabc: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],verse:["$c. ",""]},
+                  "html-underline": {bold:["<u>","</u>"], italic:["<span style='border-bottom:3px double;'>","</span>"],verse:["$c. ",""]},
+                  "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"],verse:["$c. ",""]},
+                  "gabc-plain": {bold:["",""],italic:["",""],verse:["$c. ",""]}
                  };
 var g_tones = {'1':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h.",
@@ -245,7 +246,7 @@ function getFlexGabc(mediant) {
   return toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneFlex + "r " + toneFlex + ".";
 }
 
-function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
+function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,verseNumber,prefix,suffix) {
   var bi = format || bi_formats.gabc;
   if(useOpenNotes == undefined) {
     useOpenNotes = true;
@@ -259,7 +260,11 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
   if(verseNum) {
     text = text.slice(verseNum[0].length);
     verseNum = parseInt(verseNum[1]);
+  } else {
+    verseNum = verseNumber||"";
   }
+  prefix = (prefix && bi.verse[0])||"";
+  suffix = (suffix && bi.verse[1])||"";
   var syl = getSyllables(text);
   var toneList = getGabcTones(gabc);
   var tones = toneList.tones;
@@ -429,7 +434,8 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format) {
     }
     lastTone = tone;
   }
-  return r.reverse().join('');
+  return ((prefix && prefix.replace(/\$c/gi,String(verseNum))) || "")
+    + r.reverse().join('') + ((suffix && suffix.replace(/\$c/gi,String(verseNum))) || "");
 }
 
 function getGabcTones(gabc) {
@@ -546,7 +552,7 @@ function getWords(syls) {
   return r;
 }
 
-function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) {
+function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,verseNumber,prefix,suffix) {
   if(!sylsAfterBold) sylsAfterBold = 0;
   var f = bi_formats[format];
   if(!f) f = bi_formats.html;
@@ -554,7 +560,11 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
   if(verseNum) {
     text = text.slice(verseNum[0].length);
     verseNum = parseInt(verseNum[1]);
+  } else {
+    verseNum = verseNumber||"";
   }
+  prefix = (prefix && f.verse[0])||"";
+  suffix = (suffix && f.verse[1])||"";
   var syl = getSyllables(text);
   var doneAccents = 0;
   var donePrep = 0;
@@ -628,7 +638,8 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel) 
       result.push(s.prepunctuation + s.syl + s.punctuation + s.space);
     }
   }
-  return result.reverse().join('');
+  return ((prefix && prefix.replace(/\$c/gi,String(verseNum))) || "")
+    + result.reverse().join('') + ((suffix && suffix.replace(/\$c/gi,String(verseNum))) || "");
 }
 function normalizePsalm(text,includeGloriaPatri) {
   var i = text.length;
