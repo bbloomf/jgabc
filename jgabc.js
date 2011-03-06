@@ -134,6 +134,9 @@ var defs = null;
 var defText = null;
 var defChant = null;
 var masks = [];
+var _nextGabcUpdate = null;
+var _timeoutGabcUpdate = null;
+var _minUpdateInterval = 1700;
 
 function updatePreview(text) {
 	var old = textElem;
@@ -142,7 +145,16 @@ function updatePreview(text) {
 	svg.setAttribute('height',textElem.getBBox().height);
 }
 
-function updateChant(text, svg) {
+function updateChant(text, svg, dontDelay) {
+  var delay = _nextGabcUpdate - (new Date());
+  if(delay > 0 || !dontDelay) {
+    if(delay < 0) delay = 100;
+    if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
+    _timeoutGabcUpdate = setTimeout(function() {updateChant(text,svg,true);},delay);
+    return;
+  }
+  _timeoutGabcUpdate = null;
+  _nextGabcUpdate = (new Date()).getTime() + _minUpdateInterval;
 	var nodes = svg.childNodes;
 	var old = null;
 	for(i = nodes.length - 1; i >= 0; --i) {
@@ -625,7 +637,7 @@ g.appendChild(T);
 }
 
 $(function() {
-
+  _nextGabcUpdate = (new Date()).getTime() + 500;
 	var table = $("#tbl");
 	if(table) {
 		for(var code = 0xE0E0; code < 0xFFFF; code += 16) {

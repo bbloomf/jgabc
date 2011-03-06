@@ -63,8 +63,10 @@ tr.bordered>td {
 <td style="padding-left:12pt;"><label for="txtEndPrep" title="This text will be added just after each preparatory syllable.">End Preparatory Syllable:</label></td><td><input type="text" id="txtEndPrep"/></td></tr>
 <tr><td><label for="txtBeginAccented" title="This text will be added just before each accented syllable that figures in the mediant/termination.">Begin Accented Syllable:</label></td><td><input type="text" id="txtBeginAccented"/></td>
 <td style="padding-left:12pt;"><label for="txtEndAccented" title="This text will be added just after each accented syllable that figures in the mediant/termination.">End Accented Syllable:</label></td><td><input type="text" id="txtEndAccented"/></td></tr>
-<tr><td><label for="txtPrefix" title="Inserted before every verse.&#10;$c will be replaced by the verse number.">Verse Prefix:</label></td><td><input type="text" id="txtPrefix"/></td>
-<td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</td><td></label><input type="text" id="txtSuffix"/></td></tr>
+<tr><td><label for="txtPrefix" title="Inserted before every verse.&#10;$c will be replaced by the verse number.">Verse Prefix:</label></td>
+<td><input type="text" id="txtPrefix"/></td>
+<td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</label></td>
+<td><input type="text" id="txtSuffix"/></td></tr>
 </table>
 </td></tr>
 </table>
@@ -76,17 +78,24 @@ tr.bordered>td {
 if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
 var last_syl,last_gSyl;
-var last_lines,last_gabcs,last_terTones,last_medTones;
+var last_lines,last_terTones,last_medTones;
 var useFormat,onlyVowels,gabcFormat,usePunctaCava;
+var includeGloriaPatri;
 function updateEditor(forceGabcUpdate) {
   if(!gSyl) gSyl = $("#versegabc")[0].value;
   if(!syl) syl = $("#versetext")[0].value;
   var sameSyl = (syl == last_syl);
   var sameGSyl = (gSyl == last_gSyl);
   var lines = sameSyl? last_lines : syl.split('\n');
-  var gabcs = sameGSyl? last_gabcs : gSyl.split('\n');
-  var gMediant = gabcs[0];
-  var gTermination = gabcs.length == 1? "" : gabcs[1];
+  var gMediant,gTermination;
+  if(sameGSyl) {
+    gMediant = last_medTones;
+    gTermination = last_terTones;
+  } else {
+    var gabcs = gSyl.split('\n');
+    gMediant = getGabcTones(gabcs[0]);
+    gTermination = getGabcTones(gabcs[1]);
+  }
   var gabc;
   if(!sameSyl || !sameGSyl || forceGabcUpdate) {
     var firstLine = splitLine(lines[0]);
@@ -100,8 +109,8 @@ function updateEditor(forceGabcUpdate) {
     medTones = last_medTones;
     terTones = last_terTones;
   } else {
-    medTones = getGabcTones(gMediant);
-    terTones = getGabcTones(gTermination);
+    medTones = gMediant;
+    terTones = gTermination;
     $("#sMedAccent")[0].innerText = String(medTones.accents);
     $("#sMedAccentS")[0].innerText = (medTones.accents == 1)? "" : "s";
     if(medTones.preparatory == 0) {
@@ -122,7 +131,6 @@ function updateEditor(forceGabcUpdate) {
         $("#sTermPrepOuter").show();
       }
     }
-    last_gabcs = gabcs;
     last_medTones = medTones;
     last_terTones = terTones;
   }
@@ -166,9 +174,11 @@ function updateEditor(forceGabcUpdate) {
   }
   if(asCode) r.push("</code>");
   if(gabc) {
-    try {
-      gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat);
-    } catch(e) { }
+    if(!asGabc && includeGloriaPatri) {
+      try {
+        gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat);
+      } catch(e) { }
+    }
     $("#editor")[0].value = gabc;
     $("#editor").keyup();
   }
@@ -243,7 +253,7 @@ function getPsalms() {
 function updatePsalm() {
   var psalmNum = $("#selPsalm")[0].value;
   localStorage.selPsalm = psalmNum;
-  var includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
+  includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
   localStorage.cbIncludeGloriaPatri = includeGloriaPatri;
   getPsalm(psalmNum,includeGloriaPatri,function(text) {
     var vt = $("#versetext");

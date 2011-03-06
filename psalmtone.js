@@ -266,7 +266,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   prefix = (prefix && bi.verse[0])||"";
   suffix = (suffix && bi.verse[1])||"";
   var syl = getSyllables(text);
-  var toneList = getGabcTones(gabc);
+  var toneList = typeof(gabc)=="string"? getGabcTones(gabc) : gabc;
   var tones = toneList.tones;
   var r = [];
   var si = syl.length - 1;
