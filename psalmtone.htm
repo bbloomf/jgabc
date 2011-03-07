@@ -67,6 +67,7 @@ tr.bordered>td {
 <td><input type="text" id="txtPrefix"/></td>
 <td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</label></td>
 <td><input type="text" id="txtSuffix"/></td></tr>
+<tr><td><label for="txtNbsp" title="Used before : * and † so that lines won't be broken up with one of these characters starting the line.">Non-breaking space</label></td><td><input type="text" id="txtNbsp"/></td></tr>
 </table>
 </td></tr>
 </table>
@@ -100,7 +101,7 @@ function updateEditor(forceGabcUpdate) {
   if(!sameSyl || !sameGSyl || forceGabcUpdate) {
     var firstLine = splitLine(lines[0]);
     gabc = "(" + _clef + ")"
-      + applyPsalmTone(firstLine[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,1,true) + (firstLine.length == 1? "" : " *(:) " + applyPsalmTone(firstLine[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,1,false,true) + " (::)");
+      + applyPsalmTone(firstLine[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,1,true) + (firstLine.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(firstLine[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,1,false,true) + " (::)");
     var flex = (firstLine[0].indexOf(sym_flex) >= 0);
     last_lines = lines;
   }
@@ -142,7 +143,7 @@ function updateEditor(forceGabcUpdate) {
     for(var i=1; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
       if(asGabc) {
-        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true) + (line.length == 1? "" : " *(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true) + " (::)");
+        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true) + " (::)");
       } else {
         if(gabc && !flex) {
           var flexI = line[0].indexOf(sym_flex);
@@ -167,7 +168,7 @@ function updateEditor(forceGabcUpdate) {
         r.push("<p style='margin: 6pt 0px;'>"
         //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
           + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, i+1,true)
-          + (line.length == 1? "" : " * " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,i+1,false,true))
+          + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,i+1,false,true))
           + "</p>");
       }
     }
@@ -296,6 +297,7 @@ function updateFormat() {
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
   $("#txtEndAccented").val(f.bold[1]);
+  $("#txtNbsp").val(f.nbsp);
   $("#txtPrefix").val(f.verse[0]||"");
   $("#txtSuffix").val(f.verse[1]||"");
   updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/) || oldFormat.match(/gabc(?=$|-)/));
@@ -320,6 +322,10 @@ function updateEndPrep() {
   bi_formats[useFormat].italic[1] = $("#txtEndPrep").val();
   storeBiFormatsAndUpdate();
 }
+function updateNbsp() {
+  bi_formats[useFormat].nbsp = $("#txtNbsp").val();
+  storeBiFormatsAndUpdate();
+}
 
 function updatePrefix() {
   bi_formats[useFormat].verse[0] = $("#txtPrefix").val();
@@ -337,7 +343,7 @@ function newFormat() {
     name = prompt("There is already a format named '" + name + "'.  Please enter a new name.");
   }
   if(name.length > 0) {
-    bi_formats[name] = {italic:["(",")"],bold:["[","]"]};
+    bi_formats[name] = {italic:["_","_"],bold:["*","*"],nbsp:" ",verse:["$c. ",""]};
     $("#selFormat").append('<option>' + name + '</option>');
     $("#selFormat").val(name);
     updateFormat();
@@ -377,7 +383,8 @@ $(function() {
       if(i in bi_formats) {
         for(j in o_bi_formats[i]) {
           if(!(j in bi_formats[i])) {
-            bi_formats[i][j] = $.extend(true,{},o_bi_formats[i][j]);
+            if(typeof(o_bi_formats[i][j])=="object") bi_formats[i][j] = $.extend(true,{},o_bi_formats[i][j]);
+              else bi_formats[i][j] = o_bi_formats[i][j];
           }
         }
       } else {
@@ -406,6 +413,7 @@ $(function() {
   $("#selPsalm").change(updatePsalm);
   $("#txtPrefix").keyup(updatePrefix);
   $("#txtSuffix").keyup(updateSuffix);
+  $("#txtNbsp").keyup(updateNbsp);
   $("#txtClef").keyup(updateClef);
   $("#btnNewFormat").click(newFormat);
   $("#btnDelFormat").click(deleteFormat);

@@ -11,12 +11,12 @@ var algorithmTwoBefore = true; //count as an accent the syllable two prior to th
 var algorithmTwoAfter = false; //count as an accent the syllable two after the last accent
 var bi_formats;
 var o_bi_formats = 
-    bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],verse: ["<span style='float:left;width:25pt;text-align:right;'>$c.&nbsp;</span>",""]},
-                  tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"],verse:["\\item ",""]},
-                  gabc: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],verse:["$c. ",""]},
-                  "html-underline": {bold:["<u>","</u>"], italic:["<span style='border-bottom:3px double;'>","</span>"],verse:["$c. ",""]},
-                  "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"],verse:["$c. ",""]},
-                  "gabc-plain": {bold:["",""],italic:["",""],verse:["$c. ",""]}
+    bi_formats = {html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:"&nbsp;",verse: ["<span style='float:left;width:25pt;text-align:right;'>$c.&nbsp;</span>",""]},
+                  tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"],nbsp:"~",verse:["\\item ",""]},
+                  gabc: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:" ",verse:["$c. ",""]},
+                  "html-underline": {bold:["<u>","</u>"], italic:["<span style='border-bottom:3px double;'>","</span>"],nbsp:"&nbsp;",verse:["$c. ",""]},
+                  "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"],nbsp:"~",verse:["$c. ",""]},
+                  "gabc-plain": {bold:["",""],italic:["",""],nbsp:" ",verse:["$c. ",""]}
                  };
 var g_tones = {'1':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h.",
@@ -168,7 +168,8 @@ var d_tones = {'1':{clef:"c4",
                      termination:"g gr d 'f fr ed"
                     }
             };
-function syllable(match,index) {
+function syllable(match,index,bi) {
+  var nbsp=bi?bi.nbsp:" ";
   return typeof(match)=="string"?
          {index:index,
           all:match,
@@ -181,10 +182,10 @@ function syllable(match,index) {
           syl: match[3],
           vowel: match[4],
           separator: match[5], // - or *
-          punctuation: match[6]? (match[6][0]==":"? " " + match[6] : match[6]) : "",
+          punctuation: match[6]? (match[6].replace(/\s/g,"").replace(/[\*†:"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
           space: match[7],
           accent: match[5] == '*' || regexAccent.test(match[3]),
-          prepunctuation: typeof(index) == "string"? index : "",
+          prepunctuation: typeof(index) == "string"? index.replace(/(["'«»‘’“”„‟‹›‛])\s*/g,"$1"+nbsp) : "",
           word: undefined
          };
 }
@@ -265,7 +266,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   }
   prefix = (prefix && bi.verse[0])||"";
   suffix = (suffix && bi.verse[1])||"";
-  var syl = getSyllables(text);
+  var syl = getSyllables(text,bi);
   var toneList = typeof(gabc)=="string"? getGabcTones(gabc) : gabc;
   var tones = toneList.tones;
   var r = [];
@@ -501,7 +502,7 @@ function getGabcTones(gabc) {
          };
 }
 
-function getSyllables(text) {
+function getSyllables(text,bi) {
   if(typeof(text)!="string") {
     return text;
   }
@@ -509,7 +510,7 @@ function getSyllables(text) {
   var match;
   var lastI = 0;
   while(match=regexLatin.exec(text)) {
-    syl.push(syllable(match,text.slice(lastI,match.index)));
+    syl.push(syllable(match,text.slice(lastI,match.index),bi));
     lastI = match.index + match[0].length;
   }
   getWords(syl);
@@ -565,7 +566,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   }
   prefix = (prefix && f.verse[0])||"";
   suffix = (suffix && f.verse[1])||"";
-  var syl = getSyllables(text);
+  var syl = getSyllables(text,f);
   var doneAccents = 0;
   var donePrep = 0;
   var sylCount = 0;
