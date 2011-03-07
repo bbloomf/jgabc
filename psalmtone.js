@@ -1,5 +1,5 @@
 ﻿var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
-var regexLatin = /(?:(\b\s*)|)(((?:\b(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[ei]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))/gi;
+var regexLatin = /(?:(\b\s*)|)(((?:\b(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[eéií]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /(\d+)\.?\s*/;
@@ -437,6 +437,23 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   }
   return ((prefix && prefix.replace(/\$c/gi,String(verseNum))) || "")
     + r.reverse().join('') + ((suffix && suffix.replace(/\$c/gi,String(verseNum))) || "");
+}
+
+function removeIntonation(t) {
+/*all: match[0],
+          accent: match[1] == "'",
+          gabc: "(" + match[2] + ")",
+          gabcClosed: "(" + match[3] + ")",
+          open: match[4] == "
+  */        
+  var newTone = $.extend(true,{},t.tones[t.intonation]);
+  newTone.accent=false;
+  newTone.all=newTone.all.slice(0,-1);
+  newTone.gabc=newTone.gabc.slice(0,-2) + ")";
+  newTone.open=false;
+  t.tones.splice(0,t.intonation,newTone);
+  t.intonation = 1;
+  return t;
 }
 
 function getGabcTones(gabc) {

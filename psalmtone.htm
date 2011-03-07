@@ -88,7 +88,7 @@ function updateEditor(forceGabcUpdate) {
   var sameSyl = (syl == last_syl);
   var sameGSyl = (gSyl == last_gSyl);
   var lines = sameSyl? last_lines : syl.split('\n');
-  var gMediant,gTermination;
+  var gMediant,gTermination,gMediantAfter;
   if(sameGSyl) {
     gMediant = last_medTones;
     gTermination = last_terTones;
@@ -97,6 +97,7 @@ function updateEditor(forceGabcUpdate) {
     gMediant = getGabcTones(gabcs[0]);
     gTermination = getGabcTones(gabcs[1]);
   }
+  gMediantAfter = $("#cbSolemn")[0].checked?gMediant:removeIntonation($.extend(true,{},gMediant));
   var gabc;
   if(!sameSyl || !sameGSyl || forceGabcUpdate) {
     var firstLine = splitLine(lines[0]);
@@ -143,7 +144,7 @@ function updateEditor(forceGabcUpdate) {
     for(var i=1; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
       if(asGabc) {
-        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true) + " (::)");
+        gabc += "\n"+applyPsalmTone(line[0].trim(),gMediantAfter,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true) + " (::)");
       } else {
         if(gabc && !flex) {
           var flexI = line[0].indexOf(sym_flex);
