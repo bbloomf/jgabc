@@ -275,7 +275,8 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   var vow;
   var italic=false;
   var lastAccentI = si + 1;
-  if(toneList.intonation > 0 && syl.length < tones.length) {
+  if(toneList.intonation > 1 && syl.length < tones.length) {
+    tones = tones.slice(0);
     tones.splice(toneList.intonation + 1, tones.length - toneList.intonation - 1);
   }
   var lastTone;
