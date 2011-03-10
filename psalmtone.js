@@ -1,5 +1,5 @@
 ﻿var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
-var regexLatin = /(?:(\b\s*)|)(((?:\b(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][^\s$]|sc[eéií]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))/gi;
+var regexLatin = /(((?:(?:(\s+))(?:s[uú]bs?|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eé]r|[ií]n))|(?:(?:(\s+)|)(?:[cgq]u(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz])*([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýæœ]|sc[eéií]|(?:[sc]t|gn)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /(\d+)\.?\s*/;
@@ -178,13 +178,13 @@ function syllable(match,index,bi) {
           prepunctuation: "",
           word: undefined
      } : {index: match.index,
-          all: match[2],
-          syl: match[3],
-          vowel: match[4],
-          separator: match[5], // - or *
-          punctuation: match[6]? (match[6].replace(/\s/g,"").replace(/[\*†:"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
-          space: match[7],
-          accent: match[5] == '*' || regexAccent.test(match[3]),
+          all: match[1],
+          syl: match[2],
+          vowel: match[5],
+          separator: match[6], // - or *
+          punctuation: match[7]? (match[7].replace(/\s/g,"").replace(/[\*†:"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
+          space: match[8],
+          accent: match[6] == '*' || regexAccent.test(match[2]),
           prepunctuation: typeof(index) == "string"? index.replace(/(["'«»‘’“”„‟‹›‛])\s*/g,"$1"+nbsp) : "",
           word: undefined
          };
@@ -656,7 +656,7 @@ function normalizePsalm(text,includeGloriaPatri) {
     var code = text.charCodeAt(--i);
     if(code != 10 && code != 13) break;
   }
-  text = text.slice(0,i);
+  text = text.slice(0,i+1);
   return includeGloriaPatri?
       (text + "\n" + gloria_patri)
     : text;
