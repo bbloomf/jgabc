@@ -52,8 +52,6 @@ function applyGabc() {
       }
       cGabc = gSyl[iG];
     }
-    if(cSyl.space.length > 0)
-      result.push(cSyl.space);
   }
   return result.join('');
 }
@@ -85,7 +83,7 @@ function splitText(text) {
   var index = 0,lastIndex = 0;
   while((match = regexLatin.exec(text))) {
     index = match.index;
-    if(index>lastIndex) syl.push(syllable(text.slice(lastIndex,index) + match[1],index));
+    if(index>lastIndex) syl.push(syllable(text.slice(lastIndex,index),lastIndex));
     syl.push(syllable(match));
     lastIndex = index + match[0].length;
   }
