@@ -101,10 +101,10 @@ var g_tones = {'1':{clef:"c4",
                      termination:"gr d 'f fr ed.."
                     },
              'V.1':{clef:"c3",
-                    mediant:"hr 'h ghvGFEfgf"
+                    mediant:"hr h g_hvGFEfgf."
                    },
              'V.2':{clef:"c4",
-                    mediant:"hr 'h h/hf,fgwhvGFEfg/gf"
+                    mediant:"hr h h/hf,fgwhvGFEfg/gf"
                    }
             };
 var d_tones = {'1':{clef:"c4",
