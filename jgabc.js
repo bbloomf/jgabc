@@ -215,7 +215,11 @@ function getChant(text) {
       neumeInfo = getChantFragment(match[5]);
       clef=neumeInfo.clef||clef;
     }
-    var wChant = match[5]? document.getElementById(match[5]).getComputedTextLength() : 0;
+    var wChant = 0;
+    if(match[5]){
+      defChant.textContent = document.getElementById(match[5]).textContent;
+      wChant = defChant.getComputedTextLength();
+    }
     if(match[5]==clef)wClef=wChant;
     var wText;
     var space = match[7]||match[8];
