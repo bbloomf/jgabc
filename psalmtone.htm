@@ -1,20 +1,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Psalm Tone Tool</title>
-	<script type="text/javascript" src="jquery.min.js"></script>
+   <title>Psalm Tone Tool</title>
+  <script type="text/javascript" src="jquery.min.js"></script>
   <!--<script src="https://github.com/jamespadolsey/jQuery-Plugins/raw/master/cross-domain-ajax/jquery.xdomainajax.js"></script>-->
-	
-	<script type="text/javascript">var _local = true;</script>
+
+  <script type="text/javascript">var _local = true;</script>
   <script src="jgabc.js" type="text/javascript"></script>
-	<script src="psalmtone.js" type="text/javascript"></script>
+  <script src="psalmtone.js" type="text/javascript"></script>
 </head>
 <body>
 <a href="transcriber.html">GABC Transcription Tool</a>
 <br/><br/>
 <style>
 .latex {
-  font-family: Times, "Times New Roman", serif;	
+  font-family: Times, "Times New Roman", serif;
   letter-spacing: 1px;
 }
 
@@ -71,8 +71,8 @@ tr.bordered>td {
 </table>
 </td></tr>
 </table>
-<br/><label for="editor">GABC</label><br/><textarea id="editor" style="height: 100; width: 95%;"></textarea>
-<div height="50%" id="chant-preview" style="width: 95%">
+<div style="padding-right:2px;"><label for="editor">GABC</label><br/><textarea id="editor" style="height: 64px; width: 100%;padding:0px;"></textarea></div>
+<div height="50%" id="chant-preview" style="width: 100%">
 </div>
 <div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
 <script>
@@ -83,8 +83,8 @@ var last_lines,last_terTones,last_medTones;
 var useFormat,onlyVowels,gabcFormat,usePunctaCava;
 var includeGloriaPatri;
 function updateEditor(forceGabcUpdate) {
-  if(!gSyl) gSyl = $("#versegabc")[0].value;
-  if(!syl) syl = $("#versetext")[0].value;
+  if(!gSyl) gSyl = $("#versegabc").val();
+  if(!syl) syl = $("#versetext").val();
   var sameSyl = (syl == last_syl);
   var sameGSyl = (gSyl == last_gSyl);
   var lines = sameSyl? last_lines : syl.split('\n');
@@ -181,7 +181,7 @@ function updateEditor(forceGabcUpdate) {
         gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat);
       } catch(e) { }
     }
-    $("#editor")[0].value = gabc;
+    $("#editor").val(gabc);
     $("#editor").keyup();
   }
   $("#verses")[0].innerHTML = r.join('');
@@ -190,54 +190,53 @@ function updateEditor(forceGabcUpdate) {
 }
 
 function updateGabc() {
-  gSyl = $("#versegabc")[0].value;
+  gSyl = $("#versegabc").val();
   updateEditor();
 }
 
 function updateText() {
-  syl = $("#versetext")[0].value;
+  syl = $("#versetext").val();
   updateEditor();
 }
 
 function updateEndings() {
   $("#selEnd").empty();
-  var tone = $("#selTones")[0].value;
+  var tone = $("#selTones").val();
   localStorage.selTones = tone;
   var endings = getEndings(tone);
   var t = g_tones[tone];
   _clef = t.clef;
-  var vgabc = $("#cbSolemn")[0].checked? t.solemn : t.mediant;
-  if(vgabc == undefined) vgabc = t.mediant;
+  var vgabc = $("#cbSolemn")[0].checked? (t.solemn||t.mediant) : t.mediant;
   vgabc += "\n";
   if(endings.length == 0) {
-    vgabc += t.termination;
+    vgabc += t.termination||t.mediant;
   } else {
-	$("#selEnd").append('<option>' + endings.join('</option><option>') + '</option>');
-	vgabc += t.terminations[$("#selEnd")[0].value];
+    $("#selEnd").append('<option>' + endings.join('</option><option>') + '</option>');
+    vgabc += t.terminations[$("#selEnd").val()];
   }
   $("#selEnd")[0].disabled = (endings.length <= 1);
-  $("#versegabc")[0].value = vgabc;
-  $("#txtClef")[0].value = t.clef;
+  $("#versegabc").val(vgabc);
+  $("#txtClef").val(t.clef);
   gSyl = vgabc;
   updateEditor();
 }
 
 function updateEnding() {
-  var tone = $("#selTones")[0].value;
-  var selEnd = $("#selEnd")[0].value;
+  var tone = $("#selTones").val();
+  var selEnd = $("#selEnd").val();
   var solemn = $("#cbSolemn")[0].checked;
   localStorage.selEnd = selEnd;
   localStorage.cbSolemn = solemn;
   var t = g_tones[tone];
-  var vgabc = solemn? t.solemn : t.mediant;
-  if(vgabc == undefined) vgabc = t.mediant;
+  var vgabc = solemn? (t.solemn||t.mediant) : t.mediant;
+  vgabc+="\n";
   if(t.terminations) {
-    vgabc += "\n" + t.terminations[selEnd];
+    vgabc += t.terminations[selEnd];
   } else {
-    vgabc += "\n" + t.termination;
+    vgabc += t.termination||t.mediant;
   }
-  $("#versegabc")[0].value = vgabc;
-  $("#txtClef")[0].value = t.clef;
+  $("#versegabc").val(vgabc);
+  $("#txtClef").val(t.clef);
   gSyl = vgabc;
   updateEditor();
 }
@@ -253,13 +252,13 @@ function getPsalms() {
 }
 
 function updatePsalm() {
-  var psalmNum = $("#selPsalm")[0].value;
+  var psalmNum = $("#selPsalm").val();
   localStorage.selPsalm = psalmNum;
   includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
   localStorage.cbIncludeGloriaPatri = includeGloriaPatri;
   getPsalm(psalmNum,includeGloriaPatri,function(text) {
     var vt = $("#versetext");
-    vt[0].value = text;
+    vt.val(text);
     //vt.css("height","48pt");
     //vt.css("height",vt[0].scrollHeight);
     updateText();
@@ -267,7 +266,7 @@ function updatePsalm() {
 }
 
 function updateClef() {
-  var clef = $("#txtClef")[0].value;
+  var clef = $("#txtClef").val();
   if(clef.length < 2)return;
   var baseClefI = parseInt(_clef[1],10);
   var clefI = parseInt(clef[1],10);
@@ -280,7 +279,7 @@ function updateClef() {
       else newGabc.push(c);
   }
   vgabc = newGabc.reverse().join("");
-  $("#versegabc")[0].value = vgabc;
+  $("#versegabc").val(vgabc);
   gSyl = vgabc;
   _clef = clef;
   updateEditor();
@@ -422,9 +421,9 @@ $(function() {
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
   $("#cbUsePunctaCava")[0].checked = usePunctaCava = (localStorage.cbUsePunctaCava != "false");
-  $("#selFormat")[0].value = useFormat = localStorage.cbTeX? "tex" : (localStorage.selFormat || "html");
-  $("#selPsalm")[0].value = localStorage.selPsalm || "Magnificat";
-  $("#selTones")[0].value = localStorage.selTones || "1";
+  $("#selFormat").val((useFormat = (localStorage.cbTeX? "tex" : (localStorage.selFormat || "html"))));
+  $("#selPsalm").val(localStorage.selPsalm || "Magnificat");
+  $("#selTones").val(localStorage.selTones || "1");
   $("#txtBeginPrep").keyup(updateBeginPrep);
   $("#txtEndPrep").keyup(updateEndPrep);
   $("#txtBeginAccented").keyup(updateBeginAccented);
@@ -432,7 +431,7 @@ $(function() {
   $("#cbIncludeGloriaPatri").change(updatePsalm);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false")
   updateEndings();
-  if(("#selEnd")[0].firstChild) $("#selEnd")[0].value = localStorage.selEnd || $("#selEnd")[0].firstChild.innerText;
+  if(("#selEnd")[0].firstChild) $("#selEnd").val(localStorage.selEnd || $("#selEnd")[0].firstChild.innerText);
   updateEnding();
   updatePsalm();
   updateFormat();

@@ -18,7 +18,7 @@ var o_bi_formats =
                   "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"],nbsp:"~",verse:["$c. ",""]},
                   "gabc-plain": {bold:["",""],italic:["",""],nbsp:" ",verse:["$c. ",""]}
                  };
-var g_tones = {'1':{clef:"c4",
+var g_tones = {'1.':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h.",
                   solemn:"f gh hr hg ixgi h hr 'hg gh..",
                   terminations:{'D':"hr g f 'gh gr gvFED.",
@@ -33,12 +33,12 @@ var g_tones = {'1':{clef:"c4",
                                 'a3':"hr g f 'gh gr gh.."
                                }
                  },
-             '2':{clef:"f3",
+             '2.':{clef:"f3",
                   mediant:"e f hr 'i hr h.",
                   solemn:"e fe eh hr hg hi i 'hi hr h.",
                   termination:"hr g 'e fr f."
                  },
-             '3':{clef:"c4",
+             '3.':{clef:"c4",
                   mediant:"g hj jr 'k jr jr 'ih j.",
                   solemn:"g hj jr 'jk jr jr 'ih hj..",
                   terminations:{'b':"jr h 'j jr i.",
@@ -48,7 +48,7 @@ var g_tones = {'1':{clef:"c4",
                                 'g2':"jr h j i 'h gr g."
                                }
                  },
-             '4':{clef:"c4",
+             '4.':{clef:"c4",
                   mediant:"h gh hr g h 'i hr h.",
                   solemn:"h gh hr hg gi i 'hi hr h.",
                   terminations:{'g':"hr 'h gr g.",
@@ -64,12 +64,12 @@ var g_tones = {'1':{clef:"c4",
                                     'd':"ir h i j 'h ir i."
                                    }
                      },
-             '5':{clef:"c3",
+             '5.':{clef:"c3",
                   mediant:"d f hr 'i hr h.",
                   solemn:"d f hr i 'i hr h.",
                   termination:"hr 'i gr 'h fr f."
                  },
-             '6':{clef:"c4",
+             '6.':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h.",
                   solemn:"f gh hr hg ixgi h hr 'hg gh..",
                   termination:"hr f gh 'g fr f."
@@ -78,7 +78,7 @@ var g_tones = {'1':{clef:"c4",
                       mediant:"f gh hr g 'h fr f.",
                       termination:"hr f gh 'g fr f."
                      },
-             '7':{clef:"c3",
+             '7.':{clef:"c3",
                   mediant:"hg hi ir 'k jr 'i jr j.",
                   solemn:"ehg hi ir 'ik jr jr 'ji ij..",
                   terminations:{'a':"ir 'j ir 'h hr gf..",
@@ -88,7 +88,7 @@ var g_tones = {'1':{clef:"c4",
                                 'd':"ir 'j ir 'h hr gi.."
                                }
                  },
-             '8':{clef:"c4",
+             '8.':{clef:"c4",
                   mediant:"g h jr 'k jr j.",
                   solemn:"g hg gj jr ji jk k 'jk jr j.",
                   terminations:{'G':"jr i j 'h gr g.",
@@ -107,7 +107,7 @@ var g_tones = {'1':{clef:"c4",
                     mediant:"hr h h/hf,fgwhvGFEfg/gf"
                    }
             };
-var d_tones = {'1':{clef:"c4",
+var d_tones = {'1.':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h",
                   solemn:"f gh hr hg ixgi h hr 'hg gh",
                   terminations:{'D':"hr g f 'gh gr gvFED",
@@ -115,19 +115,19 @@ var d_tones = {'1':{clef:"c4",
                                 'a':"hr g f 'g hr h"
                                }
                  },
-             '2':{clef:"f3",
+             '2.':{clef:"f3",
                   mediant:"e f hr 'i hr h",
                   solemn:"e fe eh hr hg hi i 'hi hr h",
                   termination:"hr g 'e fr f"
                  },
-             '3':{clef:"c4",
+             '3.':{clef:"c4",
                   mediant:"g hj jr 'k jr jr 'ih j",
                   solemn:"g hj jr 'jk jr jr 'ih hj",
                   terminations:{'a':"jr h 'j jr ih",
                                 'a2':"jr ji hi 'h gr gh"
                                }
                  },
-             '4':{clef:"c4",
+             '4.':{clef:"c4",
                   mediant:"h gh hr g h 'i hr h",
                   solemn:"h gh hr hg gi i 'hi hr h",
                   terminations:{'E':"hr g h ih gr 'gf e"
@@ -139,24 +139,24 @@ var d_tones = {'1':{clef:"c4",
                       terminations:{'A':"ir h i j 'h fr f"
                                    }
                      },
-             '5':{clef:"c3",
+             '5.':{clef:"c3",
                   mediant:"d f hr 'i hr h",
                   solemn:"d f hr i 'i hr h",
                   termination:"hr 'i gr 'h fr f"
                  },
-             '6':{clef:"c4",
+             '6.':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h",
                   solemn:"f gh hr hg ixgi h hr 'hg gh",
                   termination:"hr f gh 'g fr f"
                  },
-             '7':{clef:"c3",
+             '7.':{clef:"c3",
                   mediant:"hg hi ir 'k jr 'i jr j",
                   solemn:"ehg hi ir 'ik jr jr 'ji ij",
                   terminations:{'a':"ir 'j ir 'h hr gf",
                                 'd':"ir 'j ir 'h hr gi"
                                }
                  },
-             '8':{clef:"c4",
+             '8.':{clef:"c4",
                   mediant:"g h jr 'k jr j",
                   solemn:"g hg gj jr ji jk k 'jk jr j",
                   terminations:{'G':"jr i j 'h gr g",

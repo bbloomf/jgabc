@@ -83,7 +83,7 @@ var codea = 'a'.charCodeAt(0);
 var codem = codea + 12;
 var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
-var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:([ \t]+)|(?=(?:\([^\)]*\))+([ \t]*))|)/g;
+var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexTag = /<(\/)?(b|i|sc)>/i;
 var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
@@ -734,11 +734,11 @@ $(function() {
   elements.each(function(index, element) {
     $(svg).clone().appendTo(element);
   });
-  
-  $("#editor").keyup(
-    function(){
-      updateChant($("#editor")[0].value, svg);
-    });
+  var callUpdateChant = function(){
+    updateChant($("#editor")[0].value, svg);
+  };
+  $("#editor").keyup(callUpdateChant);
+  $(window).resize(callUpdateChant);
   var init = function() {
     if(svg.parentNode.clientWidth == 0) {
       setTimeout(init, 100);
