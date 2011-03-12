@@ -255,14 +255,14 @@ function getChant(text) {
         activeStyle += tagStyle[activeTags[tagIndex]];
       }
       defText.setAttribute("style", styleGoudy + activeStyle);
-      defText.firstChild.data = '.' + txt + '.';
+      defText.textContent = '.' + txt + '.';
       wText = defText.getSubStringLength(1, txt.length);
       vowel = regexVowel.exec(txt);
       if(!vowel) {
         vowel = {index: 0, "0":txt, "1":txt};
       }
       var len = vowel.index + vowel[0].length;
-      defText.firstChild.data = txt.substring(0,len);
+      defText.textContent = txt.substring(0,len);
       try {
         var index = vowel.index + vowel[0].length - vowel[1].length;
         offset -= defText.getSubStringLength(0, index);
@@ -274,24 +274,25 @@ function getChant(text) {
       if(neumeInfo.startsWithAccidental) {
         offset += notewidth*1.2;
       }
-      //alert(defText.firstChild.data + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
+      //alert(defText.textContent + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
     } else {
       wText = 0;
     }
     // if there aren't enough characters before the vowel so that the neume begins far enough to the right of the previous neume,
     // add extra space in the text:
     xoffsetChantMin += offset;
-    if(wChant > 0 && xoffset < xoffsetChantMin) {
+    if(wChant > 0 && (xoffset < xoffsetChantMin || !txt)) {
       xoffset = xoffsetChantMin;
     }
-    var nextXoffsetTextMin = xoffset + wText;
+    var nextXoffsetTextMin = Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0));
     if(match[7])nextXoffsetTextMin+=5;
-    var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - offset;
-    var nextXoffset = wText==0?xoffset:Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
+    var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - Math.min(offset,0);
+    var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
     if(wText == 0)
-      nextXoffsetTextMin = nextXoffsetChantMin;
+      nextXoffsetTextMin = Math.max(nextXoffsetTextMin,nextXoffsetChantMin);
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
+      if(span)span.textContent += '-';
       ltone = (3 - ltone);
       ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
       var y = Math.ceil(0.1*staffheight + fontsize + ltone);
@@ -350,7 +351,7 @@ function getChant(text) {
       use.setAttribute('y', lineOffsets[line]);
       result.appendChild(use);
     } else use = use2 = null;
-    if(match[3] || match[7]) {
+    if(txt) {
       lastSyle = activeStyle;
       lastSpan = span;
       span = make('tspan');
@@ -368,13 +369,12 @@ function getChant(text) {
         }
       }
       if(lastSpan) {
-        defText.firstChild.data = lastSpan.firstChild.data;
+        defText.textContent = lastSpan.textContent;
         defText.setAttribute("style", styleGoudy + lastSpan.style.cssText);
         var lastXoffset = parseInt(lastSpan.getAttribute('x'),10);
         var lastSpanX2 = lastXoffset + defText.getComputedTextLength();
         if(lastSpanX2 < spanXoffset) {
-          lastSpan.firstChild.data += '-';
-          defText.firstChild.data += '-';
+          defText.textContent = (lastSpan.textContent += '-');
           lastSpanX2 = lastXoffset + defText.getComputedTextLength();
           if(lastSpanX2 > spanXoffset) {
             var additionalOffset = lastSpanX2 - spanXoffset;
@@ -398,6 +398,7 @@ function getChant(text) {
     } else {
       if(use) {
         xoffsetChantMin = xoffset+document.getElementById(match[5]).getComputedTextLength() + spaceBetweenNeumes;
+        xoffset=Math.max(nextXoffsetTextMin,xoffsetChantMin);
         if(wText) {
           xoffset=xoffsetChantMin;
         }
