@@ -178,7 +178,6 @@ function getChant(text) {
   var count = 0;
   var result = make('g');
   regexOuter.lastIndex = 0;
-  //result.setAttribute("id", "1");
   result.setAttribute("transform", "translate(0," + staffoffset + ")");
   result.setAttribute("style", styleCaeciliae);
 
@@ -193,13 +192,10 @@ function getChant(text) {
   var ltone = 3;
   var line = 0;
   var lineOffsets = [0];
-  //var width = svg.width.baseVal.value;
   var width = svg.parentNode.clientWidth;
   try {
     var padding = $(svg.parentElement).css("padding-left");
     if(padding) width -= parseInt(padding);
-    //padding = svg.parentElement.style.getPropertyValue("padding-left");
-    //if(padding) width -= parseInt(padding);
   } catch(e) { }
   svgWidth = width;
   var neumeInfo = null;
@@ -269,12 +265,10 @@ function getChant(text) {
         offset -= defText.getSubStringLength(index, vowel[1].length) / 2;
       } catch(e) {
       }
-      // TODO: some noteheads may have a different width, so this will need to happen differently
       offset += notewidth / 2;//defChant.getComputedTextLength() / 2;
       if(neumeInfo.startsWithAccidental) {
         offset += notewidth*1.2;
       }
-      //alert(defText.textContent + ': ' + defText.getSubStringLength(0, len - 1) + ', ' + (defText.getSubStringLength(len - 1, 1) / 2) + '; ' + (defChant.getComputedTextLength() / 2));
     } else {
       wText = 0;
     }
@@ -288,8 +282,6 @@ function getChant(text) {
     if(match[7])nextXoffsetTextMin+=5;
     var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - Math.min(offset,0);
     var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
-    if(wText == 0)
-      nextXoffsetTextMin = Math.max(nextXoffsetTextMin,nextXoffsetChantMin);
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
       if(span)span.textContent += '-';
@@ -398,10 +390,7 @@ function getChant(text) {
     } else {
       if(use) {
         xoffsetChantMin = xoffset+document.getElementById(match[5]).getComputedTextLength() + spaceBetweenNeumes;
-        xoffset=Math.max(nextXoffsetTextMin,xoffsetChantMin);
-        if(wText) {
-          xoffset=xoffsetChantMin;
-        }
+        xoffset=nextXoffsetTextMin;
       } else {
         xoffsetChantMin = xoffset;
       }
