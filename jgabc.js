@@ -173,6 +173,12 @@ function make(tag) {
   return document.createElementNS(svgns,tag);
 }
 
+function useWidth(use) {
+  var text=document.getElementById(use.getAttribute('href').slice(1)).textContent;
+  defText.textContent=text;
+  return defText.getComputedTextLength();
+}
+
 function getChant(text) {
   var match;
   var count = 0;
@@ -353,7 +359,7 @@ function getChant(text) {
           usesBetweenText[0]=currentUse;
         } else {
           var first = usesBetweenText[0][0];
-          var x1=parseFloat(first.getAttribute('x'))+first.getBBox().width;
+          var x1=parseFloat(first.getAttribute('x'))+useWidth(first);
           var transform = first.getAttribute('transform');
           if(transform) {
             var m = /translate\((\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
@@ -363,7 +369,7 @@ function getChant(text) {
           if(offset<0)x2-=offset;
           var chantWidth=0;
           for(var i=1;i<=count;++i) {
-            chantWidth+=usesBetweenText[i][0].getBBox().width;
+            chantWidth+=useWidth(usesBetweenText[i][0]);
           }
           var spaceWidth=x2-x1-chantWidth;
           spaceWidth /= (count+1);
@@ -373,7 +379,7 @@ function getChant(text) {
             for(j in u) {
               u[j].setAttribute('x', x);
             }
-            x += spaceWidth + u[0].getBBox().width;
+            x += spaceWidth + useWidth(u[0]);
           }
           usesBetweenText = [currentUse];
         }
