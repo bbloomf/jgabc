@@ -205,6 +205,7 @@ function getChant(text) {
   var activeTags = [];
   var tagsToPop = [];
   var activeStyle = "";
+  var usesBetweenText = [];
   addStaff(result,lineOffsets[line], line, null);
   while(match = regexOuter.exec(text)) {
     if(match[5]) {
@@ -284,6 +285,7 @@ function getChant(text) {
     var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
+      usesBetweenText=[];
       if(span)span.textContent += '-';
       ltone = (3 - ltone);
       ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
@@ -342,6 +344,42 @@ function getChant(text) {
       use.setAttribute('x', xoffset);
       use.setAttribute('y', lineOffsets[line]);
       result.appendChild(use);
+      //newstuff
+      currentUse=[use];
+      if(use2)currentUse.push(use2);
+      if(txt) {
+        var count = usesBetweenText.length - 1;
+        if(count<=0) {
+          usesBetweenText[0]=currentUse;
+        } else {
+          var first = usesBetweenText[0][0];
+          var x1=parseFloat(first.getAttribute('x'))+first.getBBox().width;
+          var transform = first.getAttribute('transform');
+          if(transform) {
+            var m = /translate\((\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
+            x1 += parseFloat(m[1]);
+          }
+          var x2=xoffset;
+          if(offset<0)x2-=offset;
+          var chantWidth=0;
+          for(var i=1;i<=count;++i) {
+            chantWidth+=usesBetweenText[i][0].getBBox().width;
+          }
+          var spaceWidth=x2-x1-chantWidth;
+          spaceWidth /= (count+1);
+          var x = x1 + spaceWidth;
+          for(var i=1;i<=count;++i) {
+            var u=usesBetweenText[i];
+            for(j in u) {
+              u[j].setAttribute('x', x);
+            }
+            x += spaceWidth + u[0].getBBox().width;
+          }
+          usesBetweenText = [currentUse];
+        }
+      } else if(usesBetweenText.length>0) {
+        usesBetweenText.push(currentUse);
+      }
     } else use = use2 = null;
     if(txt) {
       lastSyle = activeStyle;
