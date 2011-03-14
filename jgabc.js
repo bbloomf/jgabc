@@ -175,8 +175,8 @@ function make(tag) {
 
 function useWidth(use) {
   var text=document.getElementById(use.getAttribute('href').slice(1)).textContent;
-  defText.textContent=text;
-  return defText.getComputedTextLength();
+  defChant.textContent=text;
+  return defChant.getComputedTextLength();
 }
 
 function getChant(text) {
@@ -285,10 +285,16 @@ function getChant(text) {
     if(wChant > 0 && (xoffset < xoffsetChantMin || !txt)) {
       xoffset = xoffsetChantMin;
     }
-    var nextXoffsetTextMin = Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0));
+    var nextXoffsetTextMin = txt
+     //Experimental change (2010.03.14)  Old line:
+    //? Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0))
+      ? xoffset + wText + Math.max(offset,0)
+      : nextXoffsetTextMin||0;
     if(match[7])nextXoffsetTextMin+=5;
-    var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - Math.min(offset,0);
-    var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
+    var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - offset;//Math.min(offset,0);
+   //Experimental change (2010.03.14)  Old line:
+  //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
+    var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
       usesBetweenText=[];
@@ -395,8 +401,17 @@ function getChant(text) {
       // Don't worry about placing the vowel correctly if there is no neume.
       if(use) {
         if(offset > 0) {
-          spanXoffset += offset;
-          wText += offset;
+          //check if we can push the syllable to the left rather than force a hyphen.
+          if(spanXoffset-offset >= xoffsetChantMin) {
+            spanXoffset -= offset;
+            wText -= offset;
+            use.setAttribute('transform', "translate(" + (-offset) + ")");
+            if(use2)
+              use2.setAttribute('transform', "translate(" + (-offset) + ")");
+          } else {
+            spanXoffset += offset;
+            wText += offset;
+          }
         } else {
           use.setAttribute('transform', "translate(" + (-offset) + ")");
           if(use2)
