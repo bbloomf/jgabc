@@ -181,7 +181,7 @@ function syllable(match,index,bi) {
      } : {index: match.index,
           all: match[1],
           syl: match[2],
-          vowel: match[5],
+          vowel: match[5]||regexVowel.exec(match[2])[0],
           separator: match[6], // - or *
           punctuation: match[7]? (match[7].replace(/\s/g,"").replace(/[\*†:"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
           prespace: prespace,
@@ -541,7 +541,7 @@ function getWords(syls) {
         if(curWord.length == 2) {
           curWord[0].accent = true;
         } else if(curWord.length > 2) {
-          if(curWord[0].vowel == curWord[0].all.substring(0,1)) {
+          if(curWord[0].vowel == curWord[0].sylnospace.slice(0,1)) {
             curWord[0].accent = true;
           } else {
             for(var j = 0; j < curWord.length; ++j) {
