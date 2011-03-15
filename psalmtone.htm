@@ -365,7 +365,7 @@ function updateUsePunctaCava() {
 }
 
 $(function() {
-//g_tones = d_tones;
+  //if(!localStorage)localStorage=false;
   if(localStorage.bi_formats) {
     bi_formats = JSON.parse(localStorage.bi_formats);
     for(i in o_bi_formats) {

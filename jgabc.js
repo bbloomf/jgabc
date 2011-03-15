@@ -232,7 +232,7 @@ function getChant(text) {
     }
     var offset = 0;
     if(txt) {
-      txt = txt.trimLeft().replace(/\r\n/g,' ').replace(/\n/g,' ');
+      txt = txt.replace(/^\s+/,'').replace(/\r\n/g,' ').replace(/\n/g,' ');
       while(t = tagsToPop.pop()) {
         activeTags.splice(activeTags.indexOf(t),1);
       }
