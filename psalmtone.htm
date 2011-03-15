@@ -19,6 +19,10 @@ table.bordered {
 table {
   border-collapse:collapse;
 }
+td{
+  padding-left:4px;
+  padding-right:4px;
+}
 tr.bordered>td {
   vertical-align:top;
   border-width:1px;
@@ -33,10 +37,10 @@ textarea{
 </style>
 <table class="bordered"><tr class="bordered"><td>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/><label for="cbSolemn">Solemn Tone</label><br/>
 <label for="txtClef">Clef: </label><input type="text" id="txtClef" style="width:15pt"/><br/>
-<label for="versegabc" title="Text of the psalm">Psalm GABC</label><br/><textarea id="versegabc" style="height: 24pt; width: 95%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea>
+<label for="versegabc" title="Text of the psalm">Psalm GABC</label><br/><div class="tap"><textarea id="versegabc" style="height: 24pt; width: 100%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea></div>
 <br/>Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span>
-</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Pátri</label><br/><textarea id="versetext" style="height: 96pt; width: 95%;"></textarea>
+</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Pátri</label><br/><div class="tap"><textarea id="versetext" style="height: 96pt; width: 100%;"></textarea></div>
 </td></tr>
 <tr class="bordered"><td>
 <label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
@@ -59,7 +63,7 @@ textarea{
 <div class="tap"><label for="editor">GABC</label><br/><textarea id="editor" style="height: 64px; width: 100%;"></textarea></div>
 <div height="50%" id="chant-preview" style="width: 100%">
 </div>
-<div id="verses" style="width: 95%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
+<div id="verses" style="width: 100%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
 <script>
 if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
