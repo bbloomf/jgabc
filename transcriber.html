@@ -6,15 +6,26 @@
 <script src="psalmtone.js"></script>
 </head>
 <body>
+<style>
+textarea{
+  padding:0px;
+}
+.tap{
+  padding-right:2px;
+}
+td{
+  padding:0px;
+}
+</style>
 <a href="psalmtone.htm">Psalm Tone Tool</a>
 <br/><br/>
 <table width="100%">
 <tr><td width="50%">
-GABC<br><textarea id="hymngabc" style="height: 50pt; width: 95%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea>
-<br>Text<br><textarea id="hymntext" style="height: 50pt; width: 95%;">1. Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;2. Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea>
-</td><td width="50%">Generated GABC<br><textarea id="editor" style="height: 110pt; width: 95%;"></textarea></td></tr>
+GABC<br><div class="tap"><textarea id="hymngabc" style="height: 50pt; width: 100%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea></div>
+<br>Text<br><div class="tap"><textarea id="hymntext" style="height: 50pt; width: 100%;">1. Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;2. Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea></div>
+</td><td width="50%">Generated GABC<br><div class="tap"><textarea id="editor" style="height: 130pt; width: 100%;"></textarea></div></td></tr>
 </table>
-<div height="50%" id="chant-preview" style="width: 95%">
+<div height="50%" id="chant-preview" style="width: 100%">
 </div>
 <script>
 var regexGabc = /(([`,;:]+)|(\S+))(?:\s+|$)/g;
