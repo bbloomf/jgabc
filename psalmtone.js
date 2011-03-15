@@ -628,7 +628,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
       if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
         result.push(s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length));
       } else {
-        result.push(f.prespace + f.bold[0] + s.sylnospace + f.bold[1]);
+        result.push(s.prespace + f.bold[0] + s.sylnospace + f.bold[1]);
       }
       result.push(s.prepunctuation);
     } else if(doneAccents == accents && donePrep < preparatory) {

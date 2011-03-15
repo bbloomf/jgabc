@@ -201,7 +201,7 @@ function getChant(text) {
   var width = svg.parentNode.clientWidth;
   try {
     var padding = $(svg.parentElement).css("padding-left");
-    if(padding) width -= parseInt(padding);
+    if(padding) width -= parseFloat(padding);
   } catch(e) { }
   svgWidth = width;
   var neumeInfo = null;
@@ -368,7 +368,7 @@ function getChant(text) {
           var x1=parseFloat(first.getAttribute('x'))+useWidth(first);
           var transform = first.getAttribute('transform');
           if(transform) {
-            var m = /translate\((\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
+            var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
             x1 += parseFloat(m[1]);
           }
           var x2=xoffset;
@@ -394,7 +394,6 @@ function getChant(text) {
       }
     } else use = use2 = null;
     if(txt) {
-      lastSyle = activeStyle;
       lastSpan = span;
       span = make('tspan');
       var spanXoffset = xoffset;
@@ -422,7 +421,7 @@ function getChant(text) {
       if(lastSpan) {
         defText.textContent = lastSpan.textContent;
         defText.setAttribute("style", styleGoudy + lastSpan.style.cssText);
-        var lastXoffset = parseInt(lastSpan.getAttribute('x'),10);
+        var lastXoffset = parseFloat(lastSpan.getAttribute('x'),10);
         var lastSpanX2 = lastXoffset + defText.getComputedTextLength();
         if(lastSpanX2 < spanXoffset) {
           defText.textContent = (lastSpan.textContent += '-');
@@ -564,7 +563,7 @@ function getChantFragment(gabc) {
             span = make('tspan');
             newdata = '';
           } else {
-            currentdy = parseInt(span.getAttribute('dy') || 0, 10);
+            currentdy = parseFloat(span.getAttribute('dy') || 0, 10);
           }
           line = parseInt(tone.modifiers[0],10);
           var dy = 0;

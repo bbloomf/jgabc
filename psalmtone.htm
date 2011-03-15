@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" manifest="cache.manifest">
 <head>
    <title>Psalm Tone Tool</title>
   <script type="text/javascript" src="jquery.min.js"></script>
@@ -13,27 +13,6 @@
 <a href="transcriber.html">GABC Transcription Tool</a>
 <br/><br/>
 <style>
-.latex {
-  font-family: Times, "Times New Roman", serif;
-  letter-spacing: 1px;
-}
-
-.latex sup {
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 0.85em;
-  vertical-align: 0.15em;
-  margin-left: -0.36em;
-  margin-right: -0.15em;
-}
-
-.latex sub {
-  text-transform: uppercase;
-  vertical-align: -0.5ex;
-  margin-left: -0.1667em;
-  margin-right: -0.125em;
-  font-size: 1em;
-}
 table.bordered {
   width:100%;
 }
@@ -431,7 +410,7 @@ $(function() {
   $("#cbIncludeGloriaPatri").change(updatePsalm);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false")
   updateEndings();
-  if(("#selEnd")[0].firstChild) $("#selEnd").val(localStorage.selEnd || $("#selEnd")[0].firstChild.innerText);
+  if($("#selEnd")[0].firstChild) $("#selEnd").val(localStorage.selEnd || $("#selEnd")[0].firstChild.innerText);
   updateEnding();
   updatePsalm();
   updateFormat();
