@@ -1,0 +1,19 @@
+jgabc
+
+cd www
+hash
+put cache.manifest
+put jgabc.js
+put jquery.min.js
+put psalmtone.htm
+put psalmtone.js
+put transcriber.html
+quit
+-put Caeciliae-Staffless.ttf
+-put OFLGoudyStMTT-Italic.ttf
+-put OFLGoudyStMTT.ttf
+-cd psalms
+-put psalms/Benedictus
+-put psalms/Magnificat
+-prompt
+-mput psalms/???

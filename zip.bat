@@ -1,0 +1,1 @@
+"C:\Program Files\7-Zip\7z.exe" a -tzip -mx9 -x!psalms/.svn -x!icon/.svn web-app-jgabc.zip icon\* psalms\* cache.manifest Caeciliae-Staffless.ttf jgabc.js jquery.min.js manifest.json OFLGoudyStMTT.ttf OFLGoudyStMTT-Italic.ttf psalmtone.htm psalmtone.js transcriber.html
