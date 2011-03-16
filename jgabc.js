@@ -1,5 +1,4 @@
 ﻿// lower-staff ext: 0xe1, upper: 0xe2
-var _local;
 var indices = {
   flat: 0xE0F1, // these only exist for spaces (acegikm)
   natural: 0xE0F9, // ditto
@@ -431,6 +430,9 @@ function getChant(text) {
             spanXoffset = lastSpanX2;
             if(use) {
               use.setAttribute('x', xoffset + additionalOffset);
+              if(use2) {
+                use2.setAttribute('x', xoffset + additionalOffset);
+              }
             }
             nextXoffsetTextMin += additionalOffset;
             nextXoffsetChantMin += additionalOffset;
@@ -749,13 +751,9 @@ $(function() {
   var style = document.createElementNS(svgns, "style");
   style.setAttribute("type", "text/css");
   style.appendChild(document.createTextNode(
-    (_local
-    ? "@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(Caeciliae-Staffless.ttf) format(opentype)}"
+    ("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(Caeciliae-Staffless.ttf) format(opentype)}"
       + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
       + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
-    : "@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(http://jgabc.googlecode.com/svn/trunk/Caeciliae-Staffless.ttf) format(opentype)}"
-      + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('http://themes.googleusercontent.com/font?kit=4zlbkWdiblhTyAxV3yYOK1Map0k-03pf3IKr-TpLv1-glnMp3_3A8V8Ai8YosRtX') format('truetype');}"
-      +  "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('http://themes.googleusercontent.com/font?kit=9ZZVVBRCceNnPBXqWLH8IBaCi8XR2Wndwbau3-eaE1g') format('truetype');}"
     )
 //    "@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}" +
   ));

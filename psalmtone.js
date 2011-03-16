@@ -669,9 +669,9 @@ function getPsalm(psalmNum, includeGloriaPatri, success) {
   }
   psalmNum = String(psalmNum);
   if(psalmNum.length < 3) psalmNum = ("00" + psalmNum).slice(-3);
-  var t = $.ajax({url:(_local?"" : "http://jgabc.googlecode.com/svn/trunk/web-") + "psalms/" + psalmNum,
+  var t = $.ajax({url:"psalms/" + psalmNum,
     type: "GET",
-    crossDomain: _local?false : true,
+    crossDomain: false,
     success: function(data) {
       if(data.responseText != undefined) {
         var temp = $(data.responseText);
@@ -693,7 +693,7 @@ function getPsalm(psalmNum, includeGloriaPatri, success) {
       var text = t.responseText;
       success(normalizePsalm(text,includeGloriaPatri));
     },
-    dataType:_local?"text" : "text"});
+    dataType:"text"});
 }
 function splitLine(oLine) {
   var line = oLine.split(' * ');
