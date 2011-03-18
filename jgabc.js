@@ -76,7 +76,7 @@ var xlinkns="http://www.w3.org/1999/xlink";
 var staffInFont = false;
 var filenameCaeciliae = "Caeciliae-" + (staffInFont? "Regular.ttf" : "Staffless.ttf");
 var localCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
-var familyCaeciliae = "Caeciliae" + (staffInFont? "" : "-Staffless");
+var familyCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
 var styleCaeciliae = "font-family: '"+familyCaeciliae+"'; font-size:" + staffheight + "px;";
 var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + "px;";
 var svgWidth;
