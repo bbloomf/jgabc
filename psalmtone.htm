@@ -58,7 +58,7 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 </td></tr>
 </table>
 <div class="tap"><label for="editor">GABC</label><br/><textarea id="editor" style="height: 64px; width: 100%;"></textarea></div>
-<div height="50%" id="chant-preview" style="width: 100%">
+<div id="chant-preview" style="width: 100%">
 </div>
 <div id="verses" style="width: 100%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>
 <script>
@@ -214,6 +214,7 @@ function updateEnding() {
   localStorage.selEnd = selEnd;
   localStorage.cbSolemn = solemn;
   var t = g_tones[tone];
+  _clef = t.clef;
   var vgabc = solemn? (t.solemn||t.mediant) : t.mediant;
   vgabc+="\n";
   if(t.terminations) {

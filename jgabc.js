@@ -73,7 +73,11 @@ var spaceWidth = fontsize / 2;
 var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
-var styleCaeciliae = "font-family: 'Caeciliae Staffless'; font-size:" + staffheight + "px;";
+var staffInFont = false;
+var filenameCaeciliae = "Caeciliae-" + (staffInFont? "Regular.ttf" : "Staffless.ttf");
+var localCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
+var familyCaeciliae = "Caeciliae" + (staffInFont? "" : "-Staffless");
+var styleCaeciliae = "font-family: '"+familyCaeciliae+"'; font-size:" + staffheight + "px;";
 var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + "px;";
 var svgWidth;
 var svg;
@@ -91,36 +95,37 @@ var tagStyle = {b:"font-weight:bold;",
                 sc:"font-variant:small-caps"
                };
 
-var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(?:([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
+var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
 var rtg = {
   whitespace: 1,
   clef: 2,
   initioDebilis: 3,
-  toneUpper: 4, // diamond
-  toneLower: 5,
-  ictus: 6,
-  dot: 7,
-  episema: 8,
-  noteType: 9,      // (([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|([oO])|([xy])|(q)]|(R|r0|r(?![1-5]))|(r[1-5]))
-  virga: 10,        // [Vv]{1,3}
-  stropha: 11,      // s{1,3}
-  liquescentia: 12,      // [<>~]
-  diminutiveLiquescentia: 15,  // ~
-  ascendingLiquescentia: 13,  // <
-  descendingLiquescentia: 14,  // >
-  quilisma: 16,      // w
-  oriscus: 17,      // o
-  oriscusReverse: 18,    // O
-  accidental: 19,      // [xy]
-  flat: 20,        // x
-  natural: 21,      // y
-  q: 22,        // q
-  punctumCavum: 26,      // r
-  lineaPunctum: 24,      // R
-  lineaPunctumCavum: 25,    // r0
-  rNumber: 27,      // r[1-5]
-  custos: 28,        // z0
-  bracketed: 29      // [text]
+  tone: 4,
+  toneUpper: 5, // diamond
+  toneLower: 6,
+  ictus: 7,
+  dot: 8,
+  episema: 9,
+  noteType: 10,      // (([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|([oO])|([xy])|(q)]|(R|r0|r(?![1-5]))|(r[1-5]))
+  virga: 11,        // [Vv]{1,3}
+  stropha: 12,      // s{1,3}
+  liquescentia: 13,      // [<>~]
+  diminutiveLiquescentia: 16,  // ~
+  ascendingLiquescentia: 14,  // <
+  descendingLiquescentia: 15,  // >
+  quilisma: 17,      // w
+  oriscus: 18,      // o
+  oriscusReverse: 19,    // O
+  accidental: 20,      // [xy]
+  flat: 21,        // x
+  natural: 22,      // y
+  q: 23,        // q
+  punctumCavum: 27,      // r
+  lineaPunctum: 25,      // R
+  lineaPunctumCavum: 26,    // r0
+  rNumber: 28,      // r[1-5]
+  custos: 29,        // z0
+  bracketed: 30      // [text]
 };
 
 
@@ -136,12 +141,13 @@ var masks = [];
 var _nextGabcUpdate = null;
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
+var _heightCorrection = 0;
 
 function updatePreview(text) {
   var old = textElem;
   textElem = getChant(text);
   svg.replaceChild(textElem,old);
-  svg.setAttribute('height',textElem.getBBox().height);
+  svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
 
 function updateChant(text, svg, dontDelay) {
@@ -165,7 +171,7 @@ function updateChant(text, svg, dontDelay) {
   if(!old) return;
   var newElem = getChant(text);
   svg.replaceChild(newElem,old);
-  svg.setAttribute('height',newElem.getBBox().height);
+  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
 }
 
 function make(tag) {
@@ -211,11 +217,15 @@ function getChant(text) {
   var tagsToPop = [];
   var activeStyle = "";
   var usesBetweenText = [];
-  addStaff(result,lineOffsets[line], line, null);
+  var curStaff = addStaff(result,0,lineOffsets[line],line, null);
+  _heightCorrection=0;
   while(match = regexOuter.exec(text)) {
     if(match[5]) {
       neumeInfo = getChantFragment(match[5]);
       clef=neumeInfo.clef||clef;
+      if(line==0 && neumeInfo.mindy<_heightCorrection) {
+        _heightCorrection = neumeInfo.mindy;
+      }
     }
     var wChant = 0;
     if(match[5]){
@@ -249,8 +259,8 @@ function getChant(text) {
         }
         var lastIndex = tm.index + tm[0].length;
         if(tm.index == 0)
-          txt = txt.substring(tm[0].length);
-        else txt = txt.substring(0,tm.index) + txt.substring(lastIndex, txt.length);
+          txt = txt.slice(tm[0].length);
+        else txt = txt.slice(0,tm.index) + txt.slice(lastIndex);
       }
       activeStyle = "";
       for(var tagIndex in activeTags) {
@@ -264,7 +274,7 @@ function getChant(text) {
         vowel = {index: 0, "0":txt, "1":txt};
       }
       var len = vowel.index + vowel[0].length;
-      defText.textContent = txt.substring(0,len);
+      defText.textContent = txt.slice(0,len);
       try {
         var index = vowel.index + vowel[0].length - vowel[1].length;
         offset -= defText.getSubStringLength(0, index);
@@ -294,8 +304,10 @@ function getChant(text) {
    //Experimental change (2010.03.14)  Old line:
   //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
     var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
+    var lastX;
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
+//      lastX = finishStaff(result,lineOffsets[line]);
       usesBetweenText=[];
       if(span)span.textContent += '-';
       ltone = (3 - ltone);
@@ -308,7 +320,7 @@ function getChant(text) {
       ltone = 3;
       lineOffsets.push(staffoffset + y + lineOffsets[line++]);
       eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
-      curStaff = addStaff(result,lineOffsets[line], line, null);
+      curStaff = addStaff(result,0,lineOffsets[line],line, null);
       nextXoffset -= xoffset;
       nextXoffsetTextMin -= xoffset;
       nextXoffsetChantMin -= xoffset;
@@ -320,6 +332,7 @@ function getChant(text) {
         result.appendChild(use);
         xoffset=0;
         xoffsetChantMin=wClef+spaceBetweenNeumes+offset;
+//        nextStaffX=wClef;
         if(wChant > 0 && xoffset < xoffsetChantMin) {
           xoffset = xoffsetChantMin;
         }
@@ -333,12 +346,13 @@ function getChant(text) {
       
     if(match[5]) {
       if(needCustos) {
-        addCustos(result,neumeInfo.ftone,lineOffsets[line - 1]);
+        addCustos(result,neumeInfo.ftone,lastX,lineOffsets[line - 1]);
         needCustos = false;
       }
       if(neumeInfo.mask) {
         use2 = make('use');
         use2.setAttributeNS(xlinkns, 'href', '#' + neumeInfo.mask);
+        use2.setAttribute('style',styleCaeciliae);
         use2.setAttribute('x', xoffset);
         use2.setAttribute('y', lineOffsets[line]);
         
@@ -383,7 +397,7 @@ function getChant(text) {
             var u=usesBetweenText[i];
             for(j in u) {
               u[j].setAttribute('x', x);
-            }
+          }
             x += spaceWidth + useWidth(u[0]);
           }
           usesBetweenText = [currentUse];
@@ -401,7 +415,6 @@ function getChant(text) {
         if(offset > 0) {
           //check if we can push the syllable to the left rather than force a hyphen.
           if(spanXoffset-offset >= xoffsetChantMin) {
-            spanXoffset -= offset;
             wText -= offset;
             use.setAttribute('transform', "translate(" + (-offset) + ")");
             if(use2)
@@ -459,7 +472,7 @@ function getChant(text) {
     previousMatch = match;
     if(space)span=null;
   }
-  
+//  finishStaff(result,lineOffsets[line]);
   ltone = (3 - ltone);
   ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
   eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
@@ -467,10 +480,32 @@ function getChant(text) {
   return result;
 }
 
-function addCustos(result,tone,y) {
+function finishStaff(result,y) {
+  var uses=$(result).children("use").toArray();
+  var x=0;
+  for(i in uses) {
+    var cur=uses[i];
+    var curY=cur.getAttribute("y");
+    if(curY<y)continue;
+    else if(curY>y)break;
+    var x1=parseFloat(cur.getAttribute('x'));
+    var transform = cur.getAttribute('transform');
+    if(transform) {
+      var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
+      x1 += parseFloat(m[1]);
+    }
+    if(x1>x)addStaff(result,x,y,x1-x);
+    x = x1+useWidth(cur);
+  }
+  return x;
+}
+
+function addCustos(result,tone,x,y) {
+  var x2=svgWidth - (staffheight/15);
+//  addStaff(result,x,y,null,x2-x);
   var t = make('text');
   t.setAttribute('style',defChant.getAttribute('style'));
-  t.setAttribute('x',svgWidth - (staffheight/15));
+  t.setAttribute('x',x2);
   t.setAttribute('y',y);
   t.appendChild(document.createTextNode(String.fromCharCode(indices.custos + tone)));
   result.appendChild(t);
@@ -501,6 +536,7 @@ function getChantFragment(gabc) {
   var match;
   var clef;
   var startsWithAccidental = false;
+  var minDy = 0;
   regexInner.lastMatch = 0;
   while(match = regexInner.exec(gabc)) {
     var tones = [];
@@ -519,7 +555,7 @@ function getChantFragment(gabc) {
         }
         newdata += tone;
       } else {
-        var toneId = tone.charCodeAt(0) - (cmatch[rtg.toneUpper]? codeA : codea);
+        var toneId = parseInt(cmatch[rtg.tone]||cmatch[rtg.clef].slice(0,1),23)-10;
         if(tone.length == 1) {
           ltone = Math.min(ltone,toneId);
           htone = Math.max(htone,toneId);
@@ -530,7 +566,7 @@ function getChantFragment(gabc) {
           match: cmatch,
           index: toneId,
           relativeTone: toneId - previousToneId,
-          modifiers: tone.length == 1? null : tone.substring(1),
+          modifiers: tone.length == 1? null : tone.slice(1),
           diamond: cmatch[rtg.toneUpper]? true: false
         });
         previousToneId = toneId;
@@ -556,7 +592,7 @@ function getChantFragment(gabc) {
           span.setAttribute('dx', staffheight / (di == 1? -20 : 30));
         }  
       } else if(tone.modifiers) {
-        if((tone.index == 2 || tone.index == 5) && tone.modifiers[0].match(/[1-4]/)) {
+        if(tone.match[rtg.clef]) {
           // TODO: put some of these in other functions
           var currentdy=0;
           if(newdata.length > 0) {
@@ -577,6 +613,7 @@ function getChantFragment(gabc) {
             dy = 3 - line;
           }
           dy *= spaceheight;
+          minDy = Math.min(minDy,dy);
           span.setAttribute('dy', dy + currentdy);
           span.appendChild(document.createTextNode(curChar));
           result.appendChild(span);
@@ -651,7 +688,6 @@ function getChantFragment(gabc) {
         }
       }
       newdata += String.fromCharCode(base + tone.index);
-      //TEST CODE
       if(tone.match[rtg.ictus]) {
         newdata += String.fromCharCode(indices.ictus + tone.index);
       }
@@ -687,11 +723,12 @@ function getChantFragment(gabc) {
     ftone:ftone,
     startsWithAccidental:startsWithAccidental,
     mask:mask,
-    clef:clef
+    clef:clef,
+    mindy:minDy
   };
 }
 
-function addStaff(result,y,line,width) {
+function addStaff(result,x,y,line,width) {
   var maskId = 'staffmask' + line;
   if(masks[line]) {
     var tmp = masks[line].firstChild;
@@ -703,22 +740,22 @@ function addStaff(result,y,line,width) {
     var g = make('g');
     g.setAttribute('style', styleCaeciliae);
     mask.appendChild(g);
-var T = make('rect');
-T.setAttribute('y', y + 1-staffheight);
-T.setAttribute('width', '10000');
-T.setAttribute('height', staffheight);
-T.setAttribute('fill', 'white');
-g.appendChild(T);
+    var T = make('rect');
+    T.setAttribute('y', y + 1-staffheight);
+    T.setAttribute('width', '10000');
+    T.setAttribute('height', staffheight);
+    T.setAttribute('fill', 'white');
+    g.appendChild(T);
     mask.setAttribute('id', maskId);
     
     defs.appendChild(mask);
   }
   var group = make('g');
-  group.setAttribute('mask','url(#' + maskId + ')');
+//  group.setAttribute('mask','url(#' + maskId + ')');
   var staff = make("use");
   staff.setAttributeNS(xlinkns, "href", "#staff");
   if(!width) width = svg.parentNode.clientWidth;
-  staff.setAttribute("transform", "translate(0, " + (y) +") scale(" + width + ",1)");
+  staff.setAttribute("transform", "translate("+(x)+", "+(y)+") scale(" + (width) + ",1)");
   group.appendChild(staff);
   result.appendChild(group);
   return staff;
@@ -751,11 +788,10 @@ $(function() {
   var style = document.createElementNS(svgns, "style");
   style.setAttribute("type", "text/css");
   style.appendChild(document.createTextNode(
-    ("@font-face {font-family: 'Caeciliae Staffless'; font-weight: normal; font-style: normal;src: local(Caeciliae Staffless); src:url(Caeciliae-Staffless.ttf) format(opentype)}"
+    ("@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: local("+localCaeciliae+"); src:url("+filenameCaeciliae+") format(opentype)}"
       + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
       + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
     )
-//    "@font-face {font-family: 'Caeciliae-staffless'; font-weight: normal; font-style: normal; src: local(Caeciliae Staffless)}" +
   ));
   svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
@@ -768,13 +804,26 @@ $(function() {
   defChant.appendChild(document.createTextNode('p'));
   defs.appendChild(defChant);
   
-  var gStaff = document.createElementNS(svgns, "g");
+  var gStaff;
+  if(staffInFont) {
+    gStaff = document.createElementNS(svgns, "text")
+    gStaff.textContent="'";
+    gStaff.setAttribute("transform","scale(0.5,1)");
+  } else {
+    gStaff = document.createElementNS(svgns, "g");
+    var height = staffheight * 16 / 1000;
+    var line = document.createElementNS(svgns, "path");
+    var stringLine = "h1v" + height + "h-1zm0 -" + spaceheight;
+    line.setAttribute("d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
+    gStaff.appendChild(line);
+
+/*    gStaff = document.createElementNS(svgns,"rect");
+    gStaff.setAttribute("width","1000");
+    gStaff.setAttribute("fill","grey");
+    gStaff.setAttribute("height",staffheight*4/5);
+    gStaff.setAttribute("y","-47");*/
+  }
   gStaff.setAttribute("id", "staff");
-  var height = staffheight * 16 / 1000;
-  var line = document.createElementNS(svgns, "path");
-  var stringLine = "h1v" + height + "h-1zm0 -" + spaceheight;
-  line.setAttribute("d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
-  gStaff.appendChild(line);
   defs.appendChild(gStaff);
   svg.appendChild(defs);
   textElem = document.createElementNS(svgns, "g");
