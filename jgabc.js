@@ -309,7 +309,7 @@ function getChant(text) {
       needCustos = true;
 //      lastX = finishStaff(result,lineOffsets[line]);
       usesBetweenText=[];
-      if(span)span.textContent += '-';
+      if(span&&txt)span.textContent += '-';
       ltone = (3 - ltone);
       ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
       var y = Math.ceil(0.1*staffheight + fontsize + ltone);
