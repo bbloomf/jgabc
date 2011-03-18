@@ -356,6 +356,12 @@ function getChant(text) {
         use2.setAttribute('x', xoffset);
         use2.setAttribute('y', lineOffsets[line]);
         
+        //use2 = make('rect');
+        //use2.setAttribute('x', xoffset);
+        //use2.setAttribute('y', lineOffsets[line]-47);
+        //use2.setAttribute('fill','#ffff');
+        //use2.setAttribute('height',staffheight*4/5);
+        //use2.setAttribute('width',spaceheight/2);
         //use2 = make('circle');
         //use2.setAttribute('cx', xoffset + (64 * staffheight / 1000));
         //use2.setAttribute('cy', lineOffsets[line] - (132 * staffheight / 1000) - spaceheight/2);
@@ -737,6 +743,7 @@ function addStaff(result,x,y,line,width) {
     }
   } else {
     var mask = masks[line] = make('mask');
+    mask.setAttribute('maskUnits','objectBoundingBox');
     var g = make('g');
     g.setAttribute('style', styleCaeciliae);
     mask.appendChild(g);
@@ -751,7 +758,7 @@ function addStaff(result,x,y,line,width) {
     defs.appendChild(mask);
   }
   var group = make('g');
-//  group.setAttribute('mask','url(#' + maskId + ')');
+  group.setAttribute('mask','url(#' + maskId + ')');
   var staff = make("use");
   staff.setAttributeNS(xlinkns, "href", "#staff");
   if(!width) width = svg.parentNode.clientWidth;
@@ -815,13 +822,15 @@ $(function() {
     var line = document.createElementNS(svgns, "path");
     var stringLine = "h1v" + height + "h-1zm0 -" + spaceheight;
     line.setAttribute("d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
+    
+/*    var grey = document.createElementNS(svgns,"rect");
+    grey.setAttribute("width","1000");
+    grey.setAttribute("fill","grey");
+    grey.setAttribute("height",staffheight*4/5);
+    grey.setAttribute("y","-47");
+    gStaff.appendChild(grey);
+*/
     gStaff.appendChild(line);
-
-/*    gStaff = document.createElementNS(svgns,"rect");
-    gStaff.setAttribute("width","1000");
-    gStaff.setAttribute("fill","grey");
-    gStaff.setAttribute("height",staffheight*4/5);
-    gStaff.setAttribute("y","-47");*/
   }
   gStaff.setAttribute("id", "staff");
   defs.appendChild(gStaff);
