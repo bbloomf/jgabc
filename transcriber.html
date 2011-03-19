@@ -23,16 +23,13 @@ td{
 <tr><td width="50%">
 GABC<br><div class="tap"><textarea id="hymngabc" style="height: 50pt; width: 100%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea></div>
 <br>Text<br><div class="tap"><textarea id="hymntext" style="height: 50pt; width: 100%;">1. Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;2. Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea></div>
-</td><td width="50%">Generated GABC<br><div class="tap"><textarea id="editor" style="height: 130pt; width: 100%;"></textarea></div></td></tr>
+</td><td width="50%">Integrated GABC<br><div class="tap"><textarea id="editor" style="height: 130pt; width: 100%;"></textarea></div></td></tr>
 </table>
 <div id="chant-preview" style="width: 100%">
 </div>
 <script>
 var regexGabc = /(([`,;:]+)|(\S+))(?:\s+|$)/g;
-String.prototype.repeat = function( num )
-{
-    return new Array( num + 1 ).join( this );
-}
+String.prototype.repeat = function(num){return new Array(num+1).join(this);}
 function applyGabc() {
   var result = [];
   var match;
@@ -74,11 +71,13 @@ var gSyl;
 var syl;
 
 function updateEditor() {
-  if(!gSyl) gSyl = splitGabc($("#hymngabc")[0].value);
-  if(!syl)  syl = splitText($("#hymntext")[0].value);
+  if(!gSyl) gSyl = splitGabc($("#hymngabc").val());
+  if(!syl)  syl = splitText($("#hymntext").val());
 
-  $("#editor")[0].value = applyGabc();
-  $("#editor").keyup();
+  $("#editor").val(applyGabc())
+  .unbind("keyup",updateBoth)
+  .keyup()
+  .keyup(updateBoth);
 }
 
 function splitGabc(gabc) {
@@ -97,7 +96,16 @@ function splitText(text) {
   var index = 0,lastIndex = 0;
   while((match = regexLatin.exec(text))) {
     index = match.index;
-    if(index>lastIndex) syl.push(syllable(text.slice(lastIndex,index),lastIndex));
+    if(index>lastIndex) {
+      var lastSyl = text.slice(lastIndex,index);
+      if(match[0].match(/^i$/i) && lastSyl.match(/<\/?$/) && text.substr(index+1,1).match(/^>/)) {
+        ++index;
+        syl.push(syllable(lastSyl+"i>",lastIndex));
+        lastIndex = index+1;
+        continue;
+      }
+      syl.push(syllable(lastSyl,lastIndex));
+    }
     syl.push(syllable(match));
     lastIndex = index + match[0].length;
   }
@@ -105,18 +113,37 @@ function splitText(text) {
 }
 
 function updateGabc() {
-  gSyl = splitGabc($("#hymngabc")[0].value);
+  gSyl = splitGabc($("#hymngabc").val());
   updateEditor();
 }
 
 function updateText() {
-  syl = splitText($("#hymntext")[0].value);
+  syl = splitText($("#hymntext").val());
   updateEditor();
+}
+
+function decompile(mixed) {
+  regexOuter.exec('');
+  var text=[];
+  var gabc=[];
+  var match;
+  while(match=regexOuter.exec(mixed)) {
+    ws=(match[rog.whitespace]||'');
+    text.push((match[rog.syl]||'') + ws);
+    gabc.push(match[rog.gabc] + (ws.match(/\n/)?"\n":" "));
+  }
+  $("#hymngabc").val(gabc.join(''));
+  $("#hymntext").val(text.join(''));
+}
+
+function updateBoth() {
+  decompile($("#editor").val());
 }
 
 $(function() {
   $("#hymngabc").keyup(updateGabc);
   $("#hymntext").keyup(updateText);
+  $("#editor").keyup(updateBoth);
   updateEditor();
 });
 </script>

@@ -95,6 +95,11 @@ var tagStyle = {b:"font-weight:bold;",
                 sc:"font-variant:small-caps"
                };
 
+var rog = {
+  syl:3,
+  gabc:5,
+  whitespace:7
+}
 var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
 var rtg = {
   whitespace: 1,
