@@ -24,7 +24,7 @@ var g_tones = {'1.':{clef:"c4",
                   terminations:{'D':"hr g f 'gh gr gvFED.",
                                 'D-':"hr g f 'g gr gvFED.",
                                 'D2':"hr g f gr 'gf d.",
-                                'f':"hr g f 'gh gr gf.",
+                                'f':"hr g f 'gh gr gf..",
                                 'g':"hr g f 'gh gr g.",
                                 'g2':"hr g f 'g gr ghg.",
                                 'g3':"hr g f 'g gr g.",
@@ -293,7 +293,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
       if(lastOpen && lastOpen.accent) {
         while(!s.accent) {
           r.push(s.punctuation + tone.gabcClosed);
-          if(useBoldItalic) {
+          if(!onlyVowel && useBoldItalic) {
             if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
               r.push(s.syl.slice(0,vow.index) + bi.bold[0] + vow[0] + bi.bold[1] + s.syl.slice(vow.index + vow[0].length));
             } else {
@@ -314,7 +314,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
         }
         r.push(s.punctuation);
         if(s.accent) {
-          if(useBoldItalic) {
+          if(!onlyVowel && useBoldItalic) {
             if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
               r.push(s.syl.slice(0,vow.index) + bi.bold[0] + vow[0] + bi.bold[1] + s.syl.slice(vow.index + vow[0].length));
             } else {
@@ -616,7 +616,11 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
       lastAccentI = i;
       result.push(s.punctuation);
       if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
-        result.push(s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length));
+        if(!bold && doneAccents==1) {
+          result.push(s.syl);
+        } else {
+          result.push(s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length));
+        }
       } else {
         result.push(s.prespace + f.bold[0] + s.sylnospace + f.bold[1]);
       }
@@ -627,6 +631,8 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
       result.push(s.punctuation);
       if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
         result.push(s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length));
+        ++doneAccents;
+        bold=false;
       } else {
         result.push(s.prespace + f.bold[0] + s.sylnospace + f.bold[1]);
       }

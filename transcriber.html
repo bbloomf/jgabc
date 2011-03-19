@@ -128,12 +128,12 @@ function decompile(mixed) {
   var gabc=[];
   var match;
   while(match=regexOuter.exec(mixed)) {
-    ws=(match[rog.whitespace]||'');
+    ws= match[rog.whitespace]||'';
     text.push((match[rog.syl]||'') + ws);
-    gabc.push(match[rog.gabc] + (ws.match(/\n/)?"\n":" "));
+    gabc.push(match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" "));
   }
-  $("#hymngabc").val(gabc.join(''));
-  $("#hymntext").val(text.join(''));
+  $("#hymngabc").val(gSyl=gabc.join(''));
+  $("#hymntext").val(syl=text.join(''));
 }
 
 function updateBoth() {
