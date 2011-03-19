@@ -246,8 +246,6 @@ function updatePsalm() {
   getPsalm(psalmNum,includeGloriaPatri,function(text) {
     var vt = $("#versetext");
     vt.val(text);
-    //vt.css("height","48pt");
-    //vt.css("height",vt[0].scrollHeight);
     updateText();
   });
 }

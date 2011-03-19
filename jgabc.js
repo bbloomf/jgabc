@@ -800,7 +800,7 @@ $(function() {
   var style = document.createElementNS(svgns, "style");
   style.setAttribute("type", "text/css");
   style.appendChild(document.createTextNode(
-    ("@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: local("+localCaeciliae+"); src:url("+filenameCaeciliae+") format(opentype)}"
+    ("@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: local('"+localCaeciliae+"'); src:url("+filenameCaeciliae+") format(opentype)}"
       + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
       + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
     )

@@ -132,8 +132,12 @@ function decompile(mixed) {
     text.push((match[rog.syl]||'') + ws);
     gabc.push(match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" "));
   }
-  $("#hymngabc").val(gSyl=gabc.join(''));
-  $("#hymntext").val(syl=text.join(''));
+  var gs =gabc.join('');
+  gSyl = splitGabc(gs);
+  var s = text.join('');
+  syl = splitText(s);
+  $("#hymngabc").val(gs);
+  $("#hymntext").val(s);
 }
 
 function updateBoth() {
