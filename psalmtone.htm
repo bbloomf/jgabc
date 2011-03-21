@@ -152,7 +152,7 @@ function updateEditor(forceGabcUpdate) {
             flex = true;
           }
         }
-        r.push("<p style='margin: 6pt 0px;'>"
+        r.push("<p style='line-height:100%;margin: 6pt 0px;'>"
         //"<span style='float:left;width:25pt;text-align:right;'>" + String(i + 1) + ".&nbsp;</span>"
           + addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, i+1,true)
           + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,i+1,false,true))
