@@ -80,6 +80,7 @@ var g_tones = {'1.':{clef:"c4",
                      },
              '7.':{clef:"c3",
                   mediant:"hg hi ir 'k jr 'i jr j.",
+                  shortMediant:"hg hi ir i.",
                   solemn:"ehg hi ir 'ik jr jr 'ji ij..",
                   terminations:{'a':"ir 'j ir 'h hr gf..",
                                 'b':"ir 'j ir 'h hr g.",
@@ -151,6 +152,7 @@ var d_tones = {'1.':{clef:"c4",
                  },
              '7.':{clef:"c3",
                   mediant:"hg hi ir 'k jr 'i jr j",
+                  shortMediant:"hg hi ir",
                   solemn:"ehg hi ir 'ik jr jr 'ji ij",
                   terminations:{'a':"ir 'j ir 'h hr gf",
                                 'd':"ir 'j ir 'h hr gi"
@@ -250,7 +252,10 @@ function getFlexGabc(mediant) {
   return toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneFlex + "r " + toneFlex + ".";
 }
 
-function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,verseNumber,prefix,suffix) {
+function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,verseNumber,prefix,suffix,italicizeIntonation,result,gabcShort) {
+  if(typeof(result)!="object") {
+    result={};
+  }
   var bi = format || bi_formats.gabc;
   if(useOpenNotes == undefined) {
     useOpenNotes = true;
@@ -259,7 +264,6 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
     useBoldItalic = true;
   }
   var openCount = 0;
-  var italiciseIntonation = false;
   var verseNum = regexVerseNumber.exec(text);
   if(verseNum) {
     text = text.slice(verseNum[0].length);
@@ -271,7 +275,9 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   suffix = (suffix && bi.verse[1])||"";
   var syl = getSyllables(text,bi);
   var toneList = typeof(gabc)=="string"? getGabcTones(gabc) : gabc;
+  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort) : gabcShort)||toneList;
   var tones = toneList.tones;
+  var tonesShort = (gabcShort&&toneListShort.tones) || tones.slice(0);
   var r = [];
   var si = syl.length - 1;
   var lastOpen;
@@ -279,8 +285,16 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   var italic=false;
   var lastAccentI = si + 1;
   if(toneList.intonation > 0 && syl.length < tones.length) {
-    tones = tones.slice(0);
-    tones.splice(toneList.intonation + 1, tones.length - toneList.intonation - 1);
+    var punctumMorum=(tones[tones.length-1].all.slice(-1)=='.');
+    tones = tonesShort;
+    tones.splice(toneListShort.intonation + 1, tones.length - toneListShort.intonation - 1);
+    if(punctumMorum) {
+      regexToneGabc.exec('');
+      tones.push(toneGabc(regexToneGabc.exec(tones[tones.length-1].gabcClosed.slice(1,-1)+'.')));
+    }
+    result.shortened=true;
+  } else {
+    result.shortened=false;
   }
   var lastTone;
   for(var ti = tones.length - 1; (ti >= 0 || lastOpen) && si >= 0; --ti,--si) {
@@ -418,7 +432,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
       }
       if(!(s&&tone))break;
       r.push(s.punctuation + tone.gabc);
-      if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italiciseIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))))) {
+      if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))))) {
         italic = true;
       }
       if(italic) {
@@ -451,6 +465,7 @@ function removeIntonation(t) {
 function getGabcTones(gabc) {
   var tones = [];
   var match;
+  regexToneGabc.exec('');
   while(match=regexToneGabc.exec(gabc)) {
     tones.push(toneGabc(match));
   }

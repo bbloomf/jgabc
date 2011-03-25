@@ -43,6 +43,8 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 <label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
 <br/><input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels" title="Only apply the formatting to the vowel rather than to the entire syllable, and only to first of any preparatory syllables rather than to all preparatory syllables.">Only format vowels</label>
 <br/><input type="checkbox" id="cbUsePunctaCava"/><label for="cbUsePunctaCava" title="Use a punctum cavum wherever a variable number of notes will be present depending on the specific verse.">Use puncta cava</label>
+<br/><input type="checkbox" id="cbRepeatIntonation"/><label for="cbRepeatIntonation" title="Repeat the intonation in each verse rather than just in the first verse (only affects the gabc output)">Repeat intonation</label>
+<!--<br/><input type="checkbox" id="cbItalicizeIntonation"/><label for="cbItalicizeIntonation" title="Italicize the intonation of each verse">Italicize intonation</label>-->
 </td><td style="border-left-style:solid;">
 <table class="">
 <tr><td><label for="txtBeginPrep" title="This text will be added just before each preparatory syllable.">Begin Preparatory Syllable:</label></td><td><input type="text" id="txtBeginPrep"/></td>
@@ -64,9 +66,9 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 <script>
 if(location.search.match(/dominican/i))g_tones=d_tones;
 var gSyl,syl,_clef;
-var last_syl,last_gSyl;
+var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
-var useFormat,onlyVowels,gabcFormat,usePunctaCava;
+var useFormat,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation;
 var includeGloriaPatri;
 function updateEditor(forceGabcUpdate) {
   if(!gSyl) gSyl = $("#versegabc").val();
@@ -74,7 +76,7 @@ function updateEditor(forceGabcUpdate) {
   var sameSyl = (syl == last_syl);
   var sameGSyl = (gSyl == last_gSyl);
   var lines = sameSyl? last_lines : syl.split('\n');
-  var gMediant,gTermination,gMediantAfter;
+  var gMediant,gTermination;
   if(sameGSyl) {
     gMediant = last_medTones;
     gTermination = last_terTones;
@@ -83,15 +85,7 @@ function updateEditor(forceGabcUpdate) {
     gMediant = getGabcTones(gabcs[0]);
     gTermination = getGabcTones(gabcs[1]);
   }
-  gMediantAfter = $("#cbSolemn")[0].checked?gMediant:removeIntonation($.extend(true,{},gMediant));
   var gabc;
-  if(!sameSyl || !sameGSyl || forceGabcUpdate) {
-    var firstLine = splitLine(lines[0]);
-    gabc = "(" + _clef + ")"
-      + applyPsalmTone(firstLine[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,1,true) + (firstLine.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(firstLine[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,1,false,true) + " (::)");
-    var flex = (firstLine[0].indexOf(sym_flex) >= 0);
-    last_lines = lines;
-  }
   var medTones, terTones;
   if(sameGSyl) {
     medTones = last_medTones;
@@ -122,15 +116,27 @@ function updateEditor(forceGabcUpdate) {
     last_medTones = medTones;
     last_terTones = terTones;
   }
+  if(!sameSyl || !sameGSyl || forceGabcUpdate) {
+    last_lines = lines;
+  }
+  var flex;
+  var firstVerse=true;
   var r = [];
   var asCode = !useFormat.match(/html/i);
   var asGabc = useFormat.match(/gabc/i);
   if(asCode) r.push("<code>");
   if(!asGabc || !sameSyl || !sameGSyl || forceGabcUpdate) {
-    for(var i=1; i<lines.length; ++i) {
+    gabc = "(" + _clef + ")"
+    for(var i=0; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
-      if(asGabc) {
-        gabc += "\n"+applyPsalmTone(line[0].trim(),gMediantAfter,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true) + " (::)");
+      if(firstVerse || asGabc) {
+        var result={shortened:false};
+        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true,false,italicizeIntonation,result,gShortMediant) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true,false) + " (::)\n");
+        if(i==0) {
+          if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
+          flex = (line[0].indexOf(sym_flex) >= 0);
+        }
+        if(!result.shortened)firstVerse=false;
       } else {
         if(gabc && !flex) {
           var flexI = line[0].indexOf(sym_flex);
@@ -200,6 +206,7 @@ function updateEndings() {
     $("#selEnd").append('<option>' + endings.join('</option><option>') + '</option>');
     vgabc += t.terminations[$("#selEnd").val()];
   }
+  gShortMediant = getGabcTones(t.shortMediant||t.solemn);
   $("#selEnd")[0].disabled = (endings.length <= 1);
   $("#versegabc").val(vgabc);
   $("#txtClef").val(t.clef);
@@ -211,6 +218,7 @@ function updateEnding() {
   var tone = $("#selTones").val();
   var selEnd = $("#selEnd").val();
   var solemn = $("#cbSolemn")[0].checked;
+  if(solemn)$("#cbRepeatIntonation")[0].checked=localStorage.cbRepeatIntonation=repeatIntonation=true;
   localStorage.selEnd = selEnd;
   localStorage.cbSolemn = solemn;
   var t = g_tones[tone];
@@ -240,6 +248,8 @@ function getPsalms() {
 
 function updatePsalm() {
   var psalmNum = $("#selPsalm").val();
+  $("#cbRepeatIntonation")[0].checked= localStorage.cbRepeatIntonation = repeatIntonation = psalmNum.match(/^\d+$/)?false:true;
+  
   localStorage.selPsalm = psalmNum;
   includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
   localStorage.cbIncludeGloriaPatri = includeGloriaPatri;
@@ -354,9 +364,16 @@ function updateOnlyVowels() {
   localStorage.cbOnlyVowels = onlyVowels = $("#cbOnlyVowels")[0].checked;
   updateEditor(true);
 }
-
 function updateUsePunctaCava() {
   localStorage.cbUsePunctaCava = usePunctaCava = $("#cbUsePunctaCava")[0].checked;
+  updateEditor(true);
+}
+function updateRepeatIntonation() {
+  localStorage.cbRepeatIntonation = repeatIntonation = $("#cbRepeatIntonation")[0].checked;
+  updateEditor();
+}
+function updateItalicizeIntonation() {
+  localStorage.cbItalicizeIntonation = italicizeIntonation = $("#cbItalicizeIntonation")[0].checked;
   updateEditor(true);
 }
 
@@ -390,6 +407,8 @@ $(function() {
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
   $("#cbOnlyVowels").change(updateOnlyVowels);
+  $("#cbRepeatIntonation").change(updateRepeatIntonation);
+  $("#cbItalicizeIntonation").change(updateItalicizeIntonation);
   $("#cbUsePunctaCava").change(updateUsePunctaCava);
   $("#selFormat").change(updateFormat);
   $("#selFormat").keyup(updateFormat);
@@ -406,6 +425,8 @@ $(function() {
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
   $("#cbUsePunctaCava")[0].checked = usePunctaCava = (localStorage.cbUsePunctaCava != "false");
+  $("#cbRepeatIntonation")[0].checked = repeatIntonation = (localStorage.cbRepeatIntonation == "true");
+//  $("#cbItalicizeIntonation")[0].checked = italicizeIntonation = (localStorage.cbItalicizeIntonation == "true");
   $("#selFormat").val((useFormat = (localStorage.cbTeX? "tex" : (localStorage.selFormat || "html"))));
   $("#selPsalm").val(localStorage.selPsalm || "Magnificat");
   $("#selTones").val(localStorage.selTones || "1");
