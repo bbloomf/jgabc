@@ -492,7 +492,7 @@ function getGabcTones(gabc) {
       toneTenor = ton.all[0];
       if(state==3) {
         afterLastAccent = 0;
-        state = 2;
+        state = 1;
       }
       lastOpen = ton;
     } else if(state==3) {
