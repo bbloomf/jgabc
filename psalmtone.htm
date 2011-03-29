@@ -260,6 +260,18 @@ function updatePsalm() {
   });
 }
 
+function updateGloriaPatri() {
+  includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
+  localStorage.cbIncludeGloriaPatri = includeGloriaPatri;
+  var vt = $("#versetext");
+  var text=vt.val();
+  var m=text.match("\\s"+gloria_patri.replace(/[?*\$\.]/g,"\\$&")+"$");
+  if(includeGloriaPatri) {
+    if(!m)vt.val(text+"\n"+gloria_patri);
+  } else if(m)vt.val(text.slice(0,m.index));
+  updateText();
+}
+
 function shiftGabc(gabc,shift) {
   var newGabc = [];
   for(var i=gabc.length - 1; i>=0; --i) {
@@ -380,7 +392,7 @@ function updateUsePunctaCava() {
 }
 function updateRepeatIntonation() {
   localStorage.cbRepeatIntonation = repeatIntonation = $("#cbRepeatIntonation")[0].checked;
-  updateEditor();
+  updateEditor(useFormat.match(/gabc/i));
 }
 function updateItalicizeIntonation() {
   localStorage.cbItalicizeIntonation = italicizeIntonation = $("#cbItalicizeIntonation")[0].checked;
@@ -444,7 +456,7 @@ $(function() {
   $("#txtEndPrep").keyup(updateEndPrep);
   $("#txtBeginAccented").keyup(updateBeginAccented);
   $("#txtEndAccented").keyup(updateEndAccented);
-  $("#cbIncludeGloriaPatri").change(updatePsalm);
+  $("#cbIncludeGloriaPatri").change(updateGloriaPatri);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false")
   updateEndings();
   if($("#selEnd")[0].firstChild) $("#selEnd").val(localStorage.selEnd || $("#selEnd")[0].firstChild.innerText);

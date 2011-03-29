@@ -274,21 +274,23 @@ function getChant(text) {
       defText.setAttribute("style", styleGoudy + activeStyle);
       defText.textContent = '.' + txt + '.';
       wText = defText.getSubStringLength(1, txt.length);
-      vowel = regexVowel.exec(txt);
-      if(!vowel) {
-        vowel = {index: 0, "0":txt, "1":txt};
-      }
-      var len = vowel.index + vowel[0].length;
-      defText.textContent = txt.slice(0,len);
-      try {
-        var index = vowel.index + vowel[0].length - vowel[1].length;
-        offset -= defText.getSubStringLength(0, index);
-        offset -= defText.getSubStringLength(index, vowel[1].length) / 2;
-      } catch(e) {
-      }
-      offset += notewidth / 2;//defChant.getComputedTextLength() / 2;
-      if(neumeInfo.startsWithAccidental) {
-        offset += notewidth*1.2;
+      if(txt) {
+        vowel = regexVowel.exec(txt);
+        if(!vowel) {
+          vowel = {index: 0, "0":txt, "1":txt};
+        }
+        var len = vowel.index + vowel[0].length;
+        defText.textContent = txt.slice(0,len);
+        try {
+          var index = vowel.index + vowel[0].length - vowel[1].length;
+          offset -= defText.getSubStringLength(0, index);
+          offset -= defText.getSubStringLength(index, vowel[1].length) / 2;
+        } catch(e) {
+        }
+        offset += notewidth / 2;//defChant.getComputedTextLength() / 2;
+        if(neumeInfo.startsWithAccidental) {
+          offset += notewidth*1.2;
+        }
       }
     } else {
       wText = 0;
@@ -304,8 +306,8 @@ function getChant(text) {
     //? Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0))
       ? xoffset + wText + Math.max(offset,0)
       : nextXoffsetTextMin||0;
-    if(match[7])nextXoffsetTextMin+=5;
-    var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - offset;//Math.min(offset,0);
+    if(match[7]&&match.index>0)nextXoffsetTextMin+=5;
+    var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - Math.min(offset,0);
    //Experimental change (2010.03.14)  Old line:
   //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
     var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
