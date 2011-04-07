@@ -1,3 +1,6 @@
 ﻿.print-hide{
   display:none;
 }
+body{
+  max-width:8in;
+}
