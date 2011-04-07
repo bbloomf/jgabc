@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ï»¿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" manifest="cache.manifest">
 <head>
    <title>Psalm Tone Tool</title>
   <script type="text/javascript" src="jquery.min.js"></script>
   <script src="jgabc.js" type="text/javascript"></script>
   <script src="psalmtone.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="print.css" media="print" />
 </head>
 <body>
-<a href="transcriber.html">GABC Transcription Tool</a>
-<br/><br/>
 <style>
 table.bordered {
   width:100%;
@@ -32,12 +31,15 @@ textarea{
   padding-right:2px;
 }
 </style>
+<div class="print-hide">
+<a href="transcriber.html">GABC Transcription Tool</a>
+<br/><br/>
 <table class="bordered"><tr class="bordered"><td>Tone: <select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/><label for="cbSolemn">Solemn Tone</label><br/>
 <label for="txtClef">Clef: </label><input type="text" id="txtClef" style="width:15pt"/><br/>
 <label for="versegabc" title="Text of the psalm">Psalm GABC</label><br/><div class="tap"><textarea id="versegabc" style="height: 24pt; width: 100%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea></div>
 Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preperatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span>
-</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Pátri</label><br/><div class="tap"><textarea id="versetext" style="height: 96pt; width: 100%;"></textarea></div>
+</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include GlÃ³ria PÃ¡tri</label><br/><div class="tap"><textarea id="versetext" style="height: 96pt; width: 100%;"></textarea></div>
 </td></tr>
 <tr class="bordered"><td>
 <label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
@@ -55,11 +57,12 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 <td><input type="text" id="txtPrefix"/></td>
 <td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</label></td>
 <td><input type="text" id="txtSuffix"/></td></tr>
-<tr><td><label for="txtNbsp" title="Used before : * and † so that lines won't be broken up with one of these characters starting the line.">Non-breaking space</label></td><td><input type="text" id="txtNbsp"/></td></tr>
+<tr><td><label for="txtNbsp" title="Used before : * and â€  so that lines won't be broken up with one of these characters starting the line.">Non-breaking space</label></td><td><input type="text" id="txtNbsp"/></td></tr>
 </table>
 </td></tr>
 </table>
 <div class="tap"><label for="editor">GABC</label><br/><textarea id="editor" style="height: 64px; width: 100%;"></textarea></div>
+</div>
 <div id="chant-preview" style="width: 100%">
 </div>
 <div id="verses" style="width: 100%; padding: 0px 6pt; font-family: 'OFL Sorts Mill Goudy TT';font-size:18px"></div>

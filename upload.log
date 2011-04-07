@@ -8,6 +8,7 @@ put jquery.min.js
 put psalmtone.htm
 put psalmtone.js
 put transcriber.html
+put print.css
 quit
 -put Caeciliae-Staffless.ttf
 -put OFLGoudyStMTT-Italic.ttf

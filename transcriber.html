@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ï»¿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html manifest="cache.manifest">
 <head><title>GABC Transcription Tool</title>
 <script src="jquery.min.js" type="text/javascript"></script>
 <script src="jgabc.js"></script>
 <script src="psalmtone.js"></script>
+<link rel="stylesheet" type="text/css" href="print.css" media="print" />
 </head>
 <body>
 <style>
@@ -17,14 +18,16 @@ td{
   padding:0px;
 }
 </style>
+<div class="print-hide">
 <a href="psalmtone.htm">Psalm Tone Tool</a>
 <br/><br/>
 <table width="100%">
 <tr><td width="50%">
 GABC<br><div class="tap"><textarea id="hymngabc" style="height: 50pt; width: 100%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea></div>
-<br>Text<br><div class="tap"><textarea id="hymntext" style="height: 50pt; width: 100%;">1. Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;2. Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea></div>
+<br>Text<br><div class="tap"><textarea id="hymntext" style="height: 50pt; width: 100%;">1. Lucis CreÃ¡tor Ã³ptime,&#10;LÃºcem diÃ©rum prÃ³ferens,&#10;PrimÃ³rdiis lÃºcis nÃ³vae&#10;MÃºndi pÃ¡rans orÃ­ginem:&#10;&#10;2. Qui mÃ¡ne jÃºnctum vÃ©speri&#10;diem vocÃ¡ri praÃ©cipis:&#10;IllÃ¡bitur tÃ©trum chÃ¡os,&#10;Audi prÃ©ces cum flÃ©tibus.</textarea></div>
 </td><td width="50%">Integrated GABC<br><div class="tap"><textarea id="editor" style="height: 130pt; width: 100%;"></textarea></div></td></tr>
 </table>
+</div>
 <div id="chant-preview" style="width: 100%">
 </div>
 <script>
