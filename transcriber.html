@@ -20,6 +20,7 @@ td{
 </style>
 <div class="print-hide">
 <a href="psalmtone.htm">Psalm Tone Tool</a>
+<div style="float:right"><a href="#" id="lnkGabc">Generate PDF</a></div>
 <br/><br/>
 <table width="100%">
 <tr><td width="50%">
@@ -151,6 +152,7 @@ $(function() {
   $("#hymngabc").keyup(updateGabc);
   $("#hymntext").keyup(updateText);
   $("#editor").keyup(updateBoth);
+  setPdfLinkSelector("#lnkGabc");
   updateEditor();
 });
 </script>

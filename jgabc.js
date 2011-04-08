@@ -102,6 +102,10 @@ var rog = {
   gabc:5,
   whitespace:7
 }
+var linkSelector="";
+var setPdfLinkSelector=function(sel){
+  linkSelector=sel;
+};
 var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
 var rtg = {
   whitespace: 1,
@@ -157,7 +161,13 @@ function updatePreview(text) {
   svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
 
+function updateLink(text){
+  var href="http://gregorio.gabrielmass.com/cgi/process.pl?gregtext="
+    + window.escape("%%\n"+text) + "&gregfontselect=17&gregtextfontselect=12&greginitialselect=43&gregspaceselect=7mm&gregredselect=N&greglinethickselect=10&gregpaperselect=letterpaper&gregfaceselect=libertine&gregcropselect=N";
+  if(linkSelector)$(linkSelector).attr("href",href);
+}
 function updateChant(text, svg, dontDelay) {
+  updateLink(text);
   var delay = _nextGabcUpdate - (new Date());
   if(delay > 0 || !dontDelay) {
     if(delay < 0) delay = 100;
