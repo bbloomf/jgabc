@@ -1,4 +1,10 @@
-﻿.print-hide{
+﻿@font-face {
+  font-family: 'Caeciliae Staffless';
+  font-weight: normal;
+  font-style: normal;
+  src:url(Caeciliae-Staffless.svg)
+}
+.print-hide{
   display:none;
 }
 body{

@@ -64,23 +64,36 @@ var indices = {
     0xe783
   ]
 };
-var staffheight = 60;
+var staffheight = 48;
 var spaceheight = staffheight / 4;
 var notewidth = staffheight / 6;
 var spaceBetweenNeumes = notewidth;
-var fontsize = spaceheight * 1.5;
-var spaceWidth = fontsize / 2;
+var fontsize = spaceheight*3/2;
+var spaceWidth = spaceheight * 3/4;
 var staffoffset = Math.ceil(staffheight * 1.4);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
 var staffInFont = false;
-var fontExt='ttf';//svg#webfont
-var fontFormat='opentype';//svg
+var fontExt='ttf';
+var fontExtS='svg#webfont';
+var fontFormat="opentype";
+var fontFormatS="svg";
 var filenameCaeciliae = "Caeciliae-" + (staffInFont? "Regular." : "Staffless.")+fontExt;
+var filenameCaeciliaeS = "Caeciliae-" + (staffInFont? "Regular." : "Staffless.")+fontExtS;
 var localCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
 var familyCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
 var styleCaeciliae = "font-family: '"+familyCaeciliae+"'; font-size:" + staffheight + "px;";
+var styleCaeciliaeSvg="font-family: '"+familyCaeciliae+" SVG'; font-size:" + staffheight + "px;";
 var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + "px;";
+
+var styleFont="@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: local('"+localCaeciliae+"'); src:url('"+filenameCaeciliae+"') format('"+fontFormat+"')}"
+        + "@font-face {font-family: '"+familyCaeciliae+" SVG'; font-weight: normal; font-style: normal;src: url('"+filenameCaeciliaeS+"') format('"+fontFormatS+"')}"
+        + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
+        + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
+
+var styleFontSvg="@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: url('"+filenameCaeciliaeS+"') format('"+fontFormatS+"')}"
+        + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
+        + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
 var svgWidth;
 var svg;
 var textElem;
@@ -92,7 +105,7 @@ var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*
 var regexTag = /<(\/)?(b|i|sc)>/i;
 var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
-var tagStyle = {b:"font-weight:bold;",
+var tagStyle = {b:"font-weight:700;",
                 i:"font-style:italic;",
                 sc:"font-variant:small-caps"
                };
@@ -813,12 +826,12 @@ $(function() {
   svg.setAttribute('style','width:100%');
   var style = document.createElementNS(svgns, "style");
   style.setAttribute("type", "text/css");
-  style.appendChild(document.createTextNode(
-    ("@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: local('"+localCaeciliae+"'); src:url("+filenameCaeciliae+") format("+fontFormat+")}"
-      + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
-      + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
-    )
-  ));
+  svgStyle=style;
+  svgStyle.appendChild(document.createTextNode(""));
+  setSvgFont=function(useSvg){
+    style.firstChild.textContent = useSvg?styleFontSvg:styleFont;
+  };
+  setSvgFont(false);
   svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
   defText = make('text');
@@ -829,6 +842,10 @@ $(function() {
   defChant.setAttribute('style', styleCaeciliae);
   defChant.appendChild(document.createTextNode('p'));
   defs.appendChild(defChant);
+  defChantSvg=make('text');
+  defChantSvg.setAttribute('style', styleCaeciliaeSvg);
+  defChantSvg.appendChild(document.createTextNode('p'));
+  defs.appendChild(defChantSvg);
   
   var gStaff;
   if(staffInFont) {
@@ -864,6 +881,9 @@ $(function() {
   var callUpdateChant = function(){
     updateChant($("#editor")[0].value, svg);
   };
+  forceUpdateChant = function(){
+    updateChant($("#editor")[0].value,svg,true);
+  }
   $("#editor").keyup(callUpdateChant);
   $(window).resize(callUpdateChant);
   var init = function() {

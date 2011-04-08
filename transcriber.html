@@ -20,7 +20,7 @@ td{
 </style>
 <div class="print-hide">
 <a href="psalmtone.htm">Psalm Tone Tool</a>
-<div style="float:right"><a href="#" id="lnkGabc">Generate PDF</a></div>
+<div style="float:right"><a href="#" target="_blank" id="lnkGabc">Generate PDF</a></div>
 <br/><br/>
 <table width="100%">
 <tr><td width="50%">
@@ -148,10 +148,48 @@ function updateBoth() {
   decompile($("#editor").val());
 }
 
+function gotPdf(jqXHR, status) {
+  iframe=$("iframe")[0];
+  if(status=="success") {
+    //TODO: fill in the location
+    iframe.contentWindow.location="";
+  } else {
+    iframe.contentWindow.location="about:blank";
+  }
+}
+function onErr(jqXHR, status, error){
+  console.error(error);
+}
+
+function updatePdf(){
+  var confirmation = String(Math.ceil(Math.random()*15));
+  $.ajax("http://gregorio.gabrielmass.com/cgi/process.pl/",{
+    cache:false,
+    complete:gotPdf,
+    error:onErr,
+    contentType:"multipart/form-data",
+    data:"gregtext=%%\n" + $("#editor").val()
+      + "&confirmation=" + confirmation
+      + "&gregfontselect=17"
+      + "&gregtextfontselect=12"
+      + "&greginitialselect=43"
+      + "&gregspaceselect=7mm"
+      + "&gregredselect=N"
+      + "&greglinethickselect=10"
+      + "&gregpaperselect=letterpaper"
+      + "&gregfaceselect=libertine"
+      + "&gregcropselect=Y"
+      + "&checkvalue" + confirmation + "=0"
+      + "&gregsub=Submit",
+    type:"POST"
+    });
+}
+
 $(function() {
   $("#hymngabc").keyup(updateGabc);
   $("#hymntext").keyup(updateText);
   $("#editor").keyup(updateBoth);
+  $("#btnUpdatePdf").click(updatePdf);
   setPdfLinkSelector("#lnkGabc");
   updateEditor();
 });
