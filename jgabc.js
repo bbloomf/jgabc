@@ -101,6 +101,7 @@ var codea = 'a'.charCodeAt(0);
 var codem = codea + 12;
 var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
+var regexHeaderEnd=/(?:^|\n)%%\n/;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexTag = /<(\/)?(b|i|sc)>/i;
 var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
@@ -116,8 +117,12 @@ var rog = {
   whitespace:7
 }
 var linkSelector="";
+var linkDownloadSelector="";
 var setPdfLinkSelector=function(sel){
   linkSelector=sel;
+};
+var setGabcLinkSelector=function(sel){
+  linkDownloadSelector=sel;
 };
 var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
 var rtg = {
@@ -174,13 +179,31 @@ function updatePreview(text) {
   svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
 
-function updateLink(text){
-  var href="http://gregorio.gabrielmass.com/cgi/process.pl?gregtext="
-    + window.escape("%%\n"+text) + "&gregfontselect=17&gregtextfontselect=12&greginitialselect=43&gregspaceselect=7mm&gregredselect=N&greglinethickselect=10&gregpaperselect=letterpaper&gregfaceselect=libertine&gregcropselect=N";
-  if(linkSelector)$(linkSelector).attr("href",href);
+function getHeader(text){
+  var match=text.match(regexHeaderEnd);
+  if(match){
+    return text.slice(0,match.index+match[0].length);
+  }
+  return "";
+}
+function updateLinks(text){
+  var header=getHeader(text);
+  if(header){
+    text = text.slice(header.length);
+  } else {
+    header = '%%\n';
+  }
+  if(linkSelector){
+    $(linkSelector).attr("href","http://gregorio.gabrielmass.com/cgi/process.pl?gregtext="
+      + window.escape(header+text) + "&gregfontselect=17&gregtextfontselect=12&greginitialselect=43&gregspaceselect=7mm&gregredselect=N&greglinethickselect=10&gregpaperselect=letterpaper&gregfaceselect=libertine&gregcropselect=N");
+  }
+  if(linkDownloadSelector){
+    $(linkDownloadSelector).attr("href","data:text/plain;charset=utf8;base64,"+btoa(header+text));
+  }
+  return text;
 }
 function updateChant(text, svg, dontDelay) {
-  updateLink(text);
+  var gtext=updateLinks(text);
   var delay = _nextGabcUpdate - (new Date());
   if(delay > 0 || !dontDelay) {
     if(delay < 0) delay = 100;
@@ -188,6 +211,7 @@ function updateChant(text, svg, dontDelay) {
     _timeoutGabcUpdate = setTimeout(function() {updateChant(text,svg,true);},delay);
     return;
   }
+  text=gtext;
   _timeoutGabcUpdate = null;
   _nextGabcUpdate = (new Date()).getTime() + _minUpdateInterval;
   var nodes = svg.childNodes;

@@ -62,7 +62,8 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 </table>
 </td></tr>
 </table>
-<div class="tap"><label for="editor">GABC</label><br/><textarea id="editor" style="height: 64px; width: 100%;"></textarea></div>
+<div class="tap"><label for="editor" title="You can put GABC headers in this text box if you want them included in the GABC file download link below.  Any headers you type in will persist in local storage between sessions.">GABC</label><br/><textarea id="editor" style="height: 64px; width: 100%;"></textarea></div>
+<a href="#" id="lnkDownloadGabc" target="_blank">Download GABC</a>&nbsp;&nbsp;<a href="#" id="lnkDownloadVerses" target="_blank">Download Verses</a>
 </div>
 <div id="chant-preview" style="width: 100%">
 </div>
@@ -177,13 +178,22 @@ function updateEditor(forceGabcUpdate) {
   if(gabc) {
     if(!asGabc && includeGloriaPatri) {
       try {
-        gabc += "\n\n" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat)+"(::)";
+        gabc += "\n\n%" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat)+"(::)";
       } catch(e) { }
     }
+    if(localStorage.psalmHeader)gabc=localStorage.psalmHeader+gabc;
     $("#editor").val(gabc);
     $("#editor").keyup();
   }
-  $("#verses")[0].innerHTML = r.join('');
+  var verses=$("#verses")[0];
+  verses.innerHTML = r.join('');
+  vtext=verses.innerText;
+  $("#lnkDownloadVerses").attr("href","data:text/plain;charset=utf8;base64,"+btoa(vtext));
+  if(vtext){
+    $("#lnkDownloadVerses").show();
+  }else{
+    $("#lnkDownloadVerses").hide();
+  }
   last_syl = syl;
   last_gSyl = gSyl;
 }
@@ -414,7 +424,11 @@ function printMe(){
   setSvgFont(false);
   $("#editor").keyup();
 }
-
+function updateLocalHeader() {
+  var gabc = $("#editor").val();
+  var header=getHeader(gabc);
+  localStorage.psalmHeader=header;
+}
 $(function() {
   //if(!localStorage)localStorage=false;
   if(localStorage.bi_formats) {
@@ -475,7 +489,9 @@ $(function() {
   $("#txtEndAccented").keyup(updateEndAccented);
   $("#cbIncludeGloriaPatri").change(updateGloriaPatri);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false")
+  $("#editor").keyup(updateLocalHeader);
   setPdfLinkSelector("#lnkGabc");
+  setGabcLinkSelector("#lnkDownloadGabc");
   updateEndings();
   if($("#selEnd")[0].firstChild) $("#selEnd").val(localStorage.selEnd || $("#selEnd")[0].firstChild.innerText);
   updateEnding();
