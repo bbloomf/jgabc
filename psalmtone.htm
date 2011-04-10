@@ -189,7 +189,10 @@ function updateEditor(forceGabcUpdate) {
   verses.innerHTML = r.join('');
   vtext=verses.innerText;
   try {
-    $("#lnkDownloadVerses").attr("href","data:text/plain;charset=utf8;base64,"+btoa((vtext).replace(/†/g,String.fromCharCode(134))));
+    var utf8=encode_utf8(vtext);
+    //utf8=(vtext).replace(/†/g,String.fromCharCode(134));
+    $(linkDownloadSelector).attr("charset","UTF-8").attr("href","data:text/plain;charset=utf8;base64,"+btoa(utf8));
+    $("#lnkDownloadVerses").attr("href","data:text/plain;charset=utf8;base64,"+btoa(utf8));
   } catch(e) {
     vtext="";
   }

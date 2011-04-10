@@ -178,9 +178,10 @@ function updatePreview(text) {
   svg.replaceChild(textElem,old);
   svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
+var utf8_bom=String.fromCharCode(0xEF)+String.fromCharCode(0xBB)+String.fromCharCode(0xBF);
 function encode_utf8( s )
 {
-  return unescape( encodeURIComponent( s ) );
+  return utf8_bom+unescape( encodeURIComponent( s ) );
 }
 function decode_utf8( s )
 {
@@ -207,7 +208,9 @@ function updateLinks(text){
   }
   try {
     if(linkDownloadSelector){
-      $(linkDownloadSelector).attr("href","data:text/plain;charset=utf8;base64,"+btoa((header+text).replace(/†/g,String.fromCharCode(134))));
+      var utf8=encode_utf8(header+text);
+      //utf8=(header+text).replace(/†/g,String.fromCharCode(134));
+      $(linkDownloadSelector).attr("charset","UTF-8").attr("href","data:text/plain;charset=utf8;base64,"+btoa(utf8));
     }
   } catch(e) {
   }
