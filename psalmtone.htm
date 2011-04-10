@@ -188,7 +188,11 @@ function updateEditor(forceGabcUpdate) {
   var verses=$("#verses")[0];
   verses.innerHTML = r.join('');
   vtext=verses.innerText;
-  $("#lnkDownloadVerses").attr("href","data:text/plain;charset=utf8;base64,"+btoa(vtext));
+  try {
+    $("#lnkDownloadVerses").attr("href","data:text/plain;charset=utf8;base64,"+btoa((vtext).replace(/†/g,String.fromCharCode(134))));
+  } catch(e) {
+    vtext="";
+  }
   if(vtext){
     $("#lnkDownloadVerses").show();
   }else{

@@ -178,6 +178,14 @@ function updatePreview(text) {
   svg.replaceChild(textElem,old);
   svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
+function encode_utf8( s )
+{
+  return unescape( encodeURIComponent( s ) );
+}
+function decode_utf8( s )
+{
+  return decodeURIComponent( escape( s ) );
+}
 
 function getHeader(text){
   var match=text.match(regexHeaderEnd);
@@ -197,8 +205,11 @@ function updateLinks(text){
     $(linkSelector).attr("href","http://gregorio.gabrielmass.com/cgi/process.pl?gregtext="
       + window.escape(header+text) + "&gregfontselect=17&gregtextfontselect=12&greginitialselect=43&gregspaceselect=7mm&gregredselect=N&greglinethickselect=10&gregpaperselect=letterpaper&gregfaceselect=libertine&gregcropselect=N");
   }
-  if(linkDownloadSelector){
-    $(linkDownloadSelector).attr("href","data:text/plain;charset=utf8;base64,"+btoa(header+text));
+  try {
+    if(linkDownloadSelector){
+      $(linkDownloadSelector).attr("href","data:text/plain;charset=utf8;base64,"+btoa((header+text).replace(/†/g,String.fromCharCode(134))));
+    }
+  } catch(e) {
   }
   return text;
 }
