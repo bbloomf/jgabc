@@ -89,6 +89,7 @@ function updateEditor() {
 
 function splitGabc(gabc) {
   var gSyl = [];
+  regexGabc.exec('');
   while((match = regexGabc.exec(gabc))) {
     gSyl.push({match: match,
                hasSyllable: match[3],
@@ -134,11 +135,25 @@ function decompile(mixed) {
   var text=[];
   var gabc=[];
   var match;
+  var ws;
+  var tws='';
   while(match=regexOuter.exec(mixed)) {
-    ws= match[rog.whitespace]||'';
-    text.push((match[rog.syl]||'') + ws);
+    ws=match[rog.whitespace]||'';
+    var m=undefined;
+    var syl=match[rog.syl];
+    if(tws==' '&&!syl) {
+      regexGabc.exec('');
+      m=regexGabc.exec(match[rog.gabc]);
+      if(!m||m[3])text.push(tws);
+    } else {
+      text.push(tws);
+    }
+    if(syl)text.push(syl);
     gabc.push(match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" "));
+    tws=ws;
   }
+  if(tws)text.push(tws);
+  regexGabc.exec('');
   var gs =gabc.join('');
   gSyl = splitGabc(gs);
   var s = text.join('');
@@ -148,7 +163,12 @@ function decompile(mixed) {
 }
 
 function updateBoth() {
-  decompile($("#editor").val());
+  var text=$("#editor").val();
+  var header=getHeader(text);
+  if(header){
+    text = text.slice(header.length);
+  }
+  decompile(text);
   updateLocalHeader();
 }
 
