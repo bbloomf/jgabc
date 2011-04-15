@@ -24,7 +24,7 @@ td{
 <br/><br/>
 <table width="100%">
 <tr><td width="50%">
-GABC<br><div class="tap"><textarea id="hymngabc" style="height: 50pt; width: 100%;">e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea></div>
+GABC<br><div class="tap"><textarea id="hymngabc" style="height: 50pt; width: 100%;">c3 e fh h hg fe h i gvFE. ,&#10;hi jh i hvGF' g g' f e. ;&#10;e fh h hg fe h i gvFE. ,&#10;hi jh i hf g fg f e. ::</textarea></div>
 <br>Text<br><div class="tap"><textarea id="hymntext" style="height: 50pt; width: 100%;">1. Lucis Creátor óptime,&#10;Lúcem diérum próferens,&#10;Primórdiis lúcis nóvae&#10;Múndi párans oríginem:&#10;&#10;2. Qui máne júnctum vésperi&#10;diem vocári praécipis:&#10;Illábitur tétrum cháos,&#10;Audi préces cum flétibus.</textarea></div>
 </td><td width="50%"><label for="editor" title="You can put GABC headers in this text box if you want them included in the GABC file download link below.  Any headers you type in will persist in local storage between sessions.">Integrated GABC</label><br><div class="tap"><textarea id="editor" style="height: 130pt; width: 100%;"></textarea></div></td></tr>
 </table>
@@ -33,7 +33,7 @@ GABC<br><div class="tap"><textarea id="hymngabc" style="height: 50pt; width: 100
 <div id="chant-preview" style="width: 100%">
 </div>
 <script>
-var regexGabc = /(([`,;:]+)|(\S+))(?:\s+|$)/g;
+var regexGabc = /(((?:[`,;:]|([cf][1-4]))+)|(\S+))(?:\s+|$)/g;
 String.prototype.repeat = function(num){return new Array(num+1).join(this);}
 function applyGabc() {
   var result = [];
@@ -49,6 +49,12 @@ function applyGabc() {
     }
     var cSyl = syl[i];
     var cGabc = gSyl[iG++];
+    if(cGabc.isClef){
+      if(iG==1||i>0){
+        result.push(cGabc.gabc);
+        cGabc = gSyl[iG++];
+      }
+    }
     result.push(cSyl.syl);
     if(cSyl.punctuation.length > 0) result.push(cSyl.punctuation);
     if(cSyl.syl) {
@@ -60,6 +66,7 @@ function applyGabc() {
       iG = 0;
     cGabc = gSyl[iG];
     while(!cGabc.hasSyllable) {
+      if(!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))
       result.push(" " + cGabc.gabc);
       //newLines = 1;
       ++iG;
@@ -92,8 +99,9 @@ function splitGabc(gabc) {
   regexGabc.exec('');
   while((match = regexGabc.exec(gabc))) {
     gSyl.push({match: match,
-               hasSyllable: match[3],
-               gabc: '(' + match[1] + ')'
+               hasSyllable: match[4],
+               gabc: '(' + match[1] + ')',
+               isClef: match[3]
               });
   }
   return gSyl;
