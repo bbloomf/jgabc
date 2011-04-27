@@ -174,7 +174,7 @@ var _heightCorrection = 0;
 
 function updatePreview(text) {
   var old = textElem;
-  textElem = getChant(text);
+  textElem = getChant(text,true);
   svg.replaceChild(textElem,old);
   svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
@@ -237,7 +237,7 @@ function updateChant(text, svg, dontDelay) {
     }
   }
   if(!old) return;
-  var newElem = getChant(text);
+  var newElem = getChant(text,svg?(svg.parentElement.id=="chant-preview"):false);
   svg.replaceChild(newElem,old);
   svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
 }
@@ -252,7 +252,16 @@ function useWidth(use) {
   return defChant.getComputedTextLength();
 }
 
-function getChant(text) {
+function selectGabc(start,len){
+  var e=$("#editor")[0];
+  var header=getHeader(e.value);
+  start+=header.length;
+  e.select(start,len);
+  e.selectionStart=start;
+  e.selectionEnd=start+len;
+}
+
+function getChant(text,makeLinks) {
   var match;
   var count = 0;
   var result = make('g');
@@ -444,7 +453,15 @@ function getChant(text) {
       use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
       use.setAttribute('x', xoffset);
       use.setAttribute('y', lineOffsets[line]);
-      result.appendChild(use);
+      var aTag;
+      if(makeLinks) {
+        aTag = make('a');
+        aTag.setAttributeNS(xlinkns, 'href', 'javascript:selectGabc('+(match.index+match[1].length)+','+match[5].length+')');
+        aTag.appendChild(use);
+      } else {
+        aTag = use;
+      }
+      result.appendChild(aTag);
       //newstuff
       currentUse=[use];
       if(use2)currentUse.push(use2);
