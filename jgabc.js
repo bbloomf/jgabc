@@ -456,6 +456,7 @@ function getChant(text,makeLinks) {
       var aTag;
       if(makeLinks) {
         aTag = make('a');
+        aTag.setAttribute('class','svg');
         aTag.setAttributeNS(xlinkns, 'href', 'javascript:selectGabc('+(match.index+match[1].length)+','+match[5].length+')');
         aTag.appendChild(use);
       } else {
@@ -886,6 +887,10 @@ $(function() {
   setSvgFont=function(useSvg){
     style.firstChild.textContent = useSvg?styleFontSvg:styleFont;
   };
+  var otherStyle = document.createElementNS(svgns, "style");
+  otherStyle.appendChild(document.createTextNode("a.svg {text-decoration:none}"));
+  otherStyle.setAttribute("type", "text/css");
+  svg.appendChild(otherStyle);
   setSvgFont(false);
   svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
