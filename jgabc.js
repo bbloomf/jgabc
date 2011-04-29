@@ -888,7 +888,7 @@ $(function() {
     style.firstChild.textContent = useSvg?styleFontSvg:styleFont;
   };
   var otherStyle = document.createElementNS(svgns, "style");
-  otherStyle.appendChild(document.createTextNode("a.svg {text-decoration:none}"));
+  otherStyle.appendChild(document.createTextNode("a.svg{text-decoration:none} a.svg:hover{fill:#e22}"));
   otherStyle.setAttribute("type", "text/css");
   svg.appendChild(otherStyle);
   setSvgFont(false);
