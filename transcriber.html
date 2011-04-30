@@ -42,13 +42,16 @@ function applyGabc() {
   var iG = 0;
   var iT = 0;
   var newLines = 0;
+  var elisionOn=0;
+  var elisionGabc;
+  var cSyl, cGabc;
   for(i in syl) {
     if(newLines > 0) {
       result.push("\n".repeat(newLines));
       newLines = 0;
     }
-    var cSyl = syl[i];
-    var cGabc = gSyl[iG++];
+    cSyl = syl[i];
+    if(!elisionOn) cGabc = gSyl[iG++];
     if(cGabc.isClef){
       if(iG==1||i>0){
         result.push(cGabc.gabc);
@@ -58,23 +61,41 @@ function applyGabc() {
     result.push(cSyl.syl);
     if(cSyl.punctuation.length > 0) result.push(cSyl.punctuation);
     if(cSyl.syl) {
-      result.push(cGabc.gabc);
+      if(cSyl.elision) {
+        if(!cGabc.tones || cGabc.tones.length<=1) {
+          result.push(cGabc.gabc);
+          elisionOn=true;
+        } else {
+          if(!elisionGabc)elisionGabc=cGabc;
+          result.push('('+elisionGabc.tones[elisionOn]+')');
+          ++elisionOn;
+          if(elisionOn >= elisionGabc.tones.length) elisionOn = elisionGabc.tones.length-1;
+          var temp=elisionGabc.tones.slice(elisionOn);
+          cGabc={tones:elisionGabc.tones,gabc:'('+temp.join('')+')'};
+        }
+      } else {
+        result.push(cGabc.gabc);
+        elisionGabc=null;
+        elisionOn=0;
+      }
     } else {
       iG--;
     }
     if(iG >= gSyl.length)
       iG = 0;
-    cGabc = gSyl[iG];
-    while(!cGabc.hasSyllable) {
-      if(!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))
-      result.push(" " + cGabc.gabc);
-      //newLines = 1;
-      ++iG;
-      if(iG >= gSyl.length) {
-        iG = 0;
-        //++newLines;
-      }
+    if(!elisionOn) {
       cGabc = gSyl[iG];
+      while(!cGabc.hasSyllable) {
+        if(!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))
+        result.push(" " + cGabc.gabc);
+        //newLines = 1;
+        ++iG;
+        if(iG >= gSyl.length) {
+          iG = 0;
+          //++newLines;
+        }
+        cGabc = gSyl[iG];
+      }
     }
   }
   return result.join('');
@@ -98,10 +119,16 @@ function splitGabc(gabc) {
   var gSyl = [];
   regexGabc.exec('');
   while((match = regexGabc.exec(gabc))) {
+    var tone,tones=[];
+    regexTones.exec('');
+    while((tone=regexTones.exec(match[1]))){
+      tones.push(tone[0]);
+    }
     gSyl.push({match: match,
                hasSyllable: match[4],
                gabc: '(' + match[1] + ')',
-               isClef: match[3]
+               isClef: match[3],
+               tones: tones
               });
   }
   return gSyl;

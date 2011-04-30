@@ -1,5 +1,6 @@
 ﻿var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
-var regexLatin = /(((?:(?:(\s+))(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=[daeiouyáéëíóúýǽæœ])|)|d[ií](?:r(?=[raeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i|[cgq]u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))/gi;
+//var regexLatin = /((?:\(|<(?:b|i|sc)>)*)(((?:(?:(\s+))(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=[daeiouyáéëíóúýǽæœ])|)|d[ií](?:r(?=[raeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i|[cgq]u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))((?:\)|<\/(?:b|i|sc)>)*)/gi;
+var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+))(?:s\(?[uú]\)?(?:bs?|s(?=[cpqt]))|tr\(?[aá]\)?ns|p\(?[oó]\)?st|\(?[aá]\)?bs|\(?[oó]\)?bs|\(?[eé]\)?x|p\(?[eéoó]\)?r|\(?[ií]\)?n|r\(?[eé]\)?(?:d(?=d|\(?[aeiouyáéëíóúýǽæœ])|)|d\(?[ií]\)?(?:r(?=r|\(?[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:\(?i|[cgq]u)(?=\(?[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)\(?([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])\)?(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýæœ\(\)]|sc\(?[eéií]|(?:[sc][tp]r?|gn|ps)\(?[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ\(\)])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /(\d+)\.?\s*/;
@@ -172,27 +173,48 @@ var d_tones = {'1.':{clef:"c4",
             };
 function syllable(match,index,bi) {
   var nbsp=bi?bi.nbsp:" ";
-  var prespace=match[3]||match[4]||"";
-  return typeof(match)=="string"?
-         {index:index,
-          all:match,
-          punctuation:match,
-          space: "",
-          prepunctuation: "",
-          word: undefined
-     } : {index: match.index,
-          all: match[1],
-          syl: match[2],
-          vowel: match[5]||regexVowel.exec(match[2])[0],
-          separator: match[6], // - or *
-          punctuation: match[7]? (match[7].replace(/\s/g,"").replace(/[\*†:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
-          prespace: prespace,
-          sylnospace: match[2].slice(prespace.length),
-          space: match[8],
-          accent: match[6] == '*' || regexAccent.test(match[2]),
-          prepunctuation: typeof(index) == "string"? index.replace(/(["'«»‘’“”„‟‹›‛])\s*/g,"$1"+nbsp) : "",
-          word: undefined
-         };
+  var prespace=match[4]||match[5]||"";
+  if(typeof(match)=="string"){
+    return {index:index,
+            all:match,
+            punctuation:match,
+            space: "",
+            prepunctuation: "",
+            word: undefined
+    };
+  } else {
+    var elision=false;
+    var lpi,rpi;
+    lpi=match[0].lastIndexOf('(');
+    rpi=match[0].indexOf(')');
+    if(lpi>=0 && rpi>=0){
+      elision=true;
+      lpi=match[2].lastIndexOf('(');
+      match[2]=match[2].slice(0,lpi)+'<i>'+match[2].slice(lpi+1);
+      lpi=match[3].lastIndexOf('(');
+      match[3]=match[3].slice(0,lpi)+'<i>'+match[3].slice(lpi+1);
+      match[2]=match[2].replace(')','</i>');
+      match[3]=match[3].replace(')','</i>');
+    }
+    var oTags=getTagsFrom(match[1]);
+    var cTags=getTagsFrom(match[10]);
+    return {index: match.index,
+            all: match[2],
+            syl: match[1] + match[3] + match[10],
+            vowel: match[6]||regexVowel.exec(match[3])[0],
+            separator: match[7], // - or *
+            punctuation: match[8]? (match[8].replace(/\s/g,"").replace(/[\*†:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
+            prespace: prespace,
+            sylnospace: match[3].slice(prespace.length),
+            space: match[9],
+            accent: match[7] == '*' || regexAccent.test(match[3]),
+            prepunctuation: typeof(index) == "string"? index.replace(/(["'«»‘’“”„‟‹›‛])\s*/g,"$1"+nbsp) : "",
+            word: undefined,
+            oTags: oTags,
+            cTags: cTags,
+            elision: elision
+    };
+  }
 }
 function toneGabc(match) {
   return {index: match.index,

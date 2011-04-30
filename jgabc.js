@@ -106,11 +106,6 @@ var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*
 var regexTag = /<(\/)?(b|i|sc)>/i;
 var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
 var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
-var tagStyle = {b:"font-weight:700;",
-                i:"font-style:italic;",
-                sc:"font-variant:small-caps"
-               };
-
 var rog = {
   syl:3,
   gabc:5,
@@ -261,13 +256,25 @@ function selectGabc(start,len){
   e.selectionEnd=start+len;
 }
 
+function getTagsFrom(txt){
+  var tm,r=[];
+  while(tm = regexTag.exec(txt)) {
+    r.push(tm[2]);
+    var lastIndex = tm.index + tm[0].length;
+    if(tm.index == 0)
+      txt = txt.slice(tm[0].length);
+    else txt = txt.slice(0,tm.index) + txt.slice(lastIndex);
+  }
+  return r;
+}
+
 function getChant(text,makeLinks) {
   var match;
   var count = 0;
   var result = make('g');
   regexOuter.lastIndex = 0;
   result.setAttribute("transform", "translate(0," + staffoffset + ")");
-  result.setAttribute("style", styleCaeciliae);
+  result.setAttribute("class", "caeciliae");
 
   var xoffset = 0;
   var xoffsetChantMin = 0;
@@ -275,7 +282,7 @@ function getChant(text,makeLinks) {
   var use2;
   var span = null;
   var eText = make('text');
-  eText.setAttribute("style", styleGoudy);
+  eText.setAttribute("class", "goudy");
   var lastSpan;
   var ltone = 3;
   var line = 0;
@@ -292,7 +299,7 @@ function getChant(text,makeLinks) {
   var previousMatch;
   var activeTags = [];
   var tagsToPop = [];
-  var activeStyle = "";
+  var activeClass = "goudy";
   var usesBetweenText = [];
   var curStaff = addStaff(result,0,lineOffsets[line],line, null);
   _heightCorrection=0;
@@ -339,11 +346,10 @@ function getChant(text,makeLinks) {
           txt = txt.slice(tm[0].length);
         else txt = txt.slice(0,tm.index) + txt.slice(lastIndex);
       }
-      activeStyle = "";
-      for(var tagIndex in activeTags) {
-        activeStyle += tagStyle[activeTags[tagIndex]];
-      }
-      defText.setAttribute("style", styleGoudy + activeStyle);
+      var temp = activeTags.slice(0);
+      temp.splice(0,0,'goudy');
+      activeClass = temp.join(' ');
+      defText.setAttribute("class", activeClass);
       defText.textContent = '.' + txt + '.';
       wText = defText.getSubStringLength(1, txt.length);
       if(txt) {
@@ -395,7 +401,7 @@ function getChant(text,makeLinks) {
       eText.setAttribute("y",y);
       result.appendChild(eText);
       eText = make('text');
-      eText.setAttribute("style", styleGoudy);
+      eText.setAttribute("class", "goudy");
       ltone = 3;
       lineOffsets.push(staffoffset + y + lineOffsets[line++]);
       eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
@@ -431,7 +437,7 @@ function getChant(text,makeLinks) {
       if(neumeInfo.mask) {
         use2 = make('use');
         use2.setAttributeNS(xlinkns, 'href', '#' + neumeInfo.mask);
-        use2.setAttribute('style',styleCaeciliae);
+        use2.setAttribute('class',"caeciliae");
         use2.setAttribute('x', xoffset);
         use2.setAttribute('y', lineOffsets[line]);
         
@@ -526,7 +532,7 @@ function getChant(text,makeLinks) {
       }
       if(lastSpan) {
         defText.textContent = lastSpan.textContent;
-        defText.setAttribute("style", styleGoudy + lastSpan.style.cssText);
+        defText.setAttribute("class", lastSpan.getAttribute("class"));
         var lastXoffset = parseFloat(lastSpan.getAttribute('x'),10);
         var lastSpanX2 = lastXoffset + defText.getComputedTextLength();
         if(lastSpanX2 < spanXoffset) {
@@ -545,10 +551,10 @@ function getChant(text,makeLinks) {
             nextXoffsetChantMin += additionalOffset;
           }
         }
-        defText.setAttribute("style", styleGoudy + activeStyle);
+        defText.setAttribute("class", activeClass);
       }
       span.setAttribute('x', spanXoffset);
-      span.setAttribute("style", activeStyle);
+      span.setAttribute("class", activeClass);
       xoffset = nextXoffsetTextMin;
       xoffsetChantMin = nextXoffsetChantMin;
       span.appendChild(document.createTextNode(txt || ''));
@@ -598,7 +604,7 @@ function addCustos(result,tone,x,y) {
   var x2=svgWidth - (staffheight/15);
 //  addStaff(result,x,y,null,x2-x);
   var t = make('text');
-  t.setAttribute('style',defChant.getAttribute('style'));
+  t.setAttribute('class',defChant.getAttribute('class'));
   t.setAttribute('x',x2);
   t.setAttribute('y',y);
   t.appendChild(document.createTextNode(String.fromCharCode(indices.custos + tone)));
@@ -833,7 +839,7 @@ function addStaff(result,x,y,line,width) {
     var mask = masks[line] = make('mask');
     mask.setAttribute('maskUnits','objectBoundingBox');
     var g = make('g');
-    g.setAttribute('style', styleCaeciliae);
+    g.setAttribute('class', 'caeciliae');
     mask.appendChild(g);
     var T = make('rect');
     T.setAttribute('y', y + 1-staffheight);
@@ -888,22 +894,29 @@ $(function() {
     style.firstChild.textContent = useSvg?styleFontSvg:styleFont;
   };
   var otherStyle = document.createElementNS(svgns, "style");
-  otherStyle.appendChild(document.createTextNode("a.svg{text-decoration:none} a.svg:hover{fill:#e22}"));
+  otherStyle.appendChild(document.createTextNode("a.svg{text-decoration:none}\na.svg:hover{fill:#e22}\n"
+    + ".b{font-weight:700}\n"
+    + ".i{font-style:italic}\n"
+    + ".sc{font-variant:small-caps}\n"
+    + ".goudy{" + styleGoudy + "}\n"
+    + ".caeciliae{" + styleCaeciliae + "}\n"
+    + ".caeciliaeSvg{" +styleCaeciliaeSvg + "}"
+  ));
   otherStyle.setAttribute("type", "text/css");
   svg.appendChild(otherStyle);
   setSvgFont(false);
   svg.appendChild(style);
     defs = document.createElementNS(svgns, "defs");
   defText = make('text');
-  defText.setAttribute("style", styleGoudy);
+  defText.setAttribute("class", "goudy");
   defText.appendChild(document.createTextNode(''));
   defs.appendChild(defText);
   defChant = make('text');
-  defChant.setAttribute('style', styleCaeciliae);
+  defChant.setAttribute('class', 'caeciliae');
   defChant.appendChild(document.createTextNode('p'));
   defs.appendChild(defChant);
   defChantSvg=make('text');
-  defChantSvg.setAttribute('style', styleCaeciliaeSvg);
+  defChantSvg.setAttribute('class', 'caeciliaeSvg');
   defChantSvg.appendChild(document.createTextNode('p'));
   defs.appendChild(defChantSvg);
   
