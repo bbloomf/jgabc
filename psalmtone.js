@@ -409,7 +409,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
           s = syl[si];
         }
         if(useOpenNotes && openCount <= 1) {
-          r.push(lastOpen.gabc);
+          r.push(syl[si+1].prespace+lastOpen.gabc);
         }
         lastOpen = undefined;
       } else if(!s.accent) {
@@ -433,7 +433,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
       if(openNoteBeforeAccent) {
         tone = tones[--ti];
         if(useOpenNotes && tone && tone.open) {
-          r.push(tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
+          r.push(s.prespace + tone.gabc.slice(0,-1) + "[ocba:1;6mm])");
         }
       }
     } else {
