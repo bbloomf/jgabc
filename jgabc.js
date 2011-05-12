@@ -213,10 +213,12 @@ function updateLinks(text){
 }
 function updateChant(text, svg, dontDelay) {
   var gtext=updateLinks(text);
-  var delay = _nextGabcUpdate - (new Date());
-  if(delay > 0 || !dontDelay) {
-    if(delay < 0) delay = 100;
-    if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
+//  var delay = _nextGabcUpdate - (new Date());
+//  if(delay > 0 || !dontDelay) {
+//    if(delay < 0) delay = 100;
+  if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
+  if(!dontDelay) {
+    var delay = _minUpdateInterval;
     _timeoutGabcUpdate = setTimeout(function() {updateChant(text,svg,true);},delay);
     return;
   }
