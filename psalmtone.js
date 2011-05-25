@@ -7,7 +7,7 @@ var regexVerseNumber = /(\d+)\.?\s*/;
 var sym_flex = '†';
 var sym_med = '*';
 var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in saécula sæculórum. Amen.";
-var gloria_patri_end_vowels = "E u o* u a e.";
+var gloria_patri_end_vowels = "E u o* u a* e.";
 var algorithmTwoBefore = true; //count as an accent the syllable two prior to the next accent
 var algorithmTwoAfter = false; //count as an accent the syllable two after the last accent
 var bi_formats;
