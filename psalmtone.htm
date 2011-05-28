@@ -139,7 +139,8 @@ function updateEditor(forceGabcUpdate) {
       var line = splitLine(lines[i]);
       if(firstVerse || asGabc) {
         var result={shortened:false};
-        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true,false,italicizeIntonation,result,gShortMediant) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "*(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true,false) + " (::)\n");
+        //TODO: have an option to use a regular * instead of <v>\greheightstar</v>
+        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,i+1,true,false,italicizeIntonation,result,gShortMediant) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + "<v>\\greheightstar</v>(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,i+1,false,true,false) + " (::)\n");
         if(i==0) {
           if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
           flex = (line[0].indexOf(sym_flex) >= 0);

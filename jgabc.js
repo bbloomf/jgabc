@@ -327,7 +327,7 @@ function getChant(text,makeLinks) {
     }
     var offset = 0;
     if(txt) {
-      txt = txt.replace(/^\s+/,'').replace(/\r\n/g,' ').replace(/\n/g,' ');
+      txt = txt.replace(/^\s+/,'').replace(/\r\n/g,' ').replace(/\n/g,' ').replace(/<v>\\greheightstar<\/v>/g,'*');
       while(t = tagsToPop.pop()) {
         activeTags.splice(activeTags.indexOf(t),1);
       }
@@ -658,7 +658,7 @@ function getChantFragment(gabc) {
         newdata += tone;
       } else {
         var toneId = parseInt(cmatch[rtg.tone]||cmatch[rtg.clef].slice(0,1),23)-10;
-        if(tone.length == 1) {
+        if(cmatch[rtg.tone] && cmatch[rtg.tone].length == 1) {
           ltone = Math.min(ltone,toneId);
           htone = Math.max(htone,toneId);
           ftone = ftone || (!cmatch[rtg.accidental]&&toneId);
@@ -691,7 +691,7 @@ function getChantFragment(gabc) {
             span = make('tspan');
             newdata = '';
           }
-          span.setAttribute('dx', staffheight / (di == 1? -20 : 30));
+          span.setAttribute('dx', Math.round(staffheight / (di == 1? -20 : 30)));
         }  
       } else if(tone.modifiers) {
         if(tone.match[rtg.clef]) {

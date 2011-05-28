@@ -203,7 +203,7 @@ function syllable(match,index,bi) {
             syl: match[1] + match[3] + match[10],
             vowel: match[6]||regexVowel.exec(match[3])[0],
             separator: match[7], // - or *
-            punctuation: match[8]? (match[8].replace(/\s/g,"").replace(/[\*†:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
+            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"").replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
             prespace: prespace,
             sylnospace: match[3].slice(prespace.length),
             space: match[9],
@@ -212,7 +212,9 @@ function syllable(match,index,bi) {
             word: undefined,
             oTags: oTags,
             cTags: cTags,
-            elision: elision
+            elision: elision,
+            flex: match[8] && match[8].match(/†$/),
+            mediant: match[8] && match[8].match(/\*$/)
     };
   }
 }
@@ -440,8 +442,8 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
       if(lastOpen) {
         var tenorUntilAccent = false;
         while(si > ti && s) {
-          if(s.punctuation.indexOf(sym_flex) > 0) {
-            r.push(s.prepunctuation + s.syl + s.punctuation + "(" + toneList.toneFlex + ".)");
+          if(s.flex) {
+            r.push(s.prepunctuation + s.syl + s.punctuation + " †(" + toneList.toneFlex + ".)");
             tenorUntilAccent = "(" + toneList.toneFlex + ")";
           } else {
             tenorUntilAccent = !s.accent && tenorUntilAccent;
@@ -474,8 +476,8 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
     }
     lastTone = tone;
   }
-  return ((prefix && prefix.replace(/\$c/gi,String(verseNum))) || "")
-    + r.reverse().join('') + ((suffix && suffix.replace(/\$c/gi,String(verseNum))) || "");
+  return (((prefix && prefix.replace(/\$c/gi,String(verseNum))) || "")
+    + r.reverse().join('') + ((suffix && suffix.replace(/\$c/gi,String(verseNum))) || "")).replace(/\) ?\(([a-m]r)/g," $1");
 }
 
 function removeIntonation(t) {
