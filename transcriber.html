@@ -211,10 +211,24 @@ function decompile(mixed) {
   var match;
   var ws;
   var tws='';
+  var verses=[];
+  var hasElisions=false;
+  var lastVerseI=0;
+  var lastClef='';
+  var verseHasClef=false;
+  var lastVerse=function(){return verses[verses.length-1]||'';}
   while(match=regexOuter.exec(mixed)) {
     ws=match[rog.whitespace]||'';
     var m=undefined;
     var syl=match[rog.syl];
+    if(gabc.length==0) {
+      regexGabc.exec('');
+      m=regexGabc.exec(match[rog.gabc]);
+      if(m[3]) {
+        lastClef=m[3];
+        if(gabc.length==0)verseHasClef=true;
+      }
+    }
     if(tws==' '&&!syl) {
       regexGabc.exec('');
       m=regexGabc.exec(match[rog.gabc]);
@@ -222,13 +236,35 @@ function decompile(mixed) {
     } else {
       text.push(tws);
     }
-    if(syl)text.push(syl);
+    if(syl){
+      var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
+      hasElisions = hasElisions||(syl!=sylR);
+      text.push(sylR);
+    }
     gabc.push(match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" "));
+    if(match[rog.gabc]=='::') {
+      if(!hasElisions) {
+        var tempVerse=gabc.join('').replace(/^\s+|\s+$/,'');
+        var temp2=tempVerse.replace(/^[cf][1-4]\s*/,'');
+        if(temp2!=lastVerse().replace(/^[cf][1-4]\s*/,'')) {
+          if(!verseHasClef && verses.length==0)tempVerse = lastClef + ' ' + tempVerse;
+          verses.push(tempVerse);
+          if(lastVerseI>0) {
+            text.splice(lastVerseI,0,'\n--\n');
+            text[lastVerseI-1] = text[lastVerseI-1].replace(/^\s+|\s+$/,'');
+            text[lastVerseI+1] = text[lastVerseI+1].replace(/^\s+|\s+$/,'');
+          }
+        }
+        lastVerseI=text.length;
+      }
+      verseHasClef=hasElisions=false;
+      gabc=[];
+    }
     tws=ws;
   }
   if(tws)text.push(tws);
   regexGabc.exec('');
-  var gs =gabc.join('');
+  var gs =verses.join('\n--\n');
   gSyl = splitGabc(gs);
   var s = text.join('');
   syl = splitText(s);
