@@ -33,7 +33,7 @@ GABC<br><div class="tap"><textarea id="hymngabc" spellcheck="false" style="heigh
 <div id="chant-preview" style="width: 100%">
 </div>
 <script>
-var regexGabc = /(((?:[`,;:]|([cf][1-4]))+)|(\S+))(?:\s+|$)/g;
+var regexGabc = /(((?:([`,;:])|([cf][1-4]))+)|(\S+))(?:\s+|$)/g;
 String.prototype.repeat = function(num){return new Array(num+1).join(this);}
 function applyGabc(syl,gSyl) {
   var result = [localStorage.transcribeHeader||""]
@@ -99,7 +99,7 @@ function applyGabc(syl,gSyl) {
         } else {
           result.push(" ");
         }
-        if(!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))result.push(cGabc.gabc);
+        if((!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))&&(cSyl.space||!cGabc.isBar))result.push(cGabc.gabc);
         
         //newLines = 1;
         ++iG;
@@ -146,9 +146,10 @@ function splitGabc(gabc) {
       tones.push(tone[0]);
     }
     gSyl.push({match: match,
-               hasSyllable: match[4],
+               hasSyllable: match[5],
                gabc: '(' + match[1] + ')',
-               isClef: match[3],
+               isClef: match[4],
+               isBar: match[3],
                tones: tones
               });
   }
@@ -224,15 +225,15 @@ function decompile(mixed) {
     if(gabc.length==0) {
       regexGabc.exec('');
       m=regexGabc.exec(match[rog.gabc]);
-      if(m[3]) {
-        lastClef=m[3];
+      if(m[4]) {
+        lastClef=m[4];
         if(gabc.length==0)verseHasClef=true;
       }
     }
     if(tws==' '&&!syl) {
       regexGabc.exec('');
       m=regexGabc.exec(match[rog.gabc]);
-      if(!m||m[3])text.push(tws);
+      if(!m||m[4])text.push(tws);
     } else {
       text.push(tws);
     }
