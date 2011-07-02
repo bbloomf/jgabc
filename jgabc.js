@@ -671,7 +671,7 @@ function getChantFragment(gabc) {
           match: cmatch,
           index: toneId,
           relativeTone: toneId - previousToneId,
-          modifiers: tone.length == 1? null : tone.slice(1).replace(/[_']/g,''),
+          modifiers: tone.length == 1? null : tone.slice(1).replace(/'|_0?/g,''),
           episemaLoc:(cmatch[rtg.episema] && cmatch[rtg.episema].match(/0/))?-1:0,
           diamond: cmatch[rtg.toneUpper]? true: false
         });
