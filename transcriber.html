@@ -94,13 +94,14 @@ function applyGabc(syl,gSyl) {
         flexOrMediant=true;
       }
       while(!cGabc.hasSyllable) {
-        if(flexOrMediant) {
-          flexOrMediant=false;
-        } else {
-          result.push(" ");
+        if((!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))&&((i==syl.length-1)||cSyl.space||cSyl.punctuation||!cGabc.isBar)) {
+          if(flexOrMediant) {
+            flexOrMediant=false;
+          } else {
+            result.push(" ");
+          }
+          result.push(cGabc.gabc);
         }
-        if((!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))&&((i==syl.length-1)||cSyl.space||cSyl.punctuation||!cGabc.isBar))result.push(cGabc.gabc);
-        
         //newLines = 1;
         ++iG;
         if(iG >= gSyl.length) {
