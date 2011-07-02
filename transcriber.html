@@ -99,7 +99,7 @@ function applyGabc(syl,gSyl) {
         } else {
           result.push(" ");
         }
-        if((!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))&&(cSyl.space||!cGabc.isBar))result.push(cGabc.gabc);
+        if((!cGabc.isClef||(iG!=0 && i!=(syl.length-1)))&&((i==syl.length-1)||cSyl.space||cSyl.punctuation||!cGabc.isBar))result.push(cGabc.gabc);
         
         //newLines = 1;
         ++iG;

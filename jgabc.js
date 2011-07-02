@@ -41,7 +41,9 @@ var indices = {
   apos: 0xe2c2, //ichtus
   ictus: 0xe2c2,
   underscore: 0xe2d2,
+  episema: 0xe2d2,
   underscore_longer: 0xe2e2,
+  episema_longer: 0xe2e2,
   clivis: [
     null,
     0xe303,
@@ -119,7 +121,7 @@ var setPdfLinkSelector=function(sel){
 var setGabcLinkSelector=function(sel){
   linkDownloadSelector=sel;
 };
-var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|(_{1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
+var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|((?:_0?){1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
 var rtg = {
   whitespace: 1,
   clef: 2,
@@ -669,7 +671,8 @@ function getChantFragment(gabc) {
           match: cmatch,
           index: toneId,
           relativeTone: toneId - previousToneId,
-          modifiers: tone.length == 1? null : tone.slice(1),
+          modifiers: tone.length == 1? null : tone.slice(1).replace(/[_']/g,''),
+          episemaLoc:(cmatch[rtg.episema] && cmatch[rtg.episema].match(/0/))?-1:0,
           diamond: cmatch[rtg.toneUpper]? true: false
         });
         previousToneId = toneId;
@@ -751,9 +754,11 @@ function getChantFragment(gabc) {
             }
           }
         }
-      } else if(nextTone && !nextTone.diamond) {
+      } else if(nextTone && !nextTone.diamond && !nextTone.modifiers) {
         // no modifers, and there is at least one more tone on the stack.
         if(nextTone.relativeTone > 0 && nextTone.relativeTone <=5) {
+          tone.episemaLoc=-1;
+          nextTone.episemaLoc=1;
           if(thirdTone && thirdTone.relativeTone < 0 && thirdTone.relativeTone >= -4) {
             base = indices.punctum;
             newdata += String.fromCharCode(base + tone.index);
@@ -792,7 +797,18 @@ function getChantFragment(gabc) {
       }
       newdata += String.fromCharCode(base + tone.index);
       if(tone.match[rtg.ictus]) {
-        newdata += String.fromCharCode(indices.ictus + tone.index);
+        newdata += String.fromCharCode(indices.ictus + tone.index + (tone.episemaLoc==1?3:0));
+      }
+      if(tone.match[rtg.episema]) {
+        newdata += String.fromCharCode(indices.episema + tone.index + (tone.episemaLoc==-1?0:3));
+      }
+      if(tonesInGlyph>1) {
+        if(nextTone.match[rtg.ictus]) {
+          newdata += String.fromCharCode(indices.ictus + nextTone.index + (nextTone.episemaLoc==1?3:0));
+        }
+        if(nextTone.match[rtg.episema]) {
+          newdata += String.fromCharCode(indices.episema + nextTone.index + (nextTone.episemaLoc==-1?0:3));
+        }
       }
       var temp = tone.match[rtg.dot];
       if(temp) temp = temp.length;
