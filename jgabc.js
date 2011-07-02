@@ -1,4 +1,5 @@
-﻿// lower-staff ext: 0xe1, upper: 0xe2
+﻿String.prototype.repeat = function(num){return new Array(num+1).join(this);}
+// lower-staff ext: 0xe1, upper: 0xe2
 var indices = {
   flat: 0xE0F1, // these only exist for spaces (acegikm)
   natural: 0xE0F9, // ditto
@@ -666,12 +667,12 @@ function getChantFragment(gabc) {
           htone = Math.max(htone,toneId);
           ftone = ftone || (!cmatch[rtg.accidental]&&toneId);
         }
-        tones.push(
-        {
+        tones.push({
           match: cmatch,
           index: toneId,
           relativeTone: toneId - previousToneId,
-          modifiers: tone.length == 1? null : tone.slice(1).replace(/'|_0?/g,''),
+          modifiers: cmatch[rtg.noteType],
+          clef: cmatch[rtg.clef],
           episemaLoc:(cmatch[rtg.episema] && cmatch[rtg.episema].match(/0/))?-1:0,
           diamond: cmatch[rtg.toneUpper]? true: false
         });
@@ -680,6 +681,7 @@ function getChantFragment(gabc) {
     }
     for(var i=0; i < tones.length; ++i) {
       var tonesInGlyph = 1;
+      var toneReps = 1;
       tone = tones[i];
       var nextTone = (tones.length > i+1)? tones[i+1] : null;
       var thirdTone = (tones.length > i+2)? tones[i+2] : null;
@@ -697,8 +699,7 @@ function getChantFragment(gabc) {
           }
           span.setAttribute('dx', Math.round(staffheight / (di == 1? -20 : 30)));
         }  
-      } else if(tone.modifiers) {
-        if(tone.match[rtg.clef]) {
+      } else if(tone.clef) {
           // TODO: put some of these in other functions
           var currentdy=0;
           if(newdata.length > 0) {
@@ -709,7 +710,7 @@ function getChantFragment(gabc) {
           } else {
             currentdy = parseFloat(span.getAttribute('dy') || 0, 10);
           }
-          line = parseInt(tone.modifiers[0],10);
+          line = parseInt(tone.clef[1],10);
           var dy = 0;
           if(tone.index == 2) {
             curChar = "d''";
@@ -726,7 +727,8 @@ function getChantFragment(gabc) {
           span = make('tspan');
           span.setAttribute('dy', -dy);
           continue;
-        }
+      }
+      else if(tone.modifiers) {
         ltone = Math.min(ltone,toneId);
         htone = Math.max(htone,toneId);
         ftone = ftone || (!tone.match[rtg.accidental]&&toneId);
@@ -744,7 +746,13 @@ function getChantFragment(gabc) {
           }
           continue;
         } else {
-          if(indices[tone.modifiers[0]]) {
+          if(tone.match[rtg.virga]) {
+            base = indices.v;
+            toneReps=tone.match[rtg.virga].length;
+          } else if(tone.match[rtg.stropha]) {
+            base = indices.s;
+            toneReps=tone.match[rtg.stropha].length;
+          } else if(indices[tone.modifiers[0]]) {
             base = indices[tone.modifiers[0]];
             if(nextTone && nextTone.relativeTone == 1 && tone.modifiers == 'w') {
               newdata += String.fromCharCode(base + tone.index);
@@ -795,7 +803,11 @@ function getChantFragment(gabc) {
           ++i;
         }
       }
-      newdata += String.fromCharCode(base + tone.index);
+      var temp = String.fromCharCode(base + tone.index);
+      if(toneReps>1) {
+        temp = (temp+"'").repeat(toneReps).slice(0,-1);
+      }
+      newdata += temp;
       if(tone.match[rtg.ictus]) {
         newdata += String.fromCharCode(indices.ictus + tone.index + (tone.episemaLoc==1?3:0));
       }

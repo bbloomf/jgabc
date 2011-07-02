@@ -34,7 +34,6 @@ GABC<br><div class="tap"><textarea id="hymngabc" spellcheck="false" style="heigh
 </div>
 <script>
 var regexGabc = /(((?:([`,;:])|([cf][1-4]))+)|(\S+))(?:\s+|$)/g;
-String.prototype.repeat = function(num){return new Array(num+1).join(this);}
 function applyGabc(syl,gSyl) {
   var result = [localStorage.transcribeHeader||""]
   var match;
