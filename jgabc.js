@@ -162,7 +162,6 @@ var defs = null;
 var defText = null;
 var defChant = null;
 var masks = [];
-var _nextGabcUpdate = null;
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
@@ -211,20 +210,20 @@ function updateLinks(text){
   }
   return text;
 }
+var gabcProcessTime = 0;
+var _nextUpdate = new Date().getTime();
 function updateChant(text, svg, dontDelay) {
   var gtext=updateLinks(text);
-//  var delay = _nextGabcUpdate - (new Date());
-//  if(delay > 0 || !dontDelay) {
-//    if(delay < 0) delay = 100;
   if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
   if(!dontDelay) {
-    var delay = _minUpdateInterval;
+    var delay = gabcProcessTime+100;
     _timeoutGabcUpdate = setTimeout(function() {updateChant(text,svg,true);},delay);
     return;
   }
+  _nextUpdate = new Date().getTime() + 100 + gabcProcessTime;
+  var startTime=new Date();
   text=gtext;
   _timeoutGabcUpdate = null;
-  _nextGabcUpdate = (new Date()).getTime() + _minUpdateInterval;
   var nodes = svg.childNodes;
   var old = null;
   for(i = nodes.length - 1; i >= 0; --i) {
@@ -237,6 +236,8 @@ function updateChant(text, svg, dontDelay) {
   var newElem = getChant(text,svg?(svg.parentElement.id=="chant-preview"):false);
   svg.replaceChild(newElem,old);
   svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
+  gabcProcessTime = new Date() - startTime;
+  console.info("Update chant time: " + gabcProcessTime);
 }
 
 function make(tag) {
@@ -865,7 +866,6 @@ function addStaff(result,x,y,line,width) {
 }
 
 $(function() {
-  _nextGabcUpdate = (new Date()).getTime() + 500;
   var table = $("#tbl");
   if(table) {
     for(var code = 0xE0E0; code < 0xFFFF; code += 16) {
@@ -954,10 +954,10 @@ $(function() {
     $(svg).clone().appendTo(element);
   });
   var callUpdateChant = function(){
-    updateChant($("#editor")[0].value, svg);
+    updateChant($("#editor").val(), svg);
   };
   forceUpdateChant = function(){
-    updateChant($("#editor")[0].value,svg,true);
+    updateChant($("#editor").val(),svg,true);
   }
   $("#editor").keyup(callUpdateChant);
   $(window).resize(callUpdateChant);
@@ -965,7 +965,7 @@ $(function() {
     if(svg.parentNode.clientWidth == 0) {
       setTimeout(init, 100);
     } else {
-      updateChant($("#editor")[0].value, svg);
+      forceUpdateChant();
       elements.each(function(index, element) {
         var nodes = element.childNodes;
         var old = null;

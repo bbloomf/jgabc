@@ -179,7 +179,7 @@ function updateEditor(forceGabcUpdate) {
   if(gabc) {
     if(!asGabc && includeGloriaPatri) {
       try {
-        gabc += "\n\n%" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat)+"(::)";
+        gabc += "\n\n%" + applyPsalmTone(gloria_patri_end_vowels,gTermination,false,false,onlyVowels,gabcFormat)+" (::)";
       } catch(e) { }
     }
     if(localStorage.psalmHeader)gabc=localStorage.psalmHeader+gabc;
