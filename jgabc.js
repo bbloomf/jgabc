@@ -756,9 +756,16 @@ function getChantFragment(gabc) {
             base = indices[tone.modifiers[0]];
             if(nextTone && nextTone.relativeTone == 1 && tone.modifiers == 'w') {
               newdata += String.fromCharCode(base + tone.index);
+              if(tone.match[rtg.ictus]) {
+                newdata += String.fromCharCode(indices.ictus + tone.index);
+              }
+              if(tone.match[rtg.episema]) {
+                newdata += String.fromCharCode(indices.episema + tone.index);
+              }
               ++i;
               base = indices.topPartPodatus;
               tone = nextTone;
+              tone.episemaLoc = 1;
             }
           }
         }
