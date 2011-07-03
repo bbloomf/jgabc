@@ -23,9 +23,9 @@ var indices = {
   ],
   o: 0xe1b3,
   O: 0xe1c3,
-  dimaond_tilde: 0xe1d3,
-  gt: 0xe1e3,
-  lt: 0xe1f3,
+  diamond_tilde: 0xe1d3,
+  ">": 0xe1e3,
+  "<": 0xe1f3,
   upper_tilde: 0xe203,
   lower_tilde: 0xe213,
   porrectus: [
@@ -674,7 +674,8 @@ function getChantFragment(gabc) {
           modifiers: cmatch[rtg.noteType],
           clef: cmatch[rtg.clef],
           episemaLoc:(cmatch[rtg.episema] && cmatch[rtg.episema].match(/0/))?-1:0,
-          diamond: cmatch[rtg.toneUpper]? true: false
+          diamond: cmatch[rtg.toneUpper]? true: false,
+          liq: cmatch[rtg.diminutiveLiquescentia]
         });
         previousToneId = toneId;
       }
@@ -688,7 +689,7 @@ function getChantFragment(gabc) {
       var lastTone = (i > 0)? tones[i-1]: null;
       base = indices.punctum;
       if(tone.diamond) {
-        base = indices.diamond;
+        base = tone.liq? indices.diamond_tilde : indices.diamond;
         var di = Math.abs(tone.relativeTone);
         if(lastTone && lastTone.diamond && di ==  1 || di == 2) {
           if(newdata.length > 0) {
@@ -769,7 +770,7 @@ function getChantFragment(gabc) {
             }
           }
         }
-      } else if(nextTone && !nextTone.diamond && !nextTone.modifiers) {
+      } else if(nextTone && !nextTone.diamond && (!nextTone.modifiers || nextTone.liq)) {
         // no modifers, and there is at least one more tone on the stack.
         if(nextTone.relativeTone > 0 && nextTone.relativeTone <=5) {
           tone.episemaLoc=-1;
@@ -793,6 +794,14 @@ function getChantFragment(gabc) {
           } else if(nextTone.relativeTone <=5) {
             base = indices.podatus[nextTone.relativeTone];
             tonesInGlyph = 2;
+            if(nextTone.liq) {
+              newdata += String.fromCharCode(indices['<'] + tone.index);
+              base = indices.upper_tilde;
+              if(nextTone.relativeTone > 1) {
+                newdata += String.fromCharCode(indices.connecting_lines[nextTone.relativeTone-2] + tone.index);
+              }
+              tone=nextTone;
+            }
           }
           ++i;
         } else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -4) {
@@ -806,6 +815,15 @@ function getChantFragment(gabc) {
           } else {
             base = indices.clivis[-nextTone.relativeTone];
             tonesInGlyph = 2;
+            if(nextTone.liq) {
+              newdata += String.fromCharCode(indices.decorative_lines[0] + tone.index-1);
+              newdata += String.fromCharCode(indices['>'] + tone.index);
+              base = indices.lower_tilde;
+              tone=nextTone;
+              if(tone.relativeTone < -1) {
+                newdata += String.fromCharCode(indices.connecting_lines[-tone.relativeTone-2] + tone.index);
+              }
+            }
           }
           ++i;
         }
