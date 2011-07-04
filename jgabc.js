@@ -577,6 +577,20 @@ function getChant(text,makeLinks) {
     count++;
     previousMatch = match;
     if(space)span=null;
+    if(neumeInfo.ledger && use) {
+      var temp = make('use');
+      temp.setAttributeNS(xlinkns, 'href', '#ledger' + (neumeInfo.ltone<2?'b':'a'))
+      temp.setAttribute('y',use.getAttribute('y'));
+      var transform = use.getAttribute('transform');
+      var tx = parseFloat(use.getAttribute('x'));
+      if(transform) {
+        var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
+        if(m) tx += parseFloat(m[1]);
+      }
+      tx -= (chantWidth=useWidth(use));
+      temp.setAttribute('transform',"translate("+tx+") scale("+(chantWidth*3)+",1)");
+      result.appendChild(temp);
+    }
   }
 //  finishStaff(result,lineOffsets[line]);
   ltone = (3 - ltone);
@@ -688,6 +702,7 @@ function getChantFragment(gabc) {
       var thirdTone = (tones.length > i+2)? tones[i+2] : null;
       var fourthTone = (tones.length > i+3)? tones[i+3] : null;
       var lastTone = (i > 0)? tones[i-1]: null;
+      
       base = indices.punctum;
       if(tone.diamond) {
         base = tone.liq? indices.diamond_tilde : indices.diamond;
@@ -907,17 +922,20 @@ function getChantFragment(gabc) {
     startsWithAccidental:startsWithAccidental,
     mask:mask,
     clef:clef,
-    mindy:minDy
+    mindy:minDy,
+    ledger:(ltone<2 || htone > 10)
   };
 }
 
 function addStaff(result,x,y,line,width) {
   var maskId = 'staffmask' + line;
+  var T;
   if(masks[line]) {
     var tmp = masks[line].firstChild;
     while(tmp.childElementCount > 1) {
       tmp.removeChild(tmp.childNodes[1]);
     }
+    T = tmp.firstChild;
   } else {
     var mask = masks[line] = make('mask');
     mask.setAttribute('maskUnits','objectBoundingBox');
@@ -925,15 +943,15 @@ function addStaff(result,x,y,line,width) {
     g.setAttribute('class', 'caeciliae');
     mask.appendChild(g);
     var T = make('rect');
-    T.setAttribute('y', y + 1-staffheight);
-    T.setAttribute('width', '10000');
-    T.setAttribute('height', staffheight);
-    T.setAttribute('fill', 'white');
     g.appendChild(T);
     mask.setAttribute('id', maskId);
-    
     defs.appendChild(mask);
   }
+  T.setAttribute('y', y + 1-staffheight);
+  T.setAttribute('width', '10000');
+  T.setAttribute('height', staffheight);
+  T.setAttribute('fill', 'white');
+    
   var group = make('g');
   group.setAttribute('mask','url(#' + maskId + ')');
   var staff = make("use");
@@ -1009,10 +1027,10 @@ $(function() {
     gStaff.setAttribute("transform","scale(0.5,1)");
   } else {
     gStaff = document.createElementNS(svgns, "g");
-    var height = staffheight * 16 / 1000;
+    var height = 1;
     var line = document.createElementNS(svgns, "path");
     var stringLine = "h1v" + height + "h-1zm0 -" + spaceheight;
-    line.setAttribute("d", "M0 0" + stringLine + stringLine + stringLine + stringLine);
+    line.setAttribute("d", "M0 0" + stringLine.repeat(4));
     
 /*    var grey = document.createElementNS(svgns,"rect");
     grey.setAttribute("width","1000");
@@ -1022,9 +1040,25 @@ $(function() {
     gStaff.appendChild(grey);
 */
     gStaff.appendChild(line);
+    
+    var ledger = document.createElementNS(svgns, "g");
+    //stringLine = stringLine.replace(/m0.*$/,'');
+    line = document.createElementNS(svgns, "path");
+    line.setAttribute("d","M0 " + spaceheight + stringLine);
+    ledger.appendChild(line);
+    ledger.setAttribute("id","ledgerb");
+    defs.appendChild(ledger);
+    ledger = document.createElementNS(svgns, "g");
+    line = document.createElementNS(svgns, "path");
+    line.setAttribute("d","M0 " + (-spaceheight*4) + stringLine);
+    ledger.appendChild(line);
+    ledger.setAttribute("id","ledgera");
+    defs.appendChild(ledger);
   }
   gStaff.setAttribute("id", "staff");
   defs.appendChild(gStaff);
+  
+  
   svg.appendChild(defs);
   textElem = document.createElementNS(svgns, "g");
   svg.appendChild(textElem);
