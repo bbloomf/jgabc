@@ -12,7 +12,7 @@ var indices = {
   leftVirga: 0xE133,
   quilisma: 0xE143,
   w: 0xE143,
-  bottomPartPodatus: 0xE153,
+  bottomPartPodatus: 0xE154,
   topPartPodatus: 0xE163,
   podatus: [
     null,
@@ -646,7 +646,7 @@ function getChantFragment(gabc) {
   regexInner.lastMatch = 0;
   while(match = regexInner.exec(gabc)) {
     var tones = [];
-    var previousToneId = 0;
+    var previousToneId = -1;
     newdata = '';
     chant=match[0];
     regexTones.lastMatch = 0;
@@ -670,7 +670,7 @@ function getChantFragment(gabc) {
         tones.push({
           match: cmatch,
           index: toneId,
-          relativeTone: toneId - previousToneId,
+          relativeTone: previousToneId < 0? 0 : toneId - previousToneId,
           modifiers: cmatch[rtg.noteType],
           clef: cmatch[rtg.clef],
           episemaLoc:(cmatch[rtg.episema] && cmatch[rtg.episema].match(/0/))?-1:0,
@@ -686,6 +686,7 @@ function getChantFragment(gabc) {
       tone = tones[i];
       var nextTone = (tones.length > i+1)? tones[i+1] : null;
       var thirdTone = (tones.length > i+2)? tones[i+2] : null;
+      var fourthTone = (tones.length > i+3)? tones[i+3] : null;
       var lastTone = (i > 0)? tones[i-1]: null;
       base = indices.punctum;
       if(tone.diamond) {
@@ -777,20 +778,26 @@ function getChantFragment(gabc) {
           nextTone.episemaLoc=1;
           if(thirdTone && thirdTone.relativeTone < 0 && thirdTone.relativeTone >= -4) {
             base = indices.punctum;
-            newdata += String.fromCharCode(base + tone.index);
-            //if(nextTone.relativeTone > 1) newdata += String.fromCharCode(indices.connecting_lines[nextTone.relativeTone-2] + tone.index);
-            //newdata += String.fromCharCode(base + nextTone.index);
-            //if(thirdTone.relativeTone < -1) newdata += String.fromCharCode(indices.connecting_lines[-thirdTone.relativeTone-2] + thirdTone.index);
-            //tone = thirdTone;
-            if(nextTone.relativeTone > 1) {
-              base = indices.clivis[-thirdTone.relativeTone];
-              tone = nextTone;
+            if(fourthTone && fourthTone.relativeTone>=1 && fourthTone.relativeTone <=5) {
+              --i;
+              tone.episemaLoc=0;
+              nextTone.episemaLoc=0;
             } else {
-              newdata += String.fromCharCode(base + nextTone.index);
-              tone = thirdTone;
+              newdata += String.fromCharCode(base + tone.index);
+              //if(nextTone.relativeTone > 1) newdata += String.fromCharCode(indices.connecting_lines[nextTone.relativeTone-2] + tone.index);
+              //newdata += String.fromCharCode(base + nextTone.index);
+              //if(thirdTone.relativeTone < -1) newdata += String.fromCharCode(indices.connecting_lines[-thirdTone.relativeTone-2] + thirdTone.index);
+              //tone = thirdTone;
+              if(nextTone.relativeTone > 1) {
+                base = indices.clivis[-thirdTone.relativeTone];
+                tone = nextTone;
+              } else {
+                newdata += String.fromCharCode(base + nextTone.index);
+                tone = thirdTone;
+              }
+              tonesInGlyph = 3;
+              ++i;
             }
-            tonesInGlyph = 3;
-            ++i;
           } else if(nextTone.relativeTone <=5) {
             base = indices.podatus[nextTone.relativeTone];
             tonesInGlyph = 2;
@@ -801,14 +808,28 @@ function getChantFragment(gabc) {
                 newdata += String.fromCharCode(indices.connecting_lines[nextTone.relativeTone-2] + tone.index);
               }
               tone=nextTone;
+            } else if(nextTone.relativeTone==5) {
+              newdata += String.fromCharCode(indices.bottomPartPodatus + tone.index);
+              newdata += String.fromCharCode(indices.topPartPodatus + nextTone.index);
+              newdata += String.fromCharCode(indices.connecting_lines[3] + tone.index);
+              base=null;
             }
           }
           ++i;
-        } else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -4) {
-          if(thirdTone && thirdTone.relativeTone == 1) {
-            base = indices.porrectus[-nextTone.relativeTone];
-            newdata += String.fromCharCode(base + tone.index);
-            base = indices.topPartPodatus;
+        } else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -5) {
+          if(thirdTone && thirdTone.relativeTone >= 1 && thirdTone.relativeTone <= 4 && nextTone.relativeTone >= -4) {
+            if(tone.relativeTone >= 2 && tone.relativeTone <= 5) {
+              newdata += String.fromCharCode(indices.connecting_lines[tone.relativeTone-2] + tone.index - tone.relativeTone);
+            } else if(tone.relativeTone < 1) {
+              var lineLen=Math.max(-nextTone.relativeTone,1);
+              newdata += String.fromCharCode(indices.decorative_lines[lineLen-1] + tone.index-lineLen);
+            }
+            newdata += String.fromCharCode(indices.porrectus[-nextTone.relativeTone] + tone.index);
+            newdata += String.fromCharCode(indices.topPartPodatus + thirdTone.index);
+            if(thirdTone.relativeTone > 1) {
+              newdata += String.fromCharCode(indices.connecting_lines[thirdTone.relativeTone-2] + nextTone.index);
+            }
+            base = null;
             tone = thirdTone;
             tonesInGlyph = 3;
             ++i;
@@ -816,13 +837,19 @@ function getChantFragment(gabc) {
             base = indices.clivis[-nextTone.relativeTone];
             tonesInGlyph = 2;
             if(nextTone.liq) {
-              newdata += String.fromCharCode(indices.decorative_lines[0] + tone.index-1);
+              var lineLen=Math.max(-nextTone.relativeTone,2);
+              newdata += String.fromCharCode(indices.decorative_lines[lineLen-1] + tone.index-lineLen);
               newdata += String.fromCharCode(indices['>'] + tone.index);
               base = indices.lower_tilde;
               tone=nextTone;
               if(tone.relativeTone < -1) {
                 newdata += String.fromCharCode(indices.connecting_lines[-tone.relativeTone-2] + tone.index);
               }
+            } else if(nextTone.relativeTone==-5) {
+              newdata += String.fromCharCode(indices.leftVirga + tone.index);
+              tone=nextTone;
+              newdata += String.fromCharCode(indices.connecting_lines[3] + tone.index);
+              base=indices.punctum;
             }
           }
           ++i;
