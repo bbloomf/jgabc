@@ -236,7 +236,7 @@ function updateChant(text, svg, dontDelay) {
     }
   }
   if(!old) return;
-  var newElem = getChant(text,svg?(svg.parentElement.id=="chant-preview"):false);
+  var newElem = getChant(text,svg?(svg.parentNode.id=="chant-preview"):false);
   svg.replaceChild(newElem,old);
   svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
   gabcProcessTime = new Date() - startTime;
