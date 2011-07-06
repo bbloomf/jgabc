@@ -723,7 +723,7 @@ function getChantFragment(gabc) {
       if(tone.diamond) {
         base = tone.liq? indices.diamond_tilde : indices.diamond;
         var di = Math.abs(tone.relativeTone);
-        if(lastTone && lastTone.diamond && di ==  1 || di == 2) {
+        if(lastTone && lastTone.diamond && (di ==  1 || di == 2)) {
           if(newdata.length > 0) {
             span.appendChild(document.createTextNode(newdata));
             result.appendChild(span);
