@@ -108,7 +108,6 @@ var regexHeaderEnd=/(?:^|\n)%%\n/;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexTag = /<(\/)?(b|i|sc)>/i;
 var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
-var oldRegexTones = /([\/ ,;:`]+)|([A-M][^a-mA-M]*)|[a-m][^a-mA-M]*/g;
 var rog = {
   syl:3,
   gabc:5,
@@ -122,7 +121,12 @@ var setPdfLinkSelector=function(sel){
 var setGabcLinkSelector=function(sel){
   linkDownloadSelector=sel;
 };
-var regexTones = /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(?:(')|(\.{1,2})|((?:_0?){1,4})|(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])))*|(z0))|\[([^\]]*)(?:\]|$)/g;
+var regexToneModifiers = /(')|(\.{1,2})|((?:_0?){1,4})/g
+var regexTones = new RegExp("([/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:" + String(regexToneModifiers).replace(/^\/|\/\w*$/g,"").replace(/\((?!\?:)/g,"(?:") + ")*)|(z0))|\\[([^\\]]*)(?:\\]|$)","g");
+//                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)                                )*)|(z0))|\[([^\]]*)(?:\]|$)
+//                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)
+var regexTonesSpliceIndex=26;
+var regexToneModifiersCount = 4;
 var rtg = {
   whitespace: 1,
   clef: 2,
@@ -130,27 +134,27 @@ var rtg = {
   tone: 4,
   toneUpper: 5, // diamond
   toneLower: 6,
-  ictus: 7,
-  dot: 8,
-  episema: 9,
-  noteType: 10,      // (([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|([oO])|([xy])|(q)]|(R|r0|r(?![1-5]))|(r[1-5]))
-  virga: 11,        // [Vv]{1,3}
-  stropha: 12,      // s{1,3}
-  liquescentia: 13,      // [<>~]
-  diminutiveLiquescentia: 16,  // ~
-  ascendingLiquescentia: 14,  // <
-  descendingLiquescentia: 15,  // >
-  quilisma: 17,      // w
-  oriscus: 18,      // o
-  oriscusReverse: 19,    // O
-  accidental: 20,      // [xy]
-  flat: 21,        // x
-  natural: 22,      // y
-  q: 23,        // q
-  punctumCavum: 27,      // r
-  lineaPunctum: 25,      // R
-  lineaPunctumCavum: 26,    // r0
-  rNumber: 28,      // r[1-5]
+  noteType: 7,      // (([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|([oO])|([xy])|(q)]|(R|r0|r(?![1-5]))|(r[1-5]))
+  virga: 8,        // [Vv]{1,3}
+  stropha: 9,      // s{1,3}
+  liquescentia: 10,      // [<>~]
+  ascendingLiquescentia: 11,  // <
+  descendingLiquescentia: 12,  // >
+  diminutiveLiquescentia: 13,  // ~
+  quilisma: 14,      // w
+  oriscus: 15,      // o
+  oriscusReverse: 16,    // O
+  accidental: 17,      // [xy]
+  flat: 18,        // x
+  natural: 19,      // y
+  q: 20,        // q
+  lineaPunctum: 22,      // R
+  lineaPunctumCavum: 23,    // r0
+  punctumCavum: 24,      // r
+  rNumber: 25,      // r[1-5]
+  ictus: 26,        // (')
+  dot: 27,          // (\.{1,2})
+  episema: 28,      // ((?:_0?)){1,4})
   custos: 29,        // z0
   bracketed: 30      // [text]
 };
@@ -663,8 +667,19 @@ function getChantFragment(gabc) {
     var previousToneId = -1;
     newdata = '';
     chant=match[0];
-    regexTones.lastMatch = 0;
+    regexTones.exec('');
     while(cmatch = regexTones.exec(chant)) {
+      var imatch=[];
+      if(cmatch[regexTonesSpliceIndex]) {
+        var test = cmatch[regexTonesSpliceIndex];
+        var newmatch;
+        while(newmatch=regexToneModifiers.exec(test)) {
+          $.extend(imatch,newmatch);
+        }
+      } else {
+        imatch = new Array(regexToneModifiersCount);
+      }
+      cmatch = cmatch.splice(0,regexTonesSpliceIndex).concat(imatch.splice(1,imatch.length-1)).concat(cmatch.splice(1,cmatch.length-1));
       if(cmatch[rtg.bracketed]) continue;
       if(cmatch[rtg.clef])clef=cmatch[rtg.clef];
       tone = cmatch[0];
@@ -697,12 +712,13 @@ function getChantFragment(gabc) {
     for(var i=0; i < tones.length; ++i) {
       var tonesInGlyph = 1;
       var toneReps = 1;
+      var extraSpace='';
       tone = tones[i];
       var nextTone = (tones.length > i+1)? tones[i+1] : null;
       var thirdTone = (tones.length > i+2)? tones[i+2] : null;
       var fourthTone = (tones.length > i+3)? tones[i+3] : null;
       var lastTone = (i > 0)? tones[i-1]: null;
-      
+      if(i>1 && tone.relativeTone==0) newdata += "'";
       base = indices.punctum;
       if(tone.diamond) {
         base = tone.liq? indices.diamond_tilde : indices.diamond;
@@ -715,7 +731,8 @@ function getChantFragment(gabc) {
             newdata = '';
           }
           span.setAttribute('dx', Math.round(staffheight / (di == 1? -20 : 30)));
-        }  
+        }
+        if(nextTone && !nextTone.diamond) extraSpace="''";
       } else if(tone.clef) {
           // TODO: put some of these in other functions
           var currentdy=0;
@@ -766,9 +783,11 @@ function getChantFragment(gabc) {
           if(tone.match[rtg.virga]) {
             base = indices.v;
             toneReps=tone.match[rtg.virga].length;
+            extraSpace="'";
           } else if(tone.match[rtg.stropha]) {
             base = indices.s;
             toneReps=tone.match[rtg.stropha].length;
+            extraSpace="'";
           } else if(indices[tone.modifiers[0]]) {
             base = indices[tone.modifiers[0]];
             if(nextTone && nextTone.relativeTone == 1 && tone.modifiers == 'w') {
@@ -816,6 +835,7 @@ function getChantFragment(gabc) {
           } else if(nextTone.relativeTone <=5) {
             base = indices.podatus[nextTone.relativeTone];
             tonesInGlyph = 2;
+            if(thirdTone && thirdTone.relativeTone <= 0) extraSpace="''";
             if(nextTone.liq) {
               newdata += String.fromCharCode(indices['<'] + tone.index);
               base = indices.upper_tilde;
@@ -870,7 +890,7 @@ function getChantFragment(gabc) {
           ++i;
         }
       }
-      var temp = String.fromCharCode(base + tone.index);
+      var temp = base? String.fromCharCode(base + tone.index) : "";
       if(toneReps>1) {
         temp = (temp+"'").repeat(toneReps).slice(0,-1);
       }
@@ -908,6 +928,8 @@ function getChantFragment(gabc) {
           newdata += String.fromCharCode(indices.dot + nextTone.index);
         else newdata += String.fromCharCode(indices.dot + tone.index);
       }
+      if(temp > 0 && tones[i+1]) extraSpace += "'";
+      newdata += extraSpace;
     }
     if(newdata.length > 0) {
       span.appendChild(document.createTextNode(newdata));
