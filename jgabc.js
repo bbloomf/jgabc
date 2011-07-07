@@ -275,10 +275,12 @@ function textWidth(txt,clas,special) {
         var tmp=e.span();
         dt.appendChild(tmp);
         var sIndex=Math.max(i,idx);
-        var tlen=Math.min(e.text.length+idx,len||1000000)-sIndex;
-        if(len>0)wid+=tmp.getSubStringLength(sIndex,tlen);
+        var tlen=Math.min(idx+e.text.length,i+(len||1000000))-sIndex;
+        sIndex-=idx;
+        idx+=e.text.length;
+        if(tlen>0)wid+=tmp.getSubStringLength(sIndex,tlen);
       });
-      console.info(dt.textContent + ": " + wid + " " + JSON.stringify(txt));
+      console.info(dt.textContent + "[" + i + "," + (len||100) + "]: " + wid + " " + JSON.stringify(txt));
       return wid;
       //return dt.getSubStringLength(i,len||dt.textContent.length);
     }
