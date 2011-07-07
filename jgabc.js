@@ -254,25 +254,38 @@ function make(tag) {
 }
 
 function textWidth(txt,clas,special) {
-  var dt=special?_defText:defText;
+  var i=0;
+  var len=undefined;
   if(txt.length==0)return 0;
+  if(typeof(clas)=="number" && typeof(special)=="number"){
+    i=clas;
+    len=special;
+    clas=special=undefined;
+  }
+  var dt=special?_defText:defText;
   if($.isArray(txt)){
     if(txt.length==1 && txt[0].tags.length==0) {
       txt = txt[0].text;
       if(clas==undefined)clas="goudy";
     } else {
       $(dt).empty();
+      var wid=0;
+      var idx=0;
       txt.forEach(function(e){
-        dt.appendChild(e.span());
+        var tmp=e.span();
+        dt.appendChild(tmp);
+        var sIndex=Math.max(i,idx);
+        var tlen=Math.min(e.text.length+idx,len||1000000)-sIndex;
+        if(len>0)wid+=tmp.getSubStringLength(sIndex,tlen);
       });
-      console.info(JSON.stringify(txt));
-      console.info( dt.getComputedTextLength());
-      return dt.getComputedTextLength();
+      console.info(dt.textContent + ": " + wid + " " + JSON.stringify(txt));
+      return wid;
+      //return dt.getSubStringLength(i,len||dt.textContent.length);
     }
   }
   if(clas)dt.setAttribute("class", clas);
   $(dt).text('.' + txt + '.');
-  return dt.getSubStringLength(1, txt.length);
+  return dt.getSubStringLength(1+i, len||txt.length);
 }
 
 function useWidth(use) {
@@ -341,6 +354,7 @@ function getChant(text,makeLinks) {
     if(padding) width -= parseFloat(padding);
   } catch(e) { }
   svgWidth = width;
+  var activeTags=[];
   var neumeInfo = null;
   var clef,wClef;
   var needCustos = false;
@@ -373,7 +387,6 @@ function getChant(text,makeLinks) {
     var offset = 0;
     if(txt) {
       txt = txt.replace(/^\s+/,'').replace(/\r\n/g,' ').replace(/\n/g,' ').replace(/<v>\\greheightstar<\/v>/g,'*');
-      var activeTags=[];
       var tm;
       while(tm = regexTag.exec(txt)) {
         var temp=txt.slice(0,tm.index);
@@ -400,12 +413,10 @@ function getChant(text,makeLinks) {
         if(!vowel) {
           vowel = {index: 0, "0":txt, "1":txt};
         }
-        var len = vowel.index + vowel[0].length;
-        defText.textContent = txt.slice(0,len);
         try {
           var index = vowel.index + vowel[0].length - vowel[1].length;
-          offset -= defText.getSubStringLength(0, index);
-          offset -= defText.getSubStringLength(index, vowel[1].length) / 2;
+          offset -= textWidth(tags,0,index);
+          offset -= textWidth(tags,index,vowel[1].length) / 2;
         } catch(e) {
         }
         offset += notewidth / 2;//defChant.getComputedTextLength() / 2;
