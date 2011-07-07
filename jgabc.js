@@ -247,6 +247,7 @@ function updateChant(text, svg, dontDelay) {
   svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
   gabcProcessTime = new Date() - startTime;
   console.info("Update chant time: " + gabcProcessTime);
+  if(gabcProcessTime > 5000) gabcProcessTime=5000;
 }
 
 function make(tag) {
@@ -758,10 +759,12 @@ function getChantFragment(gabc) {
       }
     }
     var data=[newdata];
+    var spandata=[span];
     for(var i=0; i < tones.length; ++i) {
-      i=neumeTextNoLigatures(tones,i,result,span,minDy,data,ltone,htone);
+      i=neumeTextNoLigatures(tones,i,result,spandata,minDy,data,ltone,htone);
     }
     newdata=data[0];
+    span=spandata[0];
     if(newdata.length > 0) {
       span.appendChild(document.createTextNode(newdata));
       result.appendChild(span);
@@ -796,24 +799,24 @@ var neumeTextNoLigatures=function(tones,i,result,span,minDy,retVal,ltone,htone) 
     var di = Math.abs(tone.relativeTone);
     if(lastTone && lastTone.diamond && (di ==  1 || di == 2)) {
       if(retVal[0].length > 0) {
-        span.appendChild(document.createTextNode(retVal[0]));
-        result.appendChild(span);
-        span = make('tspan');
+        span[0].appendChild(document.createTextNode(retVal[0]));
+        result.appendChild(span[0]);
+        span[0] = make('tspan');
         retVal[0] = '';
       }
-      span.setAttribute('dx', Math.round(staffheight / (di == 1? -20 : 30)));
+      span[0].setAttribute('dx', Math.round(staffheight / (di == 1? -20 : 30)));
     }
     if(nextTone && !nextTone.diamond) extraSpace="''";
   } else if(tone.clef) {
       // TODO: put some of these in other functions
       var currentdy=0;
       if(retVal[0].length > 0) {
-        span.appendChild(document.createTextNode(retVal[0]));
-        result.appendChild(span);
-        span = make('tspan');
+        span[0].appendChild(document.createTextNode(retVal[0]));
+        result.appendChild(span[0]);
+        span[0] = make('tspan');
         retVal[0] = '';
       } else {
-        currentdy = parseFloat(span.getAttribute('dy') || 0, 10);
+        currentdy = parseFloat(span[0].getAttribute('dy') || 0, 10);
       }
       line = parseInt(tone.clef[1],10);
       var dy = 0;
@@ -826,11 +829,11 @@ var neumeTextNoLigatures=function(tones,i,result,span,minDy,retVal,ltone,htone) 
       }
       dy *= spaceheight;
       minDy = Math.min(minDy,dy);
-      span.setAttribute('dy', dy + currentdy);
-      span.appendChild(document.createTextNode(curChar));
-      result.appendChild(span);
-      span = make('tspan');
-      span.setAttribute('dy', -dy);
+      span[0].setAttribute('dy', dy + currentdy);
+      span[0].appendChild(document.createTextNode(curChar));
+      result.appendChild(span[0]);
+      span[0] = make('tspan');
+      span[0].setAttribute('dy', -dy);
       return i;
   }
   else if(tone.modifiers) {
