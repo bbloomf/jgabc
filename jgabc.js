@@ -107,6 +107,7 @@ var codeM = codeA + 12;
 var regexHeaderEnd=/(?:^|\n)%%\n/;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexTag = /<(\/)?(b|i|sc)>/i;
+var regexTags= /(<(b|i|sc)>)(.*?)(?:(<\/\1>)|$)/i;
 var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)(?:\[[^\]]*(?:$|\]))?/g;
 var rog = {
   syl:3,
@@ -254,6 +255,21 @@ function make(tag) {
 
 function textWidth(txt,clas,special) {
   var dt=special?_defText:defText;
+  if(txt.length==0)return 0;
+  if($.isArray(txt)){
+    if(txt.length==1 && txt[0].tags.length==0) {
+      txt = txt[0].text;
+      if(clas==undefined)clas="goudy";
+    } else {
+      $(dt).empty();
+      txt.forEach(function(e){
+        dt.appendChild(e.span());
+      });
+      console.info(JSON.stringify(txt));
+      console.info( dt.getComputedTextLength());
+      return dt.getComputedTextLength();
+    }
+  }
   if(clas)dt.setAttribute("class", clas);
   $(dt).text('.' + txt + '.');
   return dt.getSubStringLength(1, txt.length);
@@ -286,6 +302,19 @@ function getTagsFrom(txt){
   return r;
 }
 
+function TagInfo(txt,tags) {
+  return {
+    tags: $.merge([],tags||[]),
+    text: txt,
+    span: function(){
+      var result=make('tspan');
+      result.appendChild(document.createTextNode(this.text));
+      result.setAttribute("class","goudy " + this.tags.join(" "));
+      return result;
+    }
+  };
+}
+
 function getChant(text,makeLinks) {
   var blathering=false;
   var match;
@@ -316,13 +345,12 @@ function getChant(text,makeLinks) {
   var clef,wClef;
   var needCustos = false;
   var previousMatch;
-  var activeTags = [];
-  var tagsToPop = [];
   var activeClass = "goudy";
   var usesBetweenText = [];
   var curStaff = addStaff(result,0,lineOffsets[line],line, null);
   _heightCorrection=0;
   while(match = regexOuter.exec(text)) {
+    var tags=[];
     if(match[5]) {
       neumeInfo = getChantFragment(match[5]);
       clef=neumeInfo.clef||clef;
@@ -345,30 +373,28 @@ function getChant(text,makeLinks) {
     var offset = 0;
     if(txt) {
       txt = txt.replace(/^\s+/,'').replace(/\r\n/g,' ').replace(/\n/g,' ').replace(/<v>\\greheightstar<\/v>/g,'*');
-      while(t = tagsToPop.pop()) {
-        activeTags.splice(activeTags.indexOf(t),1);
-      }
+      var activeTags=[];
       var tm;
       while(tm = regexTag.exec(txt)) {
+        var temp=txt.slice(0,tm.index);
+        if(temp.length>0)tags.push(TagInfo(temp,activeTags));
         if(tm[1] != "/") {
           if(activeTags.indexOf(tm[2]) < 0) {
             activeTags.push(tm[2]);
           }
         }
         else {
-          if(tagsToPop.indexOf(tm[2]) < 0) {
-            tagsToPop.push(tm[2]);
-          }
+          var idx = activeTags.indexOf(tm[2]);
+          if(idx>=0)activeTags.splice(idx,1);
         }
         var lastIndex = tm.index + tm[0].length;
-        if(tm.index == 0)
-          txt = txt.slice(tm[0].length);
-        else txt = txt.slice(0,tm.index) + txt.slice(lastIndex);
+        txt = txt.slice(lastIndex);
       }
-      var temp = activeTags.slice(0);
-      temp.splice(0,0,'goudy');
-      activeClass = temp.join(' ');
-      wText = textWidth(txt,activeClass);
+      var pretext="";
+      if(tags.length>0)tags.forEach(function(e){pretext+=e.text;});
+      if(txt.length>0)tags.push(TagInfo(txt,activeTags));
+      txt = pretext+txt;
+      wText = textWidth(tags);
       if(txt) {
         vowel = regexVowel.exec(txt);
         if(!vowel) {
@@ -549,9 +575,10 @@ function getChant(text,makeLinks) {
       }
       if(lastSpan) {
         var lastXoffset = parseFloat(lastSpan.getAttribute('x'),10);
-        var lastSpanX2 = lastXoffset + textWidth(lastSpan.textContent,lastSpan.getAttribute("class"));
+        var clas=lastSpan.getAttribute("class");
+        var lastSpanX2 = lastXoffset + textWidth(lastSpan.textContent,clas);
         if(lastSpanX2 < spanXoffset) {
-          lastSpanX2 = lastXoffset + textWidth(lastSpan.textContent += '-');
+          lastSpanX2 = lastXoffset + textWidth(lastSpan.textContent += '-',clas);
           if(lastSpanX2 > spanXoffset) {
             var additionalOffset = lastSpanX2 - spanXoffset;
             spanXoffset = lastSpanX2;
@@ -565,14 +592,14 @@ function getChant(text,makeLinks) {
             nextXoffsetChantMin += additionalOffset;
           }
         }
-        defText.setAttribute("class", activeClass);
       }
       span.setAttribute('x', spanXoffset);
       span.setAttribute("class", activeClass);
       xoffset = nextXoffsetTextMin;
       xoffsetChantMin = nextXoffsetChantMin;
-      span.appendChild(document.createTextNode(txt || ''));
-      
+      tags.forEach(function(e){
+        span.appendChild(e.span());
+      });
       eText.appendChild(span);
     } else {
       if(use) {
