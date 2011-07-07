@@ -161,7 +161,7 @@ var rtg = {
 };
 
 
-var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
+var regexVowel = /(?:(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ]))|\S+/i;
 var transforms = [['/',' ',',',';',':','`',''],
       ["'",'_','+',';','|',',',''],
       [/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
@@ -256,11 +256,12 @@ function make(tag) {
 function textWidth(txt,clas,special) {
   var i=0;
   var len=undefined;
-  if(txt.length==0)return 0;
+  if(txt.length===0)return 0;
   if(typeof(clas)=="number" && typeof(special)=="number"){
     i=clas;
     len=special;
     clas=special=undefined;
+    if(len===0)return 0;
   }
   var dt=special?_defText:defText;
   if($.isArray(txt)){
@@ -278,12 +279,16 @@ function textWidth(txt,clas,special) {
         var tlen=Math.min(idx+e.text.length,i+(len||1000000))-sIndex;
         sIndex-=idx;
         idx+=e.text.length;
-        if(tlen>0)wid+=tmp.getSubStringLength(sIndex,tlen);
+        if(tlen>0&&sIndex>=0)wid+=tmp.getSubStringLength(sIndex,tlen);
       });
-      console.info(dt.textContent + "[" + i + "," + (len||100) + "]: " + wid + " " + JSON.stringify(txt));
+      //console.info(dt.textContent + "[" + i + "," + (len||100) + "]: " + wid + " " + JSON.stringify(txt));
       return wid;
-      //return dt.getSubStringLength(i,len||dt.textContent.length);
     }
+  } else if(typeof(txt)=="object") {
+    //txt is a span object hopefully
+    $(dt).empty().append($(txt).clone());
+    //console.info(txt.textContent + ": " + dt.getComputedTextLength());
+    return dt.getComputedTextLength();
   }
   if(clas)dt.setAttribute("class", clas);
   $(dt).text('.' + txt + '.');
@@ -435,10 +440,10 @@ function getChant(text,makeLinks) {
     if(wChant > 0 && (xoffset < xoffsetChantMin || !txt)) {
       xoffset = xoffsetChantMin;
     }
-    var nextXoffsetTextMin = txt
+    var nextXoffsetTextMin = txt?
      //Experimental change (2010.03.14)  Old line:
-    //? Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0))
-      ? xoffset + wText + Math.max(offset,0)
+     //Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0))
+        xoffset + wText + Math.max(offset,0)
       : nextXoffsetTextMin||0;
     if(match[7]&&match.index>0)nextXoffsetTextMin+=5;
     var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - Math.min(offset,0);
@@ -450,7 +455,7 @@ function getChant(text,makeLinks) {
       needCustos = true;
 //      lastX = finishStaff(result,lineOffsets[line]);
       usesBetweenText=[];
-      if(span&&txt)span.textContent += '-';
+      if(span&&txt)span.appendChild(TagInfo('-').span());
       ltone = (3 - ltone);
       ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
       var y = Math.ceil(0.1*staffheight + fontsize + ltone);
@@ -588,10 +593,10 @@ function getChant(text,makeLinks) {
       }
       if(lastSpan) {
         var lastXoffset = parseFloat(lastSpan.getAttribute('x'),10);
-        var clas=lastSpan.getAttribute("class");
-        var lastSpanX2 = lastXoffset + textWidth(lastSpan.textContent,clas);
+        var lastSpanX2 = lastXoffset + textWidth(lastSpan);
         if(lastSpanX2 < spanXoffset) {
-          lastSpanX2 = lastXoffset + textWidth(lastSpan.textContent += '-',clas);
+          lastSpan.appendChild(TagInfo('-').span());
+          lastSpanX2 = lastXoffset + textWidth(lastSpan);
           if(lastSpanX2 > spanXoffset) {
             var additionalOffset = lastSpanX2 - spanXoffset;
             spanXoffset = lastSpanX2;
