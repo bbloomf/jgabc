@@ -162,7 +162,7 @@ var setPdfLinkSelector=function(sel){
 var setGabcLinkSelector=function(sel){
   linkDownloadSelector=sel;
 };
-var regexToneModifiers = /(')|(\.{1,2})|((?:_0?){1,4})/g
+var regexToneModifiers = /(')|(\.{1,2})|((?:_){1,4}0?)/g
 var regexTones = new RegExp("([/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:" + String(regexToneModifiers).replace(/^\/|\/\w*$/g,"").replace(/\((?!\?:)/g,"(?:") + ")*)|(z0))|\\[([^\\]]*)(?:\\]|$)","g");
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)                                )*)|(z0))|\[([^\]]*)(?:\]|$)
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)
@@ -768,6 +768,21 @@ function getChantFragment(gabc) {
         var test = cmatch[regexTonesSpliceIndex];
         var newmatch;
         while(newmatch=regexToneModifiers.exec(test)) {
+          if(newmatch[3]) {
+            var eLoc=newmatch[3].match(/0/)?-1:0;
+            var count=newmatch[3].length + eLoc - 1;
+            newmatch[3]=newmatch[3].slice(1-eLoc);
+            var i=1;
+            var len=tones.length;
+            while(i<=count && i<=len) {
+              var lastTone = tones[len-i];
+              if(!lastTone.match[rtg.episema]) {
+                lastTone.match[rtg.episema]=newmatch[3];
+                lastTone.episemaLoc=eLoc;
+              }
+              ++i;
+            }
+          }
           $.extend(imatch,newmatch);
         }
       } else {
@@ -889,8 +904,6 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
   } else if(nextTone && !nextTone.diamond && (!nextTone.modifiers || nextTone.liq)) {
     // no modifers, and there is at least one more tone on the stack.
     if(nextTone.relativeTone > 0 && nextTone.relativeTone <=5) {
-      tone.episemaLoc=-1;
-      nextTone.episemaLoc=1;
       if(thirdTone && thirdTone.relativeTone < 0 && thirdTone.relativeTone >= -4) {
         base = indices.punctum;
         if(fourthTone && fourthTone.relativeTone>=1 && fourthTone.relativeTone <=5) {
@@ -899,12 +912,21 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
           tone.episemaLoc=0;
           nextTone.episemaLoc=0;
         } else {
+          var hiTone=nextTone.index;
+          var loTone=Math.min(tone.index,thirdTone.index);
+          var temp;
           retVal[0] += _ci[tone.index] + base;
+          if(tone.match[episema]) {
+            temp = _ci[tone.episemaLoc==-1?loTone:hiTone];
+            retVal[0] += temp + (tone.episemaLoc==-1?indices.episema_below:indices.episema_above);
+          }
+          //WORKING HERE...
           //if(nextTone.relativeTone > 1) retVal[0] += String.fromCharCode(indices.connecting_lines[nextTone.relativeTone-2] + tone.index);
           //retVal[0] += String.fromCharCode(base + nextTone.index);
           //if(thirdTone.relativeTone < -1) retVal[0] += String.fromCharCode(indices.connecting_lines[-thirdTone.relativeTone-2] + thirdTone.index);
           //tone = thirdTone;
           if(nextTone.relativeTone > 1) {
+            
             base = indices.clivis;
             retVal[0] += _ci[tone.index] + _ci[nextTone.index] + indices.connecting_line + _ci[nextTone.index];
           } else {
@@ -915,6 +937,8 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
           ++i;
         }
       } else if(nextTone.relativeTone <=5) {
+        tone.episemaLoc=-1;
+        nextTone.episemaLoc=1;
         base = indices.podatus;
         tonesInGlyph = 2;
         if(thirdTone && thirdTone.relativeTone <= 0) extraSpace="-";
