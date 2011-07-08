@@ -313,6 +313,7 @@ function textWidth(txt,clas,special) {
       $(dt).empty();
       var wid=0;
       var idx=0;
+      //console.info("("+i+","+len+") " + JSON.stringify(txt));
       txt.forEach(function(e){
         var tmp=e.span();
         dt.appendChild(tmp);
@@ -320,6 +321,7 @@ function textWidth(txt,clas,special) {
         var tlen=Math.min(idx+e.text.length,i+(len||1000000))-sIndex;
         sIndex-=idx;
         idx+=e.text.length;
+        //console.info("e: " + JSON.stringify(e));
         if(tlen>0&&sIndex>=0)wid+=tmp.getSubStringLength(sIndex,tlen);
       });
       //console.info(dt.textContent + "[" + i + "," + (len||100) + "]: " + wid + " " + JSON.stringify(txt));
@@ -332,8 +334,8 @@ function textWidth(txt,clas,special) {
     return dt.getComputedTextLength();
   }
   if(clas)dt.setAttribute("class", clas);
-  $(dt).text('.' + txt + '.');
-  return dt.getSubStringLength(1+i, len||txt.length);
+  $(dt).text(txt.replace(/ /g,'\u00a0'));
+  return dt.getSubStringLength(i, len||txt.length);
 }
 
 function useWidth(use) {
@@ -369,7 +371,7 @@ function getTagsFrom(txt){
 function TagInfo(txt,tags) {
   return {
     tags: $.merge([],tags||[]),
-    text: txt,
+    text: txt.replace(/ /g,'\u00a0'),
     span: function(){
       var result=make('tspan');
       result.appendChild(document.createTextNode(this.text));
