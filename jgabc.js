@@ -936,10 +936,8 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
           var lineLen=Math.max(-nextTone.relativeTone,1);
           retVal[0] += _ci[tone.index-lineLen] + _ci[tone.index] + indices.decorative_line;
         }
-        retVal[0] += _ci[tone.index] + _ci[nextTone.index] + indices.porrectus;
-        if(thirdTone.relativeTone > 1) {
-          retVal[0] += _ci[nextTone.index] + _ci[thirdTone.index] + indices.connecting_line;
-        }
+        retVal[0] += _ci[tone.index] + _ci[nextTone.index] + indices.porrectus +
+                     _ci[nextTone.index] + _ci[thirdTone.index] + indices.decorative_line;
         base = indices.podatus;
         tone = thirdTone;
         tonesInGlyph = 3;
@@ -1005,7 +1003,7 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
   }
   if(temp > 0 && tones[i+1]) extraSpace += "'";
   retVal[0] += extraSpace;
-  return i+10;
+  return i;
 }
 
 var neumeTextNoLigatures=function(tones,i,result,span,minDy,retVal) {
