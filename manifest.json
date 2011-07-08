@@ -1,6 +1,6 @@
 ﻿{
   "name": "GABC Transcription Tool",
-  "version": "1.78",
+  "version": "1.79",
   "description": "Tool for aiding GABC transcription",
   "icons": {
     "16": "icon/clear16.png",
