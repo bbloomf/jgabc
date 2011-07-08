@@ -927,7 +927,9 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
         } else {
           retVal[0] += _ci[tone.index];
         }
+        var temp=tone;
         tone=nextTone;
+        nextTone=temp;
       }
       ++i;
     } else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -5) {
@@ -941,6 +943,8 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
         retVal[0] += _ci[tone.index] + _ci[nextTone.index] + indices.porrectus +
                      _ci[nextTone.index] + _ci[thirdTone.index] + indices.decorative_line;
         base = indices.podatus;
+        thirdTone.episeamLoc=1;
+        nextTone.episemaLoc=-1;
         tone = thirdTone;
         tonesInGlyph = 3;
         ++i;
@@ -948,11 +952,11 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
         base = indices.clivis;
         tonesInGlyph = 2;
         if(nextTone.liq) {
-          var lineLen=Math.max(-nextTone.relativeTone,2);
+          var lineLen=Math.min(-nextTone.relativeTone,2);
           retVal[0] += _ci[tone.index-lineLen] + _ci[tone.index] + indices.decorative_line;
           retVal[0] += _ci[tone.index] + indices['>'];
           base = indices.lower_tilde;
-          if(tone.relativeTone < -1) {
+          if(nextTone.relativeTone < -1) {
             retVal[0] += _ci[tone.index] + _ci[nextTone.index] + indices.connecting_line;
           }
           tone=nextTone;
@@ -1168,7 +1172,7 @@ var neumeTextNoLigatures=function(tones,i,result,span,minDy,retVal) {
         base = indices.clivis[-nextTone.relativeTone];
         tonesInGlyph = 2;
         if(nextTone.liq) {
-          var lineLen=Math.max(-nextTone.relativeTone,2);
+          var lineLen=Math.min(-nextTone.relativeTone,2);
           retVal[0] += String.fromCharCode(indices.decorative_lines[lineLen-1] + tone.index-lineLen);
           retVal[0] += String.fromCharCode(indices['>'] + tone.index);
           base = indices.lower_tilde;
