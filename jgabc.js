@@ -964,7 +964,7 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
   } else if(nextTone && !nextTone.diamond && (!nextTone.modifiers || nextTone.liq)) {
     // no modifers, and there is at least one more tone on the stack.
     if(nextTone.relativeTone > 0 && nextTone.relativeTone <=5) {
-      if(thirdTone && thirdTone.relativeTone < 0 && thirdTone.relativeTone >= -4) {
+      if(thirdTone && !thirdTone.diamond && !thirdTone.modifiers && thirdTone.relativeTone < 0 && thirdTone.relativeTone >= -4) {
         base = indices.punctum;
         if(fourthTone && fourthTone.relativeTone>=1 && fourthTone.relativeTone <=5) {
           //Going for porrectus next time...this one will be a straight punctum
@@ -1021,12 +1021,12 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
       }
       ++i;
     } else if(nextTone.relativeTone < 0 && nextTone.relativeTone >= -5) {
-      if(!tone.markings && thirdTone && thirdTone.relativeTone >= 1 && thirdTone.relativeTone <= 4 && nextTone.relativeTone >= -4) {
+      if(!tone.markings && thirdTone && !thirdTone.diamond && !thirdTone.modifiers && thirdTone.relativeTone >= 1 && thirdTone.relativeTone <= 4 && nextTone.relativeTone >= -4) {
         if(tone.relativeTone >= 2 && tone.relativeTone <= 5) {
           retVal[0] += neume(indices.connecting_line,tone.index-tone.relativeTone,tone.index);
         } else if(tone.relativeTone < 1) {
           var lineLen=Math.max(-nextTone.relativeTone,1);
-          retVal[0] += "-" + neume(indices.decorative_line,tone.index-lineLen,tone.index);
+          retVal[0] += (retVal[0].length>0?"-":"") + neume(indices.decorative_line,tone.index-lineLen,tone.index);
         }
         retVal[0] += neume(indices.porrectus,tone.index,nextTone.index) +
                      neume(indices.decorative_line,nextTone.index,thirdTone.index);
@@ -1043,9 +1043,6 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
           retVal[0] += neume(indices.decorative_line,tone.index-lineLen,tone.index);
           retVal[0] += neume(indices['>'],tone.index);
           base = indices.lower_tilde;
-          if(nextTone.relativeTone < -1) {
-            retVal[0] += (indices.connecting_line,tone.index,nextTone.index);
-          }
         } else {
           retVal[0] += neume(indices.decorative_line,nextTone.index,tone.index);
           retVal[0] += neume(indices.punctum,tone.index);
@@ -1062,6 +1059,13 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
             tone.episemaTone=1;
             if(nextTone.episemaLoc!=-1)nextTone.episemaTone = tone.index;
           }
+          if(tone.match[rtg.dot]) {
+            retVal[0] += neume(indices.dot,tone.index);
+            tone.match[rtg.dot]=undefined;
+          }
+        }
+        if(nextTone.relativeTone < -1) {
+          retVal[0] += neume(indices.connecting_line,nextTone.index,tone.index);
         }
         var temp=tone;
         tone=nextTone;
@@ -1119,7 +1123,7 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
       retVal[0]+=neume(indices.dot,nextTone.index);
     }
   }
-  if(temp && tones[i+1]) extraSpace += "'";
+  if(temp && tones[i+1]) extraSpace += "--";
   retVal[0] += extraSpace;
   return i;
 }
