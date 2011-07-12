@@ -173,9 +173,10 @@ var staffheight = 48;
 var spaceheight = staffheight / 4;
 var notewidth = staffheight / 6;
 var spaceBetweenNeumes = notewidth;
+var verticalSpace = staffheight/3;
 var fontsize = spaceheight*3/2;
 var spaceWidth = spaceheight * 3/4;
-var staffoffset = Math.ceil(staffheight * 1.4);
+var staffoffset = Math.ceil(staffheight * 1.0);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
 var staffInFont = false;
@@ -275,7 +276,7 @@ var defChant = null;
 var masks = [];
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
-var _heightCorrection = 0;
+var _heightCorrection = -20;
 
 function updatePreview(text) {
   var old = textElem;
@@ -347,7 +348,7 @@ function updateChant(text, svg, dontDelay) {
   if(!old) return;
   var newElem = getChant(text,svg);
   svg.replaceChild(newElem,old);
-  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
+  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - 20);
   gabcProcessTime = new Date() - startTime;
   console.info("Update chant time: " + gabcProcessTime);
   if(gabcProcessTime > 5000) gabcProcessTime=5000;
@@ -485,6 +486,7 @@ function getChant(text,svg) {
   eText.setAttribute("class", "goudy");
   var lastSpan;
   var ltone = 3;
+  var htone = 10;
   var line = 0;
   var lineOffsets = [0];
   var width = svg.parentNode.clientWidth;
@@ -585,18 +587,24 @@ function getChant(text,svg) {
     var lastX;
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
-//      lastX = finishStaff(result,lineOffsets[line]);
       usesBetweenText=[];
       if(span&&txt)span.appendChild(TagInfo('-').span());
       ltone = (3 - ltone);
       ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-      var y = Math.ceil(0.1*staffheight + fontsize + ltone);
+      htone = (htone - 10);
+      htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
+      var y = Math.ceil(0.1*staffheight + fontsize + ltone + htone);
       eText.setAttribute("y",y);
       result.appendChild(eText);
+      if(htone>0) {
+        lineOffsets[line] += htone;
+        curStaff.setAttribute("transform","translate(0, " + htone + ")");
+      }
       eText = make('text');
       eText.setAttribute("class", "goudy");
       ltone = 3;
-      lineOffsets.push(staffoffset + y + lineOffsets[line++]);
+      htone = 10;
+      lineOffsets.push(staffoffset + y + verticalSpace + lineOffsets[line++]);
       eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
       curStaff = addStaff(result,0,lineOffsets[line],line, null, defs);
       nextXoffset -= xoffset;
@@ -607,7 +615,7 @@ function getChant(text,svg) {
         use.setAttributeNS(xlinkns, 'href', '#' + clef);
         use.setAttribute('x', 0);
         use.setAttribute('y', lineOffsets[line]);
-        result.appendChild(use);
+        curStaff.appendChild(use);
         xoffset=0;
         xoffsetChantMin=wClef+spaceBetweenNeumes+offset;
 //        nextStaffX=wClef;
@@ -624,7 +632,7 @@ function getChant(text,svg) {
       
     if(match[5]) {
       if(needCustos) {
-        addCustos(result,neumeInfo.ftone,lastX,lineOffsets[line - 1]);
+        addCustos(curStaff,neumeInfo.ftone,lastX,lineOffsets[line - 1]);
         needCustos = false;
       }
       if(neumeInfo.mask) {
@@ -648,6 +656,7 @@ function getChant(text,svg) {
         masks[line].firstChild.appendChild(use2);
       } else use2 = null;
       ltone = Math.min(ltone, neumeInfo.ltone);
+      htone = Math.max(htone, neumeInfo.htone);
       use = make('use');
       use.setAttributeNS(xlinkns, 'href', '#' + match[5]);
       use.setAttribute('x', xoffset);
@@ -661,7 +670,7 @@ function getChant(text,svg) {
       } else {
         aTag = use;
       }
-      result.appendChild(aTag);
+      curStaff.appendChild(aTag);
       //newstuff
       currentUse=[use];
       if(use2)currentUse.push(use2);
@@ -772,43 +781,23 @@ function getChant(text,svg) {
         var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
         if(m) tx += parseFloat(m[1]);
       }
-      tx -= (chantWidth=useWidth(use));
-      temp.setAttribute('transform',"translate("+tx+") scale("+(chantWidth*3)+",1)");
-      result.appendChild(temp);
+      chantWidth=useWidth(use);
+      tx -= 0.75*notewidth;
+      temp.setAttribute('transform',"translate("+tx+") scale("+(chantWidth+1.5*notewidth)+",1)");
+      curStaff.appendChild(temp);
     }
   }
-//  finishStaff(result,lineOffsets[line]);
   ltone = (3 - ltone);
   ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-  eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone));
+  htone = (htone - 10);
+  htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
+  eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone + htone));
   result.appendChild(eText);
   return result;
 }
 
-//TODO: I don't think finishStaff ever gets called, so it can be removed.
-function finishStaff(result,y,defs) {
-  var uses=$(result).children("use").toArray();
-  var x=0;
-  for(i in uses) {
-    var cur=uses[i];
-    var curY=cur.getAttribute("y");
-    if(curY<y)continue;
-    else if(curY>y)break;
-    var x1=parseFloat(cur.getAttribute('x'));
-    var transform = cur.getAttribute('transform');
-    if(transform) {
-      var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
-      x1 += parseFloat(m[1]);
-    }
-    if(x1>x)addStaff(result,x,y,x1-x, undefined, defs);
-    x = x1+useWidth(cur);
-  }
-  return x;
-}
-
 function addCustos(result,tone,x,y) {
   var x2=svgWidth - (staffheight/15);
-//  addStaff(result,x,y,null,x2-x);
   var t = make('text');
   t.setAttribute('class',defChant.getAttribute('class'));
   t.setAttribute('x',x2);
@@ -1185,7 +1174,8 @@ function addStaff(result,x,y,line,width,defs) {
   T.setAttribute('width', '10000');
   T.setAttribute('height', staffheight);
   T.setAttribute('fill', 'white');
-    
+  
+  var returnVal = make('g');
   var group = make('g');
   group.setAttribute('mask','url(#' + maskId + ')');
   var staff = make("use");
@@ -1193,8 +1183,9 @@ function addStaff(result,x,y,line,width,defs) {
   if(!width) width = svg.parentNode.clientWidth;
   staff.setAttribute("transform", "translate("+(x)+", "+(y)+") scale(" + (width) + ",1)");
   group.appendChild(staff);
-  result.appendChild(group);
-  return staff;
+  returnVal.appendChild(group);
+  result.appendChild(returnVal);
+  return returnVal;
 }
 
 $(function() {
