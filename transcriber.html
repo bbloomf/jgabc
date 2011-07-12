@@ -207,6 +207,9 @@ function updateText() {
 
 function decompile(mixed) {
   regexOuter.exec('');
+  var curClef;
+  var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/g;
+  var regClef=/^[cf]b?[1-4]\s+/;
   var text=[];
   var gabc=[];
   var match;
@@ -246,8 +249,10 @@ function decompile(mixed) {
     if(match[rog.gabc]=='::') {
       if(!hasElisions) {
         var tempVerse=gabc.join('').replace(/^\s+|\s+$/,'');
-        var temp2=tempVerse.replace(/^[cf][1-4]\s*/,'');
-        if(temp2!=lastVerse().replace(/^[cf][1-4]\s*/,'')) {
+        var temp2=tempVerse.replace(regRep,'$1');
+        var lastV=lastVerse();
+        curClef=curClef || regClef.exec(tempVerse);
+        if(temp2!=lastV.replace(regRep,'$1')) {
           if(!verseHasClef && verses.length==0)tempVerse = lastClef + ' ' + tempVerse;
           verses.push(tempVerse);
           if(lastVerseI>0) {
@@ -266,7 +271,13 @@ function decompile(mixed) {
   if(tws)text.push(tws);
   regexGabc.exec('');
   var gs =verses.join('\n--\n');
-  gSyl = splitGabc(gs);
+  gSyl=[];
+  verses.forEach(
+    function(a,b){
+      gSyl.push(splitGabc(a));
+    });
+
+  //gSyl = splitGabc(gs);
   var s = text.join('');
   syl = splitText(s);
   $("#hymngabc").val(gs);
