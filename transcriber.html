@@ -33,7 +33,7 @@ GABC<br><div class="tap"><textarea id="hymngabc" spellcheck="false" style="heigh
 <div id="chant-preview" style="width: 100%">
 </div>
 <script>
-var regexGabc = /(((?:([`,;:])|([cf][1-4]))+)|(\S+))(?:\s+|$)/g;
+var regexGabc = /(((?:([`,;:])|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 function applyGabc(syl,gSyl) {
   var result = [localStorage.transcribeHeader||""]
   var match;
@@ -208,8 +208,7 @@ function updateText() {
 function decompile(mixed) {
   regexOuter.exec('');
   var curClef;
-  var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/g;
-  var regClef=/^[cf]b?[1-4]\s+/;
+  var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
   var text=[];
   var gabc=[];
   var match;
@@ -251,7 +250,9 @@ function decompile(mixed) {
         var tempVerse=gabc.join('').replace(/^\s+|\s+$/,'');
         var temp2=tempVerse.replace(regRep,'$1');
         var lastV=lastVerse();
-        curClef=curClef || regClef.exec(tempVerse);
+        if(verseHasClef) {
+          temp2 = temp2.slice(lastClef.length).replace(/^\s+/,'');
+        }
         if(temp2!=lastV.replace(regRep,'$1')) {
           if(!verseHasClef && verses.length==0)tempVerse = lastClef + ' ' + tempVerse;
           verses.push(tempVerse);
@@ -259,6 +260,13 @@ function decompile(mixed) {
             text.splice(lastVerseI,0,'\n--\n');
             text[lastVerseI-1] = text[lastVerseI-1].replace(/^\s+|\s+$/,'');
             text[lastVerseI+1] = text[lastVerseI+1].replace(/^\s+|\s+$/,'');
+          }
+        } else {
+          if(lastV.match(/^[cf]b?[1-4]/i)) {
+            if(!verseHasClef && lastClef)tempVerse = lastClef + ' ' + tempVerse;
+          }
+          if(tempVerse.length>lastV.length) {
+            verses[verses.length-1] = tempVerse;
           }
         }
         lastVerseI=text.length;

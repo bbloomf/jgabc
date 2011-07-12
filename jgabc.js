@@ -138,13 +138,17 @@ var _neumeChar=function(){
 }
 
 var _clefSpanLig=function(tone){
-  var line = parseInt(tone.clef[1],10);
+  var line = parseInt(tone.clef.slice(-1),10);
   var num=line*2-1;
-  return document.createTextNode(String(num) + (tone.index==2? "d" : "f") + "-");
+  var extra="";
+  if(tone.clef.length==3) {
+    extra += neume(indices.flat,num+1) + "-";
+  }
+  return document.createTextNode(String(num) + (tone.index==2? "d" : "f") + "-" + extra);
 }
 var _clefSpanChar=function(tone,minDy){
   var result=make('tspan');
-  var line = parseInt(tone.clef[1],10);
+  var line = parseInt(tone.clef.slice(-1),10);
   var dy = 0;
   var curChar;
   if(tone.index == 2) {
@@ -153,6 +157,9 @@ var _clefSpanChar=function(tone,minDy){
   } else {
     curChar = "f-";
     dy = 3 - line;
+  }
+  if(tone.clef.length==3) {
+    curChar += neume(indices.flat,4) + "-";
   }
   dy *= spaceheight;
   minDy[0] = Math.min(minDy[0],dy);
@@ -218,7 +225,7 @@ var setGabcLinkSelector=function(sel){
   linkDownloadSelector=sel;
 };
 var regexToneModifiers = /(')|(\.{1,2})|((?:_){1,4}0?)/g
-var regexTones = new RegExp("([/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:" + String(regexToneModifiers).replace(/^\/|\/\w*$/g,"").replace(/\((?!\?:)/g,"(?:") + ")*)|(z0))|\\[([^\\]]*)(?:\\]|$)","g");
+var regexTones = new RegExp("([/ ,;:`]+)|((?:[fF]|[cC][bB]?)[1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:" + String(regexToneModifiers).replace(/^\/|\/\w*$/g,"").replace(/\((?!\?:)/g,"(?:") + ")*)|(z0))|\\[([^\\]]*)(?:\\]|$)","g");
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)                                )*)|(z0))|\[([^\]]*)(?:\]|$)
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)
 var regexTonesSpliceIndex=26;
@@ -349,6 +356,11 @@ function make(tag) {
   return document.createElementNS(svgns,tag);
 }
 
+var _txtWidths={};
+
+//returns the width of txt.
+// txt can be a string, array of TagInfo objects, or a TSpan tag object.
+// if txt is not a string, clas and special can be an index and length to get the width of a substring.
 function textWidth(txt,clas,special) {
   var i=0;
   var len=undefined;
@@ -361,10 +373,14 @@ function textWidth(txt,clas,special) {
   }
   var dt=special?_defText:defText;
   if($.isArray(txt)){
+    var tw;
+    var key;
     if(txt.length==1 && txt[0].tags.length==0) {
       txt = txt[0].text;
-      if(clas==undefined)clas="goudy";
+      if(clas==undefined || clas=="goudy")clas="";
+      if(i==0 && !len && (key=clas+","+txt) && (tw=_txtWidths[key])) return tw;
     } else {
+      if(i==0 && !len && (key=JSON.stringify(txt)) && (tw=_txtWidths[key])) return tw;
       $(dt).empty();
       var wid=0;
       var idx=0;
@@ -380,17 +396,29 @@ function textWidth(txt,clas,special) {
         if(tlen>0&&sIndex>=0)wid+=tmp.getSubStringLength(sIndex,tlen);
       });
       //console.info(dt.textContent + "[" + i + "," + (len||100) + "]: " + wid + " " + JSON.stringify(txt));
+      if(key)_txtWidths[key]=wid;
       return wid;
     }
   } else if(typeof(txt)=="object") {
+    if(txt.childNodes.length==1) {
+      var temp=txt.firstChild;
+      var key=$(temp).attr("class").replace(/[^\s]goudy[\s$]|\s+$/g,'') + "," + temp.txtContent;
+      var tw=_txtWidths[key];
+      if(tw)return tw;
+    }
     //txt is a span object hopefully
     $(dt).empty().append($(txt).clone());
     //console.info(txt.textContent + ": " + dt.getComputedTextLength());
-    return dt.getComputedTextLength();
+    var wid=dt.getComputedTextLength();
+    if(key)_txtWidths[key]=wid;
+    return wid;
   }
   if(clas)dt.setAttribute("class", clas);
   $(dt).text(txt.replace(/ /g,'\u00a0'));
-  return dt.getSubStringLength(i, len||txt.length);
+  var wid=dt.getSubStringLength(i, len||txt.length);
+  if(key)_txtWidths[key]=wid;
+    return wid;
+  return wid;
 }
 
 function useWidth(use) {
@@ -1302,6 +1330,7 @@ $(function() {
         makeClefSpan=_clefSpanChar;
       }
       if(tWidth != oldTWidth) {
+        _txtWidths={};
         //console.info(tWidth + " " + oldTWidth);
         oldTWidth=tWidth;
         forceUpdateChant();
