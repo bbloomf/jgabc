@@ -324,6 +324,7 @@ function updateLinks(text){
 var gabcProcessTime = 0;
 var _nextUpdate = new Date().getTime();
 function updateChant(text, svg, dontDelay) {
+  if(!text)return;
   var gtext=updateLinks(text);
   if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
   if(!dontDelay) {
@@ -1295,7 +1296,12 @@ $(function() {
   svg.appendChild(defs);
   textElem = document.createElementNS(svgns, "g");
   svg.appendChild(textElem);
-  $("#chant-preview").append(svg);
+  var cp=$("#chant-preview");
+  if(cp.length==0) {
+    $("body").append(svg);
+  } else {
+    cp.append(svg);
+  }
   var elements = $('.jgabc');
   elements.each(function(index, element) {
     $(svg).clone().appendTo(element);
@@ -1312,7 +1318,7 @@ $(function() {
   var oldTWidth=0;
   var initCount=0;
   var init = function() {
-    if(svg.parentNode.clientWidth == 0) {
+    if(svg.parentNode && svg.parentNode.clientWidth == 0) {
       setTimeout(init, 100);
     } else {
       tWidth=textWidth("abcdefghijklmnopqrstuvwxyz","goudy",true);
@@ -1345,11 +1351,11 @@ $(function() {
           }
           if(!old) return;
           
-          updateChant(element.innerText, old);
+          updateChant(element.innerText.replace(/\s%%\s/,'\n%%\n'), old);
         });
       }
       if(++initCount < 40) {
-        setTimeout(init,100);
+        setTimeout(init,200);
       }
     }
   };
