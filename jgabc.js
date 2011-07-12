@@ -268,7 +268,7 @@ var transforms = [['/',' ',',',';',':','`',''],
       ["'",'_','+',';','|',',',''],
       [/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
 var abcs = {};
-var defs = null;
+var _defs = null;
 var defText = null;
 var _defText = null;
 var defChant = null;
@@ -279,7 +279,7 @@ var _heightCorrection = 0;
 
 function updatePreview(text) {
   var old = textElem;
-  textElem = getChant(text,true);
+  textElem = getChant(text,svg);
   svg.replaceChild(textElem,old);
   svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
 }
@@ -345,7 +345,7 @@ function updateChant(text, svg, dontDelay) {
     }
   }
   if(!old) return;
-  var newElem = getChant(text,svg?(svg.parentNode.id=="chant-preview"):false);
+  var newElem = getChant(text,svg);
   svg.replaceChild(newElem,old);
   svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
   gabcProcessTime = new Date() - startTime;
@@ -465,8 +465,10 @@ function TagInfo(txt,tags) {
   };
 }
 
-function getChant(text,makeLinks) {
-  var blathering=false;
+function getChant(text,svg) {
+  var makeLinks=svg?(svg.parentNode&&svg.parentNode.id=="chant-preview"):false;
+  var defs = $(svg).find("defs")[0];
+  if(!defs)defs=_defs;
   var match;
   var count = 0;
   var result = make('g');
@@ -498,12 +500,12 @@ function getChant(text,makeLinks) {
   var previousMatch;
   var activeClass = "goudy";
   var usesBetweenText = [];
-  var curStaff = addStaff(result,0,lineOffsets[line],line, null);
+  var curStaff = addStaff(result,0,lineOffsets[line],line, null, defs);
   _heightCorrection=0;
   while(match = regexOuter.exec(text)) {
     var tags=[];
     if(match[5]) {
-      neumeInfo = getChantFragment(match[5]);
+      neumeInfo = getChantFragment(match[5],defs);
       clef=neumeInfo.clef||clef;
       if(line==0 && neumeInfo.mindy<_heightCorrection) {
         _heightCorrection = neumeInfo.mindy;
@@ -596,7 +598,7 @@ function getChant(text,makeLinks) {
       ltone = 3;
       lineOffsets.push(staffoffset + y + lineOffsets[line++]);
       eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
-      curStaff = addStaff(result,0,lineOffsets[line],line, null);
+      curStaff = addStaff(result,0,lineOffsets[line],line, null, defs);
       nextXoffset -= xoffset;
       nextXoffsetTextMin -= xoffset;
       nextXoffsetChantMin -= xoffset;
@@ -783,7 +785,8 @@ function getChant(text,makeLinks) {
   return result;
 }
 
-function finishStaff(result,y) {
+//TODO: I don't think finishStaff ever gets called, so it can be removed.
+function finishStaff(result,y,defs) {
   var uses=$(result).children("use").toArray();
   var x=0;
   for(i in uses) {
@@ -797,7 +800,7 @@ function finishStaff(result,y) {
       var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
       x1 += parseFloat(m[1]);
     }
-    if(x1>x)addStaff(result,x,y,x1-x);
+    if(x1>x)addStaff(result,x,y,x1-x, undefined, defs);
     x = x1+useWidth(cur);
   }
   return x;
@@ -814,14 +817,14 @@ function addCustos(result,tone,x,y) {
   result.appendChild(t);
 }
 
-function getChantFragment(gabc) {
+function getChantFragment(gabc,defs) {
   if(abcs[gabc] != undefined) {
     return abcs[gabc];
   }
   var mask = undefined;
   if(gabc.indexOf('r') > -1) {
     mask = gabc.replace(/r/g,'!');
-    getChantFragment(mask);
+    getChantFragment(mask,defs);
   }
   var result = make('text');
   var ltone = 3;
@@ -928,7 +931,8 @@ function getChantFragment(gabc) {
     mask:mask,
     clef:clef,
     mindy:minDy,
-    ledger:(ltone<2 || htone > 10)
+    ledger:(ltone<2 || htone > 10),
+    def:result
   };
 }
 
@@ -1157,7 +1161,7 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
   return i;
 }
 
-function addStaff(result,x,y,line,width) {
+function addStaff(result,x,y,line,width,defs) {
   var maskId = 'staffmask' + line;
   var T;
   if(masks[line]) {
@@ -1236,23 +1240,23 @@ $(function() {
   svg.appendChild(otherStyle);
   setSvgFont(false);
   svg.appendChild(style);
-  defs = document.createElementNS(svgns, "defs");
+  _defs = document.createElementNS(svgns, "defs");
   defText = make('text');
   defText.setAttribute("class", "goudy");
   defText.appendChild(document.createTextNode(''));
-  defs.appendChild(defText);
+  _defs.appendChild(defText);
   _defText = make('text');
   _defText.setAttribute("class", "goudy");
   _defText.appendChild(document.createTextNode(''));
-  defs.appendChild(_defText);
+  _defs.appendChild(_defText);
   defChant = make('text');
   defChant.setAttribute('class', 'caeciliae');
   defChant.appendChild(document.createTextNode('p'));
-  defs.appendChild(defChant);
+  _defs.appendChild(defChant);
   defChantSvg=make('text');
   defChantSvg.setAttribute('class', 'caeciliaeSvg');
   defChantSvg.appendChild(document.createTextNode('p'));
-  defs.appendChild(defChantSvg);
+  _defs.appendChild(defChantSvg);
   
   var gStaff;
   if(staffInFont) {
@@ -1281,19 +1285,19 @@ $(function() {
     line.setAttribute("d","M0 " + spaceheight + stringLine);
     ledger.appendChild(line);
     ledger.setAttribute("id","ledgerb");
-    defs.appendChild(ledger);
+    _defs.appendChild(ledger);
     ledger = document.createElementNS(svgns, "g");
     line = document.createElementNS(svgns, "path");
     line.setAttribute("d","M0 " + (-spaceheight*4) + stringLine);
     ledger.appendChild(line);
     ledger.setAttribute("id","ledgera");
-    defs.appendChild(ledger);
+    _defs.appendChild(ledger);
   }
   gStaff.setAttribute("id", "staff");
-  defs.appendChild(gStaff);
+  _defs.appendChild(gStaff);
   
   
-  svg.appendChild(defs);
+  svg.appendChild(_defs);
   textElem = document.createElementNS(svgns, "g");
   svg.appendChild(textElem);
   var cp=$("#chant-preview");
