@@ -276,7 +276,7 @@ var defChant = null;
 var masks = [];
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
-var _heightCorrection = -20;
+var _heightCorrection = 0;
 
 function updatePreview(text) {
   var old = textElem;
@@ -348,7 +348,7 @@ function updateChant(text, svg, dontDelay) {
   if(!old) return;
   var newElem = getChant(text,svg);
   svg.replaceChild(newElem,old);
-  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - 20);
+  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - (staffheight/2));
   gabcProcessTime = new Date() - startTime;
   console.info("Update chant time: " + gabcProcessTime);
   if(gabcProcessTime > 5000) gabcProcessTime=5000;
