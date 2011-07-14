@@ -424,10 +424,10 @@ function textWidth(txt,clas,special) {
 }
 
 function useWidth(use) {
-  return chantWidth(document.getElementById(use.getAttribute('href').slice(1)).textContent);
+  return getChantWidth(document.getElementById(use.getAttribute('href').slice(1)).textContent);
 }
 
-function chantWidth(text) {
+function getChantWidth(text) {
   defChant.textContent=text;
   return defChant.getComputedTextLength();
 }
@@ -704,7 +704,7 @@ function getChant(text,svg) {
           }
           usesBetweenText = [currentUse];
         }
-      } else if(usesBetweenText.length>0) {
+      } else if(usesBetweenText.length>0 && !neumeInfo.ftone) {
         usesBetweenText.push(currentUse);
       }
     } else use = use2 = null;
@@ -762,7 +762,7 @@ function getChant(text,svg) {
       eText.appendChild(span);
     } else {
       if(use) {
-        xoffsetChantMin = xoffset+document.getElementById(match[5]).getComputedTextLength() + spaceBetweenNeumes;
+        xoffsetChantMin = xoffset+getChantWidth(neumeInfo.def.textContent) + spaceBetweenNeumes;
         xoffset=nextXoffsetTextMin;
       } else {
         xoffsetChantMin = xoffset;
@@ -1320,8 +1320,9 @@ $(function() {
       setTimeout(init, 100);
     } else {
       tWidth=textWidth("abcdefghijklmnopqrstuvwxyz","goudy",true);
-      var cWidth1=chantWidth("4q5P");
-      var cWidth2=chantWidth("P");
+      var cWidth1=getChantWidth("4q5P");
+      var cWidth2=getChantWidth("P");
+      notewidth = getChantWidth("p");
       if(cWidth1==cWidth2) {
         getNeumeText=neumeText;
         neume = _neumeLig;
