@@ -802,7 +802,7 @@ function addCustos(result,tone,x,y) {
   t.setAttribute('class',defChant.getAttribute('class'));
   t.setAttribute('x',x2);
   t.setAttribute('y',y);
-  t.appendChild(document.createTextNode(String.fromCharCode(indices.custos + tone)));
+  t.appendChild(document.createTextNode(neume(indices.custos,tone)));
   result.appendChild(t);
 }
 
