@@ -404,7 +404,7 @@ function textWidth(txt,clas,special) {
   } else if(typeof(txt)=="object") {
     if(txt.childNodes.length==1) {
       var temp=txt.firstChild;
-      var key=$(temp).attr("class").replace(/[^\s]goudy[\s$]|\s+$/g,'') + "," + temp.txtContent;
+      var key=$(temp).attr("class").replace(/(?:^|\s)goudy(?:\s|$)|\s+$/g,'') + "," + temp.textContent;
       var tw=_txtWidths[key];
       if(tw)return tw;
     }
