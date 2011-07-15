@@ -561,9 +561,6 @@ function getChant(text,svg) {
         } catch(e) {
         }
         offset += notewidth / 2;//defChant.getComputedTextLength() / 2;
-        if(neumeInfo.startsWithAccidental) {
-          offset += notewidth*1.2;
-        }
       }
     } else {
       wText = 0;
@@ -585,6 +582,9 @@ function getChant(text,svg) {
   //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
     var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
     var lastX;
+    if(neumeInfo.startsWithAccidental) {
+      offset += getChantWidth("a-'");
+    }
     if(nextXoffset >= width - spaceBetweenNeumes) {
       needCustos = true;
       usesBetweenText=[];
