@@ -173,10 +173,10 @@ var staffheight = 48;
 var spaceheight = staffheight / 4;
 var notewidth = staffheight / 6;
 var spaceBetweenNeumes = notewidth;
-var verticalSpace = staffheight/3;
+var verticalSpace = staffheight/4;
 var fontsize = spaceheight*3/2;
 var spaceWidth = spaceheight * 3/4;
-var staffoffset = Math.ceil(staffheight * 1.0);
+var staffoffset = Math.ceil(staffheight - spaceheight/2);
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
 var staffInFont = false;
@@ -348,7 +348,7 @@ function updateChant(text, svg, dontDelay) {
   if(!old) return;
   var newElem = getChant(text,svg);
   svg.replaceChild(newElem,old);
-  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - (staffheight/2));
+  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
   gabcProcessTime = new Date() - startTime;
   console.info("Update chant time: " + gabcProcessTime);
   if(gabcProcessTime > 5000) gabcProcessTime=5000;
@@ -486,7 +486,7 @@ function getChant(text,svg) {
   eText.setAttribute("class", "goudy");
   var lastSpan;
   var ltone = 3;
-  var htone = 10;
+  var htone = 9;
   var line = 0;
   var lineOffsets = [0];
   var width = svg.parentNode.clientWidth;
@@ -512,7 +512,7 @@ function getChant(text,svg) {
       if(line==0 && neumeInfo.mindy<_heightCorrection) {
         _heightCorrection = neumeInfo.mindy;
       }
-    }
+    } else neumeInfo={};
     var wChant = 0;
     if(match[5]){
       defChant.textContent = document.getElementById(match[5]).textContent;
@@ -567,31 +567,28 @@ function getChant(text,svg) {
     }
     // if there aren't enough characters before the vowel so that the neume begins far enough to the right of the previous neume,
     // add extra space in the text:
-    xoffsetChantMin += offset;
+    var preWidth=neumeInfo.startsWithAccidental?getChantWidth("b-"):0;
+    offset += preWidth;
+    xoffsetChantMin += Math.min(0,offset);
     if(wChant > 0 && (xoffset < xoffsetChantMin || !txt)) {
       xoffset = xoffsetChantMin;
     }
     var nextXoffsetTextMin = txt?
-     //Experimental change (2010.03.14)  Old line:
-     //Math.max(nextXoffsetTextMin||0,xoffset + wText + Math.max(offset,0))
         xoffset + wText + Math.max(offset,0)
       : nextXoffsetTextMin||0;
     if(match[7]&&match.index>0)nextXoffsetTextMin+=5;
     var nextXoffsetChantMin = xoffset + wChant + spaceBetweenNeumes - Math.min(offset,0);
    //Experimental change (2010.03.14)  Old line:
-  //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
-    var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
+    var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
+    //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
     var lastX;
-    if(neumeInfo.startsWithAccidental) {
-      offset += getChantWidth("a-'");
-    }
     if(nextXoffset >= width - spaceBetweenNeumes) {
-      needCustos = true;
+      needCustos = curStaff;
       usesBetweenText=[];
       if(span&&txt)span.appendChild(TagInfo('-').span());
       ltone = (3 - ltone);
       ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-      htone = (htone - 10);
+      htone = (htone - 9);
       htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
       var y = Math.ceil(0.1*staffheight + fontsize + ltone + htone);
       eText.setAttribute("y",y);
@@ -632,7 +629,7 @@ function getChant(text,svg) {
       
     if(match[5]) {
       if(needCustos) {
-        addCustos(curStaff,neumeInfo.ftone,lastX,lineOffsets[line - 1]);
+        addCustos(needCustos,neumeInfo.ftone,lastX,lineOffsets[line - 1]);
         needCustos = false;
       }
       if(neumeInfo.mask) {
@@ -789,9 +786,12 @@ function getChant(text,svg) {
   }
   ltone = (3 - ltone);
   ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-  htone = (htone - 10);
+  htone = (htone - 9);
   htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
   eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone + htone));
+  if(htone>0) {
+    curStaff.setAttribute("transform","translate(0, " + htone + ")");
+  }
   result.appendChild(eText);
   return result;
 }
@@ -801,6 +801,11 @@ function addCustos(result,tone,x,y) {
   var t = make('text');
   t.setAttribute('class',defChant.getAttribute('class'));
   t.setAttribute('x',x2);
+  var transform = result.getAttribute('transform');
+  if(transform) {
+    var m = /translate\((-?\d+(?:\.\d+)?)(?:,\s*(-?\d+(?:.\d+)?))?\)/.exec(transform);
+    y -= parseFloat(m[2]);
+  }
   t.setAttribute('y',y);
   t.appendChild(document.createTextNode(neume(indices.custos,tone)));
   result.appendChild(t);
@@ -874,12 +879,15 @@ function getChantFragment(gabc,defs) {
           tone = tone.replace(transforms[2][i],transforms[1][i]);
         }
         newdata += tone;
+        htone = Math.max(htone,(/[`,]/.exec(cmatch[rtg.whitespace])&&9.5)||0);
       } else {
         var toneId = parseInt(cmatch[rtg.tone]||cmatch[rtg.clef].slice(0,1),23)-10;
         if(cmatch[rtg.tone] && cmatch[rtg.tone].length == 1) {
           ltone = Math.min(ltone,toneId);
           htone = Math.max(htone,toneId);
           ftone = ftone || (!cmatch[rtg.accidental]&&toneId);
+        } else {
+          htone = Math.max(htone,(cmatch[rtg.clef]&&(parseInt(cmatch[rtg.clef].slice(-1))*2+2))||0);
         }
         tones.push({
           match: cmatch,
