@@ -94,7 +94,7 @@ var _indicesLig = {
   upper_tilde: 'K',
   lower_tilde: 'l',
   porrectus: 'R',
-  r: 'r',
+  r: 'w',
   s: 's',
   custos: 'u',
   dot: '.',
@@ -343,7 +343,7 @@ function updateChant(text, svg, dontDelay) {
   var newElem = getChant(text,svg);
   svg.replaceChild(newElem,old);
   //var _ht=newElem.getBBox().height + _heightCorrection - staffheight/2;
-  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - _defText.getBBox().height);
+  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - _defText.getExtentOfChar("q").height);
   if(svg.parentNode.tagName.match(/span/i)){
     $(svg).css('width',newElem.getBBox().width);
   }
@@ -1269,9 +1269,9 @@ function addStaff(result,x,y,line,width,defs) {
     mask.setAttribute('id', maskId);
     defs.appendChild(mask);
   }
-  T.setAttribute('y', y + 1-staffheight);
+  T.setAttribute('y', y -staffheight);
   T.setAttribute('width', '10000');
-  T.setAttribute('height', staffheight);
+  T.setAttribute('height', 1+staffheight);
   T.setAttribute('fill', 'white');
   
   var returnVal = make('g');
