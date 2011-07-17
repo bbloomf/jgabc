@@ -278,12 +278,6 @@ var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
 
-function updatePreview(text) {
-  var old = textElem;
-  textElem = getChant(text,svg);
-  svg.replaceChild(textElem,old);
-  svg.setAttribute('height',textElem.getBBox().height + _heightCorrection);
-}
 var utf8_bom=String.fromCharCode(0xEF)+String.fromCharCode(0xBB)+String.fromCharCode(0xBF);
 function encode_utf8( s )
 {
@@ -348,10 +342,11 @@ function updateChant(text, svg, dontDelay) {
   if(!old) return;
   var newElem = getChant(text,svg);
   svg.replaceChild(newElem,old);
-  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection);
+  //var _ht=newElem.getBBox().height + _heightCorrection - staffheight/2;
+  svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - _defText.getBBox().height);
   gabcProcessTime = new Date() - startTime;
-  console.info("Update chant time: " + gabcProcessTime);
-  if(gabcProcessTime > 5000) gabcProcessTime=5000;
+  console.info("Update chant time: " + gabcProcessTime);// + "; height: " + _ht + "; correction: "+_heightCorrection);
+  if(gabcProcessTime > 3000) gabcProcessTime=3000;
 }
 
 function make(tag) {
@@ -503,6 +498,23 @@ function getChant(text,svg) {
   var activeClass = "goudy";
   var usesBetweenText = [];
   var curStaff = addStaff(result,0,lineOffsets[line],line, null, defs);
+  
+  //This function will update the height and y offset of the staff once there is no more chant to be put on it, based on htone and ltone
+  var finishStaff=function(){
+    ltone = (3 - ltone);
+    ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
+    htone = (htone - 9);
+    htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
+    var y = Math.ceil(0.1*staffheight + fontsize + ltone + htone);
+    eText.setAttribute("y",y);
+    result.appendChild(eText);
+    if(htone>0) {
+      lineOffsets[line] += htone;
+      if(line==0) _heightCorrection += htone;
+      curStaff.setAttribute("transform","translate(0, " + htone + ")");
+    }
+    return y;
+  }
   _heightCorrection=0;
   while(match = regexOuter.exec(text)) {
     var tags=[];
@@ -586,22 +598,12 @@ function getChant(text,svg) {
       needCustos = curStaff;
       usesBetweenText=[];
       if(span&&txt)span.appendChild(TagInfo('-').span());
-      ltone = (3 - ltone);
-      ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-      htone = (htone - 9);
-      htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
-      var y = Math.ceil(0.1*staffheight + fontsize + ltone + htone);
-      eText.setAttribute("y",y);
-      result.appendChild(eText);
-      if(htone>0) {
-        lineOffsets[line] += htone;
-        curStaff.setAttribute("transform","translate(0, " + htone + ")");
-      }
+      var y = finishStaff();
       eText = make('text');
       eText.setAttribute("class", "goudy");
+      lineOffsets.push(staffoffset + y + verticalSpace + lineOffsets[line++] - htone);
       ltone = 3;
       htone = 10;
-      lineOffsets.push(staffoffset + y + verticalSpace + lineOffsets[line++]);
       eText.setAttribute('transform', "translate(0," + lineOffsets[line] + ")");
       curStaff = addStaff(result,0,lineOffsets[line],line, null, defs);
       nextXoffset -= xoffset;
@@ -784,15 +786,7 @@ function getChant(text,svg) {
       curStaff.appendChild(temp);
     }
   }
-  ltone = (3 - ltone);
-  ltone = (ltone <= 0)? 0 : ((ltone * spaceheight)/2);
-  htone = (htone - 9);
-  htone = (htone <= 0)? 0 : ((htone * spaceheight)/2);
-  eText.setAttribute("y",Math.ceil(0.1*staffheight + fontsize + ltone + htone));
-  if(htone>0) {
-    curStaff.setAttribute("transform","translate(0, " + htone + ")");
-  }
-  result.appendChild(eText);
+  finishStaff();
   return result;
 }
 
@@ -1067,6 +1061,7 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
         tonesInGlyph = 3;
         ++i;
       } else {
+        // clivis
         tonesInGlyph = 2;
         if(nextTone.liq) {
           var lineLen=Math.min(-nextTone.relativeTone,2);
@@ -1082,10 +1077,10 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
             } else {
               retVal[0] += neume(indices.episema_above,tone.index);
             }
+            tone.match[rtg.episema]=undefined;
           }
           if(nextTone.match[rtg.episema]) {
             temp = nextTone.episemaLoc==-1?loTone:hiTone;
-            retVal[0] += neume((nextTone.episemaLoc==-1?indices.episema_below:indices.episema_above),temp);
             tone.episemaTone=1;
             if(nextTone.episemaLoc!=-1)nextTone.episemaTone = tone.index;
           }
@@ -1373,7 +1368,6 @@ $(function() {
 }
 );
 
-window['updatePreview']=updatePreview;
 window['updateChant']=updateChant;
 var getNeumeText=neumeText;
 var neume=_neumeChar;

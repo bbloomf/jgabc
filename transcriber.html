@@ -191,8 +191,8 @@ function updateGabc() {
   updateEditor();
 }
 
-function updateSyl() {
-  var tmp=$("#hymntext").val().split(/\s--\s/)
+function updateSyl(txt) {
+  var tmp=(txt||$("#hymntext").val()).split(/\s--\s/);
   syl=[];
   tmp.forEach(
     function(a,b){
@@ -300,7 +300,7 @@ function decompile(mixed) {
 
   //gSyl = splitGabc(gs);
   var s = text.join('');
-  syl = splitText(s);
+  updateSyl(s);
   $("#hymngabc").val(gs);
   $("#hymntext").val(s);
 }
