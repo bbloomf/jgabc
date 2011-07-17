@@ -344,6 +344,9 @@ function updateChant(text, svg, dontDelay) {
   svg.replaceChild(newElem,old);
   //var _ht=newElem.getBBox().height + _heightCorrection - staffheight/2;
   svg.setAttribute('height',newElem.getBBox().height + _heightCorrection - _defText.getBBox().height);
+  if(svg.parentNode.tagName.match(/span/i)){
+    $(svg).css('width',newElem.getBBox().width);
+  }
   gabcProcessTime = new Date() - startTime;
   console.info("Update chant time: " + gabcProcessTime);// + "; height: " + _ht + "; correction: "+_heightCorrection);
   if(gabcProcessTime > 3000) gabcProcessTime=3000;
@@ -486,7 +489,7 @@ function getChant(text,svg) {
   var lineOffsets = [0];
   var words=[];
   var currentWord=[];
-  var width = svg.parentNode.clientWidth;
+  var width = $(svg.parentNode).width();
   try {
     var padding = $(svg.parentElement).css("padding-left");
     if(padding) width -= parseFloat(padding);
@@ -500,6 +503,22 @@ function getChant(text,svg) {
   var activeClass = "goudy";
   var usesBetweenText = [];
   var curStaff = addStaff(result,0,lineOffsets[line],line, null, defs);
+
+  //This function will trim the width of the staff to lign up with the last element on it.
+  var trimStaff=function(){
+    var staffUse=$(curStaff).find("use[href=#staff]");
+    var lastUse=$(curStaff).find("use:last");
+    if(!/\:/.exec(lastUse.attr("href")))return;
+    var x=parseFloat(lastUse.attr("x"));
+    var transform=lastUse.attr("transform");
+    var m = /translate\((-?\d+(?:\.\d+)?)(?:,\s*(-?\d+(?:.\d+)?))?\)/.exec(transform);
+    if(m && m[1])x += parseFloat(m[1]);
+    x += useWidth(lastUse[0]);
+    var scale="scale("+x+",1)";
+    staffUse.attr("transform",function(index,transform){
+      return transform.replace(/scale\([^\)]*\)/,scale);
+    });
+  }
   
   //This function will update the height and y offset of the staff once there is no more chant to be put on it, based on htone and ltone
   var finishStaff=function(){
@@ -874,6 +893,7 @@ function getChant(text,svg) {
     }
   }
   finishStaff();
+  trimStaff();
   return result;
 }
 
@@ -1259,7 +1279,7 @@ function addStaff(result,x,y,line,width,defs) {
   group.setAttribute('mask','url(#' + maskId + ')');
   var staff = make("use");
   staff.setAttributeNS(xlinkns, "href", "#staff");
-  if(!width) width = svg.parentNode.clientWidth;
+  if(!width) width = $(svg.parentNode).width();
   staff.setAttribute("transform", "translate("+(x)+", "+(y)+") scale(" + (width) + ",1)");
   group.appendChild(staff);
   returnVal.appendChild(group);
@@ -1383,6 +1403,22 @@ $(function() {
     $(svg).clone().appendTo(elem);
     $(element).after(elem);
   });
+  var _timeoutUpdate=null;
+  var updateAllChant = function(e,dontDelay){
+    callUpdateChant();
+    if(_timeoutUpdate) clearTimeout(_timeoutUpdate);
+    if(!dontDelay) {
+      var delay = 500;
+      _timeoutUpdate = setTimeout(function() {updateAllChant(null,true);},delay);
+      return;
+    }
+    _timeoutUpdate = null;
+    elements.each(function(index, element) {
+      var old=$(element).next(".jgabc-svg").find("svg")[0];
+      if(!old) return;
+      updateChant(element.innerHTML, old, true);
+    });
+  }
   var callUpdateChant = function(){
     updateChant($("#editor").val(),svg);
   };
@@ -1390,7 +1426,7 @@ $(function() {
     updateChant($("#editor").val(),svg,true);
   }
   $("#editor").keyup(callUpdateChant);
-  $(window).resize(callUpdateChant);
+  $(window).resize(updateAllChant);
   var tWidth=0;
   var oldTWidth=0;
   var initCount=0;
@@ -1418,22 +1454,7 @@ $(function() {
         //console.info(tWidth + " " + oldTWidth);
         oldTWidth=tWidth;
         forceUpdateChant();
-        elements.each(function(index, element) {
-          var old=$(element).next(".jgabc-svg").find("svg")[0];
-          /*
-          var nodes = element.childNodes;
-          var old = null;
-          for(i = nodes.length - 1; i >= 0; --i) {
-            if(nodes[i].tagName == 'svg') {
-              old = nodes[i];
-              break;
-            }
-          }*/
-          if(!old) return;
-          
-          //updateChant(element.innerHTML.replace(/\s%%\s/,'\n%%\n'), old, true);
-          updateChant(element.innerHTML, old, true);
-        });
+        updateAllChant();
       }
       if(++initCount < 40) {
         setTimeout(init,200);
