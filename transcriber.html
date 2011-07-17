@@ -25,7 +25,7 @@ td{
 <table width="100%">
 <tr><td width="50%">
 GABC<br><div class="tap"><textarea id="hymngabc" spellcheck="false" style="height: 50pt; width: 100%;">c4 c e g g gh g. , f e d c c. ;&#10;c e g g gh g. , f e d c c. :&#10;g g hi j ji g. , h g f e d. ;&#10;e g f e dc d. , e c d c c. ::&#10;--&#10;cdc bc.. ::</textarea></div>
-<br>Text<br><div class="tap"><textarea id="hymntext" lang="la" style="height: 50pt; width: 100%;">1. Adoro te d(e)vote, latens Deitas,&#10;Quæ sub his figuris vere latitas;&#10;Tibi se cor meum totum subjicit,&#10;Quia te contemplans totum deficit.&#10; &#10;2. Visus, tactus, gustus in te fallitur,&#10;Sed auditu solo tuto creditur.&#10;Credo quidquid dixit Dei Filius;&#10;Nil hoc verbo veritátis verius.&#10; &#10;3. In cruce latebat sola Deitas,&#10;At hic latet simul et Humanitas,&#10;Ambo tamen credens atque confitens,&#10;Peto quod petivit latro pœnitens.&#10; &#10;4. Plagas, sicut Thomas, non intueor:&#10;Deum tamen meum te confiteor.&#10;Fac me tibi semper magis credere,&#10;In te spem habere, te diligere.&#10; &#10;5. O memoriale mortis Domini!&#10;Panis vivus, vitam præstans homini!&#10;Præsta meæ menti de te vívere,&#10;Et te illi semper dulce sapere.&#10; &#10;6. Pie Pelicane, Jesu Domine,&#10;Me immundum munda tuo sanguine:&#10;Cujus una stilla salvum facere&#10;Totum mundum quit ab omni scelere.&#10; &#10;7. Jesu, quem velatum nunc aspicio,&#10;Oro, fiat illud quod tam sitio:&#10;Ut te revelata cernens facie,&#10;Visu sim beátus tuæ gloriæ.&#10;--&#10;Amen.</textarea></div>
+<br>Text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="cbElisionHasNote"/><label for="cbElisionHasNote" title="You can signify an elision in the text by putting a vowel in parentheses.  If this box is checked, the elision will still have a punctum associated with it; if this is unchecked, that syllable will have no punctum.">Use puncta for elisions</label> <br><div class="tap"><textarea id="hymntext" lang="la" style="height: 50pt; width: 100%;">1. Adoro te d(e)vote, latens Deitas,&#10;Quæ sub his figuris vere latitas;&#10;Tibi se cor meum totum subjicit,&#10;Quia te contemplans totum deficit.&#10; &#10;2. Visus, tactus, gustus in te fallitur,&#10;Sed auditu solo tuto creditur.&#10;Credo quidquid dixit Dei Filius;&#10;Nil hoc verbo veritátis verius.&#10; &#10;3. In cruce latebat sola Deitas,&#10;At hic latet simul et Humanitas,&#10;Ambo tamen credens atque confitens,&#10;Peto quod petivit latro pœnitens.&#10; &#10;4. Plagas, sicut Thomas, non intueor:&#10;Deum tamen meum te confiteor.&#10;Fac me tibi semper magis credere,&#10;In te spem habere, te diligere.&#10; &#10;5. O memoriale mortis Domini!&#10;Panis vivus, vitam præstans homini!&#10;Præsta meæ menti de te vívere,&#10;Et te illi semper dulce sapere.&#10; &#10;6. Pie Pelicane, Jesu Domine,&#10;Me immundum munda tuo sanguine:&#10;Cujus una stilla salvum facere&#10;Totum mundum quit ab omni scelere.&#10; &#10;7. Jesu, quem velatum nunc aspicio,&#10;Oro, fiat illud quod tam sitio:&#10;Ut te revelata cernens facie,&#10;Visu sim beátus tuæ gloriæ.&#10;--&#10;Amen.</textarea></div>
 </td><td width="50%"><label for="editor" title="You can put GABC headers in this text box if you want them included in the GABC file download link below.  Any headers you type in will persist in local storage between sessions.">Integrated GABC</label><br><div class="tap"><textarea id="editor" spellcheck="false" style="height: 130pt; width: 100%;"></textarea></div></td></tr>
 </table>
 <a href="#" id="lnkDownloadGabc" target="_blank">Download Integrated GABC</a>
@@ -43,6 +43,8 @@ function applyGabc(syl,gSyl) {
   var elisionOn=0;
   var elisionGabc;
   var cSyl, cGabc;
+  var useElisionGabc=$("#cbElisionHasNote")[0].checked;
+  localStorage.elisionHasNote=useElisionGabc;
   for(i in syl) {
     if(newLines > 0) {
       result.push("\n".repeat(newLines));
@@ -60,16 +62,21 @@ function applyGabc(syl,gSyl) {
     if(cSyl.punctuation.length > 0) result.push(cSyl.punctuation);
     if(cSyl.syl) {
       if(cSyl.elision) {
-        if(!cGabc.tones || cGabc.tones.length<=1) {
-          result.push(cGabc.gabc);
-          elisionOn=true;
+        if(useElisionGabc) {
+          if(!cGabc.tones || cGabc.tones.length<=1) {
+            result.push(cGabc.gabc.replace(/'/g,""));
+            elisionOn=true;
+          } else {
+            if(!elisionGabc)elisionGabc=cGabc;
+            result.push('('+elisionGabc.tones[elisionOn]+')');
+            ++elisionOn;
+            if(elisionOn >= elisionGabc.tones.length) elisionOn = elisionGabc.tones.length-1;
+            var temp=elisionGabc.tones.slice(elisionOn);
+            cGabc={tones:elisionGabc.tones,gabc:'('+temp.join('')+')'};
+          }
         } else {
-          if(!elisionGabc)elisionGabc=cGabc;
-          result.push('('+elisionGabc.tones[elisionOn]+')');
-          ++elisionOn;
-          if(elisionOn >= elisionGabc.tones.length) elisionOn = elisionGabc.tones.length-1;
-          var temp=elisionGabc.tones.slice(elisionOn);
-          cGabc={tones:elisionGabc.tones,gabc:'('+temp.join('')+')'};
+          result.push('()');
+          --iG;
         }
       } else {
         result.push(cGabc.gabc);
@@ -325,6 +332,7 @@ $(function() {
   $("#hymngabc").keyup(updateGabc);
   $("#hymntext").keyup(updateText);
   $("#editor").keyup(updateBoth);
+  $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
   setPdfLinkSelector("#lnkGabc");
   setGabcLinkSelector("#lnkDownloadGabc");
   updateEditor();

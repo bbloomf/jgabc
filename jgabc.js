@@ -484,6 +484,8 @@ function getChant(text,svg) {
   var htone = 9;
   var line = 0;
   var lineOffsets = [0];
+  var words=[];
+  var currentWord=[];
   var width = svg.parentNode.clientWidth;
   try {
     var padding = $(svg.parentElement).css("padding-left");
@@ -515,6 +517,74 @@ function getChant(text,svg) {
     }
     return y;
   }
+  var justifyLine=function(){
+    var x2=svgWidth - (staffheight/15);
+    if(currentWord.length>0){
+      words.push(currentWord);
+      currentWord=[];
+    }
+    var lastUse,lastTspan;
+    var i=words.length-1;
+    while(i>=0 && !(lastUse && lastTspan)){
+      var cWord=words[i--];
+      var j=cWord.length-1;
+      while(j>=0 && !(lastUse && lastTspan)){
+        var tag=cWord[j--];
+        if(!lastUse && tag.tagName.match(/^use$/i)){
+          lastUse = tag;
+          continue;
+        } else if(!lastTspan && tag.tagName.match(/^tspan$/i)){
+          lastTspan=tag;
+          continue;
+        }
+      }
+    }
+    var currentX=0;
+    if(lastUse){
+      currentX=parseFloat($(lastUse).attr("x"));
+      var transform=$(lastUse).attr("transform");
+      var m = /translate\((-?\d+(?:\.\d+)?)(?:,\s*(-?\d+(?:.\d+)?))?\)/.exec(transform);
+      if(m && m[1])currentX += parseFloat(m[1]);
+      currentX += useWidth(lastUse);
+    }
+    if(lastTspan){
+      var tmpX=parseFloat($(lastTspan).attr("x"));
+      tmpX += textWidth(lastTspan);
+      currentX=Math.max(currentX,tmpX);
+//      console.info(tmpX==currentX?lastTspan:lastUse);
+    }
+    if(currentX>0){
+      var extraSpace=x2-currentX-spaceBetweenNeumes;
+      var len=words.length-1;
+      var delta=extraSpace/len;
+      if(extraSpace>0) {
+        while(len>0){
+          words[len].forEach(function(o){
+            var x=parseFloat($(o).attr("x"));
+            $(o).attr("x",x+Math.floor(extraSpace));
+          });
+          extraSpace -= delta;
+          --len;
+        }
+      }
+    }
+    words=[];
+  }
+  var addCustos=function(result,tone,x,y) {
+    justifyLine();
+    var x2=svgWidth - (staffheight/15);
+    var t = make('text');
+    t.setAttribute('class',defChant.getAttribute('class'));
+    t.setAttribute('x',x2);
+    var transform = result.getAttribute('transform');
+    if(transform) {
+      var m = /translate\((-?\d+(?:\.\d+)?)(?:,\s*(-?\d+(?:.\d+)?))?\)/.exec(transform);
+      y -= parseFloat(m[2]);
+    }
+    t.setAttribute('y',y);
+    t.appendChild(document.createTextNode(neume(indices.custos,tone)));
+    result.appendChild(t);
+  }
   _heightCorrection=0;
   while(match = regexOuter.exec(text)) {
     var tags=[];
@@ -532,6 +602,10 @@ function getChant(text,svg) {
     }
     if(match[5]==clef)wClef=wChant;
     var wText;
+    if(currentWord.length>0 && previousMatch && (previousMatch[7]||previousMatch[8])) {
+      words.push(currentWord);
+      currentWord=[];
+    }
     var space = match[7]||match[8];
     var txt = match[3] || space;
     if(match[3] && space) {
@@ -641,6 +715,7 @@ function getChant(text,svg) {
         use2.setAttribute('x', xoffset);
         use2.setAttribute('y', lineOffsets[line]);
         
+        currentWord.push(use2);
         //use2 = make('rect');
         //use2.setAttribute('x', xoffset);
         //use2.setAttribute('y', lineOffsets[line]-47);
@@ -670,6 +745,7 @@ function getChant(text,svg) {
         aTag = use;
       }
       curStaff.appendChild(aTag);
+      currentWord.push(use);
       //newstuff
       currentUse=[use];
       if(use2)currentUse.push(use2);
@@ -705,6 +781,10 @@ function getChant(text,svg) {
         }
       } else if(usesBetweenText.length>0 && !neumeInfo.ftone) {
         usesBetweenText.push(currentUse);
+        if((currentWord.length==1 && currentWord[0]==use) || (currentWord.length==2 && currentWord[0]==use2 && currentWord[1]==use)){
+          words.push(currentWord);
+          currentWord=[];
+        }
       }
     } else use = use2 = null;
     if(txt) {
@@ -758,6 +838,7 @@ function getChant(text,svg) {
       tags.forEach(function(e){
         span.appendChild(e.span());
       });
+      currentWord.push(span);
       eText.appendChild(span);
     } else {
       if(use) {
@@ -771,38 +852,29 @@ function getChant(text,svg) {
     previousMatch = match;
     if(space)span=null;
     if(neumeInfo.ledger && use) {
-      var temp = make('use');
-      temp.setAttributeNS(xlinkns, 'href', '#ledger' + (neumeInfo.ltone<2?'b':'a'))
-      temp.setAttribute('y',use.getAttribute('y'));
-      var transform = use.getAttribute('transform');
-      var tx = parseFloat(use.getAttribute('x'));
-      if(transform) {
-        var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
-        if(m) tx += parseFloat(m[1]);
-      }
-      chantWidth=useWidth(use);
-      tx -= 0.75*notewidth;
-      temp.setAttribute('transform',"translate("+tx+") scale("+(chantWidth+1.5*notewidth)+",1)");
-      curStaff.appendChild(temp);
+      var ledgers=[];
+      if(neumeInfo.ltone<2)ledgers.push('#ledgerb');
+      if(neumeInfo.htone>10)ledgers.push('#ledgera');
+      ledgers.forEach(function(a){
+        var temp = make('use');
+        temp.setAttributeNS(xlinkns, 'href', a);
+        temp.setAttribute('y',use.getAttribute('y'));
+        var transform = use.getAttribute('transform');
+        var tx = parseFloat(use.getAttribute('x'));
+        if(transform) {
+          var m = /translate\((-?\d+(?:.\d+)?)(?:,[^\)+])?\)/.exec(transform);
+          if(m) tx += parseFloat(m[1]);
+        }
+        chantWidth=useWidth(use);
+        tx -= 0.75*notewidth;
+        temp.setAttribute('transform',"translate("+tx+") scale("+(chantWidth+1.5*notewidth)+",1)");
+        curStaff.appendChild(temp);
+        currentWord.push(temp);
+      });
     }
   }
   finishStaff();
   return result;
-}
-
-function addCustos(result,tone,x,y) {
-  var x2=svgWidth - (staffheight/15);
-  var t = make('text');
-  t.setAttribute('class',defChant.getAttribute('class'));
-  t.setAttribute('x',x2);
-  var transform = result.getAttribute('transform');
-  if(transform) {
-    var m = /translate\((-?\d+(?:\.\d+)?)(?:,\s*(-?\d+(?:.\d+)?))?\)/.exec(transform);
-    y -= parseFloat(m[2]);
-  }
-  t.setAttribute('y',y);
-  t.appendChild(document.createTextNode(neume(indices.custos,tone)));
-  result.appendChild(t);
 }
 
 function getChantFragment(gabc,defs) {
@@ -1069,7 +1141,11 @@ var neumeText=function(tones,i,result,span,minDy,retVal) {
           retVal[0] += neume(indices['>'],tone.index);
           base = indices.lower_tilde;
         } else {
-          retVal[0] += neume(indices.decorative_line,nextTone.index,tone.index);
+          if(tone.relativeTone>0 && tone.relativeTone<=5 && lastTone.modifiers=="w") {
+            if(tone.relativeTone>1)retVal[0] += neume(indices.connecting_line,lastTone.index,tone.index);
+          } else {
+            retVal[0] += neume(indices.decorative_line,nextTone.index,tone.index);
+          }
           retVal[0] += neume(indices.punctum,tone.index);
           if(tone.match[rtg.episema]) {
             if(tone.episemaLoc==-1) {
