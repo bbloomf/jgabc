@@ -393,10 +393,14 @@ function textWidth(txt,clas,special) {
         sIndex-=idx;
         idx+=e.text.length;
         //console.info("e: " + JSON.stringify(e));
-        if(tlen>0&&sIndex>=0)wid+=tmp.getSubStringLength(sIndex,tlen);
+        try {
+          if(tlen>0&&sIndex>=0)wid+=tmp.getSubStringLength(sIndex,tlen);
+        } catch(exception){
+          console.warn(exception);
+        }
       });
       //console.info(dt.textContent + "[" + i + "," + (len||100) + "]: " + wid + " " + JSON.stringify(txt));
-      if(key)_txtWidths[key]=wid;
+      if(key)_txtWidths[key]=wid||dt.getComputedTextLength();
       return wid;
     }
   } else if(typeof(txt)=="object") {
