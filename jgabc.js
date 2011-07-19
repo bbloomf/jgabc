@@ -1,4 +1,4 @@
-﻿String.prototype.repeat = function(num){return new Array(num+1).join(this);}
+String.prototype.repeat = function(num) {return new Array(num + 1).join(this);};
 // lower-staff ext: 0xe1, upper: 0xe2
 var _indicesChar = {
   flat:    [0xE0F1,0xe340,0xE0F2,0xe341,0xE0F3,0xe342,0xE0F4,0xe343,0xE0F5,0xe344,0xE0F6,0xe345,0xE0F7],
