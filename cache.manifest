@@ -1,10 +1,15 @@
 ﻿CACHE MANIFEST
-#rev 55
-/Caeciliae-Staffless.ttf
-/Caeciliae-Staffless.svg
-/print.css
+#rev 96
+/style.css
+/css/smoothness/jquery-ui-1.8.16.custom.css
+/jquery-ui-1.8.16.custom.min.js
+/caeciliae-staffless-webfont.ttf
+/caeciliae-staffless-print.ttf
 /jgabc.js
 /jquery.min.js
+/jszip.js
+/sink.js
+/audiolet.js
 /OFLGoudyStMTT-Italic.ttf
 /OFLGoudyStMTT.ttf
 /psalmtone.htm
@@ -162,3 +167,4 @@
 /psalms/150
 /psalms/Benedictus
 /psalms/Magnificat
+/psalms/NovaVulgata.txt

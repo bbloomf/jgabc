@@ -1,4 +1,8 @@
-﻿.print-hide{
+﻿.caeciliae {
+  font-family: 'CaeciliaeStaffless-Print';
+  font-size:48px;
+}
+.print-hide{
   display:none;
 }
 body{

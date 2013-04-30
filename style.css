@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'CaeciliaeStaffless';
+  font-style: normal;
+  font-weight: normal;
+  src: url('caeciliae-staffless-webfont.eot');
+  src: url('caeciliae-staffless-webfont.eot?#iefix') format('embedded-opentype'),
+    url('caeciliae-staffless-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'CaeciliaeStaffless-Print';
+  font-style: normal;
+  font-weight: normal;
+  src: url('caeciliae-staffless-print.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OFL Sorts Mill Goudy TT';
+  font-style: italic;
+  font-weight: normal;
+  src: local('OFL Sorts Mill Goudy Italic TT'),
+    local('OFLGoudyStMTT-Italic'),
+    url('OFLGoudyStMTT-Italic.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'OFL Sorts Mill Goudy TT';
+  font-style: normal;
+  font-weight: normal;
+  src: local('OFL Sorts Mill Goudy TT'),
+    local('OFLGoudyStMTT'),
+    url('OFLGoudyStMTT.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Versiculum';
+  font-style: normal;
+  font-weight: normal;
+  src: url('versiculum.ttf') format('truetype');
+}
+.sans{font-family:Verdana,Helvetica,sans-serif}
+.selected{fill:#e22}
+.selected-1{fill:url(#gradRedBlack)}
+.selected-2{fill:url(#gradBlackRed)}
+tspan.selectable:hover{fill:#e22}
+tspan.selectable{
+  cursor:pointer;
+}
+.b{font-weight:700}
+.i{font-style:italic}
+.sc{font-variant:small-caps}
+.trans {font-size:15px;}
+.versiculum{font-family: 'Versiculum';font-variant:normal;}
+.caeciliae-print {
+  font-family: 'CaeciliaeStaffless-Print';
+  font-size:48px;
+}
+.goudy{
+  font-family: 'OFL Sorts Mill Goudy TT';
+  font-size: 18px;
+}
+.greinitial{
+  font-family: 'OFL Sorts Mill Goudy TT';
+  font-size: 60px;
+}
+.greannotation{
+  font-family: 'OFL Sorts Mill Goudy TT';
+  font-size: 15px;
+}
+@media screen {
+  .caeciliae {
+    font-family: 'CaeciliaeStaffless';
+    font-size:48px;
+  }
+}
+@media print {
+  .caeciliae {
+    font-family: 'CaeciliaeStaffless-Print';
+    font-size:48px;
+  }
+  .print-hide{
+    display:none;
+  }
+  body{
+    max-width:8in;
+  }
+}

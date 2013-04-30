@@ -8,9 +8,13 @@ put jquery.min.js
 put psalmtone.htm
 put psalmtone.js
 put transcriber.html
-put print.css
+put style.css
+put faq.html
+-binary
+-put caeciliae-staffless-webfont.eof
+-put caeciliae-staffless-webfont.ttf
+-put caeciliae-staffless-print.ttf
 quit
--put Caeciliae-Staffless.ttf
 -put OFLGoudyStMTT-Italic.ttf
 -put OFLGoudyStMTT.ttf
 -cd psalms

@@ -1,0 +1,17 @@
+1,2,3,4,5,7,8 seem good.
+
+2 and 3 have only preparatory syllables, no accents for the termination.  This does not get italicized properly.
+6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.
+The intonation of the termination of tone 6 changes based on the accentuation:
+  If the 2nd syllable is accented, it begins h hj (see 1012, 1200, 1924 of liber.pdf)
+  If the 3rd syllable is accented, it begins f gh hj (see 658, 1171, 1264 of liber.pdf) as I have written below.
+  If the 4th syllable is accented, it begins f gh h hj (see 506 of liber.pdf)
+
+{"1":{"clef":"c4","mediant":"f gh hr 'hj hr hr 'hg gh..","termination":"gf gh hr hjh g f fr 'fff d."},
+"2":{"clef":"f3","mediant":"e fe eh hr hg hi i 'hi hr h.","termination":"hf fh hr i hf h ge fgf."},
+"3":{"clef":"c4","mediant":"g hj jr 'k jr jr 'ih~ jjj","termination":"ig hj jr j/ji hg h i gh.."},
+"4":{"clef":"c4","mediant":"hg gh hr hg gi i 'hi hr h.","termination":"hg gh hr gf gh 'g gr e."},
+"5":{"clef":"c3","mediant":"d f hr i 'i hr h.","termination":"f hr 'i gr 'h fr f."},
+"6":{"clef":"c4","mediant":"fg gf gh hr g 'ixi hr 'g fr f.","termination":"f gh hj g fr g fd f g f."},
+"7":{"clef":"c3","mediant":"ehg hi ir 'ik jr jr 'ji ij..","termination":"ig hi ir i!jwk i h hr 'hhh fe.."},
+"8":{"clef":"c4","mediant":"g hg gj jr ji jk k 'jk jr j.","termination":"jh hj jr j/ji gh ji 'h hr g."}}
