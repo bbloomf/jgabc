@@ -3,40 +3,101 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Mass Propers</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css" />
   <script src="jquery.min.js" type="text/javascript"></script>
+  <script src="jquery.autosize-min.js"></script>
   <script src="jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-  <script src="jgabc.js"></script>
+  <script src="jgabc.full.js"></script>
   <script src="psalmtone.js"></script>
   <script src="sink.js"></script>
   <script src="audiolet.js"></script>
   <script src="propersdata.js"></script>
   <script src="propers.js"></script>
 </head>
-<body>
+<style>
+textarea {
+  padding:0;
+}
+.tap {
+  padding-right:2px;
+}
+.preview-container {
+  padding:0 0.1in;
+}
+.chant-parent{
+  border:1px solid #aaa;
+  overflow-y:auto;
+  width:100%;
+}
+.chant-preview{
+  margin:0.1in auto auto;
+}
+</style>
+<body class='sans' style="margin:8px;">
   <select id="selDay"><option>Select a Sunday...</option></select>
   <br/>
-  <label for="txtIntroitus">Introitus</label><br/>
-  <textarea id="txtIntroitus" style='width:800px;height:200px'></textarea>
-  <br/>
-  <div id="divGraduale">
-    <label for="txtGraduale">Graduale</label><br/>
-    <textarea id="txtGraduale" style='width:800px;height:200px'></textarea>
-    <br/>
-  </div>
-  <div id="divTractus" style="display:none">
-    <label for="txtTractus">Tractus</label><br/>
-    <textarea id="txtTractus" style='width:800px;height:200px'></textarea>
-    <br/>
-  </div>
-  <div id="divAlleluia" style="display:none">
-    <label for="txtAlleluia">Alleluia</label><br/>
-    <textarea id="txtAlleluia" style='width:800px;height:200px'></textarea>
-    <br/>
-  </div>
-  <label for="txtOffertorium">Offertorium</label><br/>
-  <textarea id="txtOffertorium" style='width:800px;height:200px'></textarea>
-  <br/>
-  <label for="txtCommunio">Communio</label><br/>
-  <textarea id="txtCommunio" style='width:800px;height:200px'></textarea>
+  <table width="100%" style="margin-left:-2px;margin-top:-2px">
+    <tr><td width="50%">
+      <label for="txtIntroitus">Introitus</label><br/>
+      <div class="tap"><textarea id="txtIntroitus" style='width:100%;min-height:200px'></textarea></div>
+    </td><td width="50%">
+      <div class='chant-parent'>
+        <div id="introitus-preview-container" class='preview-container'>
+          <div id="introitus-preview" class='change-preview'></div>
+        </div>
+      </div>
+    </td></tr>
+    <tr id="divGraduale"><td width="50%">
+      <label for="txtGraduale">Graduale</label><br/>
+      <div class="tap"><textarea id="txtGraduale" style='width:100%;min-height:200px'></textarea></div>
+    </td><td width="50%">
+      <div class='chant-parent'>
+        <div id="graduale-preview-container" class='preview-container'>
+          <div id="graduale-preview" class='change-preview'></div>
+        </div>
+      </div>
+    </td></tr>
+    <tr id="divTractus"><td width="50%">
+      <label for="txtTractus">Tractus</label><br/>
+      <div class='tap'><textarea id="txtTractus" style='width:100%;min-height:200px'></textarea></div>
+    </td><td width="50%">
+      <div class='chant-parent'>
+        <div id="tractus-preview-container" class='preview-container'>
+          <div id="tractus-preview" class='change-preview'></div>
+        </div>
+      </div>
+    </td></tr>
+    <tr id="divAlleluia"><td width="50%">
+      <label for="txtAlleluia">Alleluia</label><br/>
+      <div class='tap'><textarea id="txtAlleluia" style='width:100%;min-height:200px'></textarea></div>
+    </td><td width="50%">
+      <div class='chant-parent'>
+        <div id="alleluia-preview-container" class='preview-container'>
+          <div id="alleluia-preview" class='change-preview'></div>
+        </div>
+      </div>
+    </td></tr>
+    <tr><td width="50%">
+      <label for="txtOffertorium">Offertorium</label><br/>
+      <div class='tap'><textarea id="txtOffertorium" style='width:100%;min-height:200px'></textarea></div>
+    </td><td width="50%">
+      <div class='chant-parent'>
+        <div id="offertorium-preview-container" class='preview-container'>
+          <div id="offertorium-preview" class='change-preview'></div>
+        </div>
+      </div>
+    </td></tr>
+    <tr><td width="50%">
+      <label for="txtCommunio">Communio</label><br/>
+      <div class='tap'><textarea id="txtCommunio" style='width:100%;min-height:200px'></textarea></div>
+    </td><td width="50%">
+      <div class='chant-parent'>
+        <div id="communio-preview-container" class='preview-container'>
+          <div id="communio-preview" class='change-preview'></div>
+        </div>
+      </div>
+    </td></tr>
+  </table>
 </body>
 </html>

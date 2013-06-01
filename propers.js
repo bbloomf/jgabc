@@ -1,4 +1,12 @@
 var selDay,selPropers;
+var partAbbrev = {
+  tractus:'Tract.',
+  offertorium:'Offert.',
+  introitus:'Intr.',
+  graduale:'Grad.',
+  communio:'Comm.',
+  alleluia:''
+};
 $(function(){
   var removeDiacritics=function(string) {
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -58,80 +66,37 @@ $(function(){
     }
     return result;
   }
+  var updatePart = function(part) {
+    var id = selPropers[part+'ID'];
+    var capPart = part[0].toUpperCase()+part.slice(1);
+    var $div = $('#div'+capPart);
+    if(id) {
+      $div.show();
+      $.get('gabc/'+id+'.gabc',function(gabc){
+        gabc = gabc.replace(/\s+$/,'');
+        var header = getHeader(gabc);
+        header.annotation = partAbbrev[part];
+        gabc = header + gabc.slice(header.original.length);
+        var $txt = $('#txt'+capPart),
+            $preview = $('#'+part+'-preview');
+        $txt.val(gabc);
+        updateChant(gabc,$preview[0],true)
+        $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
+      });
+    } else {
+      $div.hide();
+    }
+  }
   var selectedDay = function(e){
     selDay = $(this).val();
     selPropers = proprium[selDay];
     if(selPropers) {
-      $('#txtIntroitus').text(selPropers.introitus);
-      var id = getGabcForPropers(selPropers,'introitus')
-      if(id) {
-        selPropers.introitusID = id;
-        $.get('gabc/'+id+'.gabc',function(gabc){
-          $('#txtIntroitus').text(gabc);
-        });
-      }
-      var graduale = selPropers.graduale;
-      //TODO: Graduale, Tractus, Alleluia
-      var gat = parseGraduale(selPropers.graduale);      
-      if(gat.graduale) {
-        $('#divGraduale').show();
-        $('#txtGraduale').text(gat.graduale);
-        id='';
-        id = getGabcForPropers(selPropers,'graduale',gat.graduale);
-        if(id) {
-          selPropers.gradualeID = id;
-          $.get('gabc/'+id+'.gabc',function(gabc){
-            $('#txtGraduale').text(gabc);
-          });
-        }
-      } else {
-        $('#divGraduale').hide();
-      }
-      if(gat.alleluia) {
-        $('#divAlleluia').show();
-        $('#txtAlleluia').text(gat.alleluia);
-        id = getGabcForPropers(selPropers,'alleluia',gat.alleluia);
-        if(id) {
-          selPropers.alleluiaID = id;
-          $.get('gabc/'+id+'.gabc',function(gabc){
-            $('#txtAlleluia').text(gabc);
-          });
-        }
-      } else {
-        $('#divAlleluia').hide();
-      }
-      if(gat.tractus) {
-        $('#divTractus').show();
-        $('#txtTractus').text(gat.tractus);
-        id = getGabcForPropers(selPropers,'tractus',gat.tractus);
-        if(id) {
-          selPropers.tractusID = id;
-          $.get('gabc/'+id+'.gabc',function(gabc){
-            $('#txtTractus').text(gabc);
-          });
-        }
-      } else {
-        $('#divTractus').hide();
-      }
-      
-      
-      $('#txtOffertorium').text(selPropers.offertorium);
-      var id = getGabcForPropers(selPropers,'offertorium')
-      if(id) {
-        selPropers.offertoriumID = id;
-        $.get('gabc/'+id+'.gabc',function(gabc){
-          $('#txtOffertorium').text(gabc);
-        });
-      }
-      $('#txtCommunio').text(selPropers.communio);
-      var id = getGabcForPropers(selPropers,'communio')
-      if(id) {
-        selPropers.communioID = id;
-        $.get('gabc/'+id+'.gabc',function(gabc){
-          $('#txtCommunio').text(gabc);
-        });
-      }
-      
+      updatePart('introitus');
+      updatePart('graduale');
+      updatePart('alleluia');
+      updatePart('tractus');
+      updatePart('offertorium');
+      updatePart('communio');
     }
   };
   
@@ -141,4 +106,6 @@ $(function(){
     $temp.val(o.key);
     $selDay.append($temp);
   });
+  $('textarea').autosize();
+  //$('.preview-container').height(function(){return $(this).parent().height();});
 });

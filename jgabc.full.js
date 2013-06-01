@@ -216,7 +216,7 @@ var styleFont="@font-face {font-family: '"+familyCaeciliae+"'; font-weight: norm
         + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
 
 var svgWidth;
-var svg;
+var _svg,svg;
 var textElem;
 var codea = 'a'.charCodeAt(0);
 var codem = codea + 12;
@@ -428,6 +428,15 @@ var gabcProcessTime = 0;
 var _nextUpdate = new Date().getTime();
 var dontUpdateChant = false;
 function updateChant(text, svg, dontDelay) {
+  var $svg = $(svg);
+  if(!$svg.is('svg')) {
+    $svg = $svg.find('svg');
+    if(!$svg.length) {
+      $svg = $(_svg).clone().appendTo(svg);
+    }
+    svg = $svg[0];
+  }
+  
   if(dontUpdateChant || !text)return;
   var gtext=updateLinks(text);
   if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
@@ -1678,7 +1687,7 @@ var ToneInfo = function(obj){
           globalTones.push(tmp=new ToneInfo({match:[]}));
           tmp.match[rtg.whitespace] = cmatch[rtg.whitespace];
         } else {
-          var toneId = parseInt(cmatch[rtg.tone]||cmatch[rtg.clef].slice(0,1),23)-10;
+          var toneId = parseInt(cmatch[rtg.tone]||cmatch[rtg.clef]&&cmatch[rtg.clef].slice(0,1),23)-10;
           if(cmatch[rtg.tone] && cmatch[rtg.tone].length == 1) {
             ltone = Math.min(ltone,toneId);
             htone = Math.max(htone,toneId);
@@ -2275,7 +2284,7 @@ $(function() {
     }
   }
 
-  svg = document.createElementNS(svgns, 'svg');
+  _svg = svg = document.createElementNS(svgns, 'svg');
   svg.setAttribute('style','width:100%;height:0');
   setPrintFont=function(usePrintFont){
     $(svg).find(".caeciliae,.caeciliae-print").attr("class",usePrintFont?"caeciliae-print":"caeciliae");
@@ -2716,7 +2725,7 @@ $(function() {
       return;
     }
     _timeoutUpdate = null;
-    elements.each(function(index, element) {
+    $.each(elements, function(index, element) {
       var old=$(element).next(".jgabc-svg").find("svg")[0];
       if(!old) return;
       if(element.innerHTML.match(/^\s*$/)) return;
