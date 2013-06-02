@@ -1177,6 +1177,11 @@ function decompile(mixed,ignoreSyllablesOnDivisiones) {
     } else {
       text.push(tws);
     }
+    if(ignoreSyllablesOnDivisiones) {
+      if(match[rog.gabc].indexOf('::')>=0) text.push('~');
+      else if(match[rog.gabc].indexOf(':')>=0) text.push(' ** ');
+      else if(match[rog.gabc].indexOf(';')>=0) text.push(' * ');
+    }
     if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^[:;,\s]*$/))){
       var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
       hasElisions = hasElisions||(syl!=sylR);
@@ -1243,6 +1248,7 @@ function decompile(mixed,ignoreSyllablesOnDivisiones) {
     // make the rest of the first word minuscule
     s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
   }
+  s = s.replace(/\s*~\s*/g,'\n');
   return s;
 }
 window['getPsalm'] = getPsalm;

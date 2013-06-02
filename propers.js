@@ -71,14 +71,15 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
     if(id) {
+      var $txt = $('#txt'+capPart),
+          $preview = $('#'+part+'-preview');
+      $($txt.prop('labels')).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
       $div.show();
       $.get('gabc/'+id+'.gabc',function(gabc){
         gabc = gabc.replace(/\s+$/,'');
         var header = getHeader(gabc);
         header.annotation = partAbbrev[part];
         gabc = header + gabc.slice(header.original.length);
-        var $txt = $('#txt'+capPart),
-            $preview = $('#'+part+'-preview');
         selGabc[part] == gabc;
         $txt.val(decompile(gabc,true));
         updateChant(gabc,$preview[0],true)
