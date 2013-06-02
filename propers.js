@@ -1,4 +1,4 @@
-var selDay,selPropers;
+var selDay,selPropers,selGabc={};
 var partAbbrev = {
   tractus:'Tract.',
   offertorium:'Offert.',
@@ -79,7 +79,8 @@ $(function(){
         gabc = header + gabc.slice(header.original.length);
         var $txt = $('#txt'+capPart),
             $preview = $('#'+part+'-preview');
-        $txt.val(gabc);
+        selGabc[part] == gabc;
+        $txt.val(decompile(gabc,true));
         updateChant(gabc,$preview[0],true)
         $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
       });
@@ -106,6 +107,6 @@ $(function(){
     $temp.val(o.key);
     $selDay.append($temp);
   });
-  $('textarea').autosize();
+  $('textarea').autosize().keydown(internationalTextBoxKeyDown);
   //$('.preview-container').height(function(){return $(this).parent().height();});
 });
