@@ -137,7 +137,7 @@ var o_g_tones =
                           "termination":"f hr 'i gr 'h fr f."},
              "Introit 6":{"clef":"c4",
                           "mediant":"fg gf gh hr g 'ixi hr 'g fr f.",
-                          "termination":"f gh h hj g fr g fd f g f."},
+                          "termination":"(h | f gh | f gh h) 'hj g fr g fd f g f."},
              "Introit 7":{"clef":"c3",
                           "mediant":"ehg hi ir 'ik jr jr 'ji ij..",
                           "termination":"ig hi ir i!jwk i h hhh fe.."},
@@ -673,7 +673,8 @@ function GABCTones(tones,
   preparatory,
   afterLastAccent,
   toneTenor,
-  toneFlex) {
+  toneFlex,
+  variableIntonation) {
   this.tones = tones;
   this.intonation = intonation;
   this.accents = accents;
@@ -681,6 +682,7 @@ function GABCTones(tones,
   this.afterLastAccent = afterLastAccent;
   this.toneTenor = toneTenor;
   this.toneFlex = toneFlex;
+  this.variableIntonation = variableIntonation;
 }
 GABCTones.prototype.lastAccent = function(){
   if(this.accents == 0) return undefined;
@@ -702,7 +704,25 @@ function getGabcTones(gabc,prefix) {
   if(prefix) gabc = prefix + gabc;
   var tones = [];
   var match;
+  var variableIntonation = gabc.match(/^\(([^)]+)\)\s*'/);
+  var index = 0;
   regexToneGabc.exec('');
+  if(variableIntonation) {
+    var startIndex = variableIntonation[0].length;
+    variableIntonation = variableIntonation[1].split('|');
+    var temp = [];
+    for(var i=0; i<variableIntonation.length; ++i) {
+      var curIntonation = variableIntonation[i];
+      var curTemp = [];
+      regexToneGabc.exec('');
+      while(match=regexToneGabc.exec(curIntonation)) {
+        curTemp.push(toneGabc(match));
+      }
+      temp.push(curTemp);
+    }
+    regexToneGabc.lastIndex = startIndex
+    variableIntonation = temp;
+  }
   while(match=regexToneGabc.exec(gabc)) {
     tones.push(toneGabc(match));
   }
@@ -759,7 +779,8 @@ function getGabcTones(gabc,prefix) {
                        preparatory,
                        afterLastAccent,
                        toneTenor,
-                       toneFlex);
+                       toneFlex,
+                       variableIntonation);
 }
 
 var _getSyllables = function(text,bi) {
