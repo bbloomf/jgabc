@@ -155,7 +155,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   }
 }
 
-function updateGabc() {
+function updateVerseGabc() {
   gSyl = $("#versegabc").val();
   updateCustomTone();
   updateEditor();
@@ -597,7 +597,7 @@ function windowResized(){
   totalHeight = Math.max(120,totalHeight);
   $cp.height(totalHeight);
 }
-function updateGabcStar(newStar){
+function updateVerseGabcStar(newStar){
   if(typeof(newStar)!='string') {
     newStar = $(this).val();
   }
@@ -627,7 +627,7 @@ $(function() {
   } else {
     gabcStar = '<v>\\greheightstar</v>'
   }
-  $("#txtGabcStar").val(gabcStar).keyup(updateGabcStar);
+  $("#txtGabcStar").val(gabcStar).keyup(updateVerseGabcStar);
   $("label[title][for]").each(function() {
     var forId = this.getAttribute('for');
     $("#" + forId).attr('title',this.title);
@@ -637,7 +637,7 @@ $(function() {
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
-  $("#versegabc").keyup(updateGabc);
+  $("#versegabc").keyup(updateVerseGabc);
   $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#selTones").change(updateEndings);
   $("#selTones").keyup(updateEndings);

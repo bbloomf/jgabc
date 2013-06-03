@@ -1,4 +1,5 @@
-﻿var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
+﻿var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
+var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 //var regexLatin = /((?:\(|<(?:b|i|sc)>)*)(((?:(?:(\s+))(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=[daeiouyáéëíóúýǽæœ])|)|d[ií](?:r(?=[raeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i|[cgq]u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))((?:\)|<\/(?:b|i|sc)>)*)/gi;
 var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))|d[ií](?:r(?=r|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|[cgq]u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýǽæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi;
 var regexWords = /((?:<(?:b|i|sc)>)*)([^a-z\(\)]*\s*"*(?=\b|\())(([a-z'*]*)(?:\(([a-z'*]+)\)([a-z'*]*))?)(=?)([-":;,.\)\?]*)(\s+\*)?((?:<\/(?:b|i|sc)>)*)/gi
@@ -121,7 +122,7 @@ var o_g_tones =
                     },
              "Introit 1":{"clef":"c4",
                           "mediant":"f gh hr 'hj hr hr 'hg gh..",
-                          "termination":"gf gh hr hjh g f fr 'fff d."},
+                          "termination":"gf gh hr hjh g f fff d."},
              "Introit 2":{"clef":"f3",
                           "mediant":"e fe eh hr hg hi i 'hi hr h.",
                           "termination":"hf fh hr i hf h ge fgf."},
@@ -130,19 +131,19 @@ var o_g_tones =
                           "termination":"ig hj jr j/ji hg h i gh.."},
              "Introit 4":{"clef":"c4",
                           "mediant":"hg gh hr hg gi i 'hi hr h.",
-                          "termination":"hg gh hr gf gh 'g gr e."},
+                          "termination":"hg gh hr gf gh g e."},
              "Introit 5":{"clef":"c3",
                           "mediant":"d f hr i 'i hr h.",
                           "termination":"f hr 'i gr 'h fr f."},
              "Introit 6":{"clef":"c4",
                           "mediant":"fg gf gh hr g 'ixi hr 'g fr f.",
-                          "termination":"f gh hj g fr g fd f g f."},
+                          "termination":"f gh h hj g fr g fd f g f."},
              "Introit 7":{"clef":"c3",
                           "mediant":"ehg hi ir 'ik jr jr 'ji ij..",
-                          "termination":"ig hi ir i!jwk i h hr 'hhh fe.."},
+                          "termination":"ig hi ir i!jwk i h hhh fe.."},
              "Introit 8":{"clef":"c4",
                           "mediant":"g hg gj jr ji jk k 'jk jr j.",
-                          "termination":"jh hj jr j/ji gh ji 'h hr g."},
+                          "termination":"jh hj jr j/ji gh ji h g."},
              'V.1':{clef:"c3",
                     mediant:"hr h g_hvGFEfgf."
                    },
@@ -1120,141 +1121,9 @@ var internationalTextBoxKeyDown = (function(){
     }
   }
 })();
-
-function splitGabc(gabc,offset) {
-  var gSyl = [];
-  regexGabc.exec('');
-  while((match = regexGabc.exec(gabc))) {
-    var tone,tones=[];
-    regexTones.exec('');
-    while((tone=regexTones.exec(match[1]))){
-      tones.push(tone[0]);
-    }
-    gSyl.push({match: match,
-               hasSyllable: match[5],
-               gabc: '(' + match[1] + ')',
-               isClef: match[4],
-               isBar: match[3],
-               tones: tones,
-               index: match.index + offset
-              });
-  }
-  return gSyl;
-}
-function decompile(mixed,ignoreSyllablesOnDivisiones) {
-  regexOuter.exec('');
-  var curClef;
-  var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
-  var text=[];
-  var gabc='';
-  var match;
-  var ws;
-  var tws='';
-  var verses=[];
-  var hasElisions=false;
-  var lastVerseI=0;
-  var lastClef='';
-  var verseHasClef=false;
-  var lastVerse=function(){return verses[verses.length-1]||null;}
-  var match=regexOuter.exec(mixed);
-  var verseReps=0;
-  while(match) {
-    ws=match[rog.whitespace]||'';
-    var m=undefined;
-    var syl=match[rog.syl];
-    if(gabc.length==0) {
-      regexGabc.exec('');
-      m=regexGabc.exec(match[rog.gabc]);
-      if(m && m[4]) {
-        lastClef=m[4];
-        if(gabc.length==0)verseHasClef=true;
-      }
-    }
-    if(tws==' '&&!syl) {
-      regexGabc.exec('');
-      m=regexGabc.exec(match[rog.gabc]);
-      if(!m||m[4])text.push(tws);
-    } else {
-      text.push(tws);
-    }
-    if(ignoreSyllablesOnDivisiones) {
-      if(match[rog.gabc].indexOf('::')>=0) text.push('~');
-      else if(match[rog.gabc].indexOf(':')>=0) text.push(' ** ');
-      else if(match[rog.gabc].indexOf(';')>=0) text.push(' * ');
-    }
-    if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^[:;,\s]*$/))){
-      var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
-      hasElisions = hasElisions||(syl!=sylR);
-      text.push(sylR);
-    }
-    gabc+=match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" ");
-    var nextMatch=regexOuter.exec(mixed);
-    if(match[rog.gabc]=='::' || !nextMatch) {
-      if(nextMatch && lastVerseI>0) {
-        text.splice(lastVerseI,0,'\n\n');
-        text[lastVerseI-1] = text[lastVerseI-1].replace(/^\s+|\s+$/,'');
-        text[lastVerseI+1] = text[lastVerseI+1].replace(/^\s+|\s+$/,'');
-      }
-      if(!hasElisions) {
-        var tempVerse=gabc.replace(/^\s+|\s+$/,'');
-        var temp2=tempVerse.replace(regRep,'$1');
-        var lastV=lastVerse();
-        if(verseHasClef) {
-          temp2 = temp2.slice(lastClef.length).replace(/^\s+/,'');
-        }
-        if(!lastV || temp2!=lastV.replace(regRep,'$1')) {
-          if(!verseHasClef && verses.length==0)tempVerse = lastClef + ' ' + tempVerse;
-          if(verseReps==1){
-            verses.push(verses.pop()+"\n"+tempVerse);
-          } else {
-            verses.push(tempVerse);
-            if(lastVerseI>0) {
-              text[lastVerseI]='\n--\n';
-            }
-            verseReps=1;
-          }
-        } else {
-          if(lastV.match(/^[cf]b?[1-4]/i)) {
-            if(!verseHasClef && lastClef)tempVerse = lastClef + ' ' + tempVerse;
-          }
-          if(tempVerse.length>lastV.length) {
-            verses[verses.length-1] = tempVerse;
-          }
-          ++verseReps;
-        }
-        lastVerseI=text.length;
-      }
-      verseHasClef=hasElisions=false;
-      gabc='';
-    }
-    tws=ws;
-    match=nextMatch;
-  }
-  if(tws)text.push(tws);
-  regexGabc.exec('');
-  var gs =verses.join('\n--\n');
-  gSyl=[];
-  var offset = 0;
-  verses.forEach(
-    function(a,b){
-      gSyl.push(splitGabc(a,offset));
-      offset += a.length + 4;
-    });
-
-  //gSyl = splitGabc(gs);
-  var s = text.join('').replace(/\s+/g,' ').replace(/^\s+|\s+$|[{}-]/g,'');
-  var index=s.indexOf(' ');
-  if(index>1) {
-    // make the rest of the first word minuscule
-    s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
-  }
-  s = s.replace(/\s*~\s*/g,'\n');
-  return s;
-}
 window['getPsalm'] = getPsalm;
 window['getPsalmTones'] = getPsalmTones;
 window['getEndings'] = getEndings;
 window['applyPsalmTone'] = applyPsalmTone;
 window['getSyllables'] = getSyllables;
 window['addBoldItalic'] = addBoldItalic;
-window['decompile'] = decompile;
