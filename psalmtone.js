@@ -137,7 +137,7 @@ var o_g_tones =
                           "termination":"f hr 'i gr 'h fr f."},
              "Introit 6":{"clef":"c4",
                           "mediant":"fg gf gh hr g 'ixi hr 'g fr f.",
-                          "termination":"(h | f gh | f gh h) 'hj g fr g fd f g f."},
+                          "termination":"(h | f gh | f gh h) 'hj g fr g fd f 'g fr f."},
              "Introit 7":{"clef":"c3",
                           "mediant":"ehg hi ir 'ik jr jr 'ji ij..",
                           "termination":"ig hi ir i!jwk i h hhh fe.."},
@@ -418,8 +418,25 @@ function getFlexGabc(mediant) {
   var toneFlex = mediant.toneFlex;
   return toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneFlex + "r " + toneFlex + ".";
 }
-
-function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,verseNumber,prefix,suffix,italicizeIntonation,result,gabcShort) {
+function applyPsalmTone(options) {
+  var text = options.text,
+      gabc = options.gabc,
+      useOpenNotes = options.useOpenNotes || false,
+      useBoldItalic = options.useBoldItalic || false,
+      onlyVowel = options.onlyVowel || false,
+      format = options.format,
+      verseNumber = options.verseNumber,
+      prefix = options.prefix,
+      suffix = options.suffix,
+      italicizeIntonation = options.italicizeIntonation || false,
+      result = options.result,
+      gabcShort = options.gabcShort,
+      favor = options.favor || {};
+  if(typeof(favor)=='string') {
+    temp = {};
+    temp[favor]=true;
+    favor = temp;
+  }
   if(typeof(result)!="object") {
     result={shortened:false};
   }
@@ -456,7 +473,7 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
   }
   var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort) : gabcShort)||toneList;
   var tones = toneList.tones;
-  var tonesShort = (gabcShort&&toneListShort.tones) || tones.slice(0);
+  var tonesShort = (gabcShort&&toneListShort.tones) || null;
   var r;
   while(!finished){
     r = '';
@@ -467,6 +484,27 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
     var lastAccentI = si + 1;
     var lastTone;
     var finished=false;
+    if(toneList.variableIntonation && !result.shortened) {
+      //find first accented syllable
+      var acceptableAccentIndices = {};
+      toneList.variableIntonation.forEach(function(o){ acceptableAccentIndices[o.length]=o; });
+      var accentI = -1;
+      for(var i=0; accentI<0 && i<syl.length; ++i) {
+        if(syl[i].accent) {
+          for(var j=i; j>=0; j -= 2) {
+            if(j in acceptableAccentIndices) {
+              accentI = j;
+              break;
+            }
+          }
+        }
+      }
+      if(accentI < 0) {
+        for(i in acceptableAccentIndices) { accentI = i; break; }
+      }
+      tones = acceptableAccentIndices[accentI].concat(tones);
+      toneList.variableIntonationLength = accentI;
+    }
     for(var ti = tones.length - 1; (ti >= 0 || lastOpen) && si >= 0; --ti,--si) {
       var tone = tones[ti];
       var s = syl[si];
@@ -643,13 +681,27 @@ function applyPsalmTone(text,gabc,useOpenNotes,useBoldItalic,onlyVowel,format,ve
       }
       lastTone = tone;
     }
-    if(!result.shortened && ti>=0 && toneList.intonation > 0){
-      var punctumMorum=(tones[tones.length-1].all.slice(-1)=='.');
-      tones = tonesShort;
-      tones.splice(toneListShort.intonation + 1, tones.length - toneListShort.intonation - 1);
-      if(punctumMorum) {
+    if(!result.shortened && ti>=0){
+      var intonationLength = toneList.intonation + (toneList.variableIntonationLength||0)
+      if(++ti < toneList.preparatory) {
+        tones = tones.slice(0,intonationLength+1).concat(tones.slice(intonationLength+1 + ti));
+      } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
+        tones = tones.slice(toneList.variableIntonationLength);
+        toneList.variableIntonationLength = 0;
+      } else if(!favor.intonation) {
+        tones = tones.slice(intonationLength);
         regexToneGabc.exec('');
-        tones.push(toneGabc(regexToneGabc.exec(tones[tones.length-1].gabcClosed.slice(1,-1)+'.')));
+        tones.splice(0,0,toneGabc(regexToneGabc.exec(tones[0].gabcClosed.slice(1,-1))));
+        toneList.variableIntonationLength = 0;
+        toneList.intonationLength = 1;
+      } else if(!favor.termination && intonationLength > 0){
+        var punctumMorum=(tones[tones.length-1].all.slice(-1)=='.');
+        tones = tonesShort || tones.slice(0);
+        tones.splice(toneListShort.intonation + (toneListShort.variableIntonationLength||0) + 1, tones.length - toneListShort.intonation - (toneListShort.variableIntonationLength||0) - 1);
+        if(punctumMorum) {
+          regexToneGabc.exec('');
+          tones.push(toneGabc(regexToneGabc.exec(tones[tones.length-1].gabcClosed.slice(1,-1)+'.')));
+        }
       }
       result.shortened=true;
       r='';

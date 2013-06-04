@@ -74,9 +74,34 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
       var line = splitLine(lines[i]);
       if(firstVerse || asGabc) {
         var result={shortened:false};
-        gabc += applyPsalmTone(line[0].trim(),gMediant,usePunctaCava,true,onlyVowels,gabcFormat,useNovaVulgata?"":i+1,true,false,italicizeIntonation,result,_gShortMediant)
-                + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + gabcStar + "(:) " + applyPsalmTone(line[1].trim(),gTermination,usePunctaCava,true,onlyVowels,gabcFormat,useNovaVulgata?"":i+1,false,true,false))
-                + " (::)\n";
+        gabc += applyPsalmTone({
+          text: line[0].trim(),
+          gabc: gMediant,
+          useOpenNotes: usePunctaCava,
+          useBoldItalic: true,
+          onlyVowel: onlyVowels,
+          format: gabcFormat,
+          verseNumber: useNovaVulgata?"":i+1,
+          prefix: true,
+          suffix: false,
+          italicizeIntonation: italicizeIntonation,
+          result: result,
+          gabcShort: _gShortMediant,
+          favor: 'intonation'
+        }) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + gabcStar + "(:) " +
+          applyPsalmTone({
+            text: line[1].trim(),
+            gabc: gTermination,
+            useOpenNotes: usePunctaCava,
+            useBoldItalic: true,
+            onlyVowel: onlyVowels,
+            format: gabcFormat,
+            verseNumber: useNovaVulgata?"":i+1,
+            prefix: false,
+            suffix: true,
+            italicizeIntonation: false,
+            favor: 'termination'
+          })) + " (::)\n";
         if(i==0) {
           if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
           flex = (line[0].indexOf(sym_flex) >= 0);
@@ -98,7 +123,14 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
               index -= sylcount - 1;
             }
             syls.splice(0,index);
-            gabc += "<i>Flex :</i>() " + applyPsalmTone(syls,getFlexGabc(medTones),false,false,onlyVowels,gabcFormat);
+            gabc += "<i>Flex :</i>() " + applyPsalmTone({
+              text: syls,
+              gabc: getFlexGabc(medTones),
+              useOpenNotes: false,
+              useBoldItalic: false,
+              onlyVowel: onlyVowels,
+              format: gabcFormat
+            });
             gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
             flex = true;
           }
@@ -117,7 +149,16 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   if(gabc) {
     if(!asGabc && includeGloriaPatri) {
       try {
-        gabc += "\n\n%" + applyPsalmTone(gloria_patri_end_vowels,removeIntonation($.extend(true,{},gTermination)),false,false,onlyVowels,gabcFormat)+" (::)";
+        gabc += "\n\n%" +
+          applyPsalmTone({
+            text: gloria_patri_end_vowels,
+            gabc: removeIntonation($.extend(true,{},gTermination)),
+            useOpenNotes: false,
+            useBoldItalic: false,
+            onlyVowel: onlyVowels,
+            format:gabcFormat,
+            favor: 'termination'
+          })+" (::)";
       } catch(e) { }
     }
     if(actuallyUpdate){

@@ -103,8 +103,20 @@ function updateEditor(forceGabcUpdate,_syl) {
           gabc = ' (;) ' + gabc;
       }
     }
-    gabc = applyPsalmTone(line,psalmTone,usePunctaCava,true,onlyVowels,gabcFormat,"",false,false,false/*italicizeIntonation*/,{})
-      + gabc;
+    gabc = applyPsalmTone(
+      {
+        text: line,
+        gabc: psalmTone,
+        useOpenNotes: usePunctaCava,
+        useBoldItalic: true,
+        onlyVowel: onlyVowels,
+        format: gabcFormat,
+        verseNumber: "",
+        prefix: false,
+        suffix: false,
+        italicizeIntonation: false,
+        favor: 'termination'
+      }) + gabc;
   }
   var header = getHeader(localStorage.psalmHeader||'');
   header["centering-scheme"] = selLang;
