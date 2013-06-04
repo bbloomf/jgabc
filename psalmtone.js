@@ -14,6 +14,12 @@ var gloria_patri_end_vowels = "E u o* u a* e.";
 var algorithmTwoBefore = true; //count as an accent the syllable two prior to the next accent
 var algorithmTwoAfter = false; //count as an accent the syllable two after the last accent
 var bi_formats;
+var gabcStar;
+if(localStorage.gabcStar) {
+  gabcStar = localStorage.gabcStar;
+} else {
+  gabcStar = '<v>\\greheightstar</v>'
+}
 String.prototype.format = function(keys){
   return this.replace(/\$([a-z]+)/gi,function(e){return keys[e.slice(1)]||e;});
 }

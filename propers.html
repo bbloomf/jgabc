@@ -18,6 +18,8 @@
 <style>
 textarea {
   padding:0;
+  width:100%;
+  min-height:100px;
 }
 .tap {
   padding-right:2px;
@@ -29,18 +31,24 @@ textarea {
   border:1px solid #aaa;
   overflow-y:auto;
   width:100%;
+  min-height:121px
 }
 .chant-preview{
   margin:0.1in auto auto;
 }
 </style>
 <body class='sans' style="margin:8px;">
-  <select id="selDay"><option>Select a Sunday...</option></select>
-  <br/>
   <table width="100%" style="margin-left:-2px;margin-top:-2px">
     <tr><td width="50%">
-      <label for="txtIntroitus"><a target="_blank">Introitus</a></label><br/>
-      <div class="tap"><textarea id="txtIntroitus" style='width:100%;min-height:200px'></textarea></div>
+      <select id="selDay" style='margin:0'><option>Select a Sunday...</option></select>
+      <select id="selStyle" style='margin:1px 0 0;float:right'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
+    </td><td width="50%">
+    </td></tr>
+    <tr><td width="50%">
+      <label for="txtIntroitus"><a target="_blank">Introitus</a></label>
+      <select id="selStyleIntroitus" style='margin:1px 0 0;float:right'><option value='full'>Full Introit</option><option value='psalm-tone'>Psalm Toned</option></select>
+      <br/>
+      <div class="tap"><textarea id="txtIntroitus"></textarea></div>
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="introitus-preview-container" class='preview-container'>
@@ -49,8 +57,10 @@ textarea {
       </div>
     </td></tr>
     <tr id="divGraduale"><td width="50%">
-      <label for="txtGraduale"><a target="_blank">Graduale</a></label><br/>
-      <div class="tap"><textarea id="txtGraduale" style='width:100%;min-height:200px'></textarea></div>
+      <label for="txtGraduale"><a target="_blank">Graduale</a></label>
+      <select id="selStyleGraduale" style='margin:1px 0 0;float:right'><option value='full'>Full Gradual</option><option value='psalm-tone'>Psalm Toned</option></select>
+      <br/>
+      <div class="tap"><textarea id="txtGraduale"></textarea></div>
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="graduale-preview-container" class='preview-container'>
@@ -59,8 +69,10 @@ textarea {
       </div>
     </td></tr>
     <tr id="divTractus"><td width="50%">
-      <label for="txtTractus"><a target="_blank">Tractus</a></label><br/>
-      <div class='tap'><textarea id="txtTractus" style='width:100%;min-height:200px'></textarea></div>
+      <label for="txtTractus"><a target="_blank">Tractus</a></label>
+      <select id="selStyleTractus" style='margin:1px 0 0;float:right'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
+      <br/>
+      <div class='tap'><textarea id="txtTractus"></textarea></div>
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="tractus-preview-container" class='preview-container'>
@@ -69,8 +81,10 @@ textarea {
       </div>
     </td></tr>
     <tr id="divAlleluia"><td width="50%">
-      <label for="txtAlleluia"><a target="_blank">Alleluia</a></label><br/>
-      <div class='tap'><textarea id="txtAlleluia" style='width:100%;min-height:200px'></textarea></div>
+      <label for="txtAlleluia"><a target="_blank">Alleluia</a></label>
+      <select id="selStyleAlleluia" style='margin:1px 0 0;float:right'><option value='full'>Full Alleluia</option><option value='psalm-tone'>Psalm Toned</option></select>
+      <br/>
+      <div class='tap'><textarea id="txtAlleluia"></textarea></div>
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="alleluia-preview-container" class='preview-container'>
@@ -79,8 +93,10 @@ textarea {
       </div>
     </td></tr>
     <tr><td width="50%">
-      <label for="txtOffertorium"><a target="_blank">Offertorium</a></label><br/>
-      <div class='tap'><textarea id="txtOffertorium" style='width:100%;min-height:200px'></textarea></div>
+      <label for="txtOffertorium"><a target="_blank">Offertorium</a></label>
+      <select id="selStyleOffertorium" style='margin:1px 0 0;float:right'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
+      <br/>
+      <div class='tap'><textarea id="txtOffertorium"></textarea></div>
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="offertorium-preview-container" class='preview-container'>
@@ -89,8 +105,10 @@ textarea {
       </div>
     </td></tr>
     <tr><td width="50%">
-      <label for="txtCommunio"><a target="_blank">Communio</a></label><br/>
-      <div class='tap'><textarea id="txtCommunio" style='width:100%;min-height:200px'></textarea></div>
+      <label for="txtCommunio"><a target="_blank">Communio</a></label>
+      <select id="selStyleCommunio" style='margin:1px 0 0;float:right'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
+      <br/>
+      <div class='tap'><textarea id="txtCommunio"></textarea></div>
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="communio-preview-container" class='preview-container'>

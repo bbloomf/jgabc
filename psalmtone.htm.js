@@ -5,7 +5,6 @@ var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
 var useFormat,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
 var includeGloriaPatri;
-var gabcStar;
 function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   var actuallyUpdate=(typeof(_syl)=="undefined");
   if(!gSyl) gSyl = $("#versegabc").val();
@@ -662,11 +661,6 @@ $(function() {
         bi_formats[i] = o_bi_formats[i];
       }
     }
-  }
-  if(localStorage.gabcStar) {
-    gabcStar = localStorage.gabcStar;
-  } else {
-    gabcStar = '<v>\\greheightstar</v>'
   }
   $("#txtGabcStar").val(gabcStar).keyup(updateVerseGabcStar);
   $("label[title][for]").each(function() {

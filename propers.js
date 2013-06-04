@@ -11,8 +11,7 @@ var partAbbrev = {
   offertorium:'Offert.',
   introitus:'Intr.',
   graduale:'Grad.',
-  communio:'Comm.',
-  alleluia:''
+  communio:'Comm.'
 };
 $(function(){
   var removeDiacritics=function(string) {
@@ -78,21 +77,18 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
     if(id) {
-      var $txt = $('#txt'+capPart),
-          $preview = $('#'+part+'-preview');
+      var $txt = $('#txt'+capPart);
       $($txt.prop('labels')).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
       $div.show();
       $.get('gabc/'+id+'.gabc',function(gabc){
         gabc = gabc.replace(/\s+$/,'');
         var header = getHeader(gabc);
-        header.annotation = partAbbrev[part];
+        header.annotation = partAbbrev[part] || header.mode || '';
         gabc = header + gabc.slice(header.original.length);
         sel[part].gabc = gabc;
-        sel[part].text = versify(decompile(gabc,true));
         sel[part].mode = header.mode;
-        $txt.val(sel[part].text);
-        updateChant(gabc,$preview[0],true)
-        $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
+        sel[part].text = versify(decompile(gabc,true));
+        updateTextAndChantForPart(part);
       });
     } else {
       $div.hide();
@@ -288,6 +284,9 @@ $(function(){
           verses.push(split.slice(i,j).join('*'));
           i = j;
         }
+        if(j == split.length && j>i) {
+          verses.push(split.slice(i,j).join('*'));
+        }
       }
       return verses;
     } else {
@@ -334,7 +333,157 @@ $(function(){
         result += normalizeMediant(verses[j]) + '\n';
       }
     }
-    return result.slice(0,-1);
+    return result.replace(/^\s+|\s+$/,'');
+  }
+  
+  var updateStyle = function(part,style){
+    if(sel[part].style != style) {
+      sel[part].style = style;
+      updateTextAndChantForPart(part);
+    }
+  }
+  
+  var capitalizeForBigInitial = function(text) {
+    m = text.match(regexLatin);
+    m = m && m[0].match(/^[a-z]+/i);
+    if(m) {
+      m = m[0];
+      result = m[0].toUpperCase();
+      if(m[1]) {
+        result += m[1].toUpperCase();
+        if(m[2] && m.length==3 && (text[3]==' ' || text[3]==',')) {
+          result += m[2].toUpperCase();
+        }
+      }
+    }
+    return result + text.slice(result.length);
+  }
+  
+  var getPsalmToneForPart = function(part){
+    var tone;
+    var header = getHeader(sel[part].gabc);
+    if(part=='introitus' || part=='alleluia') {
+      tone = g_tones['Introit ' + header.mode];
+    } else {
+      tone = g_tones[header.mode + '.'];
+    }
+    _clef = tone.clef;
+    var gMediant = tone.solemn || tone.mediant;
+    var gTermination = tone.termination;
+    if(!gTermination) {
+      for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
+    }
+    var gabc;
+    var lines;
+    if(part=='alleluia') {
+      var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
+      gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
+      lines = sel[part].text.split('\n');
+      lines.splice(0,1);
+    } else {
+      gabc = header + '(' + tone.clef + ') ';
+      lines = capitalizeForBigInitial(sel[part].text).split('\n');
+    }
+    
+    var firstVerse = true;
+    var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
+    for(var i=0; i<lines.length; ++i) {
+      var line = splitLine(lines[i]);
+      if(firstVerse || asGabc) {
+        var result={shortened:false};
+        gabc += applyPsalmTone({
+          text: line[0].trim(),
+          gabc: gMediant,
+          useOpenNotes: false,
+          useBoldItalic: false,
+          onlyVowel: false,
+          format: bi_formats.gabc,
+          verseNumber: i+1,
+          prefix: !firstVerse,
+          suffix: false,
+          italicizeIntonation: false,
+          result: result,
+          favor: 'intonation'
+        }) + (line.length == 1? "" : bi_formats.gabc.nbsp + gabcStar + "(:) " +
+          applyPsalmTone({
+            text: line[1].trim(),
+            gabc: gTermination,
+            useOpenNotes: false,
+            useBoldItalic: false,
+            onlyVowel: false,
+            format: bi_formats.gabc,
+            verseNumber: i+1,
+            prefix: false,
+            suffix: true,
+            italicizeIntonation: false,
+            favor: 'termination'
+          })) + " (::)\n";
+        if(i==0) {
+          //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
+          flex = (line[0].indexOf(sym_flex) >= 0);
+        }
+        if(!result.shortened)firstVerse=false;
+      } /*else {
+        if(gabc && !flex) {
+          var flexI = line[0].indexOf(sym_flex);
+          if(flexI >= 0) {
+            var syls = getSyllables(line[0].slice(0,flexI));
+            var index = syls.length - 1;
+            syls[index].punctuation += ' ' + sym_flex;
+            syls[index].space = "";
+            var sylcount = syls[index].word.length;
+            index -= sylcount - 1;
+            while((syls.length - index) < 3) {
+              --index;
+              sylcount = syls[index].word.length;
+              index -= sylcount - 1;
+            }
+            syls.splice(0,index);
+            gabc += "<i>Flex :</i>() " + applyPsalmTone({
+              text: syls,
+              gabc: getFlexGabc(medTones),
+              useOpenNotes: false,
+              useBoldItalic: false,
+              onlyVowel: onlyVowels,
+              format: gabcFormat
+            });
+            gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
+            flex = true;
+          }
+        }
+        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true)
+            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true));
+        vr += tempString + '\n';
+        r += "<p style='line-height:100%;margin: 6pt 0px;'>"
+          + tempString
+          + "</p>";
+      } */
+    }
+    
+    
+    return gabc;
+  }
+  
+  var updateTextAndChantForPart = function(part) {
+    var gabc,
+        capPart = part[0].toUpperCase()+part.slice(1),
+        $div = $('#div'+capPart),
+        $txt = $('#txt'+capPart),
+        $preview = $('#'+part+'-preview');
+    switch(sel[part].style) {
+      case 'full':
+        $txt.val(sel[part].gabc);
+        gabc = sel[part].gabc;
+        break;
+      case 'psalm-tone':
+        $txt.val(sel[part].text);
+        gabc = getPsalmToneForPart(part);
+        break;
+      default:
+        return;
+    }
+    updateChant(gabc,$preview[0],true);
+    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
   }
 
   
@@ -345,5 +494,17 @@ $(function(){
     $selDay.append($temp);
   });
   $('textarea').autosize().keydown(internationalTextBoxKeyDown);
-  //$('.preview-container').height(function(){return $(this).parent().height();});
+  $('select[id^=selStyle]').change(function(e){
+    var style=this.value;
+    if(this.id=='selStyle') {
+      if(style!='mixed') {
+        $('select[id^=selStyle]:not(#selStyle)').val(style).each(function(i,o){updateStyle(o.id.slice(8).toLowerCase(),style);});
+      }
+    } else {
+      updateStyle(this.id.slice(8).toLowerCase(),style);
+      $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(style!=o.value){style='mixed';return false;}});
+      $('#selStyle').val(style);
+    }
+  });
+  $('#selStyle').change();
 });
