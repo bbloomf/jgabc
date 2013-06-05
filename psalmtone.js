@@ -133,7 +133,7 @@ var o_g_tones =
                           "mediant":"e fe eh hr hg hi i 'hi hr h.",
                           "termination":"hf fh hr i hf h ge fgf."},
              "Introit 3":{"clef":"c4",
-                          "mediant":"g hj jr 'k jr jr 'ih~ jjj",
+                          "mediant":"g hj jr 'k jr jr 'ih jjj",
                           "termination":"ig hj jr j/ji hg h i gh.."},
              "Introit 4":{"clef":"c4",
                           "mediant":"hg gh hr hg gi i 'hi hr h.",
@@ -1200,9 +1200,19 @@ var internationalTextBoxKeyDown = (function(){
     }
   }
 })();
+function shiftGabc(gabc,shift) {
+  var newGabc = '';
+  for(var i=gabc.length - 1; i>=0; --i) {
+    var c = gabc[i];
+    if(parseInt(c,23)>9)newGabc = String.fromCharCode(c.charCodeAt(0) + shift) + newGabc;
+      else newGabc = c + newGabc;
+  }
+  return newGabc;
+}
 window['getPsalm'] = getPsalm;
 window['getPsalmTones'] = getPsalmTones;
 window['getEndings'] = getEndings;
 window['applyPsalmTone'] = applyPsalmTone;
 window['getSyllables'] = getSyllables;
 window['addBoldItalic'] = addBoldItalic;
+window['shiftGabc'] = shiftGabc;

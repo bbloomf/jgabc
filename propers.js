@@ -359,6 +359,50 @@ $(function(){
     return result + text.slice(result.length);
   }
   
+  var shiftGabcForClefChange = function(gabc,oldClef,newClef) {
+    if(newClef.length < 2)return;
+    var baseClefI = parseInt(oldClef[1],10);
+    var clefI = parseInt(newClef[1],10);
+    var diff = (baseClefI - clefI) * 2;
+    return shiftGabc(gabc,diff);
+  }
+  
+  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination) {
+    var gp = "Glória Pátri, et Fílio, et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
+    var result = applyPsalmTone({
+      text: gp[0],
+      gabc: gMediant,
+      format: bi_formats.gabc
+    });
+    result = result.replace(/o,\([^)]+/,function(m){return m+'.) (,';}) + ' *(:) ';
+    
+    var match = gTermination.match(/([^r]+)\s+[a-m]r\s/);
+    var gTertium = match[1];
+    // a hack for Introit tone 6.
+    match = gTertium.match(/^\([^)]+\)\s+'/);
+    if(match) {
+      gTertium = match[0] + gMediant.match(/\s([a-m])r\s/)[1];
+    }
+    match = gMediant.match(/\s[a-m]r\s+.+$/);
+    gTertium += match[0];
+    gp[1] = gp[1].split('*');
+    var temp = applyPsalmTone({
+      text: gp[1][0].trim(),
+      gabc: gTertium,
+      format: bi_formats.gabc
+    });
+    result += temp.replace(/o,\([^)]+/,function(m){return m+'.) (,';}) + ' (:) ';
+    result = result.replace(/(?:s[eé]m|s[aá]n)\([^)]*([a-m])([a-l])\)/ig,function(m,first,second){
+      if(first>second) return m.slice(0,-1) + '~)';
+      return m;
+    });
+    return result + applyPsalmTone({
+      text: gp[1][1].trim(),
+      gabc: gTermination,
+      format: bi_formats.gabc
+    }) + " (::)\n";
+  }
+  
   var getPsalmToneForPart = function(part){
     var tone;
     var header = getHeader(sel[part].gabc);
@@ -378,6 +422,14 @@ $(function(){
     if(part=='alleluia') {
       var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
       gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
+      var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+      if(clef) {
+        clef = clef[1];
+        if(clef != _clef) {
+          gMediant = shiftGabcForClefChange(gMediant,clef,_clef);
+          gTermination = shiftGabcForClefChange(gTermination,clef,_clef);
+        }
+      }
       lines = sel[part].text.split('\n');
       lines.splice(0,1);
     } else {
@@ -389,7 +441,12 @@ $(function(){
     var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
     for(var i=0; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
-      if(firstVerse || asGabc) {
+      // special case for gloria patri.
+      if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
+          lines[i+1] && removeDiacritics(lines[i+1]).match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
+        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination);
+        ++i;
+      } else if(firstVerse || asGabc) {
         var result={shortened:false};
         gabc += applyPsalmTone({
           text: line[0].trim(),

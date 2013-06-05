@@ -297,16 +297,6 @@ function updateGloriaPatri() {
   updateText();
 }
 
-function shiftGabc(gabc,shift) {
-  var newGabc = [];
-  for(var i=gabc.length - 1; i>=0; --i) {
-    var c = gabc[i];
-    if(parseInt(c,23)>9)newGabc.push(String.fromCharCode(c.charCodeAt(0) + shift));
-      else newGabc.push(c);
-  }
-  return newGabc.reverse().join("");
-}
-
 function updateClef() {
   var clef = $("#txtClef").val();
   if(clef.length < 2)return;
