@@ -13,6 +13,13 @@ var partAbbrev = {
   graduale:'Grad.',
   communio:'Comm.'
 };
+var defaultTermination={
+  '1':'f',
+  '3':'a',
+  '4':'E',
+  '7':'a',
+  '8':'G'
+}
 $(function(){
   var removeDiacritics=function(string) {
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -234,7 +241,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/Israel/g,'Israël');
     return s;
   };
   var getSylCount = function(splitArray) {
@@ -305,7 +312,7 @@ $(function(){
       var left = sum(syls.slice(0,i));
       var right = sum(syls.slice(i));
       if(left >= right || i==(arrayVerse.length-1)) {
-        var result = (arrayVerse.slice(0,i).join('') + '*' + arrayVerse.slice(i)).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
+        var result = (arrayVerse.slice(0,i).join('') + '*' + arrayVerse.slice(i).join('')).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
         return result[0].toUpperCase() + result.slice(1);
       }
     }
@@ -602,6 +609,7 @@ $(function(){
       $selEnding.hide();
     } else {
       $selEnding.empty().append('<option>' + endings.join('</option><option>') + '</option>');
+      $selEnding.val(defaultTermination[this.value]);
       sel[part].termination = $selEnding.val();
       if(sel[part].style == 'psalm-tone') $selEnding.show();
     }
