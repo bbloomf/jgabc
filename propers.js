@@ -86,9 +86,8 @@ $(function(){
         header.annotation = partAbbrev[part] || header.mode || '';
         gabc = header + gabc.slice(header.original.length);
         sel[part].gabc = gabc;
-        sel[part].mode = header.mode;
         sel[part].text = versify(decompile(gabc,true));
-        updateTextAndChantForPart(part);
+        $('#selTone' + capPart).val(header.mode).change();
       });
     } else {
       $div.hide();
@@ -339,7 +338,24 @@ $(function(){
   var updateStyle = function(part,style){
     if(sel[part].style != style) {
       sel[part].style = style;
-      updateTextAndChantForPart(part);
+      var capPart = part[0].toUpperCase() + part.slice(1);
+      var $selToneEnding = $('#selToneEnding' + capPart),
+          $selTone = $('#selTone' + capPart),
+          $cbSolemn = $('#cbSolemn' + capPart);
+      if(style == 'psalm-tone') {
+        $selToneEnding.show();
+        $cbSolemn.show();
+        $selTone.attr('disabled',false);
+      } else {
+        $selToneEnding.hide();
+        $cbSolemn.hide();
+        var gabc = sel[part].gabc;
+        $selTone.attr('disabled',true);
+        if(gabc) {
+          $selTone.val(getHeader(gabc).mode);
+        }
+      }
+      $selTone.change();
     }
   }
   
@@ -367,6 +383,13 @@ $(function(){
     return shiftGabc(gabc,diff);
   }
   
+  var applyLiquescents = function(gabc){
+    return gabc.replace(/[aeiouyáéíóúýæǽœ][mn]\([^)]*([a-m])([a-l])\)/ig,function(m,first,second){
+      if(first>second) return m.slice(0,-1) + '~)';
+      return m;
+    });
+  }
+  
   var psalmToneIntroitGloriaPatri = function(gMediant,gTermination) {
     var gp = "Glória Pátri, et Fílio, et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
@@ -392,10 +415,6 @@ $(function(){
       format: bi_formats.gabc
     });
     result += temp.replace(/o,\([^)]+/,function(m){return m+'.) (,';}) + ' (:) ';
-    result = result.replace(/(?:s[eé]m|s[aá]n)\([^)]*([a-m])([a-l])\)/ig,function(m,first,second){
-      if(first>second) return m.slice(0,-1) + '~)';
-      return m;
-    });
     return result + applyPsalmTone({
       text: gp[1][1].trim(),
       gabc: gTermination,
@@ -404,18 +423,25 @@ $(function(){
   }
   
   var getPsalmToneForPart = function(part){
+    if(!sel[part].text) return;
     var tone;
-    var header = getHeader(sel[part].gabc);
+    var header = getHeader(sel[part].gabc||'');
+    var termination = sel[part].termination;
+    var mode = sel[part].mode;
+    var solemn = sel[part].solemn;
     if(part=='introitus' || part=='alleluia') {
-      tone = g_tones['Introit ' + header.mode];
+      tone = g_tones['Introit ' + mode];
     } else {
-      tone = g_tones[header.mode + '.'];
+      tone = g_tones[mode + '.'];
     }
+    if(!tone) return;
     _clef = tone.clef;
-    var gMediant = tone.solemn || tone.mediant;
+    var gMediant = (solemn && tone.solemn) || tone.mediant;
     var gTermination = tone.termination;
     if(!gTermination) {
-      for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
+      if(!(gTermination = tone.terminations[termination])) {
+        for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
+      }
     }
     var gabc;
     var lines;
@@ -518,7 +544,7 @@ $(function(){
     }
     
     
-    return gabc;
+    return applyLiquescents(gabc);
   }
   
   var updateTextAndChantForPart = function(part) {
@@ -564,4 +590,37 @@ $(function(){
     }
   });
   $('#selStyle').change();
+  $('select.tones').change(function(e){
+    //update endings for this tone.
+    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase();
+    sel[part].mode = this.value;
+    $selEnding = $('#selToneEnding' + capPart);
+    var tone = this.value + '.',
+        endings = getEndings(tone);
+    if(endings.length==0) {
+      $selEnding.hide();
+    } else {
+      $selEnding.empty().append('<option>' + endings.join('</option><option>') + '</option>');
+      sel[part].termination = $selEnding.val();
+      if(sel[part].style == 'psalm-tone') $selEnding.show();
+    }
+    updateTextAndChantForPart(part);
+  });
+  $('select.endings').change(function(e){
+    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase();
+    sel[part].termination = this.value;
+    updateTextAndChantForPart(part);
+  });
+  $('input.cbSolemn').change(function(e){
+    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase();
+    sel[part].solemn = this.checked;
+    updateTextAndChantForPart(part);
+  });
+  var $selTones = $('select.tones');
+  for(var i=1; i<=8; ++i) {
+    $selTones.append('<option>'+i+'</option>');
+  }
 });
