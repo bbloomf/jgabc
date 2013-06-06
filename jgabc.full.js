@@ -355,6 +355,13 @@ function Header(text){
       var line=lines[i],
           match = regexHeaderLine.exec(line);
       if(match){
+        if(this[match[1]]) {
+          var arrayName=match[1]+'Array';
+          if(!this[arrayName]){
+            this[arrayName] = [this[match[1]]];
+          }
+          this[arrayName].push(match[2]);
+        }
         this[match[1]]=match[2];
       } else if((match = regexHeaderComment.exec(line))){
         if(line!='%%'){
@@ -372,8 +379,15 @@ function Header(text){
 Header.prototype.toString = function(){
   var result=[];
   for(key in this){
-    if(key=='length' || key=='original' || key=='comments' || key=='cValues' || (typeof this[key])=="function")continue;
-    result .push(key + ': ' + this[key] + ';');
+    if(key=='length' || key=='original' || key=='comments' || key=='cValues' || (typeof this[key])!="string")continue;
+    var array = this[key+'Array'];
+    if(array) {
+      for(i in array) {
+        result.push(key + ': ' + array[i] + ';');
+      }
+    } else {
+      result.push(key + ': ' + this[key] + ';');
+    }
   }
   for(key in this.cValues){
     if(key.length==0)continue;

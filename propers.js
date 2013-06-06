@@ -1,3 +1,4 @@
+var gabcStar = '*';
 var selDay,selPropers,sel={
   tractus:{},
   offertorium:{},
@@ -89,7 +90,7 @@ $(function(){
       $($txt.prop('labels')).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
       $div.show();
       $.get('gabc/'+id+'.gabc',function(gabc){
-        gabc = gabc.replace(/\s+$/,'');
+        gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
         header.annotation = partAbbrev[part] || header.mode || '';
         gabc = header + gabc.slice(header.original.length);
@@ -592,6 +593,7 @@ $(function(){
       default:
         return;
     }
+    sel[part].activeGabc = gabc;
     updateChant(gabc,$preview[0],instant);
     $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
   }
@@ -661,5 +663,21 @@ $(function(){
       sel[part].gabc = this.value;
       updateTextAndChantForPart(part,false);
     }
+  });
+  $('#lnkPdf').click(function(e){
+    var result='';
+    $('textarea[id^=txt]:visible').each(function(i,o){
+      var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+          part = capPart.toLowerCase(),
+          proper = sel[part],
+          gabc = proper.activeGabc,
+          header = getHeader(gabc);
+      header.name = '';
+      header['%font'] = 'GaramondPremierPro';
+      header['%width'] = '7.5';
+      gabc = header + gabc.slice(header.original.length);
+      result += gabc + '\n\n';
+    });
+    $('#pdfForm').attr('action','http://illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
   });
 });

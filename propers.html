@@ -47,6 +47,10 @@ label.sel-label{
 }
 </style>
 <body class='sans' style="margin:8px;">
+  <form id="pdfForm" target="_blank" method="get" action="http://illuminarepublications.com/gregorio/">
+    <input type='hidden' name='pdf' value='1'/>
+    <input type='hidden' name='crop' value='0'/>
+  </form>
   <table width="100%" style="margin-left:-2px;margin-top:-2px">
     <tr><td width="50%">
       <select id="selDay" style='margin:0'><option>Select a Sunday...</option></select>
@@ -54,6 +58,9 @@ label.sel-label{
         <select id="selStyle" class='sel-style'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
     </td><td width="50%">
+      <div class='right'>
+        <a href='#' id='lnkPdf'>PDF</a>
+      </div>
     </td></tr>
     <tr><td width="50%">
       <label for="txtIntroitus"><a target="_blank">Introitus</a></label>
