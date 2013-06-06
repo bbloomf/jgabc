@@ -6,21 +6,22 @@ var selDay,selPropers,sel={
   communio:{},
   alleluia:{}
 }
-var partAbbrev = {
-  tractus:'Tract.',
-  offertorium:'Offert.',
-  introitus:'Intr.',
-  graduale:'Grad.',
-  communio:'Comm.'
-};
-var defaultTermination={
-  '1':'f',
-  '3':'a',
-  '4':'E',
-  '7':'a',
-  '8':'G'
-}
 $(function(){
+  var partAbbrev = {
+    tractus:'Tract.',
+    offertorium:'Offert.',
+    introitus:'Intr.',
+    graduale:'Grad.',
+    communio:'Comm.'
+  };
+  var defaultTermination={
+    '1':'f',
+    '3':'a',
+    '4':'E',
+    '7':'a',
+    '8':'G'
+  }
+  var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
   var removeDiacritics=function(string) {
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
   };
@@ -391,13 +392,13 @@ $(function(){
   }
   
   var applyLiquescents = function(gabc){
-    return gabc.replace(/[aeiouyáéíóúýæǽœ][mn]\([^)]*([a-m])([a-l])\)/ig,function(m,first,second){
+    return gabc.replace(/[aeiouyáéíóúýæǽœ][mn]\([^)]*([a-m])([a-l])\)(?=\S)/ig,function(m,first,second){
       if(first>second) return m.slice(0,-1) + '~)';
       return m;
     });
   }
   
-  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination) {
+  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones) {
     var gp = "Glória Pátri, et Fílio, et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
       text: gp[0],
@@ -422,11 +423,23 @@ $(function(){
       format: bi_formats.gabc
     });
     result += temp.replace(/o,\([^)]+/,function(m){return m+'.) (,';}) + ' (:) ';
-    return result + applyPsalmTone({
+    temp = applyPsalmTone({
       text: gp[1][1].trim(),
       gabc: gTermination,
       format: bi_formats.gabc
-    }) + " (::)\n";
+    });
+    if(gAmenTones){
+      for(var i=2,index=temp.length; i>0; --i) {
+        index = 1 + temp.lastIndexOf('(',index-2);
+        if(index>0) {
+          var index2 = temp.indexOf(')',index);
+          if(index2>=0) {
+            temp = temp.slice(0,index) + gAmenTones[i] + temp.slice(index2);
+          }
+        }
+      }
+    }
+    return result + temp + " (::)\n";
   }
   
   var getPsalmToneForPart = function(part){
@@ -477,7 +490,13 @@ $(function(){
       // special case for gloria patri.
       if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
           lines[i+1] && removeDiacritics(lines[i+1]).match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
-        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination);
+        var gAmenTones;
+        var originalGabc = sel[part].gabc;
+        var header;
+        if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
+          gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
+        }
+        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones);
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
@@ -554,12 +573,13 @@ $(function(){
     return applyLiquescents(gabc);
   }
   
-  var updateTextAndChantForPart = function(part) {
+  var updateTextAndChantForPart = function(part,instant) {
     var gabc,
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
         $txt = $('#txt'+capPart),
-        $preview = $('#'+part+'-preview');
+        $preview = $('#'+part+'-preview'),
+        instant = (instant !== false);
     switch(sel[part].style) {
       case 'full':
         $txt.val(sel[part].gabc);
@@ -572,7 +592,7 @@ $(function(){
       default:
         return;
     }
-    updateChant(gabc,$preview[0],true);
+    updateChant(gabc,$preview[0],instant);
     $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
   }
 
@@ -631,4 +651,15 @@ $(function(){
   for(var i=1; i<=8; ++i) {
     $selTones.append('<option>'+i+'</option>');
   }
+  $('textarea[id^=txt]').keyup(function(e){
+    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase();
+    if(sel[part].style == 'psalm-tone' && sel[part].text != this.value) {
+      sel[part].text = this.value;
+      updateTextAndChantForPart(part,false);
+    } else if(sel[part].style == 'full' && sel[part].gabc != this.value) {
+      sel[part].gabc = this.value;
+      updateTextAndChantForPart(part,false);
+    }
+  });
 });
