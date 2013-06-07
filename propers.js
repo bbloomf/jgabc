@@ -413,13 +413,15 @@ $(function(){
   }
   
   var getPsalmToneForPart = function(part){
-    if(!sel[part].text) return;
+    var text = sel[part].text;
+    if(!text) return;
     var tone;
     var header = getHeader(sel[part].gabc||'');
     var termination = sel[part].termination;
     var mode = sel[part].mode;
     var solemn = sel[part].solemn;
-    if(part=='introitus' || part=='alleluia') {
+    var isAlleluia = (part=='alleluia' || (part=='graduale' && removeDiacritics(text).match(/^allelu[ij]a/i)));
+    if(part=='introitus' || isAlleluia) {
       tone = g_tones['Introit ' + mode];
     } else {
       tone = g_tones[mode + '.'];
@@ -435,7 +437,7 @@ $(function(){
     }
     var gabc;
     var lines;
-    if(part=='alleluia') {
+    if(isAlleluia) {
       var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
       gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
       var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
