@@ -8,7 +8,7 @@
   <script src="jquery.min.js" type="text/javascript"></script>
   <script src="jquery.autosize-min.js"></script>
   <script src="jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
-  <script src="jgabc.full.js"></script>
+  <script src="jgabc.js"></script>
   <script src="psalmtone.js"></script>
   <script src="sink.js"></script>
   <script src="audiolet.js"></script>
@@ -48,18 +48,29 @@ label.sel-label{
 </style>
 <body class='sans' style="margin:8px;">
   <form id="pdfForm" target="_blank" method="get" action="http://illuminarepublications.com/gregorio/">
-    <input type='hidden' name='pdf' value='1'/>
+    <!--<input type='hidden' name='pdf' value='1'/>-->
     <input type='hidden' name='crop' value='0'/>
+  </form>
+  <form id="pdfFormDirect" target="_blank" method="post" action="http://illuminarepublications.com/gregorio/process.php">
+    <input type="hidden" id="pdff_gabc" name="gabc[]"/>
+    <input type="hidden" id="pdff_width" name="width" value="7.5"/>
+    <input type="hidden" id="pdff_height" name="height" value="11"/>
+    <input type="hidden" id="pdff_croppdf" name="croppdf" value="false"/>
+    <input type="hidden" id="pdff_spacing" value="vichi" name="spacing"/>
+    <input type="hidden" id="pdff_font" value="GaramondPremierPro" name="font"/>
+    <input type="hidden" id="pdff_fontsize" value="12" name="fontsize"/>
+    <input type="hidden" id="pdff_fmt" name="fmt" value="pdf"/>
   </form>
   <table width="100%" style="margin-left:-2px;margin-top:-2px">
     <tr><td width="50%">
-      <select id="selDay" style='margin:0'><option>Select a Sunday...</option></select>
+      <select id="selDay" style='margin:0'></select>
       <div class='right'>
         <select id="selStyle" class='sel-style'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
     </td><td width="50%">
       <div class='right'>
-        <a href='#' id='lnkPdf'>PDF</a>
+        <a href='#' id='lnkPdfDirect'>(PDF)</a>
+        <a href='#' id='lnkPdf'>(Further PDF options)</a>
       </div>
     </td></tr>
     <tr><td width="50%">

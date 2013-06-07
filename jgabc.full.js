@@ -361,8 +361,9 @@ function Header(text){
             this[arrayName] = [this[match[1]]];
           }
           this[arrayName].push(match[2]);
+        } else {
+          this[match[1]]=match[2];
         }
-        this[match[1]]=match[2];
       } else if((match = regexHeaderComment.exec(line))){
         if(line!='%%'){
           match = regexHeaderLine.exec(line.slice(1));

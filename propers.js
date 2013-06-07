@@ -81,6 +81,7 @@ $(function(){
     }
     return result;
   }
+  var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part) {
     var id = selPropers[part+'ID'];
     var capPart = part[0].toUpperCase()+part.slice(1);
@@ -92,7 +93,13 @@ $(function(){
       $.get('gabc/'+id+'.gabc',function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
-        header.annotation = partAbbrev[part] || header.mode || '';
+        var romanMode = romanNumeral[header.mode];
+        if(partAbbrev[part]) {
+          header.annotation = partAbbrev[part];
+          header.annotationArray = [header.annotation, romanMode];
+        } else {
+          header.annotation = romanMode;
+        }
         gabc = header + gabc.slice(header.original.length);
         sel[part].gabc = gabc;
         sel[part].text = versify(decompile(gabc,true));
@@ -116,26 +123,7 @@ $(function(){
   };
   
   
-  var splitGabc = function(gabc,offset) {
-    var gSyl = [];
-    regexGabc.exec('');
-    while((match = regexGabc.exec(gabc))) {
-      var tone,tones=[];
-      regexTones.exec('');
-      while((tone=regexTones.exec(match[1]))){
-        tones.push(tone[0]);
-      }
-      gSyl.push({match: match,
-                 hasSyllable: match[5],
-                 gabc: '(' + match[1] + ')',
-                 isClef: match[4],
-                 isBar: match[3],
-                 tones: tones,
-                 index: match.index + offset
-                });
-    }
-    return gSyl;
-  };
+  
   var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
     regexOuter.exec('');
     var curClef;
@@ -177,7 +165,7 @@ $(function(){
         else if(match[rog.gabc].indexOf(':')>=0) text.push(' % ');
         else if(match[rog.gabc].indexOf(';')>=0) text.push(' | ');
       }
-      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^[:;,\s]*$/))){
+      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^[:;,\s]*$/) || syl.match(/<i>Ps\.?<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
         hasElisions = hasElisions||(syl!=sylR);
         text.push(sylR);
@@ -488,6 +476,11 @@ $(function(){
     var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
     for(var i=0; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
+      var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
+      if(italicNote) {
+        italicNote = italicNote[0];
+        line[0] = line[0].slice(italicNote.length);
+      }
       // special case for gloria patri.
       if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
           lines[i+1] && removeDiacritics(lines[i+1]).match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
@@ -501,7 +494,7 @@ $(function(){
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
-        gabc += applyPsalmTone({
+        gabc += (italicNote||'') + applyPsalmTone({
           text: line[0].trim(),
           gabc: gMediant,
           useOpenNotes: false,
@@ -509,7 +502,7 @@ $(function(){
           onlyVowel: false,
           format: bi_formats.gabc,
           verseNumber: i+1,
-          prefix: !firstVerse,
+          prefix: !firstVerse && !italicNote,
           suffix: false,
           italicizeIntonation: false,
           result: result,
@@ -597,12 +590,42 @@ $(function(){
     updateChant(gabc,$preview[0],instant);
     $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
   }
+  
+  
+  var splitGabc = function(gabc){
+    var result=[];
+    var lines=gabc.split(/\r?\n/);
+    var state=0;
+    var current='';
+    lines.forEach(function(line){
+      switch(state){
+        case 0:
+          if(line.match(/^%%$/))state=1;
+          break;
+        case 1:
+          if(line.match(/^\s*[-\w]+:[^;]+;\s*$/)){
+            state=0;
+            result.push(current);
+            current='';
+          }
+          break;
+      }
+      current += line + '\n';
+    });
+    if(current.length)result.push(current);
+    return result;
+  }
 
   
   var $selDay = $('#selDay').change(selectedDay);
+  var key = navigator.language.match(/en/)?'en':'title';
   $.each(sundayKeys,function(i,o){
-    var $temp = $('<option>'+ o.title +'</option>');
-    $temp.val(o.key);
+    var $temp = $('<option>'+ o[key] +'</option>');
+    if(o.key) {
+      $temp.val(o.key);
+    } else {
+      $temp.attr('disabled',true);
+    }
     $selDay.append($temp);
   });
   $('textarea').autosize().keydown(internationalTextBoxKeyDown);
@@ -664,8 +687,8 @@ $(function(){
       updateTextAndChantForPart(part,false);
     }
   });
-  $('#lnkPdf').click(function(e){
-    var result='';
+  var getAllGabc = function() {
+    var result=[];
     $('textarea[id^=txt]:visible').each(function(i,o){
       var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
           part = capPart.toLowerCase(),
@@ -676,8 +699,26 @@ $(function(){
       header['%font'] = 'GaramondPremierPro';
       header['%width'] = '7.5';
       gabc = header + gabc.slice(header.original.length);
-      result += gabc + '\n\n';
+      result.push(gabc);
     });
+    return result;
+  };
+  $('#lnkPdf').click(function(e){
+    var result=getAllGabc().join('\n\n');    
+    if(e && typeof(e.preventDefault)=="function"){
+      e.preventDefault();
+    }
     $('#pdfForm').attr('action','http://illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
+  });
+  $('#lnkPdfDirect').click(function(e){
+    var gabcs=getAllGabc();
+    if(e && typeof(e.preventDefault)=="function"){
+      e.preventDefault();
+    }
+    $('#pdfFormDirect [name="gabc[]"]').remove();
+    for(var i=0;i<gabcs.length;++i){
+      $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
+    }
+    $("#pdfFormDirect").submit();
   });
 });
