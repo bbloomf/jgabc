@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Mass Propers</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css" />
+  <script src="../jquery.min.js" type="text/javascript"></script>
+  <script src="../jquery.autosize-min.js"></script>
+  <script src="../jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
+  <script src="../jgabc.js"></script>
+  <script src="../psalmtone.js"></script>
+  <script src="../sink.js"></script>
+  <script src="../audiolet.js"></script>
+  <script src="../propersdata.js"></script>
+</head>
+<body>
+<select id='sel'><option>introitus</option><option>graduale</option><option>tractus</option>
+<option>alleluia</option><option>offertorium</option><option>communio</option><option>sequentia</option></select>
+<input id='txt' type='textbox'>
+<div id='div'></div>
+<script>
+$(function(){
+  $('#txt').keyup(function(e){
+    var part = $('#sel').val();
+    var text = this.value.toLowerCase().split(/\s+/);
+    var $div = $('#div');
+    var result;
+    var id = chantID[part];
+    for(var i=1;i<=text.length;++i){
+      var key = text.slice(0,i).join(' ');
+      if(id[key]) {
+        result = id[key];
+        break;
+      }
+    }
+    if(result) {
+      if(result.Solesmes) result = result.Solesmes;
+      if(result.id) result = result.id;
+      $div.html('<a href="http://gregobase.selapa.net/chant.php?id=' + result + '">'+result+'</a>');
+    } else $div.text('not found');
+  });
+});
+</script>
+</body>
+</html>

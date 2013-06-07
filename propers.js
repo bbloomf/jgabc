@@ -598,17 +598,26 @@ $(function(){
   }
 
   
-  var $selDay = $('#selDay').change(selectedDay);
+  var $selSunday = $('#selSunday');
+  var $selMass = $('#selMass');
+  $('#selSunday,#selMass').change(selectedDay);
   var key = navigator.language.match(/en/)?'en':'title';
-  $.each(sundayKeys,function(i,o){
-    var $temp = $('<option>'+ o[key] +'</option>');
-    if(o.key) {
-      $temp.val(o.key);
-    } else {
-      $temp.attr('disabled',true);
-    }
-    $selDay.append($temp);
-  });
+  var populate = function(keys,$sel) {
+    $.each(keys,function(i,o){
+      var $temp = $('<option>'+ o[key] +'</option>');
+      if(o.key) {
+        $temp.val(o.key);
+      } else {
+        $temp.attr('disabled',true);
+        if(i==0) {
+          $temp.attr('selected',true);
+        }
+      }
+      $sel.append($temp);
+    });
+  };
+  populate(sundayKeys,$selSunday);
+  populate(otherKeys,$selMass);
   $('textarea').autosize().keydown(internationalTextBoxKeyDown);
   $('select[id^=selStyle]').change(function(e){
     var style=this.value;
