@@ -689,28 +689,32 @@ function applyPsalmTone(options) {
     }
     if(!result.shortened && ti>=0){
       var intonationLength = toneList.intonation + (toneList.variableIntonationLength||0)
-      if(++ti < toneList.preparatory) {
-        tones = tones.slice(0,intonationLength+1).concat(tones.slice(intonationLength+1 + ti));
-      } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
-        tones = tones.slice(toneList.variableIntonationLength);
-        toneList.variableIntonationLength = 0;
-      } else if(!favor.intonation) {
-        tones = tones.slice(intonationLength);
-        regexToneGabc.exec('');
-        tones.splice(0,0,toneGabc(regexToneGabc.exec(tones[0].gabcClosed.slice(1,-1))));
-        toneList.variableIntonationLength = 0;
-        toneList.intonationLength = 1;
-      } else if(!favor.termination && intonationLength > 0){
-        var punctumMorum=(tones[tones.length-1].all.slice(-1)=='.');
-        tones = tonesShort || tones.slice(0);
-        tones.splice(toneListShort.intonation + (toneListShort.variableIntonationLength||0) + 1, tones.length - toneListShort.intonation - (toneListShort.variableIntonationLength||0) - 1);
-        if(punctumMorum) {
+      if(ti==0 && tones[ti].open) {
+        finished = true;
+      } else {
+        if(++ti < toneList.preparatory) {
+          tones = tones.slice(0,intonationLength+1).concat(tones.slice(intonationLength+1 + ti));
+        } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
+          tones = tones.slice(toneList.variableIntonationLength);
+          toneList.variableIntonationLength = 0;
+        } else if(!favor.intonation) {
+          tones = tones.slice(intonationLength);
           regexToneGabc.exec('');
-          tones.push(toneGabc(regexToneGabc.exec(tones[tones.length-1].gabcClosed.slice(1,-1)+'.')));
+          tones.splice(0,0,toneGabc(regexToneGabc.exec(tones[0].gabcClosed.slice(1,-1))));
+          toneList.variableIntonationLength = 0;
+          toneList.intonationLength = 1;
+        } else if(!favor.termination && intonationLength > 0){
+          var punctumMorum=(tones[tones.length-1].all.slice(-1)=='.');
+          tones = tonesShort || tones.slice(0);
+          tones.splice(toneListShort.intonation + (toneListShort.variableIntonationLength||0) + 1, tones.length - toneListShort.intonation - (toneListShort.variableIntonationLength||0) - 1);
+          if(punctumMorum) {
+            regexToneGabc.exec('');
+            tones.push(toneGabc(regexToneGabc.exec(tones[tones.length-1].gabcClosed.slice(1,-1)+'.')));
+          }
         }
+        result.shortened=true;
+        r='';
       }
-      result.shortened=true;
-      r='';
     } else {
       finished = true;
     }

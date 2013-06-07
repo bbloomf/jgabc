@@ -128,7 +128,7 @@ $(function(){
     regexOuter.exec('');
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
-    var text=[];
+    var text='';
     var gabc='';
     var match;
     var ws;
@@ -156,64 +156,30 @@ $(function(){
       if(tws==' '&&!syl) {
         regexGabc.exec('');
         m=regexGabc.exec(match[rog.gabc]);
-        if(!m||m[4])text.push(tws);
+        if(!m||m[4])text += tws;
       } else {
-        text.push(tws);
+        text += tws;
       }
       if(ignoreSyllablesOnDivisiones) {
-        if(match[rog.gabc].indexOf('::')>=0) text.push('~');
-        else if(match[rog.gabc].indexOf(':')>=0) text.push(' % ');
-        else if(match[rog.gabc].indexOf(';')>=0) text.push(' | ');
+        if(match[rog.gabc].indexOf('::')>=0) text += '~';
+        else if(match[rog.gabc].indexOf(':')>=0) text += ' % ';
+        else if(match[rog.gabc].indexOf(';')>=0) text += ' | ';
       }
-      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^[:;,\s]*$/) || syl.match(/<i>Ps\.?<\/i>/))){
+      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>Ps\.?<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
         hasElisions = hasElisions||(syl!=sylR);
-        text.push(sylR);
+        if(sylR[0]=='e' && text.slice(-1)=='a') {
+          sylR = 'ë' + sylR.slice(1);
+        }
+        text += sylR;
       }
       gabc+=match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" ");
       var nextMatch=regexOuter.exec(mixed);
-      if(match[rog.gabc]=='::' || !nextMatch) {
-        if(nextMatch && lastVerseI>0) {
-          text.splice(lastVerseI,0,'\n\n');
-          text[lastVerseI-1] = text[lastVerseI-1].replace(/^\s+|\s+$/,'');
-          text[lastVerseI+1] = text[lastVerseI+1].replace(/^\s+|\s+$/,'');
-        }
-        if(!hasElisions) {
-          var tempVerse=gabc.replace(/^\s+|\s+$/,'');
-          var temp2=tempVerse.replace(regRep,'$1');
-          var lastV=lastVerse();
-          if(verseHasClef) {
-            temp2 = temp2.slice(lastClef.length).replace(/^\s+/,'');
-          }
-          if(!lastV || temp2!=lastV.replace(regRep,'$1')) {
-            if(!verseHasClef && verses.length==0)tempVerse = lastClef + ' ' + tempVerse;
-            if(verseReps==1){
-              verses.push(verses.pop()+"\n"+tempVerse);
-            } else {
-              verses.push(tempVerse);
-              if(lastVerseI>0) {
-                text[lastVerseI]='\n--\n';
-              }
-              verseReps=1;
-            }
-          } else {
-            if(lastV.match(/^[cf]b?[1-4]/i)) {
-              if(!verseHasClef && lastClef)tempVerse = lastClef + ' ' + tempVerse;
-            }
-            if(tempVerse.length>lastV.length) {
-              verses[verses.length-1] = tempVerse;
-            }
-            ++verseReps;
-          }
-          lastVerseI=text.length;
-        }
-        verseHasClef=hasElisions=false;
-        gabc='';
-      }
+      
       tws=ws;
       match=nextMatch;
     }
-    if(tws)text.push(tws);
+    if(tws)text += tws;
     regexGabc.exec('');
     var gs =verses.join('\n--\n');
     gSyl=[];
@@ -225,13 +191,13 @@ $(function(){
       });
 
     //gSyl = splitGabc(gs);
-    var s = text.join('').replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]/g,'');
+    var s = text.replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]/g,'');
     var index=s.indexOf(' ');
     if(index>1) {
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/Israel/g,'Israël');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ');
     return s;
   };
   var getSylCount = function(splitArray) {
@@ -302,7 +268,19 @@ $(function(){
       var left = sum(syls.slice(0,i));
       var right = sum(syls.slice(i));
       if(left >= right || i==(arrayVerse.length-1)) {
-        var result = (arrayVerse.slice(0,i).join('') + '*' + arrayVerse.slice(i).join('')).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
+        var leftText;
+        if(left >= 20) {
+          leftText = normalizeMediant(arrayVerse.slice(0,i).join('*'));
+          var leftArray = leftText.split('*');
+          var leftSyls = getSylCount(leftArray);
+          if(leftSyls.length==2 && Math.min.apply(null,leftSyls)>=10) {
+            leftText = leftText.replace('*','†') + ' ';
+          } else {
+            leftText = null;
+          }
+        }
+        if(!leftText) leftText = arrayVerse.slice(0,i).join('');
+        var result = (leftText + '*' + arrayVerse.slice(i).join('')).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
         return result[0].toUpperCase() + result.slice(1);
       }
     }
@@ -320,11 +298,14 @@ $(function(){
     return verse;
   }
   var versify = function(text){
-    var lines = text.replace(reBarsWithNoPunctuation,function(a,b){return b;}).split('\n');
+    var lines = text.split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
-      var line = lines[i];
+      var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
       var verses = splitIntoVerses(line);
+      if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
+        verses[0] = lines[i];
+      }
       for(var j=0; j<verses.length; ++j) {
         result += normalizeMediant(verses[j]) + '\n';
       }
