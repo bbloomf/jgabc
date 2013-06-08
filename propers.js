@@ -1,5 +1,5 @@
 var gabcStar = '*';
-var selDay,selPropers,sel={
+var selDay,selTempus='',selPropers,sel={
   tractus:{},
   offertorium:{},
   introitus:{},
@@ -110,9 +110,8 @@ $(function(){
       $div.hide();
     }
   }
-  var selectedDay = function(e){
-    selDay = $(this).val();
-    selPropers = proprium[selDay];
+  var updateDay = function() {
+    selPropers = proprium[selDay + selTempus];
     if(selPropers) {
       updatePart('introitus');
       updatePart('graduale');
@@ -121,6 +120,25 @@ $(function(){
       updatePart('offertorium');
       updatePart('communio');
     }
+  }
+  
+  var selectedDay = function(e){
+    selDay = $(this).val();
+    var self = this;
+    $('#selSunday,#selMass').each(function(i,o){
+      if(this != self) this.selectedIndex = 0;
+    });
+    if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
+      $('#selTempus').show();
+    } else {
+      selTempus = '';
+      $('#selTempus').prop('selectedIndex',0).hide();
+    }
+    updateDay();
+  };
+  var selectedTempus = function(e){
+    selTempus = $(this).val();
+    updateDay();
   };
   
   
@@ -607,12 +625,14 @@ $(function(){
   
   var $selSunday = $('#selSunday');
   var $selMass = $('#selMass');
+  var $selTempus = $('#selTempus');
   $('#selSunday,#selMass').change(selectedDay);
+  $('#selTempus').change(selectedTempus);
   var key = navigator.language.match(/en/)?'en':'title';
   var populate = function(keys,$sel) {
     $.each(keys,function(i,o){
       var $temp = $('<option>'+ o[key] +'</option>');
-      if(o.key) {
+      if(typeof(o.key)=='string') {
         $temp.val(o.key);
       } else {
         $temp.attr('disabled',true);
@@ -625,6 +645,7 @@ $(function(){
   };
   populate(sundayKeys,$selSunday);
   populate(otherKeys,$selMass);
+  populate(tempusKeys,$selTempus);
   $('textarea').autosize().keydown(internationalTextBoxKeyDown);
   $('select[id^=selStyle]').change(function(e){
     var style=this.value;
