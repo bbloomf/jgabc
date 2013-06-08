@@ -92,9 +92,11 @@ $(function(){
       $div.show();
       $.get('gabc/'+id+'.gabc',function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
+        var text = sel[part].text = versify(decompile(gabc,true));
+        var truePart = isAlleluia(part,text)? 'alleluia' : part;
         var header = getHeader(gabc);
         var romanMode = romanNumeral[header.mode];
-        if(partAbbrev[part]) {
+        if(partAbbrev[truePart]) {
           header.annotation = partAbbrev[part];
           header.annotationArray = [header.annotation, romanMode];
         } else {
@@ -102,7 +104,6 @@ $(function(){
         }
         gabc = header + gabc.slice(header.original.length);
         sel[part].gabc = gabc;
-        sel[part].text = versify(decompile(gabc,true));
         $('#selTone' + capPart).val(header.mode).change();
       });
     } else {
@@ -412,6 +413,10 @@ $(function(){
     return result + temp + " (::)\n";
   }
   
+  var isAlleluia = function(part,text){
+    return part=='alleluia' || (part=='graduale' && removeDiacritics(text).match(/^allelu[ij]a/i));
+  }
+  
   var getPsalmToneForPart = function(part){
     var text = sel[part].text;
     if(!text) return;
@@ -420,7 +425,7 @@ $(function(){
     var termination = sel[part].termination;
     var mode = sel[part].mode;
     var solemn = sel[part].solemn;
-    var isAlleluia = (part=='alleluia' || (part=='graduale' && removeDiacritics(text).match(/^allelu[ij]a/i)));
+    var isAlleluia = isAlleluia(part,text);
     if(part=='introitus' || isAlleluia) {
       tone = g_tones['Introit ' + mode];
     } else {
