@@ -300,7 +300,7 @@ var Syl = (function(){
     },
     updateWords:function(){
       if(this.queue.length>0){
-        $.getScript("http://bb.christian.net/syl.php?txt="+this.queue.join('+'));
+        $.getScript("http://illuminarepublications.com/gregorio/syl.php?txt="+this.queue.join('+'));
         this.queue=[];
       } else {
         intUpdate=setTimeout(function(){Syl.updateWords();},5000);
