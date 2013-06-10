@@ -722,8 +722,9 @@ $(function(){
       }
     } else {
       updateStyle(this.id.slice(8).toLowerCase(),style);
-      $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(style!=o.value){style='mixed';return false;}});
-      $('#selStyle').val(style);
+      var baseStyle = style.replace(/\d+$/,'');
+      $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
+      $('#selStyle').val(baseStyle);
     }
   });
   $('#selStyle').change();

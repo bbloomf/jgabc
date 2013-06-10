@@ -2758,8 +2758,10 @@ $(function() {
       return;
     }
     _timeoutUpdateWidth = null;
-    relayoutChant(svg);
-    elements.each(function(index, element) {
+    try {
+      relayoutChant(svg);
+    } catch(ex) { }
+    $.each(elements,function(index, element) {
       var old=$(element).next(".jgabc-svg").find("svg")[0];
       if(!old) return;
       relayoutChant(old);
