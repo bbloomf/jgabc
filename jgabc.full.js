@@ -2300,6 +2300,9 @@ $(function() {
     }
   }
 
+  if(typeof(document.createElementNS)!='function') {
+    return;
+  }
   _svg = svg = document.createElementNS(svgns, 'svg');
   svg.setAttribute('style','width:100%;height:0');
   setPrintFont=function(usePrintFont){
@@ -2821,30 +2824,32 @@ $(function() {
   var oldTWidth=0;
   var initCount=0;
   var init = function() {
-    if(svg.parentNode && svg.parentNode.clientWidth == 0) {
-      setTimeout(init, 100);
-    } else {
-      tWidth=textWidth("abcdefghijklmnopqrstuvwxyz",fontclass,true);
-      var cWidth1=getChantWidth("4q5P");
-      var cWidth2=getChantWidth("P");
-      notewidth = getChantWidth("p");
-      if(cWidth1==cWidth2) {
-        neume = _neumeLig;
-        indices=_indicesLig;
-        makeClefSpan=_clefSpanLig;
+    if(svg) {
+      if(svg.parentNode && svg.parentNode.clientWidth == 0) {
+        setTimeout(init, 100);
       } else {
-        neume = _neumeChar;
-        indices=_indicesChar;
-        makeClefSpan=_clefSpanChar;
-      }
-      if(tWidth != oldTWidth) {
-        _txtWidths={};
-        oldTWidth=tWidth;
-        forceUpdateChant();
-        updateAllChant();
-      }
-      if(++initCount < 100) {
-        setTimeout(init,300);
+        tWidth=textWidth("abcdefghijklmnopqrstuvwxyz",fontclass,true);
+        var cWidth1=getChantWidth("4q5P");
+        var cWidth2=getChantWidth("P");
+        notewidth = getChantWidth("p");
+        if(cWidth1==cWidth2) {
+          neume = _neumeLig;
+          indices=_indicesLig;
+          makeClefSpan=_clefSpanLig;
+        } else {
+          neume = _neumeChar;
+          indices=_indicesChar;
+          makeClefSpan=_clefSpanChar;
+        }
+        if(tWidth != oldTWidth) {
+          _txtWidths={};
+          oldTWidth=tWidth;
+          forceUpdateChant();
+          updateAllChant();
+        }
+        if(++initCount < 100) {
+          setTimeout(init,300);
+        }
       }
     }
   };

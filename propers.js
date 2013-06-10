@@ -215,11 +215,10 @@ $(function(){
     var gs =verses.join('\n--\n');
     gSyl=[];
     var offset = 0;
-    verses.forEach(
-      function(a,b){
-        gSyl.push(splitGabc(a,offset));
-        offset += a.length + 4;
-      });
+    $.each(verses,function(i,o){
+      gSyl.push(splitGabc(o,offset));
+      offset += o.length + 4;
+    });
 
     //gSyl = splitGabc(gs);
     var s = text.replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]/g,'');
@@ -670,7 +669,7 @@ $(function(){
     var lines=gabc.split(/\r?\n/);
     var state=0;
     var current='';
-    lines.forEach(function(line){
+    $.each(lines,function(i,line){
       switch(state){
         case 0:
           if(line.match(/^%%$/))state=1;
