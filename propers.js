@@ -24,6 +24,7 @@ $(function(){
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
   var removeDiacritics=function(string) {
+    if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
   };
   var getGabcForPropers=function(propers,part,text){
@@ -694,7 +695,7 @@ $(function(){
   var $selTempus = $('#selTempus');
   $('#selSunday,#selMass').change(selectedDay);
   $('#selTempus').change(selectedTempus);
-  var key = navigator.language.match(/en/)?'en':'title';
+  var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
   var populate = function(keys,$sel) {
     $.each(keys,function(i,o){
       var $temp = $('<option>'+ o[key] +'</option>');

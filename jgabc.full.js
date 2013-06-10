@@ -1,4 +1,5 @@
 ﻿String.prototype.repeat = function(num){return new Array(num+1).join(this);};
+if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
 var gabcSettings={trimStaff:true};
 var uuid;
 // lower-staff ext: 0xe1, upper: 0xe2
