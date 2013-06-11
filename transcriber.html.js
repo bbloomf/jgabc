@@ -351,33 +351,6 @@ function decompile(mixed) {
   $("#hymntext").val(s);
 }
 
-function editorKeyDown(e) {
-  if(e.which==9) {
-    var index, indexEnd, $this = $(this), txt = $this.val();
-    e.preventDefault();
-    if(e.shiftKey) {
-      // go backwards
-      index = this.selectionStart;
-      index = txt.lastIndexOf(')',index - 1);
-      if(index < 0) index = txt.lastIndexOf(')');
-      if(index >= 0) {
-        indexEnd = index;
-        index = txt.lastIndexOf('(',index);
-      }
-    } else {
-      index = this.selectionEnd;
-      index = txt.indexOf('(',index);
-      if(index < 0) index = txt.indexOf('(');
-      if(index >= 0) {
-        indexEnd = txt.indexOf(')',index);
-      }
-    }
-    if(index >= 0 && indexEnd >= 0) {
-      this.selectionStart = index + 1;
-      this.selectionEnd = indexEnd;
-    }
-  }
-}
 function updateBoth() {
   var text=$("#editor").val();
   text = text.slice(getHeaderLen(text));
@@ -427,7 +400,7 @@ $(function() {
   $(window).resize(windowResized);
   $("#hymngabc").keyup(updateGabcSide);
   $("#hymntext").keyup(updateText).keydown(internationalTextBoxKeyDown);
-  $("#editor").keyup(updateBoth).keydown(editorKeyDown);
+  $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
   $("#selLanguage").change(updateText);
   setPdfLinkSelector("#lnkGabc");

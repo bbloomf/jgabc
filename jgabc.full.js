@@ -2901,3 +2901,175 @@ window.updateChant=updateChant;
 var neume=_neumeChar;
 var indices=_indicesChar;
 var makeClefSpan=_clefSpanChar;
+
+function gabcEditorKeyDown(e) {
+  if(e.which==9) {
+    var index, indexEnd, $this = $(this), txt = $this.val();
+    e.preventDefault();
+    if(e.shiftKey) {
+      // go backwards
+      index = this.selectionStart;
+      index = txt.lastIndexOf(')',index - 1);
+      if(index < 0) index = txt.lastIndexOf(')');
+      if(index >= 0) {
+        indexEnd = index;
+        index = txt.lastIndexOf('(',index);
+      }
+    } else {
+      index = this.selectionEnd;
+      index = txt.indexOf('(',index);
+      if(index < 0) index = txt.indexOf('(');
+      if(index >= 0) {
+        indexEnd = txt.indexOf(')',index);
+      }
+    }
+    if(index >= 0 && indexEnd >= 0) {
+      this.selectionStart = index + 1;
+      this.selectionEnd = indexEnd;
+    }
+  } else if(e.which==57 && e.shiftKey) {
+    var selEnd=this.selectionEnd,
+        rightSide = this.value.slice(selEnd),
+        firstClose = rightSide.indexOf(')'),
+        firstOpen = rightSide.indexOf('(');
+    if(firstClose < 0 || (firstOpen >= 0 && firstOpen < firstClose)) {
+      this.value=this.value.slice(0,this.selectionStart) + '()' + this.value.slice(selEnd);
+      this.selectionStart=this.selectionEnd=selEnd+1;
+      e.preventDefault();
+      return;
+    }
+  } else if(e.which==8) {
+    var selEnd = this.selectionEnd;
+    if(selEnd == this.selectionStart && selEnd > 0 && this.value[selEnd]==')' && this.value[selEnd-1]=='(') {
+      e.preventDefault();
+      this.value=this.value.slice(0,this.selectionStart-1) + this.value.slice(selEnd+1);
+      this.selectionStart=this.selectionEnd=selEnd-1;
+    }
+  }
+}
+
+var internationalTextBoxKeyDown = (function(){
+  var lastKey = 0;
+  var dictionaries=
+      {222://apostrophe
+        {"false":
+          {'a':'á',
+           'e':'é',
+           'i':'í',
+           'o':'ó',
+           'u':'ú',
+           'y':'ý',
+           'A':'Á',
+           'E':'É',
+           'I':'Í',
+           'O':'Ó',
+           'U':'Ú',
+           'Y':'Ý',
+           'æ':"ǽ",
+           'œ':"oé",
+           'Æ':"Ǽ",
+           'Œ':"Oé"
+           },
+        "true":
+          {'a':'ä',
+           'e':'ë',
+           'i':'ï',
+           'o':'ö',
+           'u':'ü',
+           'y':'ÿ',
+           'A':'Ä',
+           'E':'Ë',
+           'I':'Ï',
+           'O':'Ö',
+           'U':'Ü',
+           'æ':"aë",
+           'œ':"oë",
+           'Æ':"Aë",
+           'Œ':"Oë"
+          }
+        },
+        69://e
+        {"false":
+          {'a':'æ',
+           'o':'œ',
+           'A':'Æ',
+           'O':'Œ'
+          },
+        "true":
+          {'a':'æ',
+           'o':'œ',
+           'A':'Æ',
+           'O':'Œ'
+          }
+        },
+        8://backspace
+        {"false":
+          {
+            '†':"+",
+            'æ':"ae",
+            'œ':"oe",
+            'Æ':"Ae",
+            'Œ':"Oe",
+            'á':'a',
+            'é':'e',
+            'í':'i',
+            'ó':'o',
+            'ú':'u',
+            'ý':'y',
+            'Á':'A',
+            'É':'E',
+            'Í':'I',
+            'Ó':'O',
+            'Ú':'U',
+            'Ý':'Y',
+            'ä':'a',
+            'ë':'e',
+            'ï':'i',
+            'ö':'o',
+            'ü':'u',
+            'ÿ':'y',
+            'Ä':'A',
+            'Ë':'E',
+            'Ï':'I',
+            'Ö':'O',
+            'Ü':'U',
+            'Ǽ':"Aé",
+            'ǽ':"aé"
+          },
+        "true":
+          {
+          }
+        }
+      };
+  return function(e){
+    if(typeof(getHeaderLen)=='function' && getHeaderLen(this.value)>0) {
+      // Only process as international textbox if the cursor is not within parentheses:
+      var lastOpenParen = this.value.lastIndexOf('(',this.selectionStart-1);
+      var lastCloseParen = this.value.lastIndexOf(')',this.selectionStart-1);
+      if(lastCloseParen < lastOpenParen) return;
+    }
+    if(e.which == 187 && e.shiftKey) { //if + was entered
+      var selEnd=this.selectionEnd;
+      var len=1;
+      this.value=this.value.slice(0,this.selectionStart) + '†' + this.value.slice(selEnd);
+      this.selectionStart=this.selectionEnd=selEnd+len;
+      e.preventDefault();
+      return;
+    }
+    var cbEnglish=$("#cbEnglish")[0];
+    if(cbEnglish&&cbEnglish.checked)return;
+    var dictionary=dictionaries[e.which];
+    if(dictionary && this.selectionStart==this.selectionEnd && this.selectionStart>0){
+      var previousChar=this.value[this.selectionStart-1];
+      var r=dictionary[e.shiftKey][previousChar];
+      if(r){
+        var selEnd=this.selectionEnd;
+        var len=r.length - 1;
+        this.value=this.value.slice(0,--this.selectionStart) + r + this.value.slice(selEnd);
+        this.selectionStart=this.selectionEnd=selEnd+len;
+        e.preventDefault();
+        return;
+      }
+    }
+  }
+})();

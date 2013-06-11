@@ -300,7 +300,7 @@ var Syl = (function(){
     },
     updateWords:function(){
       if(this.queue.length>0){
-        $.getScript("http://illuminarepublications.com/gregorio/syl.php?txt="+this.queue.join('+'));
+        $.getScript("https://illuminarepublications.com/gregorio/syl.php?txt="+this.queue.join('+'));
         this.queue=[];
       } else {
         intUpdate=setTimeout(function(){Syl.updateWords();},5000);
@@ -1079,131 +1079,6 @@ function splitLine(oLine) {
   }
   return line;
 }
-var internationalTextBoxKeyDown = (function(){
-  var lastKey = 0;
-  var dictionaries=
-      {222://apostrophe
-        {"false":
-          {'a':'á',
-           'e':'é',
-           'i':'í',
-           'o':'ó',
-           'u':'ú',
-           'y':'ý',
-           'A':'Á',
-           'E':'É',
-           'I':'Í',
-           'O':'Ó',
-           'U':'Ú',
-           'Y':'Ý',
-           'æ':"ǽ",
-           'œ':"oé",
-           'Æ':"Ǽ",
-           'Œ':"Oé"
-           },
-        "true":
-          {'a':'ä',
-           'e':'ë',
-           'i':'ï',
-           'o':'ö',
-           'u':'ü',
-           'y':'ÿ',
-           'A':'Ä',
-           'E':'Ë',
-           'I':'Ï',
-           'O':'Ö',
-           'U':'Ü',
-           'æ':"aë",
-           'œ':"oë",
-           'Æ':"Aë",
-           'Œ':"Oë"
-          }
-        },
-        69://e
-        {"false":
-          {'a':'æ',
-           'o':'œ',
-           'A':'Æ',
-           'O':'Œ'
-          },
-        "true":
-          {'a':'æ',
-           'o':'œ',
-           'A':'Æ',
-           'O':'Œ'
-          }
-        },
-        8://backspace
-        {"false":
-          {
-            '†':"+",
-            'æ':"ae",
-            'œ':"oe",
-            'Æ':"Ae",
-            'Œ':"Oe",
-            'á':'a',
-            'é':'e',
-            'í':'i',
-            'ó':'o',
-            'ú':'u',
-            'ý':'y',
-            'Á':'A',
-            'É':'E',
-            'Í':'I',
-            'Ó':'O',
-            'Ú':'U',
-            'Ý':'Y',
-            'ä':'a',
-            'ë':'e',
-            'ï':'i',
-            'ö':'o',
-            'ü':'u',
-            'ÿ':'y',
-            'Ä':'A',
-            'Ë':'E',
-            'Ï':'I',
-            'Ö':'O',
-            'Ü':'U',
-            'Ǽ':"Aé",
-            'ǽ':"aé"
-          },
-        "true":
-          {
-          }
-        }
-      };
-  return function(e){
-    if(typeof(getHeaderLen)=='function' && getHeaderLen(this.value)>0) {
-      // Only process as international textbox if the cursor is not within parentheses:
-      var lastOpenParen = this.value.lastIndexOf('(',this.selectionStart-1);
-      var lastCloseParen = this.value.lastIndexOf(')',this.selectionStart-1);
-      if(lastCloseParen < lastOpenParen) return;
-    }
-    if(e.which == 187 && e.shiftKey) { //if + was entered
-      var selEnd=this.selectionEnd;
-      var len=1;
-      this.value=this.value.slice(0,this.selectionStart) + '†' + this.value.slice(selEnd);
-      this.selectionStart=this.selectionEnd=selEnd+len;
-      e.preventDefault();
-      return;
-    }
-    var cbEnglish=$("#cbEnglish")[0];
-    if(cbEnglish&&cbEnglish.checked)return;
-    var dictionary=dictionaries[e.which];
-    if(dictionary && this.selectionStart==this.selectionEnd && this.selectionStart>0){
-      var previousChar=this.value[this.selectionStart-1];
-      var r=dictionary[e.shiftKey][previousChar];
-      if(r){
-        var selEnd=this.selectionEnd;
-        var len=r.length - 1;
-        this.value=this.value.slice(0,--this.selectionStart) + r + this.value.slice(selEnd);
-        this.selectionStart=this.selectionEnd=selEnd+len;
-        e.preventDefault();
-        return;
-      }
-    }
-  }
-})();
 function shiftGabc(gabc,shift) {
   var newGabc = '';
   for(var i=gabc.length - 1; i>=0; --i) {
