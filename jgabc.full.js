@@ -1441,6 +1441,8 @@ function getChant(text,svg,result,top) {
           words.push(currentWord);
           currentWord=[];
         }
+      } else if(cneume.info.ftone) {
+        usesBetweenText = [];
       }
     } else use = use2 = null;
     if(txt) {
