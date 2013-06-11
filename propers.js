@@ -660,9 +660,15 @@ $(function(){
     }
     sel[part].activeGabc = gabc;
     updateChant(gabc,$preview[0],instant);
-    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
+    updateTextSize(part);
   }
   
+  var updateTextSize = function(part){
+    var capPart = part[0].toUpperCase()+part.slice(1),
+        $txt = $('#txt'+capPart),
+        $preview = $('#'+part+'-preview');
+    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
+  }
   
   var splitGabc = function(gabc){
     var result=[];
@@ -805,5 +811,9 @@ $(function(){
       $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
     }
     $("#pdfFormDirect").submit();
+  });
+  $('[id$=-preview]').on('relayout',function(){
+      var part = this.id.match(/^([a-z]+)-preview$/)[1];
+      updateTextSize(part);
   });
 });

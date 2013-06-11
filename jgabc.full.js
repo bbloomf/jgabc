@@ -443,7 +443,9 @@ function updateLinks(text){
 var gabcProcessTime = 0;
 var _nextUpdate = new Date().getTime();
 var dontUpdateChant = false;
+var otherElements = [];
 function updateChant(text, svg, dontDelay) {
+  var originalSvg = svg;
   var $svg = $(svg);
   if(!$svg.is('svg')) {
     $svg = $svg.find('svg');
@@ -452,7 +454,9 @@ function updateChant(text, svg, dontDelay) {
     }
     svg = $svg[0];
   }
-  
+  if(svg != _svg && otherElements.indexOf(svg)<0 && originalSvg){
+    otherElements.push(originalSvg);
+  }
   if(dontUpdateChant || !text)return;
   var gtext=updateLinks(text);
   if(_timeoutGabcUpdate) clearTimeout(_timeoutGabcUpdate);
@@ -904,6 +908,33 @@ function relayoutChant(svg){
   staffInfo.htone = 10;
   if($tmp.length)$tmp.attr('x',width-$tmp[0].getComputedTextLength());
   
+    lastClefBeforeNeume=function(neumeId){
+      var i,result={clefTone:9};
+      for(i in _clefs){
+        if(i<neumeId)result=_clefs[i];
+        else break;
+      }
+      return result;
+    };
+    lastClefBeforePunctum=function(punctumId){
+      var i,result={clefTone:9};
+      for(i in _clefs){
+        try {
+          var punctumI = parseInt($(svg).find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
+          if(punctumI<punctumId)result=_clefs[i].info;
+          else break;
+        } catch(e){}
+      }
+      return result;
+    }
+    var isPunctumFlat=function(punctumId,toneId){
+      var i,result=null;
+      for(i in _accidentals){
+        if(i<=punctumId)result=_accidentals[i];
+        else break;
+      }
+      return result;
+    }
   while(true){
     pneume = cneume;
     $lastText = $text;
@@ -2770,6 +2801,13 @@ $(function() {
       var old=$(element).next(".jgabc-svg").find("svg")[0];
       if(!old) return;
       relayoutChant(old);
+    });
+    $.each(otherElements,function(i,e){
+      var $old=$(e),
+          old=$old.is('svg')?$old[0] : $old.find('svg')[0];
+      if(!old) return;
+      relayoutChant(old);
+      $old.trigger('relayout');
     });
   }
   //var updateAllChantWidth;
