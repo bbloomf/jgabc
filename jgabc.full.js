@@ -2903,47 +2903,92 @@ var indices=_indicesChar;
 var makeClefSpan=_clefSpanChar;
 
 function gabcEditorKeyDown(e) {
-  if(e.which==9) {
-    var index, indexEnd, $this = $(this), txt = $this.val();
-    e.preventDefault();
-    if(e.shiftKey) {
-      // go backwards
-      index = this.selectionStart;
-      index = txt.lastIndexOf(')',index - 1);
-      if(index < 0) index = txt.lastIndexOf(')');
-      if(index >= 0) {
-        indexEnd = index;
-        index = txt.lastIndexOf('(',index);
+  var $this = $(this), txt = $this.val(), selStart = this.selectionStart, selEnd = this.selectionEnd;
+  switch(e.which) {
+    case 66: //b
+      if(e.ctrlKey || e.altKey) {
+        e.preventDefault();
+        index = txt.indexOf(' ',this.selectionEnd);
+        if(index <= 0) index = txt.length;
+        $this.val(txt.slice(0,index) + ' ()' + txt.slice(index));
+        this.selectionEnd = this.selectionStart = index + 2;
       }
-    } else {
-      index = this.selectionEnd;
-      index = txt.indexOf('(',index);
-      if(index < 0) index = txt.indexOf('(');
-      if(index >= 0) {
-        indexEnd = txt.indexOf(')',index);
+      break;
+    case 83: //s
+      
+      if(selStart == selEnd && (e.ctrlKey || e.altKey)) {
+        e.preventDefault();
+        $this.val(txt.slice(0,selStart) + '()' + txt.slice(selStart));
+        this.selectionEnd = this.selectionStart = selStart + 1;
       }
-    }
-    if(index >= 0 && indexEnd >= 0) {
-      this.selectionStart = index + 1;
-      this.selectionEnd = indexEnd;
-    }
-  } else if(e.which==57 && e.shiftKey) {
-    var selEnd=this.selectionEnd,
-        rightSide = this.value.slice(selEnd),
-        firstClose = rightSide.indexOf(')'),
-        firstOpen = rightSide.indexOf('(');
-    if(firstClose < 0 || (firstOpen >= 0 && firstOpen < firstClose)) {
-      this.value=this.value.slice(0,this.selectionStart) + '()' + this.value.slice(selEnd);
-      this.selectionStart=this.selectionEnd=selEnd+1;
+      break;
+    case 9: {
+      var index, indexEnd;
       e.preventDefault();
-      return;
+      if(e.shiftKey) {
+        // go backwards
+        index = this.selectionStart;
+        index = txt.lastIndexOf(')',index - 1);
+        if(index < 0) index = txt.lastIndexOf(')');
+        if(index >= 0) {
+          indexEnd = index;
+          index = txt.lastIndexOf('(',index);
+        }
+      } else {
+        index = this.selectionEnd;
+        var regex = /(\()|(-(?!\())|(\s+(?![:;!.])|$)/g;
+        regex.lastIndex = index;
+        var match;
+        while((match = regex.exec(txt)) && match[3] && txt[match.index-1]==')') ;
+        if(match) {
+          if(match[3]==='' && txt[match.index-1]!=')') match[3] = ' ';
+          if(match[1]) {
+            index = match.index;
+          } else if(match[2]||match[3]) {
+            if(match[2]) index = match.index+1;
+            else if(match[3]) index = match.index;
+            txt = txt.slice(0,index) + '()' + txt.slice(index);
+            $this.val(txt);
+          } else {
+            index = txt.indexOf('(');
+          }
+        } else {
+          index = txt.indexOf('(');
+        }
+        index = txt.indexOf('(',index);
+        
+        if(index >= 0) {
+          indexEnd = txt.indexOf(')',index);
+        }
+      }
+      if(index >= 0 && indexEnd >= 0) {
+        this.selectionStart = index + 1;
+        this.selectionEnd = indexEnd;
+      }
+      break;
     }
-  } else if(e.which==8) {
-    var selEnd = this.selectionEnd;
-    if(selEnd == this.selectionStart && selEnd > 0 && this.value[selEnd]==')' && this.value[selEnd-1]=='(') {
-      e.preventDefault();
-      this.value=this.value.slice(0,this.selectionStart-1) + this.value.slice(selEnd+1);
-      this.selectionStart=this.selectionEnd=selEnd-1;
+    case 57:
+      if(e.shiftKey) { //open parenthesis
+        var selEnd=this.selectionEnd,
+            rightSide = this.value.slice(selEnd),
+            firstClose = rightSide.indexOf(')'),
+            firstOpen = rightSide.indexOf('(');
+        if(firstClose < 0 || (firstOpen >= 0 && firstOpen < firstClose)) {
+          this.value=this.value.slice(0,this.selectionStart) + '()' + this.value.slice(selEnd);
+          this.selectionStart=this.selectionEnd=selEnd+1;
+          e.preventDefault();
+          return;
+        }
+      }
+      break;
+    case 8: {
+      var selEnd = this.selectionEnd;
+      if(selEnd == this.selectionStart && selEnd > 0 && this.value[selEnd]==')' && this.value[selEnd-1]=='(') {
+        e.preventDefault();
+        this.value=this.value.slice(0,this.selectionStart-1) + this.value.slice(selEnd+1);
+        this.selectionStart=this.selectionEnd=selEnd-1;
+      }
+      break;
     }
   }
 }
