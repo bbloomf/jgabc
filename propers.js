@@ -5,9 +5,11 @@ var selDay,selTempus='',selPropers,sel={
   introitus:{},
   graduale:{},
   communio:{},
-  alleluia:{}
-}
+  alleluia:{},
+  sequentia:{}
+},includePropers=[]
 $(function(){
+  $('#menu').menu({select: function(e,ui){e.preventDefault();}});
   var partAbbrev = {
     tractus:'Tract.',
     offertorium:'Offert.',
@@ -87,7 +89,9 @@ $(function(){
     var id = selPropers[part+'ID'];
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
+    var $includePart = $('#include'+capPart);
     if(id) {
+      $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
       $($txt.prop('labels')).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
       $div.show();
@@ -120,6 +124,7 @@ $(function(){
       });
     } else {
       $div.hide();
+      $includePart.parent('li').addClass('ui-state-disabled');
     }
   }
   var updateDay = function() {
@@ -129,6 +134,7 @@ $(function(){
       updatePart('graduale');
       updatePart('alleluia');
       updatePart('tractus');
+      updatePart('sequentia');
       updatePart('offertorium');
       updatePart('communio');
     }
@@ -786,6 +792,7 @@ $(function(){
           proper = sel[part],
           gabc = proper.activeGabc,
           header = getHeader(gabc);
+      if(includePropers.indexOf(part)<0) return;
       header.name = '';
       header['%font'] = 'GaramondPremierPro';
       header['%width'] = '7.5';
@@ -815,5 +822,23 @@ $(function(){
   $('[id$=-preview]').on('relayout',function(){
       var part = this.id.match(/^([a-z]+)-preview$/)[1];
       updateTextSize(part);
+  });
+  $('a[id^=include]').each(function(){
+    includePropers.push(this.id.slice(7).toLowerCase());
+  }).click(function(e){
+    e.preventDefault();
+    var capPart = this.id.slice(7),
+        part = capPart.toLowerCase(),
+        i = includePropers.indexOf(part),
+        $span = $(this).find('span');
+    if(i<0) {
+      // wasn't included, now it will be:
+      includePropers.push(part);
+      $span.show();
+    } else {
+      //had been included, now it won't be:
+      includePropers.splice(i,1);
+      $span.hide();
+    }
   });
 });

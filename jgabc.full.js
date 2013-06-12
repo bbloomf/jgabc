@@ -2915,8 +2915,7 @@ function gabcEditorKeyDown(e) {
       }
       break;
     case 83: //s
-      
-      if(selStart == selEnd && (e.ctrlKey || e.altKey)) {
+      if(selStart == selEnd && (e.ctrlKey || e.altKey) && txt[selStart-1]!='(' && txt[selStart]!=')') {
         e.preventDefault();
         $this.val(txt.slice(0,selStart) + '()' + txt.slice(selStart));
         this.selectionEnd = this.selectionStart = selStart + 1;
@@ -2969,15 +2968,22 @@ function gabcEditorKeyDown(e) {
     }
     case 57:
       if(e.shiftKey) { //open parenthesis
-        var selEnd=this.selectionEnd,
-            rightSide = this.value.slice(selEnd),
+        var rightSide = this.value.slice(selEnd),
             firstClose = rightSide.indexOf(')'),
             firstOpen = rightSide.indexOf('(');
         if(firstClose < 0 || (firstOpen >= 0 && firstOpen < firstClose)) {
           this.value=this.value.slice(0,this.selectionStart) + '()' + this.value.slice(selEnd);
-          this.selectionStart=this.selectionEnd=selEnd+1;
+          this.selectionStart=this.selectionEnd=selStart+1;
           e.preventDefault();
           return;
+        }
+      }
+      break;
+    case 48:
+      if(e.shiftKey) { //close parenthesis
+        if(selStart == selEnd && txt[selStart]==')') {
+          e.preventDefault();
+          this.selectionStart = this.selectionEnd = selStart + 1;
         }
       }
       break;
