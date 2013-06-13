@@ -88,6 +88,10 @@ $(function(){
               firstWord = false;
             }
           }
+        } else {
+          if(word.match(/^[A-Z]{2,}[a-z]|^[a-z]+[A-Z]/)){
+            return word;
+          }
         }
       }
       gabc+=match[rog.gabc] + (ws.replace(/[^\n]*\n[^\n]*/g,'\n')||" ");

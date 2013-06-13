@@ -8,7 +8,7 @@
   <script src="jquery.min.js" type="text/javascript"></script>
   <script src="jquery.autosize-min.js"></script>
   <script src="jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-  <script src="jgabc.js"></script>
+  <script src="jgabc.full.js"></script>
   <script src="psalmtone.js"></script>
   <script src="sink.js"></script>
   <script src="audiolet.js"></script>
@@ -88,7 +88,7 @@ label.sel-label{
             <li class="ui-state-disabled"><a href='#' id='includeGraduale'><span class='ui-icon ui-icon-check'></span>Graduale</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeTractus'><span class='ui-icon ui-icon-check'></span>Tractus</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeAlleluia'><span class='ui-icon ui-icon-check'></span>Alleluia</a></li>
-            <!--<li class="ui-state-disabled"><a href='#' id='includeSequentia'><span class='ui-icon ui-icon-check'></span>Sequentia</a></li>-->
+            <li class="ui-state-disabled"><a href='#' id='includeSequentia'><span class='ui-icon ui-icon-check'></span>Sequentia</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeOffertorium'><span class='ui-icon ui-icon-check'></span>Offertorium</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeCommunio'><span class='ui-icon ui-icon-check'></span>Communio</a></li>
           </ul>
@@ -97,7 +97,7 @@ label.sel-label{
     </div>
     </td></tr>
     <tr><td width="50%">
-      <label for="txtIntroitus"><a target="_blank">Introitus</a></label>
+      <label id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
       <div class='right'>
         <label for="selToneIntroitus" class='sel-label'>Mode</label>
         <select id="selToneIntroitus" class='sel-style tones'></select>
@@ -113,7 +113,7 @@ label.sel-label{
       </div>
     </td></tr>
     <tr id="divGraduale"><td width="50%">
-      <label for="txtGraduale"><a target="_blank">Graduale</a></label>
+      <label id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
       <div class='right'>
         <label for="selToneGraduale" class='sel-label'>Mode</label>
         <select id="selToneGraduale" class='sel-style tones'></select>
@@ -131,7 +131,7 @@ label.sel-label{
       </div>
     </td></tr>
     <tr id="divTractus"><td width="50%">
-      <label for="txtTractus"><a target="_blank">Tractus</a></label>
+      <label id="lblTractus" for="txtTractus"><a target="_blank">Tractus</a></label>
       <div class='right'>
         <label for="selToneTractus" class='sel-label'>Mode</label>
         <select id="selToneTractus" class='sel-style tones'></select>
@@ -149,7 +149,7 @@ label.sel-label{
       </div>
     </td></tr>
     <tr id="divAlleluia"><td width="50%">
-      <label for="txtAlleluia"><a target="_blank">Alleluia</a></label>
+      <label id="lblAlleluia" for="txtAlleluia"><a target="_blank">Alleluia</a></label>
       <div class='right'>
         <label for="selToneAlleluia" class='sel-label'>Mode</label>
         <select id="selToneAlleluia" class='sel-style tones'></select>
@@ -166,11 +166,11 @@ label.sel-label{
         </div>
       </div>
     </td></tr>
-    <!--<tr><td colspan='2'>
-      <label for="txtSequentia"><a target="_blank">Sequentia</a></label>
-    </td></tr>-->
+    <tr id='divSequentia'><td colspan='2'>
+      <label id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
+    </td></tr>
     <tr><td width="50%">
-      <label for="txtOffertorium"><a target="_blank">Offertorium</a></label>
+      <label id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
       <div class='right'>
         <label for="selToneOffertorium" class='sel-label'>Mode</label>
         <select id="selToneOffertorium" class='sel-style tones'></select>
@@ -188,7 +188,7 @@ label.sel-label{
       </div>
     </td></tr>
     <tr><td width="50%">
-      <label for="txtCommunio"><a target="_blank">Communio</a></label>
+      <label id="lblCommunio" for="txtCommunio"><a target="_blank">Communio</a></label>
       <div class='right'>
         <label for="selToneCommunio" class='sel-label'>Mode</label>
         <select id="selToneCommunio" class='sel-style tones'></select>

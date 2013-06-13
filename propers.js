@@ -1,4 +1,3 @@
-var gabcStar = '*';
 var selDay,selTempus='',selPropers,sel={
   tractus:{},
   offertorium:{},
@@ -15,7 +14,8 @@ $(function(){
     offertorium:'Offert.',
     introitus:'Intr.',
     graduale:'Grad.',
-    communio:'Comm.'
+    communio:'Comm.',
+    sequentia: 'Seq.'    
   };
   var defaultTermination={
     '1':'f',
@@ -93,10 +93,11 @@ $(function(){
     if(id) {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
-      $($txt.prop('labels')).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
+      $('#lbl'+capPart).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
       $div.show();
       $.get('gabc/'+id+'.gabc',function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
+        //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text = sel[part].text = versify(decompile(gabc,true));
         var truePart = isAlleluia(part,text)? 'alleluia' : part;
         if(part == 'graduale') {
@@ -202,7 +203,7 @@ $(function(){
         else if(match[rog.gabc].indexOf(':')>=0) text += ' % ';
         else if(match[rog.gabc].indexOf(';')>=0) text += ' | ';
       }
-      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>Ps\.?<\/i>/))){
+      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*)<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
         hasElisions = hasElisions||(syl!=sylR);
         if(sylR[0]=='e' && text.slice(-1)=='a') {
@@ -406,15 +407,7 @@ $(function(){
     });
   }
   
-  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones) {
-    var gp = "Glória Pátri, et Fílio, et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
-    var result = applyPsalmTone({
-      text: gp[0],
-      gabc: gMediant,
-      format: bi_formats.gabc
-    });
-    result = result.replace(/o,\([^)]+/,function(m){return m+'.) (,';}) + ' *(:) ';
-    
+  var getTertiumQuid = function(gMediant,gTermination) {
     var match = gTermination.match(/([^r]+)\s+[a-m]r\s/);
     var gTertium = match[1];
     // a hack for Introit tone 6.
@@ -424,17 +417,33 @@ $(function(){
     }
     match = gMediant.match(/\s[a-m]r\s+.+$/);
     gTertium += match[0];
+    return gTertium;
+  }
+  
+  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones) {
+    var gp = "Glória Pátri, et Fílio, † et Spirítui Sáncto.\nSicut érat in princípio, † et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
+    var result = applyPsalmTone({
+      text: gp[0],
+      gabc: gMediant,
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
+    });
+    result = result + ' *(:) ';
+    
+    var gTertium = getTertiumQuid(gMediant,gTermination);
     gp[1] = gp[1].split('*');
     var temp = applyPsalmTone({
       text: gp[1][0].trim(),
       gabc: gTertium,
-      format: bi_formats.gabc
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
     });
-    result += temp.replace(/o,\([^)]+/,function(m){return m+'.) (,';}) + ' (:) ';
+    result += temp + ' (:) ';
     temp = applyPsalmTone({
       text: gp[1][1].trim(),
       gabc: gTermination,
-      format: bi_formats.gabc
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
     });
     if(gAmenTones){
       for(var i=2,index=temp.length; i>0; --i) {
@@ -463,8 +472,10 @@ $(function(){
     var mode = sel[part].mode;
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
+    var introitTone = false;
     if(part=='introitus' || isAl) {
       tone = g_tones['Introit ' + mode];
+      introitTone = true;
     } else {
       tone = g_tones[mode + '.'];
     }
@@ -477,6 +488,7 @@ $(function(){
         for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
       }
     }
+    var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     var gabc;
     var lines;
     if(isAl) {
@@ -504,7 +516,8 @@ $(function(){
               prefix: false,
               suffix: false,
               italicizeIntonation: false,
-              favor: 'termination'
+              favor: 'termination',
+              flexEqualsTenor: introitTone
             }) + " (::)\n";
         } else {
           if(sel.graduale.style!='psalm-tone1') {
@@ -559,20 +572,56 @@ $(function(){
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
-        gabc += (italicNote||'') + applyPsalmTone({
-          text: line[0].trim(),
-          gabc: gMediant,
-          useOpenNotes: false,
-          useBoldItalic: false,
-          onlyVowel: false,
-          format: bi_formats.gabc,
-          verseNumber: i+1,
-          prefix: !firstVerse && !italicNote,
-          suffix: false,
-          italicizeIntonation: false,
-          result: result,
-          favor: 'intonation'
-        }) + (line.length == 1? "" : bi_formats.gabc.nbsp + gabcStar + "(:) " +
+        if(introitTone && line[0].match(/†/)) {
+          var left = line[0].split('†');
+          gabc += (italicNote||'') + applyPsalmTone({
+            text: left[0].trim(),
+            gabc: gMediant,
+            useOpenNotes: false,
+            useBoldItalic: false,
+            onlyVowel: false,
+            format: bi_formats.gabc,
+            verseNumber: i+1,
+            prefix: !firstVerse && !italicNote,
+            suffix: false,
+            italicizeIntonation: false,
+            result: result,
+            favor: 'intonation',
+            flexEqualsTenor: introitTone
+          }) + bi_formats.gabc.nbsp + '(:) ' +
+          (italicNote||'') + applyPsalmTone({
+            text: left[1].trim(),
+            gabc: gTertium,
+            useOpenNotes: false,
+            useBoldItalic: false,
+            onlyVowel: false,
+            format: bi_formats.gabc,
+            verseNumber: i+1,
+            prefix: !firstVerse && !italicNote,
+            suffix: false,
+            italicizeIntonation: false,
+            result: result,
+            favor: 'intonation',
+            flexEqualsTenor: introitTone
+          });
+        } else {
+          gabc += (italicNote||'') + applyPsalmTone({
+            text: line[0].trim(),
+            gabc: line.length==1? gTermination : gMediant,
+            useOpenNotes: false,
+            useBoldItalic: false,
+            onlyVowel: false,
+            format: bi_formats.gabc,
+            verseNumber: i+1,
+            prefix: !firstVerse && !italicNote,
+            suffix: false,
+            italicizeIntonation: false,
+            result: result,
+            favor: 'intonation',
+            flexEqualsTenor: introitTone
+          });
+        }
+        gabc += (line.length == 1? "" : bi_formats.gabc.nbsp + gabcStar + "(:) " +
           applyPsalmTone({
             text: line[1].trim(),
             gabc: gTermination,
@@ -584,7 +633,8 @@ $(function(){
             prefix: false,
             suffix: true,
             italicizeIntonation: false,
-            favor: 'termination'
+            favor: 'termination',
+            flexEqualsTenor: introitTone
           })) + " (::)\n";
         if(i==0) {
           //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
@@ -786,13 +836,14 @@ $(function(){
   });
   var getAllGabc = function() {
     var result=[];
-    $('textarea[id^=txt]:visible').each(function(i,o){
-      var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    $('a[id^=include]').each(function(){
+      var $includePart = $(this)
+          capPart = this.id.match(/[A-Z][a-z]+$/)[0],
           part = capPart.toLowerCase(),
           proper = sel[part],
-          gabc = proper.activeGabc,
+          gabc = proper.activeGabc || proper.gabc,
           header = getHeader(gabc);
-      if(includePropers.indexOf(part)<0) return;
+      if($includePart.parent('li').hasClass('ui-state-disabled') || includePropers.indexOf(part)<0) return;
       header.name = '';
       header['%font'] = 'GaramondPremierPro';
       header['%width'] = '7.5';

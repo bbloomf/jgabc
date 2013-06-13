@@ -345,6 +345,7 @@ function decode_utf8( s )
 }
 
 function Header(text){
+  if(typeof(text)!='string') text='';
   this.comments=[];
   this.cValues={};
   this.original='';

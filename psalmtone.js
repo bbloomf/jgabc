@@ -437,7 +437,8 @@ function applyPsalmTone(options) {
       italicizeIntonation = options.italicizeIntonation || false,
       result = options.result,
       gabcShort = options.gabcShort,
-      favor = options.favor || {};
+      favor = options.favor || {},
+      flexEqualsTenor = options.flexEqualsTenor || false;
   if(typeof(favor)=='string') {
     temp = {};
     temp[favor]=true;
@@ -472,12 +473,12 @@ function applyPsalmTone(options) {
     suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
   var syl = getSyllables(text,bi);
-  var toneList = typeof(gabc)=="string"? getGabcTones(gabc) : gabc;
+  var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor) : gabc;
   if(typeof(toneList.eval)=="function"){
     t = syl.slice(-3).reverse();
     toneList = toneList.eval();
   }
-  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort) : gabcShort)||toneList;
+  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort,undefined,flexEqualsTenor) : gabcShort)||toneList;
   var tones = toneList.tones;
   var tonesShort = (gabcShort&&toneListShort.tones) || null;
   var r;
@@ -651,7 +652,11 @@ function applyPsalmTone(options) {
           var oldSi = si;
           while(si > ti && s) {
             if(s.flex) {
-              r=s.prepunctuation + s.syl + s.punctuation + " †(" + toneList.toneFlex + ".)"+r;
+              if(flexEqualsTenor) {
+                r=s.prepunctuation + s.syl + s.punctuation + " (" + toneList.toneFlex + ".) (,)"+r;
+              } else {
+                r=s.prepunctuation + s.syl + s.punctuation + " †(" + toneList.toneFlex + ".)"+r;
+              }
               tenorUntilAccent = "(" + toneList.toneFlex + ")";
             } else {
               tenorUntilAccent = !s.accent && tenorUntilAccent;
@@ -760,7 +765,7 @@ GABCTones.prototype.lastAccentI = function(){
     if(result.accent) return i;
   }
 }
-function getGabcTones(gabc,prefix) {
+function getGabcTones(gabc,prefix,flexEqualsTenor) {
   var evaluatable = new Evaluatable(gabc,getGabcTones,prefix);
   if(!evaluatable.isString()) return evaluatable;
   if(prefix) gabc = prefix + gabc;
@@ -828,12 +833,16 @@ function getGabcTones(gabc,prefix) {
     }
   }
   if(toneTenor) {
-    var clef = (_clef[0] == "f")? 6 : 1;
-    clef += (parseInt(_clef.slice(-1)) * 2);
-    var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
-    var code = toneTenor.charCodeAt(0);
-    code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
-    var toneFlex = String.fromCharCode(code);
+    if(flexEqualsTenor) {
+      toneFlex = toneTenor;
+    } else {
+      var clef = (_clef[0] == "f")? 6 : 1;
+      clef += (parseInt(_clef.slice(-1)) * 2);
+      var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
+      var code = toneTenor.charCodeAt(0);
+      code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
+      toneFlex = String.fromCharCode(code);
+    }
   }
   return new GABCTones(tones,
                        intonation,
