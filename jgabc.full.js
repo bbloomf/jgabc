@@ -2183,7 +2183,7 @@ function setUpPunctaIn(use,punctumId){
     if(tone.match[rtg.accidental]){
       _accidentals[punctumId] = tone.match[rtg.flat]? (tone.index - _clefs[_clefs.length-1].info.clefTone) : null;
     } else if(tone.match[rtg.whitespace] && tone.match[rtg.whitespace].match(/[,;:]/)){
-      _accidentals[punctumId] = _clefs[_clefs.length-1].gabc.length==3? -1 : null;
+      _accidentals[punctumId] = (_clefs.length && _clefs[_clefs.length-1].gabc.length==3)? -1 : null;
     }
     this.setAttribute('id','punctum'+punctumId);
     this.tone = tone;
