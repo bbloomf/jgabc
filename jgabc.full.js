@@ -1028,7 +1028,7 @@ function relayoutChant(svg){
       $staff.append($neume);
       //$neume.attr('x',x);
       //if(cneume.transform)$neume.attr('transform',cneume.transform);
-      if(needCustos){
+      if(needCustos && !cneume.gabc.match(/^[,;:]+$/)){
         addCustos(needCustos,cneume);
         //justifyLine(needCustos,true,true);
         needCustos = null;
@@ -1399,7 +1399,7 @@ function getChant(text,svg,result,top) {
     }
       
     if(cneume.gabc) {
-      if(needCustos) {
+      if(needCustos && !cneume.gabc.match(/^[,;:]+$/)) {
         addCustos(needCustos,cneume,needCustos.justify,custosXoffset);
         needCustos = false;
         startX=0;
