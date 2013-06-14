@@ -190,6 +190,7 @@ var staffheight = 48;
 var spaceheight = staffheight / 4;
 var notewidth = staffheight / 6;
 var spaceBetweenNeumes = notewidth;
+var slashSpace = staffheight/20;
 var verticalSpace = staffheight/4;
 var fontsize = spaceheight*3/2;
 var spaceWidth = spaceheight * 3/4;
