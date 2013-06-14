@@ -1192,7 +1192,7 @@ function getChant(text,svg,result,top) {
   svgWidth = width;
   
   while(gmatch = regexOuter.exec(text)) {
-    var curGabc = gmatch[5]? gmatch[5].match(/[^\/]*\/*/g) : ['',''];
+    var curGabc = gmatch[5]? gmatch[5].match(/[,;:]+|[^\/,;:]*\/*/g) : ['',''];
     curGabc.splice(-1,1);
     var spaceBeforeNextNeume;
     //TODO: keep track of how many slashes there were.
