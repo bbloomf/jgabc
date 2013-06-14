@@ -597,7 +597,7 @@ $(function(){
             onlyVowel: false,
             format: bi_formats.gabc,
             verseNumber: i+1,
-            prefix: !firstVerse && !italicNote,
+            prefix: false,
             suffix: false,
             italicizeIntonation: false,
             result: result,
