@@ -2924,13 +2924,14 @@ function gabcEditorKeyDown(e) {
       }
       break;
     case 9: { //tab
-      var index, indexEnd;
+      var index, indexEnd, headerIndex;
       e.preventDefault();
       if(e.shiftKey) {
         // go backwards
         index = this.selectionStart;
+        headerIndex = txt.lastIndexOf('\n%%\n',index-1);
         index = txt.lastIndexOf(')',index - 1);
-        if(index < 0) index = txt.lastIndexOf(')');
+        if(index <= headerIndex) index = txt.lastIndexOf(')');
         if(index >= 0) {
           indexEnd = index;
           index = txt.lastIndexOf('(',index);
@@ -2940,7 +2941,21 @@ function gabcEditorKeyDown(e) {
         var regex = /(\()|(-(?!\())|(\s+(?![:;!.])|[^)\s]$)/g;
         regex.lastIndex = index;
         var match;
-        while((match = regex.exec(txt)) && match[3] && txt[match.index-1]==')') ;
+        while((match = regex.exec(txt)) && (match[2]||match[3])) {
+          if(match[3] && (match.index==0 || txt[match.index-1]==')')) continue;
+          //check if this line is in the header:
+          index = match.index;
+          var begIndex = txt.lastIndexOf('\n',index-1)+1,
+          endIndex = txt.indexOf('\n',index);
+          if(endIndex < 0) endIndex = txt.length;
+          if(txt[endIndex]=='\r') endIndex--;
+          var line = txt.slice(begIndex,endIndex);
+          if(line.match(/^(?:\s*(?:%.*|[-\w]+:[^;]+;)\s*|%%)$/)) {
+            continue;
+          } else {
+            break;
+          }
+        }
         if(match) {
           if(match[1]) {
             index = match.index;
