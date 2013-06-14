@@ -2923,7 +2923,7 @@ function gabcEditorKeyDown(e) {
         this.selectionEnd = this.selectionStart = selStart + 1;
       }
       break;
-    case 9: {
+    case 9: { //tab
       var index, indexEnd;
       e.preventDefault();
       if(e.shiftKey) {
@@ -2937,17 +2937,15 @@ function gabcEditorKeyDown(e) {
         }
       } else {
         index = this.selectionEnd;
-        var regex = /(\()|(-(?!\())|(\s+(?![:;!.])|$)/g;
+        var regex = /(\()|(-(?!\())|(\s+(?![:;!.])|[^)\s]$)/g;
         regex.lastIndex = index;
         var match;
         while((match = regex.exec(txt)) && match[3] && txt[match.index-1]==')') ;
         if(match) {
-          if(match[3]==='' && txt[match.index-1]!=')') match[3] = ' ';
           if(match[1]) {
             index = match.index;
           } else if(match[2]||match[3]) {
-            if(match[2]) index = match.index+1;
-            else if(match[3]) index = match.index;
+            index = match.index+1;
             txt = txt.slice(0,index) + '()' + txt.slice(index);
             $this.val(txt);
           } else {
