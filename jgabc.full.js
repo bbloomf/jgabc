@@ -1336,7 +1336,7 @@ function getChant(text,svg,result,top) {
         xoffset + cneume.wText + Math.max(Math.floor(offset),0)
       : nextXoffsetTextMin||0;
     if(match[7]&&match.index>0)nextXoffsetTextMin+=5;
-    var nextXoffsetChantMin = xoffset + cneume.wChant + spaceBetweenNeumes - Math.min(offset,0);
+    var nextXoffsetChantMin = Math.max(xoffset,xoffsetChantMin) + cneume.wChant + spaceBetweenNeumes - Math.min(offset,0);
    //Experimental change (2010.03.14)  Old line:
     var nextXoffset = cneume.wText==0?Math.max(nextXoffset||0,xoffset):Math.max(nextXoffsetTextMin, nextXoffsetChantMin);
     //var nextXoffset = wText==0?Math.max(nextXoffset||0,xoffset):nextXoffsetTextMin;
@@ -1549,10 +1549,10 @@ function getChant(text,svg,result,top) {
       staffInfo.eText.appendChild(span);
     } else {
       if(use) {
-        xoffsetChantMin = xoffset+getChantWidth(cneume.info.def.textContent) + spaceBetweenNeumes;
+        xoffsetChantMin = Math.max(xoffsetChantMin,xoffset+getChantWidth(cneume.info.def.textContent) + spaceBetweenNeumes);
         xoffset=nextXoffsetTextMin;
       } else {
-        xoffsetChantMin = xoffset;
+        xoffsetChantMin = Math.max(xoffsetChantMin,xoffset);
       }
     }
     neumeId++;
