@@ -1199,6 +1199,7 @@ function getChant(text,svg,result,top) {
     if(match[5]) {
       cneume.gabc=match[5];
       // if there is an open paren, assume that the correct close paren has not yet been marked for this GABC.
+      /*
       if(cneume.gabc.indexOf('(')>=0){
         var iop=match[0].indexOf('(');
         var mspace=cneume.gabc.match(/ /);
@@ -1207,7 +1208,7 @@ function getChant(text,svg,result,top) {
         cneume.gabc=cneume.gabc.slice(0,gabclen);
         if(gabclen)++gabclen;
         regexOuter.lastIndex -= match[0].length - iop - 1 - gabclen;
-      }
+      }*/
       cneume.info = getChantFragment(cneume.gabc,defs);
       clef=cneume.info.clef||clef;
       if(makeLinks){
