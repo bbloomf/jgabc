@@ -1,4 +1,4 @@
-﻿String.prototype.repeat = function(num){return new Array(num+1).join(this);};
+String.prototype.repeat = function(num){return new Array(num+1).join(this);};
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
 var gabcSettings={trimStaff:true};
 var uuid;
@@ -1192,10 +1192,9 @@ function getChant(text,svg,result,top) {
   svgWidth = width;
   
   while(gmatch = regexOuter.exec(text)) {
-    var curGabc = gmatch[5]? gmatch[5].match(/[,;:]+|[^\/,;:]*\/*/g) : ['',''];
+    var curGabc = gmatch[5]? gmatch[5].match(/[`,;:]+|[^\/,;:]*\/*/g) : ['',''];
     curGabc.splice(-1,1);
     var spaceBeforeNextNeume;
-    //TODO: keep track of how many slashes there were.
     var matchIndex = gmatch.index;
     for(var gabcI=0; gabcI < curGabc.length; ++gabcI) {
       //TODO: first collect all data from match into the cneume object
@@ -1205,9 +1204,9 @@ function getChant(text,svg,result,top) {
       if(match.length == 5) {
         match.splice(0,0,'','','','');
       }
-      match.index = matchIndex;
-      matchIndex = match.index+match[1].length;
+      match.index = (matchIndex += match[1].length);
       var cGabc = curGabc[gabcI];
+      matchIndex += cGabc.length;
       var slashCount = cGabc.match(/\//g);
       if(slashCount) {
         slashCount = slashCount.length;
@@ -1216,7 +1215,8 @@ function getChant(text,svg,result,top) {
       } else {
         spaceBeforeNextNeume = spaceBetweenNeumes;
       }
-      var cneume={index:matchIndex,match:match,ledgers:{},wChant:0,wText:0,spaceBeforeNextNeume:spaceBeforeNextNeume};
+      if(cGabc=='z0') continue; //TODO: Instead, it needs to create a custos character based on the new clef and the next actual note.
+      var cneume={index:match.index,match:match,ledgers:{},wChant:0,wText:0,spaceBeforeNextNeume:spaceBeforeNextNeume};
       var tags=[];
       if(cGabc) {
         cneume.gabc=cGabc;
@@ -1414,13 +1414,13 @@ function getChant(text,svg,result,top) {
           xoffset=0;
         }
       }
-      needCustosNextTime = cneume.gabc && cneume.gabc.match(/z/i);
+      needCustosNextTime = cneume.gabc && cneume.gabc.match(/z(?!0)/i);
       if(needCustosNextTime){
         needCustosNextTime.justify = cneume.gabc.match(/z/);
       }
         
       if(cneume.gabc) {
-        if(needCustos && !cneume.gabc.match(/^[,;:]+$/)) {
+        if(needCustos && !cneume.gabc.match(/^[`,;:]+$/)) {
           addCustos(needCustos,cneume,needCustos.justify,custosXoffset);
           needCustos = false;
           startX=0;
@@ -1681,7 +1681,6 @@ var ToneInfo = function(obj){
         code,
         curChar,
         nextChar,
-        charsLeft = gabc.length,
         index = 0,
         prevIndex = 0,
         match,
@@ -2687,7 +2686,6 @@ $(function() {
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
       selectPunctum(/punctum(\d+)/i.exec(this.id)[1]);
     }).on("click","tspan.selectable[id^=neumetext]",function(e){
-      var $this = $(this);
       var index = parseInt(this.getAttribute('selectIndex'));
       if(index >= 0) {
         //index += getHeaderLen($this.val());
