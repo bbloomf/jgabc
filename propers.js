@@ -572,7 +572,7 @@ $(function(){
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
-        if(introitTone && line[0].match(/†/)) {
+        if(false && introitTone && line[0].match(/†/)) {
           var left = line[0].split('†');
           gabc += (italicNote||'') + applyPsalmTone({
             text: left[0].trim(),

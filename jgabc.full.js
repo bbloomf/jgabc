@@ -3136,10 +3136,10 @@ var internationalTextBoxKeyDown = (function(){
       if(lastCloseParen < lastOpenParen) return;
     }
     if(e.which == 187 && e.shiftKey) { //if + was entered
-      var selEnd=this.selectionEnd;
+      var selStart=this.selectionStart;
       var len=1;
-      this.value=this.value.slice(0,this.selectionStart) + '†' + this.value.slice(selEnd);
-      this.selectionStart=this.selectionEnd=selEnd+len;
+      this.value=this.value.slice(0,selStart) + '†' + this.value.slice(this.selectionEnd);
+      this.selectionStart=this.selectionEnd=selStart+len;
       e.preventDefault();
       return;
     }
