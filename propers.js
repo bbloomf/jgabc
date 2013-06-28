@@ -86,16 +86,16 @@ $(function(){
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part) {
-    var id = selPropers[part+'ID'];
+    var id = selPropers? selPropers[part+'ID'] : null;
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
     var $includePart = $('#include'+capPart);
-    if(id) {
+    if(id || selDay=='custom') {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
       $('#lbl'+capPart).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
       $div.show();
-      $.get('gabc/'+id+'.gabc',function(gabc){
+      var updateGabc = function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text = sel[part].text = versify(decompile(gabc,true));
@@ -122,7 +122,12 @@ $(function(){
         gabc = header + gabc.slice(header.original.length);
         sel[part].gabc = gabc;
         $('#selTone' + capPart).val(header.mode).change();
-      });
+      };
+      if(id) {
+        $.get('gabc/'+id+'.gabc',updateGabc);
+      } else {
+        updateGabc('');
+      }
     } else {
       $div.hide();
       $includePart.parent('li').addClass('ui-state-disabled');
@@ -130,7 +135,8 @@ $(function(){
   }
   var updateDay = function() {
     selPropers = proprium[selDay + selTempus];
-    if(selPropers) {
+    if(selPropers || selDay=='custom') {
+      if(!selPropers) selPropers = {};
       updatePart('introitus');
       updatePart('graduale');
       updatePart('alleluia');
@@ -152,6 +158,11 @@ $(function(){
     } else {
       selTempus = '';
       $('#selTempus').prop('selectedIndex',0).hide();
+    }
+    if(selDay=='custom') {
+      $('.sel-custom').show();
+    } else {
+      $('.sel-custom').hide();
     }
     updateDay();
   };
@@ -891,5 +902,32 @@ $(function(){
       includePropers.splice(i,1);
       $span.hide();
     }
+  });
+  var customProperSelected = function(event,ui){
+    var $this=$(this),
+        capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase(),
+        temp = chantID[part][ui.item.value];
+    selPropers[part+'ID'] = (temp.Solesmes || temp).id;
+    updatePart(part);
+  };
+  $.each(chantID,function(part){
+    $.each(this,function(incipit){
+      if(this.psalm) {
+        $.each(this.psalm,function(psalmIncipit){
+          var fullIncipit = incipit + ' ps. ' + psalmIncipit;
+          chantID[part][fullIncipit] = this;
+        });
+        delete chantID[part][incipit];
+      }
+    });
+  });
+  $('input.sel-custom').each(function(){
+    var $this=$(this),
+        capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase();
+    $this.autocomplete({minLength:0,
+                        select:customProperSelected,
+                        source:Object.keys(chantID[part])});
   });
 });
