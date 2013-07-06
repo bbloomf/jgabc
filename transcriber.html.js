@@ -73,7 +73,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
       cGabc = gSyl[iG]||emptyGabc;
       var flexOrMediant=false;
       if(cSyl.flex) {
-        result+=' �';
+        result+=' †';
         flexOrMediant=true;
       } else if(cSyl.mediant) {
         result+=' ' + gabcStar
@@ -171,7 +171,7 @@ function splitGabc(gabc,offset) {
   return gSyl;
 }
 
-var _regexParens=/\(([^\s\)]*[aeiouy�������?�][^\s\)]*)\)/;
+var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœ][^\s\)]*)\)/;
 function splitText(text) {
   if($("#selLanguage").val()=='en') return Syl.syllabify(text);
   //for handling parenthesized elisions, we will remove the parentheses but keep track of where they were.
@@ -187,6 +187,20 @@ function splitText(text) {
   var index = 0,lastIndex = 0;
   while((m = regexLatin.exec(text))) {
     index = m.index;
+    if(m[0].match(/^n[cg]u[aeiouyáéíóúý?æœ]/i)) {
+      var lastSyl = syl.slice(-1);
+      if(lastSyl) lastSyl = lastSyl[0];
+      if(!lastSyl.space && !lastSyl.punctuation) {
+        lastSyl.all +='n';
+        lastSyl.syl +='n';
+        lastSyl.sylnospace +='n';
+        ++index;
+        ++lastIndex;
+        m[0] = m[0].slice(1);
+        m[2] = m[2].slice(1);
+        m[3] = m[3].slice(1);
+      }
+    }
     var subI=index+m[0].indexOf(m[2]);
     if(cp && cp.i>=subI && cp.i<(subI+m[2].length)){
       cp.i -= subI;

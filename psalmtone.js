@@ -1,7 +1,6 @@
 ﻿var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-//var regexLatin = /((?:\(|<(?:b|i|sc)>)*)(((?:(?:(\s+))(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=[daeiouyáéëíóúýǽæœ])|)|d[ií](?:r(?=[raeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i|[cgq]u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýæœ])(?:[\wáéíóúýæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*(?=\s|$))?)(?=(\s*|$)))((?:\)|<\/(?:b|i|sc)>)*)/gi;
-var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))|d[ií](?:r(?=r|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|[cgq]u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=[bcdgptf][lrh][\wáéíóúýǽæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi;
+var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))|d[ií](?:r(?=r|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=n[cg]u[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi
 var regexWords = /((?:<(?:b|i|sc)>)*)([^a-z\(\)]*\s*"*(?=\b|\())(([a-z'*]*)(?:\(([a-z'*]+)\)([a-z'*]*))?)(=?)([-":;,.\)\?]*)(\s+\*)?((?:<\/(?:b|i|sc)>)*)/gi
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
@@ -862,8 +861,23 @@ var _getSyllables = function(text,bi) {
   var match;
   var lastI = 0;
   while(match=regexLatin.exec(text)) {
-    syl.push(syllable(match,text.slice(lastI,match.index),bi));
-    lastI = match.index + match[0].length;
+    var index = match.index;
+    if(match[0].match(/^n[cg]u[aeiouyáéíóúýǽæœ]/i)) {
+      var lastSyl = syl.slice(-1);
+      if(lastSyl) lastSyl = lastSyl[0];
+      if(!lastSyl.space && !lastSyl.punctuation) {
+        lastSyl.all +='n';
+        lastSyl.syl +='n';
+        lastSyl.sylnospace +='n';
+        ++index;
+        ++lastI;
+        match[0] = match[0].slice(1);
+        match[2] = match[2].slice(1);
+        match[3] = match[3].slice(1);
+      }
+    }
+    syl.push(syllable(match,text.slice(lastI,index),bi));
+    lastI = index + match[0].length;
   }
   getWords(syl);
   return syl;
