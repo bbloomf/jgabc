@@ -2959,7 +2959,7 @@ function gabcEditorKeyDown(e) {
         }
       } else {
         index = this.selectionEnd;
-        var regex = /(\()|(-(?!\())|(\s+(?![:;!.])|[^)\s]$)/g;
+        var regex = /(\()|(-(?!\())|(\s+(?![:;!.]))|([^)\s]$)/g;
         regex.lastIndex = index;
         var match;
         while((match = regex.exec(txt)) && (match[2]||match[3])) {
@@ -2980,8 +2980,8 @@ function gabcEditorKeyDown(e) {
         if(match) {
           if(match[1]) {
             index = match.index;
-          } else if(match[2]||match[3]) {
-            index = match.index+1;
+          } else if(match[2]||match[3]||match[4]) {
+            if(match[2]) index = match.index+1;
             txt = txt.slice(0,index) + '()' + txt.slice(index);
             $this.val(txt);
           } else {
