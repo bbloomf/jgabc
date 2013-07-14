@@ -1,6 +1,6 @@
-﻿var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
+var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]bs|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))|d[ií](?:r(?=r|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eé]u(?![smn])|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=n[cg]u[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi
+var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]b(?:s(?!c))?|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))|d[ií](?:r(?=r|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=n[cg]u[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ]|sc[eéií]|(?:[sc][tp]r?|gn|ps)[aeiouyáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi
 var regexWords = /((?:<(?:b|i|sc)>)*)([^a-z\(\)]*\s*"*(?=\b|\())(([a-z'*]*)(?:\(([a-z'*]+)\)([a-z'*]*))?)(=?)([-":;,.\)\?]*)(\s+\*)?((?:<\/(?:b|i|sc)>)*)/gi
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
@@ -10,8 +10,6 @@ var sym_flex = '†';
 var sym_med = '*';
 var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.";
 var gloria_patri_end_vowels = "E u o* u a* e.";
-var algorithmTwoBefore = true; //count as an accent the syllable two prior to the next accent
-var algorithmTwoAfter = false; //count as an accent the syllable two after the last accent
 var bi_formats;
 var gabcStar;
 if(localStorage.gabcStar) {
@@ -587,12 +585,7 @@ function applyPsalmTone(options) {
           }
           var countToNext = lastAccentI - si;
           if(countToNext > 3 || si < 0) {
-            if(algorithmTwoAfter) {
-              while(countToNext > 3) {
-                si += 2;
-                countToNext = lastAccentI - si;
-              }
-            } else if(algorithmTwoBefore && countToNext > 3) {
+            if(countToNext > 3) {
               si = lastAccentI - 2;
             }
             s = syl[si];
@@ -940,7 +933,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   var sylCount = 0;
   var i=syl.length - 1;
   var lastAccentI = i + 1;
-  var result = [];
+  var result = '';
   var bold = false;
   var vow;
   for(; i >= 0; --i) {
@@ -950,71 +943,54 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
       if(sylCount == sylsAfterBold) {
         bold = true;
       }
-      result.push(s.prepunctuation + s.syl + s.punctuation);
+      result = s.prepunctuation + s.syl + s.punctuation + result;
       continue;
     }
-    if(doneAccents < accents && s.accent) {
+    if(doneAccents < accents && (s.accent || (i == lastAccentI - 2  && (i==0 || !syl[i-1].accent)))) {
       var countToNext = lastAccentI - i;
-      if(countToNext > 3) {
-        if(algorithmTwoAfter) {
-          while(countToNext > 3) {
-            i += 2;
-            result.pop();
-            result.pop();
-            countToNext = lastAccentI - i;
-          }
-        } else if(algorithmTwoBefore) {
-          while (i < lastAccentI - 2) {
-            result.pop();
-            ++i;
-          }
-        }
-        s = syl[i];
-        s.accent = true;
-      }
       lastAccentI = i;
-      result.push(s.punctuation);
+      result = s.punctuation + result;
       if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
         if(!bold && doneAccents>=accents) {
-          result.push(s.syl);
+          result = s.syl + result;
         } else {
-          result.push(s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length));
+          result = s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length) + result;
         }
       } else {
-        result.push(s.prespace + f.bold[0] + s.sylnospace + f.bold[1]);
+        result = s.prespace + f.bold[0] + s.sylnospace + f.bold[1] + result;
       }
-      result.push(s.prepunctuation);
+      result = s.prepunctuation + result;
       ++doneAccents;
       bold = false;
     } else if(bold) {
-      result.push(s.punctuation);
+      result = s.punctuation + result;
       if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
-        result.push(s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length));
+        result = s.syl.slice(0,vow.index) + f.bold[0] + vow[0] + f.bold[1] + s.syl.slice(vow.index + vow[0].length) + result;
         ++doneAccents;
         bold=false;
       } else {
-        result.push(s.prespace + f.bold[0] + s.sylnospace + f.bold[1]);
+        result = s.prespace + f.bold[0] + s.sylnospace + f.bold[1] + result;
       }
-      result.push(s.prepunctuation);
+      result = s.prepunctuation + result;
     } else if(doneAccents == accents && donePrep < preparatory) {
-      result.push(s.punctuation);
+      result = s.punctuation + result;
       if(onlyVowel) {
         if((donePrep == preparatory - 1) && (vow = regexVowel.exec(s.syl))) {
-          result.push(s.syl.slice(0,vow.index) + f.italic[0] + vow[0] + f.italic[1] + s.syl.slice(vow.index + vow[0].length));
+          result = s.syl.slice(0,vow.index) + f.italic[0] + vow[0] + f.italic[1] + s.syl.slice(vow.index + vow[0].length) + result;
         } else {
-          result.push(s.syl);
+          result = s.syl + result;
         }
       } else {
-        result.push(s.prespace + f.italic[0] + s.sylnospace + f.italic[1]);
+        result = s.prespace + f.italic[0] + s.sylnospace + f.italic[1] + result;
       }
-      result.push(s.prepunctuation);
+      result = s.prepunctuation + result;
       ++donePrep;
     } else {
-      result.push(s.prepunctuation + s.syl + s.punctuation + (s.flex?f.nbsp+sym_flex:""));
+      result = s.prepunctuation + s.syl + s.punctuation + (s.flex?f.nbsp+sym_flex:"") + result;
     }
   }
   return ((prefix && prefix.replace(/\(([^$]*)\$c([^)]*)\)/gi,String(verseNum?("$1" + verseNum + "$2"):"")).replace(/\$c/gi,String(verseNum))) || "")
-    + result.reverse().join('') +
+    + result +
          ((suffix && suffix.replace(/\(([^$]*)\$c([^)]*)\)/gi,String(verseNum?("$1" + verseNum + "$2"):"")).replace(/\$c/gi,String(verseNum))) || "");
 }
 function normalizePsalm(text,includeGloriaPatri) {
