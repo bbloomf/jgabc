@@ -10,6 +10,8 @@ $path = Join-Path (Get-ScriptDirectory) 'gabc';
 foreach($id in $ids) {
     echo "$count ($id)";
     $gabc = (New-Object System.Net.WebClient).DownloadString("$url$id");
-    set-content -Path "$path\$id.gabc" -Value $gabc; # -Encoding UTF8;
+    #set-content -Path "$path\$id.gabc" -Value $gabc; # -Encoding UTF8;
+    #[io.file]::writealltext("$path\$id.gabc", $gabc);
+    set-content -Path "$path\$id.gabc" -Value ([system.text.encoding]::default.getbytes($gabc)) -Encoding Byte;
     $count--;
 }
