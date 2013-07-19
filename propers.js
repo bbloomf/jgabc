@@ -93,7 +93,7 @@ $(function(){
     if(id || selDay=='custom') {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
-      $('#lbl'+capPart).find('a').attr('href','http://gregobase.selapa.net/chant.php?id='+id);
+      $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
       $div.show();
       var updateGabc = function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
@@ -908,7 +908,7 @@ $(function(){
         capPart = this.id.match(/[A-Z][a-z]+$/)[0],
         part = capPart.toLowerCase(),
         temp = chantID[part][ui.item.value];
-    selPropers[part+'ID'] = (temp.Solesmes || temp).id;
+    selPropers[part+'ID'] = (temp.Solesmes || temp).id || '';
     updatePart(part);
   };
   $.each(chantID,function(part){
@@ -928,6 +928,12 @@ $(function(){
         part = capPart.toLowerCase();
     $this.autocomplete({minLength:0,
                         select:customProperSelected,
-                        source:Object.keys(chantID[part])});
+                        source:Object.keys(chantID[part])})
+         .keyup(function(){
+            if(this.value == '' && selPropers[part + 'ID']) {
+              delete selPropers[part + 'ID'];
+              updatePart(part);
+            }
+         });
   });
 });
