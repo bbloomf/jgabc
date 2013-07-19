@@ -6,7 +6,10 @@ var selDay,selTempus='',selPropers,sel={
   communio:{},
   alleluia:{},
   sequentia:{}
-},includePropers=[]
+},includePropers=[],
+  isNovus = false,
+  novusOption={},
+  yearArray = ['A','B','C'];
 $(function(){
   $('#menu').menu({select: function(e,ui){e.preventDefault();}});
   var partAbbrev = {
@@ -86,7 +89,34 @@ $(function(){
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part) {
-    var id = selPropers? selPropers[part+'ID'] : null;
+    var id;
+    var incipit;
+    if(isNovus) {
+      var optionID = novusOption[part]||0;
+      var year = $('#selYearNovus').val();
+      id = selPropers && selPropers[part];
+      if (id && id[year]) id = id[year];
+      if(id && id.length > 1) {
+        var $options = $('.novus-options.'+part);
+        var $select = $options.find('select');
+        var options = '';
+        for(var i in id) {
+          var o = id[i];
+          options += '<option value="' + i + '">' + o.incipit + '</option>';
+        }
+        $select.empty().append(options);
+        $select.val(optionID);
+        optionID = $select.prop('selectedIndex');
+        $options.show();
+      } else {
+        optionID = 0;
+      }
+      id = id && id[optionID];
+      incipit = id && id.incipit;
+      id = id && id.id;
+    } else {
+      id = selPropers? selPropers[part+'ID'] : null;
+    }
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
     var $includePart = $('#include'+capPart);
@@ -137,16 +167,31 @@ $(function(){
     selPropers = proprium[selDay + selTempus];
     if(selPropers || selDay=='custom') {
       if(!selPropers) selPropers = {};
-      updatePart('introitus');
-      updatePart('graduale');
-      updatePart('alleluia');
-      updatePart('tractus');
-      updatePart('sequentia');
-      updatePart('offertorium');
-      updatePart('communio');
+      updateAllParts();
     }
   }
-  
+  var updateDayNovus = function() {
+    selPropers = propriumNoviOrdinis[selDay + selTempus];
+    if(selPropers) {
+      selPropers.isNovus = true;
+      novusOption = {};
+      updateAllParts();
+    }
+  }
+  var updateAllParts = function() {
+    $('.novus-options').hide();
+    updatePart('introitus');
+    updatePart('graduale');
+    updatePart('alleluia');
+    updatePart('tractus');
+    updatePart('sequentia');
+    updatePart('offertorium');
+    updatePart('communio');
+  };
+  var selectedDayNovus = function(e){
+    selDay = $(this).val();
+    updateDayNovus();
+  };
   var selectedDay = function(e){
     selDay = $(this).val();
     var self = this;
@@ -765,11 +810,21 @@ $(function(){
   var $selSunday = $('#selSunday');
   var $selMass = $('#selMass');
   var $selTempus = $('#selTempus');
+  var $selSundayNovus = $('#selSundayNovus');
+  var $selYearNovus = $('#selYearNovus');
   $('#selSunday,#selMass').change(selectedDay);
+  $('#selSundayNovus').change(selectedDayNovus);
+  $('#selYearNovus').change(function(){updateAllParts();});
   $('#selTempus').change(selectedTempus);
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
   var populate = function(keys,$sel) {
     $.each(keys,function(i,o){
+      if(typeof(o) == 'string') {
+        var title = o.length==1? 'Year ' + o : o;
+        o = o.match(/\.{3}$/)?
+            {en: o, title: title}
+          : {key: o, en: title, title: title};
+      }
       var $temp = $('<option>'+ o[key] +'</option>');
       if(typeof(o.key)=='string') {
         $temp.val(o.key);
@@ -783,9 +838,41 @@ $(function(){
     });
   };
   populate(sundayKeys,$selSunday);
+  populate(sundaysNovusOrdo,$selSundayNovus);
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
+  populate(yearArray,$selYearNovus);
+  //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
+  //When the year number is found, Take year = yearArray[year%3];
+  var date = new Date(),
+      year = date.getFullYear(),
+      Christmas = new Date(year,11,25),
+      Advent = Christmas.setDate(25 - (Christmas.getDay()||7) - 21);
+  if(Advent > date) --year;
+  $selYearNovus.val(yearArray[year%3]);
+  $('.novus-options').hide();
+  $('.novus-options select').change(function(){
+    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        part = capPart.toLowerCase();
+    novusOption[part] = this.selectedIndex;
+    updatePart(part);
+  });
   $('textarea').autosize().keydown(internationalTextBoxKeyDown);
+  $('#btnCalendar').button().click(function(e){
+    var $this = $(this);
+    isNovus = !isNovus;
+    if(isNovus) {
+      $('#selSunday,#selMass,#selTempus').hide();
+      $('#selSundayNovus,#selYearNovus').show();
+      $this.find('span').text('Novus Ordo Calendar');
+      $('#selSundayNovus').prop('selectedIndex',0).change();
+    } else {
+      $('#selSunday,#selMass,#selTempus').show();
+      $('#selSundayNovus,#selYearNovus').hide();
+      $this.find('span').text('Traditional Calendar');
+      $('#selSunday').prop('selectedIndex',0).change();
+    }
+  });
   $('select[id^=selStyle]').change(function(e){
     var style=this.value;
     if(this.id=='selStyle') {

@@ -74,12 +74,15 @@ label.sel-label{
   <table width="100%" style="margin-left:-2px;margin-top:-2px">
     <tr><td width="50%">
       <select id="selSunday" style='margin:0'></select>
+      <select id="selSundayNovus" style='margin:0;display:none'></select>
       <select id="selMass" style='margin:0'></select>
       <select id="selTempus" style='display:none;margin:0'></select>
+      <select id="selYearNovus" style='display:none;margin:0'></select>
       <div class='right'>
         <select id="selStyle" class='sel-style'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
     </td><td width="50%">
+    <button id='btnCalendar' value='traditional' style='button'>Traditional Calendar</button>
     <div style='float:right'>
       <ul id='menu'>
         <li>
@@ -100,6 +103,10 @@ label.sel-label{
     <tr><td width="50%">
       <label id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
       <input id="txtCustomIntroitus" placeholder="Introitus Search Text" class="sel-custom" style="display:none"/>
+      <span class='novus-options introitus' id='introitusOptions'>
+        <label for='selOptionsIntroitus'>&mdash; Pick One: </label>
+        <select id='selOptionsIntroitus'></select>
+      </span>
       <div class='right'>
         <label for="selToneIntroitus" class='sel-label'>Mode</label>
         <select id="selToneIntroitus" class='sel-style tones'></select>
@@ -117,6 +124,10 @@ label.sel-label{
     <tr id="divGraduale"><td width="50%">
       <label id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
       <input id="txtCustomGraduale" placeholder="Graduale Search Text" class="sel-custom" style="display:none"/>
+      <span class='novus-options graduale' id='gradualeOptions'>
+        <label for='selOptionsGraduale'>&mdash; Pick One: </label>
+        <select id='selOptionsGraduale'></select>
+      </span>
       <div class='right'>
         <label for="selToneGraduale" class='sel-label'>Mode</label>
         <select id="selToneGraduale" class='sel-style tones'></select>
@@ -136,6 +147,10 @@ label.sel-label{
     <tr id="divTractus"><td width="50%">
       <label id="lblTractus" for="txtTractus"><a target="_blank">Tractus</a></label>
       <input id="txtCustomTractus" placeholder="Tractus Search Text" class="sel-custom" style="display:none"/>
+      <span class='novus-options tractus' id='tractusOptions'>
+        <label for='selOptionsTractus'>&mdash; Pick One: </label>
+        <select id='selOptionsTractus'></select>
+      </span>
       <div class='right'>
         <label for="selToneTractus" class='sel-label'>Mode</label>
         <select id="selToneTractus" class='sel-style tones'></select>
@@ -155,6 +170,10 @@ label.sel-label{
     <tr id="divAlleluia"><td width="50%">
       <label id="lblAlleluia" for="txtAlleluia"><a target="_blank">Alleluia</a></label>
       <input id="txtCustomAlleluia" placeholder="Alleluia Search Text" class="sel-custom" style="display:none"/>
+      <span class='novus-options alleluia' id='alleluiaOptions'>
+        <label for='selOptionsAlleluia'>&mdash; Pick One: </label>
+        <select id='selOptionsAlleluia'></select>
+      </span>
       <div class='right'>
         <label for="selToneAlleluia" class='sel-label'>Mode</label>
         <select id="selToneAlleluia" class='sel-style tones'></select>
@@ -178,6 +197,10 @@ label.sel-label{
     <tr><td width="50%">
       <label id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
       <input id="txtCustomOffertorium" placeholder="Offertorium Search Text" class="sel-custom" style="display:none"/>
+      <span class='novus-options offertorium' id='offertoriumOptions'>
+        <label for='selOptionsOffertorium'>&mdash; Pick One: </label>
+        <select id='selOptionsOffertorium'></select>
+      </span>
       <div class='right'>
         <label for="selToneOffertorium" class='sel-label'>Mode</label>
         <select id="selToneOffertorium" class='sel-style tones'></select>
@@ -197,6 +220,10 @@ label.sel-label{
     <tr><td width="50%">
       <label id="lblCommunio" for="txtCommunio"><a target="_blank">Communio</a></label>
       <input id="txtCustomCommunio" placeholder="Communio Search Text" class="sel-custom" style="display:none"/>
+      <span class='novus-options communio' id='communioOptions'>
+        <label for='selOptionsCommunio'>&mdash; Pick One: </label>
+        <select id='selOptionsCommunio'></select>
+      </span>
       <div class='right'>
         <label for="selToneCommunio" class='sel-label'>Mode</label>
         <select id="selToneCommunio" class='sel-style tones'></select>
