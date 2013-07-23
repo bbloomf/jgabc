@@ -149,7 +149,7 @@ $(function(){
         } else {
           header.annotation = romanMode;
         }
-        gabc = header + gabc.slice(header.original.length);
+        gabc = gabc? (header + gabc.slice(header.original.length)) : '';
         sel[part].gabc = gabc;
         $('#selTone' + capPart).val(header.mode).change();
       };
@@ -857,7 +857,6 @@ $(function(){
     novusOption[part] = this.selectedIndex;
     updatePart(part);
   });
-  $('textarea').autosize().keydown(internationalTextBoxKeyDown);
   $('#btnCalendar').button().click(function(e){
     var $this = $(this);
     isNovus = !isNovus;
@@ -921,7 +920,7 @@ $(function(){
   for(var i=1; i<=8; ++i) {
     $selTones.append('<option>'+i+'</option>');
   }
-  $('textarea[id^=txt]').keyup(function(e){
+  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
         part = capPart.toLowerCase();
     if(sel[part].style.match(/^psalm-tone/) && sel[part].text != this.value) {

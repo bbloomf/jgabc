@@ -331,9 +331,6 @@ var selectedNeumeTag=null;
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
-var _clefs=[];
-var _accidentals=[];
-var _tones=[];
 
 var utf8_bom=String.fromCharCode(0xEF)+String.fromCharCode(0xBB)+String.fromCharCode(0xBF);
 function encode_utf8( s )
@@ -607,8 +604,9 @@ function getChantWidth(text) {
   return defChant.getComputedTextLength();
 }
 
-function selectGabc(start,len){
-  var e=$("#editor");
+function selectGabc(start,len,svg){
+  var e = $('#' + $(svg).parent().attr('for'));
+  if(e.length==0) e = $('#editor');
   start+=getHeaderLen(e.val());
   if(e.is(':visible')){
     e=e[0];
@@ -912,18 +910,18 @@ function relayoutChant(svg){
   
     lastClefBeforeNeume=function(neumeId){
       var i,result={clefTone:9};
-      for(i in _clefs){
-        if(i<neumeId)result=_clefs[i];
+      for(i in svg.clefs){
+        if(i<neumeId)result=svg.clefs[i];
         else break;
       }
       return result;
     };
     lastClefBeforePunctum=function(punctumId){
       var i,result={clefTone:9};
-      for(i in _clefs){
+      for(i in svg.clefs){
         try {
           var punctumI = parseInt($(svg).find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
-          if(punctumI<punctumId)result=_clefs[i].info;
+          if(punctumI<punctumId)result=svg.clefs[i].info;
           else break;
         } catch(e){}
       }
@@ -931,8 +929,8 @@ function relayoutChant(svg){
     }
     var isPunctumFlat=function(punctumId,toneId){
       var i,result=null;
-      for(i in _accidentals){
-        if(i<=punctumId)result=_accidentals[i];
+      for(i in svg.accidentals){
+        if(i<=punctumId)result=svg.accidentals[i];
         else break;
       }
       return result;
@@ -1121,7 +1119,10 @@ function getChant(text,svg,result,top) {
   text = text[1];
   var m = text.match(/[\r\n]\s*[-\w]+:[^;]+;\s*[\r\n]/);
   if(m)text = text.slice(0,m.index);
-  var makeLinks=svg?(svg.parentNode&&svg.parentNode.id=="chant-preview"):false;
+  var forEditor = svg.parentNode.getAttribute('for'),
+      $forEditor = $('#'+forEditor);
+  if(!$forEditor.is('textarea')) forEditor = $forEditor = null;
+  var makeLinks=svg?(svg.parentNode&&(svg.parentNode.id=="chant-preview"||forEditor)):false;
   var defs = $(svg).find("defs")[0];
   if(!defs)defs=_defs;
   var match;
@@ -1136,9 +1137,9 @@ function getChant(text,svg,result,top) {
     result.setAttribute("class", "caeciliae");
   }
   if(makeLinks){
-    _clefs=[];
-    _accidentals=[];
-    _tones=[];
+    svg.clefs=[];
+    svg.accidentals=[];
+    svg.tones=[];
   }
   var width = $(svg.parentNode).width();
   var userNotes = header["user-notes"];
@@ -1235,11 +1236,11 @@ function getChant(text,svg,result,top) {
         clef=cneume.info.clef||clef;
         if(makeLinks){
           if(cneume.info.clef){
-            _clefs[neumeId]=clefNeume=cneume;
+            svg.clefs[neumeId]=clefNeume=cneume;
             clefNeume.clefs = [];
-            _accidentals[punctumId] = clef.length==3? -1 : null;
+            svg.accidentals[punctumId] = clef.length==3? -1 : null;
           }
-          _tones=_tones.concat(cneume.info.tones);
+          svg.tones=svg.tones.concat(cneume.info.tones);
         }
         defChant.textContent = cneume.info.def.textContent;
         cneume.wChant = defChant.getComputedTextLength();
@@ -1449,11 +1450,11 @@ function getChant(text,svg,result,top) {
         use.setAttribute('y', 0);
         use.neume = cneume;
         if(makeLinks) {
-          punctumId = setUpPunctaIn(use,punctumId);
+          punctumId = setUpPunctaIn(use,punctumId,svg);
           if(space){
             var tmp = clef && clef.length==3? -1 : null;
-            if(_accidentals[_accidentals.length-1] != tmp){
-              _accidentals[punctumId] = tmp;
+            if(svg.accidentals[svg.accidentals.length-1] != tmp){
+              svg.accidentals[punctumId] = tmp;
             }
           }
           //use.setAttributeNS(xlinkns, 'href', 'javascript:selectGabc('+(match.index+match[1].length)+','+cneume.gabc.length+')');
@@ -2197,16 +2198,17 @@ function setGradient(punctumTag,offset){
   
   punctumTag.setAttribute("style","fill:url(#"+gradId+")");
 }
-function setUpPunctaIn(use,punctumId){
+function setUpPunctaIn(use,punctumId,svg){
   var id=0,
       oId=punctumId,
-      tones=use.neume.info.tones;
+      tones=use.neume.info.tones,
+      clefs = svg.clefs;
   $(use).children().each(function(){
     var tone = tones[id];
     if(tone.match[rtg.accidental]){
-      _accidentals[punctumId] = tone.match[rtg.flat]? (tone.index - _clefs[_clefs.length-1].info.clefTone) : null;
+      svg.accidentals[punctumId] = tone.match[rtg.flat]? (tone.index - clefs[clefs.length-1].info.clefTone) : null;
     } else if(tone.match[rtg.whitespace] && tone.match[rtg.whitespace].match(/[,;:]/)){
-      _accidentals[punctumId] = (_clefs.length && _clefs[_clefs.length-1].gabc.length==3)? -1 : null;
+      svg.accidentals[punctumId] = (clefs.length && clefs[clefs.length-1].gabc.length==3)? -1 : null;
     }
     this.setAttribute('id','punctum'+punctumId);
     this.tone = tone;
@@ -2293,16 +2295,18 @@ $(function() {
       };
       var _isPlaying=false;
       tempo=150;
+      setTempo = function(newTempo) { tempo = newTempo; }
       var seq;
       playScore = function(fromBeginning){
+        var svg = selectedSvg;
         var punctumId = fromBeginning?0:(selectedPunctum||0);
         while(seq && seq.next());
-        seq = new PSequence(_tones,1,punctumId);
+        seq = new PSequence(svg.tones,1,punctumId);
         _isPlaying=true;
         audiolet.scheduler.setTempo(tempo);
         audiolet.scheduler.play([seq], 1, function(toneInfo){
           var duration;
-          while(!(_isPlaying=_isPlaying && punctumId < _tones.length) || !(duration = toneInfo.play(punctumId))){
+          while(!(_isPlaying=_isPlaying && punctumId < svg.tones.length) || !(duration = toneInfo.play(punctumId))){
             ++punctumId;
             if(!(toneInfo=seq.next())){
               selectPunctum(-1);
@@ -2468,57 +2472,61 @@ $(function() {
   textElem.setAttribute("transform", "translate(0," + staffoffset + ")");
   textElem.setAttribute("class", "caeciliae");
   svg.appendChild(textElem);
-  var cp=$("#chant-preview");
+  var cp=$("#chant-preview,[id$=-preview][for]");
   if(cp.length==0) {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
-    lastClefBeforeNeume=function(neumeId){
+    lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
-      for(i in _clefs){
-        if(i<neumeId)result=_clefs[i];
+      for(i in svg.clefs){
+        if(i<neumeId)result=svg.clefs[i];
         else break;
       }
       return result;
     };
-    lastClefBeforePunctum=function(punctumId){
+    lastClefBeforePunctum=function(punctumId,svg){
       var i,result={clefTone:9};
-      for(i in _clefs){
+      for(i in svg.clefs){
         try {
           var punctumI = parseInt($(svg).find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
-          if(punctumI<punctumId)result=_clefs[i].info;
+          if(punctumI<punctumId)result=svg.clefs[i].info;
           else break;
         } catch(e){}
       }
       return result;
     }
-    var isPunctumFlat=function(punctumId,toneId){
+    var isPunctumFlat=function(punctumId,svg){
       var i,result=null;
-      for(i in _accidentals){
-        if(i<=punctumId)result=_accidentals[i];
+      for(i in svg.accidentals){
+        if(i<=punctumId)result=svg.accidentals[i];
         else break;
       }
       return result;
     }
     ToneInfo.prototype.play = function(punctumId){
-      var clefIndex = lastClefBeforePunctum(punctumId).clefTone;
-      var duration = this.match&&(this.match[rtg.dot]||this.match[rtg.episema])?2:1;
+      var svg=selectedSvg;
+      var clefIndex = lastClefBeforePunctum(punctumId,svg).clefTone;
+      var duration = this.match&&(this.match[rtg.dot]||this.match[rtg.episema])?2:(this.match[rtg.virga]||'v').length;
       if(duration == 1){
-        var nextPunctum = $("#punctum" + (1+punctumId));
+        var nextPunctum = $(svg).find("[id=punctum" + (1+punctumId) + "]");
         if(nextPunctum.length){
           nextPunctum = nextPunctum[0].tone;
           if(nextPunctum && nextPunctum.match[rtg.quilisma]) duration = 2;
         }
       }
       if(!this.clef && !this.accidental && typeof(this.index)=="number"){
-        playTone(this.index-clefIndex,isPunctumFlat(punctumId),duration);
+        playTone(this.index-clefIndex,isPunctumFlat(punctumId,svg),duration);
         return duration;
       }
       return false;
     };
 
     var moveSelectedPunctum=function(offset){
-      var tag = selectedPunctumTag;
+      var tag = selectedPunctumTag,
+          svg = selectedSvg,
+          e = $('#' + $(svg).parent().attr('for'));
+      if(e.length==0) e = $('#editor');
       if(!tag)return;
       var neumeTag = tag.parentNode;
       var punctumId = selectedPunctum - /^punctum(\d+)$/.exec(neumeTag.childNodes[0].id)[1];
@@ -2545,7 +2553,6 @@ $(function() {
         newLetter = String.fromCharCode(letter.charCodeAt(0)+offset);
       }
 
-      e=$("#editor");
       var cGABC = e.val();
       var index = getHeaderLen(cGABC);
       index += neume.index;
@@ -2562,8 +2569,8 @@ $(function() {
       var oldInfo = neume.info;
       var newNeume = neume.info = getChantFragment(neumeText,$(svg).find("defs")[0]);
       if(clef){
-        for(i in _clefs[selectedNeume].clefs){
-          var c = _clefs[selectedNeume].clefs[i];
+        for(i in svg.clefs[selectedNeume].clefs){
+          var c = svg.clefs[selectedNeume].clefs[i];
           c.setAttributeNS(xlinkns, 'href', '#' + clef);
         }
       }
@@ -2622,10 +2629,11 @@ $(function() {
       
       punctumId = selectedPunctum - punctumId;
       selectedPunctumTag=null;
-      punctumId = setUpPunctaIn(use,punctumId);
+      punctumId = setUpPunctaIn(use,punctumId,svg);
       selectedNeumeTag=use;
       e.val(cGABC);
     }
+    var selectedSvg = svg;
     var selectSelectedGabc=function(getOffset){
       if(!(selectedPunctum!=null && selectedPunctumTag))return;
       var tag = selectedPunctumTag;
@@ -2638,9 +2646,14 @@ $(function() {
         len = parseInt(tag.getAttribute("len1"));
       }
       if(getOffset) return offset;
-      selectGabc(parent.neume.index+offset,len);
+      selectGabc(parent.neume.index+offset,len,selectedSvg);
     }
-    var selectPunctum=function(punctumToSelect,dontPlay){
+    var selectPunctum=function(punctumToSelect,dontPlay,svg){
+      if(svg) {
+        selectedSvg = svg;
+      } else {
+        svg = selectedSvg;
+      }
       punctumToSelect=parseInt(punctumToSelect);
       if(punctumToSelect<0)punctumToSelect=-1;
       if(punctumToSelect==selectedPunctum)return;
@@ -2679,20 +2692,24 @@ $(function() {
       }
     };
     var selectNeume=function(neumeToSelect){
-      var neume=$(svg).find("#neume"+neumeToSelect + ">tspan");
+      var neume=$(selectedSvg).find("#neume"+neumeToSelect + ">tspan");
       punctumToSelect=/punctum(\d+)/i.exec(neume.attr("id"));
       if(punctumToSelect)selectPunctum(parseInt(punctumToSelect[1]));
     };
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
-      selectPunctum(/punctum(\d+)/i.exec(this.id)[1]);
+      selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
     }).on("click","tspan.selectable[id^=neumetext]",function(e){
       var index = parseInt(this.getAttribute('selectIndex'));
       if(index >= 0) {
         //index += getHeaderLen($this.val());
-        selectGabc(index,-1);
+        selectGabc(index,-1,$(this).parents('svg')[0]);
       }
     });
     var docKeyDown=function(e){
+      if(e.which == 27) { // escape
+        stopScore();
+        return;
+      }
       if(e.target.tagName.match(/textarea|input|select/i)){
         selectPunctum(-1);
         return;
@@ -2748,9 +2765,6 @@ $(function() {
           case 32: // space
             playScore(true);
             e.preventDefault();
-            return;
-          case 27:
-            stopScore();
             return;
           default:
             console.info(e.which);
