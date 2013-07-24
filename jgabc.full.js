@@ -2295,7 +2295,8 @@ $(function() {
       };
       var _isPlaying=false;
       tempo=150;
-      setTempo = function(newTempo) { tempo = newTempo; }
+      setTempo = function(newTempo) { tempo = newTempo || 150; }
+      setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
       var seq;
       playScore = function(fromBeginning){
         var svg = selectedSvg;
@@ -2738,6 +2739,12 @@ $(function() {
           case 32: // space
             playScore();
             return;
+          case 107: // plus
+            setRelativeTempo(1);
+            return;
+          case 109: // minus
+            setRelativeTempo(-1);
+            return;
           default:
             return;
         }
@@ -2764,6 +2771,14 @@ $(function() {
             return;
           case 32: // space
             playScore(true);
+            e.preventDefault();
+            return;
+          case 107: // plus
+            setRelativeTempo(10);
+            e.preventDefault();
+            return;
+          case 109: // minus
+            setRelativeTempo(-10);
             e.preventDefault();
             return;
           default:
