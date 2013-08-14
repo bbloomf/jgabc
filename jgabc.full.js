@@ -1110,7 +1110,9 @@ function relayoutChant(svg){
     $staff = $svg.find('#system'+staffI);
     $staff.remove();
   }
-  svg.setAttribute('height',$(svg).children("g")[0].getBBox().height + extraHeight + _heightCorrection - _defText.getExtentOfChar("q").height);
+  var height = $(svg).children("g")[0].getBBox().height + extraHeight + _heightCorrection - _defText.getExtentOfChar("q").height;
+  svg.setAttribute('height',height);
+  $(svg).height(height);
 }
 
 function getChant(text,svg,result,top) {
@@ -1667,7 +1669,14 @@ var ToneInfo = function(obj){
   var tones,result,minDy,htone,ltone;
   getChantFragment=function(gabc,defs) {
     if(abcs[gabc] != undefined) {
-      return abcs[gabc];
+      var r = abcs[gabc];
+      if($(defs).find("[id='"+gabc+"']").length==0){
+        defs.appendChild($.clone(r.def));
+        if(r.mask) {
+          getChantFragment(r.mask,defs);
+        }
+      }
+      return r;
     }
     var mask = undefined;
     if(gabc.indexOf('r') > -1) {
