@@ -2923,6 +2923,8 @@ $(function() {
   $(window).resize(updateAllChantWidth);
   var tWidth=0;
   var oldTWidth=0;
+  var cWidth=0;
+  var oldCWidth=0;
   var initCount=0;
   var init = function() {
     if(svg) {
@@ -2933,6 +2935,7 @@ $(function() {
         var cWidth1=getChantWidth("4q5P");
         var cWidth2=getChantWidth("P");
         notewidth = getChantWidth("p");
+        cWidth = getChantWidth("p p p p p p p p p p p p p p p");
         if(cWidth1==cWidth2) {
           neume = _neumeLig;
           indices=_indicesLig;
@@ -2943,8 +2946,15 @@ $(function() {
           makeClefSpan=_clefSpanChar;
         }
         if(tWidth != oldTWidth) {
+          //console.info('twidth = ' + tWidth + '; (old was ' + oldTWidth + ')');
           _txtWidths={};
           oldTWidth=tWidth;
+          forceUpdateChant();
+          updateAllChant();
+        }
+        if(cWidth != oldCWidth) {
+          //console.info('cwidth = ' + cWidth + '; (old was ' + oldCWidth + ')');
+          oldCWidth=cWidth;
           forceUpdateChant();
           updateAllChant();
         }

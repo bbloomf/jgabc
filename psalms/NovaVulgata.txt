@@ -6,7 +6,7 @@ PSALMUS 1
 2 sed in lege Dómini volúntas eius, * et in lege eius meditátur die ac nocte. 
 3 Et erit tamquam lignum plantátum secus decúrsus aquárum, * quod fructum suum dabit in témpore suo; 
 et fólium eius non défluet, * et ómnia, quæcúmque fáciet, prosperabúntur. 
-4 Non síc impii, non sic, * sed tamquam pulvis, quem próicit ventus. 
+4 Non síc ímpii, non sic, * sed tamquam pulvis, quem próicit ventus. 
 5 Ideo non consúrgent ímpii in iudício, * neque peccatóres in concílio iustórum. 
 6 Quóniam novit Dóminus viam iustórum, * et iter impiórum períbit. 
 
@@ -17,7 +17,7 @@ PSALMUS 2
 4 Qui hábitat in cælis, irridébit eos, * Dóminus subsannábit eos. 
 5 Tunc loquétur ad eos in ira sua * et in furóre suo conturbábit eos: 
 6 « Ego autem constítui regem meum * super Sion, montem sanctum meum! ». 
-7 Prædicábo decrétum eius. † Dóminus dixit ad me: « Filius meus es tu; * ego hódie génui te. 
+7 Prædicábo decrétum eius. † Dóminus dixit ad me: « Fílius meus es tu; * ego hódie génui te. 
 8 Póstula a me, et dabo tibi gentes hereditátem tuam * et possessiónem tuam términos terræ. 
 9 Reges eos in virga férrea * et tamquam vas fíguli confrínges eos ». 
 10 Et nunc, reges, intellégite; * erudímini, qui iudicátis terram. 
@@ -167,7 +167,7 @@ PSALMUS 12 (11)
 6 « Propter misériam ínopum et gémitum páuperum, † nunc exsúrgam, dicit Dóminus; * ponam in salutári illum, quem despíciunt ». 
 7 Elóquia Dómini elóquia casta, * argéntum igne examinátum, separátum a terra, purgátum séptuplum. 
 8 Tu, Dómine, servábis nos et custódies nos * a generatióne hac in ætérnum. 
-In circúitu ímpii ámbulant, * cum exaltántur sordes inter filios hóminum. 
+In circúitu ímpii ámbulant, * cum exaltántur sordes inter fílios hóminum. 
  
 PSALMUS 13 (12) 
 2 Usquequo, Dómine, obliviscéris me in finem? * Usquequo avértes fáciem tuam a me? 
@@ -210,23 +210,23 @@ Non effúndam libatiónes eórum de sanguínibus * neque assúmam nómina eórum
 PSALMUS 17 (16) 
 1 Exáudi, Dómine, iustítiam meam, * inténde deprecatiónem meam. 
 Auribus pércipe oratiónem meam, * non in lábiis dolósis. 
-2 De vultu tuo iudícium meum pródeat; * óculi tui videant æquitátes. 
+2 De vultu tuo iudícium meum pródeat; * óculi tui vídeant æquitátes. 
 3 Proba cor meum et vísita nocte; † igne me exámina, * et non invénies in me iniquitátem. 
 4 Non transgréditur os meum ad ópera hóminum, * propter verba labiórum tuórum custodívi me a viis violénti. 
 5 Rétine gressus meos in sémitis tuis, * ut non moveántur vestígia mea. 
 6 Ego ad te clamávi, quóniam exáudis me, Deus; * inclína aurem tuam mihi et exáudi verba mea. 
-7 Mirífica misericórdias tuas, * qui salvos facis ab insurgéntibus sperantes in déxtera tua. 
+7 Mirífica misericórdias tuas, * qui salvos facis ab insurgéntibus sperántes in déxtera tua. 
 8 Custódi me ut pupíllam óculi, † sub umbra alárum tuárum prótege me * 9 a fácie impiórum, qui me afflixérunt. 
 Inimíci mei in furóre circumdedérunt me, † 10 ádipem suum conclusérunt; * os eórum locútum est supérbiam. 
 11 Incedéntes nunc circumdedérunt me, * óculos suos statuérunt prostérnere in terram. 
 12 Aspéctus eórum quasi leónis paráti ad prædam * et sicut cátuli leónis recubántis in ábditis. 
-13 Exsúrge, Dómine, prǽveni eum, supplánta eum; * éripe ánimam meam ab impio frámea tua, 
+13 Exsúrge, Dómine, prǽveni eum, supplánta eum; * éripe ánimam meam ab ímpio frámea tua, 
 14 a mórtuis manu tua, Dómine, * a mórtuis, quorum defécit pórtio vitæ. 
 De recónditis tuis adímpleas ventrem eórum, * Saturéntur fílii et dimíttant relíquias párvulis suis. 
 15 Ego autem in iustítia vidébo fáciem tuam, * satiábor, cum evigilávero, conspéctu tuo. 
  
 PSALMUS 18 (17) 
-2 Diligam te, Dómine, fortitúdo mea. * 3 Dómine, firmaméntum meum et refúgium meum et liberátor meus; 
+2 Díligam te, Dómine, fortitúdo mea. * 3 Dómine, firmaméntum meum et refúgium meum et liberátor meus; 
 Deus meus, adiútor meus, et sperábo in eum; * protéctor meus et cornu salútis meæ et suscéptor meus. 
 4 Laudábilem invocábo Dóminum, * et ab inimícis meis salvus ero. 
 5 Circumdedérunt me fluctus mortis, * et torréntes Bélial conturbavérunt me; 
@@ -272,10 +272,10 @@ et secúndum puritátem mánuum meárum reddet mihi,
 43 Et commínui eos ut púlverem ante fáciem venti, * ut lutum plateárum contrívi eos. 
 44 Eripuísti me de contradictiónibus pópuli, * constituísti me in caput géntium. 
 Pópulus, quem non cognóvi, servívit mihi, * 45 in audítu auris obœdivit mihi. 
-Filii aliéni blandíti sunt mihi, † 46 filii aliéni inveteráti sunt, * Contremuérunt in ábditis suis. 
+Fílii aliéni blandíti sunt mihi, † 46 fílii aliéni inveteráti sunt, * Contremuérunt in ábditis suis. 
 47 Vivit Dóminus, et benedíctus Adiútor meus, * et exaltétur Deus salútis meæ. 
 48 Deus, qui das vindíctas mihi † et subdis pópulos sub me, * liberátor meus de inimícis meis iracúndis; 
-49 et ab insurgéntibus in me exáltas me, * a viro iniquo éripis me. 
+49 et ab insurgéntibus in me exáltas me, * a viro iníquo éripis me. 
 50 Proptérea confitébor tibi in natiónibus, Dómine, * et nómini tuo psalmum dicam, 
 51 magníficans salútes regis sui † et fáciens misericórdiam christo suo, * David et sémini eius usque in sǽculum. 
  
@@ -285,8 +285,8 @@ PSALMUS 19 (18)
 4 Non sunt loquélæ neque sermónes, * quorum non intellegántur voces: 
 5 in omnem terram exívit sonus eórum * et in fines orbis terræ verba eórum. 
 6 Soli pósuit tabernáculum in eis, † et ipse, tamquam sponsus procédens de thálamo suo, * exsultávit ut gigas ad curréndam viam. 
-7 A finibus cælórum egréssio eius, † et occúrsus eius usque ad fines eórum, * nec est quod se abscóndat a calóre eius. 
-8 Lex Dómini immaculáta, reficiens ánimam, * testimónium Dómini fidéle, sapiéntiam præstans párvulis. 
+7 A fínibus cælórum egréssio eius, † et occúrsus eius usque ad fines eórum, * nec est quod se abscóndat a calóre eius. 
+8 Lex Dómini immaculáta, refíciens ánimam, * testimónium Dómini fidéle, sapiéntiam præstans párvulis. 
 9 Iustitiæ Dómini rectæ, lætificántes corda, * præcéptum Dómini lúcidum, illúminans óculos. 
 10 Timor Dómini mundus, pérmanens in sǽculum sǽculi; * iudícia Dómini vera, iusta ómnia simul, 
 11 desiderabília super aurum et lápidem pretiósum multum, * et dulcíora super mel et favum stillántem. 
@@ -323,7 +323,7 @@ PSALMUS 21 (20)
 14 Exáltare, Dómine, in virtúte tua; * cantábimus et psallémus virtútes tuas. 
  
 PSALMUS 22 (21)  
-2 Deus, Deus meus, quare me dereliquísti? * Longe a salúte mea verba rugitus mei. 
+2 Deus, Deus meus, quare me dereliquísti? * Longe a salúte mea verba rúgitus mei. 
 3 Deus meus, clamo per diem, et non exáudis, * et nocte, et non est réquies mihi. 
 4 Tu autem sanctus es, * qui hábitas in láudibus Israel. 
 5 In te speravérunt patres nostri, * speravérunt, et liberásti eos; 
@@ -398,7 +398,7 @@ Confundántur infidéliter agéntes * propter vanitátem.
 15 Oculi mei semper ad Dóminum, * quóniam ipse evéllet de láqueo pedes meos. 
 16 Réspice in me et miserére mei, * quia únicus et pauper sum ego. 
 17 Diláta angústias cordis mei * et de necessitátibus meis érue me. 
-18 Vide humilitátem meam et labórem meum * et dimitte univérsa delicta mea. 
+18 Vide humilitátem meam et labórem meum * et dimítte univérsa delícta mea. 
 19 Réspice inimícos meos, quóniam multiplicáti sunt, * et ódio crudéli odérunt me. 
 20 Custódi ánimam meam et érue me; * non erubéscam, quóniam sperávi in te. 
 21 Innocéntia et ǽquitas custódiant me, * quia sustínui te. 
@@ -411,7 +411,7 @@ PSALMUS 26 (25)
 4 Non sedi cum viris vanitátis * et cum occúlte agéntibus non introíbo. 
 5 Odívi ecclésiam malignántium * et cum ímpiis non sedébo. 
 6 Lavábo in innocéntia manus meas * et circúmdabo altáre tuum, Dómine, 
-7 ut auditas fáciam voces laudis * et enárrem univérsa mirabília tua. 
+7 ut audítas fáciam voces laudis * et enárrem univérsa mirabília tua. 
 8 Dómine, diléxi habitáculum domus tuæ * et locum habitatiónis glóriæ tuæ. 
 9 Ne cólligas cum ímpiis ánimam meam * et cum viris sánguinum vitam meam, 
 10 in quorum mánibus iniquitátes sunt, * déxtera eórum repléta est munéribus. 
@@ -447,7 +447,7 @@ Ne quándo táceas a me, * et assimilábor descendéntibus in lacum.
 3 Ne simul trahas me cum peccatóribus * et cum operántibus iniquitátem. 
 Qui loquúntur pacem cum próximo suo, * mala autem in córdibus eórum. 
 4 Da illis secúndum ópera eórum * et secúndum nequítiam adinventiónum ipsórum. 
-Secúndum opus mánuum eórum tribue illis, * redde retributiónem eórum ipsis. 
+Secúndum opus mánuum eórum tríbue illis, * redde retributiónem eórum ipsis. 
 5 Quóniam non intellexérunt ópera Dómini † et opus mánuum eius, * déstruet illos et non ædificábit eos. 
 6 Benedíctus Dóminus, † quóniam exaudívit vocem deprecatiónis meæ; * 7 Dóminus adiútor meus et protéctor meus, 
 in ipso sperávit cor meum, et adiútus sum, † et exsultávit cor meum, * et in cántico meo confitébor ei. 
@@ -501,7 +501,7 @@ infirmáta est in paupertáte virtus mea, * et ossa mea contabuérunt.
 13 Oblivióni a corde datus sum tamquam mórtuus; * factus sum tamquam vas pérditum. 
 14 Quóniam audívi vituperatiónem multórum: * horror in circúitu; 
 in eo dum convenírent simul advérsum me, * auférre ánimam meam consiliáti sunt. 
-15 Ego autem in te sperávi, Dómine; † dixi: « Deus meus es tu, * 16 in manibus tuis sortes meæ ». 
+15 Ego autem in te sperávi, Dómine; † dixi: « Deus meus es tu, * 16 in mánibus tuis sortes meæ ». 
 Eripe me de manu inimicórum meórum * et a persequéntibus me; 
 17 illústra fáciem tuam super servum tuum, * salvum me fac in misericórdia tua. 
 18 Dómine, non confúndar, quóniam invocávi te; * erubéscant ímpii et obmutéscant in inférno. 
@@ -510,7 +510,7 @@ Eripe me de manu inimicórum meórum * et a persequéntibus me;
 Perfecísti eis, qui sperant in te, * in conspéctu filiórum hóminum. 
 21 Abscóndes eos in abscóndito faciéi tuæ * a conturbatióne hóminum; 
 próteges eos in tabernáculo * a contradictióne linguárum. 
-22 Benedictus Dóminus, * quóniam mirificávit misericórdiam suam mihi in civitáte muníta. 
+22 Benedíctus Dóminus, * quóniam mirificávit misericórdiam suam mihi in civitáte muníta. 
 23 Ego autem dixi in trepidatióne mea: * « Præcísus sum a conspéctu oculórum tuórum ». 
 Verúmtamen exaudísti vocem oratiónis meæ, * dum clamárem ad te. 
 24 Dilígite Dóminum, omnes sancti eius: † fidéles consérvat Dóminus * et retríbuit abundánter faciéntibus supérbiam. 
@@ -540,12 +540,12 @@ PSALMUS 33 (32)
 5 Díligit iustítiam et iudícium; * misericórdia Dómini plena est terra. 
 6 Verbo Dómini cæli facti sunt, * et spíritu oris eius omnis virtus eórum. 
 7 Cóngregans sicut in utre aquas maris, * ponens in thesáuris abýssos. 
-8 Timeat Dóminum omnis terra, * a fácie autem eius formídent omnes inhabitántes orbem. 
+8 Tímeat Dóminum omnis terra, * a fácie autem eius formídent omnes inhabitántes orbem. 
 9 Quóniam ipse dixit, et facta sunt, * ipse mandávit, et creáta sunt. 
 10 Dóminus díssipat consília géntium, * írritas facit cogitatiónes populórum. 
 11 Consílium autem Dómini in ætérnum manet, * cogitatiónes cordis eius in generatióne et generatiónem. 
 12 Beáta gens, cui Dóminus est Deus, * pópulus, quem elégit in hereditátem sibi. 
-13 De cælo respéxit Dóminus, * vidit omnes filios hóminum. 
+13 De cælo respéxit Dóminus, * vidit omnes fílios hóminum. 
 14 De loco habitáculi sui respéxit * super omnes, qui hábitant terram, 
 15 qui finxit singillátim corda eórum, * qui intéllegit ómnia ópera eórum. 
 16 Non salvátur rex per multam virtútem, * et gigas non liberábitur in multitúdine virtútis suæ. 
@@ -583,7 +583,7 @@ PSALMUS 34 (33)
 PSALMUS 35 (34) 
 1 Iudica, Dómine, iudicántes me; * impúgna impugnántes me. 
 2 Apprehénde clípeum et scutum * et exsúrge in adiutórium mihi. 
-3 Effúnde frámeam et secúrim † advérsus eos, qui persequuntur me. * Dic anímæ meæ: « Salus tua ego sum ». 
+3 Effúnde frámeam et secúrim † advérsus eos, qui persequúntur me. * Dic anímæ meæ: « Salus tua ego sum ». 
 4 Confundántur et revereántur * quæréntes ánimam meam; 
 avertántur retrórsum et confundántur * cogitántes mihi mala. 
 5 Fiant tamquam pulvis ante ventum, * et ángelus Dómini impéllens eos; 
@@ -604,7 +604,7 @@ humiliábam in ieiúnio ánimam meam, * et orátio mea in sinu meo convertebátu
 18 Confitébor tibi in ecclésia magna, * in pópulo multo laudábo te. 
 19 Non supergáudeant mihi inimíci mei mendáces, * qui odérunt me gratis et ánnuunt óculis. 
 20 Etenim non pacífice loquebántur * et contra mansuétos terræ dolos cogitábant. 
-21 Et dilatavérunt super me os suum; * dixerunt: « Euge, euge, vidérunt óculi nostri ».  
+21 Et dilatavérunt super me os suum; * dixérunt: « Euge, euge, vidérunt óculi nostri ».  
 22 Vidísti, Dómine, ne síleas; * Dómine, ne discédas a me. 
 23 Exsúrge et evígila ad iudícium meum, * Deus meus et Dóminus meus, ad causam meam. 
 24 Iúdica me secúndum iustítiam tuam, Dómine Deus meus, * et non supergáudeant mihi. 
@@ -697,7 +697,7 @@ PSALMUS 38 (37)
 23 Festína in adiutórium meum, * Dómine, salus mea. 
  
 PSALMUS 39 (38) 
-2 Dixi: « Custódiam vias meas, * ut non delinquam in lingua mea; 
+2 Dixi: « Custódiam vias meas, * ut non delínquam in lingua mea; 
 ponam ori meo custódiam, * donec consístit peccátor advérsum me ». 
 3 Tacens obmútui et sílui absque ullo bono, * et dolor meus renovátus est. 
 4 Concáluit cor meum intra me, * et in meditatióne mea exársit ignis. 
@@ -816,7 +816,7 @@ PSALMUS 45 (44)
 5 Et ornátu tuo procéde, currum ascénde * propter veritátem et mansuetúdinem et iustítiam. 
 Et dóceat te mirabília déxtera tua: † 6 sagíttæ tuæ acútæ – pópuli sub te cadent – * in corda inimicórum regis. 
 7 Sedes tua, Deus, in sǽculum sǽculi; * sceptrum æquitátis sceptrum regni tui. 
-8 Dilexísti iustítiam et odísti iniquitátem, † proptérea unxit te Deus, Deus tuus, * óleo lætítiæ præ consortibus tuis. 
+8 Dilexísti iustítiam et odísti iniquitátem, † proptérea unxit te Deus, Deus tuus, * óleo lætítiæ præ consórtibus tuis. 
 9 Myrrha et áloe et cásia ómnia vestiménta tua; * e dómibus ebúrneis chordæ deléctant te. 
 10 Filiæ regum in pretiósis tuis; * ástitit regína a dextris tuis ornáta auro ex Ophir.  
 11 Audi, fília, et vide † et inclína aurem tuam * et oblivíscere pópulum tuum et domum patris tui; 
@@ -911,7 +911,7 @@ ignis consúmens est in conspéctu eius, * et in circúitu eius tempéstas váli
 14 Immola Deo sacrifícium laudis * et redde Altíssimo vota tua; 
 15 et ínvoca me in die tribulatiónis: * éruam te, et honorificábis me ». 
 16 Peccatóri autem dixit Deus: † « Quare tu enárras præcepta mea * et assúmis testaméntum meum in os tuum? 
-17 Tu vero odisti disciplínam * et proiecísti sermónes meos retrórsum. 
+17 Tu vero odísti disciplínam * et proiecísti sermónes meos retrórsum. 
 18 Si vidébas furem, currébas cum eo; * et cum adúlteris erat pórtio tua. 
 19 Os tuum dimittébas ad malítiam, * et lingua tua concinnábat dolos. 
 20 Sedens advérsus fratrem tuum loquebáris * et advérsus fílium matris tuæ proferébas oppróbrium. 
@@ -940,7 +940,7 @@ ut iustus inveniáris in senténtia tua * et æquus in iudício tuo.
 18 Non enim sacrifício delectáris, * holocáustum, si ófferam, non placébit. 
 19 Sacrifícium Deo spíritus contribulátus, * cor contrítum et humiliátum, Deus, non despícies. 
 20 Benígne fac, Dómine, in bona voluntáte tua Sion, * ut ædificéntur muri Ierúsalem. 
-21 Tunc acceptábis sacrifícium iustítiæ, oblatiónes et holocáusta; * tunc impónent super altáre tuum vitulos. 
+21 Tunc acceptábis sacrifícium iustítiæ, oblatiónes et holocáusta; * tunc impónent super altáre tuum vítulos. 
  
 PSALMUS 52 (51) 
 3 Quid gloriáris in malítia, * qui potens es iniquitáte? 
@@ -1036,7 +1036,7 @@ PSALMUS 58 (57)
 3 Etenim in corde iniquitátes operámini, * in terra violéntiam manus vestræ concínnant. 
 4 Alienáti sunt peccatóres ab útero, * erravérunt a ventre, qui loquúntur falsa. 
 5 Venénum illis in similitúdinem serpéntis, * sicut áspidis surdæ et obturántis aures suas, 
-6 quæ non exáudiet vocem incantántium * et venéfici incantántis sapienter. 
+6 quæ non exáudiet vocem incantántium * et venéfici incantántis sapiénter. 
 7 Deus, cóntere dentes eórum in ore ipsórum, * molas leónum confrínge, Dómine. 
 8 Díffluant tamquam aqua decúrrens, * sicut fenum conculcátum aréscant. 
 9 Sicut limax, quæ tabéscens transit, * sicut abortívum mulíeris, quod non vidit solem. 
@@ -1046,13 +1046,13 @@ PSALMUS 58 (57)
  
 PSALMUS 59 (58) 
 2 Eripe me de inimícis meis, Deus meus, * et ab insurgéntibus in me prótege me. 
-3 Eripe me de operántibus iniquitatem * et de viris sánguinum salva me. 
+3 Eripe me de operántibus iniquitátem * et de viris sánguinum salva me. 
 4 Quia ecce insidiáti sunt ánimæ meæ, * irruérunt in me fortes. 
 5 Neque delíctum neque peccátum in me est, Dómine; * sine iniquitáte mea currunt et præparántur. 
 Exsúrge in occúrsum meum et vide; * 6 et tu, Dómine, Deus virtútum, Deus Israel, 
 evígila ad visitándas omnes gentes; * non misereáris ómnibus, qui infidéliter operántur. 
 7 Reverténtur ad vésperam et latrábunt ut canes * et circuíbunt civitátem. 
-8 Ecce eructábunt ore suo, * et gládius in labiis eórum: « Quis enim audit? ». 
+8 Ecce eructábunt ore suo, * et gládius in lábiis eórum: « Quis enim audit? ». 
 9 Et tu, Dómine, deridébis eos; * subsannábis omnes gentes. 
 10 Fortitúdo mea, tibi atténdam, * quia, Deus, præsídium meum es. 
 11 Deus meus, misericórdia eius prævéniet me. * Deus fáciet, ut despíciam inimícos meos. 
@@ -1060,7 +1060,7 @@ evígila ad visitándas omnes gentes; * non misereáris ómnibus, qui infidélit
 13 Peccátum oris eórum, sermo labiórum ipsórum, * et comprehendántur in supérbia sua. 
 Propter exsecratiónem et mendácium, quod loqúuntur, * 14 consúme eos in furóre, 
 consúme, et non erunt; * et scient quia Deus dominábitur Iacob et fínium terræ. 
-15 Reverténtur ad vésperam et latrábunt ut canes * et circuíbunt civitatem. 
+15 Reverténtur ad vésperam et latrábunt ut canes * et circuíbunt civitátem. 
 16 Ipsi errábunt ad manducándum; * si vero non fúerint saturáti, murmurábunt. 
 17 Ego autem cantábo fortitúdinem tuam * et exsultábo mane misericórdiam tuam, 
 quia factus es præsídium meum * et refúgium meum in die tribulatiónis meæ. 
@@ -1082,7 +1082,7 @@ Da nobis auxílium de tribulatióne, * quia vana salus hóminis.
 13 In Deo faciémus virtútem, * et ipse conculcábit tribulántes nos. 
  
 PSALMUS 61 (60) 
-2 Exaudi, Deus, deprecationem meam, * intende orationi meæ. 
+2 Exaudi, Deus, deprecatiónem meam, * inténde oratióni meæ. 
 3 A fínibus terræ ad te clamávi, † dum anxiarétur cor meum. * In petram inaccéssam mihi deduc me! 
 4 Quia factus es spes mea, * turris fortitúdinis a fácie inimíci. 
 5 Inhabitábo in tabernáculo tuo in sǽcula, * prótegar in velaménto alárum tuárum, 
@@ -1100,7 +1100,7 @@ PSALMUS 62 (61)
 7 Verúmtamen ipse Deus meus et salutáre meum, * præsídium meum; non movébor. 
 8 In Deo salutáre meum et glória mea; * Deus fortitúdinis meæ, et refúgium meum in Deo est. 
 9 Speráte in eo, omnis congregátio pópuli, † effúndite coram illo corda vestra; * Deus refúgium nobis. 
-10 Verúmtamen vánitas filii Adam, * mendácium fílii hóminum. 
+10 Verúmtamen vánitas fílii Adam, * mendácium fílii hóminum. 
 In statéram si conscéndant, * super fumum leves sunt omnes. 
 11 Nolíte speráre in violéntia † et in rapína nolíte décipi; * divítiæ si áffluant, nolíte cor appónere. 
 12 Semel locútus est Deus, * duo hæc audívi: 
@@ -1167,7 +1167,7 @@ PSALMUS 66 (65)
 16 Veníte, audíte, † et narrábo, omnes, qui timétis Deum, * quanta fecit ánimæ meæ. 
 17 Ad ipsum ore meo clamávi * et exaltávi in lingua mea. 
 18 Iniquitátem si aspéxi in corde meo, * non exáudiet Dóminus. 
-19 Proptérea exaudivit Deus, * atténdit voci deprecatiónis meæ. 
+19 Proptérea exaudívit Deus, * atténdit voci deprecatiónis meæ. 
 20 Benedíctus Deus, qui non amóvit oratiónem meam * et misericórdiam suam a me. 
  
 PSALMUS 67 (66) 
@@ -1187,7 +1187,7 @@ PSALMUS 68 (67)
 Iubiláte in conspéctu eius; † 6 pater orphanórum et iudex viduárum, * Deus in habitáculo sancto suo. 
 7 Deus, qui inhabitáre facit desolátos in domo, † qui edúcit vinctos in prosperitátem; * verúmtamen rebélles habitábunt in árida terra.  
 8 Deus, cum egrederéris in conspéctu pópuli tui, * cum pertransíres in desérto, 9 terra mota est, 
-étiam cæli distillavérunt a fácie Dei Sinai, * a fácie Dei Israel. 
+étiam cæli distillavérunt a fácie Dei Sínai, * a fácie Dei Israel. 
 10 Plúviam voluntáriam effundébas, Deus; * hereditátem tuam infirmátam, tu refecísti eam. 
 11 Animália tua habitábant in ea, * parásti in bonitáte tua páuperi, Deus. 
 12 Dóminus dat verbum; * vírgines annuntiántes bona sunt agmen ingens: 
@@ -1250,8 +1250,8 @@ Et sustínui, qui simul contristarétur, et non fuit, * et qui consolarétur, et
 29 Deleántur de libro vivéntium * et cum iustis non scribántur. 
 30 Ego autem sum pauper et dolens; * salus tua, Deus, súscipit me. 
 31 Laudábo nomen Dei cum cántico * et magnificábo eum in laude. 
-32 Et placébit Dómino super taurum, * super vitulum córnua producéntem et úngulas. 
-33 Videant húmiles et læténtur; * quǽrite Deum, et vivet cor vestrum, 
+32 Et placébit Dómino super taurum, * super vítulum córnua producéntem et úngulas. 
+33 Vídeant húmiles et læténtur; * quǽrite Deum, et vivet cor vestrum, 
 34 quóniam exaudívit páuperes Dóminus * et vinctos suos non despéxit. 
 35 Laudent illum cæli et terra, * mária et ómnia reptília in eis. 
 36 Quóniam Deus salvam fáciet Sion † et ædificábit civitátes Iudæ; * et inhabitábunt ibi et possidébunt eam. 
@@ -1288,7 +1288,7 @@ quóniam fortitúdo mea * et refúgium meum es tu.
 18 Et usque in senéctam et sénium, * Deus, ne derelínquas me, 
 donec annúntiem bráchium tuum * generatióni omni, quæ ventúra est. 
 Poténtia tua 19 et iustítia tua, Deus, † usque in altíssima, qui fecísti magnália: * Deus, quis símilis tibi? 
-20 Quantas ostendísti mihi tribulatiónes multas et malas; † iterum vivificásti me * et de abýssis terræ íterum reduxísti me. 
+20 Quantas ostendísti mihi tribulatiónes multas et malas; † íterum vivificásti me * et de abýssis terræ íterum reduxísti me. 
 21 Multiplicábis magnitúdinem meam * et convérsus consoláberis me. 
 22 Nam et ego confitébor tibi, † in psaltério veritátem tuam, Deus meus; * psallam tibi in cíthara, Sanctus Israel. 
 23 Exsultábunt lábia mea, cum cantávero tibi, * et ánima mea, quam redemísti; 
@@ -1405,7 +1405,7 @@ PSALMUS 77 (76)
 2 Voce mea ad Dóminum clamávi; * voce mea ad Deum, et inténdit mihi. 
 3 In die tribulatiónis meæ Deum exquisívi, † manus meæ nocte expánsæ sunt * et non fatigántur. 
 Rénuit consolári ánima mea; † 4 memor sum Dei et ingemísco, * exérceor, et déficit spíritus meus. 
-5 Vigiles tenuísti pálpebras óculi mei; * turbátus sum et non sum locútus. 
+5 Vígiles tenuísti pálpebras óculi mei; * turbátus sum et non sum locútus. 
 6 Cogitávi dies antíquos * et annos ætérnos in mente hábui. 
 7 Meditátus sum nocte cum corde meo * et exercitábar et scopébam spíritum meum. 
 8 Numquid in ætérnum proíciet Deus, * aut non appónet, ut complacítior sit adhuc? 
@@ -1497,7 +1497,7 @@ Sæpe avértit iram suam * et non accéndit omnem furórem suum.
 67 Et réppulit tabernáculum Ioseph * et tribum Ephraim non elégit, 
 68 sed elégit tribum Iudæ, * montem Sion, quem diléxit. 
 69 Et ædificávit sicut excélsum sanctuárium suum, * sicut terram, quam fundávit in sǽcula. 
-70 Et elegit David servum suum † et sústulit eum de grégibus óvium, * 71 de post fetántes accépit eum: 
+70 Et elégit David servum suum † et sústulit eum de grégibus óvium, * 71 de post fetántes accépit eum: 
 páscere Iacob pópulum suum * et Israel hereditátem suam. 
 72 Et pavit eos in innocéntia cordis sui * et in prudéntia mánuum suárum dedúxit eos. 
  
@@ -1787,7 +1787,7 @@ PSALMUS 94 (93)
 3 Usquequo peccatóres, Dómine, * úsquequo peccatóres exsultábunt? 
 4 Effabúntur et loquéntur protérva, * gloriabúntur omnes, qui operántur iniquitátem.  
 5 Pópulum tuum, Dómine, humíliant * et hereditátem tuam vexant. 
-6 Viduam et ádvenam interfíciunt * et pupíllos occídunt. 
+6 Víduam et ádvenam interfíciunt * et pupíllos occídunt. 
 7 Et dixérunt: « Non vidébit Dóminus, * nec intélleget Deus Iacob ». 
 8 Intellégite, insipiéntes in pópulo, * et stulti, quando sapiétis? 
 9 Qui plantávit aurem, non áudiet, * aut qui finxit óculum, non respíciet? 
@@ -1807,14 +1807,14 @@ PSALMUS 94 (93)
 23 et reddet illis iniquitátem ipsórum † et in malítia eórum dispérdet eos, * 24 dispérdet illos Dóminus Deus noster. 
  
 PSALMUS 95 (94) 
-1 Venite, exsultémus Dómino; * iubilémus Deo salutári nostro. 
+1 Veníte, exsultémus Dómino; * iubilémus Deo salutári nostro. 
 2 Præoccupémus fáciem eius in confessióne * et in psalmis iubilémus ei. 
 3 Quóniam Deus magnus Dóminus * et rex magnus super omnes deos. 
 4 Quia in manu eius sunt profúnda terræ, * et altitúdines móntium ipsíus sunt. 
 5 Quóniam ipsíus est mare, et ipse fecit illud, * et siccam manus eius formavérunt. 
 6 Veníte, adorémus et procidámus * et génua flectámus ante Dóminum, qui fecit nos, 
 7 quia ipse est Deus noster, * et nos pópulus páscuæ eius et oves manus eius. 
-8 Utinam hódie vocem eius audiátis: * « Nolite obduráre corda vestra, 
+8 Utinam hódie vocem eius audiátis: * « Nolíte obduráre corda vestra, 
 9 sicut in Meríba, secúndum diem Massa in desérto, † ubi tentavérunt me patres vestri: * probavérunt me, etsi vidérunt ópera mea. 
 10 Quadragínta annis tǽduit me generatiónis illíus, * et dixi: Pópulus errántium corde sunt isti. 
 11 Et ipsi non cognovérunt vias meas; † ídeo iurávi in ira mea: * Non introíbunt in réquiem meam ». 
@@ -1914,7 +1914,7 @@ In quacúmque die invocávero te, * velóciter exáudi me.
 18 Respéxit in oratiónem ínopum * et non sprevit precem eórum. 
 19 Scribántur hæc2 pro generatióne áltera, * et pópulus, qui creábitur, laudábit Dóminum. 
 20 Quia prospéxit de excélso sanctuário suo, * Dóminus de cælo in terram aspéxit, 
-21 ut audiret gémitus compeditórum, * ut sólveret fílios mortis; 
+21 ut audíret gémitus compeditórum, * ut sólveret fílios mortis; 
 22 ut annúntient in Sion nomen Dómini * et laudem eius in Ierúsalem, 
 23 cum congregáti fúerint pópuli in unum * et regna, ut sérviant Dómino. 
 24 Humiliávit in via virtútem meam, * abbreviávit dies meos. 
@@ -1922,10 +1922,10 @@ Dicam: « Deus meus, † 25 ne áuferas me in dimídio diérum meórum; * in gen
 26 Inítio terram fundásti; * et ópera mánuum tuárum sunt cæli. 
 27 Ipsi períbunt, tu autem pérmanes; † et omnes sicut vestiméntum veteráscent, * et sicut opertórium mutábis eos, et mutabúntur. 
 28 Tu autem idem ipse es, * et anni tui non defícient. 
-29 Filii servórum tuórum habitábunt, * et semen eórum in conspéctu tuo firmábitur ». 
+29 Fílii servórum tuórum habitábunt, * et semen eórum in conspéctu tuo firmábitur ». 
  
 PSALMUS 103 (102) 
-1 Benedic, ánima mea, Dómino, * et ómnia, quæ intra me sunt, nómini sancto eius. 
+1 Bénedic, ánima mea, Dómino, * et ómnia, quæ intra me sunt, nómini sancto eius. 
 2 Bénedic, ánima mea, Dómino, * et noli oblivísci omnes retributiónes eius. 
 3 Qui propitiátur ómnibus iniquitátibus tuis, * qui sanat omnes infirmitátes tuas; 
 4 qui rédimit de intéritu vitam tuam, * qui corónat te in misericórdia et miseratiónibus; 
@@ -1946,10 +1946,10 @@ PSALMUS 103 (102)
 19 Dóminus in cælo parávit sedem suam, * et regnum ipsíus ómnibus dominábitur. 
 20 Benedícite Dómino, omnes ángeli eius, † poténtes virtúte, faciéntes verbum illíus * in audiéndo vocem sermónum eius. 
 21 Benedícite Dómino, omnes virtútes eius, * minístri eius, qui fácitis voluntátem eius. 
-22 Benedícite Dómino, ómnia ópera eius, † in omni loco dominatiónis eius. * Benedic, ánima mea, Dómino. 
+22 Benedícite Dómino, ómnia ópera eius, † in omni loco dominatiónis eius. * Bénedic, ánima mea, Dómino. 
  
 PSALMUS 104 (103) 
-1 Benedic, ánima mea, Dómino. * Dómine Deus meus, magnificátus es veheménter! 
+1 Bénedic, ánima mea, Dómino. * Dómine Deus meus, magnificátus es veheménter! 
 Maiestátem et decórem induísti, * 2 amíctus lúmine sicut vestiménto. 
 Exténdens cælum sicut velum, * 3 qui éxstruis in aquis cenácula tua. 
 Qui ponis nubem ascénsum tuum, * qui ámbulas super pennas ventórum. 
@@ -2079,7 +2079,7 @@ Et infécta est terra in sanguínibus, † 39 et contamináti sunt in opéribus 
 41 et trádidit eos in manus géntium, * et domináti sunt eórum, qui odérunt eos. 
 42 Et tribulavérunt eos inimíci eórum, * et humiliáti sunt sub mánibus eórum. 
 43 Sæpe liberávit eos; † ipsi autem exacerbavérunt eum in consílio suo * et corruérunt in iniquitátibus suis. 
-44 Et vidit tribulatiónem eórum, * cum audivit clamórem eórum. - 
+44 Et vidit tribulatiónem eórum, * cum audívit clamórem eórum. - 
 45 Et memor fuit testaménti sui * et pænítuit eum secúndum multitúdinem misericórdiæ suæ. 
 46 Et dedit eos in miseratiónes * in conspéctu ómnium, qui captívos dúxerant eos. 
 47 Salvos nos fac, Dómine Deus noster, * et cóngrega nos de natiónibus, 
@@ -2162,7 +2162,7 @@ Locúti sunt advérsum me lingua dolósa † 3 et sermónibus ódii circumdedér
 13 Fiant nati eius in intéritum, * in generatióne una deleátur nomen eórum. 
 14 In memóriam rédeat iníquitas patrum eius in conspéctu Dómini, * et peccátum matris eius non deleátur. 
 15 Fiant contra Dóminum semper, * et dispérdat de terra memóriam eórum. 
-16 Pro eo quod non est recordátus fácere misericórdiam † et persecútus est hóminem ínopem et mendícum * et compunctum corde, ut mortificáret. 
+16 Pro eo quod non est recordátus fácere misericórdiam † et persecútus est hóminem ínopem et mendícum * et compúnctum corde, ut mortificáret. 
 17 Et diléxit maledictiónem: et véniat ei; * et nóluit benedictiónem: et elongétur ab eo. 
 18 Et índuit maledictiónem sicut vestiméntum: † et intret sicut aqua in interióra eius * et sicut óleum in ossa eius. 
 19 Fiat ei sicut induméntum, quo operítur, * et sicut zona, qua semper præcíngitur. 
@@ -2170,7 +2170,7 @@ Locúti sunt advérsum me lingua dolósa † 3 et sermónibus ódii circumdedér
 21 Et tu, Dómine, Dómine, fac mecum propter nomen tuum, * quia suávis est misericórdia tua; 
 líbera me, 22 quia egénus et pauper ego sum, * et cor meum vulnerátum est intra me. 
 23 Sicut umbra, cum declínat, pertránsii, * excússus sum sicut locústæ. 
-24 Genua mea infirmáta sunt ieiúnio, * et caro mea contábuit absque óleo. 
+24 Génua mea infirmáta sunt ieiúnio, * et caro mea contábuit absque óleo. 
 25 Et ego factus sum oppróbrium illis: * vidérunt me et movérunt cápita sua. 
 26 Adiuva me, Dómine Deus meus, * salvum me fac secúndum misericórdiam tuam. 
 27 Et sciant quia manus tua hæc: * tu, Dómine, hoc fecísti. 
@@ -2240,7 +2240,7 @@ PSALMUS 115 (113 B)
 5 Os habent et non loquéntur, * óculos habent et non vidébunt. 
 6 Aures habent et non áudient, * nares habent et non odorábunt. 
 7 Manus habent et non palpábunt, † pedes habent et non ambulábunt; * non clamábunt in gútture suo. 
-8 Similes illis erunt, qui fáciunt ea, * et omnes, qui confídunt in eis. 
+8 Símiles illis erunt, qui fáciunt ea, * et omnes, qui confídunt in eis. 
 9 Domus Israel sperávit in Dómino: * adiutórium eórum et scutum eórum est. 
 10 Domus Aaron sperávit in Dómino: * adiutórium eórum et scutum eórum est. 
 11 Qui timent Dóminum, speravérunt in Dómino: * adiutórium eórum et scutum eórum est. 
@@ -2284,7 +2284,7 @@ PSALMUS 118 (117)
 2 Dicat nunc Israel, quóniam bonus, * quóniam in sǽculum misericórdia eius. 
 3 Dicat nunc domus Aaron, * quóniam in sǽculum misericórdia eius. 
 4 Dicant nunc, qui timent Dóminum, * quóniam in sǽculum misericórdia eius. 
-5 De tribulatióne invocávi Dóminum, * et exaudivit me edúcens in latitúdinem Dóminus. 
+5 De tribulatióne invocávi Dóminum, * et exaudívit me edúcens in latitúdinem Dóminus. 
 6 Dóminus mecum, * non timébo, quid fáciat mihi homo. 
 7 Dóminus mecum adiútor meus, * et ego despíciam inimícos meos. 
 8 Bonum est confúgere ad Dóminum * quam confídere in hómine. 
@@ -2328,7 +2328,7 @@ PSALMUS 119 (118)
 14 In via testimoniórum tuórum delectátus sum * sicut in ómnibus divítiis. 
 15 In mandátis tuis exercébor * et considerábo vias tuas. 
 16 In iustificatiónibus tuis delectábor, * non oblivíscar sermónem tuum. 
-17 Benefac servo tuo, et vivam * et custódiam sermónem tuum. 
+17 Bénefac servo tuo, et vivam * et custódiam sermónem tuum. 
 18 Revéla óculos meos, * et considerábo mirabília de lege tua. 
 19 Incola ego sum in terra, * non abscóndas a me præcépta tua. 
 20 Defécit ánima mea in desiderándo iudícia tua * in omni témpore. 
@@ -2368,7 +2368,7 @@ PSALMUS 119 (118)
 54 Cántica factæ sunt mihi iustificatiónes tuæ * in loco peregrinatiónis meæ. 
 55 Memor fui nocte nóminis tui, Dómine, * et custódiam legem tuam. 
 56 Hoc factum est mihi, * quia mandáta tua servávi. 
-57 Portio mea Dóminus: * dixi custodíre verba tua. 
+57 Pórtio mea Dóminus: * dixi custodíre verba tua. 
 58 Deprecátus sum fáciem tuam in toto corde meo; * miserére mei secúndum elóquium tuum. 
 59 Cogitávi vias meas * et convérti pedes meos in testimónia tua. 
 60 Festinávi et non sum morátus, * ut custódiam præcépta tua. 
@@ -2424,7 +2424,7 @@ PSALMUS 119 (118)
 110 Posuérunt peccatóres láqueum mihi, * et de mandátis tuis non errávi. 
 111 Heréditas mea testimónia tua in ætérnum, * quia exsultátio cordis mei sunt. 
 112 Inclinávi cor meum ad faciéndas iustificatiónes tuas * in ætérnum, in finem. 
-113 Duplices corde ódio hábui * et legem tuam diléxi. 
+113 Dúplices corde ódio hábui * et legem tuam diléxi. 
 114 Tegmen et scutum meum es tu, * et in verbum tuum supersperávi. 
 115 Declináte a me, malígni, * et servábo præcépta Dei mei. 
 116 Súscipe me secúndum elóquium tuum, et vivam; * et non confúndas me ab exspectatióne mea. 
@@ -2471,7 +2471,7 @@ PSALMUS 119 (118)
 157 Multi, qui persequúntur me et tríbulant me; * a testimóniis tuis non declinávi. 
 158 Vidi prævaricántes, et tǽduit me, * quia elóquia tua non custodiérunt. 
 159 Vide quóniam mandáta tua diléxi, Dómine; * secúndum misericórdiam tuam vivífica me. 
-160 Princípium verbórum tuórum veritas, * in ætérnum ómnia iudícia iustítiæ tuæ. 
+160 Princípium verbórum tuórum véritas, * in ætérnum ómnia iudícia iustítiæ tuæ. 
 161 Príncipes persecúti sunt me gratis, * et a verbis tuis formidávit cor meum. 
 162 Lætábor ego super elóquia tua, * sicut qui invénit spólia multa. 
 163 Mendácium ódio hábui et abominátus sum; * legem autem tuam diléxi. 
@@ -2499,7 +2499,7 @@ PSALMUS 120 (119)
 7 Ego eram pacíficus; * cum loquébar, illi impugnábant me. 
  
 PSALMUS 121 (120) 
-1 Levabo óculos meos in montes: * unde véniet auxílium mihi? 
+1 Levábo óculos meos in montes: * unde véniet auxílium mihi? 
 2 Auxílium meum a Dómino, * qui fecit cælum et terram. 
 3 Non dabit in commotiónem pedem tuum, * neque dormitábit, qui custódit te. 
 4 Ecce non dormitábit neque dórmiet, * qui custódit Israel. 
@@ -2554,7 +2554,7 @@ veniéntes autem vénient in exsultatióne * portántes manípulos suos.
  
 PSALMUS 127 (126) 
 1 Nisi Dóminus ædificáverit domum, * in vanum labórant, qui ædíficant eam. 
-Nisi Dóminus custodíerit civitátem, * frustra vigilat, qui custódit eam. 
+Nisi Dóminus custodíerit civitátem, * frustra vígilat, qui custódit eam. 
 2 Vanum est vobis ante lucem súrgere et sero quiéscere, † qui manducátis panem labóris, * quia dabit diléctis suis somnum. 
 3 Ecce heréditas Dómini fílii, * merces fructus ventris. 
 4 Sicut sagíttæ in manu poténtis, * ita fílii iuventútis. 
@@ -2610,14 +2610,14 @@ PSALMUS 132 (131)
 10 Propter David servum tuum * non avértas fáciem christi tui. 
 11 Iurávit Dóminus David veritátem * et non recédet ab ea: 
 « De fructu ventris tui * ponam super sedem tuam. 
-12 Si custodíerint filii tui testaméntum meum * et testimónia mea, quæ docébo eos, 
-filii eórum usque in sǽculum * sedébunt super sedem tuam ». 
+12 Si custodíerint fílii tui testaméntum meum * et testimónia mea, quæ docébo eos, 
+fílii eórum usque in sǽculum * sedébunt super sedem tuam ». 
 13 Quóniam elégit Dóminus Sion, * desiderávit eam in habitatiónem sibi: 
 14 « Hæc réquies mea in sǽculum sǽculi; * hic habitábo, quóniam desiderávi eam. 
 15 Cibária eius benedícens benedícam, * páuperes eius saturábo pánibus. 
 16 Sacerdótes eius índuam salutári, * et sancti eius exsultatióne exsultábunt. 
 17 Illic germináre fáciam cornu David, * parábo lucérnam christo méo. 
-18 Inimícos eius induam confusióne, * super ipsum autem efflorébit diadéma eius ». 
+18 Inimícos eius índuam confusióne, * super ipsum autem efflorébit diadéma eius ». 
  
 PSALMUS 133 (132) 
 1 Ecce quam bonum et quam iucúndum * habitáre fratres in unum: 
@@ -2637,7 +2637,7 @@ PSALMUS 135 (134)
 5 Quia ego cognóvi quod magnus est Dóminus * et Deus noster præ ómnibus diis. 
 6 Omnia, quæcúmque vóluit, † Dóminus fecit in cælo et in terra, * in mari et in ómnibus abýssis. 
 7 Addúcens nubes ab extrémo terræ, † fúlgura in plúviam facit, * prodúcit ventos de thesáuris suis. 
-8 Qui percussit primogénita Ægýpti * ab hómine usque ad pecus. 
+8 Qui percússit primogénita Ægýpti * ab hómine usque ad pecus. 
 9 Misit signa et prodígia in médio tui, Ægýpte, * in pharaónem et in omnes servos eius. 
 10 Qui percússit gentes multas * et occídit reges fortes: 
 11 Sehon regem Amorræórum et Og regem Basan * et ómnia regna Chánaan. 
@@ -2691,7 +2691,7 @@ et, qui affligébant nos, lætítiam: * « Cantáte nobis de cánticis Sion ».
 si non præposúero Ierúsalem * in cápite lætítiæ meæ. 
 7 Memor esto, Dómine, advérsus fílios Edom * diéi Ierúsalem; 
 qui dicébant: « Exinaníte, exinaníte * usque ad fundaméntum in ea ». 
-8 Filia Babylónis devástans, † beátus, qui retríbuet tibi retributiónem tuam, * quam retribuísti nobis; 
+8 Fília Babylónis devástans, † beátus, qui retríbuet tibi retributiónem tuam, * quam retribuísti nobis; 
 9 beátus, qui tenébit * et allídet párvulos tuos ad petram. 
  
 PSALMUS 138 (137) 
@@ -2715,10 +2715,10 @@ Et omnes vias meas perspexísti, † 4 quia nondum est sermo in lingua mea, * et
 8 Si ascéndero in cælum, tu illic es; * si descéndero in inférnum, ades. 
 9 Si súmpsero pennas auróræ * et habitávero in extrémis maris, 
 10 étiam illuc manus tua dedúcet me, * et tenébit me déxtera tua. 
-11 Si dixero: « Fórsitan ténebræ cómpriment me, * et nox illuminátio erit circa me », 
+11 Si díxero: « Fórsitan ténebræ cómpriment me, * et nox illuminátio erit circa me », 
 12 étiam ténebræ non obscurabúntur a te, † et nox sicut dies illuminábitur * C sicut ténebræ eius ita et lumen eius. 
 13 Quia tu formásti renes meos, * contexúisti me in útero matris meæ. 
-14 Confitébor tibi, quia mirabíliter plasmátus sum; † mirabília opera tua, * et ánima mea cognóscit nimis. 
+14 Confitébor tibi, quia mirabíliter plasmátus sum; † mirabília ópera tua, * et ánima mea cognóscit nimis. 
 15 Non sunt abscóndita ossa mea a te, † cum factus sum in occúlto, * contéxtus in inferióribus terræ. 
 16 Imperféctum adhuc me vidérunt óculi tui, † et in libro tuo scripti erant omnes dies: * ficti erant, et nondum erat unus ex eis. 
 17 Mihi autem nimis pretiósæ cogitatiónes tuæ, Deus; * nimis gravis summa eárum. 
@@ -2790,7 +2790,7 @@ In iustítia tua edúces de tribulatióne ánimam meam * 12 et in misericórdia 
 et perdes omnes, qui tríbulant ánimam meam, * quóniam ego servus tuus sum. 
  
 PSALMUS 144 (143) 
-1 Benedictus Dóminus, adiútor meus, † qui docet manus meas ad prœlium * et dígitos meos ad bellum. 
+1 Benedíctus Dóminus, adiútor meus, † qui docet manus meas ad prœlium * et dígitos meos ad bellum. 
 2 Misericórdia mea et fortitúdo mea, * refúgium meum et liberátor meus; 
 scutum meum, et in ipso sperávi, * qui subdit pópulum meum sub me. 
 3 Dómine, quid est homo, quod agnóscis eum, * aut fílius hóminis, quod réputas eum? 
@@ -2848,7 +2848,7 @@ et viam peccatórum dispérdit.
 10 Regnábit Dóminus in sǽcula, * Deus tuus, Sion, in generatiónem et generatiónem. 
  
 PSALMUS 147 (146, 1-11; 147) 
-1 Laudate Dóminum, quóniam bonum est psállere Deo nostro, * quóniam iucúndum est celebráre laudem. 
+1 Laudáte Dóminum, quóniam bonum est psállere Deo nostro, * quóniam iucúndum est celebráre laudem. 
 2 Ædificans Ierúsalem Dóminus, * dispérsos Israélis congregábit. 
 3 Qui sanat contrítos corde * et álligat plagas eórum; 
 4 qui númerat multitúdinem stellárum * et ómnibus eis nómina vocat. 
@@ -2861,7 +2861,7 @@ Qui prodúcit in móntibus fenum * et herbam servitúti hóminum.
 10 Non in fortitúdine equi delectátur, * nec in tíbiis viri beneplácitum est ei. 
 11 Beneplácitum est Dómino super timéntes eum * et in eis, qui sperant super misericórdia eius. 
 12 Lauda, Ierúsalem, Dóminum; * colláuda Deum tuum, Sion. 
-13 Quóniam confortávit seras portárum tuárum, * benedixit filiis tuis in te. 
+13 Quóniam confortávit seras portárum tuárum, * benedíxit fíliis tuis in te. 
 14 Qui ponit fines tuos pacem * et ádipe fruménti sátiat te. 
 15 Qui emíttit elóquium suum terræ, * velóciter currit verbum eius. 
 16 Qui dat nivem sicut lanam, * pruínam sicut cínerem spargit. 
@@ -2889,7 +2889,7 @@ Hymnus ómnibus sanctis eius, * fíliis Israel, pópulo, qui propínquus est ei.
  
 PSALMUS 149 
 1 Cantáte Dómino cánticum novum; * laus eius in ecclésia sanctórum. 
-2 Lætétur Israel in eo, qui fecit eum, * et filii Sion exsúltent in rege suo. 
+2 Lætétur Israel in eo, qui fecit eum, * et fílii Sion exsúltent in rege suo. 
 3 Laudent nomen eius in choro, * in týmpano et cíthara psallant ei, 
 4 quia beneplácitum est Dómino in pópulo suo, * et honorábit mansuétos in salúte. 
 5 Iúbilent sancti in glória, * læténtur in cubílibus suis. 
