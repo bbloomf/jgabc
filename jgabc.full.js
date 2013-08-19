@@ -1146,6 +1146,8 @@ function getChant(text,svg,result,top) {
   var width = $(svg.parentNode).width();
   var userNotes = header["user-notes"];
   var commentary= header["commentary"];
+  var timing = String(header.cValues.timing||'').split(' ')||[];
+  var volume = String(header.cValues.volume||'').split(' ')||[];
   var curHeight = 0;
   if(typeof(userNotes)=="string" && userNotes.length>0){
     var txt = make('text',userNotes);
@@ -1588,6 +1590,27 @@ function getChant(text,svg,result,top) {
   }
   finishStaff(curStaff);
   if(gabcSettings.trimStaff) trimStaff(curStaff);
+  if(makeLinks){
+    var volumes=[],
+        timings=[];
+    for(var c=0,d=0;(c+d)<svg.tones.length; c++) {
+      while(!svg.tones[c+d].isPlayable()) {
+        ++d;
+        if((c+d)>=svg.tones.length) break;
+      }
+      if((c+d)>=svg.tones.length) break;
+      var vol=volume[c],
+          tim=timing[c]?/(\d+(?:\.\d+)?)(?:\:(\d+(?:\.\d+)?))?/.exec(timing[c]):null;
+      if(!(vol || tim)) break;
+      volumes[c+d] = parseInt(vol);
+      if(tim && tim.length) {
+        timings[c+d]={length: parseFloat(tim[1])};
+        if(tim[2]) timings[c+d].restAfter = parseFloat(tim[2]);
+      }
+    }
+    svg.volumes = volumes;
+    svg.timings = timings;
+  }
   return result;
 }
 var boolArray=[true,false];
@@ -2254,11 +2277,13 @@ $(function() {
     //var audiolet = new Audiolet(baseFreq*4,2,baseFreq);
     try {
       var audiolet = new Audiolet();
-      var Synth = function(frequency,duration) {
+      var Synth = function(frequency,duration,volume) {
         AudioletGroup.apply(this, [audiolet, 0, 1]);
         this.sine = new Sine(audiolet, frequency);
         
-        this.gain = new Gain(audiolet);
+        //TODO: get volume working...
+        this.gain = new Gain(audiolet, volume * 0.01);
+        console.info(volume);
         this.env = new PercussiveEnvelope(audiolet, 1, 0.3, (duration || 1) * .3,
             function() {
                 this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
@@ -2275,8 +2300,8 @@ $(function() {
         this.envMulAdd.connect(this.gain, 0, 1);
       };
       extend(Synth,AudioletGroup);
-      var playFreq = function(freq,duration){
-        var s = new Synth(freq,duration);
+      var playFreq = function(freq,duration,volume){
+        var s = new Synth(freq,duration,volume);
         s.connect(audiolet.output);
       };
       var semitones={
@@ -2288,7 +2313,7 @@ $(function() {
         5:9,
         6:11
       };
-      playTone = function(tone,isFlat,duration){
+      playTone = function(tone,isFlat,duration,volume){
         var freq=baseFreq;
         isFlat = tone==isFlat;
         while(tone<0){
@@ -2300,7 +2325,7 @@ $(function() {
         if(tone>0){
           freq *= Math.pow(2.0, (semitones[tone] - (isFlat?1:0))/12);
         }
-        playFreq(freq,duration);
+        playFreq(freq,duration,volume);
       };
       var _isPlaying=false;
       tempo=150;
@@ -2514,20 +2539,36 @@ $(function() {
       }
       return result;
     }
+    ToneInfo.prototype.isPlayable = function(punctumId){
+      return !this.clef && !this.accidental && typeof(this.index)=="number";
+    };
     ToneInfo.prototype.play = function(punctumId){
-      var svg=selectedSvg;
-      var clefIndex = lastClefBeforePunctum(punctumId,svg).clefTone;
-      var duration = this.match&&(this.match[rtg.dot]||this.match[rtg.episema])?2:(this.match[rtg.virga]||'v').length;
-      if(duration == 1){
-        var nextPunctum = $(svg).find("[id=punctum" + (1+punctumId) + "]");
-        if(nextPunctum.length){
-          nextPunctum = nextPunctum[0].tone;
-          if(nextPunctum && nextPunctum.match[rtg.quilisma]) duration = 2;
+      var svg=selectedSvg,
+          timings = svg.timings,
+          volumes = svg.volumes;
+          clefIndex = lastClefBeforePunctum(punctumId,svg).clefTone,
+          setDuration = timings && timings[punctumId],
+          volume = volumes[punctumId] || 100,
+          duration = setDuration || this.match&&(this.match[rtg.dot]||this.match[rtg.episema])?2:(this.match[rtg.virga]||'v').length,
+          longDuration = 0;
+      if(setDuration) {
+        duration = setDuration.length;
+        longDuration = duration + (setDuration.restAfter||0);
+        console.info(setDuration);
+      }
+      else {
+        if(duration == 1){
+          var nextPunctum = $(svg).find("[id=punctum" + (1+punctumId) + "]");
+          if(nextPunctum.length){
+            nextPunctum = nextPunctum[0].tone;
+            if(nextPunctum && nextPunctum.match[rtg.quilisma]) duration = 2;
+          }
         }
+        longDuration = duration;
       }
       if(!this.clef && !this.accidental && typeof(this.index)=="number"){
-        playTone(this.index-clefIndex,isPunctumFlat(punctumId,svg),duration);
-        return duration;
+        playTone(this.index-clefIndex,isPunctumFlat(punctumId,svg),duration,volume);
+        return longDuration;
       }
       return false;
     };
