@@ -417,7 +417,32 @@ $(function() {
   $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
   $("#selLanguage").change(updateText);
-  setPdfLinkSelector("#lnkGabc");
+  var getGabc = function(){
+    var gabc = $('#editor').val(),
+        header = getHeader(gabc);
+    if(!header.name) header.name = '';
+    if(!header['%font']) header['%font'] = 'GaramondPremierPro';
+    if(!header['%width']) header['%width'] = '7.5';
+    return gabc = header + gabc.slice(header.original.length);
+  }
+  $('#lnkPdf').click(function(e){
+    var result=getGabc();    
+    if(e && typeof(e.preventDefault)=="function"){
+      e.preventDefault();
+    }
+    $('#pdfForm').attr('action','http://illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
+  });
+  $('#lnkPdfDirect').click(function(e){
+    var gabcs=[getGabc()];
+    if(e && typeof(e.preventDefault)=="function"){
+      e.preventDefault();
+    }
+    $('#pdfFormDirect [name="gabc[]"]').remove();
+    for(var i=0;i<gabcs.length;++i){
+      $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
+    }
+    $("#pdfFormDirect").submit();
+  });
   setGabcLinkSelector("#lnkDownloadGabc");
   windowResized();
   updateEditor();
