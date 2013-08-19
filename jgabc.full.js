@@ -2289,7 +2289,7 @@ $(function() {
                 this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
             }.bind(this)
         );
-        this.envMulAdd = new Multiply(audiolet, 0.2, 0);
+        this.envMulAdd = new Multiply(audiolet, 0.002 * volume, 0);
 
         // Main signal path
         this.sine.connect(this.gain);
