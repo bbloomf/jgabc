@@ -2284,7 +2284,6 @@ $(function() {
         
         //TODO: get volume working...
         this.gain = new Gain(audiolet, volume * 0.01);
-        console.info(volume);
         this.env = new PercussiveEnvelope(audiolet, 1, 0.3, (duration || 1) * .3,
             function() {
                 this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
@@ -2555,7 +2554,6 @@ $(function() {
       if(setDuration) {
         duration = setDuration.length;
         longDuration = duration + (setDuration.restAfter||0);
-        console.info(setDuration);
       }
       else {
         if(duration == 1){
