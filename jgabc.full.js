@@ -328,6 +328,7 @@ var selectedPunctum=-1;
 var selectedNeume=-1;
 var selectedPunctumTag=null;
 var selectedNeumeTag=null;
+var selectedNeumeTextTag=null;
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
@@ -1276,7 +1277,7 @@ function getChant(text,svg,result,top) {
             if(txt.replace(/[{}]/g,'').length==0)txt='-';
             var txtInitial = staffInfo.txtInitial = make('text',initial);
             txtInitial.setAttribute('transform','translate(0,'+staffInfo.vOffset+')');
-            txtInitial.setAttribute('class','greinitial');
+            txtInitial.setAttribute('class','greinitial selectable neume'+neumeId);
             result.appendChild(txtInitial);
             var lenInitial=txtInitial.getComputedTextLength();
             var annotation = header["annotation"];
@@ -1605,7 +1606,9 @@ function getChant(text,svg,result,top) {
       lastVol = (vol && parseInt(vol)) || lastVol;
       volumes[c+d] = lastVol;
       if(tim && tim.length) {
-        timings[c+d]={length: parseFloat(tim[1])};
+        var len = parseFloat(tim[1]);
+        if(len > 20) len /= 400;
+        timings[c+d]={length: len};
         if(tim[2]) timings[c+d].restAfter = parseFloat(tim[2]);
       }
     }
@@ -2730,8 +2733,11 @@ $(function() {
       if(tmp)tmp = /neume(\d+)/i.exec(tmp);
       selectedNeume = tmp?parseInt(tmp[1]):-1;
       selectedNeumeTag = selectedPunctumTag && selectedPunctumTag.parentNode;
-      $(svg).find(".selectable").attr({"class":"selectable",style:""});
+      selectedNeumeTextTag = $(svg).find('#neumetext'+selectedNeume);
+      $(svg).find('.selectable').attr('style','').attr('class',function(i,v){return v.replace(/(^|\s+)selected(?=\s+|$)/g,'');});
+      $(svg).find('.neume'+selectedNeume).attr('class',function(i,v){return v+' selected';});
       punctum.attr("class","selectable selected" + (punctum.attr("count")==2?"-"+(1+punctumOffset):""));
+      selectedNeumeTextTag.attr('class','selectable selected');
       if(punctum.attr("count")==2)setGradient(punctum[0],punctumOffset);
       
       if(!dontPlay){
