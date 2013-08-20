@@ -1593,6 +1593,7 @@ function getChant(text,svg,result,top) {
   if(makeLinks){
     var volumes=[],
         timings=[];
+    var lastVol = 100;
     for(var c=0,d=0;(c+d)<svg.tones.length; c++) {
       while(!svg.tones[c+d].isPlayable()) {
         ++d;
@@ -1601,8 +1602,8 @@ function getChant(text,svg,result,top) {
       if((c+d)>=svg.tones.length) break;
       var vol=volume[c],
           tim=timing[c]?/(\d+(?:\.\d+)?)(?:\:(\d+(?:\.\d+)?))?/.exec(timing[c]):null;
-      if(!(vol || tim)) break;
-      volumes[c+d] = parseInt(vol);
+      lastVol = (vol && parseInt(vol)) || lastVol;
+      volumes[c+d] = lastVol;
       if(tim && tim.length) {
         timings[c+d]={length: parseFloat(tim[1])};
         if(tim[2]) timings[c+d].restAfter = parseFloat(tim[2]);
