@@ -1,7 +1,7 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<(?:b|i|sc)>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/(?:b|i|sc)>)*)/gi
-var regexWords = /((?:<(?:b|i|sc)>)*)([^a-z\(\)]*\s*"*(?=\b|\())(([a-z'*]*)(?:\(([a-z'*]+)\)([a-z'*]*))?)(=?)([-":;,.\)\?]*)(\s+\*)?((?:<\/(?:b|i|sc)>)*)/gi
+var regexWords = /((?:<(?:b|i|sc)>)*)([^a-z\(\)]*\s*"*(?=\b|\())(([a-z'*]*)(?:\(([a-z'*]+)\)([a-z'*]*))?)(=?)([-":;,.\)\?!]*)(\s+[†*])?((?:<\/(?:b|i|sc)>)*)/gi
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
@@ -286,7 +286,7 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[8] = m[8];
+        tmp[8] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
         tmp[9]=" ";
         tmp[10]=m[10];
         if(ai.length) tmp[7]='*';
@@ -435,7 +435,11 @@ function applyPsalmTone(options) {
       result = options.result,
       gabcShort = options.gabcShort,
       favor = options.favor || {},
-      flexEqualsTenor = options.flexEqualsTenor || false;
+      flexEqualsTenor = options.flexEqualsTenor || false,
+      lang = options.lang;
+  if(lang) {
+    getSyllables = lang=='en'?_getEnSyllables : _getSyllables;
+  }
   if(typeof(favor)=='string') {
     temp = {};
     temp[favor]=true;
@@ -645,7 +649,7 @@ function applyPsalmTone(options) {
           while(si > ti && s) {
             if(s.flex) {
               if(flexEqualsTenor) {
-                r=s.prepunctuation + s.syl + s.punctuation + " (" + toneList.toneFlex + ".) (,)"+r;
+                r=s.prepunctuation + s.syl + s.punctuation + "(" + toneList.toneFlex + ".) (,)"+r;
               } else {
                 r=s.prepunctuation + s.syl + s.punctuation + " †(" + toneList.toneFlex + ".)"+r;
               }

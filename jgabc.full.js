@@ -2285,7 +2285,6 @@ $(function() {
         AudioletGroup.apply(this, [audiolet, 0, 1]);
         this.sine = new Sine(audiolet, frequency);
         
-        //TODO: get volume working...
         this.gain = new Gain(audiolet, volume * 0.01);
         this.env = new PercussiveEnvelope(audiolet, 1, 0.3, (duration || 1) * .3,
             function() {
@@ -2837,7 +2836,7 @@ $(function() {
             e.preventDefault();
             return;
           default:
-            console.info(e.which);
+            //console.info(e.which);
             return;
         }
         selectPunctum(punctumToSelect);
