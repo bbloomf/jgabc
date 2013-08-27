@@ -12,16 +12,6 @@
 <script src="sink.js"></script>
 <script src="audiolet.js"></script>
 <script src="transcriber.html.js"></script>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-24502736-2']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
 </head>
 <body class='sans' style='overflow:hidden'>
 <style>
@@ -62,10 +52,31 @@ textarea{
   resize:none;
 }
 </style>
+<form id="pdfForm" target="_blank" method="get" action="http://illuminarepublications.com/gregorio/">
+  <!--<input type='hidden' name='pdf' value='1'/>-->
+  <input type='hidden' name='crop' value='0'/>
+</form>
+<form id="pdfFormDirect" target="_blank" method="post" action="http://illuminarepublications.com/gregorio/process.php">
+  <input type="hidden" id="pdff_gabc" name="gabc[]"/>
+  <input type="hidden" id="pdff_width" name="width" value="7.5"/>
+  <input type="hidden" id="pdff_height" name="height" value="11"/>
+  <input type="hidden" id="pdff_croppdf" name="croppdf" value="false"/>
+  <input type="hidden" id="pdff_spacing" value="vichi" name="spacing"/>
+  <input type="hidden" id="pdff_font" value="GaramondPremierPro" name="font"/>
+  <input type="hidden" id="pdff_fontsize" value="12" name="fontsize"/>
+  <input type="hidden" id="pdff_fmt" name="fmt" value="pdf"/>
+</form>
 <div class="print-hide">
-<div style="float:left"><a href="psalmtone.htm">Psalm Tone Tool</a></div>
-<div style="float:right"><a href="#" target="_blank" id="lnkGabc">Generate PDF</a></div>
-<div style="width:100%;text-align:center;padding-bottom:4pt"><a href="readings.htm">Readings Tool</a></div>
+<div style="width:100%;margin-bottom:5px">
+<b>GABC Transcription Tool</b>
+  <a href="psalmtone.htm">Psalm Tone Tool</a>
+  <a href="readings.htm">Readings Tool</a>
+  <a href="propers.html">Propers Tool</a>  
+  <div style="float:right">
+    <a href='#' id='lnkPdfDirect'>(PDF)</a>
+    <a href='#' id='lnkPdf'>(Further PDF options)</a>
+  </div>
+</div>
 <div style="width:100%;text-align:center;padding-bottom:4pt"><a href="#" id="lnkToggleMode">Show integrated GABC</a></div>
 <div id="blankSpace" style="height:193px;">
 

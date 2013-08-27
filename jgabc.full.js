@@ -253,7 +253,7 @@ String.prototype.replaceSpTags = function(){
     return spSubstitutions[tmp]||tmp;
   });
 }
-var regexInner = /(?:[!\/ ,;:`]+|[^\)!\/ ,;:`\[]+)|(\[[^\]]*(?:$|\]))/g;
+var regexInner = /[!\/ ,;:`]+|(([^\)!\/ ,;:`\[]+)(\[[^\]]*(?:$|\]))?)+/g;
 var rog = {
   syl:3,
   gabc:5,
@@ -273,7 +273,7 @@ var setGabcLinkSelector=function(sel){
   $(sel).bind("dragstart",onDragStart);
 };
 var regexToneModifiers = /(')|(\.{1,2})|(_{1,4}0?)/g
-var regexTones = new RegExp("([/ ,;:`]+)|((?:[fF]|[cC][bB]?)[1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])|(\\+))?((?:" + String(regexToneModifiers).replace(/^\/|\/\w*$/g,"").replace(/\((?!\?:)/g,"(?:") + ")*)|(z0))|\\[([^\\]]*)(?:\\]|$)","g");
+var regexTones = new RegExp("([/ ,;:`]+)|((?:[fF]|[cC][bB]?)[1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])|(\\+))?((?:" + regexToneModifiers.source.replace(/\((?!\?:)/g,"(?:") + ")*)(?:\\[([^\\]]*)(?:]|$))?|(z0))","g");
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)                                )*)|(z0))|\[([^\]]*)(?:\]|$)
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)
 var regexTonesSpliceIndex=27;
@@ -307,8 +307,8 @@ var rtg = {
   ictus: 27,        // (')
   dot: 28,          // (\.{1,2})
   episema: 29,      // ((?:_0?)){1,4})
-  custos: 30,        // z0
-  bracketed: 31      // [text]
+  bracketed: 30,     // [text]
+  autoCustos: 31    // z0
 };
 
 
@@ -515,7 +515,8 @@ function textWidth(txt,clas,special) {
   if(typeof(clas)=="number" && typeof(special)=="number"){
     i=clas;
     len=special;
-    clas=special=undefined;
+    clas='goudy';
+    special=undefined;
     if(len===0)return 0;
   }
   var dt=special?_defText:defText;
@@ -1198,8 +1199,8 @@ function getChant(text,svg,result,top) {
   svgWidth = width;
   
   while(gmatch = regexOuter.exec(text)) {
-    var curGabc = gmatch[5]? gmatch[5].match(/[`,;:]+|[^\/,;:]*\/*/g) : ['',''];
-    curGabc.splice(-1,1);
+    var curGabc = gmatch[5]? gmatch[5].match(/(?:\[[^\]]*\]?|[^[\/,;:]+\/*|\/+)+|[`,;:]+/g) : ['',''];
+    
     var spaceBeforeNextNeume;
     var matchIndex = gmatch.index;
     for(var gabcI=0; gabcI < curGabc.length; ++gabcI) {
@@ -1213,9 +1214,9 @@ function getChant(text,svg,result,top) {
       match.index = (matchIndex += match[1].length);
       var cGabc = curGabc[gabcI];
       matchIndex += cGabc.length;
-      var slashCount = cGabc.match(/\//g);
+      var slashCount = cGabc.match(/\/+$/);
       if(slashCount) {
-        slashCount = slashCount.length;
+        slashCount = slashCount[0].length;
         cGabc = cGabc.slice(0,-slashCount);
         spaceBeforeNextNeume = slashCount * slashSpace;
       } else {
@@ -1247,7 +1248,14 @@ function getChant(text,svg,result,top) {
           }
           svg.tones=svg.tones.concat(cneume.info.tones);
         }
-        defChant.textContent = cneume.info.def.textContent;
+        var tContent = cneume.info.def.textContent;
+        for(var i=0; i<cneume.info.tones.length; ++i) {
+          var ton = cneume.info.tones[i];
+          if(ton.choralSign) {
+            tContent = tContent.replace(ton.choralSign,'');
+          }
+        }
+        defChant.textContent = tContent;
         cneume.wChant = defChant.getComputedTextLength();
         if(cneume.gabc==clef)wClef=cneume.wChant;
       } else cneume.info={};
@@ -1693,7 +1701,7 @@ var ToneInfo = function(obj){
   }
 };
 (function(){
-  var tones,result,minDy,htone,ltone;
+  var tones,result,minDy,htone,ltone,nextDX,nextDY,bottomPodatus=false;
   getChantFragment=function(gabc,defs) {
     if(abcs[gabc] != undefined) {
       var r = abcs[gabc];
@@ -1731,8 +1739,9 @@ var ToneInfo = function(obj){
     minDy = 0;
     regexInner.lastMatch = 0;
     var globalTones=[];
+    nextDX = 0;
+    nextDY = 0;
     while(match = regexInner.exec(gabc)) {
-      if(match[1]) continue;
       tones = [];
       var previousToneId = -1;
       chant=match[0];
@@ -1777,7 +1786,6 @@ var ToneInfo = function(obj){
         var tmpIndex=cmatch.index;
         cmatch = cmatch.splice(0,regexTonesSpliceIndex).concat(imatch.splice(1,imatch.length-1)).concat(cmatch.splice(1,cmatch.length-1));
         cmatch.index=tmpIndex+match.index;
-        if(cmatch[rtg.bracketed]) continue;
         if(cmatch[rtg.clef]){
           clef=cmatch[rtg.clef];
           clefTone = (clef[0] == "f")? 5 : 1;
@@ -1792,18 +1800,31 @@ var ToneInfo = function(obj){
           var tmp=make('tspan',tone);
           tmp.setAttribute('offset',cmatch.index);
           tmp.setAttribute('len',cmatch[0].length);
+          if(nextDX) {
+            tmp.setAttribute('dx',nextDX);
+            nextDX = 0;
+          }
+          if(nextDY) {
+            tmp.setAttribute('dy',nextDY);
+            nextDY = 0;
+          }
           result.appendChild(tmp);
           htone = Math.max(htone,(/[`,]/.exec(cmatch[rtg.whitespace])&&9.5)||0);
           globalTones.push(tmp=new ToneInfo({match:[]}));
           tmp.match[rtg.whitespace] = cmatch[rtg.whitespace];
         } else {
           var toneId = parseInt(cmatch[rtg.tone]||cmatch[rtg.clef]&&cmatch[rtg.clef].slice(0,1),23)-10;
+          var choralSign = null;
           if(cmatch[rtg.tone] && cmatch[rtg.tone].length == 1) {
             ltone = Math.min(ltone,toneId);
             htone = Math.max(htone,toneId);
             if(ftone==null && !cmatch[rtg.accidental])ftone = toneId;
           } else {
             htone = Math.max(htone,(cmatch[rtg.clef]&&(parseInt(cmatch[rtg.clef].slice(-1))*2+2))||0);
+          }
+          var bmatch = /^cs\:([^\]]+)/.exec(cmatch[rtg.bracketed]);
+          if(bmatch) {
+            choralSign = bmatch[1];
           }
           if(toneId>10){
             ledgerA.push(countTones-1);
@@ -1820,7 +1841,8 @@ var ToneInfo = function(obj){
             diamond: cmatch[rtg.toneUpper]? true: false,
             markings: cmatch[rtg.ictus] || cmatch[rtg.dot] || cmatch[rtg.episema],
             liq: cmatch[rtg.diminutiveLiquescentia],
-            accidental: cmatch[rtg.accidental]
+            accidental: cmatch[rtg.accidental],
+            choralSign: choralSign
           });
           tones.push(tmp);
           globalTones.push(tmp);
@@ -1865,17 +1887,58 @@ var ToneInfo = function(obj){
         tmpdata += neume(indices.ictus_below, tone);
         ltone=Math.min(ltone,tone-1);
       }
-    },  commitTmpData=function(tone){
+    }, addChoralSign=function(ton,right,parent){
+      //var right = true;
+      var text = ton.choralSign,
+          tone = ton.index,
+          tspan=make('tspan',text),
+          twidth = textWidth(text,'choral-sign'),
+          cwidth = getChantWidth($(parent).text());
+      if(ton.match[rtg.episema] && ton.episemaLoc!=-1) {
+        tone += 2;
+        if(tone%2) --tone;
+      }
+      var xOffset = right? 1 : (cwidth>(2*notewidth)? (-cwidth+(notewidth-twidth)/2) : ((-twidth-notewidth)/2)),
+          yOffset = -3 + (1-Math.floor(tone/2)+(right?1:0))*(staffheight/4);
+      if(tone%2 == 1) yOffset -= 2;
+      xOffset += nextDX;
+      yOffset += nextDY;
+      tspan.setAttribute('class', 'choral-sign');
+      tspan.setAttribute('dx', xOffset);
+      tspan.setAttribute('dy', yOffset);
+      nextDX -= (twidth + xOffset);
+      nextDY -= yOffset;
+      if(right){
+        tspan.setAttribute('transform','translate('+notewidth+',0)');
+      }
+      parent.appendChild(tspan);
+    }, commitTmpData=function(tone){
       if(!tone || !tmpdata || tmpdata.length==0)return;
       var tspan=make('tspan',tmpdata);
       tspan.setAttribute('offset',tone.match.index);
       tspan.setAttribute('len',tone.match[0].length);
+      if(nextDX) {
+        tspan.setAttribute('dx',nextDX);
+        nextDX = 0;
+      }
+      if(nextDY) {
+        tspan.setAttribute('dy',nextDY);
+        nextDY = 0;
+      }
       for(var i=1; i<arguments.length; ++i){
         tspan.setAttribute('len'+i,arguments[i].match[0].length);
       }
       if(arguments.length>1)tspan.setAttribute('count',arguments.length);
       result.appendChild(tspan);
+      
+      for(var i=0; i<arguments.length; ++i){
+        var tone = arguments[i];
+        if(tone.choralSign) {
+          addChoralSign(tone,i==1||bottomPodatus,tspan);
+        }
+      }
       tmpdata='';
+      bottomPodatus=false;
     },  tmpdata = '',
         tonesInGlyph = 1,
         toneReps = 1,
@@ -1997,6 +2060,7 @@ var ToneInfo = function(obj){
             base = indices.upper_tilde;
           } else {
             tmpdata += neume(indices.bottomPartPodatus,tone.index);
+            bottomPodatus = true;
           }
           commitTmpData(tone);
           if(nextTone.relativeTone > 1) {
