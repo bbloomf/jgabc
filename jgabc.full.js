@@ -329,6 +329,9 @@ var selectedNeume=-1;
 var selectedPunctumTag=null;
 var selectedNeumeTag=null;
 var selectedNeumeTextTag=null;
+var syllableGabcIndex = -1;
+var syllableGabcPrefix='';
+var syllableGabcSuffix='';
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
@@ -2578,6 +2581,7 @@ $(function() {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
+    cp.append('<textarea id="txtSyllableGabc" style="display:none;padding:2px;position:absolute">');
     lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
       for(i in svg.clefs){
@@ -2750,6 +2754,11 @@ $(function() {
       e.val(cGABC);
     }
     var selectedSvg = svg;
+    var getPunctumOffset=function(parent) {
+      var tag=parent.firstElementChild;
+      var offset = parseInt(tag.getAttribute("offset"))||0;
+      return parent.neume.index+offset;
+    };
     var selectSelectedGabc=function(getOffset){
       if(!(selectedPunctum!=null && selectedPunctumTag))return;
       var tag = selectedPunctumTag;
@@ -2815,8 +2824,40 @@ $(function() {
       punctumToSelect=/punctum(\d+)/i.exec(neume.attr("id"));
       if(punctumToSelect)selectPunctum(parseInt(punctumToSelect[1]));
     };
+    var hideSyllableGabc=function(){      
+      syllableGabcIndex=-1;
+      syllableGabcPrefix='';
+      syllableGabcSuffix='';
+      $('#txtSyllableGabc').hide();
+    };
+    var showSyllableGabc=function(neumeTag){
+      var tag = neumeTag || selectedNeumeTag;
+      syllableGabcIndex = getPunctumOffset(tag);
+      var originalText = $('#editor').val();
+      syllableGabcIndex += getHeaderLen(originalText);
+      var text = originalText.slice(syllableGabcIndex);
+      var match = /^([^\)]*)\)/.exec(text);
+      if(match) { text = match[1];
+        syllableGabcPrefix = originalText.slice(0,syllableGabcIndex)
+        syllableGabcSuffix = originalText.slice(syllableGabcIndex+text.length);
+        $('#txtSyllableGabc').show()
+          .val(text)
+          .position({my:'center bottom',at:'center top',of:tag,collision:'fit'})
+          .select();
+      }
+    };
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
       selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
+      if(e.ctrlKey){
+        showSyllableGabc();
+      }
+    }).on("mousedown","tspan.selectable[id^=punctum]",function(e){
+      //selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
+      if(e.which == 2) {
+        selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
+        showSyllableGabc();
+        e.preventDefault();
+      }
     }).on("click","tspan.selectable[id^=neumetext]",function(e){
       var index = parseInt(this.getAttribute('selectIndex'));
       if(index >= 0) {
@@ -2824,9 +2865,16 @@ $(function() {
         selectGabc(index,-1,$(this).parents('svg')[0]);
       }
     });
+    $('#txtSyllableGabc').on('blur',function(e){
+      hideSyllableGabc();
+    }).keyup(function(e){
+      var text = syllableGabcPrefix + $(this).val() + syllableGabcSuffix;
+      $('#editor').val(text).keyup();
+    });
     var docKeyDown=function(e){
       if(e.which == 27) { // escape
         stopScore();
+        hideSyllableGabc();
         return;
       }
       if(e.target.tagName.match(/textarea|input|select/i)){
