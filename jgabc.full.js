@@ -1708,7 +1708,7 @@ var ToneInfo = function(obj){
   getChantFragment=function(gabc,defs) {
     if(abcs[gabc] != undefined) {
       var r = abcs[gabc];
-      if($(defs).find("[id='"+gabc+"']").length==0){
+      if($(defs).find("[id='"+gabc.replace(/\'/g,'\\\'')+"']").length==0){
         defs.appendChild($.clone(r.def));
         if(r.mask) {
           getChantFragment(r.mask,defs);
