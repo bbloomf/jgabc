@@ -1202,7 +1202,7 @@ function getChant(text,svg,result,top) {
   svgWidth = width;
   
   while(gmatch = regexOuter.exec(text)) {
-    var curGabc = gmatch[5]? gmatch[5].match(/(?:\[[^\]]*\]?|[^[\/,;:]+\/*|\/+)+|[`,;:]+/g) : ['',''];
+    var curGabc = gmatch[5]? gmatch[5].match(/(?:\[[^\]]*\]?|[^[\/,;:]+\/*|\/+)+|[`,;:]+/g) : [''];
     
     var spaceBeforeNextNeume;
     var matchIndex = gmatch.index;
@@ -1228,6 +1228,7 @@ function getChant(text,svg,result,top) {
       if(cGabc=='z0') continue; //TODO: Instead, it needs to create a custos character based on the new clef and the next actual note.
       var cneume={index:match.index,match:match,ledgers:{},wChant:0,wText:0,spaceBeforeNextNeume:spaceBeforeNextNeume};
       var tags=[];
+      if(cGabc=='') cGabc = '/';
       if(cGabc) {
         cneume.gabc=cGabc;
         // if there is an open paren, assume that the correct close paren has not yet been marked for this GABC.
@@ -1440,7 +1441,7 @@ function getChant(text,svg,result,top) {
         needCustosNextTime.justify = cneume.gabc.match(/z/);
       }
         
-      if(cneume.gabc) {
+      if(cneume.gabc || cneume.gabc==='') {
         if(needCustos && !cneume.gabc.match(/^[`,;:]+$/)) {
           addCustos(needCustos,cneume,needCustos.justify,custosXoffset);
           needCustos = false;
@@ -2814,7 +2815,7 @@ $(function() {
     var selectedSvg = svg;
     var getPunctumOffset=function(parent) {
       var tag=parent.firstElementChild;
-      var offset = parseInt(tag.getAttribute("offset"))||0;
+      var offset = (tag && parseInt(tag.getAttribute("offset")))||0;
       return parent.neume.index+offset;
     };
     var selectSelectedGabc=function(getOffset){
@@ -2880,7 +2881,16 @@ $(function() {
     var selectNeume=function(neumeToSelect){
       var neume=$(selectedSvg).find("#neume"+neumeToSelect + ">tspan");
       punctumToSelect=/punctum(\d+)/i.exec(neume.attr("id"));
-      if(punctumToSelect)selectPunctum(parseInt(punctumToSelect[1]));
+      if(punctumToSelect) {
+        selectPunctum(parseInt(punctumToSelect[1]));
+      } else {
+        selectedNeume = parseInt(neumeToSelect);
+        selectedNeumeTag = $(selectedSvg).find('#neume'+neumeToSelect).get(0);
+        selectedNeumeTextTag = $(selectedSvg).find('#neumetext'+neumeToSelect);
+        $(selectedSvg).find('.selectable').attr('style','').attr('class',function(i,v){return v.replace(/(^|\s+)selected(?=\s+|$)/g,'');});
+        $(selectedSvg).find('.neume'+selectedNeume).attr('class',function(i,v){return v+' selected';});
+        selectedNeumeTextTag.attr('class','selectable selected');
+      }
     };
     var hideSyllableGabc=function(){      
       syllableGabcIndex=-1;
@@ -3255,7 +3265,7 @@ function gabcEditorKeyDown(e) {
           if(match[1]) {
             index = match.index;
           } else if(match[2]||match[3]||match[4]) {
-            if(match[2]) index = match.index+1;
+            if(match[2]||match[4]) index = match.index+1;
             txt = txt.slice(0,index) + '()' + txt.slice(index);
             $this.val(txt);
           } else {
