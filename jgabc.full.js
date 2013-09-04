@@ -1288,7 +1288,11 @@ function getChant(text,svg,result,top) {
             if(txt.replace(/[{}]/g,'').length==0)txt='-';
             var txtInitial = staffInfo.txtInitial = make('text',initial);
             txtInitial.setAttribute('transform','translate(0,'+staffInfo.vOffset+')');
-            txtInitial.setAttribute('class','greinitial selectable neume'+neumeId);
+            if(makeLinks && neumeId==selectedNeume) {
+              txtInitial.setAttribute('class','greinitial selectable selected neume'+neumeId);
+            } else {
+              txtInitial.setAttribute('class','greinitial selectable neume'+neumeId);
+            }
             result.appendChild(txtInitial);
             var lenInitial=txtInitial.getComputedTextLength();
             var annotation = header["annotation"];
@@ -1466,6 +1470,9 @@ function getChant(text,svg,result,top) {
         use.setAttribute('y', 0);
         use.neume = cneume;
         if(makeLinks) {
+          if(neumeId==selectedNeume) {
+            selectedNeumeTag = use;
+          }
           punctumId = setUpPunctaIn(use,punctumId,svg);
           if(space){
             var tmp = clef && clef.length==3? -1 : null;
@@ -1569,8 +1576,13 @@ function getChant(text,svg,result,top) {
         }
         span.setAttribute('id', 'neumetext'+neumeId);
         span.setAttribute('x', spanXoffset);
-        span.setAttribute("class", activeClass + ' selectable');
         span.setAttribute("selectIndex", cneume.index);
+        if(makeLinks && neumeId == selectedNeume) {
+          span.setAttribute("class", activeClass + ' selectable selected');
+          selectedNeumeTextTag = span;
+        } else {
+          span.setAttribute("class", activeClass + ' selectable');
+        }
         span.neume = cneume;
         xoffset = nextXoffsetTextMin;
         xoffsetChantMin = nextXoffsetChantMin;
@@ -2344,6 +2356,52 @@ var playScore = playTone;
 var stopScore = playTone;
 var baseFreq=370;
 $(function() {
+  $.fn.autoGrowInput = function(o) {
+    o = $.extend({
+        maxWidth: 1000,
+        minWidth: 0,
+        comfortZone: 10
+    }, o);
+    this.filter('input:text').each(function(){
+        var minWidth = o.minWidth || $(this).width(),
+            val = '',
+            input = $(this),
+            testSubject = $('<tester/>').css({
+                position: 'absolute',
+                top: -9999,
+                left: -9999,
+                width: 'auto',
+                fontSize: input.css('fontSize'),
+                fontFamily: input.css('fontFamily'),
+                fontWeight: input.css('fontWeight'),
+                letterSpacing: input.css('letterSpacing'),
+                whiteSpace: 'nowrap'
+            }),
+            check = function() {
+                if (val === (val = input.val())) {return;}
+                
+                // Enter new content into testSubject
+                var escaped = val.replace(/&/g, '&amp;').replace(/\s/g,'&nbsp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                testSubject.html(escaped);
+                // Calculate new width + whether to change
+                var testerWidth = testSubject.width(),
+                    newWidth = (testerWidth + o.comfortZone) >= minWidth ? testerWidth + o.comfortZone : minWidth,
+                    currentWidth = input.width(),
+                    isValidWidthChange = (newWidth < currentWidth && newWidth >= minWidth)
+                                         || (newWidth > minWidth && newWidth < o.maxWidth);
+                // Animate width
+                if (isValidWidthChange) {
+                    input.width(newWidth);
+                    input.trigger('autoGrowInput');
+                }
+            };
+        testSubject.insertAfter(input);
+        $(this).bind('keyup keydown blur update', check);
+    });
+    
+    return this;
+
+};
   var onAudiolet = function(){
     //var audiolet = new Audiolet(baseFreq*4,2,baseFreq);
     try {
@@ -2581,7 +2639,7 @@ $(function() {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
-    cp.append('<textarea id="txtSyllableGabc" style="display:none;padding:2px;position:absolute">');
+    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:20px;font-family:monospace">');
     lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
       for(i in svg.clefs){
@@ -2830,6 +2888,9 @@ $(function() {
       syllableGabcSuffix='';
       $('#txtSyllableGabc').hide();
     };
+    var positionTxtSyllableGabc=function(){
+      $('#txtSyllableGabc').position({my:'center bottom',at:'center top',of:selectedNeumeTag,collision:'fit'})
+    };
     var showSyllableGabc=function(neumeTag){
       var tag = neumeTag || selectedNeumeTag;
       syllableGabcIndex = getPunctumOffset(tag);
@@ -2848,7 +2909,7 @@ $(function() {
     };
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
       selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
-      if(e.ctrlKey){
+      if(e.altKey){
         showSyllableGabc();
       }
     }).on("mousedown","tspan.selectable[id^=punctum]",function(e){
@@ -2859,18 +2920,24 @@ $(function() {
         e.preventDefault();
       }
     }).on("click","tspan.selectable[id^=neumetext]",function(e){
-      var index = parseInt(this.getAttribute('selectIndex'));
-      if(index >= 0) {
-        //index += getHeaderLen($this.val());
-        selectGabc(index,-1,$(this).parents('svg')[0]);
-      }
+      selectNeume(/neumetext(\d+)/i.exec(this.id)[1]);
+      showSyllableGabc();
     });
     $('#txtSyllableGabc').on('blur',function(e){
       hideSyllableGabc();
     }).keyup(function(e){
       var text = syllableGabcPrefix + $(this).val() + syllableGabcSuffix;
       $('#editor').val(text).keyup();
-    });
+    }).keydown(function(e){
+      if(e.which == 9) { //tab
+        var neumeToSelect = selectedNeume + (e.shiftKey? -1 : 1);
+        selectNeume(neumeToSelect);
+        showSyllableGabc();
+        e.preventDefault();
+      }
+    }).on('autoGrowInput',function(){
+      positionTxtSyllableGabc();
+    }).autoGrowInput();
     var docKeyDown=function(e){
       if(e.which == 27) { // escape
         stopScore();
@@ -2878,7 +2945,9 @@ $(function() {
         return;
       }
       if(e.target.tagName.match(/textarea|input|select/i)){
-        selectPunctum(-1);
+        if(e.target.id!='txtSyllableGabc') {
+          selectPunctum(-1);
+        }
         return;
       }
       var punctumToSelect=selectedPunctum;
