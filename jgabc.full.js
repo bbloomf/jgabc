@@ -737,6 +737,8 @@ var finishStaff=function(curStaff){
   staffInfo.eText.setAttribute("transform", "translate("+staffInfo.x+","+staffInfo.vOffset+")");
   staffInfo.eTrans.setAttribute("transform", "translate("+staffInfo.x+","+staffInfo.vOffset+")");
   if(result){
+    var $result = $(result);
+    $result.append($result.children('text'));
     result.appendChild(staffInfo.eText);
     result.appendChild(staffInfo.eTrans);
   }
@@ -1616,6 +1618,7 @@ function getChant(text,svg,result,top) {
   finishStaff(curStaff);
   if(gabcSettings.trimStaff) trimStaff(curStaff);
   if(makeLinks){
+    if(selectedNeumeTag) $('#txtSyllableGabc').trigger('autoSizeInput');
     var volumes=[],
         timings=[];
     var lastVol = 100;
@@ -2357,11 +2360,15 @@ var playScore = playTone;
 var stopScore = playTone;
 var baseFreq=370;
 $(function() {
-  $.fn.autoGrowInput = function(o) {
+  var getSuffixFor = function(e) {
+    //IMPLEMENT! (TODO)
+    return '';
+  };
+  $.fn.autoSizeInput = function(o) {
     o = $.extend({
         maxWidth: 1000,
         minWidth: 0,
-        comfortZone: 10
+        comfortZone: 0
     }, o);
     this.filter('input:text').each(function(){
         var minWidth = o.minWidth || $(this).width(),
@@ -2378,7 +2385,10 @@ $(function() {
                 letterSpacing: input.css('letterSpacing'),
                 whiteSpace: 'nowrap'
             }),
-            check = function() {
+            check = function(e) {
+                var suffix = e.type==='keydown'?getSuffixFor(e):'';
+                e.text = input.val();
+                console.info(e);
                 if (val === (val = input.val())) {return;}
                 
                 // Enter new content into testSubject
@@ -2393,11 +2403,11 @@ $(function() {
                 // Animate width
                 if (isValidWidthChange) {
                     input.width(newWidth);
-                    input.trigger('autoGrowInput');
+                    input.trigger('autoSizeInput');
                 }
             };
         testSubject.insertAfter(input);
-        $(this).bind('keyup keydown blur update', check);
+        $(this).bind('keyup blur update', check).bind('keydown', function(e){window.setTimeout( function(){ check.apply(this,[e]); },1)});
     });
     
     return this;
@@ -2640,7 +2650,7 @@ $(function() {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
-    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:20px;font-family:monospace">');
+    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace">');
     lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
       for(i in svg.clefs){
@@ -2882,7 +2892,7 @@ $(function() {
       var neume=$(selectedSvg).find("#neume"+neumeToSelect + ">tspan");
       punctumToSelect=/punctum(\d+)/i.exec(neume.attr("id"));
       if(punctumToSelect) {
-        selectPunctum(parseInt(punctumToSelect[1]));
+        selectPunctum(parseInt(punctumToSelect[1]),true);
       } else {
         selectedNeume = parseInt(neumeToSelect);
         selectedNeumeTag = $(selectedSvg).find('#neume'+neumeToSelect).get(0);
@@ -2914,18 +2924,18 @@ $(function() {
         $('#txtSyllableGabc').show()
           .val(text)
           .position({my:'center bottom',at:'center top',of:tag,collision:'fit'})
+          .trigger('update')
           .select();
       }
     };
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
-      selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
+      selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0],!e.altKey);
       if(e.altKey){
         showSyllableGabc();
       }
     }).on("mousedown","tspan.selectable[id^=punctum]",function(e){
-      //selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
       if(e.which == 2) {
-        selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0]);
+        selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0],true);
         showSyllableGabc();
         e.preventDefault();
       }
@@ -2945,9 +2955,9 @@ $(function() {
         showSyllableGabc();
         e.preventDefault();
       }
-    }).on('autoGrowInput',function(){
+    }).on('autoSizeInput',function(){
       positionTxtSyllableGabc();
-    }).autoGrowInput();
+    }).autoSizeInput();
     var docKeyDown=function(e){
       if(e.which == 27) { // escape
         stopScore();
