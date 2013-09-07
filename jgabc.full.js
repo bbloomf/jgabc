@@ -1283,7 +1283,7 @@ function getChant(text,svg,result,top) {
       if(match[3] && space) {
         txt += space;
       }
-      cneume.txt =txt;
+      cneume.txt = txt;
       cneume.translation = translation;
       var offset = 0;
       if(txt) {
@@ -2919,11 +2919,17 @@ $(function() {
     };
     var positionTxtSyllable=function(){
       if(selectedNeumeTextTag && selectedNeumeTextTag.length) {
-        var $parent = selectedNeumeTextTag.parent(),
+        var $txtSyllable = $('#txtSyllable'),
+            $lastChild = selectedNeumeTextTag.children().last(),
+            lastChildText = $lastChild.text(),
+            $parent = selectedNeumeTextTag.parent(),
             parentOffset = $parent.offset(),
+            txtWidth = $txtSyllable.width(),
+            extraSylWidth = lastChildText=='-'?$lastChild.width():textWidth(lastChildText.match(/\s*$/)[0]),
+            sylWidth = selectedNeumeTextTag.width() - extraSylWidth,
             firstX = parseFloat($parent.children().first().attr('x')),
-            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX - 5 + selectedNeumeTextTag.get(0).x.baseVal.getItem(0).value};
-        $('#txtSyllable').offset(offset);
+            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX + sylWidth - txtWidth - 3 + selectedNeumeTextTag.get(0).x.baseVal.getItem(0).value};
+        $txtSyllable.offset(offset);
       }
     };
     var showSyllableGabc=function(neumeTag){
@@ -2989,34 +2995,68 @@ $(function() {
             showSyllableEditor();
             e.preventDefault();
             break;
+          case 37: //left
+            if(this.selectionStart == this.selectionEnd && this.selectionStart == 0) {
+              selectNeume(selectedNeume - 1);
+              showSyllableGabc();
+              this.selectionStart = this.value.length;
+              e.preventDevault();
+            }
+            break;
+          case 39: //right
+            if(this.selectionStart == this.selectionEnd && this.selectionStart == this.value.length) {
+              selectNeume(selectedNeume + 1);
+              showSyllableGabc();
+              this.selectionStart = this.selectionEnd = 0;
+              e.preventDevault();
+            }
+            break;
           case 9: //tab
-            var neumeToSelect = selectedNeume + (e.shiftKey? -1 : 1);
-            selectNeume(neumeToSelect);
+            selectNeume(selectedNeume + (e.shiftKey? -1 : 1));
             showSyllableGabc();
             e.preventDefault();
         }
       }).on('autoSizeInput',positionTxtSyllableGabc)
       .autoSizeInput();
+    var showNextSyllableEditor = function(increment) {      
+      selectedNeumeTextTag = [];
+      var neumeToSelect = 1;
+      while(neumeToSelect >= 0 && selectedNeumeTextTag.length == 0 && selectedNeumeTag) {
+        neumeToSelect = selectedNeume + increment;
+        selectNeume(neumeToSelect);
+      }
+      showSyllableEditor();
+    }
     $('#txtSyllable').on('blur',hideSyllableEditor)
       .keydown(internationalTextBoxKeyDown)
       .keyup(function(e){
         var text = syllableTextPrefix + $(this).val() + syllableTextSuffix;
         $('#editor').val(text).keyup();
       }).keydown(function(e){
+        console.info(e.which);
         switch(e.which) {
           case 38: //up
             showSyllableGabc();
             e.preventDefault();
             break;
-          case 9: //tab
-            var increment = e.shiftKey? -1 : 1;
-            selectedNeumeTextTag = [];
-            var neumeToSelect = 1;
-            while(neumeToSelect >= 0 && selectedNeumeTextTag.length == 0 && selectedNeumeTag) {
-              neumeToSelect = selectedNeume + increment;
-              selectNeume(neumeToSelect);
+          case 37: //left
+            if(this.selectionStart == this.selectionEnd && this.selectionStart == 0) {
+              showNextSyllableEditor(-1);
+              this.selectionStart = this.value.length;
+              e.preventDevault();
             }
-            showSyllableEditor();
+            break;
+          case 39: //right
+            if(this.selectionStart == this.selectionEnd && this.selectionStart == this.value.length) {
+              showNextSyllableEditor(1);
+              this.selectionStart = this.selectionEnd = 0;
+              e.preventDevault();
+            }
+            break;
+          case 9: //tab
+            showNextSyllableEditor(e.shiftKey? -1 : 1);
+            //this.selectionStart = 0;
+            //this.selectionEnd = this.value.length;
             e.preventDefault();
         }
       }).on('autoSizeInput',positionTxtSyllable)
