@@ -2366,10 +2366,6 @@ var playScore = playTone;
 var stopScore = playTone;
 var baseFreq=370;
 $(function() {
-  var getSuffixFor = function(e) {
-    //IMPLEMENT! (TODO)
-    return '';
-  };
   $.fn.autoSizeInput = function(o) {
     o = $.extend({
         maxWidth: 1000,
@@ -2653,8 +2649,8 @@ $(function() {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
-    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace">');
-    cp.append('<input type="text" id="txtSyllable" class="goudy" style="display:none;position:absolute;padding:2px;width:5px">');
+    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace" spellcheck="false">');
+    cp.append('<input type="text" id="txtSyllable" class="goudy" style="display:none;position:absolute;padding:2px;width:5px" spellcheck="false">');
     lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
       for(i in svg.clefs){
@@ -2922,7 +2918,13 @@ $(function() {
       $('#txtSyllableGabc').position({my:'center bottom',at:'center top',of:selectedNeumeTag,collision:'fit'})
     };
     var positionTxtSyllable=function(){
-      $('#txtSyllable').position({my:'center bottom',at:'center bottom',of:selectedNeumeTextTag,collision:'fit'})
+      if(selectedNeumeTextTag && selectedNeumeTextTag.length) {
+        var $parent = selectedNeumeTextTag.parent(),
+            parentOffset = $parent.offset(),
+            firstX = parseFloat($parent.children().first().attr('x')),
+            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX - 5 + selectedNeumeTextTag.get(0).x.baseVal.getItem(0).value};
+        $('#txtSyllable').offset(offset);
+      }
     };
     var showSyllableGabc=function(neumeTag){
       var tag = neumeTag || selectedNeumeTag;
@@ -2952,11 +2954,12 @@ $(function() {
       var text = originalText.slice(syllableTextIndex,syllableTextIndex+len);
       syllableTextPrefix = originalText.slice(0,syllableTextIndex);
       syllableTextSuffix = originalText.slice(syllableTextIndex+len);
+      var offset = {top:$tag.parent().offset().top, left: tag.x.baseVal.getItem(0)};
       $('#txtSyllable').show()
         .val(text)
-        .position({my:'center bottom',at:'center bottom',of:$tag,collision:'fit'})
         .trigger('update')
         .select();
+      positionTxtSyllable();
     }
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
       selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0],!e.altKey);
