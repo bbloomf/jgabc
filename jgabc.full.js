@@ -335,6 +335,7 @@ var syllableGabcSuffix='';
 var syllableTextIndex = -1;
 var syllableTextPrefix='';
 var syllableTextSuffix='';
+var syllableTextTag=null;
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
@@ -2918,17 +2919,18 @@ $(function() {
       $('#txtSyllableGabc').position({my:'center bottom',at:'center top',of:selectedNeumeTag,collision:'fit'})
     };
     var positionTxtSyllable=function(){
-      if(selectedNeumeTextTag && selectedNeumeTextTag.length) {
+      var $tag = syllableTextTag || selectedNeumeTextTag;
+      if($tag && $tag.length) {
         var $txtSyllable = $('#txtSyllable'),
-            $lastChild = selectedNeumeTextTag.children().last(),
+            $lastChild = $tag.children().last(),
             lastChildText = $lastChild.text(),
-            $parent = selectedNeumeTextTag.parent(),
+            $parent = $tag.parent(),
             parentOffset = $parent.offset(),
             txtWidth = $txtSyllable.width(),
             extraSylWidth = lastChildText=='-'?$lastChild.width():textWidth(lastChildText.match(/\s*$/)[0]),
-            sylWidth = selectedNeumeTextTag.width() - extraSylWidth,
+            sylWidth = $tag.width() - extraSylWidth,
             firstX = parseFloat($parent.children().first().attr('x')),
-            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX + sylWidth - txtWidth - 3 + selectedNeumeTextTag.get(0).x.baseVal.getItem(0).value};
+            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX + sylWidth - txtWidth - 2 + $tag.get(0).x.baseVal.getItem(0).value};
         $txtSyllable.offset(offset);
       }
     };
@@ -2952,7 +2954,8 @@ $(function() {
     };
     var showSyllableEditor=function($neumeTextTag){
       var $tag = $neumeTextTag || selectedNeumeTextTag,
-          tag = $tag.get(0);
+          tag = $tag.get(0),
+          $txtSyllable=$('#txtSyllable');
       syllableTextIndex = parseInt(tag.getAttribute('selectIndex'));
       var len = parseInt(tag.getAttribute('selectLen'));
       var originalText = $('#editor').val();
@@ -2961,10 +2964,14 @@ $(function() {
       syllableTextPrefix = originalText.slice(0,syllableTextIndex);
       syllableTextSuffix = originalText.slice(syllableTextIndex+len);
       var offset = {top:$tag.parent().offset().top, left: tag.x.baseVal.getItem(0)};
-      $('#txtSyllable').show()
+      $txtSyllable.show()
         .val(text)
-        .trigger('update')
-        .select();
+        .trigger('update');
+      if($neumeTextTag) {
+        syllableTextTag = $neumeTextTag;
+      } else {
+        $txtSyllable.select();
+      }
       positionTxtSyllable();
     }
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
@@ -2981,9 +2988,10 @@ $(function() {
     }).on("click","tspan.selectable[id^=neumetext]",function(e){
       selectNeume(/neumetext(\d+)/i.exec(this.id)[1]);
       showSyllableEditor();
-    }).on("dblclick","tspan.selectable[id^=neumetext]",function(e){
-      selectNeume(/neumetext(\d+)/i.exec(this.id)[1]);
-      showSyllableEditor();
+    }).on("mouseenter","tspan.selectable[id^=neumetext]",function(e){
+      if(!$('#txtSyllable').is(':visible') || syllableTextTag) {
+        showSyllableEditor($(this));
+      }
     });
     $('#txtSyllableGabc').on('blur',hideSyllableGabc)
       .keyup(function(e){
@@ -2991,6 +2999,9 @@ $(function() {
         $('#editor').val(text).keyup();
       }).keydown(function(e){
         switch(e.which) {
+          case 27: //escape
+            hideSyllableGabc();
+            break;
           case 40: //down
             showSyllableEditor();
             e.preventDefault();
@@ -3000,7 +3011,7 @@ $(function() {
               selectNeume(selectedNeume - 1);
               showSyllableGabc();
               this.selectionStart = this.value.length;
-              e.preventDevault();
+              e.preventDefault();
             }
             break;
           case 39: //right
@@ -3008,7 +3019,7 @@ $(function() {
               selectNeume(selectedNeume + 1);
               showSyllableGabc();
               this.selectionStart = this.selectionEnd = 0;
-              e.preventDevault();
+              e.preventDefault();
             }
             break;
           case 9: //tab
@@ -3027,14 +3038,26 @@ $(function() {
       }
       showSyllableEditor();
     }
-    $('#txtSyllable').on('blur',hideSyllableEditor)
-      .keydown(internationalTextBoxKeyDown)
+    $('#txtSyllable').on('mouseleave',function(){
+      if(syllableTextTag) {
+        syllableTextTag = null;
+        $(this).hide();
+      }
+    }).on('blur',hideSyllableEditor)
+      .click(function(){
+        if(syllableTextTag) {
+          selectNeume(/neumetext(\d+)/i.exec(syllableTextTag.get(0).id)[1]);
+          syllableTextTag = null;
+        }
+      }).keydown(internationalTextBoxKeyDown)
       .keyup(function(e){
         var text = syllableTextPrefix + $(this).val() + syllableTextSuffix;
         $('#editor').val(text).keyup();
       }).keydown(function(e){
-        console.info(e.which);
         switch(e.which) {
+          case 27: //escape
+            hideSyllableEditor();
+            break;
           case 38: //up
             showSyllableGabc();
             e.preventDefault();
@@ -3043,14 +3066,14 @@ $(function() {
             if(this.selectionStart == this.selectionEnd && this.selectionStart == 0) {
               showNextSyllableEditor(-1);
               this.selectionStart = this.value.length;
-              e.preventDevault();
+              e.preventDefault();
             }
             break;
           case 39: //right
             if(this.selectionStart == this.selectionEnd && this.selectionStart == this.value.length) {
               showNextSyllableEditor(1);
               this.selectionStart = this.selectionEnd = 0;
-              e.preventDevault();
+              e.preventDefault();
             }
             break;
           case 9: //tab
@@ -3060,7 +3083,7 @@ $(function() {
             e.preventDefault();
         }
       }).on('autoSizeInput',positionTxtSyllable)
-      .autoSizeInput();
+      .autoSizeInput({comfortZone:1});
     var docKeyDown=function(e){
       if(e.which == 27) { // escape
         stopScore();

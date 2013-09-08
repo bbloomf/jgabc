@@ -42,6 +42,9 @@ tspan.selectable:hover{fill:#e22}
 tspan.selectable{
   cursor:pointer;
 }
+.goudy tspan.selectable{
+  cursor:initial;
+}
 .b{font-weight:700}
 .i{font-style:italic}
 .sc{font-variant:small-caps}
