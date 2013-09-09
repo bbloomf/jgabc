@@ -1484,6 +1484,8 @@ function getChant(text,svg,result,top) {
         if(makeLinks) {
           if(neumeId==selectedNeume) {
             selectedNeumeTag = use;
+            var $lastChild = $(use).children().last();
+            syllableGabcOriginalLength = parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
           }
           punctumId = setUpPunctaIn(use,punctumId,svg);
           if(space){
@@ -2954,19 +2956,20 @@ $(function() {
       }
       var originalText = $('#editor').val();
       syllableGabcIndex += getHeaderLen(originalText);
-      var text = originalText.slice(syllableGabcIndex);
-      var match = /^([^\)]*)\)/.exec(text);
-      if(match) {
-        text = match[1];
-        syllableGabcPrefix = originalText.slice(0,syllableGabcIndex)
-        syllableGabcSuffix = originalText.slice(syllableGabcIndex+text.length);
-        syllableGabcOriginalLength=text.length;
-        $('#txtSyllableGabc').show()
-          .val(text)
-          .position({my:'center bottom',at:'center top',of:tag,collision:'fit'})
-          .trigger('update')
-          .select();
+      var $lastChild = $(tag).children().last();
+      syllableGabcOriginalLength = parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
+      if(isNaN(syllableGabcOriginalLength)) {
+        var match = /^([^\)]*)\)/.exec(originalText.slice(syllableGabcIndex));
+        syllableGabcOriginalLength = match? match[1].length : 0;
       }
+      var text = originalText.slice(syllableGabcIndex,syllableGabcIndex+syllableGabcOriginalLength);
+      syllableGabcPrefix = originalText.slice(0,syllableGabcIndex)
+      syllableGabcSuffix = originalText.slice(syllableGabcIndex+syllableGabcOriginalLength);
+      $('#txtSyllableGabc').show()
+        .val(text)
+        .position({my:'center bottom',at:'center top',of:tag,collision:'fit'})
+        .trigger('update')
+        .select();
     };
     var showSyllableEditor=function($neumeTextTag){
       var $tag = $neumeTextTag || selectedNeumeTextTag,
