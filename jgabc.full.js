@@ -332,10 +332,13 @@ var selectedNeumeTextTag=null;
 var syllableGabcIndex = -1;
 var syllableGabcPrefix='';
 var syllableGabcSuffix='';
+var syllableGabcOriginalLength=0;
 var syllableTextIndex = -1;
 var syllableTextPrefix='';
 var syllableTextSuffix='';
+var syllableTextOriginalLength=0;
 var syllableTextTag=null;
+var syllableOffsetCorrection = {};
 var _timeoutGabcUpdate = null;
 var _minUpdateInterval = 1700;
 var _heightCorrection = 0;
@@ -1153,6 +1156,7 @@ function getChant(text,svg,result,top) {
     svg.clefs=[];
     svg.accidentals=[];
     svg.tones=[];
+    syllableOffsetCorrection = {};
   }
   var width = $(svg.parentNode).width();
   var userNotes = header["user-notes"];
@@ -1588,6 +1592,7 @@ function getChant(text,svg,result,top) {
         span.setAttribute("selectIndex", cneume.index-1-len);
         span.setAttribute("selectLen", len);
         if(makeLinks && neumeId == selectedNeume) {
+          syllableTextOriginalLength = len;
           span.setAttribute("class", activeClass + ' selectable selected');
           selectedNeumeTextTag = $(span);
         } else {
@@ -2650,8 +2655,8 @@ $(function() {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
-    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace" spellcheck="false">');
-    cp.append('<input type="text" id="txtSyllable" class="goudy" style="display:none;position:absolute;padding:2px;width:5px" spellcheck="false">');
+    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace;border:1px solid #aaa" spellcheck="false">');
+    cp.append('<input type="text" id="txtSyllable" class="goudy" style="display:none;position:absolute;padding:2px;width:5px;border:1px solid #aaa" spellcheck="false">');
     lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
       for(i in svg.clefs){
@@ -2907,12 +2912,14 @@ $(function() {
       syllableGabcIndex=-1;
       syllableGabcPrefix='';
       syllableGabcSuffix='';
+      syllableGabcOriginalLength=0;
       $('#txtSyllableGabc').hide();
     };
     var hideSyllableEditor=function(){      
       syllableTextIndex=-1;
       syllableTextPrefix='';
       syllableTextSuffix='';
+      syllableTextOriginalLength=0;
       $('#txtSyllable').hide();
     };
     var positionTxtSyllableGabc=function(){
@@ -2927,7 +2934,7 @@ $(function() {
             $parent = $tag.parent(),
             parentOffset = $parent.offset(),
             firstX = parseFloat($parent.children().first().attr('x')),
-            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX - 4 + $tag.get(0).x.baseVal.getItem(0).value};
+            offset = {top:parentOffset.top - 4, left: parentOffset.left - firstX - 3 + $tag.get(0).x.baseVal.getItem(0).value};
         if(sylText.slice(0,txtSylText.length) != txtSylText) {
           var $lastChild = $tag.children().last(),
               lastChildText = $lastChild.text(),
@@ -2942,6 +2949,9 @@ $(function() {
     var showSyllableGabc=function(neumeTag){
       var tag = neumeTag || selectedNeumeTag;
       syllableGabcIndex = getPunctumOffset(tag);
+      if(syllableOffsetCorrection && syllableOffsetCorrection.afterNeume <= selectedNeume) {
+        syllableGabcIndex += syllableOffsetCorrection.offset;
+      }
       var originalText = $('#editor').val();
       syllableGabcIndex += getHeaderLen(originalText);
       var text = originalText.slice(syllableGabcIndex);
@@ -2950,6 +2960,7 @@ $(function() {
         text = match[1];
         syllableGabcPrefix = originalText.slice(0,syllableGabcIndex)
         syllableGabcSuffix = originalText.slice(syllableGabcIndex+text.length);
+        syllableGabcOriginalLength=text.length;
         $('#txtSyllableGabc').show()
           .val(text)
           .position({my:'center bottom',at:'center top',of:tag,collision:'fit'})
@@ -2962,12 +2973,16 @@ $(function() {
           tag = $tag.get(0),
           $txtSyllable=$('#txtSyllable');
       syllableTextIndex = parseInt(tag.getAttribute('selectIndex'));
+      if(syllableOffsetCorrection && syllableOffsetCorrection.afterNeume < selectedNeume) {
+        syllableTextIndex += syllableOffsetCorrection.offset;
+      }
       var len = parseInt(tag.getAttribute('selectLen'));
       var originalText = $('#editor').val();
       syllableTextIndex += getHeaderLen(originalText);
       var text = originalText.slice(syllableTextIndex,syllableTextIndex+len);
       syllableTextPrefix = originalText.slice(0,syllableTextIndex);
       syllableTextSuffix = originalText.slice(syllableTextIndex+len);
+      syllableTextOriginalLength=len;
       var offset = {top:$tag.parent().offset().top, left: tag.x.baseVal.getItem(0)};
       $txtSyllable.show()
         .val(text)
@@ -2979,6 +2994,28 @@ $(function() {
       }
       positionTxtSyllable();
     }
+    var updateOffsetCorrectionGabc=function(){
+      var offset = this.value.length - syllableGabcOriginalLength;
+      if(offset == 0) {
+        syllableOffsetCorrection = {};
+      } else {
+        syllableOffsetCorrection = {
+          afterNeume: selectedNeume + 0.5,
+          offset: offset
+        };
+      }
+    };
+    var updateOffsetCorrection=function(){
+      var offset = this.value.length - syllableTextOriginalLength;
+      if(offset == 0) {
+        syllableOffsetCorrection = {};
+      } else {
+        syllableOffsetCorrection = {
+          afterNeume: selectedNeume,
+          offset: offset
+        };
+      }
+    };
     $(document).on("click","tspan.selectable[id^=punctum]",function(e){
       selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0],!e.altKey);
       if(e.altKey){
@@ -3033,6 +3070,7 @@ $(function() {
             e.preventDefault();
         }
       }).on('autoSizeInput',positionTxtSyllableGabc)
+      .keydown(function(){var self=this;window.setTimeout( function(){ updateOffsetCorrectionGabc.apply(self,[e]); },1)})
       .autoSizeInput();
     var showNextSyllableEditor = function(increment) {      
       selectedNeumeTextTag = [];
@@ -3042,7 +3080,7 @@ $(function() {
         selectNeume(neumeToSelect);
       }
       showSyllableEditor();
-    }
+    };
     $('#txtSyllable').on('mouseleave',function(){
       if(syllableTextTag) {
         syllableTextTag = null;
@@ -3088,6 +3126,7 @@ $(function() {
             e.preventDefault();
         }
       }).on('autoSizeInput',positionTxtSyllable)
+      .keydown(function(){var self=this;window.setTimeout( function(){ updateOffsetCorrection.apply(self,[e]); },1)})
       .autoSizeInput({comfortZone:1});
     var docKeyDown=function(e){
       if(e.which == 27) { // escape
