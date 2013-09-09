@@ -2922,15 +2922,20 @@ $(function() {
       var $tag = syllableTextTag || selectedNeumeTextTag;
       if($tag && $tag.length) {
         var $txtSyllable = $('#txtSyllable'),
-            $lastChild = $tag.children().last(),
-            lastChildText = $lastChild.text(),
+            txtSylText = $txtSyllable.val(),
+            sylText = $tag.text(),
             $parent = $tag.parent(),
             parentOffset = $parent.offset(),
-            txtWidth = $txtSyllable.width(),
-            extraSylWidth = lastChildText=='-'?$lastChild.width():textWidth(lastChildText.match(/\s*$/)[0]),
-            sylWidth = $tag.width() - extraSylWidth,
             firstX = parseFloat($parent.children().first().attr('x')),
-            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX + sylWidth - txtWidth - 2 + $tag.get(0).x.baseVal.getItem(0).value};
+            offset = {top:parentOffset.top - 5, left: parentOffset.left - firstX - 4 + $tag.get(0).x.baseVal.getItem(0).value};
+        if(sylText.slice(0,txtSylText.length) != txtSylText) {
+          var $lastChild = $tag.children().last(),
+              lastChildText = $lastChild.text(),
+              txtWidth = $txtSyllable.width(),
+              extraSylWidth = lastChildText=='-'?$lastChild.width():textWidth(lastChildText.match(/\s*$/)[0]),
+              sylWidth = $tag.width() - extraSylWidth;
+          offset.left += sylWidth - txtWidth + 1;
+        }
         $txtSyllable.offset(offset);
       }
     };
