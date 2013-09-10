@@ -3045,7 +3045,7 @@ $(function() {
       }).keydown(function(e){
         switch(e.which) {
           case 27: //escape
-            hideSyllableGabc();
+            this.blur();
             break;
           case 40: //down
             showSyllableEditor();
@@ -3102,7 +3102,7 @@ $(function() {
       }).keydown(function(e){
         switch(e.which) {
           case 27: //escape
-            hideSyllableEditor();
+            this.blur();
             break;
           case 38: //up
             showSyllableGabc();
@@ -3194,7 +3194,7 @@ $(function() {
             e.preventDefault();
             return;
           case 13: // enter
-            selectSelectedGabc();
+            showSyllableGabc();
             e.preventDefault();
             return;
           case 32: // space
