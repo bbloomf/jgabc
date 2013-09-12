@@ -2925,9 +2925,14 @@ $(function() {
     };
     var positionTxtSyllableGabc=function(){
       var pos = {my:'center bottom',at:'center top',of:selectedNeumeTag,collision:'fit'},
-          tone = (selectedNeumeTag.neume.info.htone < 8.5)? 8 : selectedNeumeTag.neume.info.htone;
+          tone = (selectedNeumeTag.neume.info.htone < 8.5)? 8 : selectedNeumeTag.neume.info.htone,
       //MOVE txtSyllableGabc down a bit...j
-      pos.my += '+' + (5+((12-tone) * staffheight / 8));
+          offset = (5+((12-tone) * staffheight / 8));
+      if($.ui.version.match(/^1\.8/)) {
+        pos.offset = '0 ' + offset;
+      } else {
+        pos.my += '+' + offset;
+      }
       $('#txtSyllableGabc').position(pos);
     };
     var positionTxtSyllable=function(){
@@ -3112,7 +3117,7 @@ $(function() {
             e.preventDefault();
         }
       }).on('autoSizeInput',positionTxtSyllableGabc)
-      .keydown(function(){var self=this;window.setTimeout( function(){ updateOffsetCorrectionGabc.apply(self,[e]); },1)})
+      .keydown(function(){var self=this;window.setTimeout( function(){ updateOffsetCorrectionGabc.apply(self); },1)})
       .autoSizeInput();
     var showNextSyllableEditor = function(increment,withSpace) {
       selectedNeumeTextTag = [];
