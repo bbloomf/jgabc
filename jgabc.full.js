@@ -1,6 +1,6 @@
 String.prototype.repeat = function(num){return new Array(num+1).join(this);};
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
-var gabcSettings={trimStaff:true};
+var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true};
 var uuid;
 // lower-staff ext: 0xe1, upper: 0xe2
 var _indicesChar = {
@@ -1238,41 +1238,38 @@ function getChant(text,svg,result,top) {
       if(cGabc=='z0') continue; //TODO: Instead, it needs to create a custos character based on the new clef and the next actual note.
       var cneume={index:match.index,match:match,ledgers:{},wChant:0,wText:0,spaceBeforeNextNeume:spaceBeforeNextNeume};
       var tags=[];
-      if(cGabc=='') cGabc = '/';
-      if(cGabc) {
-        cneume.gabc=cGabc;
-        // if there is an open paren, assume that the correct close paren has not yet been marked for this GABC.
-        /*
-        if(cneume.gabc.indexOf('(')>=0){
-          var iop=match[0].indexOf('(');
-          var mspace=cneume.gabc.match(/ /);
-          var gabclen=0;
-          if(mspace)gabclen=mspace.index;
-          cneume.gabc=cneume.gabc.slice(0,gabclen);
-          if(gabclen)++gabclen;
-          regexOuter.lastIndex -= match[0].length - iop - 1 - gabclen;
-        }*/
-        cneume.info = getChantFragment(cneume.gabc,defs);
-        clef=cneume.info.clef||clef;
-        if(makeLinks){
-          if(cneume.info.clef){
-            svg.clefs[neumeId]=clefNeume=cneume;
-            clefNeume.clefs = [];
-            svg.accidentals[punctumId] = clef.length==3? -1 : null;
-          }
-          svg.tones=svg.tones.concat(cneume.info.tones);
+      cneume.gabc=cGabc;
+      // if there is an open paren, assume that the correct close paren has not yet been marked for this GABC.
+      /*
+      if(cneume.gabc.indexOf('(')>=0){
+        var iop=match[0].indexOf('(');
+        var mspace=cneume.gabc.match(/ /);
+        var gabclen=0;
+        if(mspace)gabclen=mspace.index;
+        cneume.gabc=cneume.gabc.slice(0,gabclen);
+        if(gabclen)++gabclen;
+        regexOuter.lastIndex -= match[0].length - iop - 1 - gabclen;
+      }*/
+      cneume.info = getChantFragment(cneume.gabc||'/',defs);
+      clef=cneume.info.clef||clef;
+      if(makeLinks){
+        if(cneume.info.clef){
+          svg.clefs[neumeId]=clefNeume=cneume;
+          clefNeume.clefs = [];
+          svg.accidentals[punctumId] = clef.length==3? -1 : null;
         }
-        var tContent = cneume.info.def.textContent;
-        for(var i=0; i<cneume.info.tones.length; ++i) {
-          var ton = cneume.info.tones[i];
-          if(ton.choralSign) {
-            tContent = tContent.replace(ton.choralSign,'');
-          }
+        svg.tones=svg.tones.concat(cneume.info.tones);
+      }
+      var tContent = cneume.info.def.textContent;
+      for(var i=0; i<cneume.info.tones.length; ++i) {
+        var ton = cneume.info.tones[i];
+        if(ton.choralSign) {
+          tContent = tContent.replace(ton.choralSign,'');
         }
-        defChant.textContent = tContent;
-        cneume.wChant = defChant.getComputedTextLength();
-        if(cneume.gabc==clef)wClef=cneume.wChant;
-      } else cneume.info={};
+      }
+      defChant.textContent = tContent;
+      cneume.wChant = defChant.getComputedTextLength();
+      if(cneume.gabc==clef)wClef=cneume.wChant;
       if(currentWord.length>0 && previousMatch && (previousMatch[7]||previousMatch[8])) {
         words.push(currentWord);
         currentWord=[];
@@ -1485,7 +1482,7 @@ function getChant(text,svg,result,top) {
           if(neumeId==selectedNeume) {
             selectedNeumeTag = use;
             var $lastChild = $(use).children().last();
-            syllableGabcOriginalLength = parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
+            syllableGabcOriginalLength = cneume.gabc==''? 0 : parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
           }
           punctumId = setUpPunctaIn(use,punctumId,svg);
           if(space){
@@ -2657,7 +2654,7 @@ $(function() {
     $(document.body).append(svg);
   } else {
     cp.append(svg);
-    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace;border:1px solid #aaa" spellcheck="false">');
+    cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace;font-size:11pt;border:1px solid #aaa" spellcheck="false">');
     cp.append('<input type="text" id="txtSyllable" class="goudy" style="display:none;position:absolute;padding:2px;width:5px;border:1px solid #aaa" spellcheck="false">');
     lastClefBeforeNeume=function(neumeId,svg){
       var i,result={clefTone:9};
@@ -2901,6 +2898,7 @@ $(function() {
       punctumToSelect=/punctum(\d+)/i.exec(neume.attr("id"));
       if(punctumToSelect) {
         selectPunctum(parseInt(punctumToSelect[1]),true);
+        return true;
       } else {
         selectedNeume = parseInt(neumeToSelect);
         selectedNeumeTag = $(selectedSvg).find('#neume'+neumeToSelect).get(0);
@@ -2908,6 +2906,7 @@ $(function() {
         $(selectedSvg).find('.selectable').attr('style','').attr('class',function(i,v){return v.replace(/(^|\s+)selected(?=\s+|$)/g,'');});
         $(selectedSvg).find('.neume'+selectedNeume).attr('class',function(i,v){return v+' selected';});
         selectedNeumeTextTag.attr('class','selectable selected');
+        return selectedNeumeTag;
       }
     };
     var hideSyllableGabc=function(){      
@@ -2925,7 +2924,11 @@ $(function() {
       $('#txtSyllable').hide();
     };
     var positionTxtSyllableGabc=function(){
-      $('#txtSyllableGabc').position({my:'center bottom',at:'center top',of:selectedNeumeTag,collision:'fit'})
+      var pos = {my:'center bottom',at:'center top',of:selectedNeumeTag,collision:'fit'},
+          tone = (selectedNeumeTag.neume.info.htone < 8.5)? 8 : selectedNeumeTag.neume.info.htone;
+      //MOVE txtSyllableGabc down a bit...j
+      pos.my += '+' + (5+((12-tone) * staffheight / 8));
+      $('#txtSyllableGabc').position(pos);
     };
     var positionTxtSyllable=function(){
       var $tag = syllableTextTag || selectedNeumeTextTag;
@@ -2949,25 +2952,53 @@ $(function() {
       }
     };
     var showSyllableGabc=function(neumeTag){
-      var tag = neumeTag || selectedNeumeTag;
-      syllableGabcIndex = getPunctumOffset(tag);
-      if(syllableOffsetCorrection && syllableOffsetCorrection.afterNeume <= selectedNeume) {
-        syllableGabcIndex += syllableOffsetCorrection.offset;
+      var originalText,
+          text,
+          pos = {my:'center bottom',at:'center top',collision:'fit'};
+      if(neumeTag==1) {
+        pos.of = selectedNeumeTag;
+        pos.my = 'left bottom';
+        pos.at = 'right top';
+        var suffix;
+        if($('#txtSyllableGabc').is(':visible')){
+          syllableGabcPrefix += $('#txtSyllableGabc').val();
+          suffix = syllableGabcSuffix;
+        } else {
+          syllableGabcPrefix = syllableTextPrefix + $('#txtSyllable').val();
+          suffix = syllableTextSuffix;
+        }
+        var index = 1 + suffix.indexOf(')');
+        if(index <= 0) index = suffix.length;
+        syllableGabcPrefix += suffix.slice(0,index) + ' (';
+        syllableGabcSuffix = ')' + suffix.slice(index);
+        text = '';
+        ++selectedNeume;
+        $('#editor').val(syllableGabcPrefix + syllableGabcSuffix).keyup();
+      } else {
+        var tag = neumeTag || selectedNeumeTag;
+        pos.of = tag;
+        syllableGabcIndex = getPunctumOffset(tag);
+        if(syllableOffsetCorrection && syllableOffsetCorrection.afterNeume <= selectedNeume) {
+          syllableGabcIndex += syllableOffsetCorrection.offset;
+        }
+        originalText = $('#editor').val();
+        syllableGabcIndex += getHeaderLen(originalText);
+        var $lastChild = $(tag).children().last();
+        syllableGabcOriginalLength = (tag.neume && tag.neume.gabc=='')? 0 : parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
+        if(isNaN(syllableGabcOriginalLength)) {
+          var match = /^([^\)]*)\)/.exec(originalText.slice(syllableGabcIndex));
+          syllableGabcOriginalLength = match? match[1].length : 0;
+        }
+        text = originalText.slice(syllableGabcIndex,syllableGabcIndex+syllableGabcOriginalLength);
+        syllableGabcPrefix = originalText.slice(0,syllableGabcIndex)
+        syllableGabcSuffix = originalText.slice(syllableGabcIndex+syllableGabcOriginalLength);
       }
-      var originalText = $('#editor').val();
-      syllableGabcIndex += getHeaderLen(originalText);
-      var $lastChild = $(tag).children().last();
-      syllableGabcOriginalLength = parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
-      if(isNaN(syllableGabcOriginalLength)) {
-        var match = /^([^\)]*)\)/.exec(originalText.slice(syllableGabcIndex));
-        syllableGabcOriginalLength = match? match[1].length : 0;
-      }
-      var text = originalText.slice(syllableGabcIndex,syllableGabcIndex+syllableGabcOriginalLength);
-      syllableGabcPrefix = originalText.slice(0,syllableGabcIndex)
-      syllableGabcSuffix = originalText.slice(syllableGabcIndex+syllableGabcOriginalLength);
+      tone = (pos.of.neume.info.htone < 8.5)? 8 : pos.of.neume.info.htone;
+      //MOVE txtSyllableGabc down a bit...
+      pos.my += '+' + (5+((12-tone) * staffheight / 8));
       $('#txtSyllableGabc').show()
         .val(text)
-        .position({my:'center bottom',at:'center top',of:tag,collision:'fit'})
+        .position(pos)
         .trigger('update')
         .select();
     };
@@ -2986,7 +3017,6 @@ $(function() {
       syllableTextPrefix = originalText.slice(0,syllableTextIndex);
       syllableTextSuffix = originalText.slice(syllableTextIndex+len);
       syllableTextOriginalLength=len;
-      var offset = {top:$tag.parent().offset().top, left: tag.x.baseVal.getItem(0)};
       $txtSyllable.show()
         .val(text)
         .trigger('update');
@@ -3024,6 +3054,9 @@ $(function() {
       if(e.altKey){
         showSyllableGabc();
       }
+    }).on("dblclick","tspan.selectable[id^=punctum]",function(e){
+      selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0],false);
+      showSyllableGabc();
     }).on("mousedown","tspan.selectable[id^=punctum]",function(e){
       if(e.which == 2) {
         selectPunctum(/punctum(\d+)/i.exec(this.id)[1],false,$(e.target).parents('svg')[0],true);
@@ -3034,7 +3067,7 @@ $(function() {
       selectNeume(/neumetext(\d+)/i.exec(this.id)[1]);
       showSyllableEditor();
     }).on("mouseenter","tspan.selectable[id^=neumetext]",function(e){
-      if(!$('#txtSyllable').is(':visible') || syllableTextTag) {
+      if(gabcSettings.showSyllableEditorOnHover && !$('#txtSyllable').is(':visible') || syllableTextTag) {
         showSyllableEditor($(this));
       }
     });
@@ -3050,6 +3083,12 @@ $(function() {
           case 40: //down
             showSyllableEditor();
             e.preventDefault();
+            break;
+          case 66: //b
+            if(e.ctrlKey || e.altKey) {
+              e.preventDefault();
+              showSyllableGabc(1)
+            }
             break;
           case 37: //left
             if(this.selectionStart == this.selectionEnd && this.selectionStart == 0) {
@@ -3075,12 +3114,22 @@ $(function() {
       }).on('autoSizeInput',positionTxtSyllableGabc)
       .keydown(function(){var self=this;window.setTimeout( function(){ updateOffsetCorrectionGabc.apply(self,[e]); },1)})
       .autoSizeInput();
-    var showNextSyllableEditor = function(increment) {      
+    var showNextSyllableEditor = function(increment,withSpace) {
       selectedNeumeTextTag = [];
       var neumeToSelect = 1;
       while(neumeToSelect >= 0 && selectedNeumeTextTag.length == 0 && selectedNeumeTag) {
         neumeToSelect = selectedNeume + increment;
-        selectNeume(neumeToSelect);
+        if(!selectNeume(neumeToSelect)) {
+          var $txtSyllable = $('#txtSyllable');
+          syllableTextPrefix = $('#editor').val() + (withSpace? ' ':'');
+          syllableTextSuffix = '()';
+          syllableTextOriginalLength=0;
+          $txtSyllable.show()
+            .val('')
+            .trigger('update')
+            .select();
+          return;
+        }
       }
       showSyllableEditor();
     };
@@ -3108,6 +3157,11 @@ $(function() {
             showSyllableGabc();
             e.preventDefault();
             break;
+          case 66: //b //TODO...update this
+            if(e.ctrlKey || e.altKey) {
+              showSyllableGabc(1)
+            }
+            break;
           case 37: //left
             if(this.selectionStart == this.selectionEnd && this.selectionStart == 0) {
               showNextSyllableEditor(-1);
@@ -3120,6 +3174,12 @@ $(function() {
               showNextSyllableEditor(1);
               this.selectionStart = this.selectionEnd = 0;
               e.preventDefault();
+            }
+            break;
+          case 32: //space
+            if(this.selectionStart == this.selectionEnd && this.selectionStart == this.value.length) {
+              e.preventDefault();
+              showNextSyllableEditor(1,true);
             }
             break;
           case 9: //tab
