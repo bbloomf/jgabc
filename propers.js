@@ -817,6 +817,7 @@ $(function(){
   $('#selYearNovus').change(function(){updateAllParts();});
   $('#selTempus').change(selectedTempus);
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
+  if(location.search.match(/\bla\b/)) key = 'title';
   var populate = function(keys,$sel) {
     $.each(keys,function(i,o){
       if(typeof(o) == 'string') {
