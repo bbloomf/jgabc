@@ -2,7 +2,7 @@ var hy_options = {
   minLength:2
 };
 //var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
-  var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.))/ig;
+  var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.|$))/ig;
 var emptyGabc={gabc:'()',hasSyllable:true};
 var _hymnGabcMap=[];
 //TODO: have an option to use a regular * instead of <v>\greheightstar</v>
@@ -163,7 +163,7 @@ function splitGabc(gabc,offset) {
         index = match.index + offset;
     regexTones.exec('');
     var nextIndex = match.index + match[0].length - 1;
-    while(match[6] && (regexGabc.lastIndex--, match = regexGabc.exec(gabc))) {
+    while(match[6] && regexGabc.lastIndex < gabc.length && (regexGabc.lastIndex--, match = regexGabc.exec(gabc))) {
       if(nextIndex != match.index) {
         sylGabc += gabc[nextIndex];
         if(match.index > nextIndex + 1) {
