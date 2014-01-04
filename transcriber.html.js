@@ -1,7 +1,8 @@
 var hy_options = {
   minLength:2
 };
-var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
+//var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
+  var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.))/ig;
 var emptyGabc={gabc:'()',hasSyllable:true};
 var _hymnGabcMap=[];
 //TODO: have an option to use a regular * instead of <v>\greheightstar</v>
@@ -154,18 +155,38 @@ function splitGabc(gabc,offset) {
   var gSyl = [];
   regexGabc.exec('');
   while((match = regexGabc.exec(gabc))) {
-    var tone,tones=[];
+    var tone,tones=[],
+        hasSyl = match[5],
+        sylGabc = match[1],
+        isClef = match[4],
+        isBar = match[3],
+        index = match.index + offset;
     regexTones.exec('');
-    while((tone=regexTones.exec(match[1]))){
+    var nextIndex = match.index + match[0].length - 1;
+    while(match[6] && (regexGabc.lastIndex--, match = regexGabc.exec(gabc))) {
+      if(nextIndex != match.index) {
+        sylGabc += gabc[nextIndex];
+        if(match.index > nextIndex + 1) {
+          regexGabc.lastIndex = nextIndex;
+          break;
+        }
+      }
+      hasSyl = hasSyl || match[5];
+      sylGabc += match[1];
+      isClef = isClef || match[4];
+      isBar = isBar || match[3];
+      nextIndex = match.index + match[0].length - 1;
+    }
+    while((tone=regexTones.exec(sylGabc))){
       tones.push(tone[0]);
     }
     gSyl.push({match: match,
-               hasSyllable: match[5],
-               gabc: '(' + match[1] + ')',
-               isClef: match[4],
-               isBar: match[3],
+               hasSyllable: hasSyl,
+               gabc: '(' + sylGabc + ')',
+               isClef: isClef,
+               isBar: isBar,
                tones: tones,
-               index: match.index + offset
+               index: index
               });
   }
   return gSyl;
