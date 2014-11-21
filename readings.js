@@ -1,5 +1,5 @@
 var selLang = 'english';
-var custom_tones={};
+var custom_tones={english:{},latin:{}};
 var gSyl,syl,_clef;
 var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
@@ -125,7 +125,7 @@ function updateEditor(forceGabcUpdate,_syl) {
   $("#editor").keyup();
 }
 
-function updateGabc() {
+function keyupTxtGabc() {
   gSyl = $("#versegabc").val();
   updateCustomTone();
   updateEditor();
@@ -152,16 +152,20 @@ function updateClef() {
   var baseClefI = parseInt(_clef[1],10);
   var clefI = parseInt(clef[1],10);
   var diff = (clefI - baseClefI) * 2;
-  var vgabc = shiftGabc(gSyl,diff);
   
   var tone = $("#selTones").val();
   var t = g_tones[selLang][tone];
+  var solemn = $("#cbSolemn")[0].checked;
+  if(t.solemn || t.simple) {
+    if(solemn && t.solemn) t = t.solemn;
+    else t = t.simple;
+  }
+  
   var baseClefI=parseInt(t.clef[1],10);
   diff = (clefI - baseClefI) * 2;
   //gShortMediant = getGabcTones(shiftGabc(t.shortMediant||t.solemn||t.mediant,diff));
   
-  $("#versegabc").val(vgabc);
-  gSyl = vgabc;
+  //gSyl = vgabc;
   _clef = clef;
   updateEditor();
 }
@@ -339,7 +343,7 @@ var splitSentences = (function(){
 })()
 var updateTone = function(){
   var tone = g_tones[selLang][$("#selTones").val()];
-  var solemn = cbSolemn.checked
+  var solemn = $("#cbSolemn")[0].checked;
   localStorage.cbSolemn = solemn;
   if(tone.solemn || tone.simple) {
     if(solemn && tone.solemn) tone = tone.solemn;
@@ -492,7 +496,7 @@ $(function() {
   $(window).resize(windowResized);
   $("#selTones").append('<option>' + getPsalmTones(g_tones[selLang]).join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
-  $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(updateGabc);
+  $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
   $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#cbEnglish").click(function(){
     selLang = cbEnglish.checked? 'english' : 'latin';
