@@ -941,7 +941,9 @@ $(function(){
           proper = sel[part],
           gabc = proper.activeGabc || proper.gabc,
           header = getHeader(gabc);
-      if($includePart.parent('li').hasClass('ui-state-disabled') || includePropers.indexOf(part)<0) return;
+      if($includePart.parent('li').hasClass('ui-state-disabled') ||
+        includePropers.indexOf(part)<0 ||
+        !gabc) return;
       header.name = '';
       header['%font'] = 'GaramondPremierPro';
       header['%width'] = '7.5';
