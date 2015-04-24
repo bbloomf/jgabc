@@ -659,12 +659,25 @@ $(function() {
   });
   $("#chant-parent2").resizable({handles:"e"});
   $(window).resize(windowResized);
-  var regexKeyVal = /(?:^|#)(psalm|tone|ending|solemn|format|noeditor)(?:=([^#]+))?/g;
-  var hash = {}, curMatch;
-  while(curMatch = regexKeyVal.exec(location.hash)) {
-    hash[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+  function parseHash() {
+    var regexKeyVal = /(?:^|#)(psalm|tone|ending|solemn|format|noeditor)(?:=([^#]+))?/g;
+    var hash = {}, curMatch;
+    while(curMatch = regexKeyVal.exec(location.hash)) {
+      hash[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+    }
+    return hash;
   }
-  console.info(hash)
+  var hash = parseHash();
+  $(window).on('hashchange',function(){
+    hash = parseHash();
+    if(hash.solemn) $("#cbSolemn")[0].checked = (hash.solemn == "true");
+    if(hash.format) $("#selFormat").val((useFormat = hash.format));
+    if(hash.psalm)  $("#selPsalm").val(hash.psalm);
+    if(hash.tone)   $("#selTones").val(hash.tone);
+    if(hash.ending && $("#selEnd")[0].firstChild) $("#selEnd").val(hash.ending);
+    $('#chant-parent2').toggleClass('noeditor',hash.noeditor?true:false);
+    gabcSettings.showSyllableEditorOnHover = !hash.noeditor;
+  });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
@@ -756,5 +769,6 @@ $(function() {
   }
   if(hash.noeditor) {
     $('#chant-parent2').addClass('noeditor');
+    gabcSettings.showSyllableEditorOnHover = false;
   }
 });
