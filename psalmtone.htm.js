@@ -676,7 +676,7 @@ $(function() {
     if(hash.tone)   $("#selTones").val(hash.tone);
     if(hash.ending && $("#selEnd")[0].firstChild) $("#selEnd").val(hash.ending);
     $('#chant-parent2').toggleClass('noeditor',hash.noeditor?true:false);
-    gabcSettings.showSyllableEditorOnHover = !hash.noeditor;
+    gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = !hash.noeditor;
   });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
@@ -769,6 +769,6 @@ $(function() {
   }
   if(hash.noeditor) {
     $('#chant-parent2').addClass('noeditor');
-    gabcSettings.showSyllableEditorOnHover = false;
+    gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = false;
   }
 });

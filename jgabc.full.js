@@ -1,6 +1,6 @@
 String.prototype.repeat = function(num){return new Array(num+1).join(this);};
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
-var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true};
+var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true,showSyllableEditorOnClick:true};
 var uuid;
 // lower-staff ext: 0xe1, upper: 0xe2
 var _indicesChar = {
@@ -3070,7 +3070,7 @@ $(function() {
       }
     }).on("click","tspan.selectable[id^=neumetext]",function(e){
       selectNeume(/neumetext(\d+)/i.exec(this.id)[1]);
-      showSyllableEditor();
+      if(gabcSettings.showSyllableEditorOnClick) showSyllableEditor();
     }).on("mouseenter","tspan.selectable[id^=neumetext]",function(e){
       if(gabcSettings.showSyllableEditorOnHover && !$('#txtSyllable').is(':visible') || syllableTextTag) {
         showSyllableEditor($(this));
