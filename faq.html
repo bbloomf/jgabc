@@ -24,19 +24,21 @@ body{
 </style>
 </head>
 <body>
-<h1 title="Frequently Answered Questions">FAQ</h1>
+<h1>FAQ (Frequently Anticipated Questions)</h1>
 <div class="columns">
 <div class="question">What is this for?</div>
-<div class="answer">This is two separate tools to aide in the transcription of chant into GABC notation.  The first is called the "<a href="#transcription">GABC Transcription Tool</a>" and the second is called the "<a href="#psalmtone">Psalm Tone Tool</a>" and they will be dealt with separately below.</div>
+<div class="answer">This is three separate tools to aide in the transcription of chant into GABC notation, and a fourth which only deals with chants that have already been transcribed.  The first is called the "<a href="#transcription">GABC Transcription Tool</a>" and the second is called the "<a href="#psalmtone">Psalm Tone Tool</a>" and they will be dealt with separately below.  The others are the "<a href="#readings">Readings Tool</a>" and the "<a href="#propers">Propers Tool</a>".</div>
 <div class="question">Who wrote it, and why?</div>
-<div class="answer">I wrote it because in January 2011, I realized that it would be relatively simple to have a computer automatically break apart a Latin text into syllables, and provided the accents are in place, it would also be possible to apply a psalm tone to it automatically.  In the process of writing this Psalm Tone Tool, it became obvious that it would also be advantageous to split apart Latin into its syllables simply to prevent having to type so many parentheses, and thus the GABC Transcription Tool was born.</div>
+<div class="answer">I wrote it because in January 2011, I realized that it would be relatively simple to have a computer automatically break apart a Latin text into syllables, and provided the accents are marked, it would also be possible to apply a psalm tone to it automatically.  In the process of writing this Psalm Tone Tool, it became obvious that it would also be advantageous to split apart Latin into its syllables simply to prevent having to type so many parentheses, and thus the GABC Transcription Tool was born.  I put together the Readings Tool after my dad (a permanent deacon) had asked about chanting a specific Gospel in English.  The Propers Tool, I wrote more recently (in 2013) at the suggestion of one of my brothers.</div>
 <div class="question">What about the graphical representation of the chant?</div>
 <div class="answer">I had begun a project in May 2010, thinking it would be simple to render GABC into a webpage, but abandoned it later in the year, half-finished.  When I wrote this page, it was a natural fit to use what I already had half-working in order to allow for a graphical preview of the chant, and actually using this code for something provided additional inspiration for getting it to work better, because it is annoying whenever it displays something incorrectly, and thus I have improved much in the rendering of the chant preview since writing the transcription tool.</div>
+<div class="question">Can I have a look at the source code?</div>
+<div class="answer">Sure.  It is hosted at Github, <a href="https://github.com/bbloomf/jgabc">here</a>.</div>
 <div class="question">Have any of these questions really been frequently asked?</div>
-<div class="answer">No, I don't think anyone has actually asked any of these questions, but I have frequently anticipated them.</div>
+<div class="answer">No, I don't think anyone has actually asked any of these questions, and I have actually only occasionally anticipated them.</div>
 <div class="question">Is there any way of running this while not connected to the Internet?</div>
 <div class="answer">Yes, as long as you use Chrome.  You can get the Chrome Web App version <a href='https://chrome.google.com/webstore/detail/mkhgaijffgijgkolifpoaijimncdakkd'>here</a> and it will work whether you are connected to the Internet or not.</div>
-<a name="Transcription"><h2>GABC Transcription Tool</h2></a>
+<a name="Transcription"><h2><a href="transcriber.html">GABC Transcription Tool</a></h2></a>
 <div class="question">What is the GABC Transcription Tool?</div>
 <div class="answer">It is a tool to allow you to enter GABC notation without having to mark the syllable breaks, and without having to use so many parentheses.  It is also useful for transcribing chants that have repetitive melodies over different texts, such as hymns.</div>
 <div class="question">What does it do exactly?</div>
@@ -61,7 +63,7 @@ body{
 <div class="question">What about the 'Download Integrated GABC' link?</div>
 <div class="answer">Yes, I should have mentioned that.  You can click that to download the GABC file, which will be a text file containing the text in the Integrated GABC text box, which will show up if you click the "Show integrated GABC" link at the top.  From Chrome, you can drag this link onto an explorer window, and it will name the .gabc file with the value of the name field in the header, if you have edited the GABC header.</div>
 </div>
-<a name="psalmtone"><h2>Psalm Tone Tool</h2></a>
+<a name="psalmtone"><h2><a href="psalmtone.htm">Psalm Tone Tool</a></h2></a>
 <div class="question">What is the Psalm Tone Tool?</div>
 <div class="answer">It is a tool to aide in the transcription of psalms into GABC notation, as well as formatting the verses into HTML, TeX, or some other format.</div>
 <div class="question">What Psalm edition are you using?</div>
@@ -91,7 +93,7 @@ body{
 <div class="question">Is there anything else I should know about the formats?</div>
 <div class="answer">Yes, and it is simply this: if the format name has html in it, the verses will be rendered as html on the page, otherwise they will be rendered as text.</div>
 <br/>
-<div class="question">What about the Readings Tool?</div>
+<a name="readings"><h2><a href="readings.htm">Readings Tool</a></h2></a>
 <div class="answer">I wrote this just before Advent 2011, and made some slight modifications through January 2012.  This is not a tool that I myself need to use very often, so I am not as sure whether there are many problems with it.  The special characters (used in the Text that the tone is applied to) to control the output are as follows:
 <br><br>
 <b>+</b>: Causes a dotted punctum on the previous syllable and a quarter bar immediately after.
@@ -99,9 +101,18 @@ body{
 <br/><b>.</b> or <b>!</b> or <b>::</b> will cause the full stop tone to be used
 <br/><b>?</b> will cause the Question tone to be used.
 </div>
+<div class="question">Where do the tones come from?</div>
+<div class="answer">The English tones come from the PDFs linked to <a href="http://www.icelweb.org/musicfolder/openmusic.php">here</a> and the Latin tones are from the Liber Usualis.</div>
+<a name="propers"><h2><a href="propers.html">Propers Tool</a></h2></a>
+<div class="question">What does the Propers Tool do?</div>
+<div class="answer">The Propers Tool will allow you to find the propers for a Sunday or certain feast days and votive Masses from the Liber Usualis.  It will also give you the option of applying a psalm tone to some or all of these chants and make a PDF.</div>
+<div class="question">Does it support the Novus Ordo calendar as well as the traditional calendar?</div>
+<div class="answer">Yes, you can click on the big button near the top to switch between the traditional calendar and the Novus Ordo.  When using the novus ordo calendar, it should make an educated guess about whether the current year is A, B, or C, but there is also a dropdown from which you can change which year it is using.</div>
+<div class="question">Did you transcribe all of these chants?</div>
+<div class="answer">No, I didn't.  They are all from <a href="http://gregobase.selapa.net/">GregoBase</a> and were originally transcribed by Andrew Hinkley.  They are not guaranteed to be free of error, and if you do notice a mistake, you can click on the name of the Mass part (Introitus, etc.) and see the chant at its page on GregoBase and make corrections (if you understand GABC) or simply click the "Report a problem" link (if you don't know how to fix it yourself).  To do either, you would first need to register with the GregoBase site.</div>
 <br/>
 <div class="question">Supposing I have a question that isn't answered here?</div>
-<div class="answer">You may contact me via e-mail and I will probably respond: jgabc [at] christian.net</div>
+<div class="answer">You may contact me via e-mail and I will probably respond: bhb123+jgabc [at] gmail.com</div>
 </div>
 </body>
 </html>
