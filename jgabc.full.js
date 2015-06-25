@@ -228,9 +228,9 @@ var regexTranslate=/translate\((-?\d+(?:\.\d+)?)(?:[,\s]\s*(-?\d+(?:.\d+)?))?\)/
 var regexTranslateG=/translate\((-?\d+(?:\.\d+)?)(?:[,\s]\s*(-?\d+(?:.\d+)?))?\)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
-var regexTag = /<(\/)?(b|i|sc|v)>/i;
+var regexTag = /<(\/)?(\w+)>/i;
 var regexSqBrackets = /\[([^\]]*)(?:\]|$)/;
-var regexTags= /(<(b|i|sc)>)(.*?)(?:(<\/\1>)|$)/i;
+var regexTags= /(<\w+>)(.*?)(?:(<\/\1>)|$)/i;
 var regexTagsSp = /<sp>([^<]*)<\/sp>/gi;
 var spSubstitutions = {
   "'ae": 'ǽ',

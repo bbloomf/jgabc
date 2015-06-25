@@ -38,7 +38,15 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
       }
     }
     result+=cSyl.syl;
-    if(cSyl.punctuation.length > 0) result+=cSyl.punctuation;
+    if(cSyl.punctuation.length > 0) {
+      if(cSyl.space && cSyl.punctuation.match(/(^|[^\\])\\$/)) {
+        //if it ends with exactly one backslash, consider the following space as part of this syllable:
+        if(cSyl.punctuation.length>1) result+=cSyl.punctuation.slice(0,-1);
+        --iG;
+        continue;
+      }
+      result+=cSyl.punctuation;
+    }
     if(cSyl.syl) {
       if(cSyl.elision) {
         if(useElisionGabc) {
