@@ -331,7 +331,7 @@ function windowResized(){
   $cp.height(totalHeight);
 }
 var splitSentences = (function(){
-  var sentenceRegex = /((?:,(?![,\r\n])["']?|[^\^~+.?!;:,])+(?:$|,(?=[,\r\n])|[+\^~.?!;:]:?["']?)),?\s*/gi;
+  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+(?:$|,(?=[,\r\n])|[+\^~.?!;:]:?["'“”‘’]?)),?\s*/gi;
   return function(text){
     var result = [];
     var m;
