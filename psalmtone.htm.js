@@ -259,13 +259,28 @@ function updateEnding() {
   updateEditor();
 }
 
+splitPsalms = {
+  "7"   : [10, 8],
+  "33"  : [10, 12],
+  "70"  : [13, 13],
+  "76"  : [12, 8],
+  "102" : [12, 10]
+}
+
 function getPsalms() {
-  var r = Array(151);
-  for(var i=1; i <= 150; ++i) {
-    r[i-1] = i;
+  var r = Array();
+  for(var i = 1; i <= 150; i++) {
+    r.push(i);
+    if(i.toString() in splitPsalms)
+    {
+      for(var j = 0; j < splitPsalms[i.toString()].length; j++)
+      {
+        r.push(i + '.' + (j+1));
+      }
+    }
   }
-  r[150] = "Magnificat";
-  r[151] = "Benedictus"
+  r.push("Magnificat");
+  r.push("Benedictus");
   return r;
 }
 
