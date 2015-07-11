@@ -426,6 +426,7 @@ function applyPsalmTone(options) {
       gabc = options.gabc,
       useOpenNotes = options.useOpenNotes || false,
       useBoldItalic = options.useBoldItalic || false,
+      firstPrefix = options.firstPrefix || false,
       onlyVowel = options.onlyVowel || false,
       format = options.format,
       verseNumber = options.verseNumber,
@@ -468,6 +469,10 @@ function applyPsalmTone(options) {
   var tmp = prefix.split(',');
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
     prefix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
+  }
+  if(!firstPrefix && (Number(verseNum)==1))
+  {
+    prefix = "";
   }
   tmp = suffix.split(',');
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {

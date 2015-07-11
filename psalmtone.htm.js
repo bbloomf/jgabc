@@ -3,7 +3,7 @@ var custom_tones={};
 var gSyl,syl,_clef;
 var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
-var useFormat,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
+var useFormat,useInitStyle,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
 var includeGloriaPatri;
 function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   var actuallyUpdate=(typeof(_syl)=="undefined");
@@ -78,6 +78,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
           gabc: gMediant,
           useOpenNotes: usePunctaCava,
           useBoldItalic: true,
+          firstPrefix: (!useInitStyle),
           onlyVowel: onlyVowels,
           format: gabcFormat,
           verseNumber: useNovaVulgata?"":i+1,
@@ -93,6 +94,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
             gabc: gTermination,
             useOpenNotes: usePunctaCava,
             useBoldItalic: true,
+            firstPrefix: (!useInitStyle),
             onlyVowel: onlyVowels,
             format: gabcFormat,
             verseNumber: useNovaVulgata?"":i+1,
@@ -127,6 +129,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
               gabc: getFlexGabc(medTones),
               useOpenNotes: false,
               useBoldItalic: false,
+              firstPrefix: true,
               onlyVowel: onlyVowels,
               format: gabcFormat
             });
@@ -154,6 +157,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
             gabc: removeIntonation($.extend(true,{},gTermination)),
             useOpenNotes: false,
             useBoldItalic: false,
+            firstPrefix: true,
             onlyVowel: onlyVowels,
             format:gabcFormat,
             favor: 'termination'
@@ -163,7 +167,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
     if(actuallyUpdate){
       filename = versesFilename(bi_formats[useFormat],$("#selPsalm").val(),$("#selTones").val(),$("#selEnd").val(),$("#cbSolemn")[0].checked)
       var header = getHeader(localStorage.psalmHeader||'');
-      header["initial-style"] = '0';
+      header["initial-style"] = (useInitStyle) ? '1' : '0';
       header["name"] = filename.replace(/\.[^.]*$/,'');
       gabc=header+gabc;
       $("#editor").val(gabc);
@@ -458,6 +462,10 @@ function deleteFormat() {
   }
 }
 
+function updateInitStyle() {
+  localStorage.cbInitStyle = useInitStyle = $("#cbInitStyle")[0].checked;
+  updateEditor(true);
+}
 function updateOnlyVowels() {
   localStorage.cbOnlyVowels = onlyVowels = $("#cbOnlyVowels")[0].checked;
   updateEditor(true);
@@ -693,6 +701,7 @@ $(function() {
   $("#selTones").change(updateEndings);
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
+  $("#cbInitStyle").change(updateInitStyle);
   $("#cbOnlyVowels").change(updateOnlyVowels);
   $("#cbRepeatIntonation").change(updateRepeatIntonation);
   $("#cbItalicizeIntonation").change(updateItalicizeIntonation);
@@ -715,6 +724,7 @@ $(function() {
   $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = ((hash.solemn || localStorage.cbSolemn) == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
+  $("#cbInitStyle")[0].checked = useInitStyle = (localStorage.cbInitStyle != "false");
   $("#cbUsePunctaCava")[0].checked = usePunctaCava = (localStorage.cbUsePunctaCava != "false");
   $("#cbRepeatIntonation")[0].checked = repeatIntonation = (localStorage.cbRepeatIntonation == "true");
 //  $("#cbItalicizeIntonation")[0].checked = italicizeIntonation = (localStorage.cbItalicizeIntonation == "true");
