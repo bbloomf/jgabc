@@ -1014,6 +1014,7 @@ splitPsalmsMap = {
 };
 function slicePsalm(text,psalmNum,psalmPart){
   if(psalmPart>0){
+    psalmNum = Number(psalmNum).toString();
     var start = 0;
     for (var i = 0; i < psalmPart - 1; i ++)
     {
