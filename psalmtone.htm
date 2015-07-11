@@ -118,46 +118,49 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preperatory syllable<span id="sTermPrepS">s</span></span>
 </td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbUseNovaVulgata"/><label for="cbUseNovaVulgata">Use Nova Vulgata psalms</label> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Pátri</label><br/><div class="tap"><textarea id="versetext" lang="latin" style="height: 96pt; width: 100%;"></textarea></div>
 </td></tr>
-<tr class="bordered"><td>
-<label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/>
-<br/><input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels" title="Only apply the formatting to the vowel rather than to the entire syllable, and only to first of any preparatory syllables rather than to all preparatory syllables.">Only format vowels</label>
-<br/><input type="checkbox" id="cbUsePunctaCava"/><label for="cbUsePunctaCava" title="Use a punctum cavum wherever a variable number of notes will be present depending on the specific verse.">Use puncta cava</label>
-<br/><input type="checkbox" id="cbRepeatIntonation"/><label for="cbRepeatIntonation" title="Repeat the intonation in each verse rather than just in the first verse (only affects the gabc output)">Repeat intonation</label>
-<br/><label for="txtGabcStar" title="Text to use at the mediant if not a simple asterisk (*)">Asterisk Text:</label>&nbsp;<input type="text" id="txtGabcStar"/>
-</td><td style="border-left-style:solid;">
-<table class="">
-  <tr>
-    <td><label for="txtBeginPrep" title="This text will be added just before each preparatory syllable.">Begin Preparatory Syllable:</label></td>
-    <td><input type="text" id="txtBeginPrep"/></td>
-    <td style="padding-left:12pt;"><label for="txtEndPrep" title="This text will be added just after each preparatory syllable.">End Preparatory Syllable:</label></td>
-    <td><input type="text" id="txtEndPrep"/></td>
-  </tr>
-  <tr>
-    <td><label for="txtBeginAccented" title="This text will be added just before each accented syllable that figures in the mediant/termination.">Begin Accented Syllable:</label></td>
-    <td><input type="text" id="txtBeginAccented"/></td>
-    <td style="padding-left:12pt;"><label for="txtEndAccented" title="This text will be added just after each accented syllable that figures in the mediant/termination.">End Accented Syllable:</label></td>
-    <td><input type="text" id="txtEndAccented"/></td>
-  </tr>
-  <tr>
-    <td><label for="txtPrefix" title="Inserted before every verse.&#10;$c will be replaced by the verse number.&#10;&#10;If commas are present, it will cycle through each prefix in the comma separated list, e.g., '1,2,3' -> '1,2,3,1,2,etc.'">Verse Prefix:</label></td>
-    <td><input type="text" id="txtPrefix"/></td>
-    <td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</label></td>
-    <td><input type="text" id="txtSuffix"/></td>
-  </tr>
-  <tr>
-    <td><label for="txtNbsp" title="Used before : * and † so that lines won't be broken up with one of these characters starting the line.">Non-breaking space:</label></td>
-    <td><input type="text" id="txtNbsp"/></td>
-    <td style="padding-left:12pt;"><label for="txtVersesName" title="Name of the verses file in Chrome when dragging the link to a file explorer window.  $psalm will be replaced with the psalm number (or Magnificat, etc.) and $tone will be replaced with the tone (e.g., 8gstar).">Verses Filename:</label></td>
-    <td><input type="text" id="txtVersesFilename"/></td>
-  </tr>
-  <tr>
-    <td><label for="txtAnnotation" title="This text will be added to the annotation field to show info such as the mode.">Annotation:</label></td>
-    <td><input type="text" id="txtAnnotation"/></td>
-    <td style="padding-left:12pt;" title="This text will be added to the user-notes field to show info such as the Psalm number."><label for="txtUserNotes">User Notes:</label></td>
-    <td><input type="text" id="txtUserNotes"/></td>
-  </tr>
-</table>
-</td></tr>
+<tr class="bordered">
+  <td>
+    <label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/><br/>
+    <input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels" title="Only apply the formatting to the vowel rather than to the entire syllable, and only to first of any preparatory syllables rather than to all preparatory syllables.">Only format vowels</label><br/>
+    <input type="checkbox" id="cbUsePunctaCava"/><label for="cbUsePunctaCava" title="Use a punctum cavum wherever a variable number of notes will be present depending on the specific verse.">Use puncta cava</label><br/>
+    <input type="checkbox" id="cbRepeatIntonation"/><label for="cbRepeatIntonation" title="Repeat the intonation in each verse rather than just in the first verse (only affects the gabc output)">Repeat intonation</label><br/>
+    <label for="txtGabcStar" title="Text to use at the mediant if not a simple asterisk (*)">Asterisk Text:</label>&nbsp;<input type="text" id="txtGabcStar"/>
+  </td>
+  <td style="border-left-style:solid;">
+    <table class="">
+      <tr>
+        <td><label for="txtBeginPrep" title="This text will be added just before each preparatory syllable.">Begin Preparatory Syllable:</label></td>
+        <td><input type="text" id="txtBeginPrep"/></td>
+        <td style="padding-left:12pt;"><label for="txtEndPrep" title="This text will be added just after each preparatory syllable.">End Preparatory Syllable:</label></td>
+        <td><input type="text" id="txtEndPrep"/></td>
+      </tr>
+      <tr>
+        <td><label for="txtBeginAccented" title="This text will be added just before each accented syllable that figures in the mediant/termination.">Begin Accented Syllable:</label></td>
+        <td><input type="text" id="txtBeginAccented"/></td>
+        <td style="padding-left:12pt;"><label for="txtEndAccented" title="This text will be added just after each accented syllable that figures in the mediant/termination.">End Accented Syllable:</label></td>
+        <td><input type="text" id="txtEndAccented"/></td>
+      </tr>
+      <tr>
+        <td><label for="txtPrefix" title="Inserted before every verse.&#10;$c will be replaced by the verse number.&#10;&#10;If commas are present, it will cycle through each prefix in the comma separated list, e.g., '1,2,3' -> '1,2,3,1,2,etc.'">Verse Prefix:</label></td>
+        <td><input type="text" id="txtPrefix"/></td>
+        <td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</label></td>
+        <td><input type="text" id="txtSuffix"/></td>
+      </tr>
+      <tr>
+        <td><label for="txtNbsp" title="Used before : * and † so that lines won't be broken up with one of these characters starting the line.">Non-breaking space:</label></td>
+        <td><input type="text" id="txtNbsp"/></td>
+        <td style="padding-left:12pt;"><label for="txtVersesName" title="Name of the verses file in Chrome when dragging the link to a file explorer window.  $psalm will be replaced with the psalm number (or Magnificat, etc.) and $tone will be replaced with the tone (e.g., 8gstar).">Verses Filename:</label></td>
+        <td><input type="text" id="txtVersesFilename"/></td>
+      </tr>
+      <tr>
+        <td><label for="txtAnnotation" title="This text will be added to the annotation field to show info such as the mode.">Annotation:</label></td>
+        <td><input type="text" id="txtAnnotation"/></td>
+        <td style="padding-left:12pt;" title="This text will be added to the user-notes field to show info such as the Psalm number."><label for="txtUserNotes">User Notes:</label></td>
+        <td><input type="text" id="txtUserNotes"/></td>
+      </tr>
+    </table>
+  </td>
+</tr>
 </table>
 <div class="tap"><label for="editor" title="You can put GABC headers in this text box if you want them included in the GABC file download link below.  Any headers you type in will persist in local storage between sessions.">GABC</label><br/><textarea id="editor" spellcheck="false" style="height: 64px; width: 100%;"></textarea></div>
 <div style='margin:0.5em;'>
