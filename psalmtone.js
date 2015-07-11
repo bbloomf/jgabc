@@ -1011,10 +1011,14 @@ splitPsalmsMap = {
   "70"  : [13, 13],
   "76"  : [12, 8],
   "102" : [12, 10]
-}
+};
 function slicePsalm(text,psalmNum,psalmPart){
   if(psalmPart>0){
-    var start = (splitPsalmsMap[psalmNum].slice(0,psalmPart-2)).reduce((a, b) => a + b);
+    var start = 0;
+    for (var i = 0; i < psalmPart - 1; i ++)
+    {
+      start += splitPsalmsMap[psalmNum][i];
+    }
     var end   = start + splitPsalmsMap[psalmNum][psalmPart-1];
     text = text.split('\n').slice(start, end).join('\n');
   }
