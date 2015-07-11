@@ -259,21 +259,13 @@ function updateEnding() {
   updateEditor();
 }
 
-splitPsalms = {
-  "7"   : [10, 8],
-  "33"  : [10, 12],
-  "70"  : [13, 13],
-  "76"  : [12, 8],
-  "102" : [12, 10]
-}
-
 function getPsalms() {
   var r = Array();
   for(var i = 1; i <= 150; i++) {
     r.push(i);
-    if(i.toString() in splitPsalms)
+    if(i.toString() in splitPsalmsMap)
     {
-      for(var j = 0; j < splitPsalms[i.toString()].length; j++)
+      for(var j = 0; j < splitPsalmsMap[i.toString()].length; j++)
       {
         r.push(i + '.' + (j+1));
       }
