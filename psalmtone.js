@@ -1005,7 +1005,20 @@ function normalizePsalm(text,includeGloriaPatri) {
 }
 var _novaVulgata=null;
 var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
+splitPsalmsMap = {
+  "7"   : [10, 8],
+  "33"  : [10, 12],
+  "70"  : [13, 13],
+  "76"  : [12, 8],
+  "102" : [12, 10]
+}
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
+  var dotIdx    = psalmNum.indexOf('.');
+  var psalmPart = 0;
+  if (dotIdx > 0){
+    psalmPart = Number(psalmNum.slice(dotIdx+1));
+    psalmNum  = psalmNum.slice(0, dotIdx);
+  }
   if(useNovaVulgata){
     if(_novaVulgata==null){
       $.get("psalms/NovaVulgata.txt", function(data){
@@ -1039,6 +1052,11 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
           }
           data = temp.join(' ').replace(/\s*<br>\s*/g,"\n");
           if(data.charCodeAt(0) == 65279) data = data.slice(1);
+          if(psalmPart>0){
+            var start = sum(splitPsalmsMap[psalmNum].slice(0,psalmPart-2))
+            var end   = start + splitPsalmsMap[psalmNum][psalmPart-1];
+            data = data.split('\n').slice(start, end).join('\n');
+          }
         }
         if(data && !calledSuccess) {
           calledSuccess=true;

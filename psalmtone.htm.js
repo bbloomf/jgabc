@@ -260,12 +260,19 @@ function updateEnding() {
 }
 
 function getPsalms() {
-  var r = Array(151);
-  for(var i=1; i <= 150; ++i) {
-    r[i-1] = i;
+  var r = Array();
+  for(var i = 1; i <= 150; i++) {
+    r.push(i);
+    if(i.toString() in splitPsalmsMap)
+    {
+      for(var j = 0; j < splitPsalmsMap[i.toString()].length; j++)
+      {
+        r.push(i + '.' + (j+1));
+      }
+    }
   }
-  r[150] = "Magnificat";
-  r[151] = "Benedictus"
+  r.push("Magnificat");
+  r.push("Benedictus");
   return r;
 }
 
