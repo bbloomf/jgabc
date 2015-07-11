@@ -1012,6 +1012,14 @@ splitPsalmsMap = {
   "76"  : [12, 8],
   "102" : [12, 10]
 }
+function slicePsalm(text,psalmNum,psalmPart){
+  if(psalmPart>0){
+    var start = (splitPsalmsMap[psalmNum].slice(0,psalmPart-2)).reduce((a, b) => a + b);
+    var end   = start + splitPsalmsMap[psalmNum][psalmPart-1];
+    text = text.split('\n').slice(start, end).join('\n');
+  }
+  return text;
+}
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
   var dotIdx    = psalmNum.indexOf('.');
   var psalmPart = 0;
@@ -1052,11 +1060,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
           }
           data = temp.join(' ').replace(/\s*<br>\s*/g,"\n");
           if(data.charCodeAt(0) == 65279) data = data.slice(1);
-          if(psalmPart>0){
-            var start = sum(splitPsalmsMap[psalmNum].slice(0,psalmPart-2))
-            var end   = start + splitPsalmsMap[psalmNum][psalmPart-1];
-            data = data.split('\n').slice(start, end).join('\n');
-          }
+          data = slicePsalm(data,psalmNum,psalmPart);
         }
         if(data && !calledSuccess) {
           calledSuccess=true;
@@ -1065,7 +1069,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
       },
       complete: function(jqXHR, textStatus) {
         if((t != undefined && t.responseText != undefined && t.responseText === "") || textStatus == "error") return;
-        var text = t.responseText;
+        var text = slicePsalm(t.responseText,psalmNum,psalmPart);
         if(!calledSuccess) {
           calledSuccess=true;
           success(normalizePsalm(text,includeGloriaPatri));
