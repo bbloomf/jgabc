@@ -997,14 +997,6 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
     + result +
          ((suffix && suffix.replace(/\(([^$]*)\$c([^)]*)\)/gi,String(verseNum?("$1" + verseNum + "$2"):"")).replace(/\$c/gi,String(verseNum))) || "");
 }
-function normalizePsalm(text,includeGloriaPatri) {
-  text = text.replace(/\s+$/,'');
-  return includeGloriaPatri?
-      (text + "\n" + gloria_patri)
-    : text;
-}
-var _novaVulgata=null;
-var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
 splitPsalmsMap = {
   "7"   : [10, 8],
   "33"  : [10, 12],
@@ -1012,7 +1004,7 @@ splitPsalmsMap = {
   "76"  : [12, 8],
   "102" : [12, 10]
 };
-function slicePsalm(text,psalmNum,psalmPart){
+function slicePsalm(text, psalmNum, psalmPart){
   if(psalmPart>0){
     psalmNum = Number(psalmNum).toString();
     var start = 0;
@@ -1025,6 +1017,12 @@ function slicePsalm(text,psalmNum,psalmPart){
   }
   return text;
 }
+function normalizePsalm(text, psalmNum, psalmPart, includeGloriaPatri) {
+  text = slicePsalm(text,psalmNum,psalmPart).replace(/\s+$/,'');
+  return includeGloriaPatri? (text + "\n" + gloria_patri) : text;
+}
+var _novaVulgata=null;
+var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
   var dotIdx    = psalmNum.indexOf('.');
   var psalmPart = 0;
@@ -1042,7 +1040,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
       var regex=new RegExp(regexBaseNovaVulgata.join(psalmNum));
       var psalm = regex.exec(_novaVulgata);
       if(psalm) {
-        success(normalizePsalm(psalm[1],includeGloriaPatri));
+        success(normalizePsalm(psalm[1], psalmNum, psalmPart, includeGloriaPatri));
       } else {
         success("ERROR retrieving PSALMUS " + psalmNum);
       }
@@ -1069,15 +1067,15 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
         }
         if(data && !calledSuccess) {
           calledSuccess=true;
-          success(normalizePsalm(data,includeGloriaPatri));
+          success(normalizePsalm(data, psalmNum, psalmPart, includeGloriaPatri));
         }
       },
       complete: function(jqXHR, textStatus) {
         if((t != undefined && t.responseText != undefined && t.responseText === "") || textStatus == "error") return;
-        var text = slicePsalm(t.responseText,psalmNum,psalmPart);
+        var text = t.responseText;
         if(!calledSuccess) {
           calledSuccess=true;
-          success(normalizePsalm(text,includeGloriaPatri));
+          success(normalizePsalm(text, psalmNum, psalmPart, includeGloriaPatri));
         }
       },
       dataType:"text"
