@@ -340,10 +340,12 @@ function updateFormat() {
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
   $("#txtEndAccented").val(f.bold[1]);
-  $("#txtNbsp").val(f.nbsp);
-  $("#txtVersesFilename").val(f.versesName);
   $("#txtPrefix").val(f.verse[0]||"");
   $("#txtSuffix").val(f.verse[1]||"");
+  $("#txtNbsp").val(f.nbsp);
+  $("#txtVersesFilename").val(f.versesName);
+  $("#txtAnnotation").val(f.annotation);
+  $("#txtUserNotes").val(f.userNotes);
   updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/) || oldFormat.match(/gabc(?=$|-)/));
 }
 function storeBiFormatsAndUpdate() {
@@ -366,6 +368,14 @@ function updateEndPrep() {
   bi_formats[useFormat].italic[1] = $("#txtEndPrep").val();
   storeBiFormatsAndUpdate();
 }
+function updatePrefix() {
+  bi_formats[useFormat].verse[0] = $("#txtPrefix").val();
+  storeBiFormatsAndUpdate();
+}
+function updateSuffix() {
+  bi_formats[useFormat].verse[1] = $("#txtSuffix").val();
+  storeBiFormatsAndUpdate();
+}
 function updateNbsp() {
   bi_formats[useFormat].nbsp = $("#txtNbsp").val();
   storeBiFormatsAndUpdate();
@@ -374,14 +384,12 @@ function updateVersesFilename(){
   bi_formats[useFormat].versesName = $("#txtVersesFilename").val();
   storeBiFormatsAndUpdate();
 }
-
-function updatePrefix() {
-  bi_formats[useFormat].verse[0] = $("#txtPrefix").val();
+function updateAnnotation() {
+  bi_formats[useFormat].annotation = $("#txtAnnotation").val();
   storeBiFormatsAndUpdate();
 }
-
-function updateSuffix() {
-  bi_formats[useFormat].verse[1] = $("#txtSuffix").val();
+function updateUserNotes(){
+  bi_formats[useFormat].userNotes = $("#txtUserNotes").val();
   storeBiFormatsAndUpdate();
 }
 
@@ -715,6 +723,8 @@ $(function() {
   $("#txtSuffix").keyup(updateSuffix);
   $("#txtNbsp").keyup(updateNbsp);
   $("#txtVersesFilename").keyup(updateVersesFilename);
+  $("#txtAnnotation").keyup(updateAnnotation);
+  $("#txtUserNotes").keyup(updateUserNotes);
   $("#txtClef").keyup(updateClef);
   $("#btnNewFormat").click(newFormat);
   $("#btnNewTone").click(newTone);

@@ -22,20 +22,75 @@ String.prototype.format = function(keys){
 }
 var o_bi_formats = 
     bi_formats = (function(){
-                  var _syl_subRegex= /ǽ/g;
-                  var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
-                  return {
-                      html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:"&nbsp;",verse: ["<span style='float:left;width:25pt;text-align:right;'>($c.)&nbsp;</span>","<br/>"],versesName:"$psalm-$tone.html"},
-                      tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"],nbsp:"~",verse:["\\item ",""],versesName:"$psalm-$tone.tex"},
-                      gabc: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:" ",verse:["($c. )",""],versesName:"$psalm-$tone.gabc",
+                    var _syl_subRegex= /ǽ/g;
+                    var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
+                    return {
+                      html: {
+                        bold: ["<b>", "</b>"],
+                        italic: ["<i>", "</i>"],
+                        nbsp: "&nbsp;",
+                        verse: ["<span style='float:left;width:25pt;text-align:right;'>($c.)&nbsp;</span>","<br/>"],
+                        versesName: "$psalm-$tone.html",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      tex: {
+                        bold: ["{\\textbf{", "}"],
+                        italic: ["{\\it ", "}"],
+                        nbsp: "~",
+                        verse: ["\\item ",""],
+                        versesName: "$psalm-$tone.tex",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      gabc: {
+                        bold: ["<b>", "</b>"],
+                        italic: ["<i>", "</i>"],
+                        nbsp: " ",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.gabc",
                         makeSylSubstitutions: function(o){
                           return o? o.replace(_syl_subRegex,function(e){return _syl_substitutions[e]||e}) : o;
-                        }
+                        },
+                        annotation: "$tone",
+                        userNotes: "$psalm"
                       },
-                      "html-underline": {bold:["<u>","</u>"], italic:["<span style='border-bottom:3px double;'>","</span>"],nbsp:"&nbsp;",verse:["($c. )",""],versesName:"$psalm-$tone.html"},
-                      "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"],nbsp:"~",verse:["($c. )",""],versesName:"$psalm-$tone.tex"},
-                      "gabc-plain": {bold:["",""],italic:["",""],nbsp:" ",verse:["($c. )",""],versesName:"$psalm-$tone.gabc"},
-                      "gabc-versicle": {bold:["",""],italic:["",""],nbsp:" ",verse:["<v>\\Vbar</v> ,<v>\\Rbar</v> ",""],versesName:"versicle.gabc"}
+                      "html-underline": {
+                        bold: ["<u>","</u>"],
+                        italic: ["<span style='border-bottom:3px double;'>","</span>"],
+                        nbsp: "&nbsp;",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.html",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      "tex-underline": {
+                        bold: ["\\uline{","}"],
+                        italic: ["\\uuline{","}"],
+                        nbsp: "~",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.tex",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      "gabc-plain": {
+                        bold: ["",""],
+                        italic: ["",""],
+                        nbsp: " ",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.gabc",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      "gabc-versicle": {
+                        bold: ["",""],
+                        italic: ["",""],
+                        nbsp: " ",
+                        verse: ["<v>\\Vbar</v> ,<v>\\Rbar</v> ",""],
+                        versesName: "versicle.gabc",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      }
                     };
                 })();
 var o_g_tones = 
