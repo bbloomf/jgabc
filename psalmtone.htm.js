@@ -167,8 +167,16 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
     if(actuallyUpdate){
       filename = versesFilename(bi_formats[useFormat],$("#selPsalm").val(),$("#selTones").val(),$("#selEnd").val(),$("#cbSolemn")[0].checked)
       var header = getHeader(localStorage.psalmHeader||'');
-      header["initial-style"] = (useInitStyle) ? '1' : '0';
       header["name"] = filename.replace(/\.[^.]*$/,'');
+      header["initial-style"] = (useInitStyle) ? '1' : '0';
+      header["annotation"] = annotationTextFormat($("#txtAnnotation").val(),
+                                                  $("#selPsalm").val(),
+                                                  $("#selTones").val(),
+                                                  $("#selEnd").val());
+      header["user-notes"] = annotationTextFormat($("#txtUserNotes").val(),
+                                                  $("#selPsalm").val(),
+                                                  $("#selTones").val(),
+                                                  $("#selEnd").val());
       gabc=header+gabc;
       $("#editor").val(gabc);
       $("#editor").keyup();
@@ -508,15 +516,24 @@ function cancelZip(e){
   cancelZipping=true;
   $("#lnkCancelZip").hide();
 }
+function annotationTextFormat(text,psalmNum,tone,ending){
+  tone = tone + (ending ? ending : '');
+  if(psalmNum.match(/\d+/)){
+    psalmNum='Psalm ' + psalmNum;
+  }
+  psalmNum += '.';
+  return text.format({"psalm":psalmNum,
+                       "tone":tone});
+}
 function versesFilename(format,psalmNum,tone,ending,solemn){
   var tone = tone.replace(/\./g,'');
   var match = tone.match(/\d+/);
   if(match)tone=match[0];
   tone = (solemn?"solemn":"") + tone + (ending? ending.replace(/\*/,"star") : '');
-  return format && format.versesName?format.versesName.format(
+  return format && ((format.versesName) ? format.versesName.format(
     {"psalm":psalmNum,
       "tone":tone
-    }) : psalmNum + '-' + tone + ".txt";
+    }) : (psalmNum + '-' + tone + ".txt"));
 }
 function downloadAll(e){
   e.preventDefault();
