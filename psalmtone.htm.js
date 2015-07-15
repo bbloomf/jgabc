@@ -3,7 +3,7 @@ var custom_tones={};
 var gSyl,syl,_clef;
 var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
-var useFormat,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
+var useFormat,useInitStyle,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
 var includeGloriaPatri;
 function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   var actuallyUpdate=(typeof(_syl)=="undefined");
@@ -78,6 +78,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
           gabc: gMediant,
           useOpenNotes: usePunctaCava,
           useBoldItalic: true,
+          firstPrefix: (!useInitStyle),
           onlyVowel: onlyVowels,
           format: gabcFormat,
           verseNumber: useNovaVulgata?"":i+1,
@@ -93,6 +94,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
             gabc: gTermination,
             useOpenNotes: usePunctaCava,
             useBoldItalic: true,
+            firstPrefix: (!useInitStyle),
             onlyVowel: onlyVowels,
             format: gabcFormat,
             verseNumber: useNovaVulgata?"":i+1,
@@ -127,6 +129,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
               gabc: getFlexGabc(medTones),
               useOpenNotes: false,
               useBoldItalic: false,
+              firstPrefix: true,
               onlyVowel: onlyVowels,
               format: gabcFormat
             });
@@ -154,6 +157,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
             gabc: removeIntonation($.extend(true,{},gTermination)),
             useOpenNotes: false,
             useBoldItalic: false,
+            firstPrefix: true,
             onlyVowel: onlyVowels,
             format:gabcFormat,
             favor: 'termination'
@@ -163,8 +167,16 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
     if(actuallyUpdate){
       filename = versesFilename(bi_formats[useFormat],$("#selPsalm").val(),$("#selTones").val(),$("#selEnd").val(),$("#cbSolemn")[0].checked)
       var header = getHeader(localStorage.psalmHeader||'');
-      header["initial-style"] = '0';
       header["name"] = filename.replace(/\.[^.]*$/,'');
+      header["initial-style"] = (useInitStyle) ? '1' : '0';
+      header["annotation"] = annotationTextFormat($("#txtAnnotation").val(),
+                                                  $("#selPsalm").val(),
+                                                  $("#selTones").val(),
+                                                  $("#selEnd").val());
+      header["user-notes"] = annotationTextFormat($("#txtUserNotes").val(),
+                                                  $("#selPsalm").val(),
+                                                  $("#selTones").val(),
+                                                  $("#selEnd").val());
       gabc=header+gabc;
       $("#editor").val(gabc);
       $("#editor").keyup();
@@ -260,12 +272,19 @@ function updateEnding() {
 }
 
 function getPsalms() {
-  var r = Array(151);
-  for(var i=1; i <= 150; ++i) {
-    r[i-1] = i;
+  var r = Array();
+  for(var i = 1; i <= 150; i++) {
+    r.push(i);
+    if(i.toString() in splitPsalmsMap)
+    {
+      for(var j = 0; j < splitPsalmsMap[i.toString()].length; j++)
+      {
+        r.push(i + '.' + (j+1));
+      }
+    }
   }
-  r[150] = "Magnificat";
-  r[151] = "Benedictus"
+  r.push("Magnificat");
+  r.push("Benedictus");
   return r;
 }
 
@@ -329,10 +348,12 @@ function updateFormat() {
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
   $("#txtEndAccented").val(f.bold[1]);
-  $("#txtNbsp").val(f.nbsp);
-  $("#txtVersesFilename").val(f.versesName);
   $("#txtPrefix").val(f.verse[0]||"");
   $("#txtSuffix").val(f.verse[1]||"");
+  $("#txtNbsp").val(f.nbsp);
+  $("#txtVersesFilename").val(f.versesName);
+  $("#txtAnnotation").val(f.annotation);
+  $("#txtUserNotes").val(f.userNotes);
   updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/) || oldFormat.match(/gabc(?=$|-)/));
 }
 function storeBiFormatsAndUpdate() {
@@ -355,6 +376,14 @@ function updateEndPrep() {
   bi_formats[useFormat].italic[1] = $("#txtEndPrep").val();
   storeBiFormatsAndUpdate();
 }
+function updatePrefix() {
+  bi_formats[useFormat].verse[0] = $("#txtPrefix").val();
+  storeBiFormatsAndUpdate();
+}
+function updateSuffix() {
+  bi_formats[useFormat].verse[1] = $("#txtSuffix").val();
+  storeBiFormatsAndUpdate();
+}
 function updateNbsp() {
   bi_formats[useFormat].nbsp = $("#txtNbsp").val();
   storeBiFormatsAndUpdate();
@@ -363,14 +392,12 @@ function updateVersesFilename(){
   bi_formats[useFormat].versesName = $("#txtVersesFilename").val();
   storeBiFormatsAndUpdate();
 }
-
-function updatePrefix() {
-  bi_formats[useFormat].verse[0] = $("#txtPrefix").val();
+function updateAnnotation() {
+  bi_formats[useFormat].annotation = $("#txtAnnotation").val();
   storeBiFormatsAndUpdate();
 }
-
-function updateSuffix() {
-  bi_formats[useFormat].verse[1] = $("#txtSuffix").val();
+function updateUserNotes(){
+  bi_formats[useFormat].userNotes = $("#txtUserNotes").val();
   storeBiFormatsAndUpdate();
 }
 
@@ -451,6 +478,10 @@ function deleteFormat() {
   }
 }
 
+function updateInitStyle() {
+  localStorage.cbInitStyle = useInitStyle = $("#cbInitStyle")[0].checked;
+  updateEditor(true);
+}
 function updateOnlyVowels() {
   localStorage.cbOnlyVowels = onlyVowels = $("#cbOnlyVowels")[0].checked;
   updateEditor(true);
@@ -485,15 +516,25 @@ function cancelZip(e){
   cancelZipping=true;
   $("#lnkCancelZip").hide();
 }
+function annotationTextFormat(text,psalmNum,tone,ending){
+  var tone = tone.replace(/Introit /g,'');
+  tone = tone + (ending ? ending : '');
+  if(psalmNum.match(/\d+/)){
+    psalmNum='Psalm ' + psalmNum;
+  }
+  psalmNum += '.';
+  return text.format({"psalm":psalmNum,
+                       "tone":tone});
+}
 function versesFilename(format,psalmNum,tone,ending,solemn){
   var tone = tone.replace(/\./g,'');
   var match = tone.match(/\d+/);
   if(match)tone=match[0];
   tone = (solemn?"solemn":"") + tone + (ending? ending.replace(/\*/,"star") : '');
-  return format && format.versesName?format.versesName.format(
+  return format && ((format.versesName) ? format.versesName.format(
     {"psalm":psalmNum,
       "tone":tone
-    }) : psalmNum + '-' + tone + ".txt";
+    }) : (psalmNum + '-' + tone + ".txt"));
 }
 function downloadAll(e){
   e.preventDefault();
@@ -686,6 +727,7 @@ $(function() {
   $("#selTones").change(updateEndings);
   $("#selTones").keyup(updateEndings);
   $("#cbSolemn").change(updateEnding);
+  $("#cbInitStyle").change(updateInitStyle);
   $("#cbOnlyVowels").change(updateOnlyVowels);
   $("#cbRepeatIntonation").change(updateRepeatIntonation);
   $("#cbItalicizeIntonation").change(updateItalicizeIntonation);
@@ -699,6 +741,8 @@ $(function() {
   $("#txtSuffix").keyup(updateSuffix);
   $("#txtNbsp").keyup(updateNbsp);
   $("#txtVersesFilename").keyup(updateVersesFilename);
+  $("#txtAnnotation").keyup(updateAnnotation);
+  $("#txtUserNotes").keyup(updateUserNotes);
   $("#txtClef").keyup(updateClef);
   $("#btnNewFormat").click(newFormat);
   $("#btnNewTone").click(newTone);
@@ -708,6 +752,7 @@ $(function() {
   $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = ((hash.solemn || localStorage.cbSolemn) == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
+  $("#cbInitStyle")[0].checked = useInitStyle = (localStorage.cbInitStyle != "false");
   $("#cbUsePunctaCava")[0].checked = usePunctaCava = (localStorage.cbUsePunctaCava != "false");
   $("#cbRepeatIntonation")[0].checked = repeatIntonation = (localStorage.cbRepeatIntonation == "true");
 //  $("#cbItalicizeIntonation")[0].checked = italicizeIntonation = (localStorage.cbItalicizeIntonation == "true");

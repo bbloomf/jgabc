@@ -22,20 +22,75 @@ String.prototype.format = function(keys){
 }
 var o_bi_formats = 
     bi_formats = (function(){
-                  var _syl_subRegex= /ǽ/g;
-                  var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
-                  return {
-                      html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:"&nbsp;",verse: ["<span style='float:left;width:25pt;text-align:right;'>($c.)&nbsp;</span>","<br/>"],versesName:"$psalm-$tone.html"},
-                      tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"],nbsp:"~",verse:["\\item ",""],versesName:"$psalm-$tone.tex"},
-                      gabc: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:" ",verse:["($c. )",""],versesName:"$psalm-$tone.gabc",
+                    var _syl_subRegex= /ǽ/g;
+                    var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
+                    return {
+                      html: {
+                        bold: ["<b>", "</b>"],
+                        italic: ["<i>", "</i>"],
+                        nbsp: "&nbsp;",
+                        verse: ["<span style='float:left;width:25pt;text-align:right;'>($c.)&nbsp;</span>","<br/>"],
+                        versesName: "$psalm-$tone.html",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      tex: {
+                        bold: ["{\\textbf{", "}"],
+                        italic: ["{\\it ", "}"],
+                        nbsp: "~",
+                        verse: ["\\item ",""],
+                        versesName: "$psalm-$tone.tex",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      gabc: {
+                        bold: ["<b>", "</b>"],
+                        italic: ["<i>", "</i>"],
+                        nbsp: " ",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.gabc",
                         makeSylSubstitutions: function(o){
                           return o? o.replace(_syl_subRegex,function(e){return _syl_substitutions[e]||e}) : o;
-                        }
+                        },
+                        annotation: "$tone",
+                        userNotes: "$psalm"
                       },
-                      "html-underline": {bold:["<u>","</u>"], italic:["<span style='border-bottom:3px double;'>","</span>"],nbsp:"&nbsp;",verse:["($c. )",""],versesName:"$psalm-$tone.html"},
-                      "tex-underline": {bold:["\\uline{","}"], italic:["\\uuline{","}"],nbsp:"~",verse:["($c. )",""],versesName:"$psalm-$tone.tex"},
-                      "gabc-plain": {bold:["",""],italic:["",""],nbsp:" ",verse:["($c. )",""],versesName:"$psalm-$tone.gabc"},
-                      "gabc-versicle": {bold:["",""],italic:["",""],nbsp:" ",verse:["<v>\\Vbar</v> ,<v>\\Rbar</v> ",""],versesName:"versicle.gabc"}
+                      "html-underline": {
+                        bold: ["<u>","</u>"],
+                        italic: ["<span style='border-bottom:3px double;'>","</span>"],
+                        nbsp: "&nbsp;",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.html",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      "tex-underline": {
+                        bold: ["\\uline{","}"],
+                        italic: ["\\uuline{","}"],
+                        nbsp: "~",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.tex",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      "gabc-plain": {
+                        bold: ["",""],
+                        italic: ["",""],
+                        nbsp: " ",
+                        verse: ["($c. )",""],
+                        versesName: "$psalm-$tone.gabc",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      },
+                      "gabc-versicle": {
+                        bold: ["",""],
+                        italic: ["",""],
+                        nbsp: " ",
+                        verse: ["<v>\\Vbar</v> ,<v>\\Rbar</v> ",""],
+                        versesName: "versicle.gabc",
+                        annotation: "$tone",
+                        userNotes: "$psalm"
+                      }
                     };
                 })();
 var o_g_tones = 
@@ -426,6 +481,7 @@ function applyPsalmTone(options) {
       gabc = options.gabc,
       useOpenNotes = options.useOpenNotes || false,
       useBoldItalic = options.useBoldItalic || false,
+      firstPrefix = options.firstPrefix || false,
       onlyVowel = options.onlyVowel || false,
       format = options.format,
       verseNumber = options.verseNumber,
@@ -468,6 +524,10 @@ function applyPsalmTone(options) {
   var tmp = prefix.split(',');
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
     prefix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
+  }
+  if(!firstPrefix && (Number(verseNum)==1))
+  {
+    prefix = "";
   }
   tmp = suffix.split(',');
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
@@ -997,15 +1057,39 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
     + result +
          ((suffix && suffix.replace(/\(([^$]*)\$c([^)]*)\)/gi,String(verseNum?("$1" + verseNum + "$2"):"")).replace(/\$c/gi,String(verseNum))) || "");
 }
-function normalizePsalm(text,includeGloriaPatri) {
-  text = text.replace(/\s+$/,'');
-  return includeGloriaPatri?
-      (text + "\n" + gloria_patri)
-    : text;
+splitPsalmsMap = {
+  "7"   : [10, 8],
+  "33"  : [10, 12],
+  "70"  : [13, 13],
+  "76"  : [12, 8],
+  "102" : [12, 10]
+};
+function slicePsalm(text, psalmNum, psalmPart){
+  if(psalmPart>0){
+    psalmNum = Number(psalmNum).toString();
+    var start = 0;
+    for (var i = 0; i < psalmPart - 1; i ++)
+    {
+      start += splitPsalmsMap[psalmNum][i];
+    }
+    var end   = start + splitPsalmsMap[psalmNum][psalmPart-1];
+    text = text.split('\n').slice(start, end).join('\n');
+  }
+  return text;
+}
+function normalizePsalm(text, psalmNum, psalmPart, includeGloriaPatri) {
+  text = slicePsalm(text,psalmNum,psalmPart).replace(/\s+$/,'');
+  return includeGloriaPatri? (text + "\n" + gloria_patri) : text;
 }
 var _novaVulgata=null;
 var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
+  var dotIdx    = psalmNum.indexOf('.');
+  var psalmPart = 0;
+  if (dotIdx > 0){
+    psalmPart = Number(psalmNum.slice(dotIdx+1));
+    psalmNum  = psalmNum.slice(0, dotIdx);
+  }
   if(useNovaVulgata){
     if(_novaVulgata==null){
       $.get("psalms/NovaVulgata.txt", function(data){
@@ -1016,7 +1100,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
       var regex=new RegExp(regexBaseNovaVulgata.join(psalmNum));
       var psalm = regex.exec(_novaVulgata);
       if(psalm) {
-        success(normalizePsalm(psalm[1],includeGloriaPatri));
+        success(normalizePsalm(psalm[1], psalmNum, psalmPart, includeGloriaPatri));
       } else {
         success("ERROR retrieving PSALMUS " + psalmNum);
       }
@@ -1039,10 +1123,11 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
           }
           data = temp.join(' ').replace(/\s*<br>\s*/g,"\n");
           if(data.charCodeAt(0) == 65279) data = data.slice(1);
+          data = slicePsalm(data,psalmNum,psalmPart);
         }
         if(data && !calledSuccess) {
           calledSuccess=true;
-          success(normalizePsalm(data,includeGloriaPatri));
+          success(normalizePsalm(data, psalmNum, psalmPart, includeGloriaPatri));
         }
       },
       complete: function(jqXHR, textStatus) {
@@ -1050,7 +1135,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
         var text = t.responseText;
         if(!calledSuccess) {
           calledSuccess=true;
-          success(normalizePsalm(text,includeGloriaPatri));
+          success(normalizePsalm(text, psalmNum, psalmPart, includeGloriaPatri));
         }
       },
       dataType:"text"
