@@ -733,7 +733,7 @@ $(function() {
   });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<optgroup label="Psalms"><option>' + getPsalms().join('</option><option>') + '</option></optgroup>' +
-                        '<optgroup label="Canticles"><options>' + getCantica().join('</option><option>') + '</option></optgroup>');
+                        '<optgroup label="Canticles"><option>' + getCantica().join('</option><option>') + '</option></optgroup>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateVerseGabc);
   $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);
