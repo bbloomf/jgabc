@@ -5,7 +5,7 @@ hash
 put cache.manifest
 put jgabc.js
 put jquery.min.js
-put psalmtone.htm
+put psalmtone.html
 put psalmtone.js
 put transcriber.html
 put style.css
