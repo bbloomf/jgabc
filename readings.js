@@ -497,7 +497,7 @@ $(function() {
   $("#selTones").append('<option>' + getPsalmTones(g_tones[selLang]).join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
   $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
-  $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);
+  $("#versetext").keyup(updateText).keydown(makeInternationalTextBoxKeyDown(false));
   $("#cbEnglish").click(function(){
     selLang = cbEnglish.checked? 'english' : 'latin';
     getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;

@@ -3567,7 +3567,7 @@ function gabcEditorKeyDown(e) {
   }
 }
 
-var internationalTextBoxKeyDown = (function(){
+var makeInternationalTextBoxKeyDown = function(convertFlexa){
   var lastKey = 0;
   var dictionaries=
       {222://apostrophe
@@ -3667,7 +3667,7 @@ var internationalTextBoxKeyDown = (function(){
       var lastCloseParen = this.value.lastIndexOf(')',this.selectionStart-1);
       if(lastCloseParen < lastOpenParen) return;
     }
-    if(e.which == 187 && e.shiftKey) { //if + was entered
+    if(convertFlexa && e.which == 187 && e.shiftKey) { //if + was entered
       var selStart=this.selectionStart;
       var len=1;
       this.value=this.value.slice(0,selStart) + '†' + this.value.slice(this.selectionEnd);
@@ -3676,7 +3676,7 @@ var internationalTextBoxKeyDown = (function(){
       return;
     }
     var cbEnglish=$("#cbEnglish")[0];
-    if(cbEnglish&&cbEnglish.checked)return;
+    if(e.which!=8&&cbEnglish&&cbEnglish.checked)return;
     var dictionary=dictionaries[e.which];
     if(dictionary && this.selectionStart==this.selectionEnd && this.selectionStart>0){
       var previousChar=this.value[this.selectionStart-1];
@@ -3691,4 +3691,5 @@ var internationalTextBoxKeyDown = (function(){
       }
     }
   }
-})();
+};
+var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
