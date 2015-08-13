@@ -1,4 +1,5 @@
 String.prototype.repeat = function(num){return new Array(num+1).join(this);};
+String.prototype.reverse = function(){return this.split('').reverse().join('');};
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
 var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true,showSyllableEditorOnClick:true};
 var uuid;
@@ -3674,13 +3675,24 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         'Ú':'U',
         'Ý':'Y',
         'Ǽ':"Æ",
-        'ǽ':"æ"
+        'ǽ':"æ",
+        "áu": "au",
+        "oé": "oe",
+        "aé": "ae"
       };
       var accentSyllable = function(syllables,which) {
         word = '';
         for(var i = 0; i<syllables.length; ++i) {
           if(which == i) {
-            word = syllables[i].replace(/((?:[gq]u|i|[^aeiouyáéíóúýæœ])*)(ae|au|oe|[aeiouyáéíóúýǽæœ])(?=[^aeiouyáéëíóúýǽæœ]|$)/, function(match,first,vowel){
+            word = syllables[i].replace(/((?:[gq]u|i|[^aeiouyáéíóúýæœ])*)([ao][eé]|[aá]u|[aeiouyáéíóúýǽæœ])(?=[^aeiouyáéëíóúýǽæœ]|$)/, function(match,first,vowel){
+              if(vowel.length == 2) {
+                if(vowel[1] == 'u') {
+                  return first + 'áu';
+                } else {
+                  first += vowel[0];
+                  vowel = vowel[1];
+                }
+              }
               return first + (dictionaries[222]['false'][vowel] || vowel);
             }) + word;
           } else {
@@ -3728,21 +3740,20 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
       }
     }
     if(e.which==9 || e.which == 49 || e.which == 50) {
-      e.preventDefault();
-      var index = this.selectionEnd;
-      if(e.which == 9 && this.selectionEnd == this.selectionStart) index = 0;
+      var index = e.shiftKey? this.selectionStart : this.selectionEnd;
+      if(e.which == 9 && this.selectionEnd == this.selectionStart) index = e.shiftKey? this.value.length : 0;
       var subIndex;
-      while((subIndex = this.value.slice(index).search(/(^|\s)[a-zæœ]+/i)) >= 0) {
-        index += subIndex;
-        var slice = this.value.slice(index),
-            match = slice.match(/[a-zæœ]+(?=$|[\s,.;!\?])/i),
-            word = match[0] || '',
-            syllables = word.match(regexLatin);
-        console.info('%s, %s', word, index);
-        if(!syllables) break;
-        index += match.index;
-        if(syllables.length <= 2) {
-          index += word.length;
+      while(true) {
+        console.info(e.shiftKey? this.value.slice(0,index).reverse() : this.value.slice(index))
+        var slice = e.shiftKey? this.value.slice(0,index).reverse() : this.value.slice(index),
+            match = slice.match(/[a-zæœ]{3,}(?=$|[\s,.;!\?])/i),
+            word = match && match[0] || '';
+        if(e.shiftKey) word = word.reverse();
+        if(e.shiftKey) index -= match.index + word.length;
+          else index += match.index;
+        var syllables = word.match(regexLatin);
+        if(!syllables || syllables.length <= 2) {
+          if(!e.shiftKey) index += word.length;
           continue;
         }
         syllables = syllables.reverse();
@@ -3754,6 +3765,7 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         }
         this.selectionStart = index;
         this.selectionEnd = index + word.length;
+        e.preventDefault();
         break;
       }
     }
