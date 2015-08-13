@@ -3730,13 +3730,15 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
     if(e.which==9 || e.which == 49 || e.which == 50) {
       e.preventDefault();
       var index = this.selectionEnd;
+      if(e.which == 9 && this.selectionEnd == this.selectionStart) index = 0;
       var subIndex;
-      while((subIndex = this.value.slice(index).search(/\s[a-zæœ]+/i)) >= 0) {
-        index += 1 + subIndex;
+      while((subIndex = this.value.slice(index).search(/(^|\s)[a-zæœ]+/i)) >= 0) {
+        index += subIndex;
         var slice = this.value.slice(index),
-            match = slice.match(/[a-zæœ]+(?=$|[,.;!\?])/i),
+            match = slice.match(/[a-zæœ]+(?=$|[\s,.;!\?])/i),
             word = match[0] || '',
             syllables = word.match(regexLatin);
+        console.info('%s, %s', word, index);
         if(!syllables) break;
         index += match.index;
         if(syllables.length <= 2) {
