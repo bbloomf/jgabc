@@ -779,7 +779,7 @@ function applyPsalmTone(options) {
         } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
           tones = tones.slice(toneList.variableIntonationLength);
           toneList.variableIntonationLength = 0;
-        } else if(!favor.intonation) {
+        } else if(!favor.intonation && !favor.termination) {
           tones = tones.slice(intonationLength);
           regexToneGabc.exec('');
           tones.splice(0,0,toneGabc(regexToneGabc.exec(tones[0].gabcClosed.slice(1,-1))));

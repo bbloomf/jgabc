@@ -96,6 +96,7 @@ function updateEditor(forceGabcUpdate,_syl) {
         case '?':
           psalmToneStack = gQuestion.slice(0);
           psalmTone = psalmToneStack.pop();
+          var match;
           if(i==0 || lines[i-1].match(/\?['"‘“’”]?$/)) {
             // try to find an earlier place in this sentence to put the pause.
             var indexComma = 1 + lines[i].lastIndexOf(', ');
@@ -105,6 +106,23 @@ function updateEditor(forceGabcUpdate,_syl) {
             if(indexComma < 0) {
               psalmToneStack = [];
             } else {
+              lines.splice(i++,0,line.slice(0,indexComma).trim());
+              line = line.slice(indexComma+1).trim();
+            }
+          } else if((match = line.match(/(['"‘“])[a-z].+?(\1|[”’])$/i))) {
+            // the question tone should not start before the quotation.
+            var search = match[2];
+            switch(search) {
+              case '’':
+                search = '‘';
+                break;
+              case '”':
+                search = '“';
+                break;
+            }
+            search = " " + search;
+            var indexComma = line.lastIndexOf(search,line.length-2);
+            if(indexComma>=0) {
               lines.splice(i++,0,line.slice(0,indexComma).trim());
               line = line.slice(indexComma+1).trim();
             }
