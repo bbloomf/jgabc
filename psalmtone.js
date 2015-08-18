@@ -282,13 +282,15 @@ var Syl = (function(){
           m,
           d,
           forceSyl=false,
-          words=this.words;
+          words=this.words,
+          accentsMarked=text.match(/[a-z]\*/i);
       regexWords.exec("");
       while((m=regexWords.exec(text)) && m[0]){
         var w=(m[5]?(m[4]+m[5]+m[6]):m[3]).toLowerCase(),
             opi=m[4]?m[4].length:0,         // opening parenthesis index
             cpi=m[5]?1+opi+m[5].length:0,   // closing parenthesis index
-            ai=w.split('*');                // accent indices
+            ai=w.split('*'),                // accent indices
+            wordSyls = [];
         w = ai.join('');
         m[3] = m[3] && m[3].replace(/\*/g,'');
         m[5] = m[5] && m[5].replace(/\*/g,'');
@@ -332,7 +334,10 @@ var Syl = (function(){
             ai.shift();
             tmp[7] = '*';
           }
-          result.push(syllable(tmp,null,{nbsp:""}));
+          var tmpSyllable = syllable(tmp,null,{nbsp:""});
+          tmpSyllable.word = wordSyls;
+          wordSyls.push(tmpSyllable);
+          result.push(tmpSyllable);
           m[2] = "";
           wi=di;
           ++i;
@@ -346,7 +351,23 @@ var Syl = (function(){
         tmp[10]=m[10];
         if(ai.length) tmp[7]='*';
         tmp.index=index+wi;
-        result.push(syllable(tmp,null,{nbsp:""}));
+        var tmpSyllable = syllable(tmp,null,{nbsp:""});
+        tmpSyllable.word = wordSyls;
+        wordSyls.push(tmpSyllable);
+        result.push(tmpSyllable);
+      }
+      if(!accentsMarked) {
+        for(var i=1; i<=3; ++i) {
+          var curSyl = result[result.length-1];
+          if(!curSyl) break;
+          var curWord = curSyl.word;
+          if(curWord.length == 1) {
+            curSyl.accent = true;
+            break;
+          } else if(curWord.length>1) {
+            curWord[curWord.length-2].accent = true;
+          }
+        }
       }
       return result;
     },
