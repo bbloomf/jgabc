@@ -1,11 +1,22 @@
 String.prototype.repeat = function(num){return new Array(num+1).join(this);};
 String.prototype.reverse = function(){return this.split('').reverse().join('');};
-HTMLTextAreaElement.prototype.selectAndScroll = function(start,end) {
+HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
   var text = this.value;
-  this.value = text.slice(0,end);
+  var scrollTop = this.scrollTop;
+  var extra = ''
+  if(onlyUp) {
+    var $this = $(this);
+    var lineHeight = parseFloat($this.css('line-height'));
+    if(isNaN(lineHeight)) lineHeight = 1.2 * parseFloat($this.css('font-size'));
+    var rows = Math.floor($this.height() / lineHeight);
+    extra = '\n'.repeat(rows-1);
+  }
+  this.value = text.slice(0,end) + extra;
   this.scrollTop = this.scrollHeight;
+
   this.value = text;
   this.setSelectionRange(start,end);
+  if(((this.scrollTop - scrollTop) * (onlyUp? -1 : 1)) < 0) this.scrollTop = scrollTop;
 }
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
 var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true,showSyllableEditorOnClick:true};
@@ -3742,7 +3753,7 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         var syl = syllables[which];
         phrase = phrase.slice(0,syl.index) + syl.sylnospace + '*' + phrase.slice(phrase.indexOf(syl.sylnospace,syl.index) + syl.sylnospace.length);
         this.value = this.value.slice(0, wordStart) + phrase + this.value.slice(end);
-        this.selectAndScroll(start, start + phrase.length);
+        this.selectAndScroll(start, start + phrase.length, e.shiftKey);
         e.preventDefault();
         return;
       } else {
@@ -3753,7 +3764,7 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
           syllables = syllables.reverse();
           word = accentSyllable(syllables,which);
           this.value = this.value.slice(0,start) + word + this.value.slice(end);
-          this.selectAndScroll(start,end);
+          this.selectAndScroll(start,end, e.shiftKey);
           e.preventDefault();
         }
       }
@@ -3780,7 +3791,16 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         var syllables = Syl.syllabify(line);
         if(syllables.length<3) return;
         var lastSyl = syllables.slice(-1)[0];
-        this.selectAndScroll(selectionEnd + syllables.slice(-3)[0].index, selectionEnd + line.indexOf(lastSyl.sylnospace,lastSyl.index) + lastSyl.sylnospace.length + (lastSyl.separator && lastSyl.separator.length || 0));
+        if(line.indexOf('*')<0) {
+          var accentSyl = $.grep(syllables.slice(-3), function(s){ return s.accent; })[0];
+          if(accentSyl) {
+            accentSyl.separator = '*';
+            var index = accentSyl.index + accentSyl.sylnospace.length;
+            line = line.slice(0,index) + '*' + line.slice(index);
+            this.value = this.value.slice(0, selectionEnd) + line + this.value.slice(selectionEnd + line.length - 1);
+          }
+        }
+        this.selectAndScroll(selectionEnd + syllables.slice(-3)[0].index, selectionEnd + line.indexOf(lastSyl.sylnospace,lastSyl.index) + lastSyl.sylnospace.length + (lastSyl.separator && lastSyl.separator.length || 0), e.shiftKey);
         e.preventDefault();
         return;
       }
@@ -3789,7 +3809,6 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
       if(e.which == 9 && this.selectionEnd == this.selectionStart) index = e.shiftKey? this.value.length : 0;
       var subIndex;
       while(true) {
-        console.info(e.shiftKey? this.value.slice(0,index).reverse() : this.value.slice(index))
         var slice = e.shiftKey? this.value.slice(0,index).reverse() : this.value.slice(index),
             match = slice.match(/[a-zæœ]{3,}(?=$|[\s,.;!\?])/i),
             word = match && match[0] || '';
@@ -3804,10 +3823,10 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         syllables = syllables.reverse();
         if(syllables[1].match(/[œæ]|[bcdfghklmnprstxz]$/)) {
           this.value = this.value.slice(0,index) + accentSyllable(syllables,1) + this.value.slice((index += word.length));
-          this.selectAndScroll(index - word.length, index);
+          this.selectAndScroll(index - word.length, index, e.shiftKey);
           continue;
         }
-        this.selectAndScroll(index, index + word.length);
+        this.selectAndScroll(index, index + word.length, e.shiftKey);
         e.preventDefault();
         break;
       }
