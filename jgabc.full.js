@@ -3791,14 +3791,13 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         var syllables = Syl.syllabify(line);
         if(syllables.length<3) return;
         var lastSyl = syllables.slice(-1)[0];
-        if(line.indexOf('*')<0) {
-          var accentSyl = $.grep(syllables.slice(-3), function(s){ return s.accent; })[0];
-          if(accentSyl) {
-            accentSyl.separator = '*';
-            var index = accentSyl.index + accentSyl.sylnospace.length;
-            line = line.slice(0,index) + '*' + line.slice(index);
-            this.value = this.value.slice(0, selectionEnd) + line + this.value.slice(selectionEnd + line.length - 1);
-          }
+        var last3syl = syllables.slice(-3);
+        if(line.indexOf('*',last3syl[0].index)<0) {
+          var accentSyl = lastSyl.word.length==1? lastSyl : last3syl[1];
+          accentSyl.separator = '*';
+          var index = accentSyl.index + accentSyl.sylnospace.length;
+          line = line.slice(0,index) + '*' + line.slice(index);
+          this.value = this.value.slice(0, selectionEnd) + line + this.value.slice(selectionEnd + line.length - 1);
         }
         this.selectAndScroll(selectionEnd + syllables.slice(-3)[0].index, selectionEnd + line.indexOf(lastSyl.sylnospace,lastSyl.index) + lastSyl.sylnospace.length + (lastSyl.separator && lastSyl.separator.length || 0), e.shiftKey);
         e.preventDefault();
