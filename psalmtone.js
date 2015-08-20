@@ -310,7 +310,7 @@ var Syl = (function(){
           if(this.queue.indexOf(w)<0)this.queue.push(w);
         }
         var tmp=["",m[1],"",m[2]||"",m[2]||""],
-            index=m.index+tmp.join('').length,
+            index=m.index+m[1].length+m[2].length,
             i=0,
             wi=0,
             di;

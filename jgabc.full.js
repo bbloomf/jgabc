@@ -3718,28 +3718,66 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
       e.preventDefault();
       return;
     }
-    var cbEnglish=$("#cbEnglish")[0];
-    if(e.which!=8&&cbEnglish&&cbEnglish.checked)return;
-    if(e.which == 49 || e.which == 50) {
-      // swap e.which (49;50 => 2;1)
-      var which = 2 - (e.which-49),
+    var isEnglish=$("#cbEnglish")[0] && cbEnglish.checked;
+    if(e.which == 49 || e.which == 50 || (e.which == 51 && isEnglish)) {
+      // swap e.which (49;50;51 => 2;1;0)
+      var which = 2 - (e.which - 49),
           start = this.selectionStart,
           end = this.selectionEnd,
-          lastSpace = this.value.lastIndexOf(' ',start),
-          nextSpace = this.value.indexOf(' ',end);
-      // TODO: expand selection to entire word if it isn't currently on a whole word
-      var word = this.value.slice(start,end);
-      var syllables = word.match(regexLatin);
-      if(syllables.length>2) {
-        syllables = syllables.reverse();
-        word = accentSyllable(syllables,which);
-        this.value = this.value.slice(0,start) + word + this.value.slice(end);
-        this.selectionStart = start;
-        this.selectionEnd = end;
+          wordStart = this.value.lastIndexOf(' ',start) + 1,
+          wordEnd = this.value.indexOf(' ',end);
+          if(wordEnd < 0) wordEnd = this.value.length;
+      if(isEnglish) {
+        var phrase = this.value.slice(wordStart,end).replace(/\*/g,''),
+            syllables = Syl.syllabify(phrase),
+            which = syllables.length - 1 - which;
+        if(which < 0) return;
+        var syl = syllables[which];
+        phrase = phrase.slice(0,syl.index) + syl.sylnospace + '*' + phrase.slice(phrase.indexOf(syl.sylnospace,syl.index) + syl.sylnospace.length);
+        this.value = this.value.slice(0, wordStart) + phrase + this.value.slice(end);
+        this.setSelectionRange(start, start + phrase.length);
         e.preventDefault();
+        return;
+      } else {
+        // TODO: expand selection to entire word if it isn't currently on a whole word
+        var word = this.value.slice(start,end);
+        var syllables = word.match(regexLatin);
+        if(syllables.length>2) {
+          syllables = syllables.reverse();
+          word = accentSyllable(syllables,which);
+          this.value = this.value.slice(0,start) + word + this.value.slice(end);
+          this.setSelectionRange(start,end);
+          e.preventDefault();
+        }
       }
     }
-    if(e.which==9 || e.which == 49 || e.which == 50) {
+    if(e.which==9 || (!isEnglish && (e.which == 49 || e.which == 50))) {
+      if(isEnglish) {
+        var selectionEnd = this.selectionEnd;
+        if(this.selectionEnd == this.selectionStart) selectionEnd = 0;
+        var part, lines, line;
+        if(e.shiftKey) {
+          part = this.value.slice(0,this.selectionStart);
+          lines = splitSentences(part);
+          if(lines.length<2) return;
+          line = lines.slice(-2)[0];
+          if(line) selectionEnd = part.lastIndexOf(line); 
+        } else {
+          part = this.value.slice(selectionEnd);
+          lines = splitSentences(part);
+          line = lines[0];
+          if(line && line.length < 4) line = lines[1];
+          if(line) selectionEnd += part.indexOf(line);
+        }
+        if(!line) return;
+        var syllables = Syl.syllabify(line);
+        if(syllables.length<3) return;
+        var lastSyl = syllables.slice(-1)[0];
+        this.setSelectionRange(selectionEnd + syllables.slice(-3)[0].index, selectionEnd + line.indexOf(lastSyl.sylnospace,lastSyl.index) + lastSyl.sylnospace.length + (lastSyl.separator && lastSyl.separator.length || 0));
+        e.preventDefault();
+        return;
+      }
+      // else Latin:
       var index = e.shiftKey? this.selectionStart : this.selectionEnd;
       if(e.which == 9 && this.selectionEnd == this.selectionStart) index = e.shiftKey? this.value.length : 0;
       var subIndex;
@@ -3759,12 +3797,10 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
         syllables = syllables.reverse();
         if(syllables[1].match(/[œæ]|[bcdfghklmnprstxz]$/)) {
           this.value = this.value.slice(0,index) + accentSyllable(syllables,1) + this.value.slice((index += word.length));
-          this.selectionStart = index - word.length;
-          this.selectionEnd = index;
+          this.setSelectionRange(index - word.length, index);
           continue;
         }
-        this.selectionStart = index;
-        this.selectionEnd = index + word.length;
+        this.setSelectionRange(index, index + word.length);
         e.preventDefault();
         break;
       }
