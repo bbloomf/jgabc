@@ -824,6 +824,8 @@ $(function() {
       g_tones=$.extend({},g_tones,custom_tones);
       $("#selTones optgroup").append('<option>' + getPsalmTones(custom_tones).join('</option><option>') + '</option>');
     }
+  } else {
+    g_tones = $.extend({},g_tones);
   }
   if(hash.noeditor) {
     $('#chant-parent2').addClass('noeditor');

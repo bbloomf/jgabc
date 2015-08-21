@@ -1317,9 +1317,9 @@ function getChant(text,svg,result,top) {
             var txtInitial = staffInfo.txtInitial = make('text',initial);
             txtInitial.setAttribute('transform','translate(0,'+staffInfo.vOffset+')');
             if(makeLinks && neumeId==selectedNeume) {
-              txtInitial.setAttribute('class','greinitial selectable selected neume'+neumeId);
+              txtInitial.setAttribute('class','greinitial selectable selected neume'+neumeId + ' ' + fontclass);
             } else {
-              txtInitial.setAttribute('class','greinitial selectable neume'+neumeId);
+              txtInitial.setAttribute('class','greinitial selectable neume'+neumeId+ ' ' + fontclass);
             }
             result.appendChild(txtInitial);
             var lenInitial=txtInitial.getComputedTextLength();
