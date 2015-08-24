@@ -3776,7 +3776,10 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
     if(e.which==9 || (!isEnglish && (e.which == 49 || e.which == 50))) {
       if(isEnglish) {
         var selectionEnd = this.selectionEnd;
-        if(this.selectionEnd == this.selectionStart) selectionEnd = 0;
+        if(this.selectionEnd == this.selectionStart) {
+          selectionEnd = 0;
+          this.scrollTop = 0;
+        }
         var part, lines, line;
         if(e.shiftKey) {
           part = this.value.slice(0,this.selectionStart);
