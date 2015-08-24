@@ -2,21 +2,25 @@ String.prototype.repeat = function(num){return new Array(num+1).join(this);};
 String.prototype.reverse = function(){return this.split('').reverse().join('');};
 HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
   var text = this.value;
-  var scrollTop = this.scrollTop;
-  var extra = ''
-  if(onlyUp) {
-    var $this = $(this);
-    var lineHeight = parseFloat($this.css('line-height'));
-    if(isNaN(lineHeight)) lineHeight = 1.2 * parseFloat($this.css('font-size'));
-    var rows = Math.floor($this.height() / lineHeight);
-    extra = '\n'.repeat(rows-1);
-  }
-  this.value = text.slice(0,end) + extra;
-  this.scrollTop = this.scrollHeight;
+  var txtBox = this;
+  setTimeout(function(){
+    if(text != txtBox.value) return;
+    var scrollTop = txtBox.scrollTop;
+    var extra = ''
+    if(onlyUp) {
+      var $txtBox = $(txtBox);
+      var lineHeight = parseFloat($txtBox.css('line-height'));
+      if(isNaN(lineHeight)) lineHeight = 1.2 * parseFloat($txtBox.css('font-size'));
+      var rows = Math.floor($txtBox.height() / lineHeight);
+      extra = '\n'.repeat(rows-1);
+    }
+    txtBox.value = text.slice(0,end) + extra;
+    txtBox.scrollTop = txtBox.scrollHeight;
 
-  this.value = text;
-  this.setSelectionRange(start,end);
-  if(((this.scrollTop - scrollTop) * (onlyUp? -1 : 1)) < 0) this.scrollTop = scrollTop;
+    txtBox.value = text;
+    txtBox.setSelectionRange(start,end);
+    if(((txtBox.scrollTop - scrollTop) * (onlyUp? -1 : 1)) < 0) txtBox.scrollTop = scrollTop;
+  })
 }
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
 var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true,showSyllableEditorOnClick:true};
