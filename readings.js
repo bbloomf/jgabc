@@ -430,7 +430,7 @@ $(function() {
         'clef':'c3',
         'recitingTone':'h',
         'mediant': "f h g 'gr hr h.",
-        'fullStop': "'hig gr 'fr gr g.",
+        'fullStop': "t[0].accent?'hig fr g 'g.:'hig gr 'f gr g.",
         'question': "h. , gr f g 'gh hr h.",
         'conclusion': "f 'fh hr h. , gr 'gh hr h."
       }
