@@ -1,7 +1,7 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\(\)]*\s*"*(?=\b|\())(([a-z’'*]*)(?:\(([a-z’'*]+)\)([a-z’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>)*)/gi
+var regexWords = /((?:<\w+>)*)([^a-z\(\)\<]*\s*"*(?=\b|[(<]))(([a-z’'*]*)(?:\(([a-z’'*]+)\)([a-z’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
@@ -283,7 +283,8 @@ var Syl = (function(){
           d,
           forceSyl=false,
           words=this.words,
-          accentsMarked=text.match(/[a-z]\*/i);
+          accentsMarked=text.match(/[a-z]\*/i),
+          prefix = null;
       regexWords.exec("");
       while((m=regexWords.exec(text)) && m[0]){
         var w=(m[5]?(m[4]+m[5]+m[6]):m[3]).toLowerCase(),
@@ -300,7 +301,7 @@ var Syl = (function(){
           ai[j] = (c += i.length);
         });
         if(forceSyl && m[9])forceSyl=false;
-        if(m[7])forceSyl=true;
+        if(m[7] || (m[1]=='<v>' && m[2]=='\\')) forceSyl=true;
         if(forceSyl) {
           d=[];
         } else if(w in words){
@@ -334,7 +335,8 @@ var Syl = (function(){
             ai.shift();
             tmp[7] = '*';
           }
-          var tmpSyllable = syllable(tmp,null,{nbsp:""});
+          var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
+          prefix = null;
           tmpSyllable.word = wordSyls;
           wordSyls.push(tmpSyllable);
           result.push(tmpSyllable);
@@ -351,10 +353,15 @@ var Syl = (function(){
         tmp[10]=m[10];
         if(ai.length) tmp[7]='*';
         tmp.index=index+wi;
-        var tmpSyllable = syllable(tmp,null,{nbsp:""});
+        var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
         tmpSyllable.word = wordSyls;
-        wordSyls.push(tmpSyllable);
-        result.push(tmpSyllable);
+        if(w.match(/^\s*$/) || (m[1]=='<v>' && m[2]=='\\')) {
+          prefix = (tmpSyllable.prepunctuation || '') + m[0];
+        } else {
+          prefix = null;
+          wordSyls.push(tmpSyllable);
+          result.push(tmpSyllable);
+        }
       }
       if(!accentsMarked) {
         for(var i=1; i<=3; ++i) {
