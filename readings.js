@@ -13,28 +13,27 @@ function updateEditor(forceGabcUpdate,_syl) {
   var gReciting,gMediant,gFullStop,gQuestion,gTermination;
   gReciting = $("#txtRecitingTone").val();
   var prefix = gReciting+"r ";
-  var gPause = prefix + gReciting + ".";
+  var gPause = prefix + gReciting.replace(/^.+\s(\S+)$/,'$1') + ".";
   
   var question = $("#txtQuestion").val();
   var conclusion = $("#txtConclusion").val();
   var mediant = $("#txtMediant").val();
   var fullStop = $("#txtFullStop").val()
   
-  var tmp = question.split(/\s*(?=[,;])/);
-  gQuestion = [getGabcTones(tmp[0],prefix)];
-  for(var i=1; i < tmp.length; ++i){
-    gQuestion.push(tmp[i].slice(0,1))
-    gQuestion.push(getGabcTones(tmp[i].slice(1).trim()));
+  var splitTone = function(gabc) {
+    var tmp = gabc.split(/\s*(?=[,;])/);
+    var result = [getGabcTones(tmp[0],prefix)];
+    for(var i=1; i < tmp.length; ++i){
+      result.push(tmp[i].slice(0,1))
+      result.push(getGabcTones(tmp[i].slice(1).trim()));
+    }
+    return result;
   }
-  tmp = conclusion.split(/\s*(?=[,;])/);
-  gConclusion = [getGabcTones(tmp[0],prefix)];
-  for(var i=1; i < tmp.length; ++i){
-    gConclusion.push(tmp[i].slice(0,1))
-    gConclusion.push(getGabcTones(tmp[i].slice(1).trim()));
-  }
+  gQuestion = splitTone(question);
+  gConclusion = splitTone(conclusion);
+  gFullStop = splitTone(fullStop);
 
   gMediant = getGabcTones(mediant,prefix);
-  gFullStop = getGabcTones(fullStop,prefix);
 
   var gabc;
   if(!sameSyl || forceGabcUpdate) {
@@ -80,13 +79,15 @@ function updateEditor(forceGabcUpdate,_syl) {
       switch(punctuation){
         case '.':
         case '!':
-          psalmTone = gFullStop;
+          psalmToneStack = gFullStop.slice(0);
+          psalmTone = psalmToneStack.pop();
           gabc = ' (:) ' + gabc;
           break;
         case ':':
           if(line.slice(-2,-1) == ':'){
             line = line.slice(0,-1);
-            psalmTone = gFullStop;
+            psalmToneStack = gFullStop.slice(0);
+            psalmTone = psalmToneStack.pop();
             gabc = ' (:) ' + gabc;
           } else {
             psalmTone = gMediant;
@@ -170,7 +171,7 @@ function keyupTxtGabc() {
 }
 
 function updateText() {
-  syl = $("#versetext").val();
+  localStorage.text = syl = $("#versetext").val();
   updateEditor();
 }
 
@@ -266,18 +267,24 @@ function updateSuffix() {
 }
 
 function updateCustomTone(name){
-  name=name||$("#selTones").val();
+  var selTone = $("#selTones").val();
+  if(!name && !(selTone in custom_tones[selLang])) return;
+  name=name||selTone;
   $("#btnDelTone").attr("disabled",false);
-  
-  custom_tones[selLang][name] = g_tones[selLang][name] || {};
-  custom_tones[selLang][name].clef = $("#txtClef").val();
-  custom_tones[selLang][name].recitingTone = $("#txtRecitingTone").val();
-  custom_tones[selLang][name].mediant = $("#txtMediant").val();
-  custom_tones[selLang][name].fullStop = $("#txtFullStop").val();
-  custom_tones[selLang][name].question = $("#txtQuestion").val();
-  custom_tones[selLang][name].conclusion = $("#txtConclusion").val();
+  var customTone = {
+    clef: $("#txtClef").val(),
+    recitingTone: $("#txtRecitingTone").val(),
+    mediant: $("#txtMediant").val(),
+    fullStop: $("#txtFullStop").val(),
+    question: $("#txtQuestion").val(),
+    conclusion: $("#txtConclusion").val()
+  };
+  var solemn = $("#cbSolemn")[0].checked;
+  custom_tones[selLang][name] = custom_tones[selLang][name] || {};
+  custom_tones[selLang][name][solemn? 'solemn' : 'simple'] = customTone;
   g_tones[selLang]=$.extend({},g_tones[selLang],custom_tones[selLang]);
   localStorage.customReadingTones = JSON.stringify(custom_tones);
+  return g_tones[selLang][name][solemn? 'solemn' : 'simple'];
 }
 function newTone(){
   var name = prompt("Please enter a name for the new custom tone");
@@ -383,9 +390,11 @@ var updateTone = function(){
   var tone = g_tones[selLang][$("#selTones").val()];
   var solemn = $("#cbSolemn")[0].checked;
   localStorage.cbSolemn = solemn;
+  localStorage.tone = $("#selTones").val();
   if(tone.solemn || tone.simple) {
     if(solemn && tone.solemn) tone = tone.solemn;
     else tone = tone.simple;
+    if(!tone) tone = updateCustomTone()
   }
   _clef = tone.clef;
   $("#txtClef").val(tone.clef);
@@ -532,12 +541,13 @@ $(function() {
   });
   $("#chant-parent2").resizable({handles:"e"});
   $(window).resize(windowResized);
-  $("#selTones").append('<option>' + getPsalmTones(g_tones[selLang]).join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
   $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
   $("#versetext").keyup(updateText).keydown(makeInternationalTextBoxKeyDown(false));
-  $("#cbEnglish").click(function(){
+  if(localStorage.text) $("#versetext").val(localStorage.text);
+  var cbEnglishChanged = function(){
     selLang = cbEnglish.checked? 'english' : 'latin';
+    localStorage.selLang = selLang;
     getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;
     $("#selTones").empty().append('<option>' + getPsalmTones(g_tones[selLang]).join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
     var ttones = getPsalmTones(custom_tones[selLang] || []);
@@ -546,8 +556,8 @@ $(function() {
       $("#selTones optgroup").append('<option>' + getPsalmTones(custom_tones[selLang]).join('</option><option>') + '</option>');
     }
     updateText();
-  });
-  getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;
+  };
+  $("#cbEnglish").click(cbEnglishChanged);
   $("#cbOnlyVowels").change(updateOnlyVowels);
   $("#cbUsePunctaCava").change(updateUsePunctaCava);
   $("#cbSolemn,#selTones").change(updateTone);
@@ -566,6 +576,7 @@ $(function() {
   
   $("#cbSolemn")[0].checked = (localStorage.cbSolemn == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
+  $("#cbEnglish")[0].checked = (localStorage.selLang == "english");
   $("#cbUsePunctaCava")[0].checked = false;
   $("#selFormat").val('gabc-plain');
   $("#txtBeginPrep").keyup(updateBeginPrep);
@@ -574,6 +585,8 @@ $(function() {
   $("#txtEndAccented").keyup(updateEndAccented);
   $("#editor").keyup(updateLocalHeader);
   $("#lnkDownloadVerses").bind("dragstart",onDragStart);
+  cbEnglishChanged();
+  if(localStorage.tone) $("#selTones").val(localStorage.tone);
   updateTone();
   var getGabc = function(){
     var gabc = $('#editor').val(),
