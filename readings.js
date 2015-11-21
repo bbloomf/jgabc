@@ -21,8 +21,8 @@ function updateEditor(forceGabcUpdate,_syl) {
   var fullStop = $("#txtFullStop").val()
   
   var splitTone = function(gabc) {
-    var tmp = gabc.split(/\s*(?=[,;])/);
-    var result = [getGabcTones(tmp[0],prefix)];
+    var tmp = gabc.replace(/^([,;])/,' $1').split(/\s*(?=[,;])/);
+    var result = [getGabcTones(tmp[0] || mediant,prefix)];
     for(var i=1; i < tmp.length; ++i){
       result.push(tmp[i].slice(0,1))
       result.push(getGabcTones(tmp[i].slice(1).trim()));
@@ -586,8 +586,6 @@ $(function() {
   $("#editor").keyup(updateLocalHeader);
   $("#lnkDownloadVerses").bind("dragstart",onDragStart);
   cbEnglishChanged();
-  if(localStorage.tone) $("#selTones").val(localStorage.tone);
-  updateTone();
   var getGabc = function(){
     var gabc = $('#editor').val(),
         header = getHeader(gabc);
@@ -614,9 +612,6 @@ $(function() {
     }
     $("#pdfFormDirect").submit();
   });
-  setGabcLinkSelector("#lnkDownloadGabc");
-  windowResized();
-  updateFormat();
   localStorage.removeItem("cbTeX");
   if(localStorage.customReadingTones){
     custom_tones=JSON.parse(localStorage.customReadingTones);
@@ -626,4 +621,9 @@ $(function() {
       $("#selTones optgroup").append('<option>' + getPsalmTones(custom_tones[selLang]).join('</option><option>') + '</option>');
     }
   }
+  if(localStorage.tone) $("#selTones").val(localStorage.tone);
+  updateTone();
+  setGabcLinkSelector("#lnkDownloadGabc");
+  windowResized();
+  updateFormat();
 });
