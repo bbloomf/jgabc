@@ -268,7 +268,10 @@ function updateSuffix() {
 
 function updateCustomTone(name){
   var selTone = $("#selTones").val();
-  if(!name && !(selTone in custom_tones[selLang])) return;
+  if(!name && !(selTone in custom_tones[selLang])) {
+    $("#btnDelTone").attr("disabled",true);
+    return;
+  }
   name=name||selTone;
   $("#btnDelTone").attr("disabled",false);
   var customTone = {
@@ -295,6 +298,7 @@ function newTone(){
     updateCustomTone(name);
     $("#selTones optgroup").empty().append('<option>' + getPsalmTones(custom_tones[selLang]).join('</option><option>') + '</option>');
     $("#selTones").val(name);
+    localStorage.tone = name;
   }
 }
 function deleteTone() {
@@ -302,7 +306,7 @@ function deleteTone() {
   var onlyReset = (name in o_g_tones[selLang]);
   var q = "Really " + (onlyReset?"reset":"delete") + " the tone '" + name + "'?";
   if(confirm(q)) {
-      delete custom_tones[selLang][name]
+    delete custom_tones[selLang][name]
     if(onlyReset) {
       g_tones[selLang][name] = $.extend(true,{},o_g_tones[selLang][name]);
     } else {
@@ -407,7 +411,7 @@ var updateTone = function(){
 }
 var readingTones;
 $(function() {
-  g_tones = o_g_tones = readingTones = {
+  o_g_tones = readingTones = {
     'english': {
       'Gospel': {
         simple: {
@@ -519,6 +523,7 @@ $(function() {
       }
     }
   };
+  g_tones = $.extend({},o_g_tones);
   //if(!localStorage)localStorage=false;
   if(localStorage.bi_formats) {
     bi_formats = JSON.parse(localStorage.bi_formats);
