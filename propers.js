@@ -195,7 +195,7 @@ $(function(){
   var selectedDay = function(e){
     selDay = $(this).val();
     var self = this;
-    $('#selSunday,#selMass').each(function(i,o){
+    $('#selSunday,#selSaint,#selMass').each(function(i,o){
       if(this != self) this.selectedIndex = 0;
     });
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
@@ -808,11 +808,12 @@ $(function(){
 
   
   var $selSunday = $('#selSunday');
+  var $selSaint = $('#selSaint');
   var $selMass = $('#selMass');
   var $selTempus = $('#selTempus');
   var $selSundayNovus = $('#selSundayNovus');
   var $selYearNovus = $('#selYearNovus');
-  $('#selSunday,#selMass').change(selectedDay);
+  $('#selSunday,,#selSaint,#selMass').change(selectedDay);
   $('#selSundayNovus').change(selectedDayNovus);
   $('#selYearNovus').change(function(){updateAllParts();});
   $('#selTempus').change(selectedTempus);
@@ -840,6 +841,7 @@ $(function(){
   };
   populate(sundayKeys,$selSunday);
   populate(sundaysNovusOrdo,$selSundayNovus);
+  populate(saintKeys,$selSaint);
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
@@ -862,12 +864,12 @@ $(function(){
     var $this = $(this);
     isNovus = !isNovus;
     if(isNovus) {
-      $('#selSunday,#selMass,#selTempus').hide();
+      $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
       $this.find('span').text('Novus Ordo Calendar');
       $('#selSundayNovus').prop('selectedIndex',0).change();
     } else {
-      $('#selSunday,#selMass,#selTempus').show();
+      $('#selSunday,#selSaint,#selMass,#selTempus').show();
       $('#selSundayNovus,#selYearNovus').hide();
       $this.find('span').text('Traditional Calendar');
       $('#selSunday').prop('selectedIndex',0).change();
