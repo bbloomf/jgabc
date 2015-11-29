@@ -45,12 +45,14 @@ function updateEditor(forceGabcUpdate,_syl) {
   var psalmToneStack = gConclusion;
   for(var i = lines.length - 1; i>=0; --i){
     var line = lines[i];
+    var punctuation = line.slice(-1);
+    if(punctuation.match(/['"‘“’”]/)) punctuation = line.slice(-2,-1);
     var loop = false;
     do{
       psalmTone = psalmToneStack.pop();
       loop = (typeof(psalmTone) == "string");
       if(loop) {
-        switch(line.slice(-1)){
+        switch(punctuation){
           case '.':
           case '!':
           case '?':
@@ -61,16 +63,21 @@ function updateEditor(forceGabcUpdate,_syl) {
             break;
           case '+':
           case '^':
+          case ',':
             psalmTone = ',';
             break;
           default:
-            psalmTone = ';';
+            if(line.match(/[a-z]$/i)) {
+              psalmTone = ',';
+            } else {
+              psalmTone = ';';
+            }
         }
         gabc = ' (' + psalmTone + ') ' + gabc;
       }
     } while(loop);
     if(!psalmTone){
-      switch(line.slice(-1)){
+      switch(punctuation){
         case '.':
         case '!':
           psalmTone = gFullStop;
@@ -89,6 +96,37 @@ function updateEditor(forceGabcUpdate,_syl) {
         case '?':
           psalmToneStack = gQuestion.slice(0);
           psalmTone = psalmToneStack.pop();
+          var match;
+          if(i==0 || lines[i-1].match(/\?['"‘“’”]?$/)) {
+            // try to find an earlier place in this sentence to put the pause.
+            var indexComma = 1 + lines[i].lastIndexOf(', ');
+            if(indexComma == 0) {
+              indexComma = lines[i].indexOf(' ');
+            }
+            if(indexComma < 0) {
+              psalmToneStack = [];
+            } else {
+              lines.splice(i++,0,line.slice(0,indexComma).trim());
+              line = line.slice(indexComma+1).trim();
+            }
+          } else if((match = line.match(/(['"‘“])[a-z].+?(\1|[”’])$/i))) {
+            // the question tone should not start before the quotation.
+            var search = match[2];
+            switch(search) {
+              case '’':
+                search = '‘';
+                break;
+              case '”':
+                search = '“';
+                break;
+            }
+            search = " " + search;
+            var indexComma = line.lastIndexOf(search,line.length-2);
+            if(indexComma>=0) {
+              lines.splice(i++,0,line.slice(0,indexComma).trim());
+              line = line.slice(indexComma+1).trim();
+            }
+          }
           gabc = ' (:) ' + gabc;
           break;
         case '+':
@@ -331,7 +369,7 @@ function windowResized(){
   $cp.height(totalHeight);
 }
 var splitSentences = (function(){
-  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+(?:$|,(?=[,\r\n])|[+\^~.?!;:]:?["'“”‘’]?)),?\s*/gi;
+  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+(?:$|,(?=[,\r\n])|[+\^~.?!;:](?:\s*[:+])?["'“”‘’]?)),?\s*/gi;
   return function(text){
     var result = [];
     var m;
@@ -497,7 +535,7 @@ $(function() {
   $("#selTones").append('<option>' + getPsalmTones(g_tones[selLang]).join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
   $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
-  $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);
+  $("#versetext").keyup(updateText).keydown(makeInternationalTextBoxKeyDown(false));
   $("#cbEnglish").click(function(){
     selLang = cbEnglish.checked? 'english' : 'latin';
     getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;
