@@ -272,7 +272,7 @@ function updateEnding() {
 }
 
 function getPsalms() {
-  var r = Array();
+  var r = [];
   for(var i = 1; i <= 150; i++) {
     r.push(i);
     if(i.toString() in splitPsalmsMap)
@@ -283,14 +283,26 @@ function getPsalms() {
       }
     }
   }
-  r.push("Magnificat");
+  return r;
+}
+function getCantica() {
+  var r = [];
   r.push("Benedictus");
+  r.push("Magnificat");
+  r.push("Nunc dimittis");
+  r.push("Canticum David");
+  r.push("Canticum Ecclesiastici");
+  r.push("Canticum Isaiae");
+  r.push("Canticum Jeremiae");
+  r.push("Canticum Judith");
+  r.push("Canticum Tobiae");
+  r.push("Canticum Trium puerorum");
   return r;
 }
 
 function updatePsalm() {
   var psalmNum = $("#selPsalm").val();
-  $("#cbRepeatIntonation")[0].checked= localStorage.cbRepeatIntonation = repeatIntonation = psalmNum.match(/^\d+$/)?false:true;
+  $("#cbRepeatIntonation")[0].checked= localStorage.cbRepeatIntonation = repeatIntonation = psalmNum.match(/^(?:[\d\.]+$|Canticum )/)?false:true;
   
   localStorage.selPsalm = psalmNum;
   includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
@@ -720,7 +732,8 @@ $(function() {
     gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = !hash.noeditor;
   });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
-  $("#selPsalm").append('<option>' + getPsalms().join('</option><option>') + '</option>');
+  $("#selPsalm").append('<optgroup label="Psalms"><option>' + getPsalms().join('</option><option>') + '</option></optgroup>' +
+                        '<optgroup label="Canticles"><option>' + getCantica().join('</option><option>') + '</option></optgroup>');
   $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateVerseGabc);
   $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);
@@ -811,6 +824,8 @@ $(function() {
       g_tones=$.extend({},g_tones,custom_tones);
       $("#selTones optgroup").append('<option>' + getPsalmTones(custom_tones).join('</option><option>') + '</option>');
     }
+  } else {
+    g_tones = $.extend({},g_tones);
   }
   if(hash.noeditor) {
     $('#chant-parent2').addClass('noeditor');

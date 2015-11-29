@@ -1,4 +1,27 @@
 String.prototype.repeat = function(num){return new Array(num+1).join(this);};
+String.prototype.reverse = function(){return this.split('').reverse().join('');};
+HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
+  var text = this.value;
+  var txtBox = this;
+  setTimeout(function(){
+    if(text != txtBox.value) return;
+    var scrollTop = txtBox.scrollTop;
+    var extra = ''
+    if(onlyUp) {
+      var $txtBox = $(txtBox);
+      var lineHeight = parseFloat($txtBox.css('line-height'));
+      if(isNaN(lineHeight)) lineHeight = 1.2 * parseFloat($txtBox.css('font-size'));
+      var rows = Math.floor($txtBox.height() / lineHeight);
+      extra = '\n'.repeat(rows-1);
+    }
+    txtBox.value = text.slice(0,end) + extra;
+    txtBox.scrollTop = txtBox.scrollHeight;
+
+    txtBox.value = text;
+    txtBox.setSelectionRange(start,end);
+    if(((txtBox.scrollTop - scrollTop) * (onlyUp? -1 : 1)) < 0) txtBox.scrollTop = scrollTop;
+  })
+}
 if(!String.prototype.trimRight) String.prototype.trimRight = function(){return this.replace(/\s+$/,'');};
 var gabcSettings={trimStaff:true,showSyllableEditorOnHover:true,showSyllableEditorOnClick:true};
 var uuid;
@@ -1298,9 +1321,9 @@ function getChant(text,svg,result,top) {
             var txtInitial = staffInfo.txtInitial = make('text',initial);
             txtInitial.setAttribute('transform','translate(0,'+staffInfo.vOffset+')');
             if(makeLinks && neumeId==selectedNeume) {
-              txtInitial.setAttribute('class','greinitial selectable selected neume'+neumeId);
+              txtInitial.setAttribute('class','greinitial selectable selected neume'+neumeId + ' ' + fontclass);
             } else {
-              txtInitial.setAttribute('class','greinitial selectable neume'+neumeId);
+              txtInitial.setAttribute('class','greinitial selectable neume'+neumeId+ ' ' + fontclass);
             }
             result.appendChild(txtInitial);
             var lenInitial=txtInitial.getComputedTextLength();
@@ -3567,7 +3590,7 @@ function gabcEditorKeyDown(e) {
   }
 }
 
-var internationalTextBoxKeyDown = (function(){
+var makeInternationalTextBoxKeyDown = function(convertFlexa){
   var lastKey = 0;
   var dictionaries=
       {222://apostrophe
@@ -3660,6 +3683,48 @@ var internationalTextBoxKeyDown = (function(){
           }
         }
       };
+      var removeAccent = {
+        'á':'a',
+        'é':'e',
+        'í':'i',
+        'ó':'o',
+        'ú':'u',
+        'ý':'y',
+        'Á':'A',
+        'É':'E',
+        'Í':'I',
+        'Ó':'O',
+        'Ú':'U',
+        'Ý':'Y',
+        'Ǽ':"Æ",
+        'ǽ':"æ",
+        "áu": "au",
+        "oé": "oe",
+        "aé": "ae"
+      };
+      var accentSyllable = function(syllables,which) {
+        word = '';
+        for(var i = 0; i<syllables.length; ++i) {
+          if(which == i) {
+            word = syllables[i].replace(/((?:[gq]u|i|[^aeiouyáéíóúýæœ])*)([ao][eé]|[aá]u|[aeiouyáéíóúýǽæœ])(?=[^aeiouyáéëíóúýǽæœ]|$)/, function(match,first,vowel){
+              if(vowel.length == 2) {
+                if(vowel[1] == 'u') {
+                  return first + 'áu';
+                } else {
+                  first += vowel[0];
+                  vowel = vowel[1];
+                }
+              }
+              return first + (dictionaries[222]['false'][vowel] || vowel);
+            }) + word;
+          } else {
+            word = syllables[i].replace(/((?:[gq]u|i|[^aeiouyáéíóúýæœ])*)(ae|au|oe|[aeiouyáéíóúýǽæœ])(?=[^aeiouyáéëíóúýǽæœ]|$)/, function(match,first,vowel){
+              return first + (removeAccent[vowel] || vowel);
+            }) + word;
+          }
+        }
+        return word;
+      }
   return function(e){
     if(typeof(getHeaderLen)=='function' && getHeaderLen(this.value)>0) {
       // Only process as international textbox if the cursor is not within parentheses:
@@ -3667,7 +3732,7 @@ var internationalTextBoxKeyDown = (function(){
       var lastCloseParen = this.value.lastIndexOf(')',this.selectionStart-1);
       if(lastCloseParen < lastOpenParen) return;
     }
-    if(e.which == 187 && e.shiftKey) { //if + was entered
+    if(convertFlexa && e.which == 187 && e.shiftKey) { //if + was entered
       var selStart=this.selectionStart;
       var len=1;
       this.value=this.value.slice(0,selStart) + '†' + this.value.slice(this.selectionEnd);
@@ -3675,8 +3740,103 @@ var internationalTextBoxKeyDown = (function(){
       e.preventDefault();
       return;
     }
-    var cbEnglish=$("#cbEnglish")[0];
-    if(cbEnglish&&cbEnglish.checked)return;
+    var isEnglish=$("#cbEnglish")[0] && cbEnglish.checked;
+    if(e.which == 49 || e.which == 50 || (e.which == 51 && isEnglish)) {
+      // swap e.which (49;50;51 => 2;1;0)
+      var which = 2 - (e.which - 49),
+          start = this.selectionStart,
+          end = this.selectionEnd,
+          wordStart = this.value.lastIndexOf(' ',start) + 1,
+          wordEnd = this.value.indexOf(' ',end);
+          if(wordEnd < 0) wordEnd = this.value.length;
+      if(isEnglish) {
+        var phrase = this.value.slice(wordStart,end).replace(/\*/g,''),
+            syllables = Syl.syllabify(phrase),
+            which = syllables.length - 1 - which;
+        if(which < 0) return;
+        var syl = syllables[which];
+        phrase = phrase.slice(0,syl.index) + syl.sylnospace + '*' + phrase.slice(phrase.indexOf(syl.sylnospace,syl.index) + syl.sylnospace.length);
+        this.value = this.value.slice(0, wordStart) + phrase + this.value.slice(end);
+        this.selectAndScroll(start, start + phrase.length, e.shiftKey);
+        e.preventDefault();
+        return;
+      } else {
+        // TODO: expand selection to entire word if it isn't currently on a whole word
+        var word = this.value.slice(start,end);
+        var syllables = word.match(regexLatin);
+        if(syllables.length>2) {
+          syllables = syllables.reverse();
+          word = accentSyllable(syllables,which);
+          this.value = this.value.slice(0,start) + word + this.value.slice(end);
+          this.selectAndScroll(start,end, e.shiftKey);
+          e.preventDefault();
+        }
+      }
+    }
+    if(e.which==9 || (!isEnglish && (e.which == 49 || e.which == 50))) {
+      if(isEnglish) {
+        var selectionEnd = this.selectionEnd;
+        if(this.selectionEnd == this.selectionStart) {
+          selectionEnd = 0;
+          this.scrollTop = 0;
+        }
+        var part, lines, line;
+        if(e.shiftKey) {
+          part = this.value.slice(0,this.selectionStart);
+          lines = splitSentences(part);
+          if(lines.length<2) return;
+          line = lines.slice(-2)[0];
+          if(line) selectionEnd = part.lastIndexOf(line); 
+        } else {
+          part = this.value.slice(selectionEnd);
+          lines = splitSentences(part);
+          line = lines[0];
+          if(line && line.length < 4) line = lines[1];
+          if(line) selectionEnd += part.indexOf(line);
+        }
+        if(!line) return;
+        var syllables = Syl.syllabify(line);
+        if(syllables.length<3) return;
+        var lastSyl = syllables.slice(-1)[0];
+        var last3syl = syllables.slice(-3);
+        if(line.indexOf('*',last3syl[0].index)<0) {
+          var accentSyl = lastSyl.word.length==1? lastSyl : last3syl[1];
+          accentSyl.separator = '*';
+          var index = accentSyl.index + accentSyl.sylnospace.length;
+          line = line.slice(0,index) + '*' + line.slice(index);
+          this.value = this.value.slice(0, selectionEnd) + line + this.value.slice(selectionEnd + line.length - 1);
+        }
+        this.selectAndScroll(selectionEnd + syllables.slice(-3)[0].index, selectionEnd + line.indexOf(lastSyl.sylnospace,lastSyl.index) + lastSyl.sylnospace.length + (lastSyl.separator && lastSyl.separator.length || 0), e.shiftKey);
+        e.preventDefault();
+        return;
+      }
+      // else Latin:
+      var index = e.shiftKey? this.selectionStart : this.selectionEnd;
+      if(e.which == 9 && this.selectionEnd == this.selectionStart) index = e.shiftKey? this.value.length : 0;
+      var subIndex;
+      while(true) {
+        var slice = e.shiftKey? this.value.slice(0,index).reverse() : this.value.slice(index),
+            match = slice.match(/[a-zæœ]{3,}(?=$|[\s,.;!\?])/i),
+            word = match && match[0] || '';
+        if(e.shiftKey) word = word.reverse();
+        if(e.shiftKey) index -= match.index + word.length;
+          else index += match.index;
+        var syllables = word.match(regexLatin);
+        if(!syllables || syllables.length <= 2) {
+          if(!e.shiftKey) index += word.length;
+          continue;
+        }
+        syllables = syllables.reverse();
+        if(syllables[1].match(/[œæ]|[bcdfghklmnprstxz]$/)) {
+          this.value = this.value.slice(0,index) + accentSyllable(syllables,1) + this.value.slice((index += word.length));
+          this.selectAndScroll(index - word.length, index, e.shiftKey);
+          continue;
+        }
+        this.selectAndScroll(index, index + word.length, e.shiftKey);
+        e.preventDefault();
+        break;
+      }
+    }
     var dictionary=dictionaries[e.which];
     if(dictionary && this.selectionStart==this.selectionEnd && this.selectionStart>0){
       var previousChar=this.value[this.selectionStart-1];
@@ -3691,4 +3851,5 @@ var internationalTextBoxKeyDown = (function(){
       }
     }
   }
-})();
+};
+var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);

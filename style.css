@@ -64,7 +64,7 @@ tspan.selectable{
 }
 .greinitial{
   font-family: 'OFL Sorts Mill Goudy TT';
-  font-size: 60px;
+  font-size: 60px!important;
 }
 .greannotation{
   font-family: 'OFL Sorts Mill Goudy TT';
