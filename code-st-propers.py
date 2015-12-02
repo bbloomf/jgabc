@@ -63,7 +63,10 @@ def proprium_string(key, suffix, parts):
     ids["offertoriumID"] = get_part_id('offertorium',parts["Offertorium"])
     ids["communioID"]    = get_part_id('communio',parts["Communio"])
 
-    return proper_template % (key+suffix, json.dumps(ids))
+    return proper_template % (key, json.dumps(ids))
+
+def proprium_strings(key, suffixes, parts):
+    return [proprium_string(key + (suffix if len(suffixes) > 0 else ''), suffix, parts) for suffix in suffixes]
 
 headers = None
 rows    = []
@@ -88,24 +91,21 @@ for row in csv.reader(f):
                                                                  'Alleluia PT',
                                                                  'Offertorium',
                                                                  'Communio']])
-
-            # Lent
+            suffixes = []
             if len(parts['Tractus']) > 0:
-                proprium.append(proprium_string(key,SUFFIX_LENT,parts))
-
-            # Easter
+                suffixes.append(SUFFIX_LENT)
             if len(parts['Alleluia PT']) > 0:
-                proprium.append(proprium_string(key,SUFFIX_EASTER,parts))
-
-            # Year
+                suffixes.append(SUFFIX_EASTER)
             if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
-                proprium.append(proprium_string(key,SUFFIX_YEAR,parts))
+                suffixes.append(SUFFIX_YEAR)
+
+            proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
 
 f.close()
 
 print '''
 var saintKeys = [
-    {"title":"Selige festum sancti...","en":"Select a saint feast..."},
+    {"title":"Selige festum sancti... (BETA)","en":"Select a saint feast... (BETA)"},
     %s
 ];
 
