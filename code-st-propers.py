@@ -92,12 +92,12 @@ for row in csv.reader(f):
                                                                  'Offertorium',
                                                                  'Communio']])
             suffixes = []
+            if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
+                suffixes.append(SUFFIX_YEAR)
             if len(parts['Tractus']) > 0:
                 suffixes.append(SUFFIX_LENT)
             if len(parts['Alleluia PT']) > 0:
                 suffixes.append(SUFFIX_EASTER)
-            if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
-                suffixes.append(SUFFIX_YEAR)
 
             proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
 
