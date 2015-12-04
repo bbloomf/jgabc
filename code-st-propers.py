@@ -79,11 +79,6 @@ for row in csv.reader(f):
         feast = row[headers['Feast']].strip()
         if len(feast) > 0:
 
-            date  = row[headers['Date']].strip()
-            title = "%s: %s" % (date, feast)
-            key   = date.replace(" ", "")
-            saintKeys.append(saint_template % (key,title,title))
-
             parts = dict([(p, row[headers[p]].strip()) for p in ['Introitus',
                                                                  'Graduale',
                                                                  'Tractus',
@@ -98,6 +93,12 @@ for row in csv.reader(f):
                 suffixes.append(SUFFIX_LENT)
             if len(parts['Alleluia PT']) > 0:
                 suffixes.append(SUFFIX_EASTER)
+
+            date  = row[headers['Date']].strip()
+            title = "%s: %s" % (date, feast)
+            en    = title + ('' if len(suffixes) > 0 else ' (TODO)')
+            key   = date.replace(" ", "")
+            saintKeys.append(saint_template % (key,title,en))
 
             proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
 
