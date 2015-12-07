@@ -11,6 +11,31 @@ var selDay,selTempus='',selPropers,sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
+  function EasterDates(Y) {
+    var C = Math.floor(Y/100);
+    var N = Y - 19*Math.floor(Y/19);
+    var K = Math.floor((C - 17)/25);
+    var I = C - Math.floor(C/4) - Math.floor((C - K)/3) + 19*N + 15;
+    I = I - 30*Math.floor((I/30));
+    I = I - Math.floor(I/28)*(1 - Math.floor(I/28)*Math.floor(29/(I + 1))*Math.floor((21 - N)/11));
+    var J = Y + Math.floor(Y/4) + I + 2 - C + Math.floor(C/4);
+    J = J - 7*Math.floor(J/7);
+    var L = I - J;
+    var M = 3 + Math.floor((L + 40)/44);
+    var D = L + 28 - 31*Math.floor(M/4);
+
+    var easter = new Date(Y,M-1,D);
+    var septuagesima = new Date(easter);
+    var pentecost = new Date(easter);
+    septuagesima.setDate(easter.getDate() -(7 * 9));
+    pentecost.setDate(easter.getDate() + (7 * 7));
+    return {
+      easter: easter,
+      septuagesima: septuagesima,
+      pentecost: pentecost
+    }
+  }
   $('#menu').menu({select: function(e,ui){e.preventDefault();}});
   var partAbbrev = {
     tractus:'Tract.',
@@ -192,6 +217,15 @@ $(function(){
     selDay = $(this).val();
     updateDayNovus();
   };
+  var getSeasonForDate = function(date) {
+    var easterDates = EasterDates(date.getFullYear());
+    if(date >= easterDates.septuagesima && date < easterDates.easter) {
+      return 'Quad';
+    } else if(date >= easterDates.easter && date < easterDates.pentecost) {
+      return 'Pasch';
+    }
+    return '';
+  }
   var selectedDay = function(e){
     selDay = $(this).val();
     var self = this;
@@ -199,10 +233,18 @@ $(function(){
       if(this != self) this.selectedIndex = 0;
     });
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
-      $('#selTempus').show();
+      $selTempus.show();
+      var date = new Date();
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var dateMatch = selDay.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)/);
+      if(dateMatch) {
+        date = new Date(date.getFullYear(), months.indexOf(dateMatch[1]), parseInt(dateMatch[2]));
+        if(date < new Date()) date.setYear(date.getFullYear() + 1);
+        $selTempus.val(selTempus = getSeasonForDate(date));
+      }
     } else {
       selTempus = '';
-      $('#selTempus').prop('selectedIndex',0).hide();
+      $selTempus.prop('selectedIndex',0).hide();
     }
     if(selDay=='custom') {
       $('.sel-custom').show();
@@ -813,7 +855,7 @@ $(function(){
   var $selTempus = $('#selTempus');
   var $selSundayNovus = $('#selSundayNovus');
   var $selYearNovus = $('#selYearNovus');
-  $('#selSunday,,#selSaint,#selMass').change(selectedDay);
+  $('#selSunday,#selSaint,#selMass').change(selectedDay);
   $('#selSundayNovus').change(selectedDayNovus);
   $('#selYearNovus').change(function(){updateAllParts();});
   $('#selTempus').change(selectedTempus);
