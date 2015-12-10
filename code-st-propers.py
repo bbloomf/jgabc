@@ -104,14 +104,22 @@ for row in csv.reader(f):
 
 f.close()
 
-print '''
-var saintKeys = [
-    {"title":"Selige festum sancti... (BETA)","en":"Select a saint feast... (BETA)"},
-    %s
-];
+f = open('propersdata.js','r')
+propersdata_js = f.readlines()
+f.close()
+f = open('propersdata.js','w')
 
-// this should actually get merged with the other object called 'proprium'
-var proprium = {
-    %s
-};
-''' % (',\n    '.join(saintKeys),',\n    '.join(proprium))
+echo_lines = True
+for line in propersdata_js:
+	if 'END_GEN' in line:
+		echo_lines = True
+	if echo_lines:
+		f.write(line)
+	if 'START_' in line:
+		echo_lines = False
+		if 'saintKeys' in line:
+			f.write("    %s\n" % ',\n    '.join(saintKeys))
+		elif 'proprium' in line:
+			f.write("    %s\n" % ',\n    '.join(proprium))
+
+f.close()

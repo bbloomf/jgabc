@@ -15,7 +15,7 @@ Jan 23,St Raymond of Penafort,os justi,justus ut palma,beatus vir qui timet,beat
 Jan 24,St Timothy,statuit,inveni david,desiderium,tu es sacerdos,,veritas mea,semel juravi
 Jan 25,Conversion of St Paul,scio cui credidi,qui operatus est,tu es vas,magnus sanctus paulus,,mihi autem nimis,amen dico vobis quod vos
 Jan 26,St Polycarp,sacerdotes dei,ecce sacerdos,beatus vir qui timet,hic est sacerdos,,inveni david,posuisti domine
-Jan 27,St John Chrysostom,in medio,,beatus vir qui timet,beatus vir qui suffert,,justus ut palma,fidelis servus
+Jan 27,St John Chrysostom,in medio,ecce sacerdos,beatus vir qui timet,beatus vir qui suffert,,justus ut palma,fidelis servus
 Jan 28,St Peter Nolasco,justus ut palma,os justi,beatus vir qui timet,beatus vir qui timet,,in virtute tua,amen dico vobis quod vos
 Jan 29,St Francis de Sales,in medio,os justi,beatus vir qui timet,amavit eum,,justus ut palma,fidelis servus
 Jan 30,St Martina,loquebar ps. beati immaculati,dilexisti,veni sponsa,adducentur,,afferentur... proximae,confundantur
@@ -39,20 +39,20 @@ Feb 22,Chair of St Peter,statuit,exaltent eum,tu es petrus,tu es petrus,,tu es p
 Feb 23,St Peter Damian,in medio,os justi,beatus vir qui timet,amavit eum,,justus ut palma,fidelis servus
 Feb 24 or 25,St Matthias,mihi autem nimis,nimis honorati,desiderium,,,constitues eos,vos qui secuti
 Feb 27 or 28,St Gabriel of Our Lady of Sorrows,oculus dei,quam magna,beatus vir cujus,minuisti eum,,o domine... et filius,ecce sto
-Mar 4,St Casimir of Lithuania,,,,,,,
-Mar 6,Ss Perpetua and Felicity and Companions,,,,,,,
+Mar 4,St Casimir of Lithuania,os justi,justus ut palma,beatus vir qui timet,beatus vir qui suffert,,veritas mea,beatus servus
+Mar 6,Ss Perpetua and Felicity and Companions,me exspectaverunt,dilexisti,veni sponsa,,,diffusa est,principes
 Mar 7,St Thomas Aquinas,in medio,os justi,beatus vir qui timet,,,justus ut palma,fidelis servus
-Mar 8,St John of God,,,,,,,
-Mar 9,St Frances of Rome,,,,,,,
-Mar 10,Forty Martyrs of Sebaste,,,,,,,
-Mar 12,St Gregory the Great,,,,,,,
-Mar 17,St Patrick,,,,,,,
-Mar 18,St Cyril of Jerusalem,,,,,,,
-Mar 19,St Joseph,,,,,,,
+Mar 8,St John of God,os justi,justus ut palma,beatus vir qui timet,,,veritas mea,beatus servus
+Mar 9,St Frances of Rome,cognovi,diffusa est,veni sponsa,,,diffusa est,dilexisti
+Mar 10,Forty Martyrs of Sebaste,clamaverunt justi,ecce quam bonum,qui seminant,,,laetamini,quicumque fecerit
+Mar 12,St Gregory the Great,si diligis me,exaltent eum,annuntiavi,,,ecce dedi,tu es petrus
+Mar 17,St Patrick,statuit,ecce sacerdos,beatus vir qui timet,,,inveni david,fidelis servus
+Mar 18,St Cyril of Jerusalem,in medio,os justi,beatus vir qui timet,,,justus ut palma,fidelis servus
+Mar 19,St Joseph,justus ut palma,domine praevenisti,beatus vir qui timet,amavit eum,justus germinabit,veritas mea,joseph fili david
 Mar 21,St Benedict,os justi,domine praevenisti,beatus vir qui timet,,,desiderium animae,fidelis servus
-Mar 24,St Gabriel the Archangel,,,,,,,
-Mar 25,Annunciation of Our Lady,,,,,,,
-Mar 27,St John Damascene,,,,,,,
+Mar 24,St Gabriel the Archangel,benedicite dominum,benedicite dominum,ave maria,,,stetit angelus,benedicite omnes angeli
+Mar 25,Annunciation of Our Lady,vultum tuum,diffusa est,audi filia,ave maria,virga jesse,ave maria... et benedictus,ecce virgo
+Mar 27,St John Damascene,tenuisti manum,deus qui praecinxit me,persequar,,,,brachia peccatorum
 Mar 28,St John Capistran,ego autem in... gaudebo,qui timetis,fortitudo mea,,,invocavit,decantaverunt
 Apr 2,St Francis of Paula,,,,,,,
 Apr 4,St Isidore,in medio,os justi,beatus vir qui timet,amavit eum,justus germinabit,justus ut palma,fidelis servus
@@ -142,7 +142,7 @@ Jul 23,St Apollinaris,,,,,,,
 Jul 24,St Christina,,,,,,,
 Jul 25,St James the Greater,,,,,,,
 Jul 26,St Anne,,,,,,,
-Jul 27,St Pantaleon,,,,,,,
+Jul 27,St Pantaleon,laetabitur justus,justus cum ceciderit,,qui sequitur me,,posuisti,qui mihi ministrat
 Jul 28,Ss Nazarius and Celsus,,,,,,,
 Jul 29,St Martha,,,,,,,
 Jul 30,St Abdon and Sennen,,,,,,,
@@ -163,7 +163,7 @@ Aug 14,Vigil of the Assumption of BVM,,,,,,,
 Aug 15,Assumption of BVM,,,,,,,
 Aug 16,St Joachim,,,,,,,
 Aug 17,St Hyacinth,,,,,,,
-Aug 18,St Agapitus,,,,,,,
+Aug 18,St Agapitus,laetabitur justus,justus cum ceciderit,,qui sequitur me,,posuisti,qui mihi ministrat
 Aug 19,St John Eudes,,,,,,,
 Aug 20,St Bernard,,,,,,,
 Aug 21,St Jane Frances de Chantal,,,,,,,
@@ -182,7 +182,7 @@ Sep 2,St Stephen,,,,,,,
 Sep 3,St Pius X,,,,,,,
 Sep 5,St Lawrence Justinian,statuit,ecce sacerdos,,tu es sacerdos,,inveni david,fidelis servus
 Sep 8,Nativity of BVM,,,,,,,
-Sep 9,St Gorgonius,,,,,,,
+Sep 9,St Gorgonius,laetabitur justus,justus cum ceciderit,,qui sequitur me,,posuisti,qui mihi ministrat
 Sep 10,St Nicholas of Tolentino,,,,,,,
 Sep 11,Ss Protus and Hyacinth,salus autem,clamaverunt,,te martyrum,,justorum animae,quod dico vobis
 Sep 12,Most Holy Name of Mary,vultum tuum,benedicta et venerabilis,,post partum,,ave maria... et benedictus,beata viscera
@@ -227,30 +227,30 @@ Oct 24,St Raphael,benedicite dominum,angelis domini,,in conspectu... adorabo,,st
 Oct 25,Ss Chrysanthus and Daria,,,,,,,
 Oct 26,St Evaristus,,,,,,,
 Oct 28,Ss Simon and Jude,,,,,,,
-Nov 1,The Feast of All Saints,,,,,,,
-Nov 2,All Souls' Day,,,,,,,
-Nov 4,St Charles Borromeo,,,,,,,
-Nov 8,Four Holy Crowned Martyrs,,,,,,,
-Nov 9,The Dedication of the Lateran Basilica,,,,,,,
-Nov 10,St Andrew Avellino,,,,,,,
-Nov 11,St Martin of Tours,,,,,,,
+Nov 1,The Feast of All Saints,gaudeamus... sanctorum omnium,timete dominum,,venite ad me,,justorum animae,beati mundo corde
+Nov 2,All Souls' Day,requiem,requiem,absolve,,,domine jesu christe,lux aeterna
+Nov 4,St Charles Borromeo,statuit,ecce sacerdos,,tu es sacerdos,,inveni david,fidelis servus
+Nov 8,Four Holy Crowned Martyrs,intret in conspectu,gloriosus deus,,sancti tui... benedicent,,laetamini,multitudo languentium
+Nov 9,The Dedication of the Lateran Basilica,terribilis est,locus iste,,adorabo,,domine deus... qui repertus,domus mea
+Nov 10,St Andrew Avellino,os justi,justus ut palma,,beatus vir qui suffert,,veritas mea,beatus servus
+Nov 11,St Martin of Tours,statuit,ecce sacerdos,,beatus vir sanctus martinus,,veritas mea,beatus servus
 Nov 12,St Martin I,si diligis me,exaltent eum,,tu es petrus,,ecce dedi,tu es petrus
-Nov 13,St Didacus,,,,,,,
+Nov 13,St Didacus,justus ut palma,os justi,,beatus vir qui timet,,in virtute tua,amen dico vobis quod vos
 Nov 14,St Josaphat,gaudeamus... josaphat,inveni david,,hic est sacerdos,,majorem caritatem,ego sum pastor
-Nov 15,St Albert the Great,,,,,,,
-Nov 16,St Gertrude,,,,,,,
-Nov 17,St Gregory the Wonderworker,,,,,,,
-Nov 18,The Dedication of the Basilicas of Ss Peter and Paul,,,,,,,
-Nov 19,St Elizabeth of Hungary,,,,,,,
-Nov 20,St Felix of Valois,,,,,,,
+Nov 15,St Albert the Great,in medio,os justi,,amavit eum,,justus ut palma,fidelis servus
+Nov 16,St Gertrude,dilexisti,specie tua,,adducentur,,filiae regum,quinque prudentes
+Nov 17,St Gregory the Wonderworker,statuit,ecce sacerdos,,tu es sacerdos,,inveni david,fidelis servus
+Nov 18,The Dedication of the Basilicas of Ss Peter and Paul,terribilis est,locus iste,,adorabo,,domine deus... qui repertus,domus mea
+Nov 19,St Elizabeth of Hungary,cognovi,diffusa est,,specie tua,,diffusa est,dilexisti
+Nov 20,St Felix of Valois,justus ut palma,os justi,,beatus vir qui timet,,in virtute tua,amen dico vobis quod vos
 Nov 21,The Presentation of BVM,salve sancta parens,benedicta et venerabilis,,post partum,,ave maria,beata viscera
-Nov 22,St Cecilia,,,,,,,
-Nov 23,St Clement I,,,,,,,
-Nov 24,St John of the Cross,,,,,,,
-Nov 25,St Catherine of Alexandria,,,,,,,
-Nov 26,St Sylvester,,,,,,,
-Nov 27,Our Lady of the Miraculous Medal,,,,,,,
-Nov 29,St Saturninus,,,,,,,
+Nov 22,St Cecilia,loquebar ps. beati immaculati,audi filia...quia concupivit,,quinque prudentes,,afferentur... proximae,confundantur
+Nov 23,St Clement I,dicit dominus : sermones,exaltent eum,,tu es petrus,,ecce dedi,tu es petrus
+Nov 24,St John of the Cross,in medio,os justi,,amavit eum,,justus ut palma,fidelis servus
+Nov 25,St Catherine of Alexandria,loquebar ps. beati immaculati,dilexisti,,adducentur,,afferentur... proximae,confundantur
+Nov 26,St Sylvester,os justi,domine praevenisti,,justus ut palma,,desiderium pauperum,fidelis servus
+Nov 27,Our Lady of the Miraculous Medal,erit quasi signum,mementote,,a summo caelo,,erit vobis,innova signa
+Nov 29,St Saturninus,laetabitur justus,justus cum ceciderit,,qui sequitur me,,posuisti,qui mihi ministrat
 Nov 30,St Andrew,mihi autem nimis,constitues eos,,dilexit andream,,mihi autem nimis,venite post me
 Dec 2,St Bibiana,me exspectaverunt,adjuvabit eam,,haec est virgo,,diffusa est,feci judicium
 Dec 3,St Francis Xavier,loquebar ps. laudate,justus ut palma,,beatus vir qui suffert,,veritas mea,beatus servus
