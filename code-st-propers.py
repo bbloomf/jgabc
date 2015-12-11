@@ -6,6 +6,7 @@ import sys
 import os
 import csv
 import json
+import datetime
 
 null = None
 
@@ -75,6 +76,15 @@ def proprium_string(key, suffix, parts):
 def proprium_strings(key, suffixes, parts):
     return [proprium_string(key + (suffix if len(suffixes) > 0 else ''), suffix, parts) for suffix in suffixes]
 
+def saint_title_cmp(x, y):
+    x = datetime.datetime.strptime(x.partition(':')[0].partition(' or ')[0], '%b %d')
+    y = datetime.datetime.strptime(y.partition(':')[0].partition(' or ')[0], '%b %d')
+    if x < y:
+        return -1
+    if x > y:
+        return  1
+    return  0
+
 headers = None
 rows    = []
 propers = {}
@@ -98,30 +108,24 @@ for row in csv.reader(f):
                                                                  'Alleluia PT',
                                                                  'Offertorium',
                                                                  'Communio']])
-            old_key, new_key = None, None
-            for k, v in propers.items():
-                if dict_eq(v, parts):
-                    old_key = k
-                    new_key = old_key + key
-                    del propers[old_key]
-                    propers[new_key] = v
-            if new_key is not None:
-                for t in saints:
-                    if saints[t] == old_key:
-                        saints[t] = new_key
+            if len(''.join(parts.values())) > 0:
+                for k, v in propers.items():
+                    if v==parts:
+                        key = k
+            propers[key]  = parts
             saints[title] = key
 
 f.close()
 
 saintKeys = []
-for title in sorted(saints.keys()):
+for title in sorted(saints.keys(),cmp=saint_title_cmp):
     key = saints[title]
-    en  = title + ('' if len(get_suffixes(parts)) > 0 else ' (TODO)')
+    en  = title + ('' if len(get_suffixes(propers[key])) > 0 else ' (TODO)')
     saintKeys.append(saint_template % (key,title,en))
 
 proprium = []
 for key in sorted(propers.keys()):
-    parts    = propers[keys]
+    parts    = propers[key]
     suffixes = get_suffixes(parts)
     proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
 
@@ -132,15 +136,15 @@ f = open('propersdata.js','w')
 
 echo_lines = True
 for line in propersdata_js:
-	if 'END_GEN' in line:
-		echo_lines = True
-	if echo_lines:
-		f.write(line)
-	if 'START_' in line:
-		echo_lines = False
-		if 'saintKeys' in line:
-			f.write("    %s\n" % ',\n    '.join(saintKeys))
-		elif 'proprium' in line:
-			f.write("    %s\n" % ',\n    '.join(proprium))
+    if 'END_GEN' in line:
+        echo_lines = True
+    if echo_lines:
+        f.write(line)
+    if 'START_' in line:
+        echo_lines = False
+        if 'saintKeys' in line:
+            f.write("    %s\n" % ',\n    '.join(saintKeys))
+        elif 'proprium' in line:
+            f.write("    %s\n" % ',\n    '.join(proprium))
 
 f.close()
