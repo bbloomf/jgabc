@@ -38,11 +38,18 @@ SUFFIX_LENT = 'Quad'
 SUFFIX_EASTER = 'Pasch'
 SUFFIX_YEAR = ''
 
-saintKeys = []
-proprium  = []
-
 saint_template  = '{"key":"%s","title":"%s","en":"%s"}'
 proper_template = '"%s": %s'
+
+def get_suffixes(parts):
+    suffixes = []
+    if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
+        suffixes.append(SUFFIX_YEAR)
+    if len(parts['Tractus']) > 0:
+        suffixes.append(SUFFIX_LENT)
+    if len(parts['Alleluia PT']) > 0:
+        suffixes.append(SUFFIX_EASTER)
+    return suffixes
 
 def proprium_string(key, suffix, parts):
 
@@ -70,6 +77,8 @@ def proprium_strings(key, suffixes, parts):
 
 headers = None
 rows    = []
+propers = {}
+saints  = {}
 f = open('proper of saints.csv','rb')
 for row in csv.reader(f):
     if headers is None:
@@ -79,6 +88,9 @@ for row in csv.reader(f):
         feast = row[headers['Feast']].strip()
         if len(feast) > 0:
 
+            date  = row[headers['Date']].strip()
+            key   = date.replace(" ", "")
+            title = "%s: %s" % (date, feast)
             parts = dict([(p, row[headers[p]].strip()) for p in ['Introitus',
                                                                  'Graduale',
                                                                  'Tractus',
@@ -86,23 +98,32 @@ for row in csv.reader(f):
                                                                  'Alleluia PT',
                                                                  'Offertorium',
                                                                  'Communio']])
-            suffixes = []
-            if len(parts['Graduale']) > 0 and len(parts['Alleluia']) > 0:
-                suffixes.append(SUFFIX_YEAR)
-            if len(parts['Tractus']) > 0:
-                suffixes.append(SUFFIX_LENT)
-            if len(parts['Alleluia PT']) > 0:
-                suffixes.append(SUFFIX_EASTER)
-
-            date  = row[headers['Date']].strip()
-            title = "%s: %s" % (date, feast)
-            en    = title + ('' if len(suffixes) > 0 else ' (TODO)')
-            key   = date.replace(" ", "")
-            saintKeys.append(saint_template % (key,title,en))
-
-            proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
+            old_key, new_key = None, None
+            for k, v in propers.items():
+                if dict_eq(v, parts):
+                    old_key = k
+                    new_key = old_key + key
+                    del propers[old_key]
+                    propers[new_key] = v
+            if new_key is not None:
+                for t in saints:
+                    if saints[t] == old_key:
+                        saints[t] = new_key
+            saints[title] = key
 
 f.close()
+
+saintKeys = []
+for title in sorted(saints.keys()):
+    key = saints[title]
+    en  = title + ('' if len(get_suffixes(parts)) > 0 else ' (TODO)')
+    saintKeys.append(saint_template % (key,title,en))
+
+proprium = []
+for key in sorted(propers.keys()):
+    parts    = propers[keys]
+    suffixes = get_suffixes(parts)
+    proprium.extend([proprium_string(key + (suffix if len(suffixes) > 1 else ''), suffix, parts) for suffix in suffixes])
 
 f = open('propersdata.js','r')
 propersdata_js = f.readlines()
