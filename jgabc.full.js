@@ -247,6 +247,7 @@ var codea = 'a'.charCodeAt(0);
 var codem = codea + 12;
 var codeA = 'A'.charCodeAt(0);
 var codeM = codeA + 12;
+var regexLatinLongPenult = /([ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])(?!([bcdgkpt][rl]|qu|[bcdfghjklmnprstvy])[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])((?:[bcdfghjklmnprstvy]{2,}|[xz])(?:[ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])[bcdfghjklmnprstvxyz]*)$/i;
 var regexTranslate=/translate\((-?\d+(?:\.\d+)?)(?:[,\s]\s*(-?\d+(?:.\d+)?))?\)/;
 var regexTranslateG=/translate\((-?\d+(?:\.\d+)?)(?:[,\s]\s*(-?\d+(?:.\d+)?))?\)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
@@ -3826,9 +3827,9 @@ var makeInternationalTextBoxKeyDown = function(convertFlexa){
           if(!e.shiftKey) index += word.length;
           continue;
         }
-        syllables = syllables.reverse();
-        if(syllables[1].match(/[œæ]|[bcdfghklmnprstxz]$/)) {
-          this.value = this.value.slice(0,index) + accentSyllable(syllables,1) + this.value.slice((index += word.length));
+        var longPenult = word.match(regexLatinLongPenult);
+        if(longPenult) {
+          this.value = this.value.slice(0,index) + accentSyllable(syllables.reverse(),1) + this.value.slice((index += word.length));
           this.selectAndScroll(index - word.length, index, e.shiftKey);
           continue;
         }
