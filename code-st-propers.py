@@ -76,9 +76,13 @@ def proprium_string(key, suffix, parts):
 def proprium_strings(key, suffixes, parts):
     return [proprium_string(key + (suffix if len(suffixes) > 0 else ''), suffix, parts) for suffix in suffixes]
 
+def datetime_from_title(t):
+    t = t.replace('Last Sat', '31').partition(':')[0].partition(' or ')[0]
+    return datetime.datetime.strptime(t, '%b %d')
+
 def saint_title_cmp(x, y):
-    x = datetime.datetime.strptime(x.partition(':')[0].partition(' or ')[0], '%b %d')
-    y = datetime.datetime.strptime(y.partition(':')[0].partition(' or ')[0], '%b %d')
+    x = datetime_from_title(x)
+    y = datetime_from_title(y)
     if x < y:
         return -1
     if x > y:
