@@ -246,8 +246,8 @@ ab increpatióne tua, Dómine, * ab inspiratióne spíritus iræ tuæ.
 17 Misit de summo et accépit me * et assúmpsit me de aquis multis; 
 18 erípuit me de inimícis meis fortíssimis † et ab his, qui odérunt me, * quóniam confortáti sunt super me. 
 19 Oppugnavérunt me in die afflictiónis meæ, * et factus est Dóminus fulciméntum meum; 
-20 et edúxit me in latitúdinem, * salvum me fecit, quóniam vóluit me. * 21 Et retríbuet mihi Dóminus secúndum iustítiam meam 
-et secúndum puritátem mánuum meárum reddet mihi, 
+20 et edúxit me in latitúdinem, * salvum me fecit, quóniam vóluit me.
+21 Et retríbuet mihi Dóminus secúndum iustítiam meam * et secúndum puritátem mánuum meárum reddet mihi, 
 22 quia custodívi vias Dómini, * nec ímpie recéssi a Deo meo. 
 23 Quóniam ómnia iudícia eius in conspéctu meo, * et iustítias eius non réppuli a me; 
 24 et fui immaculátus cum eo * et observávi me ab iniquitáte. 
@@ -456,8 +456,7 @@ in ipso sperávit cor meum, et adiútus sum, † et exsultávit cor meum, * et i
  
 PSALMUS 29 (28) 
 1 Afférte Dómino, fílii Dei, ** afférte Dómino glóriam et poténtiam, 
-2 afférte Dómino glóriam nóminis eius, 
-adoráte Dóminum in splendóre sancto. 
+2 afférte Dómino glóriam nóminis eius, * adoráte Dóminum in splendóre sancto. 
 3 Vox Dómini super aquas; † Deus maiestátis intónuit, * Dóminus super aquas multas. 
 4 Vox Dómini in virtúte, * vox Dómini in magnificéntia. 
 5 Vox Dómini confringéntis cedros; * et confrínget Dóminus cedros Líbani. 
@@ -769,8 +768,8 @@ Spera in Deo, quóniam adhuc confitébor illi, * salutáre vultus mei et Deus me
 9 In die mandávit Dóminus misericórdiam suam, † et nocte cánticum eius apud me est: * orátio ad Deum vitæ meæ. 
 10 Dicam Deo: « Suscéptor meus es. † Quare oblítus es mei, * et quare contristátus incédo, dum afflígit me inimícus? ». 
 11 Dum confringúntur ossa mea, † exprobravérunt mihi, qui tríbulant me, * dum dicunt mihi quotídie: « Ubi est Deus tuus? ».  
-12 Quare tristis es, ánima mea, * et quare conturbáris in me? * Spera in Deo, quóniam adhuc confitébor illi, 
-salutáre vultus mei et Deus meus. 
+12 Quare tristis es, ánima mea, * et quare conturbáris in me?
+Spera in Deo, quóniam adhuc confitébor illi, * salutáre vultus mei et Deus meus. 
  
 PSALMUS 43 (42) 
 1 Iúdica me, Deus, † et discérne causam meam de gente non sancta; * ab hómine iníquo et dolóso érue me. 
@@ -1000,7 +999,6 @@ mollíti sunt sermónes eius super óleum, * et ipsi sunt gládii destrícti.
 Viri sánguinum et dolósi non dimidiábunt dies suos; * ego autem sperábo in te, Dómine. 
  
 PSALMUS 56 (55) 
-
 2 Miserére mei, Deus, quóniam conculcávit me homo, * tota die impúgnans oppréssit me. 
 3 Conculcavérunt me inimíci mei tota die, * quóniam multi pugnant advérsum me, Altíssime. 
 4 In quacúmque die timébo, * ego in te sperábo. 
@@ -1775,8 +1773,8 @@ hoc tamen erit ad intéritum in sǽculum sǽculi; * 9 tu autem altíssimus in æ
  
 PSALMUS 93 (92) 
 1 Dóminus regnávit! Decórem indútus est; * indútus est Dóminus, fortitúdine præcínxit se. 
-Etenim firmávit orbem terræ, qui non commovébitur. * 2 Firmáta sedes tua ex tunc, 
-a sǽculo tu es. 
+Etenim firmávit orbem terræ, * qui non commovébitur.
+2 Firmáta sedes tua ex tunc, * a sǽculo tu es. 
 3 Elevavérunt flúmina, Dómine. † elevavérunt flúmina vocem suam, * elevavérunt flúmina fragórem suum. 
 4 Super voces aquárum multárum, † super poténtes elatiónes maris, * potens in altis Dóminus. 
 5 Testimónia tua credibília facta sunt nimis; * domum tuam decet sanctitúdo Dómine, in longitúdinem diérum. 
@@ -1881,8 +1879,7 @@ introíte in conspéctu eius * in exsultatióne.
 5 Quóniam suávis est Dóminus; † in ætérnum misericórdia eius, * et usque in generatiónem et generatiónem véritas eius. 
  
 PSALMUS 101 (100) 
-1 David. PSALMUS. 
-Misericórdiam et iudícium cantábo; * tibi, Dómine, psallam. 
+1 Misericórdiam et iudícium cantábo; * tibi, Dómine, psallam. 
 2 Intéllegam in via immaculáta; * quando vénies ad me? 
 Perambulábo in innocéntia cordis mei, * in médio domus meæ. 
 3 Non propónam ante óculos meos rem iniústam; † faciéntem prævaricatiónes ódio habébo, * non adhærébit mihi. 
@@ -2087,8 +2084,7 @@ ut confiteámur nómini sancto tuo * et gloriémur in laude tua.
 48 Benedíctus Dóminus, Deus Israël, † a sǽculo et usque in sǽculum. * Et dicet omnis pópulus: « Fiat, fiat ».  
  
 PSALMUS 107 (106) 
-1 ALLELUIA. 
-Confitémini Dómino, quóniam bonus, * quóniam in sǽculum misericórdia eius. 
+1 Confitémini Dómino, quóniam bonus, * quóniam in sǽculum misericórdia eius. 
 2 Dicant, qui redémpti sunt a Dómino, * quos redémit de manu adversárii 
 3 et de regiónibus congregávit eos, † a solis ortu et occásu, * ab aquilóne et mari. 
 4 Erravérunt in solitúdine, in inaquóso, * viam civitátis habitatiónis non invenérunt. 
@@ -2254,8 +2250,7 @@ benedícet dómui Israël, * benedícet dómui Aaron,
 18 sed nos, qui vívimus, benedícimus Dómino * ex hoc nunc et usque in sǽculum. 
  
 PSALMUS 116 (114, 1-9; 115) 
-1 ALLELUIA. 
-Diléxi, quóniam exáudit Dóminus * vocem deprecatiónis meæ. 
+1 Diléxi, quóniam exáudit Dóminus * vocem deprecatiónis meæ. 
 2 Quia inclinávit aurem suam mihi, * cum in diébus meis invocábam. 
 3 Circumdedérunt me funes mortis, * et angústiæ inférni invenérunt me.
 Tribulatiónem et dolórem invéni † 4 et nomen Dómini invocábam: * « O Dómine, líbera ánimam meam ». 
@@ -2306,8 +2301,7 @@ PSALMUS 118 (117)
 24 Hæc est dies, quam fecit Dóminus: * exsultémus et lætémur in ea. 
 25 O Dómine, salvum me fac; * o Dómine, da prosperitátem! 
 26 Benedíctus, qui venit in nómine Dómini. * Benedícimus vobis de domo Dómini. 
-27 Deus Dóminus et illúxit nobis. * Instrúite sollemnitátem in ramis condénsis 
-usque ad córnua altáris. 
+27 Deus Dóminus et illúxit nobis. * Instrúite sollemnitátem in ramis condénsis * usque ad córnua altáris. 
 28 Deus meus es tu, et confitébor tibi, * Deus meus, et exaltábo te. 
 29 Confitémini Dómino, quóniam bonus, * quóniam in sǽculum misericórdia eius. 
  
@@ -2746,8 +2740,7 @@ PSALMUS 140 (139)
 14 Verúmtamen iusti confitebúntur nómini tuo, * et habitábunt recti in conspéctu tuo. 
  
 PSALMUS 141 (140) 
-1 PSALMUS. David. 
-Dómine, clamávi ad te, ad me festína; * inténde voci meæ, cum clamo ad te. 
+1 Dómine, clamávi ad te, ad me festína; * inténde voci meæ, cum clamo ad te. 
 2 Dirigátur orátio mea sicut incénsum in conspéctu tuo, * elevátio mánuum meárum ut sacrifícium vespertínum.  
 3 Pone, Dómine, custódiam ori meo * et vigíliam ad óstium labiórum meórum. 
 4 Non declínes cor meum in verbum malítiæ * ad machinándas machinatiónes in impietáte 
@@ -2843,8 +2836,7 @@ PSALMUS 146 (145)
 qui custódit veritátem in sǽculum, † 7 facit iudícium oppréssis, * dat escam esuriéntibus. 
 Dóminus solvit compedítos, * 8 Dóminus illúminat cæcos, 
 Dóminus érigit depréssos, * Dóminus díligit iustos, 
-9 Dóminus custódit ádvenas, † pupíllum et víduam susténtat 
-et viam peccatórum dispérdit. 
+9 Dóminus custódit ádvenas, † pupíllum et víduam susténtat * et viam peccatórum dispérdit. 
 10 Regnábit Dóminus in sǽcula, * Deus tuus, Sion, in generatiónem et generatiónem. 
  
 PSALMUS 147 (146, 1-11; 147) 
