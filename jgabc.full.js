@@ -106,63 +106,63 @@ var vCodes = {
   Vbar: 'v',
   Rbar: 'r'
 };
-var _indicesLig = {
-  flat: 'b', // these only exist for spaces (acegikm)
-  natural: 'a', // ditto
-  punctum: 'p',
-  diamond: 'n',
-  virga: 'v',
-  v: 'v',
-  leftVirga: 'c',
-  quilisma: 'q',
-  w: 'q',
-  podatus: 'P',
-  bottomPartPodatus: 0xE154,
-  topPartPodatus: 'P',
-  o: 'o',
-  O: 'O',
-  diamond_tilde: 'N',
-  ">": 'L',
-  "<": 'k',
-  upper_tilde: 'K',
-  lower_tilde: 'l',
-  porrectus: 'R',
-  r: 'w',
-  s: 's',
-  custos: 'u',
-  '+': 'u',
-  dot: '.',
-  apos: 'I', //ichtus
-  ictus: 'I',
-  ictus_above: 'I',
-  ictus_below: 'i',
-  underscore: 'H',
-  episema: 'H',
-  episema_above: 'H',
-  episema_below: 'h',
-  underscore_longer: 0xe2e2,
-  episema_longer: 0xe2e2,
-  clivis: 'C',
-  accent_above_staff: '~', // four different heights
-  connecting_line: 'x',
-  decorative_line: 'X'
-};
+// var _indicesLig = {
+//   flat: 'b', // these only exist for spaces (acegikm)
+//   natural: 'a', // ditto
+//   punctum: 'p',
+//   diamond: 'n',
+//   virga: 'v',
+//   v: 'v',
+//   leftVirga: 'c',
+//   quilisma: 'q',
+//   w: 'q',
+//   podatus: 'P',
+//   bottomPartPodatus: 0xE154,
+//   topPartPodatus: 'P',
+//   o: 'o',
+//   O: 'O',
+//   diamond_tilde: 'N',
+//   ">": 'L',
+//   "<": 'k',
+//   upper_tilde: 'K',
+//   lower_tilde: 'l',
+//   porrectus: 'R',
+//   r: 'w',
+//   s: 's',
+//   custos: 'u',
+//   '+': 'u',
+//   dot: '.',
+//   apos: 'I', //ichtus
+//   ictus: 'I',
+//   ictus_above: 'I',
+//   ictus_below: 'i',
+//   underscore: 'H',
+//   episema: 'H',
+//   episema_above: 'H',
+//   episema_below: 'h',
+//   underscore_longer: 0xe2e2,
+//   episema_longer: 0xe2e2,
+//   clivis: 'C',
+//   accent_above_staff: '~', // four different heights
+//   connecting_line: 'x',
+//   decorative_line: 'X'
+// };
 var fontclass = "goudy"
-var _neumeLig=function(a,b){
-  if(arguments.length<2)return"";
-  if(typeof(a)!=="string") {
-    if(arguments.length==2 && typeof(a)=="number"){
-      return _neumeChar(a,b);
-    }
-    return"";
-  }
-  var result='';
-  var i=1;
-  while(i<arguments.length){
-    result += _ci[arguments[i++]];
-  }
-  return result + a;
-}
+// var _neumeLig=function(a,b){
+//   if(arguments.length<2)return"";
+//   if(typeof(a)!=="string") {
+//     if(arguments.length==2 && typeof(a)=="number"){
+//       return _neumeChar(a,b);
+//     }
+//     return"";
+//   }
+//   var result='';
+//   var i=1;
+//   while(i<arguments.length){
+//     result += _ci[arguments[i++]];
+//   }
+//   return result + a;
+// }
 var _neumeChar=function(a,b){
   if(arguments.length<2)return"";
   var base=a;
@@ -177,15 +177,15 @@ var _neumeChar=function(a,b){
   return String.fromCharCode(base + a);
 }
 
-var _clefSpanLig=function(tone){
-  var line = parseInt(tone.clef.slice(-1),10);
-  var num=line*2-1;
-  var extra="";
-  if(tone.clef.length==3) {
-    extra += neume(indices.flat,num+1) + "-";
-  }
-  return make('tspan',String(num) + (tone.index==2? "d" : "f") + "-" + extra);
-}
+// var _clefSpanLig=function(tone){
+//   var line = parseInt(tone.clef.slice(-1),10);
+//   var num=line*2-1;
+//   var extra="";
+//   if(tone.clef.length==3) {
+//     extra += neume(indices.flat,num+1) + "-";
+//   }
+//   return make('tspan',String(num) + (tone.index==2? "d" : "f") + "-" + extra);
+// }
 var _clefSpanChar=function(tone,minDy){
   var result,
       line = parseInt(tone.clef.slice(-1),10),
@@ -3440,19 +3440,8 @@ $(function() {
         setTimeout(init, 100);
       } else {
         tWidth=textWidth("abcdefghijklmnopqrstuvwxyz",fontclass,true);
-        var cWidth1=getChantWidth("4q5P");
-        var cWidth2=getChantWidth("P");
         notewidth = getChantWidth("p");
         cWidth = getChantWidth("p p p p p p p p p p p p p p p");
-        if(cWidth1==cWidth2) {
-          neume = _neumeLig;
-          indices=_indicesLig;
-          makeClefSpan=_clefSpanLig;
-        } else {
-          neume = _neumeChar;
-          indices=_indicesChar;
-          makeClefSpan=_clefSpanChar;
-        }
         if(tWidth != oldTWidth) {
           //console.info('twidth = ' + tWidth + '; (old was ' + oldTWidth + ')');
           _txtWidths={};
