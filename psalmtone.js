@@ -427,7 +427,7 @@ function syllable(match,index,bi) {
         newmatch.push(bi.makeSylSubstitutions(match[i]));
       };
       match=newmatch;
-    }if(bi && bi.makeSylSubstitutions)
+    }
     var elision=false;
     var lpi,rpi;
     lpi=match[2].lastIndexOf('(');
