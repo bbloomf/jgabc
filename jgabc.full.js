@@ -766,7 +766,9 @@ var finishStaff=function(curStaff){
   staffInfo.eTrans.setAttribute('y',y+fontsize);
   
   staffInfo.eText.setAttribute("transform", "translate("+staffInfo.x+","+staffInfo.vOffset+")");
+  staffInfo.eText.setAttribute("class", "system"+line);
   staffInfo.eTrans.setAttribute("transform", "translate("+staffInfo.x+","+staffInfo.vOffset+")");
+  staffInfo.eTrans.setAttribute("class", "system"+line);
   if(result){
     var $result = $(result);
     $result.append($result.children('text'));
@@ -958,7 +960,7 @@ function relayoutChant(svg){
       var i,result={clefTone:9};
       for(i in svg.clefs){
         try {
-          var punctumI = parseInt($(svg).find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
+          var punctumI = parseInt($svg.find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
           if(punctumI<punctumId)result=svg.clefs[i].info;
           else break;
         } catch(e){}
@@ -1145,12 +1147,12 @@ function relayoutChant(svg){
   trimStaff(curStaff);
   while($staff.length){
     ++staffI;
-    $staff = $svg.find('#system'+staffI);
+    $staff = $svg.find('#system'+staffI+',.system'+staffI);
     $staff.remove();
   }
-  var height = $(svg).children("g")[0].getBBox().height + extraHeight + _heightCorrection - _defText.getExtentOfChar("q").height;
+  var height = $svg.children("g")[0].getBBox().height + extraHeight + _heightCorrection - _defText.getExtentOfChar("q").height;
   svg.setAttribute('height',height);
-  $(svg).height(height);
+  $svg.height(height);
 }
 
 function getChant(text,svg,result,top) {
@@ -3333,7 +3335,7 @@ $(function() {
       }
     });
     elements = $('.jgabc');
-    setTimeout(init,100);
+    if(elements.length) setTimeout(init,500);
   }
   var _timeoutUpdate=null;
   var _timeoutUpdateWidth=null;
@@ -3353,6 +3355,7 @@ $(function() {
       if(onlyNewOnes && element.hasSvg) return;
       updateChant(element.innerHTML, old, true);
       element.hasSvg = true;
+      relayoutChant(old);
     });
   }
   var updateAllChantWidthHelper = function(dontDelay){
@@ -3462,6 +3465,7 @@ $(function() {
     }
   };
   setTimeout(init, 100);
+  updateGabc();
 }
 );
 var processDraggedFile = function(txt){return txt;};
