@@ -1324,7 +1324,7 @@ function getChant(text,svg,result,top) {
             if(makeLinks && neumeId==selectedNeume) {
               txtInitial.setAttribute('class','greinitial selectable selected neume'+neumeId + ' ' + fontclass);
             } else {
-              txtInitial.setAttribute('class','greinitial selectable neume'+neumeId+ ' ' + fontclass);
+              txtInitial.setAttribute('class','greinitial ' + (makeLinks? 'selectable ' : '') + 'neume'+neumeId+ ' ' + fontclass);
             }
             result.appendChild(txtInitial);
             var lenInitial=txtInitial.getComputedTextLength();
@@ -1619,7 +1619,7 @@ function getChant(text,svg,result,top) {
           span.setAttribute("class", activeClass + ' selectable selected');
           selectedNeumeTextTag = $(span);
         } else {
-          span.setAttribute("class", activeClass + ' selectable');
+          span.setAttribute("class", activeClass + (makeLinks? ' selectable' : ''));
         }
         span.neume = cneume;
         xoffset = nextXoffsetTextMin;
