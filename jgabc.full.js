@@ -1293,8 +1293,7 @@ function getChant(text,svg,result,top) {
           tContent = tContent.replace(ton.choralSign,'');
         }
       }
-      defChant.textContent = tContent;
-      cneume.wChant = defChant.getComputedTextLength();
+      cneume.wChant = getChantWidth(tContent);
       if(cneume.gabc==clef)wClef=cneume.wChant;
       if(currentWord.length>0 && previousMatch && (previousMatch[7]||previousMatch[8])) {
         words.push(currentWord);
@@ -3355,7 +3354,6 @@ $(function() {
       if(onlyNewOnes && element.hasSvg) return;
       updateChant(element.innerHTML, old, true);
       element.hasSvg = true;
-      relayoutChant(old);
     });
   }
   var updateAllChantWidthHelper = function(dontDelay){
