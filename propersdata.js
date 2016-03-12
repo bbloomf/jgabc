@@ -6,9 +6,10 @@ var otherKeys = [
     {"key":"defunctorum","title":"Missa pro Defunctis","en":"Mass for the Dead"},
     {"key":"dedicatio","title":"Missa Dedicationis Ecclesiæ","en":"Mass of the dedication of a church"},
     {"key":"SCJ","title":"Missa votiva de Sacratissimo Corde Jesu","en":"Votive Mass of the Most Sacred Heart of Jesus"},
-    {"key":"Quad3m","title":"Monday in the 3rd week of Lent","en":"Monday in the 3rd week of Lent"},
-    {"key":"Quad4m","title":"Monday in the 4th week of Lent","en":"Monday in the 4th week of Lent"},
-    {"key":"Quad5m","title":"Monday in Passion Week","en":"Monday in Passion Week"}
+    {"key":"Quad3m","title":"Feria II post Dominica III Quadragesime","en":"Monday in the 3rd week of Lent"},
+    {"key":"Quad4m","title":"Feria II post Dominica IV Quadragesime","en":"Monday in the 4th week of Lent"},
+    {"key":"Quad5m","title":"Feria II in Passionis","en":"Monday in Passion Week"}
+    {"key":"Quad6m","title":"Feria II Hebdomadae Sancte","en":"Monday in Holy Week"}
 ];
 var saintKeys = [
     {"title":"Selige festum sancti... (BETA)","en":"Select a saint feast... (BETA)"},
@@ -292,6 +293,7 @@ var proprium = {
     "Quad3m": {"introitusID": "839", "gradualeID": "118", "tractusID": "425", "offertoriumID": "842", "communioID": "931"},
     "Quad4m": {"introitusID": "458", "gradualeID": "886", "tractusID": "425", "offertoriumID": "718", "communioID": "1210"},
     "Quad5m": {"introitusID": "138", "gradualeID": "621", "tractusID": "425", "offertoriumID": "848", "communioID": "81"},
+    "Quad6m": {"introitusID": "226", "gradualeID": "783", "tractusID": "425", "offertoriumID": "411", "communioID": "196"},
     /* START_proprium */
     "Apr11": {"communioID": "666", "gradualeID": "1119", "alleluiaID": "228", "introitusID": "674", "offertoriumID": "358"},
     "Apr11Quad": {"tractusID": "1085", "communioID": "666", "gradualeID": "1119", "introitusID": "674", "offertoriumID": "358"},
