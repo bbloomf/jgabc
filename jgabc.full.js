@@ -915,9 +915,9 @@ var addCustos=function(staff,cneume,justify,custosXoffset) {
   if(ledgerAbove||ledgerBelow)staff.custosLedger=cneume.custosLedger=insertLedger(ledgerAbove,staff,t,true);
 }
 
-function relayoutChant(svg){
-  var width = svgWidth = $(svg.parentNode).width(),
-      $svg = $(svg),
+function relayoutChant(svg, width){
+  width = svgWidth = width || svg.parentNode.clientWidth;
+  var $svg = $(svg),
       $svgg = $svg.children('g'),
       $tmp = $svg.find('#commentary'),
       x = 0,
@@ -3369,18 +3369,25 @@ $(function() {
     try {
       relayoutChant(svg);
     } catch(ex) { }
+    var chantSvgs = [];
     $.each(elements,function(index, element) {
       var old=$(element).next(".jgabc-svg").find("svg")[0];
       if(!old) return;
-      relayoutChant(old);
+      $(old).data('width', old.parentNode.clientWidth)
+      chantSvgs.push(old);
     });
-    $.each(otherElements,function(i,e){
-      var $old=$(e),
-          old=$old.is('svg')?$old[0] : $old.find('svg')[0];
-      if(!old) return;
-      relayoutChant(old);
+    $.each(chantSvgs, function(index, old) {
+      var $old = $(old);
+      relayoutChant(old,$old.data('width'));
       $old.trigger('relayout');
     });
+    // $.each(otherElements,function(i,e){
+    //   var $old=$(e),
+    //       old=$old.is('svg')?$old[0] : $old.find('svg')[0];
+    //   if(!old) return;
+    //   relayoutChant(old);
+    //   $old.trigger('relayout');
+    // });
   }
   //var updateAllChantWidth;
   if(navigator.userAgent.match(/\bChrome\b/)){
