@@ -332,7 +332,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]\s*$/,'');
     return s;
   };
   var getSylCount = function(splitArray) {
@@ -592,6 +592,8 @@ $(function(){
     if(isAl) {
       if(sel[part].style=='psalm-tone1') {
         lines = sel[part].text.split('\n');
+        var i = lines.length - 1;
+        lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
         var line = lines[0];
         gabc = header + '(' + tone.clef + ') ';
         if(line.match(/ij|bis/)) {
@@ -600,8 +602,6 @@ $(function(){
               $('#selStyleAlleluia').val('psalm-tone1').change();
             }
           }
-          var i = lines.length - 1;
-          lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
           line = line.match(/s*([^!?.;,:\s]+)/)[1];
           line = capitalizeForBigInitial(line + ', ' + line + '.');
           gabc += applyPsalmTone({
