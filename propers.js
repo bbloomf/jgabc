@@ -449,29 +449,27 @@ $(function(){
   }
   
   var updateStyle = function(part,style){
-    if(sel[part].style != style) {
-      sel[part].style = style;
-      var capPart = part[0].toUpperCase() + part.slice(1);
-      var $selToneEnding = $('#selToneEnding' + capPart),
-          $selTone = $('#selTone' + capPart),
-          $cbSolemn = $('#cbSolemn' + capPart);
-      if(style.match(/^psalm-tone/)) {
-        if(part != 'graduale' || !isAlleluia(part,sel[part].text)) {
-          $selToneEnding.show();
-          $cbSolemn.show();
-        }
-        $selTone.attr('disabled',false);
-      } else {
-        $selToneEnding.hide();
-        $cbSolemn.hide();
-        var gabc = sel[part].gabc;
-        $selTone.attr('disabled',true);
-        if(gabc) {
-          $selTone.val(getHeader(gabc).mode);
-        }
+    sel[part].style = style;
+    var capPart = part[0].toUpperCase() + part.slice(1);
+    var $selToneEnding = $('#selToneEnding' + capPart),
+        $selTone = $('#selTone' + capPart),
+        $cbSolemn = $('#cbSolemn' + capPart);
+    if(style.match(/^psalm-tone/)) {
+      if(part != 'graduale' || !isAlleluia(part,sel[part].text)) {
+        $selToneEnding.show();
+        $cbSolemn.show();
       }
-      $selTone.change();
+      $selTone.attr('disabled',false);
+    } else {
+      $selToneEnding.hide();
+      $cbSolemn.hide();
+      var gabc = sel[part].gabc;
+      $selTone.attr('disabled',true);
+      if(gabc) {
+        $selTone.val(getHeader(gabc).mode);
+      }
     }
+    $selTone.change();
   }
   
   var capitalizeForBigInitial = function(text) {
@@ -593,14 +591,12 @@ $(function(){
       if(sel[part].style=='psalm-tone1') {
         lines = sel[part].text.split('\n');
         var i = lines.length - 1;
-        lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
+        if(part == 'alleluia') lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
         var line = lines[0];
         gabc = header + '(' + tone.clef + ') ';
         if(line.match(/ij|bis/)) {
-          if(part=='graduale') {
-            if(sel['alleluia'].style!='psalm-tone1') {
-              $('#selStyleAlleluia').val('psalm-tone1').change();
-            }
+          if(part=='graduale' && sel['alleluia'].style=='psalm-tone1') {
+            lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
           }
           line = line.match(/s*([^!?.;,:\s]+)/)[1];
           line = capitalizeForBigInitial(line + ', ' + line + '.');
@@ -618,17 +614,22 @@ $(function(){
               flexEqualsTenor: introitTone
             }) + " (::)\n";
         } else {
-          if(sel.graduale.style!='psalm-tone1') {
+          // dealing with an Alleluia verse during the Easter season (one without "bis" or "ij" after the Alleluia antiphon)
+          if(sel.graduale.style=='psalm-tone1') {
+            $('#selStyleGraduale').change();
+          } else {
             $('#selStyleGraduale').val('psalm-tone1').change();
           }
         }
       } else {
+        // alleluia, but not full psalm tone:
         if(part=='graduale') {
           if(sel['alleluia'].style=='psalm-tone1') {
             $('#selStyleAlleluia').val('psalm-tone').change();
           }
         } else if(sel['graduale'].style=='psalm-tone1') {
-          $('#selStyleGraduale').val('psalm-tone').change();
+          // update graduale so that it doesn't end with an extra "alleluia"
+          $('#selStyleGraduale').change();
         }
         var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
         gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
@@ -799,7 +800,8 @@ $(function(){
           } else {
             if(isAlleluia('graduale',sel.graduale.text) &&
                 sel.graduale.style == 'psalm-tone1') {
-              $('#selStyleGraduale').val('psalm-tone').change();
+              // update graduale so that it doesn't end with an extra "alleluia"
+              $('#selStyleGraduale').change();
             }
           }
         }
