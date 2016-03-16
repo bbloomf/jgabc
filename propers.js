@@ -1,3 +1,23 @@
+// TODO: have these tones (from the Liber Usualis, p.96 for Alleluia to be sung at the Communion during Paschal Time) available for use with a psalm toned communion verse:
+// (c4)Al(fg~)le(e_d/fh//ghg/e!fg/hf/gvFE)lu(d!ewfef)ia(ed..) (::)
+// (f3)Al(hi~)le(gf/hg)lu(eg/igh)ia(gf..) (::)
+// (c4)Al(gh)le(gf/hvGF'/g)lu(egf//f)ia(fe..) (::)
+// (c4)Al(f)le(d./ghG'F/ghg)lu(egf//f)ia(fe..) (::)
+// (c3)Al(gxdf)le(e/hv/hf!gw!hvGE'/fw!gvFE)lu(de!fvED'/e)ia(ed..) (::)
+// (c4)Al(fg~)le(ixgiHG')lu(hg/gfg)ia(gf..) (::)
+// (c3)Al(f!gwh)le(hih___//gih.//fhgh.////fge___)lu(efe___)ia(e.) (::)
+// (c4)Al(g)le(ghfg)lu(gh/jhi)ia(hg..) (::)
+
+// Or these from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
+// (c4)Al(c)le(d)lu(ixed/hi)ia(hvhvGE//fd.) (::)
+// (f3)Al(ef~)le(f)lu(hf/fe~)ia(egf.) (::)
+// (c4)Al(e/ef)le(dg)lu(gih___!iwj)ia(ijh'___/ig/ge.) (::)
+// (c4)Al(e//ed~)le(e/ghe/fe)lu(de~)ia(e.) (::)
+// (c3)Al(d/f'h~)le(hf__)lu(fh'/ih~)ia(i.////hiHF'/fd.) (::)
+// (c4)Al(f/fg)le(gf)lu(ixf!gi//hig//g)ia(gf..) (::)
+// (c3)Al(ef)le(e)lu(e!f'h/ihi)ia(ie..) (::)
+// (c4)Al(g)le(hvGF/ghg)lu(fh!jvIG'h)ia(g.) (::)
+
 var selDay,selTempus='',selPropers,sel={
   tractus:{},
   offertorium:{},
