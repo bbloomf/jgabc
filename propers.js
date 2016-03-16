@@ -511,7 +511,9 @@ $(function(){
   var shiftGabcForClefChange = function(gabc,oldClef,newClef) {
     if(newClef.length < 2)return;
     var baseClefI = parseInt(oldClef[1],10);
+    //if(oldClef[0]=='f') baseClefI += 2;
     var clefI = parseInt(newClef[1],10);
+    //if(newClef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
     return shiftGabc(gabc,diff);
   }
@@ -596,7 +598,6 @@ $(function(){
       tone = g_tones[mode + '.'];
     }
     if(!tone) return;
-    _clef = tone.clef;
     var gMediant = (solemn && tone.solemn) || tone.mediant;
     var gTermination = tone.termination;
     if(!gTermination) {
@@ -656,9 +657,9 @@ $(function(){
         var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
         if(clef) {
           clef = clef[1];
-          if(clef != _clef) {
-            gMediant = shiftGabcForClefChange(gMediant,clef,_clef);
-            gTermination = shiftGabcForClefChange(gTermination,clef,_clef);
+          if(clef != tone.clef) {
+            gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
+            gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
           }
         }
         lines = sel[part].text.split('\n');
