@@ -498,8 +498,8 @@ function getEndings(tone) {
   return endings;
 }
 
-function getFlexGabc(mediant) {
-  if(typeof(mediant)=="string") mediant = getGabcTones(mediant);
+function getFlexGabc(mediant,clef) {
+  if(typeof(mediant)=="string") mediant = getGabcTones(mediant,clef);
   var toneTenor = mediant.toneTenor;
   var toneFlex = mediant.toneFlex;
   return toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneFlex + "r " + toneFlex + ".";
@@ -507,6 +507,7 @@ function getFlexGabc(mediant) {
 function applyPsalmTone(options) {
   var text = options.text,
       gabc = options.gabc,
+      clef = options.clef,
       useOpenNotes = options.useOpenNotes || false,
       useBoldItalic = options.useBoldItalic || false,
       firstPrefix = options.firstPrefix || false,
@@ -562,12 +563,12 @@ function applyPsalmTone(options) {
     suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
   var syl = getSyllables(text,bi);
-  var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor) : gabc;
+  var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor,clef) : gabc;
   if(typeof(toneList.eval)=="function"){
     t = syl.slice(-3).reverse();
     toneList = toneList.eval();
   }
-  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort,undefined,flexEqualsTenor) : gabcShort)||toneList;
+  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort,undefined,flexEqualsTenor,clef) : gabcShort)||toneList;
   var tones = toneList.tones;
   var tonesShort = (gabcShort&&toneListShort.tones) || null;
   var r;
@@ -849,7 +850,8 @@ GABCTones.prototype.lastAccentI = function(){
     if(result.accent) return i;
   }
 }
-function getGabcTones(gabc,prefix,flexEqualsTenor) {
+function getGabcTones(gabc,prefix,flexEqualsTenor,clef) {
+  clef = clef || _clef || 'c4';
   var evaluatable = new Evaluatable(gabc,getGabcTones,prefix);
   if(!evaluatable.isString()) return evaluatable;
   if(prefix) gabc = prefix + gabc;
@@ -920,8 +922,8 @@ function getGabcTones(gabc,prefix,flexEqualsTenor) {
     if(flexEqualsTenor) {
       toneFlex = toneTenor;
     } else {
-      var clef = (_clef[0] == "f")? 6 : 1;
-      clef += (parseInt(_clef.slice(-1)) * 2);
+      var clefI = (clef[0] == "f")? 6 : 1;
+      clef = clefI + (parseInt(clef.slice(-1)) * 2);
       var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
       var code = toneTenor.charCodeAt(0);
       code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;

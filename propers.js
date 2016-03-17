@@ -540,11 +540,12 @@ $(function(){
     return gTertium;
   }
   
-  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones) {
+  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
     var gp = "Glória Pátri, et Fílio, † et Spirítui Sáncto.\nSicut érat in princípio, † et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
       text: gp[0],
       gabc: gMediant,
+      clef: clef,
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
@@ -555,6 +556,7 @@ $(function(){
     var temp = applyPsalmTone({
       text: gp[1][0].trim(),
       gabc: gTertium,
+      clef: clef,
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
@@ -562,6 +564,7 @@ $(function(){
     temp = applyPsalmTone({
       text: gp[1][1].trim(),
       gabc: gTermination,
+      clef: clef,
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
@@ -600,6 +603,7 @@ $(function(){
       tone = g_tones[mode + '.'];
     }
     if(!tone) return;
+    var clef = tone.clef;
     var gMediant = (solemn && tone.solemn) || tone.mediant;
     var gTermination = tone.termination;
     if(!gTermination) {
@@ -626,6 +630,7 @@ $(function(){
           gabc += applyPsalmTone({
               text: line,
               gabc: gTermination,
+              clef: clef,
               useOpenNotes: false,
               useBoldItalic: false,
               onlyVowel: false,
@@ -663,14 +668,14 @@ $(function(){
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
-        var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+        clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
         if(clef) {
           clef = clef[1];
           if(clef != tone.clef) {
             gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
             gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
           }
-        }
+        } else clef = tone.clef;
         lines = sel[part].text.split('\n');
       }
       lines.splice(0,1);
@@ -697,7 +702,7 @@ $(function(){
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
         }
-        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones);
+        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
@@ -706,6 +711,7 @@ $(function(){
           gabc += (italicNote||'') + applyPsalmTone({
             text: left[0].trim(),
             gabc: gMediant,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -721,6 +727,7 @@ $(function(){
           (italicNote||'') + applyPsalmTone({
             text: left[1].trim(),
             gabc: gTertium,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -737,6 +744,7 @@ $(function(){
           gabc += (italicNote||'') + applyPsalmTone({
             text: line[0].trim(),
             gabc: line.length==1? gTermination : gMediant,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -754,6 +762,7 @@ $(function(){
           applyPsalmTone({
             text: line[1].trim(),
             gabc: gTermination,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
