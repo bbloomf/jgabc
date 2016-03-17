@@ -8,16 +8,6 @@
 // (c3)Al(f!gwh)le(hih___//gih.//fhgh.////fge___)lu(efe___)ia(e.) (::)
 // (c4)Al(g)le(ghfg)lu(gh/jhi)ia(hg..) (::)
 
-// Or these from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
-// (c4)Al(c)le(d)lu(ixed/hi)ia(hvhvGE//fd.) (::)
-// (f3)Al(ef~)le(f)lu(hf/fe~)ia(egf.) (::)
-// (c4)Al(e/ef)le(dg)lu(gih___!iwj)ia(ijh'___/ig/ge.) (::)
-// (c4)Al(e//ed~)le(e/ghe/fe)lu(de~)ia(e.) (::)
-// (c3)Al(d/f'h~)le(hf__)lu(fh'/ih~)ia(i.////hiHF'/fd.) (::)
-// (c4)Al(f/fg)le(gf)lu(ixf!gi//hig//g)ia(gf..) (::)
-// (c3)Al(ef)le(e)lu(e!f'h/ihi)ia(ie..) (::)
-// (c4)Al(g)le(hvGF/ghg)lu(fh!jvIG'h)ia(g.) (::)
-
 var selDay,selTempus='',selPropers,sel={
   tractus:{},
   offertorium:{},
@@ -27,6 +17,18 @@ var selDay,selTempus='',selPropers,sel={
   alleluia:{},
   sequentia:{}
 },includePropers=[],
+// Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
+  alleluiaChantsAbreges=[
+    undefined,
+    "(c4)Al(c)le(d)lu(ixed/hi)ia.(hvhvGE//fd.) (::)",
+    "(f3)Al(ef~)le(f)lu(hf/fe~)ia.(egf.) (::)",
+    "(c4)Al(e/ef)le(dg)lu(gih___!iwj)ia.(ijh'___/ig/ge.) (::)",
+    "(c4)Al(e//ed~)le(e/ghe/fe)lu(de~)ia.(e.) (::)",
+    "(c3)Al(d/f'h~)le(hf__)lu(fh'/ih~)ia.(i.////hiHF'/fd.) (::)",
+    "(c4)Al(f/fg)le(gf)lu(ixf!gi//hig//g)ia.(gf..) (::)",
+    "(c3)Al(ef)le(e)lu(e!f'h/ihi)ia.(ie..) (::)",
+    "(c4)Al(g)le(hvGF/ghg)lu(fh!jvIG'h)ia.(g.) (::)"
+  ],
   isNovus = false,
   novusOption={},
   yearArray = ['A','B','C'];
@@ -177,9 +179,9 @@ $(function(){
         var truePart = isAlleluia(part,text)? 'alleluia' : part;
         if(part == 'graduale') {
           if(truePart == 'alleluia') {
-            $('#optFullPsalmToneGraduale').show();
+            $('#selStyleGraduale>option.alleluia').show();
           } else {
-            $('#optFullPsalmToneGraduale').hide();
+            $('#selStyleGraduale>option.alleluia').hide();
             var $style = $('#selStyleGraduale');
             if($style.val()=='psalm-tone1') {
               $style.val('psalm-tone');
@@ -610,7 +612,7 @@ $(function(){
     var lines;
     if(isAl) {
       if(sel[part].style=='psalm-tone1') {
-        lines = sel[part].text.split('\n');
+        lines = text.split('\n');
         var i = lines.length - 1;
         if(part == 'alleluia') lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
         var line = lines[0];
@@ -652,8 +654,15 @@ $(function(){
           // update graduale so that it doesn't end with an extra "alleluia"
           $('#selStyleGraduale').change();
         }
-        var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
-        gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
+        if(sel[part].style=='psalm-tone-sal') {
+          gabc = alleluiaChantsAbreges[mode];
+          if(text.split('\n')[0].match(/ij|bis/)) {
+            gabc = gabc.replace(')ia.(',')ia. <i>ij.</i>(');
+          }
+        } else {
+          var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
+          gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
+        }
         var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
         if(clef) {
           clef = clef[1];
@@ -829,6 +838,7 @@ $(function(){
         break;
       case 'psalm-tone':
       case 'psalm-tone1':
+      case 'psalm-tone-sal':
         $txt.val(sel[part].text);
         gabc = getPsalmToneForPart(part);
         break;

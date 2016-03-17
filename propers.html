@@ -136,7 +136,12 @@ label.sel-label{
         <select id="selToneGraduale" class='sel-style tones'></select>
         <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
         <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'></select>
-        <select id="selStyleGraduale" class='sel-style'><option value='full'>Full Gradual</option><option value='psalm-tone'>Psalm Toned</option><option id='optFullPsalmToneGraduale' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option></select>
+        <select id="selStyleGraduale" class='sel-style'>
+          <option value='full'>Full Gradual</option>
+          <option value='psalm-tone'>Psalm Toned</option>
+          <option class='alleluia' value='psalm-tone-sal' style='display:none'>Psalm Toned with simpler Alleluia</option>
+          <option class='alleluia' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option>
+        </select>
       </div>
       <br/>
       <div class="tap"><textarea id="txtGraduale"></textarea></div>
@@ -182,7 +187,12 @@ label.sel-label{
         <select id="selToneAlleluia" class='sel-style tones'></select>
         <!--<select id="selToneEndingAlleluia" class='sel-style endings alleluia'></select>
         <input id='cbSolemnAlleluia' type='checkbox' class='cbSolemn alleluia' title='Check this box to use the solemn psalm tone.'></select>-->
-        <select id="selStyleAlleluia" class='sel-style'><option value='full'>Full Alleluia</option><option value='psalm-tone'>Psalm Toned</option><option value='psalm-tone1'>Completely Psalm Toned</option></select>
+        <select id="selStyleAlleluia" class='sel-style'>
+          <option value='full'>Full Alleluia</option>
+          <option value='psalm-tone'>Psalm Toned</option>
+          <option value='psalm-tone-sal'>Psalm Toned with simpler Alleluia</option>
+          <option value='psalm-tone1'>Completely Psalm Toned</option>
+        </select>
       </div>
       <br/>
       <div class='tap'><textarea id="txtAlleluia"></textarea></div>
