@@ -944,37 +944,10 @@ function relayoutChant(svg, width){
       words = [],
       maxX = width - staffInfo.x - spaceBetweenNeumes;
       tagsBetweenText = [];
+  svg = $svg[0];
   staffInfo.ltone = 3;
   staffInfo.htone = 10;
   if($tmp.length)$tmp.attr('x',width-$tmp[0].getComputedTextLength());
-  
-    lastClefBeforeNeume=function(neumeId){
-      var i,result={clefTone:9};
-      for(i in svg.clefs){
-        if(i<neumeId)result=svg.clefs[i];
-        else break;
-      }
-      return result;
-    };
-    lastClefBeforePunctum=function(punctumId){
-      var i,result={clefTone:9};
-      for(i in svg.clefs){
-        try {
-          var punctumI = parseInt($svg.find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
-          if(punctumI<punctumId)result=svg.clefs[i].info;
-          else break;
-        } catch(e){}
-      }
-      return result;
-    }
-    var isPunctumFlat=function(punctumId,toneId){
-      var i,result=null;
-      for(i in svg.accidentals){
-        if(i<=punctumId)result=svg.accidentals[i];
-        else break;
-      }
-      return result;
-    }
   while(true){
     pneume = cneume;
     $lastText = $text;
@@ -984,7 +957,7 @@ function relayoutChant(svg, width){
     cneume = $neume[0]? $neume[0].neume : ($text[0]? $text[0].neume : {match:{}});
     delete cneume.custos;
     var $mask = $svgg.find('#neumemask'+neumeI);
-    $all = $.merge($.merge($.merge($.merge($(),$neume),$text),$trans),$mask);
+    $all = $().add($neume).add($text).add($trans).add($mask);
     curSyl = $all.toArray();
     currentUse = $neume.toArray().concat($mask.toArray());
     var hasLedgers = false;
@@ -1013,7 +986,7 @@ function relayoutChant(svg, width){
     cneume.x = x;
 
     if(Math.max(nextXTextMin, nextXChantMin) > maxX){
-      var clef = lastClefBeforeNeume(neumeI);
+      var clef = lastClefBeforeNeume(neumeI,svg);
       var wClef = clef? clef.wChant : 0;
       
       if($lastText.length && !pneume.lastOnLineHyphen && !$lastText.text().slice(-1).match(/-|\s/)){
@@ -1058,7 +1031,7 @@ function relayoutChant(svg, width){
       staffInfo = curStaff.info;
       maxX = width - staffInfo.x - (cneume.spaceBeforeNextNeume || spaceBetweenNeumes);
     }
-    curWord = curWord.concat($all.toArray());
+    curWord = curWord.concat(curSyl);
     
     if($neume.length){
       staffInfo.ltone = Math.min(staffInfo.ltone, cneume.info.ltone);
@@ -1178,9 +1151,9 @@ function getChant(text,svg,result,top) {
     result.setAttribute("transform", "translate(0," + staffoffset + ")");
     result.setAttribute("class", "caeciliae");
   }
+  svg.clefs=[];
+  svg.accidentals=[];
   if(makeLinks){
-    svg.clefs=[];
-    svg.accidentals=[];
     svg.tones=[];
     syllableOffsetCorrection = {};
   }
@@ -1278,12 +1251,12 @@ function getChant(text,svg,result,top) {
       }*/
       cneume.info = getChantFragment(cneume.gabc||'/',defs);
       clef=cneume.info.clef||clef;
+      if(cneume.info.clef){
+        svg.clefs[neumeId]=clefNeume=cneume;
+        clefNeume.clefs = [];
+        svg.accidentals[punctumId] = clef.length==3? -1 : null;
+      }
       if(makeLinks){
-        if(cneume.info.clef){
-          svg.clefs[neumeId]=clefNeume=cneume;
-          clefNeume.clefs = [];
-          svg.accidentals[punctumId] = clef.length==3? -1 : null;
-        }
         svg.tones=svg.tones.concat(cneume.info.tones);
       }
       var tContent = cneume.info.def.textContent;
@@ -1510,13 +1483,13 @@ function getChant(text,svg,result,top) {
             syllableGabcOriginalLength = cneume.gabc==''? 0 : parseInt($lastChild.attr('offset')) + parseInt($lastChild.attr('len'));
           }
           punctumId = setUpPunctaIn(use,punctumId,svg);
-          if(space){
-            var tmp = clef && clef.length==3? -1 : null;
-            if(svg.accidentals[svg.accidentals.length-1] != tmp){
-              svg.accidentals[punctumId] = tmp;
-            }
-          }
           //use.setAttributeNS(xlinkns, 'href', 'javascript:selectGabc('+(match.index+match[1].length)+','+cneume.gabc.length+')');
+        }
+        if(space){
+          var tmp = clef && clef.length==3? -1 : null;
+          if(svg.accidentals[svg.accidentals.length-1] != tmp){
+            svg.accidentals[punctumId] = tmp;
+          }
         }
         curStaff.appendChild(use);
         currentWord.push(use);
@@ -2674,6 +2647,34 @@ $(function() {
   textElem.setAttribute("transform", "translate(0," + staffoffset + ")");
   textElem.setAttribute("class", "caeciliae");
   svg.appendChild(textElem);
+  window.lastClefBeforeNeume=function(neumeId,svg){
+    var i,result={clefTone:9};
+    for(i in svg.clefs){
+      if(i<neumeId)result=svg.clefs[i];
+      else break;
+    }
+    return result;
+  };
+  window.lastClefBeforePunctum=function(punctumId,svg){
+    var i,result={clefTone:9};
+    for(i in svg.clefs){
+      try {
+        var punctumI = parseInt($(svg).find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
+        if(punctumI<punctumId)result=svg.clefs[i].info;
+        else break;
+      } catch(e){}
+    }
+    return result;
+  }
+  window.isPunctumFlat=function(punctumId,svg){
+    var i,result=null;
+    for(i in svg.accidentals){
+      if(i<=punctumId)result=svg.accidentals[i];
+      else break;
+    }
+    return result;
+  }
+
   var cp=$("#chant-preview,[id$=-preview][for]");
   if(cp.length==0) {
     $(document.body).append(svg);
@@ -2681,33 +2682,7 @@ $(function() {
     cp.append(svg);
     cp.append('<input type="text" id="txtSyllableGabc" style="display:none;position:absolute;padding:2px;width:5px;font-family:monospace;font-size:11pt;border:1px solid #aaa" spellcheck="false">');
     cp.append('<input type="text" id="txtSyllable" class="goudy" style="display:none;position:absolute;padding:2px;width:5px;border:1px solid #aaa" spellcheck="false">');
-    lastClefBeforeNeume=function(neumeId,svg){
-      var i,result={clefTone:9};
-      for(i in svg.clefs){
-        if(i<neumeId)result=svg.clefs[i];
-        else break;
-      }
-      return result;
-    };
-    lastClefBeforePunctum=function(punctumId,svg){
-      var i,result={clefTone:9};
-      for(i in svg.clefs){
-        try {
-          var punctumI = parseInt($(svg).find('#neume'+i).children()[0].id.match(/\d+$/)[0]);
-          if(punctumI<punctumId)result=svg.clefs[i].info;
-          else break;
-        } catch(e){}
-      }
-      return result;
-    }
-    var isPunctumFlat=function(punctumId,svg){
-      var i,result=null;
-      for(i in svg.accidentals){
-        if(i<=punctumId)result=svg.accidentals[i];
-        else break;
-      }
-      return result;
-    }
+
     ToneInfo.prototype.isPlayable = function(punctumId){
       return !this.clef && !this.accidental && typeof(this.index)=="number";
     };
@@ -3369,14 +3344,16 @@ $(function() {
     } catch(ex) { }
     var chantSvgs = [];
     $.each(elements,function(index, element) {
-      var old=$(element).next(".jgabc-svg").find("svg")[0];
-      if(!old) return;
-      $(old).data('width', old.parentNode.clientWidth)
-      chantSvgs.push(old);
+      var $old=$(element).next(".jgabc-svg").find("svg");
+      if($old.length == 0) return;
+      $old.data('width', $old[0].parentNode.clientWidth)
+      chantSvgs.push($old);
     });
-    $.each(chantSvgs, function(index, old) {
-      var $old = $(old);
-      relayoutChant(old,$old.data('width'));
+    $.each(chantSvgs, function(index, $old) {
+      var startTime = new Date();
+      relayoutChant($old,$old.data('width'));
+      var gabcProcessTime = new Date() - startTime;
+      console.info("Relayout chant time: " + gabcProcessTime);
       $old.trigger('relayout');
     });
     // $.each(otherElements,function(i,e){
