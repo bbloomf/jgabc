@@ -585,6 +585,31 @@ $(function(){
   var isAlleluia = function(part,text){
     return part=='alleluia' || (part=='graduale' && removeDiacritics(text).match(/^allelu[ij]a/i));
   }
+
+  var getFullGloriaPatriGabc = function(part) {
+    var gabc = part.gabc;
+    var tone = g_tones['Introit ' + part.mode];
+    var gMediant = tone.mediant;
+    var gTermination = tone.termination;
+    if(!gTermination) {
+      if(!(gTermination = tone.terminations[termination])) {
+        for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
+      }
+    }
+    var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+    if(clef) {
+      clef = clef[1];
+      if(clef != tone.clef) {
+        gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
+        gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+      }
+    } else clef = tone.clef;
+    var gAmenTones;
+    var header = getHeader(gabc);
+    gAmenTones = regexGabcGloriaPatri.exec(gabc);
+    if(!gAmenTones) gAmenTones = {index: gabc.length};
+    return gabc.slice(0,gAmenTones.index) + psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
+  }
   
   var getPsalmToneForPart = function(part){
     var text = sel[part].text;
@@ -829,8 +854,7 @@ $(function(){
         instant = (instant !== false);
     switch(sel[part].style) {
       case 'full':
-        $txt.val(sel[part].gabc);
-        gabc = sel[part].gabc;
+        $txt.val((gabc = sel[part].gabc));
         if(isAlleluia(part,sel[part].text)) {
           if(part == 'graduale') {
             if(sel.alleluia.style == 'psalm-tone1') {
@@ -844,6 +868,9 @@ $(function(){
             }
           }
         }
+        break;
+      case 'full-gloria':
+        $txt.val((gabc = getFullGloriaPatriGabc(sel[part])));
         break;
       case 'psalm-tone':
       case 'psalm-tone1':
