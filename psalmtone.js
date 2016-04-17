@@ -1114,6 +1114,7 @@ function normalizePsalm(text, psalmNum, psalmPart, includeGloriaPatri) {
 var _novaVulgata=null;
 var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
+  psalmNum = String(psalmNum);
   var dotIdx    = psalmNum.indexOf('.');
   var psalmPart = 0;
   if (dotIdx > 0){
@@ -1137,7 +1138,6 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
     }
   } else {
     var calledSuccess=false;
-    psalmNum = String(psalmNum);
     if(psalmNum.length < 3) psalmNum = ("00" + psalmNum).slice(-3);
     var t = $.ajax({url:"psalms/" + psalmNum,
       type: "GET",

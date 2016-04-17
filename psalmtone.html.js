@@ -633,11 +633,9 @@ function downloadAll(e){
           console.log('Write failed: ' + e.toString());
         };
 
-        // Create a new Blob and write it to log.txt.
-        var bb = new WebKitBlobBuilder(); // Note: window.WebKitBlobBuilder in Chrome 12.
-        
-        bb.append(byteArray.buffer);
-        fileWriter.write(bb.getBlob('application/zip'));
+        // Create a new Blob and write it to psalms.zip.
+        var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
+        fileWriter.write(blob);
       }, errorHandler);
     }, errorHandler);
   }
