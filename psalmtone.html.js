@@ -138,8 +138,8 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
             flex = true;
           }
         }
-        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true)
-            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true));
+        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true,false,i)
+            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true,i));
         vr += tempString + '\n';
         r += "<p style='line-height:100%;margin: 6pt 0px;'>"
           + tempString
@@ -579,9 +579,10 @@ function downloadAll(e){
     var psalmNum = psalms[i];    
     if(psalmNum){
       getPsalm(psalmNum,includeGloriaPatri,useNovaVulgata,function(text) {
+        text = text.replace(/ \d+ /g,' ');
         var alsoSolemn = isNaN(parseInt(psalmNum));
         for(var t in g_tones) {
-          if(isNaN(parseInt(t[0])))continue;
+          if(t != 'per.' && isNaN(parseInt(t[0])))continue;
           var ctone=g_tones[t];
           clef = ctone.clef;
           var solemn=false;

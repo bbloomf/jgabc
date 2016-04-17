@@ -1007,7 +1007,7 @@ function getWords(syls) {
   return r;
 }
 
-function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,verseNumber,prefix,suffix) {
+function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,verseNumber,prefix,suffix,verseIndex) {
   if(!sylsAfterBold) sylsAfterBold = 0;
   var f = bi_formats[format];
   if(!f) f = bi_formats.html;
@@ -1021,12 +1021,13 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   prefix = (prefix && f.verse[0])||"";
   suffix = (suffix && f.verse[1])||"";
   var tmp = prefix.split(',');
+  verseIndex = verseIndex || verseNum - 1;
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
-    prefix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
+    prefix = tmp[typeof(verseIndex)=='number'? verseIndex%tmp.length : 0];
   }
   tmp = suffix.split(',');
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
-    suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
+    suffix = tmp[typeof(verseIndex)=='number'? verseIndex%tmp.length : 0];
   }
   var syl = getSyllables(text,f);
   var doneAccents = 0;
@@ -1138,7 +1139,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
       var regex=new RegExp(regexBaseNovaVulgata.join(psalmNum));
       var psalm = regex.exec(_novaVulgata);
       if(psalm) {
-        success(normalizePsalm(psalm[1], psalmNum, psalmPart, includeGloriaPatri));
+        setTimeout(function() { success(normalizePsalm(psalm[1], psalmNum, psalmPart, includeGloriaPatri)); });
       } else {
         success("ERROR retrieving PSALMUS " + psalmNum);
       }
