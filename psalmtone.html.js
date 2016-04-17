@@ -5,13 +5,14 @@ var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
 var useFormat,useInitStyle,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
 var includeGloriaPatri;
-function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
+function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
   var actuallyUpdate=(typeof(_syl)=="undefined");
   if(!gSyl) gSyl = $("#versegabc").val();
   if(!syl) syl = $("#versetext").val();
   if(!_gShortMediant)_gShortMediant = gShortMediant;
   _syl = _syl || syl;
   _gSyl = _gSyl || gSyl;
+  clef = clef || _clef;
   var sameSyl = (_syl == last_syl);
   var sameGSyl = (_gSyl == last_gSyl);
   var lines = sameSyl? last_lines : _syl.split('\n');
@@ -68,7 +69,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   var asGabc = useFormat.match(/gabc/i);
   if(asCode) r+="<code>";
   if(!asGabc || !sameSyl || !sameGSyl || forceGabcUpdate) {
-    gabc = "(" + _clef + ")"
+    gabc = "(" + clef + ")"
     for(var i=0; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
       if(firstVerse || asGabc) {
@@ -558,8 +559,9 @@ function downloadAll(e){
   var includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
   var useNovaVulgata = $("#cbUseNovaVulgata")[0].checked;
   var byteArray;
+  var clef;
   var addPsalm=function(psalmNum,text,t,ending,gSyl,shortMediant,solemn){
-    var texts = updateEditor(true,text,gSyl,shortMediant);
+    var texts = updateEditor(true,text,gSyl,shortMediant,clef);
     var filename = versesFilename(bi_formats[useFormat],psalmNum,t,ending,solemn);
     var header = getHeader(localStorage.psalmHeader||'');
     header["initial-style"] = '0';
@@ -577,10 +579,11 @@ function downloadAll(e){
     var psalmNum = psalms[i];    
     if(psalmNum){
       getPsalm(psalmNum,includeGloriaPatri,useNovaVulgata,function(text) {
-        var alsoSolemn = parseInt(psalmNum).toString()=="NaN";
+        var alsoSolemn = isNaN(parseInt(psalmNum));
         for(var t in g_tones) {
-          if(t[0]=='V')continue;
+          if(isNaN(parseInt(t[0])))continue;
           var ctone=g_tones[t];
+          clef = ctone.clef;
           var solemn=false;
           var shortMediant = getGabcTones(ctone.shortMediant||ctone.solemn||ctone.mediant);
           if(ctone.terminations){

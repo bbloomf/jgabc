@@ -554,8 +554,7 @@ function applyPsalmTone(options) {
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
     prefix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
-  if(!firstPrefix && (Number(verseNum)==1))
-  {
+  if(!firstPrefix && (Number(verseNum)==1)) {
     prefix = "";
   }
   tmp = suffix.split(',');
@@ -1021,6 +1020,14 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   }
   prefix = (prefix && f.verse[0])||"";
   suffix = (suffix && f.verse[1])||"";
+  var tmp = prefix.split(',');
+  if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
+    prefix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
+  }
+  tmp = suffix.split(',');
+  if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
+    suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
+  }
   var syl = getSyllables(text,f);
   var doneAccents = 0;
   var donePrep = 0;
