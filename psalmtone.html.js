@@ -609,40 +609,15 @@ function downloadAll(e){
       for (i = 0; i < data.length; i++) {
           byteArray[i] = data.charCodeAt(i) & 0xff;
       }
-      window.webkitRequestFileSystem(window.TEMPORARY, 25*1024*1024 /*50MB*/, onInitFs, errorHandler);
+      var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
+      $('#aDownload')[0].href = URL.createObjectURL(blob);
+      $('#aDownload')[0].click();
+      $("#spnProgressZip").text("");
+      $("#lnkDownloadAll").show();
+      $("#lnkCancelZip").hide();
     }
   };
   getNextPsalm(0);
-  
-  //location.href="data:application/zip;base64,"+zip.generate();
-  var onInitFs = function(fs){
-    fs.root.getFile('psalms.zip', {create: true}, function(fileEntry) {
-      
-      // Create a FileWriter object for our zip
-      fileEntry.createWriter(function(fileWriter) {
-
-        fileWriter.onwriteend = function(e) {
-          console.log('Write completed.');
-          if(fileWriter.length > fileWriter.position){
-            fileWriter.truncate(fileWriter.position);
-          } else {
-            location.href=fileEntry.toURL();
-            $("#spnProgressZip").text("");
-            $("#lnkDownloadAll").show();
-            $("#lnkCancelZip").hide();
-          }
-        };
-
-        fileWriter.onerror = function(e) {
-          console.log('Write failed: ' + e.toString());
-        };
-
-        // Create a new Blob and write it to psalms.zip.
-        var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
-        fileWriter.write(blob);
-      }, errorHandler);
-    }, errorHandler);
-  }
 }
 function editorKeyDown(e) {
   if(e.which==9) {
