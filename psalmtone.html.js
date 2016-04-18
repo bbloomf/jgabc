@@ -610,8 +610,7 @@ function downloadAll(e){
           byteArray[i] = data.charCodeAt(i) & 0xff;
       }
       var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
-      $('#aDownload')[0].href = URL.createObjectURL(blob);
-      $('#aDownload')[0].click();
+      saveAs(blob, 'psalms.zip', true);
       $("#spnProgressZip").text("");
       $("#lnkDownloadAll").show();
       $("#lnkCancelZip").hide();
