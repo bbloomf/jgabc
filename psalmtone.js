@@ -1,7 +1,7 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\(\)\<]*\s*"*(?=\b|[(<]))(([a-z’'*]*)(?:\(([a-z’'*]+)\)([a-z’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi
+var regexWords = /((?:<\w+>)*)([^a-záéíóúýäëïöüÿąćçęłńśźż\(\)\<]*\s*"*(?=\b|[(<]))(([a-záéíóúýäëïöüÿąćçęłńśźż’'*]*)(?:\(([a-záéíóúýäëïöüÿąćçęłńśźż’'*]+)\)([a-záéíóúýäëïöüÿąćçęłńśźż’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
@@ -285,6 +285,7 @@ var Syl = (function(){
           words=this.words,
           accentsMarked=text.match(/[a-z]\*/i),
           prefix = null;
+      lang = lang || 'en';
       regexWords.exec("");
       while((m=regexWords.exec(text)) && m[0]){
         var w=(m[5]?(m[4]+m[5]+m[6]):m[3]).toLowerCase(),
@@ -300,10 +301,12 @@ var Syl = (function(){
         ai.forEach(function(i,j){
           ai[j] = (c += i.length);
         });
-        if(forceSyl && m[9])forceSyl=false;
+        if(forceSyl && (m[2] || m[9]))forceSyl=false;
         if(m[7] || (m[1]=='<v>' && m[2]=='\\')) forceSyl=true;
         if(forceSyl) {
           d=[];
+        } else if(lang != 'en') {
+          d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
         } else if(w in words){
           d=words[w];
         } else {

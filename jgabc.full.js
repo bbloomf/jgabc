@@ -338,7 +338,7 @@ var rtg = {
 
 //var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
 //var regexVowel = /(?:[cgq]u(?=[aeiouyáéëíóúýæœ])|[iy])?([aá]u|[ao][eé]?|[aeiouyáéëíóúýæœ])/i;
-var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
+var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáäąéëęíïóöúüýÿǽæœ́œ]+)/i;
 var transforms = [['/',' ',',',';',':','`',''],
       ["'",'_','+',';','|',',',''],
       [/\//g,/ /g,/,/g,/;/g,/:/g,/`/g,/!/g]];
