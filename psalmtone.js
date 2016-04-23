@@ -308,21 +308,27 @@ var Syl = (function(){
         if(forceSyl) {
           d=[];
         } else if(lang != 'en') {
-          d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
-          if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/)) {
-            // no vowels in this syllable, so use this as a "pre-word", as long as there are still more words to come.
-            var lastIndex = regexWords.lastIndex;
-            var stillMoreWords = text.slice(lastIndex).match(regexWords);
-            regexWords.lastIndex = lastIndex;
-            if(stillMoreWords) {
-              preword = w;
-              continue;
+          if(Hypher && Hypher.languages[lang]) {
+            d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
+            if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/)) {
+              // no vowels in this syllable, so use this as a "pre-word", as long as there are still more words to come.
+              var lastIndex = regexWords.lastIndex;
+              var stillMoreWords = text.slice(lastIndex).match(regexWords);
+              regexWords.lastIndex = lastIndex;
+              if(stillMoreWords) {
+                preword = w;
+                continue;
+              }
             }
           }
         } else if(w in words){
           d=words[w];
         } else {
-          d=[];
+          if(Hypher && Hypher.languages[lang]) {
+            d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
+          } else {
+            d=[];
+          }
           if(this.queue.indexOf(w)<0)this.queue.push(w);
         }
         if(preword) {
