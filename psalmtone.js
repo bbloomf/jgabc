@@ -287,6 +287,8 @@ var Syl = (function(){
           prefix = null;
       lang = lang || 'en';
       regexWords.exec("");
+      // in Polish, sometimes a word does not contain a vowel, and therefore has to be part of first syllable of the following word.
+      preword = '';
       while((m=regexWords.exec(text)) && m[0]){
         var w=(m[5]?(m[4]+m[5]+m[6]):m[3]).toLowerCase(),
             opi=m[4]?m[4].length:0,         // opening parenthesis index
@@ -307,11 +309,27 @@ var Syl = (function(){
           d=[];
         } else if(lang != 'en') {
           d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
+          if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/)) {
+            // no vowels in this syllable, so use this as a "pre-word", as long as there are still more words to come.
+            var lastIndex = regexWords.lastIndex;
+            var stillMoreWords = text.slice(lastIndex).match(regexWords);
+            regexWords.lastIndex = lastIndex;
+            if(stillMoreWords) {
+              preword = w;
+              continue;
+            }
+          }
         } else if(w in words){
           d=words[w];
         } else {
           d=[];
           if(this.queue.indexOf(w)<0)this.queue.push(w);
+        }
+        if(preword) {
+          w = preword + ' ' + w;
+          m[3] = preword + ' ' + m[3];
+          if(d[0]) d[0] += preword.length + 1;
+          preword = '';
         }
         var tmp=["",m[1],"",m[2]||"",m[2]||""],
             index=m.index+m[1].length+m[2].length,
