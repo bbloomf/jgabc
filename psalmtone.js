@@ -310,7 +310,7 @@ var Syl = (function(){
         } else if(lang != 'en') {
           if(Hypher && Hypher.languages[lang]) {
             d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
-            if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/)) {
+            if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/i)) {
               // no vowels in this syllable, so use this as a "pre-word", as long as there are still more words to come.
               var lastIndex = regexWords.lastIndex;
               var stillMoreWords = text.slice(lastIndex).match(regexWords);
@@ -319,7 +319,27 @@ var Syl = (function(){
                 preword = w;
                 continue;
               }
-            }
+            } else if(d.length) {
+              // check to make sure each syllable has a vowel:
+              for(var si=0, startIndex = 0; si<=d.length; ++si) {
+                var syl = w.substr(startIndex, d[si] || w.length);
+                var vowelCount = syl.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/gi);
+                vowelCount = vowelCount? vowelCount.length : 0;
+                if(vowelCount == 0) {
+                  // merge into the next syllable if there is one:
+                  if(si < d.length) {
+                    d[si] += d[si + 1] || (w.length - d.reduce(function(a,b){return a+b;}));
+                    d.splice(si + 1, 1);
+                    --si;
+                    continue;
+                  } else {
+                    // otherwise, merge into the previus syllable:
+                    d.splice(si - 1, 1);
+                  }
+                }
+                startIndex += d[si];
+              }
+            } 
           }
         } else if(w in words){
           d=words[w];
