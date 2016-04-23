@@ -882,8 +882,55 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    updateChant(gabc,$preview[0],instant);
+    updateExsurge(gabc,$preview[0]);
     updateTextSize(part);
+  }
+
+  var ctxt = new exsurge.ChantContext();
+  ctxt.lyricTextFont = "'Crimson Text', serif";
+  ctxt.lyricTextSize *= 1.2;
+  ctxt.dropCapTextFont = ctxt.lyricTextFont;
+  ctxt.annotationTextFont = ctxt.lyricTextFont;
+
+  var updateExsurge = function(gabc, chantContainer) {
+    gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+        return barType + '/.';
+      }).replace(/<sp>([VRA])\/<\/sp>/g,function(match,barType) {
+        return barType + '/.';
+      }).replace(/<\/?sc>/g,'%')
+      .replace(/<\/?b>/g,'*')
+      .replace(/<\/?i>/g,'_')
+      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<v>\\greheightstar<\/v>/g,'*');
+    var gabcHeader = '';
+    var headerEndIndex = gabc.indexOf('\n%%\n');
+    if(headerEndIndex >= 0) {
+      gabcHeader = gabc.slice(0,headerEndIndex).split(/\r?\n/);
+      gabc = gabc.slice(headerEndIndex + 4);
+    }
+    var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
+    var score = new exsurge.ChantScore(ctxt, mappings, true);
+    if(gabcHeader) {
+      gabcHeader = gabcHeader.reduce(function(result,line){
+        var match = line.match(/^([\w-_]+):\s*([^;\r\n]*)(?:;|$)/i);
+        if(match && !result[match[1]]) result[match[1]] = match[2];
+        return result;
+      }, {});
+      if(gabcHeader.annotation) {
+        score.annotation = new exsurge.Annotation(ctxt, gabcHeader.annotation);
+      }
+    }
+    layoutChant(score, chantContainer);
+  }
+
+  var layoutChant = function(score, chantContainer) {
+    // perform layout on the chant
+    score.performLayoutAsync(ctxt, function() {
+      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+        // render the score to svg code
+        chantContainer.innerHTML = score.createDrawable(ctxt);
+      });
+    });
   }
   
   var updateTextSize = function(part){
