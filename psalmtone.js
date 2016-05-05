@@ -308,7 +308,7 @@ var Syl = (function(){
         if(forceSyl) {
           d=[];
         } else if(lang != 'en') {
-          if(Hypher && Hypher.languages[lang]) {
+          if(typeof(Hypher)!='undefined' && Hypher.languages[lang]) {
             d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
             if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/i)) {
               // no vowels in this syllable, so use this as a "pre-word", as long as there are still more words to come.
@@ -344,7 +344,7 @@ var Syl = (function(){
         } else if(w in words){
           d=words[w];
         } else {
-          if(Hypher && Hypher.languages[lang]) {
+          if(typeof(Hypher)!='undefined' && Hypher.languages[lang]) {
             d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
           } else {
             d=[];
