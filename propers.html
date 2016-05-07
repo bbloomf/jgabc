@@ -29,15 +29,16 @@ textarea {
   padding-right:2px;
 }
 .preview-container {
-  padding:0 0.1in;
+  padding: 4px;
+  padding-right: 0;
 }
 .chant-parent{
   border:1px solid #aaa;
   width:100%;
-  min-height:121px
+  min-height:121px;
 }
 .chant-preview{
-  margin:0.1in auto auto;
+  /*display: inline;*/
 }
 select.sel-style{
   margin:1px 0 0;
@@ -126,7 +127,7 @@ label.sel-label{
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="introitus-preview-container" class='preview-container'>
-          <div id="introitus-preview" for='txtIntroitus' class='change-preview'></div>
+          <div id="introitus-preview" class='chant-preview'></div>
         </div>
       </div>
     </td></tr>
@@ -154,7 +155,7 @@ label.sel-label{
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="graduale-preview-container" class='preview-container'>
-          <div id="graduale-preview" for='txtGraduale' class='change-preview'></div>
+          <div id="graduale-preview" class='chant-preview'></div>
         </div>
       </div>
     </td></tr>
@@ -177,7 +178,7 @@ label.sel-label{
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="tractus-preview-container" class='preview-container'>
-          <div id="tractus-preview" for='txtTractus' class='change-preview'></div>
+          <div id="tractus-preview" class='chant-preview'></div>
         </div>
       </div>
     </td></tr>
@@ -205,7 +206,7 @@ label.sel-label{
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="alleluia-preview-container" class='preview-container'>
-          <div id="alleluia-preview" for='txtAlleluia' class='change-preview'></div>
+          <div id="alleluia-preview" class='chant-preview'></div>
         </div>
       </div>
     </td></tr>
@@ -232,7 +233,7 @@ label.sel-label{
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="offertorium-preview-container" class='preview-container'>
-          <div id="offertorium-preview" for='txtOffertorium' class='change-preview'></div>
+          <div id="offertorium-preview" class='chant-preview'></div>
         </div>
       </div>
     </td></tr>
@@ -255,7 +256,7 @@ label.sel-label{
     </td><td width="50%">
       <div class='chant-parent'>
         <div id="communio-preview-container" class='preview-container'>
-          <div id="communio-preview" for='txtCommunio' class='change-preview'></div>
+          <div id="communio-preview" class='chant-preview'></div>
         </div>
       </div>
     </td></tr>

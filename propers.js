@@ -882,8 +882,7 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    updateExsurge(gabc,$preview[0]);
-    updateTextSize(part);
+    updateExsurge(gabc,$preview[0], function(){ updateTextSize(part); });
   }
 
   var ctxt = new exsurge.ChantContext();
@@ -892,7 +891,7 @@ $(function(){
   ctxt.dropCapTextFont = ctxt.lyricTextFont;
   ctxt.annotationTextFont = ctxt.lyricTextFont;
 
-  var updateExsurge = function(gabc, chantContainer) {
+  var updateExsurge = function(gabc, chantContainer, callback) {
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>/g,function(match,barType) {
@@ -920,15 +919,16 @@ $(function(){
         score.annotation = new exsurge.Annotation(ctxt, gabcHeader.annotation);
       }
     }
-    layoutChant(score, chantContainer);
+    layoutChant(score, chantContainer, callback);
   }
 
-  var layoutChant = function(score, chantContainer) {
+  var layoutChant = function(score, chantContainer, callback) {
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+      score.layoutChantLines(ctxt, chantContainer.clientWidth - 4, function() {
         // render the score to svg code
         chantContainer.innerHTML = score.createDrawable(ctxt);
+        callback && callback();
       });
     });
   }
@@ -937,7 +937,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1),
         $txt = $('#txt'+capPart),
         $preview = $('#'+part+'-preview');
-    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
+    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 2).trigger('autosize');
   }
   
   var splitGabc = function(gabc){
