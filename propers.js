@@ -850,7 +850,6 @@ $(function(){
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
         $txt = $('#txt'+capPart),
-        $preview = $('#'+part+'-preview'),
         instant = (instant !== false);
     switch(sel[part].style) {
       case 'full':
@@ -882,17 +881,23 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    updateExsurge(gabc,$preview[0], function(){ updateTextSize(part); });
+    updateExsurge(part);
   }
 
-  var ctxt = new exsurge.ChantContext();
-  ctxt.lyricTextFont = "'Crimson Text', serif";
-  ctxt.lyricTextSize *= 1.2;
-  ctxt.dropCapTextFont = ctxt.lyricTextFont;
-  ctxt.annotationTextFont = ctxt.lyricTextFont;
+  $.each(sel,function(){
+    var ctxt = new exsurge.ChantContext();
+    ctxt.lyricTextFont = "'Crimson Text', serif";
+    ctxt.lyricTextSize *= 1.2;
+    ctxt.dropCapTextFont = ctxt.lyricTextFont;
+    ctxt.annotationTextFont = ctxt.lyricTextFont;
+    this.ctxt = ctxt;
+  });
 
-  var updateExsurge = function(gabc, chantContainer, callback) {
-    gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+  var updateExsurge = function(part) {
+    var chantContainer = $('#'+part+'-preview')[0];
+    var prop = sel[part];
+    var ctxt = prop.ctxt;
+    var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>/g,function(match,barType) {
         return barType + '/.';
@@ -907,8 +912,15 @@ $(function(){
       gabcHeader = gabc.slice(0,headerEndIndex).split(/\r?\n/);
       gabc = gabc.slice(headerEndIndex + 4);
     }
-    var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
-    var score = new exsurge.ChantScore(ctxt, mappings, true);
+    var score = prop.score;
+    if(score) {
+      exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, gabc);
+      score.updateNotations(ctxt);
+    } else {
+      var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
+      score = prop.score = new exsurge.ChantScore(ctxt, mappings, true);
+      score.annotation = new exsurge.Annotation(ctxt, "%V%");
+    }
     if(gabcHeader) {
       gabcHeader = gabcHeader.reduce(function(result,line){
         var match = line.match(/^([\w-_]+):\s*([^;\r\n]*)(?:;|$)/i);
@@ -919,19 +931,31 @@ $(function(){
         score.annotation = new exsurge.Annotation(ctxt, gabcHeader.annotation);
       }
     }
-    layoutChant(score, chantContainer, callback);
+    layoutChant(part);
   }
 
-  var layoutChant = function(score, chantContainer, callback) {
+  var layoutChant = function(part) {
+    var chantContainer = $('#'+part+'-preview')[0];
+    if(!chantContainer) return;
+    var ctxt = sel[part].ctxt;
+    var score = sel[part].score;
+    var newWidth = chantContainer.clientWidth - 4;
+    if(!score || ctxt.width === newWidth) return;
+    ctxt.width = newWidth;
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, chantContainer.clientWidth - 4, function() {
+      score.layoutChantLines(ctxt, ctxt.width, function() {
         // render the score to svg code
         chantContainer.innerHTML = score.createDrawable(ctxt);
-        callback && callback();
+        updateTextSize(part);
       });
     });
   }
+  $(window).on('resize',function() {
+    $.each(sel, function(part) {
+      layoutChant(part);
+    })
+  });
   
   var updateTextSize = function(part){
     var capPart = part[0].toUpperCase()+part.slice(1),
