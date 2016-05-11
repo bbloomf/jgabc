@@ -370,7 +370,7 @@ var proprium = {
   "Pasc4": {"introitusID":"42","offertoriumID":"937","communioID":"39","gradualeID":"159","alleluiaID":"1348"},
   "Pasc5": {"introitusID":"585","offertoriumID":"860","communioID":"579","gradualeID":"633","alleluiaID":"1040"},
   "Pasc6": {"introitusID":"990","offertoriumID":"211","communioID":"1091","gradualeID":"405","alleluiaID":"107"},
-  "Pasc7": {"introitusID":"1644","offertoriumID":"361","communioID":"1041","alleluiaID":"99","sequentiaID":"68"},
+  "Pasc7": {"introitusID":"1644","offertoriumID":"361","communioID":"1041","gradualeID":"99","alleluiaID":"181","sequentiaID":"68"},
   "Pent01": {"introitusID":"349","offertoriumID":"1303","communioID":"391","alleluiaID":"1289","gradualeID":"965"},
   "Pent02": {"introitusID":"1111","offertoriumID":"848","communioID":"794","alleluiaID":"801","gradualeID":"697"},
   "Pent03": {"introitusID":"1235","offertoriumID":"1328","communioID":"1058","alleluiaID":"1264","gradualeID":"423"},
