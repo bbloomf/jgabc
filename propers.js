@@ -940,7 +940,7 @@ $(function(){
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
     var newWidth = chantContainer.clientWidth - 4;
-    if(!score || ctxt.width === newWidth) return;
+    if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
