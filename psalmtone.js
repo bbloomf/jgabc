@@ -124,6 +124,17 @@ var o_g_tones =
                                 'g2':"jr h j i 'h gr g."
                                }
                  },
+             '3. antiquo':{clef:"c4",
+                  mediant:"g hi ir 'k jr jr 'ih j.",
+                  solemn:"g hi ir 'jk jr jr 'ih hj..",
+                  terminations:{'b':"ir 'j hr hr 'j jr i.",
+                                'a':"ir 'j hr hr 'j jr ih..",
+                                'a2':"ir 'j hr hi 'h gr gh..",
+                                'a3':"ir 'ji hr hi 'h gr gh..",
+                                'g':"ir 'j hr hi 'h gr g.",
+                                'g2':"ir 'ji hr hi 'h gr g."
+                               }
+                 },
              '4.':{clef:"c4",
                   mediant:"h gh hr g h 'i hr h.",
                   solemn:"h gh hr hg gi i 'hi hr h.",
@@ -177,6 +188,12 @@ var o_g_tones =
              'per.':{clef:"c4",
                      mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"gr d 'f fr ed.."
+                    },
+             'irregularis': {clef:"c4",
+                      mediant:"f gh hr 'g fr f.",
+                      terminations:{'b': "hr ixi g ixi h.",
+                                    'b2':"hr 'ixi gr gr 'ixi ir h."
+                                   }
                     },
              "Introit 1":{"clef":"c4",
                           "mediant":"f gh hr 'hj hr hr 'hg gh..",
@@ -803,8 +820,12 @@ function applyPsalmTone(options) {
         }
         if(!(s&&tone))break;
         r=s.punctuation + tone.gabc+r;
-        if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))))) {
-          italic = true;
+        if(useBoldItalic && !italic) {
+          if(tones[ti+1]) {
+            italic = (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))));
+          } else {
+            italic = (tones[ti-1] && !tones[ti-1].open);
+          }
         }
         if(italic) {
           if(onlyVowel) {
@@ -947,6 +968,9 @@ function getGabcTones(gabc,prefix,flexEqualsTenor,clef) {
     else if(ton.open) {
       toneTenor = ton.all[0];
       if(state==3) {
+        if(accents==0 && i==0) {
+          preparatory = afterLastAccent;
+        }
         afterLastAccent = 0;
         state = 1;
       }
