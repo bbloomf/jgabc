@@ -291,13 +291,18 @@ function getCantica() {
   r.push("Benedictus");
   r.push("Magnificat");
   r.push("Nunc dimittis");
+  r.push("Canticum Trium puerorum");
+  r.push("Canticum Isaiae");
+  r.push("Canticum Ezechiae");
+  r.push("Canticum Annae");
+  r.push("Canticum Moysis");
+  r.push("Canticum Habacuc");
+  //r.push("Canticum Moysis (Deut)");
   r.push("Canticum David");
   r.push("Canticum Ecclesiastici");
-  r.push("Canticum Isaiae");
   r.push("Canticum Jeremiae");
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");
-  r.push("Canticum Trium puerorum");
   return r;
 }
 
