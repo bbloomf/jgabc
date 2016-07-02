@@ -571,6 +571,15 @@ function downloadAll(e){
     var header = getHeader(localStorage.psalmHeader||'');
     header["initial-style"] = '0';
     header["name"] = filename.replace(/\.[^.]*$/,'');
+    header["annotation"] = annotationTextFormat(bi_formats[useFormat].annotation,
+                                                String(psalmNum),
+                                                t,
+                                                ending);
+    header["user-notes"] = annotationTextFormat(bi_formats[useFormat].userNotes,
+                                                String(psalmNum),
+                                                t,
+                                                ending);
+    
     zip.add(header["name"] + ".gabc",header + texts[0]);
     if(texts[1].length>0)zip.add(filename,texts[1]);
   };
