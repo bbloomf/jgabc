@@ -705,7 +705,7 @@ function applyPsalmTone(options) {
           }
           lastOpen = undefined;
           if(useOpenNotes) {
-            r=tone.gabc.slice(0,-1) + "[ocba:1;6mm])"+r;
+            r=tone.gabc.slice(0,-1) + "[ocb:1{])"+r;
           } else {
             r=tone.gabcClosed+r;
           }
@@ -773,7 +773,12 @@ function applyPsalmTone(options) {
           openCount = 0;
         }
         if(s){
-          r=s.punctuation + tone.gabc+r;
+          if(useOpenNotes && (openNoteBeforeAccent || lastOpen === tone)) {
+            r = "[ocb:0}])" + r;
+          } else {
+            r = ")" + r;
+          }
+          r=s.punctuation + tone.gabc.slice(0,-1) + r;
           if(useBoldItalic) {
             if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
               r=s.syl.slice(0,vow.index) + bi.bold[0] + vow[0] + bi.bold[1] + s.syl.slice(vow.index + vow[0].length)+r;
@@ -790,7 +795,7 @@ function applyPsalmTone(options) {
           if(openNoteBeforeAccent) {
             tone = tones[--ti];
             if(useOpenNotes && tone && tone.open) {
-              r=s.prespace + tone.gabc.slice(0,-1) + "[ocba:1;6mm])"+r;
+              r=s.prespace + tone.gabc.slice(0,-1) + "[ocb:1{])"+r;
             }
           }
         }
