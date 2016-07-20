@@ -218,7 +218,7 @@ var o_g_tones =
                           "termination":"ig hi ir i!jwk i h hhh fe.."},
              "Introit 8":{"clef":"c4",
                           "mediant":"g hg gj jr ji jk k 'jk jr j.",
-                          "termination":"jh hj jr j/ji gh ji h g."},
+                          "termination":"jh hj jr j/ji gh ji 'h hr g."},
              'V.1':{clef:"c3",
                     mediant:"hr h g_hvGFEfgf."
                    },
