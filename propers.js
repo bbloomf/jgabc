@@ -1,13 +1,3 @@
-// TODO: have these tones (from the Liber Usualis, p.96 for Alleluia to be sung at the Communion during Paschal Time) available for use with a psalm toned communion verse:
-// (c4)Al(fg~)le(e_d/fh//ghg/e!fg/hf/gvFE)lu(d!ewfef)ia(ed..) (::)
-// (f3)Al(hi~)le(gf/hg)lu(eg/igh)ia(gf..) (::)
-// (c4)Al(gh)le(gf/hvGF'/g)lu(egf//f)ia(fe..) (::)
-// (c4)Al(f)le(d./ghG'F/ghg)lu(egf//f)ia(fe..) (::)
-// (c3)Al(gxdf)le(e/hv/hf!gw!hvGE'/fw!gvFE)lu(de!fvED'/e)ia(ed..) (::)
-// (c4)Al(fg~)le(ixgiHG')lu(hg/gfg)ia(gf..) (::)
-// (c3)Al(f!gwh)le(hih___//gih.//fhgh.////fge___)lu(efe___)ia(e.) (::)
-// (c4)Al(g)le(ghfg)lu(gh/jhi)ia(hg..) (::)
-
 var selDay,selTempus='',selPropers,sel={
   tractus:{},
   offertorium:{},
@@ -455,7 +445,7 @@ $(function(){
     return verse;
   }
   var versify = function(text){
-    var lines = text.split('\n');
+    var lines = text.replace(/<alt>[^<]+<\/alt>/,'').split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
       var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});

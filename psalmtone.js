@@ -8,7 +8,7 @@ var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /^(\d+)\.?\s*/;
 var sym_flex = '†';
 var sym_med = '*';
-var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.";
+var gloria_patri = "Glória Patri, et Fílio, * et Spirítui Sancto.\nSicut erat in princípio, et nunc, et semper, * et in sǽcula sæculórum. Amen.";
 var gloria_patri_end_vowels = "E u o* u a* e.";
 var bi_formats;
 var gabcStar;
@@ -124,6 +124,17 @@ var o_g_tones =
                                 'g2':"jr h j i 'h gr g."
                                }
                  },
+             '3. antiquo':{clef:"c4",
+                  mediant:"g hi ir 'k jr jr 'ih j.",
+                  solemn:"g hi ir 'jk jr jr 'ih hj..",
+                  terminations:{'b':"ir 'j hr hr 'j jr i.",
+                                'a':"ir 'j hr hr 'j jr ih..",
+                                'a2':"ir 'j hr hi 'h gr gh..",
+                                'a3':"ir 'ji hr hi 'h gr gh..",
+                                'g':"ir 'j hr hi 'h gr g.",
+                                'g2':"ir 'ji hr hi 'h gr g."
+                               }
+                 },
              '4.':{clef:"c4",
                   mediant:"h gh hr g h 'i hr h.",
                   solemn:"h gh hr hg gi i 'hi hr h.",
@@ -178,6 +189,12 @@ var o_g_tones =
                      mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"gr d 'f fr ed.."
                     },
+             'irregularis': {clef:"c4",
+                      mediant:"f gh hr 'g fr f.",
+                      terminations:{'b': "hr ixi g ixi h.",
+                                    'b2':"hr 'ixi gr gr 'ixi ir h."
+                                   }
+                    },
              "Introit 1":{"clef":"c4",
                           "mediant":"f gh hr 'hj hr hr 'hg gh..",
                           "termination":"gf gh hr hjh g f fff d."},
@@ -201,7 +218,7 @@ var o_g_tones =
                           "termination":"ig hi ir i!jwk i h hhh fe.."},
              "Introit 8":{"clef":"c4",
                           "mediant":"g hg gj jr ji jk k 'jk jr j.",
-                          "termination":"jh hj jr j/ji gh ji h g."},
+                          "termination":"jh hj jr j/ji gh ji 'h hr g."},
              'V.1':{clef:"c3",
                     mediant:"hr h g_hvGFEfgf."
                    },
@@ -688,7 +705,7 @@ function applyPsalmTone(options) {
           }
           lastOpen = undefined;
           if(useOpenNotes) {
-            r=tone.gabc.slice(0,-1) + "[ocba:1;6mm])"+r;
+            r=tone.gabc.slice(0,-1) + "[ocb:1{])"+r;
           } else {
             r=tone.gabcClosed+r;
           }
@@ -756,7 +773,12 @@ function applyPsalmTone(options) {
           openCount = 0;
         }
         if(s){
-          r=s.punctuation + tone.gabc+r;
+          if(useOpenNotes && (openNoteBeforeAccent || lastOpen === tone)) {
+            r = "[ocb:0}])" + r;
+          } else {
+            r = ")" + r;
+          }
+          r=s.punctuation + tone.gabc.slice(0,-1) + r;
           if(useBoldItalic) {
             if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
               r=s.syl.slice(0,vow.index) + bi.bold[0] + vow[0] + bi.bold[1] + s.syl.slice(vow.index + vow[0].length)+r;
@@ -773,7 +795,7 @@ function applyPsalmTone(options) {
           if(openNoteBeforeAccent) {
             tone = tones[--ti];
             if(useOpenNotes && tone && tone.open) {
-              r=s.prespace + tone.gabc.slice(0,-1) + "[ocba:1;6mm])"+r;
+              r=s.prespace + tone.gabc.slice(0,-1) + "[ocb:1{])"+r;
             }
           }
         }
@@ -803,8 +825,12 @@ function applyPsalmTone(options) {
         }
         if(!(s&&tone))break;
         r=s.punctuation + tone.gabc+r;
-        if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))))) {
-          italic = true;
+        if(useBoldItalic && !italic) {
+          if(tones[ti+1]) {
+            italic = (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))));
+          } else {
+            italic = (tones[ti-1] && !tones[ti-1].open && !tones[ti-1].accent);
+          }
         }
         if(italic) {
           if(onlyVowel) {
@@ -947,6 +973,9 @@ function getGabcTones(gabc,prefix,flexEqualsTenor,clef) {
     else if(ton.open) {
       toneTenor = ton.all[0];
       if(state==3) {
+        if(accents==0 && i==0) {
+          preparatory = afterLastAccent;
+        }
         afterLastAccent = 0;
         state = 1;
       }

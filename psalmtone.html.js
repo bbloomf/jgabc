@@ -291,13 +291,18 @@ function getCantica() {
   r.push("Benedictus");
   r.push("Magnificat");
   r.push("Nunc dimittis");
+  r.push("Canticum Trium puerorum");
+  r.push("Canticum Isaiae");
+  r.push("Canticum Ezechiae");
+  r.push("Canticum Annae");
+  r.push("Canticum Moysis");
+  r.push("Canticum Habacuc");
+  //r.push("Canticum Moysis (Deut)");
   r.push("Canticum David");
   r.push("Canticum Ecclesiastici");
-  r.push("Canticum Isaiae");
   r.push("Canticum Jeremiae");
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");
-  r.push("Canticum Trium puerorum");
   return r;
 }
 
@@ -566,6 +571,15 @@ function downloadAll(e){
     var header = getHeader(localStorage.psalmHeader||'');
     header["initial-style"] = '0';
     header["name"] = filename.replace(/\.[^.]*$/,'');
+    header["annotation"] = annotationTextFormat(bi_formats[useFormat].annotation,
+                                                String(psalmNum),
+                                                t,
+                                                ending);
+    header["user-notes"] = annotationTextFormat(bi_formats[useFormat].userNotes,
+                                                String(psalmNum),
+                                                t,
+                                                ending);
+    
     zip.add(header["name"] + ".gabc",header + texts[0]);
     if(texts[1].length>0)zip.add(filename,texts[1]);
   };
