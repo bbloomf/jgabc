@@ -871,7 +871,7 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    updateExsurge(part);
+    if(gabc) updateExsurge(part);
   }
 
   $.each(sel,function(){
@@ -891,11 +891,16 @@ $(function(){
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>/g,function(match,barType) {
         return barType + '/.';
-      }).replace(/<\/?sc>/g,'%')
+      }).replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<b><\/b>/g,'')
+      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
       .replace(/<\/?i>/g,'_')
-      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
-      .replace(/<v>\\greheightstar<\/v>/g,'*');
+        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
+        .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2'); // change things like "et :(gabc)" to "et:(gabc) "
     var gabcHeader = '';
     var headerEndIndex = gabc.indexOf('\n%%\n');
     if(headerEndIndex >= 0) {
@@ -936,7 +941,7 @@ $(function(){
     score.performLayoutAsync(ctxt, function() {
       score.layoutChantLines(ctxt, ctxt.width, function() {
         // render the score to svg code
-        chantContainer.innerHTML = score.createDrawable(ctxt);
+        chantContainer.innerHTML = score.createSvg(ctxt);
         updateTextSize(part);
       });
     });
