@@ -899,6 +899,7 @@ $(function(){
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
       .replace(/<\/?i>/g,'_')
+        .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
         .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2'); // change things like "et :(gabc)" to "et:(gabc) "
     var gabcHeader = '';
@@ -1177,6 +1178,7 @@ $(function(){
         part = capPart.toLowerCase(),
         temp = chantID[part][ui.item.value];
     selPropers[part+'ID'] = (temp.Solesmes || temp).id || '';
+console.info(JSON.stringify(selPropers));
     updatePart(part);
   };
   $.each(chantID,function(part){
