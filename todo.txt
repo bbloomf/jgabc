@@ -1,4 +1,11 @@
 Add Ash Wednesday and all ember days to propers tool
+Selection of feast by date
+cell phone friendly version
+option to interleave a chant Mass, Credo, etc.
+Option to print using only Exsurge SVGs
+
+
+need to support multiple graduales for Ember Saturdays...
 
 
 1,2,3,4,5,7,8 seem good.

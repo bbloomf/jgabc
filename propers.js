@@ -167,12 +167,12 @@ $(function(){
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text = sel[part].text = versify(decompile(gabc,true));
         var truePart = isAlleluia(part,text)? 'alleluia' : part;
-        if(part == 'graduale') {
+        if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
-            $('#selStyleGraduale>option.alleluia').show();
+            $('#selStyle'+capPart+'>option.alleluia').show();
           } else {
-            $('#selStyleGraduale>option.alleluia').hide();
-            var $style = $('#selStyleGraduale');
+            $('#selStyle'+capPart+'>option.alleluia').hide();
+            var $style = $('#selStyle'+capPart);
             if($style.val()=='psalm-tone1') {
               $style.val('psalm-tone');
             }
@@ -217,13 +217,9 @@ $(function(){
   }
   var updateAllParts = function() {
     $('.novus-options').hide();
-    updatePart('introitus');
-    updatePart('graduale');
-    updatePart('alleluia');
-    updatePart('tractus');
-    updatePart('sequentia');
-    updatePart('offertorium');
-    updatePart('communio');
+    $('tr[part]').each(function(){
+      updatePart($(this).attr('part'));
+    });
   };
   var selectedDayNovus = function(e){
     selDay = $(this).val();
@@ -467,7 +463,7 @@ $(function(){
         $selTone = $('#selTone' + capPart),
         $cbSolemn = $('#cbSolemn' + capPart);
     if(style.match(/^psalm-tone/)) {
-      if(part != 'graduale' || !isAlleluia(part,sel[part].text)) {
+      if(!part.match(/^graduale/) || !isAlleluia(part,sel[part].text)) {
         $selToneEnding.show();
         $cbSolemn.show();
       }
@@ -573,7 +569,7 @@ $(function(){
   }
   
   var isAlleluia = function(part,text){
-    return part=='alleluia' || (part=='graduale' && removeDiacritics(text).match(/^allelu[ij]a/i));
+    return part=='alleluia' || (part.match(/^graduale/) && removeDiacritics(text).match(/^allelu[ij]a/i));
   }
 
   var getFullGloriaPatriGabc = function(part) {
@@ -637,7 +633,7 @@ $(function(){
         var line = lines[0];
         gabc = header + '(' + tone.clef + ') ';
         if(line.match(/ij|bis/)) {
-          if(part=='graduale' && sel['alleluia'].style=='psalm-tone1') {
+          if(part.match(/^graduale/) && sel['alleluia'].style=='psalm-tone1') {
             lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
           }
           line = line.match(/s*([^!?.;,:\s]+)/)[1];
@@ -666,11 +662,11 @@ $(function(){
         }
       } else {
         // alleluia, but not full psalm tone:
-        if(part=='graduale') {
+        if(part.match(/^graduale/)) {
           if(sel['alleluia'].style=='psalm-tone1') {
             $('#selStyleAlleluia').val('psalm-tone').change();
           }
-        } else if(sel['graduale'].style=='psalm-tone1') {
+        } else if(sel.graduale.style=='psalm-tone1') {
           // update graduale so that it doesn't end with an extra "alleluia"
           $('#selStyleGraduale').change();
         }
@@ -845,7 +841,7 @@ $(function(){
       case 'full':
         $txt.val((gabc = sel[part].gabc));
         if(isAlleluia(part,sel[part].text)) {
-          if(part == 'graduale') {
+          if(part.match(/^graduale/)) {
             if(sel.alleluia.style == 'psalm-tone1') {
               $('#selStyleAlleluia').val('psalm-tone').change();
             }

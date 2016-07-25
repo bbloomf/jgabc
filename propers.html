@@ -95,7 +95,7 @@ label.sel-label{
           <a href='#'>Include in PDF...</a>
           <ul>
             <li class="ui-state-disabled"><a href='#' id='includeIntroitus'><span class='ui-icon ui-icon-check'></span>Introitus</a></li>
-            <li class="ui-state-disabled"><a href='#' id='includeGraduale'><span class='ui-icon ui-icon-check'></span>Graduale</a></li>
+            <li class="ui-state-disabled multiple-graduales-0"><a href='#' id='includeGraduale'><span class='ui-icon ui-icon-check'></span>Graduale</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeTractus'><span class='ui-icon ui-icon-check'></span>Tractus</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeAlleluia'><span class='ui-icon ui-icon-check'></span>Alleluia</a></li>
             <li class="ui-state-disabled"><a href='#' id='includeSequentia'><span class='ui-icon ui-icon-check'></span>Sequentia</a></li>
@@ -106,7 +106,7 @@ label.sel-label{
       </ul>
     </div>
     </td></tr>
-    <tr><td width="50%">
+    <tr id='divIntroitus' part='introitus'><td width="50%">
       <label id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
       <input id="txtCustomIntroitus" placeholder="Introitus Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options introitus' id='introitusOptions'>
@@ -131,7 +131,7 @@ label.sel-label{
         </div>
       </div>
     </td></tr>
-    <tr id="divGraduale"><td width="50%">
+    <tr id='divGraduale' part='graduale' class='multiple-graduales-0'><td width="50%">
       <label id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
       <input id="txtCustomGraduale" placeholder="Graduale Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options graduale' id='gradualeOptions'>
@@ -159,7 +159,7 @@ label.sel-label{
         </div>
       </div>
     </td></tr>
-    <tr id="divTractus"><td width="50%">
+    <tr id='divTractus' part='tractus'><td width="50%">
       <label id="lblTractus" for="txtTractus"><a target="_blank">Tractus</a></label>
       <input id="txtCustomTractus" placeholder="Tractus Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options tractus' id='tractusOptions'>
@@ -182,7 +182,7 @@ label.sel-label{
         </div>
       </div>
     </td></tr>
-    <tr id="divAlleluia"><td width="50%">
+    <tr id='divAlleluia' part='alleluia'><td width="50%">
       <label id="lblAlleluia" for="txtAlleluia"><a target="_blank">Alleluia</a></label>
       <input id="txtCustomAlleluia" placeholder="Alleluia Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options alleluia' id='alleluiaOptions'>
@@ -210,11 +210,11 @@ label.sel-label{
         </div>
       </div>
     </td></tr>
-    <tr id='divSequentia'><td colspan='2'>
+    <tr id='divSequentia' part='sequentia'><td colspan='2'>
       <label id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
       <input id="txtCustomSequentia" placeholder="Sequentia Search Text" class="sel-custom" style="display:none"/>
     </td></tr>
-    <tr><td width="50%">
+    <tr id='divOffertorium' part='offertorium'><td width="50%">
       <label id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
       <input id="txtCustomOffertorium" placeholder="Offertorium Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options offertorium' id='offertoriumOptions'>
@@ -237,7 +237,7 @@ label.sel-label{
         </div>
       </div>
     </td></tr>
-    <tr><td width="50%">
+    <tr id='divCommunio' part='communio'><td width="50%">
       <label id="lblCommunio" for="txtCommunio"><a target="_blank">Communio</a></label>
       <input id="txtCustomCommunio" placeholder="Communio Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options communio' id='communioOptions'>
