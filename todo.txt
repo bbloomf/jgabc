@@ -1,3 +1,6 @@
+Add Ash Wednesday and all ember days to propers tool
+
+
 1,2,3,4,5,7,8 seem good.
 
 2 and 3 have only preparatory syllables, no accents for the termination.  This does not get italicized properly.
