@@ -163,6 +163,7 @@ $(function(){
       id = selPropers? selPropers[partType+'ID'] : null;
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
+        partIndex++;  // for human readable 1-based index.
       }
     }
     var capPart = part[0].toUpperCase()+part.slice(1);
@@ -183,7 +184,10 @@ $(function(){
           if(truePart == 'alleluia') {
             $('#selStyle'+capPart+'>option.alleluia').show();
           } else {
-            if(header['office-part']=='Hymnus') truePart = 'hymnus';
+            if(header['office-part']=='Hymnus') {
+              truePart = 'hymnus';
+              partIndex = null;
+            }
             $('#selStyle'+capPart+'>option.alleluia').hide();
             var $style = $('#selStyle'+capPart);
             if($style.val()=='psalm-tone1') {
@@ -192,11 +196,11 @@ $(function(){
           }
         }
         var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
-        $('#lbl'+capPart+'>a').text(capTruePart);
+        $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
         $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         var romanMode = romanNumeral[header.mode];
         if(partAbbrev[truePart]) {
-          header.annotation = partAbbrev[truePart];
+          header.annotation = (partIndex? partIndex + '. ' : '') + partAbbrev[truePart];
           header.annotationArray = [header.annotation, romanMode];
         } else {
           header.annotation = romanMode;
@@ -1226,7 +1230,7 @@ $(function(){
     var capPart = this.id.slice(7),
         part = capPart.toLowerCase(),
         i = includePropers.indexOf(part),
-        $span = $(this).find('span');
+        $span = $(this).find('span.ui-icon');
     if(i<0) {
       // wasn't included, now it will be:
       includePropers.push(part);
