@@ -55,7 +55,8 @@ $(function(){
     introitus:'Intr.',
     graduale:'Grad.',
     communio:'Comm.',
-    sequentia: 'Seq.'    
+    sequentia: 'Seq.',
+    hymnus: 'Hymn.'
   };
   var defaultTermination={
     '1':'f',
@@ -128,10 +129,17 @@ $(function(){
   var updatePart = function(part) {
     var id;
     var incipit;
+    var match = part.match(/^([a-z]+)(\d+)$/i);
+    var partIndex = 0;
+    var partType = part;
+    if(match) {
+      partType = match[1];
+      partIndex = parseInt(match[2]);
+    }
     if(isNovus) {
-      var optionID = novusOption[part]||0;
+      var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
-      id = selPropers && selPropers[part];
+      id = selPropers && selPropers[partType];
       if (id && id[year]) id = id[year];
       if(id && id.length > 1) {
         var $options = $('.novus-options.'+part);
@@ -152,7 +160,10 @@ $(function(){
       incipit = id && id.incipit;
       id = id && id.id;
     } else {
-      id = selPropers? selPropers[part+'ID'] : null;
+      id = selPropers? selPropers[partType+'ID'] : null;
+      if(id && id.constructor == [].constructor) {
+        id = id[partIndex];
+      }
     }
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
@@ -164,13 +175,15 @@ $(function(){
       $div.show();
       var updateGabc = function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
+        var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text = sel[part].text = versify(decompile(gabc,true));
-        var truePart = isAlleluia(part,text)? 'alleluia' : part;
+        var truePart = isAlleluia(part,text)? 'alleluia' : partType;
         if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
             $('#selStyle'+capPart+'>option.alleluia').show();
           } else {
+            if(header['office-part']=='Hymnus') truePart = 'hymnus';
             $('#selStyle'+capPart+'>option.alleluia').hide();
             var $style = $('#selStyle'+capPart);
             if($style.val()=='psalm-tone1') {
@@ -178,10 +191,12 @@ $(function(){
             }
           }
         }
-        var header = getHeader(gabc);
+        var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
+        $('#lbl'+capPart+'>a').text(capTruePart);
+        $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         var romanMode = romanNumeral[header.mode];
         if(partAbbrev[truePart]) {
-          header.annotation = partAbbrev[part];
+          header.annotation = partAbbrev[truePart];
           header.annotationArray = [header.annotation, romanMode];
         } else {
           header.annotation = romanMode;
@@ -200,10 +215,58 @@ $(function(){
       $includePart.parent('li').addClass('ui-state-disabled');
     }
   }
+  var removeMultipleGraduales = function() {
+    var i = 1;
+    var $multipleGraduales = $('.multiple-graduales-'+i);
+    while($multipleGraduales.length) {
+      $multipleGraduales.remove();
+      delete sel['graduale'+i];
+      ++i;
+      $multipleGraduales = $('.multiple-graduales-'+i);
+    }
+  };
+  var setGradualeId = function(id) {
+    return function() {
+      $(this).children().each(setGradualeId(id));
+      for(var i=0; i < this.attributes.length; ++i) {
+        if(this.attributes[i].name != 'placeholder') this.attributes[i].value = this.attributes[i].value.replace(/(graduale)(?!\d|s)/gi,'$1'+id);
+      }
+    }
+  };
+  var addMultipleGraduales = function(count) {
+    var i = 0;
+    var $multipleGradualesTemplate = $('.multiple-graduales-0');
+    var $lastGraduale = $multipleGradualesTemplate;
+    while(i < count) {
+      var $newGraduale = $multipleGradualesTemplate.clone(true);
+      ++i;
+      sel['graduale'+i] = {};
+      makeChantContextForSel(sel['graduale'+i]);
+      $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
+      $newGraduale.each(setGradualeId(i));
+      $newGraduale.find('textarea[id^=txt]').autosize();
+      $lastGraduale.each(function(i){
+        $(this).after($newGraduale[i]);
+      });
+      $newGraduale.find('.sel-style').change();
+      $lastGraduale = $newGraduale;
+    }
+    includePropers = [];
+    $('a[id^=include]').each(function(){
+      includePropers.push(this.id.slice(7).toLowerCase());
+    });
+  }
   var updateDay = function() {
     selPropers = proprium[selDay + selTempus];
     if(selPropers || selDay=='custom') {
-      if(!selPropers) selPropers = {};
+      removeMultipleGraduales();
+      if(selPropers) {
+        if(selPropers.gradualeID && selPropers.gradualeID.constructor === [].constructor) {
+          addMultipleGraduales(selPropers.gradualeID.length - 1);
+        }
+      } else {
+        selPropers = {};
+      }
       updateAllParts();
     }
   }
@@ -237,7 +300,7 @@ $(function(){
   var selectedDay = function(e){
     selDay = $(this).val();
     var self = this;
-    $('#selSunday,#selSaint,#selMass').each(function(i,o){
+    $('#selSunday,#selSaint,#selMass').each(function(){
       if(this != self) this.selectedIndex = 0;
     });
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
@@ -270,6 +333,10 @@ $(function(){
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
     regexOuter.exec('');
+    mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/<alt>[^<]+<\/alt>/,'');
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
@@ -441,7 +508,7 @@ $(function(){
     return verse;
   }
   var versify = function(text){
-    var lines = text.replace(/<alt>[^<]+<\/alt>/,'').split('\n');
+    var lines = text.split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
       var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
@@ -869,14 +936,16 @@ $(function(){
     sel[part].activeGabc = gabc;
     if(gabc) updateExsurge(part);
   }
-
-  $.each(sel,function(){
+  function makeChantContextForSel(sel) {
     var ctxt = new exsurge.ChantContext();
     ctxt.lyricTextFont = "'Crimson Text', serif";
     ctxt.lyricTextSize *= 1.2;
     ctxt.dropCapTextFont = ctxt.lyricTextFont;
     ctxt.annotationTextFont = ctxt.lyricTextFont;
-    this.ctxt = ctxt;
+    sel.ctxt = ctxt;
+  };
+  $.each(sel,function(){
+    makeChantContextForSel(this);
   });
 
   var updateExsurge = function(part) {
@@ -1029,7 +1098,7 @@ $(function(){
   $selYearNovus.val(yearArray[year%3]);
   $('.novus-options').hide();
   $('.novus-options select').change(function(){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     novusOption[part] = this.selectedIndex;
     updatePart(part);
@@ -1065,7 +1134,7 @@ $(function(){
   $('#selStyle').change();
   $('select.tones').change(function(e){
     //update endings for this tone.
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].mode = this.value;
     $selEnding = $('#selToneEnding' + capPart);
@@ -1082,13 +1151,13 @@ $(function(){
     updateTextAndChantForPart(part);
   });
   $('select.endings').change(function(e){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].termination = this.value;
     updateTextAndChantForPart(part);
   });
   $('input.cbSolemn').change(function(e){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].solemn = this.checked;
     updateTextAndChantForPart(part);
@@ -1098,7 +1167,7 @@ $(function(){
     $selTones.append('<option>'+i+'</option>');
   }
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if(sel[part].style.match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
@@ -1112,7 +1181,7 @@ $(function(){
     var result=[];
     $('a[id^=include]').each(function(){
       var $includePart = $(this)
-          capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+          capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
           part = capPart.toLowerCase(),
           proper = sel[part],
           gabc = proper.activeGabc || proper.gabc,
@@ -1170,7 +1239,7 @@ $(function(){
   });
   var customProperSelected = function(event,ui){
     var $this=$(this),
-        capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase(),
         temp = chantID[part][ui.item.value];
     selPropers[part+'ID'] = (temp.Solesmes || temp).id || '';
@@ -1190,7 +1259,7 @@ console.info(JSON.stringify(selPropers));
   });
   $('input.sel-custom').each(function(){
     var $this=$(this),
-        capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     $this.autocomplete({minLength:0,
                         select:customProperSelected,
