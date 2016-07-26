@@ -1,4 +1,3 @@
-Add Ash Wednesday and all ember days to propers tool
 Selection of feast by date
 cell phone friendly version
 option to interleave a chant Mass, Credo, etc.
