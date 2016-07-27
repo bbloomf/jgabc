@@ -1,6 +1,5 @@
 Selection of feast by date
 option to interleave a chant Mass, Credo, etc.
-Option to print using only Exsurge SVGs
 
 
 need to support multiple graduales for Ember Saturdays...

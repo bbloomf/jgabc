@@ -1004,7 +1004,7 @@ $(function(){
     layoutChant(part);
   }
 
-  var layoutChant = function(part) {
+  var layoutChant = function(part, synchronous) {
     var chantContainer = $('#'+part+'-preview')[0];
     if(!chantContainer) return;
     var ctxt = sel[part].ctxt;
@@ -1013,19 +1013,34 @@ $(function(){
     if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
-    score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, ctxt.width, function() {
-        // render the score to svg code
-        chantContainer.innerHTML = score.createSvg(ctxt);
-        updateTextSize(part);
+    if(synchronous) {
+      score.performLayout(ctxt);
+      score.layoutChantLines(ctxt, ctxt.width);
+      // render the score to svg code
+      chantContainer.innerHTML = score.createSvg(ctxt);
+      updateTextSize(part);
+    } else {
+      score.performLayoutAsync(ctxt, function() {
+        score.layoutChantLines(ctxt, ctxt.width, function() {
+          // render the score to svg code
+          chantContainer.innerHTML = score.createSvg(ctxt);
+          updateTextSize(part);
+        });
       });
-    });
+    }
   }
-  $(window).on('resize',function() {
+  var relayoutAllChant = function(synchronous) {
     $.each(sel, function(part) {
-      layoutChant(part);
-    })
-  });
+      layoutChant(part, synchronous);
+    });
+  };
+  var relayoutAllChantSync = function() {
+    relayoutAllChant(true);
+  };
+  var relayoutAllChantAsync = function() {
+    relayoutAllChant(false);
+  };
+  $(window).on('resize', relayoutAllChantAsync);
   
   var updateTextSize = function(part){
     var capPart = part[0].toUpperCase()+part.slice(1),
@@ -1298,4 +1313,16 @@ console.info(JSON.stringify(selPropers));
             }
          });
   });
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        relayoutAllChantSync();
+      } else {
+        relayoutAllChantSync();
+      }
+    });
+  }
+  window.onbeforeprint = relayoutAllChantSync;
+  window.onafterprint = relayoutAllChantSync;
 });
