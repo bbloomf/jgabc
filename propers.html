@@ -24,18 +24,16 @@ textarea {
   padding:0;
   width:100%;
   min-height:100px;
-}
-.tap {
-  padding-right:2px;
+  box-sizing: border-box;
+  display: none;
 }
 .preview-container {
   padding: 4px;
   padding-right: 0;
 }
 .chant-parent{
-  border:1px solid #aaa;
   width:100%;
-  min-height:121px;
+  min-height:119px;
 }
 .chant-preview>svg.ChantScore {
   width: 100%;
@@ -48,6 +46,30 @@ label.sel-label{
 }
 .right {
   float:right;
+}
+.block.right {
+  float: none;
+}
+.show-gabc div.block {
+  display: inline-block;
+  width: 50%;
+  box-sizing: border-box;
+  padding-right: 2px;
+}
+.show-gabc div.block.right {
+  padding-left: 2px;
+  padding-right: 0;
+  float: right;
+}
+.show-gabc textarea {
+  display: inline;
+}
+.show-gabc .chant-parent {
+  border:1px solid #aaa;
+}
+div[part] {
+  margin-top: 4px;
+  clear: both;
 }
 </style>
 <body class='sans' style="margin:8px;">
@@ -76,20 +98,15 @@ label.sel-label{
       <a href='#' id='lnkPdf'>(Further PDF options)</a>
     </div>
   </div>
-  <table width="100%" style="margin-left:-2px;margin-top:-2px">
-    <tr><td width="50%">
-      <select id="selSunday" style='margin:0'></select>
-      <select id="selSundayNovus" style='margin:0;display:none'></select>
-      <select id="selSaint" style='margin:0'></select>
-      <select id="selMass" style='margin:0'></select>
-      <select id="selTempus" style='display:none;margin:0'></select>
-      <select id="selYearNovus" style='display:none;margin:0'></select>
-      <div class='right'>
-        <select id="selStyle" class='sel-style'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
-      </div>
-    </td><td width="50%">
+  <div>
     <button id='btnCalendar' value='traditional' style='button'>Traditional Calendar</button>
-    <div style='float:right'>
+    <select id="selSunday" style='margin:0'></select>
+    <select id="selSundayNovus" style='margin:0;display:none'></select>
+    <select id="selSaint" style='margin:0'></select>
+    <select id="selMass" style='margin:0'></select>
+    <select id="selTempus" style='display:none;margin:0'></select>
+    <select id="selYearNovus" style='display:none;margin:0'></select>
+    <div class="right">
       <ul id='menu'>
         <li>
           <a href='#'>Include in PDF...</a>
@@ -105,9 +122,18 @@ label.sel-label{
         </li>
       </ul>
     </div>
-    </td></tr>
-    <tr id='divIntroitus' part='introitus'><td width="50%">
+  </div>
+  <div>
+    <div class="block">
+      <div class='right'>
+        <select id="selStyle" class='sel-style'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
+      </div>
+    </div>
+  </div>
+  <div id='divIntroitus' part='introitus'>
+    <div class='block'>
       <label id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
+      <a class='toggleShowGabc'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomIntroitus" placeholder="Introitus Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options introitus' id='introitusOptions'>
         <label for='selOptionsIntroitus'>&mdash; Pick One: </label>
@@ -122,17 +148,20 @@ label.sel-label{
           <option value='psalm-tone'>Psalm Toned</option>
           </select>
       </div>
-      <br/>
-      <div class="tap"><textarea id="txtIntroitus"></textarea></div>
-    </td><td width="50%">
+      <textarea id="txtIntroitus"></textarea>
+    </div>
+    <div class='block right'>
       <div class='chant-parent'>
         <div id="introitus-preview-container" class='preview-container'>
           <div id="introitus-preview" class='chant-preview'></div>
         </div>
       </div>
-    </td></tr>
-    <tr id='divGraduale' part='graduale' class='multiple-graduales-0'><td width="50%">
+    </div>
+  </div>
+  <div id='divGraduale' part='graduale' class='multiple-graduales-0'>
+    <div class='block'>
       <label id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
+      <a class='toggleShowGabc'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomGraduale" placeholder="Graduale Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options graduale' id='gradualeOptions'>
         <label for='selOptionsGraduale'>&mdash; Pick One: </label>
@@ -150,17 +179,20 @@ label.sel-label{
           <option class='alleluia' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option>
         </select>
       </div>
-      <br/>
-      <div class="tap"><textarea id="txtGraduale"></textarea></div>
-    </td><td width="50%">
+      <textarea id="txtGraduale"></textarea>
+    </div>
+    <div class='block right'>
       <div class='chant-parent'>
         <div id="graduale-preview-container" class='preview-container'>
           <div id="graduale-preview" class='chant-preview'></div>
         </div>
       </div>
-    </td></tr>
-    <tr id='divTractus' part='tractus'><td width="50%">
+    </div>
+  </div>
+  <div id='divTractus' part='tractus'>
+    <div class='block'>
       <label id="lblTractus" for="txtTractus"><a target="_blank">Tractus</a></label>
+      <a class='toggleShowGabc'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomTractus" placeholder="Tractus Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options tractus' id='tractusOptions'>
         <label for='selOptionsTractus'>&mdash; Pick One: </label>
@@ -173,17 +205,20 @@ label.sel-label{
         <input id='cbSolemnTractus' type='checkbox' class='cbSolemn tractus' title='Check this box to use the solemn psalm tone.'>
         <select id="selStyleTractus" class='sel-style'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
-      <br/>
-      <div class='tap'><textarea id="txtTractus"></textarea></div>
-    </td><td width="50%">
+      <textarea id="txtTractus"></textarea>
+    </div>
+    <div class='block right'>
       <div class='chant-parent'>
         <div id="tractus-preview-container" class='preview-container'>
           <div id="tractus-preview" class='chant-preview'></div>
         </div>
       </div>
-    </td></tr>
-    <tr id='divAlleluia' part='alleluia'><td width="50%">
+    </div>
+  </div>
+  <div id='divAlleluia' part='alleluia'>
+    <div class='block'>
       <label id="lblAlleluia" for="txtAlleluia"><a target="_blank">Alleluia</a></label>
+      <a class='toggleShowGabc'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomAlleluia" placeholder="Alleluia Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options alleluia' id='alleluiaOptions'>
         <label for='selOptionsAlleluia'>&mdash; Pick One: </label>
@@ -201,21 +236,24 @@ label.sel-label{
           <option value='psalm-tone1'>Completely Psalm Toned</option>
         </select>
       </div>
-      <br/>
-      <div class='tap'><textarea id="txtAlleluia"></textarea></div>
-    </td><td width="50%">
+      <textarea id="txtAlleluia"></textarea>
+    </div>
+    <div class='block right'>
       <div class='chant-parent'>
         <div id="alleluia-preview-container" class='preview-container'>
           <div id="alleluia-preview" class='chant-preview'></div>
         </div>
       </div>
-    </td></tr>
-    <tr id='divSequentia' part='sequentia'><td colspan='2'>
-      <label id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
-      <input id="txtCustomSequentia" placeholder="Sequentia Search Text" class="sel-custom" style="display:none"/>
-    </td></tr>
-    <tr id='divOffertorium' part='offertorium'><td width="50%">
+    </div>
+  </div>
+  <div id='divSequentia' part='sequentia'>
+    <label id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
+    <input id="txtCustomSequentia" placeholder="Sequentia Search Text" class="sel-custom" style="display:none"/>
+  </div>
+  <div id='divOffertorium' part='offertorium'>
+    <div class='block'>
       <label id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
+      <a class='toggleShowGabc'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomOffertorium" placeholder="Offertorium Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options offertorium' id='offertoriumOptions'>
         <label for='selOptionsOffertorium'>&mdash; Pick One: </label>
@@ -228,17 +266,20 @@ label.sel-label{
         <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
         <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
-      <br/>
-      <div class='tap'><textarea id="txtOffertorium"></textarea></div>
-    </td><td width="50%">
+      <textarea id="txtOffertorium"></textarea>
+    </div>
+    <div class='block right'>
       <div class='chant-parent'>
         <div id="offertorium-preview-container" class='preview-container'>
           <div id="offertorium-preview" class='chant-preview'></div>
         </div>
       </div>
-    </td></tr>
-    <tr id='divCommunio' part='communio'><td width="50%">
+    </div>
+  </div>
+  <div id='divCommunio' part='communio'>
+    <div class='block'>
       <label id="lblCommunio" for="txtCommunio"><a target="_blank">Communio</a></label>
+      <a class='toggleShowGabc'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomCommunio" placeholder="Communio Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options communio' id='communioOptions'>
         <label for='selOptionsCommunio'>&mdash; Pick One: </label>
@@ -251,15 +292,15 @@ label.sel-label{
         <input id='cbSolemnCommunio' type='checkbox' class='cbSolemn communio' title='Check this box to use the solemn psalm tone.'>
         <select id="selStyleCommunio" class='sel-style'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
-      <br/>
-      <div class='tap'><textarea id="txtCommunio"></textarea></div>
-    </td><td width="50%">
+      <textarea id="txtCommunio"></textarea>
+    </div>
+    <div class='block right'>
       <div class='chant-parent'>
         <div id="communio-preview-container" class='preview-container'>
           <div id="communio-preview" class='chant-preview'></div>
         </div>
       </div>
-    </td></tr>
-  </table>
+    </div>
+  </div>
 </body>
 </html>

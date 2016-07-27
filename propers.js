@@ -284,7 +284,7 @@ $(function(){
   }
   var updateAllParts = function() {
     $('.novus-options').hide();
-    $('tr[part]').each(function(){
+    $('div[part]').each(function(){
       updatePart($(this).attr('part'));
     });
   };
@@ -967,6 +967,7 @@ $(function(){
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
+        .replace(/<i>\(([^)]+)\)<\/i>/g,'_{[}$1)_')
       .replace(/<\/?i>/g,'_')
         .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
@@ -1026,7 +1027,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1),
         $txt = $('#txt'+capPart),
         $preview = $('#'+part+'-preview');
-    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 2).trigger('autosize');
+    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
   }
   
   var splitGabc = function(gabc){
@@ -1241,6 +1242,15 @@ $(function(){
       $span.hide();
     }
   });
+  $('a.toggleShowGabc').attr('href','').click(function(e){
+    e.preventDefault();
+    var $this = $(this),
+        $part = $this.parents().filter('[part]'),
+        part = $part.attr('part');
+        isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
+    $this.find('.showHide').text(isShowing?'Hide' : 'Show');
+    layoutChant(part);
+  })
   var customProperSelected = function(event,ui){
     var $this=$(this),
         capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
