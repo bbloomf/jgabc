@@ -971,7 +971,7 @@ $(function(){
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
-        .replace(/<i>\(([^)]+)\)<\/i>/g,'_{[}$1)_')
+        .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
         .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
