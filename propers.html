@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Mass Propers</title>
   <link rel="icon" href="icon/clear-main.png" type="image/png" />
   <link rel="stylesheet" type="text/css" href="style.css" />
@@ -33,7 +34,6 @@ textarea {
 }
 .chant-parent{
   width:100%;
-  min-height:119px;
 }
 .chant-preview>svg.ChantScore {
   width: 100%;
@@ -64,12 +64,19 @@ label.sel-label{
 .show-gabc textarea {
   display: inline;
 }
+div[part].show-gabc {
+  border:0;
+}
 .show-gabc .chant-parent {
   border:1px solid #aaa;
+  min-height:119px;
 }
 div[part] {
   margin-top: 4px;
   clear: both;
+}
+.hide-chant .chant-preview {
+  display: none;
 }
 </style>
 <body class='sans' style="margin:8px;">
@@ -248,7 +255,15 @@ div[part] {
   </div>
   <div id='divSequentia' part='sequentia'>
     <label id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
+    <a class='toggleShowChantPreview'>(<span class='showHide'>Hide</span> Chant)</a>
     <input id="txtCustomSequentia" placeholder="Sequentia Search Text" class="sel-custom" style="display:none"/>
+    <div class='block'>
+      <div class='chant-parent'>
+        <div id="sequentia-preview-container" class='preview-container'>
+          <div id="sequentia-preview" class='chant-preview'></div>
+        </div>
+      </div>
+    </div>
   </div>
   <div id='divOffertorium' part='offertorium'>
     <div class='block'>

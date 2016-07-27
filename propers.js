@@ -207,7 +207,11 @@ $(function(){
         }
         gabc = gabc? (header + gabc.slice(header.original.length)) : '';
         sel[part].gabc = gabc;
-        $('#selTone' + capPart).val(header.mode).change();
+        var $selTone = $('#selTone' + capPart).val(header.mode).change();
+        if(!$selTone.length) {
+          sel[part].style = 'full';
+          updateTextAndChantForPart(part);
+        }
       };
       if(id) {
         $.get('gabc/'+id+'.gabc',updateGabc);
@@ -1250,7 +1254,16 @@ $(function(){
         isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
     $this.find('.showHide').text(isShowing?'Hide' : 'Show');
     layoutChant(part);
-  })
+  });
+  $('a.toggleShowChantPreview').attr('href','').click(function(e){
+    e.preventDefault();
+    var $this = $(this),
+        $part = $this.parents().filter('[part]'),
+        part = $part.attr('part');
+        isShowing = !$part.toggleClass('hide-chant').hasClass('hide-chant');
+    $this.find('.showHide').text(isShowing?'Hide' : 'Show');
+    if(isShowing) layoutChant(part);
+  });
   var customProperSelected = function(event,ui){
     var $this=$(this),
         capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
