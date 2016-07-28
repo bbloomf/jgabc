@@ -179,8 +179,8 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
                                                   $("#selTones").val(),
                                                   $("#selEnd").val());
       gabc=header+gabc;
-      $("#editor").val(gabc);
-      $("#editor").keyup();
+      $("#txtGabc").val(gabc);
+      $("#txtGabc").keyup();
     }
   }
   last_syl = _syl;
@@ -523,7 +523,7 @@ function printMe(){
   window.print();
   $(document.body).css("max-width","initial");
   //setPrintFont(false);
-  $("#editor").keyup();
+  $("#txtGabc").keyup();
 }
 function errorHandler(e){
   console.error(e);
@@ -660,7 +660,7 @@ function editorKeyDown(e) {
   }
 }
 function updateLocalHeader() {
-  var gabc = $("#editor").val();
+  var gabc = $("#txtGabc").val();
   var header=getHeader(gabc);
   localStorage.psalmHeader=header;
 }
@@ -769,12 +769,12 @@ $(function() {
   $("#cbIncludeGloriaPatri").change(updateGloriaPatri);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false");
   $("#cbUseNovaVulgata")[0].checked = useNovaVulgata = (localStorage.cbUseNovaVulgata == "true");
-  $("#editor").keyup(updateLocalHeader).keydown(editorKeyDown);
+  $("#txtGabc").keyup(updateLocalHeader).keydown(editorKeyDown);
   $("#lnkDownloadVerses").bind("dragstart",onDragStart);
   $("#lnkDownloadAll").click(downloadAll);
   $("#lnkCancelZip").click(cancelZip);
   var getGabc = function(){
-    var gabc = $('#editor').val(),
+    var gabc = $('#txtGabc').val(),
         header = getHeader(gabc);
     if(!header.name) header.name = '';
     if(!header['%font']) header['%font'] = 'GaramondPremierPro';
@@ -821,4 +821,36 @@ $(function() {
     $('#chant-parent2').addClass('noeditor');
     gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = false;
   }
+  var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
+  ctxt.lyricTextFont = "'Crimson Text', serif";
+  ctxt.lyricTextSize *= 1.2;
+  ctxt.dropCapTextFont = ctxt.lyricTextFont;
+  ctxt.annotationTextFont = ctxt.lyricTextFont;
+  var chantContainer = $('#chant-preview')[0];
+  $('#txtGabc').keyup(function(){
+    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<b><\/b>/g,'')
+      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}')
+      .replace(/<\/?sc>/g,'%')
+      .replace(/<\/?b>/g,'*')
+      .replace(/<\/?i>/g,'_')
+        .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
+        .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
+    var header = getHeader(this.value);
+    var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
+    var score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
+    if(header['initial-style']!=='0' && header.annotation) {
+      score.annotation = new exsurge.Annotation(ctxt, header.annotation);
+    }
+    // perform layout on the chant
+    score.performLayoutAsync(ctxt, function() {
+      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+        // render the score to svg code
+        chantContainer.innerHTML = score.createSvg(ctxt);
+      });
+    });
+  });
 });
