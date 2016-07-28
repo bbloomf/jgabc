@@ -669,6 +669,7 @@ function windowResized(){
   var totalHeight = $(window).height() - $cp.position().top - 10;
   totalHeight = Math.max(120,totalHeight);
   $cp.height(totalHeight);
+  if(exsurge.layoutMyChant) exsurge.layoutMyChant();
 }
 function updateVerseGabcStar(newStar){
   if(typeof(newStar)!='string') {
@@ -827,6 +828,7 @@ $(function() {
   ctxt.dropCapTextFont = ctxt.lyricTextFont;
   ctxt.annotationTextFont = ctxt.lyricTextFont;
   var chantContainer = $('#chant-preview')[0];
+  var score;
   $('#txtGabc').keyup(function(){
     var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
@@ -841,10 +843,13 @@ $(function() {
         .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
     var header = getHeader(this.value);
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
-    var score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
+    score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(ctxt, header.annotation);
     }
+    layoutChant();
+  });
+  function layoutChant() {
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
       score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
@@ -852,5 +857,6 @@ $(function() {
         chantContainer.innerHTML = score.createSvg(ctxt);
       });
     });
-  });
+  }
+  exsurge.layoutMyChant = layoutChant;
 });
