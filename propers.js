@@ -1017,7 +1017,7 @@ $(function(){
       score.performLayout(ctxt);
       score.layoutChantLines(ctxt, ctxt.width);
       // render the score to svg code
-      chantContainer.innerHTML = score.createSvg(ctxt);
+      chantContainer.innerHTML = score.createSvgForEachLine(ctxt);
       updateTextSize(part);
     } else {
       score.performLayoutAsync(ctxt, function() {
