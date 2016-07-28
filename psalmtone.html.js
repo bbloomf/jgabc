@@ -858,5 +858,24 @@ $(function() {
       });
     });
   }
+  function layoutChantSync() {
+    // perform layout on the chant
+    score.performLayout(ctxt);
+    score.layoutChantLines(ctxt, chantContainer.clientWidth);
+    // render the score to svg code
+    chantContainer.innerHTML = score.createSvg(ctxt);
+  }
   exsurge.layoutMyChant = layoutChant;
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        layoutChantSync();
+      } else {
+        layoutChantSync();
+      }
+    });
+  }
+  window.onbeforeprint = layoutChantSync;
+  window.onafterprint = layoutChantSync;
 });
