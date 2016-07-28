@@ -673,7 +673,7 @@ $(function() {
     score.performLayout(ctxt);
     score.layoutChantLines(ctxt, chantContainer.clientWidth);
     // render the score to svg code
-    chantContainer.innerHTML = score.createSvg(ctxt);
+    chantContainer.innerHTML = score.createSvgForEachLine(ctxt);
   }
   exsurge.layoutMyChant = layoutChant;
   if (window.matchMedia) {
