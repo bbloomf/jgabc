@@ -160,8 +160,8 @@ function updateEditor(forceGabcUpdate,_syl) {
   var header = getHeader(localStorage.psalmHeader||'');
   header["centering-scheme"] = selLang;
   gabc=header+ '(' + _clef + ') ' + gabc;
-  $("#editor").val(gabc);
-  $("#editor").keyup();
+  $("#txtGabc").val(gabc);
+  $("#txtGabc").keyup();
 }
 
 function keyupTxtGabc() {
@@ -369,7 +369,7 @@ function versesFilename(format,psalmNum,tone,ending,solemn){
 }
 
 function updateLocalHeader() {
-  var gabc = $("#editor").val();
+  var gabc = $("#txtGabc").val();
   var header=getHeader(gabc);
   localStorage.psalmHeader=header;
 }
@@ -378,6 +378,7 @@ function windowResized(){
   var totalHeight = $(window).height() - $cp.position().top - 10;
   totalHeight = Math.max(120,totalHeight);
   $cp.height(totalHeight);
+  if(exsurge.layoutMyChant) exsurge.layoutMyChant();
 }
 var splitSentences = (function(){
   var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+(?:$|,(?=[,\r\n])|[+\^~.?!;:](?:\s*[:+])?["'“”‘’]?)),?\s*/gi;
@@ -588,11 +589,11 @@ $(function() {
   $("#txtEndPrep").keyup(updateEndPrep);
   $("#txtBeginAccented").keyup(updateBeginAccented);
   $("#txtEndAccented").keyup(updateEndAccented);
-  $("#editor").keyup(updateLocalHeader);
+  $("#txtGabc").keyup(updateLocalHeader);
   $("#lnkDownloadVerses").bind("dragstart",onDragStart);
   cbEnglishChanged();
   var getGabc = function(){
-    var gabc = $('#editor').val(),
+    var gabc = $('#txtGabc').val(),
         header = getHeader(gabc);
     if(!header.name) header.name = '';
     if(!header['%font']) header['%font'] = 'GaramondPremierPro';
@@ -631,4 +632,60 @@ $(function() {
   setGabcLinkSelector("#lnkDownloadGabc");
   windowResized();
   updateFormat();
+  var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
+  ctxt.lyricTextFont = "'Crimson Text', serif";
+  ctxt.lyricTextSize *= 1.2;
+  ctxt.dropCapTextFont = ctxt.lyricTextFont;
+  ctxt.annotationTextFont = ctxt.lyricTextFont;
+  var chantContainer = $('#chant-preview')[0];
+  var score;
+  $('#txtGabc').keyup(function(){
+    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<b><\/b>/g,'')
+      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}')
+      .replace(/<\/?sc>/g,'%')
+      .replace(/<\/?b>/g,'*')
+      .replace(/<\/?i>/g,'_')
+        .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
+        .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
+    var header = getHeader(this.value);
+    var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
+    score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
+    if(header['initial-style']!=='0' && header.annotation) {
+      score.annotation = new exsurge.Annotation(ctxt, header.annotation);
+    }
+    layoutChant();
+  }).keyup();
+  function layoutChant() {
+    // perform layout on the chant
+    score.performLayoutAsync(ctxt, function() {
+      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+        // render the score to svg code
+        chantContainer.innerHTML = score.createSvg(ctxt);
+      });
+    });
+  }
+  function layoutChantSync() {
+    // perform layout on the chant
+    score.performLayout(ctxt);
+    score.layoutChantLines(ctxt, chantContainer.clientWidth);
+    // render the score to svg code
+    chantContainer.innerHTML = score.createSvg(ctxt);
+  }
+  exsurge.layoutMyChant = layoutChant;
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        layoutChantSync();
+      } else {
+        layoutChantSync();
+      }
+    });
+  }
+  window.onbeforeprint = layoutChantSync;
+  window.onafterprint = layoutChantSync;
 });
