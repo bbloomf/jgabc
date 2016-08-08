@@ -774,6 +774,12 @@ $(function() {
   $("#lnkDownloadVerses").bind("dragstart",onDragStart);
   $("#lnkDownloadAll").click(downloadAll);
   $("#lnkCancelZip").click(cancelZip);
+  function gabcReplace(gabc){
+    return gabc.
+      replace(/\[ocb:[01]\{]/g,'[ocba:1;6mm]').
+      replace(/\[ocb:[01]}]/g,'')
+  }
+
   var getGabc = function(){
     var gabc = $('#txtGabc').val(),
         header = getHeader(gabc);
@@ -783,14 +789,14 @@ $(function() {
     return gabc = header + gabc.slice(header.original.length);
   }
   $('#lnkPdf').click(function(e){
-    var result=getGabc();    
+    var result=getGabc();
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
     $('#pdfForm').attr('action','http://apps.illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
-    var gabcs=[getGabc()];
+    var gabcs=[gabcReplace(getGabc())];
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
