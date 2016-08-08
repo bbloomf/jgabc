@@ -13,20 +13,32 @@
   src: url('caeciliae-staffless-print.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'OFL Sorts Mill Goudy TT';
-  font-style: italic;
-  font-weight: normal;
-  src: local('OFL Sorts Mill Goudy Italic TT'),
-    local('OFLGoudyStMTT-Italic'),
-    url('OFLGoudyStMTT-Italic.ttf') format('truetype');
+    font-family: 'Crimson Text';
+    src: url('fonts/crimson-bold-webfont.woff2') format('woff2'),
+         url('fonts/crimson-bold-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
 }
 @font-face {
-  font-family: 'OFL Sorts Mill Goudy TT';
-  font-style: normal;
-  font-weight: normal;
-  src: local('OFL Sorts Mill Goudy TT'),
-    local('OFLGoudyStMTT'),
-    url('OFLGoudyStMTT.ttf') format('truetype');
+    font-family: 'Crimson Text';
+    src: url('fonts/crimson-italic-webfont.woff2') format('woff2'),
+         url('fonts/crimson-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Crimson Text';
+    src: url('fonts/crimson-roman-webfont.woff2') format('woff2'),
+         url('fonts/crimson-roman-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Crimson Text';
+    src: url('fonts/crimson-semibold-webfont.woff2') format('woff2'),
+         url('fonts/crimson-semibold-webfont.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
 }
 @font-face {
   font-family: 'Versiculum';
@@ -55,19 +67,19 @@ tspan.selectable{
   font-size:48px;
 }
 .goudy{
-  font-family: 'OFL Sorts Mill Goudy TT';
+  font-family: 'Crimson Text';
   font-size: 18px;
 }
 .choral-sign{
-  font-family: 'OFL Sorts Mill Goudy TT';
+  font-family: 'Crimson Text';
   font-size: 12px;
 }
 .greinitial{
-  font-family: 'OFL Sorts Mill Goudy TT';
+  font-family: 'Crimson Text';
   font-size: 60px!important;
 }
 .greannotation{
-  font-family: 'OFL Sorts Mill Goudy TT';
+  font-family: 'Crimson Text';
   font-size: 15px;
 }
 @media screen {
@@ -85,6 +97,6 @@ tspan.selectable{
     display:none;
   }
   body{
-    max-width:8in;
+    /* max-width:8in; */
   }
 }

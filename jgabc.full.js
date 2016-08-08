@@ -232,13 +232,14 @@ var localCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
 var familyCaeciliae = "Caeciliae" + (staffInFont? "" : " Staffless");
 var styleCaeciliae = "font-family: '"+familyCaeciliae+"'; font-size:" + staffheight + "px;";
 var styleCaeciliaeSvg="font-family: '"+familyCaeciliae+" SVG'; font-size:" + staffheight + "px;";
-var styleGoudy = "font-family: 'OFL Sorts Mill Goudy TT';" + " font-size: " + fontsize + "px;";
+var styleGoudy = "font-family: 'Crimson Text';" + " font-size: " + fontsize + "px;";
 
 var styleFont="@font-face {font-family: '"+familyCaeciliae+"'; font-weight: normal; font-style: normal;src: local('"+localCaeciliae+"'); src: url('"+filenameCaeciliae+"') format('"+fontFormat+"')}"
         + "@font-face {font-family: '"+familyCaeciliae+" SVG'; font-weight: normal; font-style: normal;src: url('"+filenameCaeciliaeS+"') format('"+fontFormatS+"')}"
         + "@font-face {font-family: '"+familyCaeciliae+" Print'; font-weight: normal; font-style: normal;src: url('"+filenameCaeciliaePrint+"') format('"+fontFormat+"')}"
-        + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: italic; font-weight: normal; src: local('OFL Sorts Mill Goudy Italic TT'), local('OFLGoudyStMTT-Italic'), url('OFLGoudyStMTT-Italic.ttf') format('truetype');}"
-        + "@font-face {font-family: 'OFL Sorts Mill Goudy TT'; font-style: normal; font-weight: normal; src: local('OFL Sorts Mill Goudy TT'), local('OFLGoudyStMTT'), url('OFLGoudyStMTT.ttf') format('truetype');}"
+        + "@font-face { font-family: 'Crimson Text'; src: url('fonts/crimson-bold-webfont.woff2') format('woff2'), url('fonts/crimson-bold-webfont.woff') format('woff'); font-weight: bold; font-style: normal; }"
+        + "@font-face { font-family: 'Crimson Text'; src: url('fonts/crimson-italic-webfont.woff2') format('woff2'), url('fonts/crimson-italic-webfont.woff') format('woff'); font- weight: normal; font-style: italic; }"
+        + "@font-face { font-family: 'Crimson Text'; src: url('fonts/crimson-roman-webfont.woff2') format('woff2'), url('fonts/crimson-roman-webfont.woff') format('woff'); font- weight: normal; font-style: normal; }";
 
 var svgWidth;
 var _svg,svg;
