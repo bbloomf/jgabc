@@ -602,7 +602,6 @@ function textWidth(txt,clas,special) {
   $(dt).text(txt.replace(/ /g,'\u00a0'));
   var wid=dt.getSubStringLength(i, len||txt.length);
   if(key)_txtWidths[key]=wid;
-    return wid;
   return wid;
 }
 
