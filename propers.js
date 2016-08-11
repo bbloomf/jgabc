@@ -1,4 +1,4 @@
-var selDay,selTempus='',selPropers,sel={
+var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   tractus:{},
   offertorium:{},
   introitus:{},
@@ -133,6 +133,7 @@ $(function(){
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part) {
+    var selPO = $.extend({},selPropers,selOrdinaries);
     var id;
     var incipit;
     var match = part.match(/^([a-z]+)(\d+)$/i);
@@ -145,7 +146,7 @@ $(function(){
     if(isNovus) {
       var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
-      id = selPropers && selPropers[partType];
+      id = selPO[partType];
       if(id && id[year]) id = id[year];
       if(id && id.length > 1) {
         var $options = $('.novus-options.'+part);
@@ -166,7 +167,7 @@ $(function(){
       incipit = id && id.incipit;
       id = id && id.id;
     } else {
-      id = selPropers? selPropers[partType+'ID'] : null;
+      id = selPO[partType+'ID'];
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
         partIndex++;  // for human readable 1-based index.
@@ -1221,7 +1222,7 @@ $(function(){
   $('.ordinary select').change(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    selPropers[part + 'ID'] = this.value;
+    selOrdinaries[part + 'ID'] = this.value;
     updatePart(part);
   })
   $('#btnCalendar').button().click(function(e){
