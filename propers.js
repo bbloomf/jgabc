@@ -1080,6 +1080,7 @@ $(function(){
   var $selTempus = $('#selTempus');
   var $selSundayNovus = $('#selSundayNovus');
   var $selYearNovus = $('#selYearNovus');
+  var $selOrdinary = $('#selOrdinary');
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
   $('#selSundayNovus').change(selectedDayNovus);
   $('#selYearNovus').change(function(){updateAllParts();});
@@ -1112,6 +1113,32 @@ $(function(){
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
+
+  var ordinaryKeys = massOrdinary.map(function(e,i){
+    var name = '';
+    if(i<18) name = (i+1) + ' - ';
+    if(e.name) {
+      name += e.name + ' (' + e.season + ')';
+    } else {
+      name += e.season;
+    }
+    return {
+      key: i.toString(),
+      title: 'Missa ' + name,
+      en: 'Mass ' + name
+    }
+  });
+  ordinaryKeys.unshift({
+    key: '',
+    title: 'Nulla Missa Cantu Gregoriano',
+    en: 'No Chant Mass inline'
+  });
+  ordinaryKeys.push({
+    key: 'ad-lib',
+    title: 'Ad Libitum',
+    en: 'Ad Libitum'
+  })
+  populate(ordinaryKeys,$selOrdinary)
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
   //When the year number is found, Take year = yearArray[year%3];
   var date = new Date(),
