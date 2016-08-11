@@ -5,7 +5,13 @@ var selDay,selTempus='',selPropers,sel={
   graduale:{},
   communio:{},
   alleluia:{},
-  sequentia:{}
+  sequentia:{},
+  kyrie:{},
+  gloria:{},
+  credo:{},
+  sanctus:{},
+  agnus:{},
+  ite:{}
 },includePropers=[],
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
   alleluiaChantsAbreges=[
@@ -140,7 +146,7 @@ $(function(){
       var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
       id = selPropers && selPropers[partType];
-      if (id && id[year]) id = id[year];
+      if(id && id[year]) id = id[year];
       if(id && id.length > 1) {
         var $options = $('.novus-options.'+part);
         var $select = $options.find('select');
@@ -336,7 +342,59 @@ $(function(){
     selTempus = $(this).val();
     updateDay();
   };
-  
+  var selectedOrdinary = function(e){
+    selOrdinary = $(this).val();
+    massName = $(this.selectedOptions[0]).text();
+    massName = massName.slice(0, massName.indexOf(' -'));
+    $('.ordinary').toggle(!!selOrdinary);
+    if(selOrdinary) {
+      var ordinary = massOrdinary[selOrdinary] || {};
+      var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
+      ordinaryParts.forEach(function(part){
+        var capPart = part[0].toUpperCase() + part.slice(1),
+            $part = $('[part=' + part + ']'),
+            $select = $part.find('select'),
+            selectedPart = ordinary[part] || [],
+            adLibPart = ordinaryAdLib[part] || [];
+        if(selectedPart.constructor != [].constructor) {
+          selectedPart = [selectedPart];
+        }
+        if(adLibPart.constructor != [].constructor) {
+          adLibPart = [adLibPart];
+        }
+        if(part == 'ite') {
+          if(ordinary.benedicamus) selectedPart = selectedPart.concat(ordinary.benedicamus);
+          adLibPart = adLibPart.concat(ordinaryAdLib.benedicamus);
+        }
+        var options = [[{id: '', name: 'No ' + capPart}]];
+        options[0] = options[0].concat(selectedPart);
+        var temp = selectedPart.reduce(function(result,part){
+          result[part.id] = part;
+          return result;
+        }, {});
+        options.push(adLibPart.filter(function(part){
+          if(!(part.id in temp)) return true;
+        }));
+        $select.empty();
+        options.forEach(function(optGroup, index){
+          if(optGroup.length == 0) return;
+          var $optGroup = $('<optgroup></optgroup>');
+          $optGroup.attr('label', index==0?massName : 'Ad Libitum')
+          optGroup.forEach(function(option, optIndex){
+            var option = $('<option></option>').
+              text(option.name).
+              val(option.id).
+              appendTo($optGroup);
+            if(index == 0 && optIndex == 1) {
+              option.attr('selected', true);
+            }
+          });
+          $optGroup.appendTo($select);
+        });
+        $select.change();
+      });
+    }
+  };
   
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
@@ -905,13 +963,12 @@ $(function(){
     
     return applyLiquescents(gabc);
   }
-  
-  var updateTextAndChantForPart = function(part,instant) {
+
+  var updateTextAndChantForPart = function(part) {
     var gabc,
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
-        $txt = $('#txt'+capPart),
-        instant = (instant !== false);
+        $txt = $('#txt'+capPart);
     switch(sel[part].style) {
       case 'full':
         $txt.val((gabc = sel[part].gabc));
@@ -956,6 +1013,15 @@ $(function(){
     makeChantContextForSel(this);
   });
 
+  var updateGabcForOrdinary = function(part) {
+    var gabc,
+        capPart = part[0].toUpperCase()+part.slice(1),
+        $div = $('#div'+capPart),
+        $txt = $('#txt'+capPart);
+    $txt.val((gabc = sel[part].gabc));
+    sel[part].activeGabc = gabc;
+    if(gabc) updateExsurge(part);
+  };
   var updateExsurge = function(part) {
     var chantContainer = $('#'+part+'-preview')[0];
     var prop = sel[part];
@@ -1082,9 +1148,10 @@ $(function(){
   var $selYearNovus = $('#selYearNovus');
   var $selOrdinary = $('#selOrdinary');
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
-  $('#selSundayNovus').change(selectedDayNovus);
-  $('#selYearNovus').change(function(){updateAllParts();});
-  $('#selTempus').change(selectedTempus);
+  $selSundayNovus.change(selectedDayNovus);
+  $selYearNovus.change(function(){updateAllParts();});
+  $selTempus.change(selectedTempus);
+  $selOrdinary.change(selectedOrdinary).change();
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
   if(location.search.match(/\bla\b/)) key = 'title';
   var populate = function(keys,$sel) {
@@ -1154,6 +1221,12 @@ $(function(){
     novusOption[part] = this.selectedIndex;
     updatePart(part);
   });
+  $('.ordinary select').change(function(){
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+        part = capPart.toLowerCase();
+    selPropers[part + 'ID'] = this.value;
+    updatePart(part);
+  })
   $('#btnCalendar').button().click(function(e){
     var $this = $(this);
     isNovus = !isNovus;
