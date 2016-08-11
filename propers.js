@@ -175,7 +175,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
     var $includePart = $('#include'+capPart);
-    if(id || selDay=='custom') {
+    if(id || (selDay=='custom' && !$div.is('.ordinary'))) {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
       $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
@@ -225,8 +225,12 @@ $(function(){
         updateGabc('');
       }
     } else {
-      $div.hide();
-      $includePart.parent('li').addClass('ui-state-disabled');
+      if($div.is('.ordinary')) {
+        $div.find('.chant-preview').empty();
+      } else {
+        $div.hide();
+        $includePart.parent('li').addClass('ui-state-disabled');
+      }
     }
   }
   var removeMultipleGraduales = function() {
@@ -366,8 +370,10 @@ $(function(){
           if(ordinary.benedicamus) selectedPart = selectedPart.concat(ordinary.benedicamus);
           adLibPart = adLibPart.concat(ordinaryAdLib.benedicamus);
         }
-        var options = [[{id: '', name: 'No ' + capPart}]];
-        options[0] = options[0].concat(selectedPart);
+        var optionNone = $('<option></option>').val('').text('No ' + capPart);
+        if(selectedPart.length == 0) optionNone.attr('selected', true);
+        var options = [];
+        options.push(selectedPart);
         var temp = selectedPart.reduce(function(result,part){
           result[part.id] = part;
           return result;
@@ -375,7 +381,7 @@ $(function(){
         options.push(adLibPart.filter(function(part){
           if(!(part.id in temp)) return true;
         }));
-        $select.empty();
+        $select.empty().append(optionNone);
         options.forEach(function(optGroup, index){
           if(optGroup.length == 0) return;
           var $optGroup = $('<optgroup></optgroup>');
@@ -385,7 +391,7 @@ $(function(){
               text(option.name).
               val(option.id).
               appendTo($optGroup);
-            if(index == 0 && optIndex == 1) {
+            if(index == 0 && optIndex == 0) {
               option.attr('selected', true);
             }
           });
@@ -1013,15 +1019,6 @@ $(function(){
     makeChantContextForSel(this);
   });
 
-  var updateGabcForOrdinary = function(part) {
-    var gabc,
-        capPart = part[0].toUpperCase()+part.slice(1),
-        $div = $('#div'+capPart),
-        $txt = $('#txt'+capPart);
-    $txt.val((gabc = sel[part].gabc));
-    sel[part].activeGabc = gabc;
-    if(gabc) updateExsurge(part);
-  };
   var updateExsurge = function(part) {
     var chantContainer = $('#'+part+'-preview')[0];
     var prop = sel[part];
