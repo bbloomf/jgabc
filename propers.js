@@ -382,18 +382,32 @@ $(function(){
         options.push(adLibPart.filter(function(part){
           if(!(part.id in temp)) return true;
         }));
+        temp = adLibPart.reduce(function(result,part){
+          result[part.id] = part;
+          return result;
+        }, temp);
+        options.push(massOrdinary.reduce(function(result,mass){
+          var p = mass[part];
+          if(!p) return result;
+          if(p.constructor != [].constructor) p = [p];
+          p.forEach(function(one){
+            if(!(one.id in temp)) result.push(one);
+          });
+          return result;
+        }, []));
         $select.empty().append(optionNone);
         options.forEach(function(optGroup, index){
           if(optGroup.length == 0) return;
           var $optGroup = $('<optgroup></optgroup>');
-          $optGroup.attr('label', index==0?massName : 'Ad Libitum')
+          var label = [massName, 'Ad Libitum', 'Other Masses'][index];
+          $optGroup.attr('label', label);
           optGroup.forEach(function(option, optIndex){
-            var option = $('<option></option>').
-              text(option.name).
+            var $option = $('<option></option>').
+              text(option.name || '').
               val(option.id).
               appendTo($optGroup);
             if(index == 0 && optIndex == 0) {
-              option.attr('selected', true);
+              $option.attr('selected', true);
             }
           });
           $optGroup.appendTo($select);
