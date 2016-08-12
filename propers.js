@@ -132,7 +132,7 @@ $(function(){
     return result;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
-  var updatePart = function(part) {
+  var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries);
     var id;
     var incipit;
@@ -143,7 +143,8 @@ $(function(){
       partType = match[1];
       partIndex = parseInt(match[2]);
     }
-    if(isNovus) {
+    var isOrdinaryPart = (part+'ID') in selOrdinaries;
+    if(isNovus && !isOrdinaryPart) {
       var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
       id = selPO[partType];
@@ -203,8 +204,11 @@ $(function(){
           }
         }
         var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
-        $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
-        $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
+        if(isOrdinaryPart) capTruePart = ordinaryName;
+        if(capTruePart) {
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
+          $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
+        }
         var romanMode = romanNumeral[header.mode];
         if(partAbbrev[truePart]) {
           header.annotation = (partIndex? partIndex + '. ' : '') + partAbbrev[truePart];
@@ -1237,7 +1241,7 @@ $(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     selOrdinaries[part + 'ID'] = this.value;
-    updatePart(part);
+    updatePart(part, this.selectedOptions[0].innerText);
   })
   $('#btnCalendar').button().click(function(e){
     var $this = $(this);
