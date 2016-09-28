@@ -23,7 +23,7 @@ String.prototype.format = function(keys){
 var o_bi_formats = 
     bi_formats = (function(){
                     var _syl_subRegex= /ǽ/g;
-                    var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
+                    var _syl_substitutions= {'ǽ':"{<sp>'ae</sp>}"};
                     return {
                       html: {
                         bold: ["<b>", "</b>"],
@@ -515,7 +515,7 @@ function syllable(match,index,bi) {
             syl: match[1] + (prepunc?sylnospace:match[3]) + match[10],
             vowel: match[6]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
             separator: match[7], // - or *
-            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"").replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
+            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
             space: match[9],
