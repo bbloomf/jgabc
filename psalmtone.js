@@ -35,8 +35,8 @@ var o_bi_formats =
                         userNotes: "$psalm"
                       },
                       tex: {
-                        bold: ["{\\textbf{", "}"],
-                        italic: ["{\\it ", "}"],
+                        bold: ["\\textbf{", "}"],
+                        italic: ["\\textit{", "}"],
                         nbsp: "~",
                         verse: ["\\item ",""],
                         versesName: "$psalm-$tone.tex",
