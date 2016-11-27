@@ -5,13 +5,14 @@ var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
 var useFormat,useInitStyle,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
 var includeGloriaPatri;
-function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
+function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
   var actuallyUpdate=(typeof(_syl)=="undefined");
   if(!gSyl) gSyl = $("#versegabc").val();
   if(!syl) syl = $("#versetext").val();
   if(!_gShortMediant)_gShortMediant = gShortMediant;
   _syl = _syl || syl;
   _gSyl = _gSyl || gSyl;
+  clef = clef || _clef;
   var sameSyl = (_syl == last_syl);
   var sameGSyl = (_gSyl == last_gSyl);
   var lines = sameSyl? last_lines : _syl.split('\n');
@@ -68,7 +69,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
   var asGabc = useFormat.match(/gabc/i);
   if(asCode) r+="<code>";
   if(!asGabc || !sameSyl || !sameGSyl || forceGabcUpdate) {
-    gabc = "(" + _clef + ")"
+    gabc = "(" + clef + ")"
     for(var i=0; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
       if(firstVerse || asGabc) {
@@ -137,8 +138,8 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
             flex = true;
           }
         }
-        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true)
-            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true));
+        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true,false,i)
+            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true,i));
         vr += tempString + '\n';
         r += "<p style='line-height:100%;margin: 6pt 0px;'>"
           + tempString
@@ -178,8 +179,8 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant) {
                                                   $("#selTones").val(),
                                                   $("#selEnd").val());
       gabc=header+gabc;
-      $("#editor").val(gabc);
-      $("#editor").keyup();
+      $("#txtGabc").val(gabc);
+      $("#txtGabc").keyup();
     }
   }
   last_syl = _syl;
@@ -290,13 +291,18 @@ function getCantica() {
   r.push("Benedictus");
   r.push("Magnificat");
   r.push("Nunc dimittis");
+  r.push("Canticum Trium puerorum");
+  r.push("Canticum Isaiae");
+  r.push("Canticum Ezechiae");
+  r.push("Canticum Annae");
+  r.push("Canticum Moysis");
+  r.push("Canticum Habacuc");
+  //r.push("Canticum Moysis (Deut)");
   r.push("Canticum David");
   r.push("Canticum Ecclesiastici");
-  r.push("Canticum Isaiae");
   r.push("Canticum Jeremiae");
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");
-  r.push("Canticum Trium puerorum");
   return r;
 }
 
@@ -517,7 +523,7 @@ function printMe(){
   window.print();
   $(document.body).css("max-width","initial");
   //setPrintFont(false);
-  $("#editor").keyup();
+  $("#txtGabc").keyup();
 }
 function errorHandler(e){
   console.error(e);
@@ -558,12 +564,22 @@ function downloadAll(e){
   var includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
   var useNovaVulgata = $("#cbUseNovaVulgata")[0].checked;
   var byteArray;
+  var clef;
   var addPsalm=function(psalmNum,text,t,ending,gSyl,shortMediant,solemn){
-    var texts = updateEditor(true,text,gSyl,shortMediant);
+    var texts = updateEditor(true,text,gSyl,shortMediant,clef);
     var filename = versesFilename(bi_formats[useFormat],psalmNum,t,ending,solemn);
     var header = getHeader(localStorage.psalmHeader||'');
     header["initial-style"] = '0';
     header["name"] = filename.replace(/\.[^.]*$/,'');
+    header["annotation"] = annotationTextFormat(bi_formats[useFormat].annotation,
+                                                String(psalmNum),
+                                                t,
+                                                ending);
+    header["user-notes"] = annotationTextFormat(bi_formats[useFormat].userNotes,
+                                                String(psalmNum),
+                                                t,
+                                                ending);
+    
     zip.add(header["name"] + ".gabc",header + texts[0]);
     if(texts[1].length>0)zip.add(filename,texts[1]);
   };
@@ -577,10 +593,12 @@ function downloadAll(e){
     var psalmNum = psalms[i];    
     if(psalmNum){
       getPsalm(psalmNum,includeGloriaPatri,useNovaVulgata,function(text) {
-        var alsoSolemn = parseInt(psalmNum).toString()=="NaN";
+        text = text.replace(/ \d+ /g,' ');
+        var alsoSolemn = isNaN(parseInt(psalmNum));
         for(var t in g_tones) {
-          if(t[0]=='V')continue;
+          if(t != 'per.' && isNaN(parseInt(t[0])))continue;
           var ctone=g_tones[t];
+          clef = ctone.clef;
           var solemn=false;
           var shortMediant = getGabcTones(ctone.shortMediant||ctone.solemn||ctone.mediant);
           if(ctone.terminations){
@@ -605,42 +623,14 @@ function downloadAll(e){
       for (i = 0; i < data.length; i++) {
           byteArray[i] = data.charCodeAt(i) & 0xff;
       }
-      window.webkitRequestFileSystem(window.TEMPORARY, 25*1024*1024 /*50MB*/, onInitFs, errorHandler);
+      var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
+      saveAs(blob, 'psalms.zip', true);
+      $("#spnProgressZip").text("");
+      $("#lnkDownloadAll").show();
+      $("#lnkCancelZip").hide();
     }
   };
   getNextPsalm(0);
-  
-  //location.href="data:application/zip;base64,"+zip.generate();
-  var onInitFs = function(fs){
-    fs.root.getFile('psalms.zip', {create: true}, function(fileEntry) {
-      
-      // Create a FileWriter object for our zip
-      fileEntry.createWriter(function(fileWriter) {
-
-        fileWriter.onwriteend = function(e) {
-          console.log('Write completed.');
-          if(fileWriter.length > fileWriter.position){
-            fileWriter.truncate(fileWriter.position);
-          } else {
-            location.href=fileEntry.toURL();
-            $("#spnProgressZip").text("");
-            $("#lnkDownloadAll").show();
-            $("#lnkCancelZip").hide();
-          }
-        };
-
-        fileWriter.onerror = function(e) {
-          console.log('Write failed: ' + e.toString());
-        };
-
-        // Create a new Blob and write it to log.txt.
-        var bb = new WebKitBlobBuilder(); // Note: window.WebKitBlobBuilder in Chrome 12.
-        
-        bb.append(byteArray.buffer);
-        fileWriter.write(bb.getBlob('application/zip'));
-      }, errorHandler);
-    }, errorHandler);
-  }
 }
 function editorKeyDown(e) {
   if(e.which==9) {
@@ -670,7 +660,7 @@ function editorKeyDown(e) {
   }
 }
 function updateLocalHeader() {
-  var gabc = $("#editor").val();
+  var gabc = $("#txtGabc").val();
   var header=getHeader(gabc);
   localStorage.psalmHeader=header;
 }
@@ -679,6 +669,7 @@ function windowResized(){
   var totalHeight = $(window).height() - $cp.position().top - 10;
   totalHeight = Math.max(120,totalHeight);
   $cp.height(totalHeight);
+  if(exsurge.layoutMyChant) exsurge.layoutMyChant();
 }
 function updateVerseGabcStar(newStar){
   if(typeof(newStar)!='string') {
@@ -779,12 +770,18 @@ $(function() {
   $("#cbIncludeGloriaPatri").change(updateGloriaPatri);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false");
   $("#cbUseNovaVulgata")[0].checked = useNovaVulgata = (localStorage.cbUseNovaVulgata == "true");
-  $("#editor").keyup(updateLocalHeader).keydown(editorKeyDown);
+  $("#txtGabc").keyup(updateLocalHeader).keydown(editorKeyDown);
   $("#lnkDownloadVerses").bind("dragstart",onDragStart);
   $("#lnkDownloadAll").click(downloadAll);
   $("#lnkCancelZip").click(cancelZip);
+  function gabcReplace(gabc){
+    return gabc.
+      replace(/\[ocb:[01]\{]/g,'[ocba:1;6mm]').
+      replace(/\[ocb:[01]}]/g,'')
+  }
+
   var getGabc = function(){
-    var gabc = $('#editor').val(),
+    var gabc = $('#txtGabc').val(),
         header = getHeader(gabc);
     if(!header.name) header.name = '';
     if(!header['%font']) header['%font'] = 'GaramondPremierPro';
@@ -792,14 +789,14 @@ $(function() {
     return gabc = header + gabc.slice(header.original.length);
   }
   $('#lnkPdf').click(function(e){
-    var result=getGabc();    
+    var result=getGabc();
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
     $('#pdfForm').attr('action','http://apps.illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
-    var gabcs=[getGabc()];
+    var gabcs=[gabcReplace(getGabc())];
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
@@ -831,4 +828,60 @@ $(function() {
     $('#chant-parent2').addClass('noeditor');
     gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = false;
   }
+  var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
+  ctxt.lyricTextFont = "'Crimson Text', serif";
+  ctxt.lyricTextSize *= 1.2;
+  ctxt.dropCapTextFont = ctxt.lyricTextFont;
+  ctxt.annotationTextFont = ctxt.lyricTextFont;
+  var chantContainer = $('#chant-preview')[0];
+  var score;
+  $('#txtGabc').keyup(function(){
+    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<b><\/b>/g,'')
+      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}')
+      .replace(/<\/?sc>/g,'%')
+      .replace(/<\/?b>/g,'*')
+      .replace(/<\/?i>/g,'_')
+        .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
+        .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
+    var header = getHeader(this.value);
+    var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
+    score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
+    if(header['initial-style']!=='0' && header.annotation) {
+      score.annotation = new exsurge.Annotation(ctxt, header.annotation);
+    }
+    layoutChant();
+  });
+  function layoutChant() {
+    // perform layout on the chant
+    score.performLayoutAsync(ctxt, function() {
+      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+        // render the score to svg code
+        chantContainer.innerHTML = score.createSvg(ctxt);
+      });
+    });
+  }
+  function layoutChantSync() {
+    // perform layout on the chant
+    score.performLayout(ctxt);
+    score.layoutChantLines(ctxt, chantContainer.clientWidth);
+    // render the score to svg code
+    chantContainer.innerHTML = score.createSvgForEachLine(ctxt);
+  }
+  exsurge.layoutMyChant = layoutChant;
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        layoutChantSync();
+      } else {
+        layoutChantSync();
+      }
+    });
+  }
+  window.onbeforeprint = layoutChantSync;
+  window.onafterprint = layoutChantSync;
 });

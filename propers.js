@@ -1,21 +1,17 @@
-// TODO: have these tones (from the Liber Usualis, p.96 for Alleluia to be sung at the Communion during Paschal Time) available for use with a psalm toned communion verse:
-// (c4)Al(fg~)le(e_d/fh//ghg/e!fg/hf/gvFE)lu(d!ewfef)ia(ed..) (::)
-// (f3)Al(hi~)le(gf/hg)lu(eg/igh)ia(gf..) (::)
-// (c4)Al(gh)le(gf/hvGF'/g)lu(egf//f)ia(fe..) (::)
-// (c4)Al(f)le(d./ghG'F/ghg)lu(egf//f)ia(fe..) (::)
-// (c3)Al(gxdf)le(e/hv/hf!gw!hvGE'/fw!gvFE)lu(de!fvED'/e)ia(ed..) (::)
-// (c4)Al(fg~)le(ixgiHG')lu(hg/gfg)ia(gf..) (::)
-// (c3)Al(f!gwh)le(hih___//gih.//fhgh.////fge___)lu(efe___)ia(e.) (::)
-// (c4)Al(g)le(ghfg)lu(gh/jhi)ia(hg..) (::)
-
-var selDay,selTempus='',selPropers,sel={
+var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   tractus:{},
   offertorium:{},
   introitus:{},
   graduale:{},
   communio:{},
   alleluia:{},
-  sequentia:{}
+  sequentia:{},
+  kyrie:{},
+  gloria:{},
+  credo:{},
+  sanctus:{},
+  agnus:{},
+  ite:{}
 },includePropers=[],
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
   alleluiaChantsAbreges=[
@@ -65,7 +61,8 @@ $(function(){
     introitus:'Intr.',
     graduale:'Grad.',
     communio:'Comm.',
-    sequentia: 'Seq.'    
+    sequentia: 'Seq.',
+    hymnus: 'Hymn.'
   };
   var defaultTermination={
     '1':'f',
@@ -135,14 +132,23 @@ $(function(){
     return result;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
-  var updatePart = function(part) {
+  var updatePart = function(part, ordinaryName) {
+    var selPO = $.extend({},selPropers,selOrdinaries);
     var id;
     var incipit;
-    if(isNovus) {
-      var optionID = novusOption[part]||0;
+    var match = part.match(/^([a-z]+)(\d+)$/i);
+    var partIndex = 0;
+    var partType = part;
+    if(match) {
+      partType = match[1];
+      partIndex = parseInt(match[2]);
+    }
+    var isOrdinaryPart = (part+'ID') in selOrdinaries;
+    if(isNovus && !isOrdinaryPart) {
+      var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
-      id = selPropers && selPropers[part];
-      if (id && id[year]) id = id[year];
+      id = selPO[partType];
+      if(id && id[year]) id = id[year];
       if(id && id.length > 1) {
         var $options = $('.novus-options.'+part);
         var $select = $options.find('select');
@@ -162,43 +168,61 @@ $(function(){
       incipit = id && id.incipit;
       id = id && id.id;
     } else {
-      id = selPropers? selPropers[part+'ID'] : null;
+      id = selPO[partType+'ID'];
+      if(id && id.constructor == [].constructor) {
+        id = id[partIndex];
+        partIndex++;  // for human readable 1-based index.
+      }
     }
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart);
     var $includePart = $('#include'+capPart);
-    if(id || selDay=='custom') {
+    if(id || (selDay=='custom' && !$div.is('.ordinary'))) {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
       $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
       $div.show();
       var updateGabc = function(gabc){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
+        var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text = sel[part].text = versify(decompile(gabc,true));
-        var truePart = isAlleluia(part,text)? 'alleluia' : part;
-        if(part == 'graduale') {
+        var truePart = isAlleluia(part,text)? 'alleluia' : partType;
+        if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
-            $('#selStyleGraduale>option.alleluia').show();
+            $('#selStyle'+capPart+'>option.alleluia').show();
           } else {
-            $('#selStyleGraduale>option.alleluia').hide();
-            var $style = $('#selStyleGraduale');
+            if(header['office-part']=='Hymnus') {
+              truePart = 'hymnus';
+              partIndex = null;
+            }
+            $('#selStyle'+capPart+'>option.alleluia').hide();
+            var $style = $('#selStyle'+capPart);
             if($style.val()=='psalm-tone1') {
               $style.val('psalm-tone');
             }
           }
         }
-        var header = getHeader(gabc);
+        var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
+        if(isOrdinaryPart) capTruePart = ordinaryName;
+        if(capTruePart) {
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
+          $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
+        }
         var romanMode = romanNumeral[header.mode];
         if(partAbbrev[truePart]) {
-          header.annotation = partAbbrev[part];
+          header.annotation = (partIndex? partIndex + '. ' : '') + partAbbrev[truePart];
           header.annotationArray = [header.annotation, romanMode];
         } else {
           header.annotation = romanMode;
         }
         gabc = gabc? (header + gabc.slice(header.original.length)) : '';
         sel[part].gabc = gabc;
-        $('#selTone' + capPart).val(header.mode).change();
+        var $selTone = $('#selTone' + capPart).val(header.mode).change();
+        if(!$selTone.length) {
+          sel[part].style = 'full';
+          updateTextAndChantForPart(part);
+        }
       };
       if(id) {
         $.get('gabc/'+id+'.gabc',updateGabc);
@@ -206,14 +230,66 @@ $(function(){
         updateGabc('');
       }
     } else {
-      $div.hide();
-      $includePart.parent('li').addClass('ui-state-disabled');
+      if($div.is('.ordinary')) {
+        $div.find('.chant-preview').empty();
+      } else {
+        $div.hide();
+        $includePart.parent('li').addClass('ui-state-disabled');
+      }
     }
+  }
+  var removeMultipleGraduales = function() {
+    var i = 1;
+    var $multipleGraduales = $('.multiple-graduales-'+i);
+    while($multipleGraduales.length) {
+      $multipleGraduales.remove();
+      delete sel['graduale'+i];
+      ++i;
+      $multipleGraduales = $('.multiple-graduales-'+i);
+    }
+  };
+  var setGradualeId = function(id) {
+    return function() {
+      $(this).children().each(setGradualeId(id));
+      for(var i=0; i < this.attributes.length; ++i) {
+        if(this.attributes[i].name != 'placeholder') this.attributes[i].value = this.attributes[i].value.replace(/(graduale)(?!\d|s)/gi,'$1'+id);
+      }
+    }
+  };
+  var addMultipleGraduales = function(count) {
+    var i = 0;
+    var $multipleGradualesTemplate = $('.multiple-graduales-0');
+    var $lastGraduale = $multipleGradualesTemplate;
+    while(i < count) {
+      var $newGraduale = $multipleGradualesTemplate.clone(true);
+      ++i;
+      sel['graduale'+i] = {};
+      makeChantContextForSel(sel['graduale'+i]);
+      $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
+      $newGraduale.each(setGradualeId(i));
+      $newGraduale.find('textarea[id^=txt]').autosize();
+      $lastGraduale.each(function(i){
+        $(this).after($newGraduale[i]);
+      });
+      $newGraduale.find('.sel-style').change();
+      $lastGraduale = $newGraduale;
+    }
+    includePropers = [];
+    $('a[id^=include]').each(function(){
+      includePropers.push(this.id.slice(7).toLowerCase());
+    });
   }
   var updateDay = function() {
     selPropers = proprium[selDay + selTempus];
     if(selPropers || selDay=='custom') {
-      if(!selPropers) selPropers = {};
+      removeMultipleGraduales();
+      if(selPropers) {
+        if(selPropers.gradualeID && selPropers.gradualeID.constructor === [].constructor) {
+          addMultipleGraduales(selPropers.gradualeID.length - 1);
+        }
+      } else {
+        selPropers = {};
+      }
       updateAllParts();
     }
   }
@@ -227,13 +303,9 @@ $(function(){
   }
   var updateAllParts = function() {
     $('.novus-options').hide();
-    updatePart('introitus');
-    updatePart('graduale');
-    updatePart('alleluia');
-    updatePart('tractus');
-    updatePart('sequentia');
-    updatePart('offertorium');
-    updatePart('communio');
+    $('div[part]').each(function(){
+      updatePart($(this).attr('part'));
+    });
   };
   var selectedDayNovus = function(e){
     selDay = $(this).val();
@@ -251,7 +323,7 @@ $(function(){
   var selectedDay = function(e){
     selDay = $(this).val();
     var self = this;
-    $('#selSunday,#selSaint,#selMass').each(function(i,o){
+    $('#selSunday,#selSaint,#selMass').each(function(){
       if(this != self) this.selectedIndex = 0;
     });
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
@@ -279,11 +351,83 @@ $(function(){
     selTempus = $(this).val();
     updateDay();
   };
-  
+  var selectedOrdinary = function(e){
+    selOrdinary = $(this).val();
+    massName = $(this.selectedOptions[0]).text();
+    massName = massName.slice(0, massName.indexOf(' -'));
+    $('.ordinary').toggle(!!selOrdinary);
+    if(selOrdinary) {
+      var ordinary = massOrdinary[selOrdinary] || {};
+      var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
+      ordinaryParts.forEach(function(part){
+        var capPart = part[0].toUpperCase() + part.slice(1),
+            $part = $('[part=' + part + ']'),
+            $select = $part.find('select'),
+            selectedPart = ordinary[part] || [],
+            adLibPart = ordinaryAdLib[part] || [];
+        if(selectedPart.constructor != [].constructor) {
+          selectedPart = [selectedPart];
+        }
+        if(adLibPart.constructor != [].constructor) {
+          adLibPart = [adLibPart];
+        }
+        if(part == 'ite') {
+          if(ordinary.benedicamus) selectedPart = selectedPart.concat(ordinary.benedicamus);
+          adLibPart = adLibPart.concat(ordinaryAdLib.benedicamus);
+        }
+        var optionNone = $('<option></option>').val('').text('No ' + capPart);
+        if(selectedPart.length == 0) optionNone.attr('selected', true);
+        var options = [];
+        options.push(selectedPart);
+        var temp = selectedPart.reduce(function(result,part){
+          result[part.id] = part;
+          return result;
+        }, {});
+        options.push(adLibPart.filter(function(part){
+          if(!(part.id in temp)) return true;
+        }));
+        temp = adLibPart.reduce(function(result,part){
+          result[part.id] = part;
+          return result;
+        }, temp);
+        options.push(massOrdinary.reduce(function(result,mass){
+          var p = mass[part];
+          if(!p) return result;
+          if(p.constructor != [].constructor) p = [p];
+          p.forEach(function(one){
+            if(!(one.id in temp)) result.push(one);
+          });
+          return result;
+        }, []));
+        $select.empty().append(optionNone);
+        options.forEach(function(optGroup, index){
+          if(optGroup.length == 0) return;
+          var $optGroup = $('<optgroup></optgroup>');
+          var label = [massName, 'Ad Libitum', 'Other Masses'][index];
+          $optGroup.attr('label', label);
+          optGroup.forEach(function(option, optIndex){
+            var $option = $('<option></option>').
+              text(option.name || '').
+              val(option.id).
+              appendTo($optGroup);
+            if(index == 0 && optIndex == 0) {
+              $option.attr('selected', true);
+            }
+          });
+          $optGroup.appendTo($select);
+        });
+        $select.change();
+      });
+    }
+  };
   
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
     regexOuter.exec('');
+    mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/<alt>[^<]+<\/alt>/,'');
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
@@ -477,7 +621,7 @@ $(function(){
         $selTone = $('#selTone' + capPart),
         $cbSolemn = $('#cbSolemn' + capPart);
     if(style.match(/^psalm-tone/)) {
-      if(part != 'graduale' || !isAlleluia(part,sel[part].text)) {
+      if(!part.match(/^graduale/) || !isAlleluia(part,sel[part].text)) {
         $selToneEnding.show();
         $cbSolemn.show();
       }
@@ -540,11 +684,12 @@ $(function(){
     return gTertium;
   }
   
-  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones) {
+  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
     var gp = "Glória Pátri, et Fílio, † et Spirítui Sáncto.\nSicut érat in princípio, † et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
       text: gp[0],
       gabc: gMediant,
+      clef: clef,
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
@@ -555,6 +700,7 @@ $(function(){
     var temp = applyPsalmTone({
       text: gp[1][0].trim(),
       gabc: gTertium,
+      clef: clef,
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
@@ -562,6 +708,7 @@ $(function(){
     temp = applyPsalmTone({
       text: gp[1][1].trim(),
       gabc: gTermination,
+      clef: clef,
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
@@ -580,7 +727,32 @@ $(function(){
   }
   
   var isAlleluia = function(part,text){
-    return part=='alleluia' || (part=='graduale' && removeDiacritics(text).match(/^allelu[ij]a/i));
+    return part=='alleluia' || (part.match(/^graduale/) && removeDiacritics(text).match(/^allelu[ij]a/i));
+  }
+
+  var getFullGloriaPatriGabc = function(part) {
+    var gabc = part.gabc;
+    var tone = g_tones['Introit ' + part.mode];
+    var gMediant = tone.mediant;
+    var gTermination = tone.termination;
+    if(!gTermination) {
+      if(!(gTermination = tone.terminations[termination])) {
+        for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
+      }
+    }
+    var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+    if(clef) {
+      clef = clef[1];
+      if(clef != tone.clef) {
+        gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
+        gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+      }
+    } else clef = tone.clef;
+    var gAmenTones;
+    var header = getHeader(gabc);
+    gAmenTones = regexGabcGloriaPatri.exec(gabc);
+    if(!gAmenTones) gAmenTones = {index: gabc.length};
+    return gabc.slice(0,gAmenTones.index) + psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
   }
   
   var getPsalmToneForPart = function(part){
@@ -600,6 +772,7 @@ $(function(){
       tone = g_tones[mode + '.'];
     }
     if(!tone) return;
+    var clef = tone.clef;
     var gMediant = (solemn && tone.solemn) || tone.mediant;
     var gTermination = tone.termination;
     if(!gTermination) {
@@ -618,7 +791,7 @@ $(function(){
         var line = lines[0];
         gabc = header + '(' + tone.clef + ') ';
         if(line.match(/ij|bis/)) {
-          if(part=='graduale' && sel['alleluia'].style=='psalm-tone1') {
+          if(part.match(/^graduale/) && sel['alleluia'].style=='psalm-tone1') {
             lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
           }
           line = line.match(/s*([^!?.;,:\s]+)/)[1];
@@ -626,6 +799,7 @@ $(function(){
           gabc += applyPsalmTone({
               text: line,
               gabc: gTermination,
+              clef: clef,
               useOpenNotes: false,
               useBoldItalic: false,
               onlyVowel: false,
@@ -646,11 +820,11 @@ $(function(){
         }
       } else {
         // alleluia, but not full psalm tone:
-        if(part=='graduale') {
+        if(part.match(/^graduale/)) {
           if(sel['alleluia'].style=='psalm-tone1') {
             $('#selStyleAlleluia').val('psalm-tone').change();
           }
-        } else if(sel['graduale'].style=='psalm-tone1') {
+        } else if(sel.graduale.style=='psalm-tone1') {
           // update graduale so that it doesn't end with an extra "alleluia"
           $('#selStyleGraduale').change();
         }
@@ -663,14 +837,14 @@ $(function(){
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
-        var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+        clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
         if(clef) {
           clef = clef[1];
           if(clef != tone.clef) {
             gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
             gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
           }
-        }
+        } else clef = tone.clef;
         lines = sel[part].text.split('\n');
       }
       lines.splice(0,1);
@@ -697,7 +871,7 @@ $(function(){
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
         }
-        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones);
+        gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
@@ -706,6 +880,7 @@ $(function(){
           gabc += (italicNote||'') + applyPsalmTone({
             text: left[0].trim(),
             gabc: gMediant,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -721,6 +896,7 @@ $(function(){
           (italicNote||'') + applyPsalmTone({
             text: left[1].trim(),
             gabc: gTertium,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -737,6 +913,7 @@ $(function(){
           gabc += (italicNote||'') + applyPsalmTone({
             text: line[0].trim(),
             gabc: line.length==1? gTermination : gMediant,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -754,6 +931,7 @@ $(function(){
           applyPsalmTone({
             text: line[1].trim(),
             gabc: gTermination,
+            clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
             onlyVowel: false,
@@ -810,20 +988,17 @@ $(function(){
     
     return applyLiquescents(gabc);
   }
-  
-  var updateTextAndChantForPart = function(part,instant) {
+
+  var updateTextAndChantForPart = function(part) {
     var gabc,
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
-        $txt = $('#txt'+capPart),
-        $preview = $('#'+part+'-preview'),
-        instant = (instant !== false);
+        $txt = $('#txt'+capPart);
     switch(sel[part].style) {
       case 'full':
-        $txt.val(sel[part].gabc);
-        gabc = sel[part].gabc;
+        $txt.val((gabc = sel[part].gabc));
         if(isAlleluia(part,sel[part].text)) {
-          if(part == 'graduale') {
+          if(part.match(/^graduale/)) {
             if(sel.alleluia.style == 'psalm-tone1') {
               $('#selStyleAlleluia').val('psalm-tone').change();
             }
@@ -836,6 +1011,9 @@ $(function(){
           }
         }
         break;
+      case 'full-gloria':
+        $txt.val((gabc = getFullGloriaPatriGabc(sel[part])));
+        break;
       case 'psalm-tone':
       case 'psalm-tone1':
       case 'psalm-tone-sal':
@@ -846,15 +1024,111 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    updateChant(gabc,$preview[0],instant);
-    updateTextSize(part);
+    if(gabc) updateExsurge(part);
   }
+  function makeChantContextForSel(sel) {
+    var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
+    ctxt.lyricTextFont = "'Crimson Text', serif";
+    ctxt.lyricTextSize *= 1.2;
+    ctxt.dropCapTextFont = ctxt.lyricTextFont;
+    ctxt.annotationTextFont = ctxt.lyricTextFont;
+    sel.ctxt = ctxt;
+  };
+  $.each(sel,function(){
+    makeChantContextForSel(this);
+  });
+
+  var updateExsurge = function(part) {
+    var chantContainer = $('#'+part+'-preview')[0];
+    var prop = sel[part];
+    var ctxt = prop.ctxt;
+    var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+        return barType + '/.';
+      }).replace(/<sp>([VRA])\/<\/sp>/g,function(match,barType) {
+        return barType + '/.';
+      }).replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<b><\/b>/g,'')
+      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/<\/?sc>/g,'%')
+      .replace(/<\/?b>/g,'*')
+        .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
+      .replace(/<\/?i>/g,'_')
+        .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
+        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
+        .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2'); // change things like "et :(gabc)" to "et:(gabc) "
+    var gabcHeader = '';
+    var headerEndIndex = gabc.indexOf('\n%%\n');
+    if(headerEndIndex >= 0) {
+      gabcHeader = gabc.slice(0,headerEndIndex).split(/\r?\n/);
+      gabc = gabc.slice(headerEndIndex + 4);
+    }
+    var score = prop.score;
+    if(score) {
+      exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, gabc);
+      score.updateNotations(ctxt);
+    } else {
+      var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
+      score = prop.score = new exsurge.ChantScore(ctxt, mappings, true);
+      score.annotation = new exsurge.Annotation(ctxt, "%V%");
+    }
+    if(gabcHeader) {
+      gabcHeader = gabcHeader.reduce(function(result,line){
+        var match = line.match(/^([\w-_]+):\s*([^;\r\n]*)(?:;|$)/i);
+        if(match && !result[match[1]]) result[match[1]] = match[2];
+        return result;
+      }, {});
+      if(gabcHeader.annotation) {
+        score.annotation = new exsurge.Annotation(ctxt, gabcHeader.annotation);
+      }
+    }
+    layoutChant(part);
+  }
+
+  var layoutChant = function(part, synchronous) {
+    var chantContainer = $('#'+part+'-preview')[0];
+    if(!chantContainer) return;
+    var ctxt = sel[part].ctxt;
+    var score = sel[part].score;
+    var newWidth = chantContainer.clientWidth - 4;
+    if(!score) return;
+    ctxt.width = newWidth;
+    // perform layout on the chant
+    if(synchronous) {
+      score.performLayout(ctxt);
+      score.layoutChantLines(ctxt, ctxt.width);
+      // render the score to svg code
+      chantContainer.innerHTML = score.createSvgForEachLine(ctxt);
+      updateTextSize(part);
+    } else {
+      score.performLayoutAsync(ctxt, function() {
+        score.layoutChantLines(ctxt, ctxt.width, function() {
+          // render the score to svg code
+          chantContainer.innerHTML = score.createSvg(ctxt);
+          updateTextSize(part);
+        });
+      });
+    }
+  }
+  var relayoutAllChant = function(synchronous) {
+    $.each(sel, function(part) {
+      layoutChant(part, synchronous);
+    });
+  };
+  var relayoutAllChantSync = function() {
+    relayoutAllChant(true);
+  };
+  var relayoutAllChantAsync = function() {
+    relayoutAllChant(false);
+  };
+  $(window).on('resize', relayoutAllChantAsync);
   
   var updateTextSize = function(part){
     var capPart = part[0].toUpperCase()+part.slice(1),
         $txt = $('#txt'+capPart),
         $preview = $('#'+part+'-preview');
-    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height() - 3).trigger('autosize');
+    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
   }
   
   var splitGabc = function(gabc){
@@ -888,10 +1162,12 @@ $(function(){
   var $selTempus = $('#selTempus');
   var $selSundayNovus = $('#selSundayNovus');
   var $selYearNovus = $('#selYearNovus');
+  var $selOrdinary = $('#selOrdinary');
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
-  $('#selSundayNovus').change(selectedDayNovus);
-  $('#selYearNovus').change(function(){updateAllParts();});
-  $('#selTempus').change(selectedTempus);
+  $selSundayNovus.change(selectedDayNovus);
+  $selYearNovus.change(function(){updateAllParts();});
+  $selTempus.change(selectedTempus);
+  $selOrdinary.change(selectedOrdinary).change();
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
   if(location.search.match(/\bla\b/)) key = 'title';
   var populate = function(keys,$sel) {
@@ -920,6 +1196,32 @@ $(function(){
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
+
+  var ordinaryKeys = massOrdinary.map(function(e,i){
+    var name = '';
+    if(i<18) name = (i+1) + ' - ';
+    if(e.name) {
+      name += e.name + ' (' + e.season + ')';
+    } else {
+      name += e.season;
+    }
+    return {
+      key: i.toString(),
+      title: 'Missa ' + name,
+      en: 'Mass ' + name
+    }
+  });
+  ordinaryKeys.unshift({
+    key: '',
+    title: 'Nulla Missa Cantu Gregoriano',
+    en: 'No Chant Mass inline'
+  });
+  ordinaryKeys.push({
+    key: 'ad-lib',
+    title: 'Ad Libitum',
+    en: 'Ad Libitum'
+  })
+  populate(ordinaryKeys,$selOrdinary)
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
   //When the year number is found, Take year = yearArray[year%3];
   var date = new Date(),
@@ -930,11 +1232,17 @@ $(function(){
   $selYearNovus.val(yearArray[year%3]);
   $('.novus-options').hide();
   $('.novus-options select').change(function(){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     novusOption[part] = this.selectedIndex;
     updatePart(part);
   });
+  $('.ordinary select').change(function(){
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+        part = capPart.toLowerCase();
+    selOrdinaries[part + 'ID'] = this.value;
+    updatePart(part, this.selectedOptions[0].innerText);
+  })
   $('#btnCalendar').button().click(function(e){
     var $this = $(this);
     isNovus = !isNovus;
@@ -966,7 +1274,7 @@ $(function(){
   $('#selStyle').change();
   $('select.tones').change(function(e){
     //update endings for this tone.
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].mode = this.value;
     $selEnding = $('#selToneEnding' + capPart);
@@ -983,13 +1291,13 @@ $(function(){
     updateTextAndChantForPart(part);
   });
   $('select.endings').change(function(e){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].termination = this.value;
     updateTextAndChantForPart(part);
   });
   $('input.cbSolemn').change(function(e){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].solemn = this.checked;
     updateTextAndChantForPart(part);
@@ -999,7 +1307,7 @@ $(function(){
     $selTones.append('<option>'+i+'</option>');
   }
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
-    var capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if(sel[part].style.match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
@@ -1013,7 +1321,7 @@ $(function(){
     var result=[];
     $('a[id^=include]').each(function(){
       var $includePart = $(this)
-          capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+          capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
           part = capPart.toLowerCase(),
           proper = sel[part],
           gabc = proper.activeGabc || proper.gabc,
@@ -1058,7 +1366,7 @@ $(function(){
     var capPart = this.id.slice(7),
         part = capPart.toLowerCase(),
         i = includePropers.indexOf(part),
-        $span = $(this).find('span');
+        $span = $(this).find('span.ui-icon');
     if(i<0) {
       // wasn't included, now it will be:
       includePropers.push(part);
@@ -1069,12 +1377,31 @@ $(function(){
       $span.hide();
     }
   });
+  $('a.toggleShowGabc').attr('href','').click(function(e){
+    e.preventDefault();
+    var $this = $(this),
+        $part = $this.parents().filter('[part]'),
+        part = $part.attr('part');
+        isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
+    $this.find('.showHide').text(isShowing?'Hide' : 'Show');
+    layoutChant(part);
+  });
+  $('a.toggleShowChantPreview').attr('href','').click(function(e){
+    e.preventDefault();
+    var $this = $(this),
+        $part = $this.parents().filter('[part]'),
+        part = $part.attr('part');
+        isShowing = !$part.toggleClass('hide-chant').hasClass('hide-chant');
+    $this.find('.showHide').text(isShowing?'Hide' : 'Show');
+    if(isShowing) layoutChant(part);
+  });
   var customProperSelected = function(event,ui){
     var $this=$(this),
-        capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase(),
         temp = chantID[part][ui.item.value];
     selPropers[part+'ID'] = (temp.Solesmes || temp).id || '';
+console.info(JSON.stringify(selPropers));
     updatePart(part);
   };
   $.each(chantID,function(part){
@@ -1090,7 +1417,7 @@ $(function(){
   });
   $('input.sel-custom').each(function(){
     var $this=$(this),
-        capPart = this.id.match(/[A-Z][a-z]+$/)[0],
+        capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     $this.autocomplete({minLength:0,
                         select:customProperSelected,
@@ -1102,4 +1429,16 @@ $(function(){
             }
          });
   });
+  if (window.matchMedia) {
+    var mediaQueryList = window.matchMedia('print');
+    mediaQueryList.addListener(function(mql) {
+      if (mql.matches) {
+        relayoutAllChantSync();
+      } else {
+        relayoutAllChantSync();
+      }
+    });
+  }
+  window.onbeforeprint = relayoutAllChantSync;
+  window.onafterprint = relayoutAllChantSync;
 });

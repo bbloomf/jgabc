@@ -202,7 +202,13 @@ function splitGabc(gabc,offset) {
 
 var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœ][^\s\)]*)\)/;
 function splitText(text) {
-  if($("#selLanguage").val()=='en') return Syl.syllabify(text);
+  switch($("#selLanguage").val()) {
+    case 'en':
+      return Syl.syllabify(text,'en');
+    case 'pl':
+      return Syl.syllabify(text,'pl');
+  }
+
   //for handling parenthesized elisions, we will remove the parentheses but keep track of where they were.
   var m;
   var ps=[];

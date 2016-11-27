@@ -1,14 +1,14 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\(\)\<]*\s*"*(?=\b|[(<]))(([a-z’'*]*)(?:\(([a-z’'*]+)\)([a-z’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi
+var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /^(\d+)\.?\s*/;
 var sym_flex = '†';
 var sym_med = '*';
-var gloria_patri = "Glória Pátri, et Fílio, * et Spirítui Sáncto.\nSicut érat in princípio, et núnc, et sémper, * et in sǽcula sæculórum. Amen.";
+var gloria_patri = "Glória Patri, et Fílio, * et Spirítui Sancto.\nSicut erat in princípio, et nunc, et semper, * et in sǽcula sæculórum. Amen.";
 var gloria_patri_end_vowels = "E u o* u a* e.";
 var bi_formats;
 var gabcStar;
@@ -23,7 +23,7 @@ String.prototype.format = function(keys){
 var o_bi_formats = 
     bi_formats = (function(){
                     var _syl_subRegex= /ǽ/g;
-                    var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
+                    var _syl_substitutions= {'ǽ':"{<sp>'ae</sp>}"};
                     return {
                       html: {
                         bold: ["<b>", "</b>"],
@@ -35,8 +35,8 @@ var o_bi_formats =
                         userNotes: "$psalm"
                       },
                       tex: {
-                        bold: ["{\\textbf{", "}"],
-                        italic: ["{\\it ", "}"],
+                        bold: ["\\textbf{", "}"],
+                        italic: ["\\textit{", "}"],
                         nbsp: "~",
                         verse: ["\\item ",""],
                         versesName: "$psalm-$tone.tex",
@@ -124,6 +124,17 @@ var o_g_tones =
                                 'g2':"jr h j i 'h gr g."
                                }
                  },
+             '3. antiquo':{clef:"c4",
+                  mediant:"g hi ir 'k jr jr 'ih j.",
+                  solemn:"g hi ir 'jk jr jr 'ih hj..",
+                  terminations:{'b':"ir 'j hr hr 'j jr i.",
+                                'a':"ir 'j hr hr 'j jr ih..",
+                                'a2':"ir 'j hr hi 'h gr gh..",
+                                'a3':"ir 'ji hr hi 'h gr gh..",
+                                'g':"ir 'j hr hi 'h gr g.",
+                                'g2':"ir 'ji hr hi 'h gr g."
+                               }
+                 },
              '4.':{clef:"c4",
                   mediant:"h gh hr g h 'i hr h.",
                   solemn:"h gh hr hg gi i 'hi hr h.",
@@ -178,6 +189,12 @@ var o_g_tones =
                      mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"gr d 'f fr ed.."
                     },
+             'irregularis': {clef:"c4",
+                      mediant:"f gh hr 'g fr f.",
+                      terminations:{'b': "hr ixi g ixi h.",
+                                    'b2':"hr 'ixi gr gr 'ixi ir h."
+                                   }
+                    },
              "Introit 1":{"clef":"c4",
                           "mediant":"f gh hr 'hj hr hr 'hg gh..",
                           "termination":"gf gh hr hjh g f fff d."},
@@ -201,7 +218,7 @@ var o_g_tones =
                           "termination":"ig hi ir i!jwk i h hhh fe.."},
              "Introit 8":{"clef":"c4",
                           "mediant":"g hg gj jr ji jk k 'jk jr j.",
-                          "termination":"jh hj jr j/ji gh ji h g."},
+                          "termination":"jh hj jr j/ji gh ji 'h hr g."},
              'V.1':{clef:"c3",
                     mediant:"hr h g_hvGFEfgf."
                    },
@@ -285,7 +302,10 @@ var Syl = (function(){
           words=this.words,
           accentsMarked=text.match(/[a-z]\*/i),
           prefix = null;
+      lang = lang || 'en';
       regexWords.exec("");
+      // in Polish, sometimes a word does not contain a vowel, and therefore has to be part of first syllable of the following word.
+      preword = '';
       while((m=regexWords.exec(text)) && m[0]){
         var w=(m[5]?(m[4]+m[5]+m[6]):m[3]).toLowerCase(),
             opi=m[4]?m[4].length:0,         // opening parenthesis index
@@ -300,15 +320,59 @@ var Syl = (function(){
         ai.forEach(function(i,j){
           ai[j] = (c += i.length);
         });
-        if(forceSyl && m[9])forceSyl=false;
+        if(forceSyl && (m[2] || m[9]))forceSyl=false;
         if(m[7] || (m[1]=='<v>' && m[2]=='\\')) forceSyl=true;
         if(forceSyl) {
           d=[];
+        } else if(lang != 'en') {
+          if(typeof(Hypher)!='undefined' && Hypher.languages[lang]) {
+            d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
+            if(!d.length && !w.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/i)) {
+              // no vowels in this syllable, so use this as a "pre-word", as long as there are still more words to come.
+              var lastIndex = regexWords.lastIndex;
+              var stillMoreWords = text.slice(lastIndex).match(regexWords);
+              regexWords.lastIndex = lastIndex;
+              if(stillMoreWords) {
+                preword = w;
+                continue;
+              }
+            } else if(d.length) {
+              // check to make sure each syllable has a vowel:
+              for(var si=0, startIndex = 0; si<=d.length; ++si) {
+                var syl = w.substr(startIndex, d[si] || w.length);
+                var vowelCount = syl.match(/[aeiouyæœáéíóúýǽäëïöüÿąęįǫų]/gi);
+                vowelCount = vowelCount? vowelCount.length : 0;
+                if(vowelCount == 0) {
+                  // merge into the next syllable if there is one:
+                  if(si < d.length) {
+                    d[si] += d[si + 1] || (w.length - d.reduce(function(a,b){return a+b;}));
+                    d.splice(si + 1, 1);
+                    --si;
+                    continue;
+                  } else {
+                    // otherwise, merge into the previus syllable:
+                    d.splice(si - 1, 1);
+                  }
+                }
+                startIndex += d[si];
+              }
+            } 
+          }
         } else if(w in words){
           d=words[w];
         } else {
-          d=[];
+          if(typeof(Hypher)!='undefined' && Hypher.languages[lang]) {
+            d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
+          } else {
+            d=[];
+          }
           if(this.queue.indexOf(w)<0)this.queue.push(w);
+        }
+        if(preword) {
+          w = preword + ' ' + w;
+          m[3] = preword + ' ' + m[3];
+          if(d[0]) d[0] += preword.length + 1;
+          preword = '';
         }
         var tmp=["",m[1],"",m[2]||"",m[2]||""],
             index=m.index+m[1].length+m[2].length,
@@ -451,7 +515,7 @@ function syllable(match,index,bi) {
             syl: match[1] + (prepunc?sylnospace:match[3]) + match[10],
             vowel: match[6]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
             separator: match[7], // - or *
-            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"").replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
+            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
             space: match[9],
@@ -498,8 +562,8 @@ function getEndings(tone) {
   return endings;
 }
 
-function getFlexGabc(mediant) {
-  if(typeof(mediant)=="string") mediant = getGabcTones(mediant);
+function getFlexGabc(mediant,clef) {
+  if(typeof(mediant)=="string") mediant = getGabcTones(mediant,clef);
   var toneTenor = mediant.toneTenor;
   var toneFlex = mediant.toneFlex;
   return toneTenor + " " + toneTenor + "r '" + toneTenor + " " + toneFlex + "r " + toneFlex + ".";
@@ -507,6 +571,7 @@ function getFlexGabc(mediant) {
 function applyPsalmTone(options) {
   var text = options.text,
       gabc = options.gabc,
+      clef = options.clef,
       useOpenNotes = options.useOpenNotes || false,
       useBoldItalic = options.useBoldItalic || false,
       firstPrefix = options.firstPrefix || false,
@@ -553,8 +618,7 @@ function applyPsalmTone(options) {
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
     prefix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
-  if(!firstPrefix && (Number(verseNum)==1))
-  {
+  if(!firstPrefix && (Number(verseNum)==1)) {
     prefix = "";
   }
   tmp = suffix.split(',');
@@ -562,12 +626,12 @@ function applyPsalmTone(options) {
     suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
   var syl = getSyllables(text,bi);
-  var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor) : gabc;
+  var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor,clef) : gabc;
   if(typeof(toneList.eval)=="function"){
     t = syl.slice(-3).reverse();
     toneList = toneList.eval();
   }
-  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort,undefined,flexEqualsTenor) : gabcShort)||toneList;
+  var toneListShort = (typeof(gabcShort)=="string"? getGabcTones(gabcShort,undefined,flexEqualsTenor,clef) : gabcShort)||toneList;
   var tones = toneList.tones;
   var tonesShort = (gabcShort&&toneListShort.tones) || null;
   var r;
@@ -641,7 +705,7 @@ function applyPsalmTone(options) {
           }
           lastOpen = undefined;
           if(useOpenNotes) {
-            r=tone.gabc.slice(0,-1) + "[ocba:1;6mm])"+r;
+            r=tone.gabc.slice(0,-1) + "[ocb:1{])"+r;
           } else {
             r=tone.gabcClosed+r;
           }
@@ -709,7 +773,12 @@ function applyPsalmTone(options) {
           openCount = 0;
         }
         if(s){
-          r=s.punctuation + tone.gabc+r;
+          if(useOpenNotes && (openNoteBeforeAccent || lastOpen === tone)) {
+            r = "[ocb:0}])" + r;
+          } else {
+            r = ")" + r;
+          }
+          r=s.punctuation + tone.gabc.slice(0,-1) + r;
           if(useBoldItalic) {
             if(onlyVowel && (vow = regexVowel.exec(s.syl))) {
               r=s.syl.slice(0,vow.index) + bi.bold[0] + vow[0] + bi.bold[1] + s.syl.slice(vow.index + vow[0].length)+r;
@@ -726,7 +795,7 @@ function applyPsalmTone(options) {
           if(openNoteBeforeAccent) {
             tone = tones[--ti];
             if(useOpenNotes && tone && tone.open) {
-              r=s.prespace + tone.gabc.slice(0,-1) + "[ocba:1;6mm])"+r;
+              r=s.prespace + tone.gabc.slice(0,-1) + "[ocb:1{])"+r;
             }
           }
         }
@@ -756,8 +825,12 @@ function applyPsalmTone(options) {
         }
         if(!(s&&tone))break;
         r=s.punctuation + tone.gabc+r;
-        if(useBoldItalic && !italic && tones[ti+1] && (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))))) {
-          italic = true;
+        if(useBoldItalic && !italic) {
+          if(tones[ti+1]) {
+            italic = (tones[ti+1].accent || (tones[ti+1].open && (italicizeIntonation || si > ti || (tones[ti+2] && tones[ti+2].accent && tones[ti+3] && !tones[ti+3].open))));
+          } else {
+            italic = (tones[ti-1] && !tones[ti-1].open && !tones[ti-1].accent);
+          }
         }
         if(italic) {
           if(onlyVowel) {
@@ -849,7 +922,8 @@ GABCTones.prototype.lastAccentI = function(){
     if(result.accent) return i;
   }
 }
-function getGabcTones(gabc,prefix,flexEqualsTenor) {
+function getGabcTones(gabc,prefix,flexEqualsTenor,clef) {
+  clef = clef || _clef || 'c4';
   var evaluatable = new Evaluatable(gabc,getGabcTones,prefix);
   if(!evaluatable.isString()) return evaluatable;
   if(prefix) gabc = prefix + gabc;
@@ -899,6 +973,9 @@ function getGabcTones(gabc,prefix,flexEqualsTenor) {
     else if(ton.open) {
       toneTenor = ton.all[0];
       if(state==3) {
+        if(accents==0 && i==0) {
+          preparatory = afterLastAccent;
+        }
         afterLastAccent = 0;
         state = 1;
       }
@@ -920,8 +997,8 @@ function getGabcTones(gabc,prefix,flexEqualsTenor) {
     if(flexEqualsTenor) {
       toneFlex = toneTenor;
     } else {
-      var clef = (_clef[0] == "f")? 6 : 1;
-      clef += (parseInt(_clef.slice(-1)) * 2);
+      var clefI = (clef[0] == "f")? 6 : 1;
+      clef = clefI + (parseInt(clef.slice(-1)) * 2);
       var toneNumber = ((parseInt(toneTenor,36) - 10) + 16 - clef) % 8;
       var code = toneTenor.charCodeAt(0);
       code -= (toneNumber == 0 || toneNumber == 3)? 2 : 1;
@@ -1006,7 +1083,7 @@ function getWords(syls) {
   return r;
 }
 
-function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,verseNumber,prefix,suffix) {
+function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,verseNumber,prefix,suffix,verseIndex) {
   if(!sylsAfterBold) sylsAfterBold = 0;
   var f = bi_formats[format];
   if(!f) f = bi_formats.html;
@@ -1019,6 +1096,15 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   }
   prefix = (prefix && f.verse[0])||"";
   suffix = (suffix && f.verse[1])||"";
+  var tmp = prefix.split(',');
+  verseIndex = verseIndex || verseNum - 1;
+  if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
+    prefix = tmp[typeof(verseIndex)=='number'? verseIndex%tmp.length : 0];
+  }
+  tmp = suffix.split(',');
+  if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
+    suffix = tmp[typeof(verseIndex)=='number'? verseIndex%tmp.length : 0];
+  }
   var syl = getSyllables(text,f);
   var doneAccents = 0;
   var donePrep = 0;
@@ -1112,6 +1198,7 @@ function normalizePsalm(text, psalmNum, psalmPart, includeGloriaPatri) {
 var _novaVulgata=null;
 var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
+  psalmNum = String(psalmNum);
   var dotIdx    = psalmNum.indexOf('.');
   var psalmPart = 0;
   if (dotIdx > 0){
@@ -1128,14 +1215,13 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
       var regex=new RegExp(regexBaseNovaVulgata.join(psalmNum));
       var psalm = regex.exec(_novaVulgata);
       if(psalm) {
-        success(normalizePsalm(psalm[1], psalmNum, psalmPart, includeGloriaPatri));
+        setTimeout(function() { success(normalizePsalm(psalm[1], psalmNum, psalmPart, includeGloriaPatri)); });
       } else {
         success("ERROR retrieving PSALMUS " + psalmNum);
       }
     }
   } else {
     var calledSuccess=false;
-    psalmNum = String(psalmNum);
     if(psalmNum.length < 3) psalmNum = ("00" + psalmNum).slice(-3);
     var t = $.ajax({url:"psalms/" + psalmNum,
       type: "GET",

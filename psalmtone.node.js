@@ -39,7 +39,7 @@ function getTagsFrom(txt){
 var o_bi_formats = 
     bi_formats = (function(){
                   var _syl_subRegex= /ǽ/g;
-                  var _syl_substitutions= {'ǽ':"<sp>'ae</sp>"};
+                  var _syl_substitutions= {'ǽ':"{<sp>'ae</sp>}"};
                   return {
                       html: {bold: ["<b>", "</b>"], italic: ["<i>", "</i>"],nbsp:"&nbsp;",verse: ["<span style='float:left;width:25pt;text-align:right;'>($c.)&nbsp;</span>","<br/>"],versesName:"$psalm-$tone.html"},
                       tex: {bold:  ["{\\textbf{", "}"], italic:  ["{\\it ", "}"],nbsp:"~",verse:["\\item ",""],versesName:"$psalm-$tone.tex"},
@@ -384,7 +384,7 @@ function syllable(match,index,bi) {
             syl: match[1] + (prepunc?sylnospace:match[3]) + match[10],
             vowel: match[6]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
             separator: match[7], // - or *
-            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"").replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")) : "",
+            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
             space: match[9],
