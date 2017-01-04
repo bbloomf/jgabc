@@ -90,6 +90,10 @@ div[part] {
     display: none;
   }
 }
+.centered-heading {
+  font-weight: 600;
+  text-align: center;
+}
 </style>
 <body class='sans' style="margin:8px;">
   <form id="pdfForm" target="_blank" method="get" action="http://apps.illuminarepublications.com/gregorio/">
@@ -129,7 +133,8 @@ div[part] {
       <ul id='menu'>
         <li>
           <a href='#'>Include in PDF...</a>
-          <ul>
+          <ul class='include-in-pdf'>
+            <li class="centered-heading">Propers</li>
             <li class="ui-state-disabled"><a href='#' id='includeIntroitus'><span class='ui-icon ui-icon-check'></span><span class='label'>Introitus</span></a></li>
             <li class="ui-state-disabled multiple-graduales-0"><a href='#' id='includeGraduale'><span class='ui-icon ui-icon-check'></span><span class='label'>Graduale</span></a></li>
             <li class="ui-state-disabled"><a href='#' id='includeTractus'><span class='ui-icon ui-icon-check'></span><span class='label'>Tractus</span></a></li>
@@ -137,6 +142,13 @@ div[part] {
             <li class="ui-state-disabled"><a href='#' id='includeSequentia'><span class='ui-icon ui-icon-check'></span><span class='label'>Sequentia</span></a></li>
             <li class="ui-state-disabled"><a href='#' id='includeOffertorium'><span class='ui-icon ui-icon-check'></span><span class='label'>Offertorium</span></a></li>
             <li class="ui-state-disabled"><a href='#' id='includeCommunio'><span class='ui-icon ui-icon-check'></span><span class='label'>Communio</span></a></li>
+            <li class="centered-heading ordinary">Ordinary</li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeKyrie'><span class='ui-icon ui-icon-check'></span><span class='label'>Kyrie</span></a></li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeGloria'><span class='ui-icon ui-icon-check'></span><span class='label'>Gloria</span></a></li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeCredo'><span class='ui-icon ui-icon-check'></span><span class='label'>Credo</span></a></li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeSanctus'><span class='ui-icon ui-icon-check'></span><span class='label'>Sanctus</span></a></li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeAgnus'><span class='ui-icon ui-icon-check'></span><span class='label'>Agnus</span></a></li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeIte'><span class='ui-icon ui-icon-check'></span><span class='label'>Ite</span></a></li>
           </ul>
         </li>
       </ul>

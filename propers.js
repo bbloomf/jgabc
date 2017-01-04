@@ -204,7 +204,6 @@ $(function(){
           }
         }
         var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
-        if(isOrdinaryPart) capTruePart = ordinaryName;
         if(capTruePart) {
           $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
@@ -234,8 +233,8 @@ $(function(){
         $div.find('.chant-preview').empty();
       } else {
         $div.hide();
-        $includePart.parent('li').addClass('ui-state-disabled');
       }
+      $includePart.parent('li').addClass('ui-state-disabled');
     }
   }
   var removeMultipleGraduales = function() {
@@ -356,27 +355,28 @@ $(function(){
     massName = $(this.selectedOptions[0]).text();
     massName = massName.slice(0, massName.indexOf(' -'));
     $('.ordinary').toggle(!!selOrdinary);
-    if(selOrdinary) {
-      var ordinary = massOrdinary[selOrdinary] || {};
-      var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
-      ordinaryParts.forEach(function(part){
-        var capPart = part[0].toUpperCase() + part.slice(1),
-            $part = $('[part=' + part + ']'),
-            $select = $part.find('select'),
-            selectedPart = ordinary[part] || [],
-            adLibPart = ordinaryAdLib[part] || [];
-        if(selectedPart.constructor != [].constructor) {
-          selectedPart = [selectedPart];
-        }
-        if(adLibPart.constructor != [].constructor) {
-          adLibPart = [adLibPart];
-        }
-        if(part == 'ite') {
-          if(ordinary.benedicamus) selectedPart = selectedPart.concat(ordinary.benedicamus);
-          adLibPart = adLibPart.concat(ordinaryAdLib.benedicamus);
-        }
-        var optionNone = $('<option></option>').val('').text('No ' + capPart);
-        if(selectedPart.length == 0) optionNone.attr('selected', true);
+    var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
+    var ordinary = massOrdinary[selOrdinary] || {};
+    ordinaryParts.forEach(function(part){
+      var capPart = part[0].toUpperCase() + part.slice(1),
+          $part = $('[part=' + part + ']'),
+          $select = $part.find('select'),
+          selectedPart = ordinary[part] || [],
+          adLibPart = ordinaryAdLib[part] || [],
+          optionNone = $('<option></option>').val('').text('No ' + capPart);
+      if(selectedPart.constructor != [].constructor) {
+        selectedPart = [selectedPart];
+      }
+      if(adLibPart.constructor != [].constructor) {
+        adLibPart = [adLibPart];
+      }
+      if(part == 'ite') {
+        if(ordinary.benedicamus) selectedPart = selectedPart.concat(ordinary.benedicamus);
+        adLibPart = adLibPart.concat(ordinaryAdLib.benedicamus);
+      }
+      if(selectedPart.length == 0) optionNone.attr('selected', true);
+      $select.empty().append(optionNone);
+      if(selOrdinary) {
         var options = [];
         options.push(selectedPart);
         var temp = selectedPart.reduce(function(result,part){
@@ -399,7 +399,6 @@ $(function(){
           });
           return result;
         }, []));
-        $select.empty().append(optionNone);
         options.forEach(function(optGroup, index){
           if(optGroup.length == 0) return;
           var $optGroup = $('<optgroup></optgroup>');
@@ -416,9 +415,9 @@ $(function(){
           });
           $optGroup.appendTo($select);
         });
-        $select.change();
-      });
-    }
+      }
+      $select.change();
+    });
   };
   
   
@@ -1319,10 +1318,11 @@ $(function(){
   });
   var getAllGabc = function() {
     var result=[];
-    $('a[id^=include]').each(function(){
-      var $includePart = $(this)
-          capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
-          part = capPart.toLowerCase(),
+    $('[part]').each(function(){
+      var $this = $(this),
+          part = $this.attr('part'),
+          capPart = part[0].toUpperCase() + part.slice(1),
+          $includePart = $('#include' + capPart),
           proper = sel[part],
           gabc = proper.activeGabc || proper.gabc,
           header = getHeader(gabc);
