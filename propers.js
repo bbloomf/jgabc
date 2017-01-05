@@ -1052,6 +1052,9 @@ $(function(){
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
+        .replace(/(\([^)]*)([a-m])([vV]{2,3})/g, function(x,beginning,note,virgaCount) { // clumsy fix until it gets added to exsurge
+          return beginning + new Array(virgaCount.length+1).join(note+virgaCount[0])
+        })
         .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
         .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
