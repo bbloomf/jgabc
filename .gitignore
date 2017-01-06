@@ -11,3 +11,5 @@ cordova-app/platforms
 cordova-app/plugins
 platforms
 plugins
+res
+.properties

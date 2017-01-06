@@ -7,7 +7,7 @@
     <author email="bhb123+jgabc@gmail.com" href="http://github.com/bbloomf">
         Benjamin Bloomfield
     </author>
-    <content src="index.html" />
+    <content src="propers.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -26,13 +26,12 @@
             xxhdpi  : 144x144 px
             xxxhdpi : 192x192 px
         -->
-        <icon src="www/icon/clear48.png" />
-        <!-- <icon src="www/icon/clear36.png" density="ldpi" /> -->
+        <icon src="www/icon/clear36.png" density="ldpi" />
         <icon src="www/icon/clear48.png" density="mdpi" />
-        <!-- <icon src="www/icon/clear72.png" density="hdpi" />
+        <icon src="www/icon/clear72.png" density="hdpi" />
         <icon src="www/icon/clear96.png" density="xhdpi" />
         <icon src="www/icon/clear144.png" density="xxhdpi" />
-        <icon src="www/icon/clear192.png" density="xxxhdpi" /> -->
+        <icon src="www/icon/clear192.png" density="xxxhdpi" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
