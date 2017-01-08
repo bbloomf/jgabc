@@ -82,6 +82,11 @@ tspan.selectable{
   font-family: 'Crimson Text';
   font-size: 15px;
 }
+@media screen and (max-width: 512px) {
+  .hidden-ss {
+    display: none;
+  }
+}
 @media screen {
   .caeciliae {
     font-family: 'CaeciliaeStaffless';
