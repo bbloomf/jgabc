@@ -5,6 +5,7 @@ better layout propers tool for a phone
 
 totally remove jgabc.js dependency
 
+possibly provide links to http://www.gregorianbooks.com/propers.html#... from the propers tool
 
 1,2,3,4,5,7,8 seem good.
 
