@@ -18,7 +18,7 @@
     {key:"Epi3",title:"III (IV, V, et VI quoque) post Epiphaniam",en:"3rd (also 4th, 5th, and 6th) Sunday after Epiphany"},
     {key:"Septua",title:"Septuagesima",en:"Septuagesima"},
     {key:"Sexa",title:"Sexagesima",en:"Sexagesima"},
-    {key:"Quinqua",title:"Quinquegesima",en:"Quiquagesima"},
+    {key:"Quinqua",title:"Quinquegesima",en:"Quinquagesima"},
     {key:"AshWed",title:"Feria IV Cinerum",en:"Ash Wednesday"},
     {key:"Quad1",title:"I in Quadragesima",en:"1st Sunday in Lent"},
     {key:"Quad1Sat",title:"Sabbato IV Temporum in Quadragesima",en:"Ember Saturday in Lent"},
