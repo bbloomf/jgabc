@@ -711,7 +711,7 @@ $(function(){
   }
   
   var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
-    var gp = "Glória Pátri, et Fílio, † et Spirítui Sáncto.\nSicut érat in princípio, † et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
+    var gp = "Glória Patri, et Fílio, † et Spirítui Sancto.\nSicut erat in princípio, † et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
       text: gp[0],
       gabc: gMediant,
@@ -758,6 +758,7 @@ $(function(){
 
   var getFullGloriaPatriGabc = function(part) {
     var gabc = part.gabc;
+    if(!gabc) return;
     var tone = g_tones['Introit ' + part.mode];
     var gMediant = tone.mediant;
     var gTermination = tone.termination;
@@ -1300,6 +1301,7 @@ $(function(){
         $('select[id^=selStyle]:not(#selStyle)').val(style).each(function(i,o){updateStyle(o.id.slice(8).toLowerCase(),style);});
       }
     } else {
+      addToHash(this.id, style == 'full' ? '' : style);
       updateStyle(this.id.slice(8).toLowerCase(),style);
       var baseStyle = style.replace(/\d+$/,'');
       $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
@@ -1560,6 +1562,14 @@ console.info(JSON.stringify(selPropers));
         }
       });
     }
+    $('select[id^=selStyle]').each(function(){
+      var $this=$(this),
+          capPart = this.id.slice(3),
+          part = capPart[0].toLowerCase() + capPart.slice(1);
+      if(hash[part]) {
+        $this.val(hash[part]).change();
+      }
+    })
     allowAddToHash = true;
   }
   $(window).on('hashchange',hashChanged);
