@@ -169,6 +169,7 @@ $(function(){
       id = id && id.id;
     } else {
       id = selPO[partType+'ID'];
+      if(id == 'no') id = '';
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
         partIndex++;  // for human readable 1-based index.
@@ -182,7 +183,10 @@ $(function(){
       var $txt = $('#txt'+capPart);
       $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
       $div.show();
+      var $sel = $('#sel'+capPart);
+      var selValue = $sel.val();
       var updateGabc = function(gabc){
+        if(selValue != $sel.val()) return;
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
@@ -308,6 +312,18 @@ $(function(){
   };
   var selectedDayNovus = function(e){
     selDay = $(this).val();
+    if(!isNovus) {
+      isNovus = true;
+      $('#selSunday,#selSaint,#selMass,#selTempus').hide();
+      $('#selSundayNovus,#selYearNovus').show();
+      $('#btnCalendar').find('span').text('Novus Ordo Calendar');
+    }
+    addToHash({
+      sundayNovus: selDay,
+      sunday: false,
+      saint: false,
+      mass: false
+    });
     updateDayNovus();
   };
   var getSeasonForDate = function(date) {
@@ -321,10 +337,18 @@ $(function(){
   }
   var selectedDay = function(e){
     selDay = $(this).val();
+    var hash = {
+      sundayNovus: false
+    };
+    hash[this.id] = selDay;
     var self = this;
     $('#selSunday,#selSaint,#selMass').each(function(){
-      if(this != self) this.selectedIndex = 0;
+      if(this != self) {
+        this.selectedIndex = 0;
+        hash[this.id] = false;
+      }
     });
+    addToHash(hash);
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       var date = new Date();
@@ -338,6 +362,7 @@ $(function(){
     } else {
       selTempus = '';
       $selTempus.prop('selectedIndex',0).hide();
+      addToHash('tempus', false);
     }
     if(selDay=='custom') {
       $('.sel-custom').show();
@@ -348,22 +373,24 @@ $(function(){
   };
   var selectedTempus = function(e){
     selTempus = $(this).val();
+    addToHash('tempus', selTempus);
     updateDay();
   };
+  var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
   var selectedOrdinary = function(e){
     selOrdinary = $(this).val();
+    addToHash('ordinary', selOrdinary);
     massName = $(this.selectedOptions[0]).text();
     massName = massName.slice(0, massName.indexOf(' -'));
     $('.ordinary').toggle(!!selOrdinary);
-    var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
-    var ordinary = massOrdinary[selOrdinary] || {};
+    var ordinary = massOrdinary[selOrdinary - 1] || {};
     ordinaryParts.forEach(function(part){
       var capPart = part[0].toUpperCase() + part.slice(1),
           $part = $('[part=' + part + ']'),
           $select = $part.find('select'),
           selectedPart = ordinary[part] || [],
           adLibPart = ordinaryAdLib[part] || [],
-          optionNone = $('<option></option>').val('').text('No ' + capPart);
+          optionNone = $('<option></option>').val('no').text('No ' + capPart);
       if(selectedPart.constructor != [].constructor) {
         selectedPart = [selectedPart];
       }
@@ -374,7 +401,7 @@ $(function(){
         if(ordinary.benedicamus) selectedPart = selectedPart.concat(ordinary.benedicamus);
         adLibPart = adLibPart.concat(ordinaryAdLib.benedicamus);
       }
-      if(selectedPart.length == 0) optionNone.attr('selected', true);
+      if(selectedPart.length == 0) optionNone.attr('default', true).attr('selected', true);
       $select.empty().append(optionNone);
       if(selOrdinary) {
         var options = [];
@@ -410,7 +437,7 @@ $(function(){
               val(option.id).
               appendTo($optGroup);
             if(index == 0 && optIndex == 0) {
-              $option.attr('selected', true);
+              $option.attr('default', true).attr('selected', true);
             }
           });
           $optGroup.appendTo($select);
@@ -684,7 +711,7 @@ $(function(){
   }
   
   var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
-    var gp = "Glória Pátri, et Fílio, † et Spirítui Sáncto.\nSicut érat in princípio, † et núnc, et sémper, * et in sǽcula sæculórum. Amen.".split('\n');
+    var gp = "Glória Patri, et Fílio, † et Spirítui Sancto.\nSicut erat in princípio, † et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
       text: gp[0],
       gabc: gMediant,
@@ -731,6 +758,7 @@ $(function(){
 
   var getFullGloriaPatriGabc = function(part) {
     var gabc = part.gabc;
+    if(!gabc) return;
     var tone = g_tones['Introit ' + part.mode];
     var gMediant = tone.mediant;
     var gTermination = tone.termination;
@@ -1167,7 +1195,11 @@ $(function(){
   var $selOrdinary = $('#selOrdinary');
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
   $selSundayNovus.change(selectedDayNovus);
-  $selYearNovus.change(function(){updateAllParts();});
+  $selYearNovus.change(function(){
+    selYearNovus = $(this).val();
+    addToHash('yearNovus', selYearNovus);
+    updateAllParts();
+  });
   $selTempus.change(selectedTempus);
   $selOrdinary.change(selectedOrdinary).change();
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
@@ -1201,7 +1233,8 @@ $(function(){
 
   var ordinaryKeys = massOrdinary.map(function(e,i){
     var name = '';
-    if(i<18) name = (i+1) + ' - ';
+    ++i;
+    if(i<=18) name = i + ' - ';
     if(e.name) {
       name += e.name + ' (' + e.season + ')';
     } else {
@@ -1243,6 +1276,7 @@ $(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     selOrdinaries[part + 'ID'] = this.value;
+    addToHash(part, $(this.selectedOptions[0]).attr('default')? false : this.value);
     updatePart(part, this.selectedOptions[0].innerText);
   })
   $('#btnCalendar').button().click(function(e){
@@ -1267,6 +1301,7 @@ $(function(){
         $('select[id^=selStyle]:not(#selStyle)').val(style).each(function(i,o){updateStyle(o.id.slice(8).toLowerCase(),style);});
       }
     } else {
+      addToHash(this.id, style == 'full' ? '' : style);
       updateStyle(this.id.slice(8).toLowerCase(),style);
       var baseStyle = style.replace(/\d+$/,'');
       $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
@@ -1403,7 +1438,7 @@ $(function(){
         capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase(),
         temp = chantID[part][ui.item.value];
-    selPropers[part+'ID'] = (temp.Solesmes || temp).id || '';
+    addToHash(part, (selPropers[part+'ID'] = (temp.Solesmes || temp).id || ''));
 console.info(JSON.stringify(selPropers));
     updatePart(part);
   };
@@ -1428,6 +1463,7 @@ console.info(JSON.stringify(selPropers));
          .keyup(function(){
             if(this.value == '' && selPropers[part + 'ID']) {
               delete selPropers[part + 'ID'];
+              addToHash(part, false);
               updatePart(part);
             }
          });
@@ -1444,4 +1480,98 @@ console.info(JSON.stringify(selPropers));
   }
   window.onbeforeprint = relayoutAllChantSync;
   window.onafterprint = relayoutAllChantSync;
+  var LocationHash = function(hash) {
+    var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
+    var curMatch;
+    while(curMatch = regexKeyVal.exec(hash)) {
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+    }
+    return this;
+  };
+  LocationHash.prototype.toString = function() {
+    var result = '';
+    var hash = this;
+    if(!hash.selSundayNovus) delete hash.selYearNovus;
+    Object.keys(hash).forEach(function(key) {
+      switch(typeof(hash[key])) {
+        case 'boolean':
+          if(hash[key]) result += '#' + key;
+          break;
+        case 'string':
+          if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
+          // otherwise, fall through to default:
+        default:
+          result += '#' + key + '=' + hash[key];
+          break;
+      }
+    });
+    return result;
+  }
+  function parseHash() {
+    if(!LocationHash) return null;
+    return new LocationHash(location.hash);
+  }
+  function removeSelIfPresent(s) {
+    if(typeof(s) != 'string') return s;
+    if(s.match(/^sel[A-Z]/)) {
+      return s[3].toLowerCase() + s.slice(4);
+    }
+    return s;
+  }
+  var allowAddToHash = false;
+  function addToHash(a,b) {
+    if(!allowAddToHash) return;
+    var hash = parseHash();
+    if(!hash) return;
+    if(typeof b == 'undefined') {
+      Object.keys(a).forEach(function(key) {
+        hash[removeSelIfPresent(key)] = a[key];
+      });
+    } else {
+      hash[removeSelIfPresent(a)] = b || false;
+    }
+    if(hash.mass != 'custom') {
+      $('input.sel-custom').each(function(){
+        var $this=$(this),
+            capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+            part = capPart.toLowerCase();
+        delete hash[part];
+      });
+    }
+    if(hash.toString() != location.hash) location.hash = hash;
+  }
+  function hashChanged() {
+    allowAddToHash = false;
+    var hash = parseHash();
+    ['sunday', 'sundayNovus', 'saint', 'mass',
+     'tempus', 'yearNovus',
+     'ordinary'].concat(ordinaryParts).reduce(function(result, key) {
+      if(key in hash) {
+        var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
+        if($elem.val() != hash[key]) $elem.val(hash[key]).change();
+      }
+    }, null);
+    if(hash.mass == 'custom') {
+      $('input.sel-custom').each(function(){
+        var $this=$(this),
+            capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+            part = capPart.toLowerCase();
+        if(hash[part]) {
+          selPropers[part+'ID'] = hash[part];
+          updatePart(part);
+        }
+      });
+    }
+    $('select[id^=selStyle]').each(function(){
+      var $this=$(this),
+          capPart = this.id.slice(3),
+          part = capPart[0].toLowerCase() + capPart.slice(1);
+      if(hash[part]) {
+        $this.val(hash[part]).change();
+      }
+    })
+    allowAddToHash = true;
+  }
+  $(window).on('hashchange',hashChanged);
+  hashChanged();
 });

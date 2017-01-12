@@ -82,9 +82,17 @@ tspan.selectable{
   font-family: 'Crimson Text';
   font-size: 15px;
 }
-@media screen and (max-width: 512px) {
-  .hidden-ss {
+@media screen and (max-width: 768px) {
+  .hide-ss {
     display: none;
+  }
+  select {
+    font-size: 16px;
+  }
+  select.small-screen {
+    font-size: 20px;
+    margin-top: 6px!important;
+    margin-bottom: 6px!important;
   }
 }
 @media screen {
@@ -98,7 +106,7 @@ tspan.selectable{
     font-family: 'CaeciliaeStaffless-Print';
     font-size:48px;
   }
-  .print-hide{
+  .hide-print {
     display:none;
   }
   body{

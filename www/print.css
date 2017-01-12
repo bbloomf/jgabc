@@ -2,7 +2,7 @@
   font-family: 'CaeciliaeStaffless-Print';
   font-size:48px;
 }
-.print-hide{
+.hide-print{
   display:none;
 }
 body{
