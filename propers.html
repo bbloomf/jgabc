@@ -85,11 +85,6 @@ div[part] {
 .hide-chant .chant-preview {
   display: none;
 }
-@media print {
-  .hide-print {
-    display: none;
-  }
-}
 .centered-heading {
   font-weight: 600;
   text-align: center;
@@ -116,20 +111,20 @@ div[part] {
     <a href="readings.html">Readings Tool</a>
     <b>Propers Tool</b>
     <a href="faq.html">(About)</a>
-    <div style="float:right">
+    <div style="float:right" class="hide-ss">
       <a href='#' id='lnkPdfDirect'>(PDF)</a>
       <a href='#' id='lnkPdf'>(Further PDF options)</a>
     </div>
   </div>
   <div class='hide-print'>
     <button id='btnCalendar' value='traditional' style='button'>Traditional Calendar</button>
-    <select id="selSunday" style='margin:0'></select>
-    <select id="selSundayNovus" style='margin:0;display:none'></select>
-    <select id="selSaint" style='margin:0'></select>
-    <select id="selMass" style='margin:0'></select>
-    <select id="selTempus" style='display:none;margin:0'></select>
-    <select id="selYearNovus" style='display:none;margin:0'></select>
-    <div class="right">
+    <select id="selSunday" class="small-screen" style='margin:0'></select>
+    <select id="selSundayNovus" class="small-screen" style='margin:0;display:none'></select>
+    <select id="selSaint" class="small-screen" style='margin:0'></select>
+    <select id="selMass" class="small-screen" style='margin:0'></select>
+    <select id="selTempus" class="small-screen" style='display:none;margin:0'></select>
+    <select id="selYearNovus" class="small-screen" style='display:none;margin:0'></select>
+    <div class="right hide-ss">
       <ul id='menu'>
         <li>
           <a href='#'>Include in PDF...</a>
@@ -156,10 +151,10 @@ div[part] {
   </div>
   <div class='hide-print'>
     <div class="block">
-      <select id="selOrdinary" class='sel-mass'>
+      <select id="selOrdinary" class='sel-mass small-screen'>
       </select>
       <div class='right'>
-        <select id="selStyle" class='sel-style'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
+        <select id="selStyle" class='sel-style small-screen'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
       </div>
     </div>
   </div>
