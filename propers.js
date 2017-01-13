@@ -667,7 +667,7 @@ $(function(){
         text += seg.toLowerCase();
         if(verse.slice(text.length, text.length + match[0].length) == match[0]) {
           text += match[0];
-          pat.push(match[1].replace('†','*').replace('\n','V'));
+          pat.push(match[1].replace('†','*').replace('\n','℣'));
           match = regex.exec(verse),
           nextVerseChar = (match||{}).index;
         } else {
@@ -702,7 +702,7 @@ $(function(){
           case '†':
             text += ' * ';
             break;
-          case 'V':
+          case '℣':
             text += '\n';
             capitalize = true;
             break;
@@ -725,9 +725,9 @@ $(function(){
     switch(btnText) {
       case '*':
       case '†':
-        btnText = 'V';
+        btnText = '℣';
         break;
-      case 'V':
+      case '℣':
         btnText = NBSP;
         break;
       default:
@@ -737,24 +737,17 @@ $(function(){
     $this.text(btnText);
     var versePattern = sel[part].pattern = lines.map(function(segments, lineNum) {
       var pattern = [],
-          patRun = 0,
           $lastBtn = $();
       segments.forEach(function(seg, segNum) {
         var $btn = $part.find('button[line=' + lineNum + '][seg=' + segNum + ']');
         if($btn.length) {
           btnText = $btn.text();
-          if(btnText == NBSP) {
-            ++patRun;
-          } else {
-            if(patRun) pattern.push(patRun);
-            patRun = 0;
-            pattern.push(btnText.replace('†','*'))
-          }
+          pattern.push(btnText.replace('†','*').replace(NBSP,''))
           if(btnText.match(/[*†]/)) {
             if($lastBtn.text() == '*') $lastBtn.text('†');
             $btn.text('*');
             $lastBtn = $btn;
-          } else if(btnText == 'V') {
+          } else if(btnText == '℣') {
             $lastBtn = $();
           }
         }
@@ -764,8 +757,15 @@ $(function(){
     sel[part].text = versifyByPattern(lines, versePattern);
     updateTextAndChantForPart(part)
     addToHash(part + 'Pattern', versePattern.map(function(pattern) {
-        return pattern.join(',');
-      }).join(';'));
+        return pattern.join(',').replace(/,+$/,'').replace(/,{2,}/g, function(match, index) {
+          var len = match.length;
+          if(index) {
+            return ',' + (len - 1) + ',';
+          } else {
+            return len + ',';
+          }
+        });
+      }).join(';').replace(/℣/g,'V'));
   }
   var toggleEditMarkings = function(event) {
     event.preventDefault();
@@ -801,7 +801,7 @@ $(function(){
               if(code == '*') {
                 $lastBtn.text('†');
                 $lastBtn = $button;
-              } else if(code == 'V') {
+              } else if(code == '℣') {
                 $lastBtn = $();
               }
               $psalmEditor.append($button);
@@ -1759,7 +1759,7 @@ console.info(JSON.stringify(selPropers));
         part = part.slice(5).toLowerCase();
         var pattern = hash[part+'Pattern'];
         if(pattern) {
-          pattern = pattern.replace(/\d+/g,function(num) {
+          pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
             return new Array(parseInt(num)).join(',');
           }).split(';').map(function(seg) {
             return seg.split(',');

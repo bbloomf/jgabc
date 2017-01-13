@@ -97,6 +97,10 @@ tspan.selectable{
   .psalm-editor {
     line-height: 2;
   }
+  button.toggle-mediant {
+    font-size: 100%;
+    margin: 0 6px;
+  }
 }
 @media screen {
   .caeciliae {
