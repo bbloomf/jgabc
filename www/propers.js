@@ -190,7 +190,19 @@ $(function(){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
-        var text = sel[part].text = versify(decompile(gabc,true));
+        var plaintext = decompile(gabc,true);
+        var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
+          return line.split(/\s*[|*]\s*/);
+        });
+        var text;
+        if(!sel[part].pattern) {
+          sel[part].pattern = deducePattern(plaintext, lines);
+        }
+        if(!sel[part].pattern) {
+          text = sel[part].text = versify(plaintext);
+        } else {
+          text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
+        }
         var truePart = isAlleluia(part,text)? 'alleluia' : partType;
         if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
@@ -524,7 +536,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]\s*$/,'');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   var getSylCount = function(splitArray) {
@@ -639,20 +651,194 @@ $(function(){
     }
     return result.replace(/^\s+|\s+$/,'');
   }
+
+  function deducePattern(text, lines) {
+    var versified = text.split('\n').map(versify);
+    var pattern = lines.map(function(segments, i) {
+      var regex = /\s*([†*\n])/g,
+          pat = [],
+          verse = versified[i].toLowerCase(),
+          text = '',
+          match = regex.exec(verse),
+          nextVerseChar = (match||{}).index;
+      segments.forEach(function(seg, segNum) {
+        if(!match) return;
+        text += seg.toLowerCase();
+        if(verse.slice(text.length, text.length + match[0].length) == match[0]) {
+          text += match[0];
+          pat.push(match[1].replace('†','*').replace('\n','V'));
+          match = regex.exec(verse),
+          nextVerseChar = (match||{}).index;
+        } else {
+          pat.push('');
+        }
+        if(segNum != seg.length - 1 && text.slice(-1) != '\n') text += ' ';
+      });
+      if(text != verse.slice(0,text.length)) {
+        console.warn('error deducing pattern in verse: ', verse, text, segments);
+        return null;
+      }
+      return pat;
+    });
+    return pattern;
+  }
+
+  function versifyByPattern(lines, pattern) {
+    return lines.map(function(segments, lineNum) {
+      var text = '',
+          pat = pattern[lineNum],
+          capitalize = true;
+      segments.forEach(function(seg, segNum) {
+        if(capitalize) {
+          text += seg[0].toUpperCase() + seg.slice(1);
+          capitalize = false;
+        } else {
+          text += seg;
+        }
+        var code = pat[segNum];
+        switch(code) {
+          case '*':
+          case '†':
+            text += ' * ';
+            break;
+          case 'V':
+            text += '\n';
+            capitalize = true;
+            break;
+          case '':
+          default:
+            text += ' ';
+            break;
+        }
+      });
+      return text;
+    }).join('\n');
+  }
+
+  var toggleMediant = function(event) {
+    var $this = $(this),
+        $part = $this.parents('div[part]'),
+        part = $part.attr('part'),
+        lines = sel[part].lines,
+        text = '',
+        btnText = $this.text();
+    switch(btnText) {
+      case '':
+        btnText = '*';
+        break;
+      case '*':
+      case '†':
+        btnText = 'V';
+        break;
+      case 'V':
+        btnText = '';
+        break;
+    }
+    $this.text(btnText);
+    var versePattern = sel[part].pattern = lines.map(function(segments, lineNum) {
+      var pattern = [],
+          patRun = 0,
+          $lastBtn = $();
+      segments.forEach(function(seg, segNum) {
+        var $btn = $part.find('button[line=' + lineNum + '][seg=' + segNum + ']');
+        if($btn.length) {
+          btnText = $btn.text();
+          if(btnText == '') {
+            ++patRun;
+          } else {
+            if(patRun) pattern.push(patRun);
+            patRun = 0;
+            pattern.push(btnText.replace('†','*'))
+          }
+          if(btnText == '*' || btnText == '†') {
+            if($lastBtn.text() == '*') $lastBtn.text('†');
+            $btn.text('*');
+            $lastBtn = $btn;
+          }
+        }
+      });
+      return pattern;
+    });
+    sel[part].text = versifyByPattern(lines, versePattern);
+    updateTextAndChantForPart(part)
+    addToHash(part + 'Pattern', versePattern.map(function(pattern) {
+        return pattern.join(',');
+      }).join(';'));
+  }
+  var toggleEditMarkings = function(event) {
+    event.preventDefault();
+    var $this = $(this),
+        $part = $this.parents('div[part]'),
+        part = $part.attr('part'),
+        $showHide = $this.find('.showHide'),
+        showing = $showHide.toggleClass('showing').hasClass('showing'),
+        $blockRight = $part.find('.block.right'),
+        $psalmEditor = $blockRight.find('.psalm-editor');
+    $showHide.text(showing? 'Hide' : 'Show');
+    if(showing) {
+      if($psalmEditor.length) {
+        $psalmEditor.show();
+      } else {
+        $psalmEditor = $('<div class="psalm-editor">');
+        var lines = sel[part].lines || [[]];
+        var pattern = sel[part].pattern || [];
+        lines.forEach(function(segments, lineNum) {
+          var $lastBtn = $();
+          var pat = pattern[lineNum] || [];
+          segments.forEach(function(segment, segNum) {
+            var $span = $('<span>'),
+                code = (pat[segNum] || '').replace('†','*');
+            $span.text(segment);
+            $psalmEditor.append($span);
+            if(segNum != segments.length - 1) {
+              var $button = $('<button>');
+              $button.addClass('toggle-mediant');
+              $button.attr('line', lineNum).attr('seg', segNum);
+              $button.click(toggleMediant);
+              $button.text(code);
+              if(code == '*') {
+                $lastBtn.text('†');
+                $lastBtn = $button;
+              } else if(code == 'V') {
+                $lastBtn = $();
+              }
+              $psalmEditor.append($button);
+            }
+          });
+          if(lineNum != lines.length - 1) {
+            $psalmEditor.append('<br>');
+          }
+        });
+        $blockRight.prepend($psalmEditor);
+      }
+    } else {
+      $psalmEditor.hide();
+    }
+  }
   
   var updateStyle = function(part,style){
     sel[part].style = style;
     var capPart = part[0].toUpperCase() + part.slice(1);
     var $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
-        $cbSolemn = $('#cbSolemn' + capPart);
+        $cbSolemn = $('#cbSolemn' + capPart),
+        $right = $selTone.parent(),
+        $toggleEditMarkings = $right.find('.toggleEditMarkings');
     if(style.match(/^psalm-tone/)) {
+      if($toggleEditMarkings.length == 0) {
+        $toggleEditMarkings = $("<a href='' class='toggleEditMarkings'>(<span class='showHide'>Show</span> Editor)</a>")
+        $toggleEditMarkings.click(toggleEditMarkings);
+        $right.prepend($toggleEditMarkings);
+      } else {
+        $toggleEditMarkings.show();
+      }
       if(!part.match(/^graduale/) || !isAlleluia(part,sel[part].text)) {
         $selToneEnding.show();
         $cbSolemn.show();
       }
       $selTone.attr('disabled',false);
     } else {
+      $toggleEditMarkings.hide();
       $selToneEnding.hide();
       $cbSolemn.hide();
       var gabc = sel[part].gabc;
@@ -1565,11 +1751,22 @@ console.info(JSON.stringify(selPropers));
     $('select[id^=selStyle]').each(function(){
       var $this=$(this),
           capPart = this.id.slice(3),
-          part = capPart[0].toLowerCase() + capPart.slice(1);
-      if(hash[part]) {
-        $this.val(hash[part]).change();
+          part = capPart[0].toLowerCase() + capPart.slice(1),
+          style = hash[part];
+      if(style) {
+        part = part.slice(5).toLowerCase();
+        var pattern = hash[part+'Pattern'];
+        if(pattern) {
+          pattern = pattern.replace(/\d+/g,function(num) {
+            return new Array(parseInt(num)).join(',');
+          }).split(';').map(function(seg) {
+            return seg.split(',');
+          });
+          sel[part].pattern = pattern;
+        }
+        $this.val(style).change();
       }
-    })
+    });
     allowAddToHash = true;
   }
   $(window).on('hashchange',hashChanged);
