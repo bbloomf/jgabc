@@ -29,6 +29,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var NBSP = '\xA0';
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
   function EasterDates(Y) {
     var C = Math.floor(Y/100);
@@ -705,7 +706,6 @@ $(function(){
             text += '\n';
             capitalize = true;
             break;
-          case '':
           default:
             text += ' ';
             break;
@@ -723,15 +723,15 @@ $(function(){
         text = '',
         btnText = $this.text();
     switch(btnText) {
-      case '':
-        btnText = '*';
-        break;
       case '*':
       case '†':
         btnText = 'V';
         break;
       case 'V':
-        btnText = '';
+        btnText = NBSP;
+        break;
+      default:
+        btnText = '*';
         break;
     }
     $this.text(btnText);
@@ -743,17 +743,19 @@ $(function(){
         var $btn = $part.find('button[line=' + lineNum + '][seg=' + segNum + ']');
         if($btn.length) {
           btnText = $btn.text();
-          if(btnText == '') {
+          if(btnText == NBSP) {
             ++patRun;
           } else {
             if(patRun) pattern.push(patRun);
             patRun = 0;
             pattern.push(btnText.replace('†','*'))
           }
-          if(btnText == '*' || btnText == '†') {
+          if(btnText.match(/[*†]/)) {
             if($lastBtn.text() == '*') $lastBtn.text('†');
             $btn.text('*');
             $lastBtn = $btn;
+          } else if(btnText == 'V') {
+            $lastBtn = $();
           }
         }
       });
@@ -787,7 +789,7 @@ $(function(){
           var pat = pattern[lineNum] || [];
           segments.forEach(function(segment, segNum) {
             var $span = $('<span>'),
-                code = (pat[segNum] || '').replace('†','*');
+                code = (pat[segNum] || NBSP).replace('†','*');
             $span.text(segment);
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
