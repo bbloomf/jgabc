@@ -94,6 +94,9 @@ tspan.selectable{
     margin-top: 6px!important;
     margin-bottom: 6px!important;
   }
+  .psalm-editor {
+    line-height: 2;
+  }
 }
 @media screen {
   .caeciliae {

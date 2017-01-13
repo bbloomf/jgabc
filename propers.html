@@ -89,6 +89,11 @@ div[part] {
   font-weight: 600;
   text-align: center;
 }
+.psalm-editor {
+  border: 1px solid #ccc;
+  padding: 6px;
+  border-radius: 4px;
+}
 </style>
 <body class='sans' style="margin:8px;">
   <form id="pdfForm" target="_blank" method="get" action="http://apps.illuminarepublications.com/gregorio/">
@@ -171,7 +176,7 @@ div[part] {
       <div class='right'>
         <label for="selToneIntroitus" class='sel-label'>Mode</label>
         <select id="selToneIntroitus" class='sel-style tones'></select>
-        <select id="selStyleIntroitus" class='sel-style endings'>
+        <select id="selStyleIntroitus" class='sel-style'>
           <option value='full'>Full Introit</option>
           <option value='full-gloria'>Full w/Gloria Patri</option>
           <option value='psalm-tone'>Psalm Toned</option>
