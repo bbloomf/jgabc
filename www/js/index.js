@@ -36,11 +36,12 @@ var app = {
     },
 
     handleUrl: function(url) {
-        var urlRegex = /\/\/bbloomf.github.io\/(.*)$/i;
+        var urlRegex = /\/\/bbloomf.github.io\/jgabc\/(.*)$/i;
         var match = urlRegex.exec(url);
         if(match) {
             location = match[1];
-            alert(match[1]);
+        } else {
+            location = 'propers.html';
         }
     },
 
