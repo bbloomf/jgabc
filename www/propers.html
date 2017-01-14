@@ -3,6 +3,11 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- only in cordova -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <!-- /only in cordova -->
   <title>Mass Propers</title>
   <link rel="icon" href="icon/clear-main.png" type="image/png" />
   <link rel="stylesheet" type="text/css" href="style.css" />

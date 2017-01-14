@@ -7,7 +7,7 @@
     <author email="bhb123+jgabc@gmail.com" href="http://github.com/bbloomf">
         Benjamin Bloomfield
     </author>
-    <content src="index.html" />
+    <content src="propers.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-insomnia" />
     <!-- cordova plugin add https://github.com/Initsogar/cordova-webintent.git -->

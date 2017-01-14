@@ -41,8 +41,6 @@ var app = {
         if(match) {
             location = match[1];
             alert(match[1]);
-        } else {
-            location = 'propers.html';
         }
     },
 
