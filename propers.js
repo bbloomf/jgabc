@@ -767,6 +767,29 @@ $(function(){
         });
       }).join(';').replace(/℣/g,'V'));
   }
+  var tagReplacements = {
+    "*": /<v>\\greheightstar<\/v>/g,
+    "«": /<v>\$\\guillemotleft\$<\/v>/g,
+    "»": /<v>\$\\guillemotright\$<\/v>/g,
+    "$1": /<v>([\[\(\)\]])/g,
+    "$1": /<v>\\large\{(.*?)}<\/v>/g,
+
+    "℣": /<sp>V\/<\/sp>/g,
+    "℟": /<sp>R\/<\/sp>/g,
+    "æ": /<sp>ae<\/sp>/g,
+    "ǽ": /<sp>'(ae|æ)<\/sp>/g,
+    "œ": /<sp>'?(oe|œ)<\/sp>/g,
+    "[$1]": /<sp>(.*?)<\/sp>/g,
+
+    "($1)": /<alt>(.*?)<\/alt>/g
+  };
+  var replaceGabcTags = function(text) {
+    Object.keys(tagReplacements).forEach(function(replace) {
+      var find = tagReplacements[replace];
+      text = text.replace(find,replace);
+    });
+    return text;
+  }
   var toggleEditMarkings = function(event) {
     event.preventDefault();
     var $this = $(this),
@@ -790,7 +813,7 @@ $(function(){
           segments.forEach(function(segment, segNum) {
             var $span = $('<span>'),
                 code = (pat[segNum] || NBSP).replace('†','*');
-            $span.text(segment);
+            $span.html(replaceGabcTags(segment));
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
