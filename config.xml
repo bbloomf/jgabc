@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.github.bbloomf.jgabc" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.github.bbloomf.jgabc" version="1.0.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Chant Tools</name>
     <description>
         GABC Chant Tools available at http://bbloomf.github.io/jgabc/
@@ -7,9 +7,19 @@
     <author email="bhb123+jgabc@gmail.com" href="http://github.com/bbloomf">
         Benjamin Bloomfield
     </author>
-    <content src="propers.html" />
+    <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-insomnia" />
+    <!-- cordova plugin add https://github.com/Initsogar/cordova-webintent.git -->
+    <!--
+        Add to activity of android manifest
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:host="bbloomf.github.io" android:pathPattern="/jgabc" android:scheme="http" />
+        </intent-filter>
+    -->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -33,6 +43,7 @@
         <icon src="www/icon/clear96.png" density="xhdpi" />
         <icon src="www/icon/clear144.png" density="xxhdpi" />
         <icon src="www/icon/clear192.png" density="xxxhdpi" />
+        <preference name="AndroidLaunchMode" value="singleTask" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

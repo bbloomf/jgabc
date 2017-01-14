@@ -27,7 +27,23 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        this.receivedEvent('deviceready');
+        window.plugins.webintent.getUri(function(url) {
+            app.handleUrl(url);
+        }); 
+        window.plugins.webintent.onNewIntent(function(url) {
+            app.handleUrl(url);
+        });
+    },
+
+    handleUrl: function(url) {
+        var urlRegex = /\/\/bbloomf.github.io\/(.*)$/i;
+        var match = urlRegex.exec(url);
+        if(match) {
+            location = match[1];
+            alert(match[1]);
+        } else {
+            location = 'propers.html';
+        }
     },
 
     // Update DOM on a Received Event
