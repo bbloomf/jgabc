@@ -767,6 +767,29 @@ $(function(){
         });
       }).join(';').replace(/℣/g,'V'));
   }
+  var tagReplacements = {
+    "*": /<v>\\greheightstar<\/v>/g,
+    "«": /<v>\$\\guillemotleft\$<\/v>/g,
+    "»": /<v>\$\\guillemotright\$<\/v>/g,
+    "$1": /<v>([\[\(\)\]])/g,
+    "$1": /<v>\\large\{(.*?)}<\/v>/g,
+
+    "℣": /<sp>V\/<\/sp>/g,
+    "℟": /<sp>R\/<\/sp>/g,
+    "æ": /<sp>ae<\/sp>/g,
+    "ǽ": /<sp>'(ae|æ)<\/sp>/g,
+    "œ": /<sp>'?(oe|œ)<\/sp>/g,
+    "[$1]": /<sp>(.*?)<\/sp>/g,
+
+    "($1)": /<alt>(.*?)<\/alt>/g
+  };
+  var replaceGabcTags = function(text) {
+    Object.keys(tagReplacements).forEach(function(replace) {
+      var find = tagReplacements[replace];
+      text = text.replace(find,replace);
+    });
+    return text;
+  }
   var toggleEditMarkings = function(event) {
     event.preventDefault();
     var $this = $(this),
@@ -790,7 +813,7 @@ $(function(){
           segments.forEach(function(segment, segNum) {
             var $span = $('<span>'),
                 code = (pat[segNum] || NBSP).replace('†','*');
-            $span.text(segment);
+            $span.html(replaceGabcTags(segment));
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
@@ -825,7 +848,8 @@ $(function(){
         $selTone = $('#selTone' + capPart),
         $cbSolemn = $('#cbSolemn' + capPart),
         $right = $selTone.parent(),
-        $toggleEditMarkings = $right.find('.toggleEditMarkings');
+        $toggleEditMarkings = $right.find('.toggleEditMarkings'),
+        gabc = sel[part].gabc;
     if(style.match(/^psalm-tone/)) {
       if($toggleEditMarkings.length == 0) {
         $toggleEditMarkings = $("<a href='' class='toggleEditMarkings'>(<span class='showHide'>Show</span> Editor)</a>")
@@ -834,16 +858,33 @@ $(function(){
       } else {
         $toggleEditMarkings.show();
       }
-      if(!part.match(/^graduale/) || !isAlleluia(part,sel[part].text)) {
+      // if it is an alleluia:
+      if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
+        if(style=='psalm-tone2') {
+          // if it uses the simple psalm tone, then we still want to show these:
+          $selToneEnding.show();
+          $cbSolemn.show();
+        } else {
+          $selToneEnding.hide();
+          $cbSolemn.hide();
+        }
+        var gabcHeader = gabc && getHeader(gabc);
+        if(style=='psalm-tone1' || !(gabcHeader && gabcHeader.mode)) {
+          // for alleluias, we can't allow changing the tone unless it is "fully psalm toned"
+          $selTone.attr('disabled',false);
+        } else {
+          $selTone.attr('disabled',true);
+          $selTone.val(gabcHeader.mode);
+        }
+      } else {
         $selToneEnding.show();
         $cbSolemn.show();
+        $selTone.attr('disabled',false);
       }
-      $selTone.attr('disabled',false);
     } else {
       $toggleEditMarkings.hide();
       $selToneEnding.hide();
       $cbSolemn.hide();
-      var gabc = sel[part].gabc;
       $selTone.attr('disabled',true);
       if(gabc) {
         $selTone.val(getHeader(gabc).mode);
@@ -980,7 +1021,7 @@ $(function(){
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
     var introitTone = false;
-    if(part=='introitus' || isAl) {
+    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2')) {
       tone = g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -1231,6 +1272,7 @@ $(function(){
         break;
       case 'psalm-tone':
       case 'psalm-tone1':
+      case 'psalm-tone2':
       case 'psalm-tone-sal':
         $txt.val(sel[part].text);
         gabc = getPsalmToneForPart(part);
@@ -1505,7 +1547,7 @@ $(function(){
     $selEnding = $('#selToneEnding' + capPart);
     var tone = this.value + '.',
         endings = getEndings(tone);
-    if(endings.length==0 || isAlleluia(part,sel[part].text)) {
+    if(endings.length==0 || (isAlleluia(part,sel[part].text) && sel[part].style != 'psalm-tone2')) {
       $selEnding.hide();
     } else {
       $selEnding.empty().append('<option>' + endings.join('</option><option>') + '</option>');
