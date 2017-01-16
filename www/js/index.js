@@ -28,10 +28,10 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         window.plugins.webintent.getUri(function(url) {
-            app.handleUrl(url);
+            if(url) app.handleUrl(url);
         }); 
         window.plugins.webintent.onNewIntent(function(url) {
-            app.handleUrl(url);
+            if(url) app.handleUrl(url);
         });
     },
 
@@ -41,7 +41,7 @@ var app = {
         if(match) {
             location = match[1];
         } else {
-            location = 'propers.html';
+            if(!location.pathname.match(/\/propers\.html$/)) location = 'propers.html';
         }
     },
 
