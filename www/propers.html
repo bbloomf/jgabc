@@ -171,21 +171,25 @@ div[part] {
   <hr class='hide-print block'>
   <div id='divIntroitus' part='introitus'>
     <div class='block hide-print'>
-      <label id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
+      <label class="hide-ss" id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomIntroitus" placeholder="Introitus Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options introitus' id='introitusOptions'>
         <label for='selOptionsIntroitus'>&mdash; Pick One: </label>
         <select id='selOptionsIntroitus'></select>
       </span>
-      <div class='right'>
-        <label for="selToneIntroitus" class='sel-label'>Mode</label>
-        <select id="selToneIntroitus" class='sel-style tones'></select>
-        <select id="selStyleIntroitus" class='sel-style'>
-          <option value='full'>Full Introit</option>
-          <option value='full-gloria'>Full w/Gloria Patri</option>
-          <option value='psalm-tone'>Psalm Toned</option>
+      <div class='flex right'>
+        <span class='child-other'>
+          <label for="selToneIntroitus" class='sel-label'>Mode</label>
+          <select id="selToneIntroitus" class='sel-style tones'></select>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleIntroitus" class='sel-style'>
+            <option value='full'>Full Introit</option>
+            <option value='full-gloria'>Full w/Gloria Patri</option>
+            <option value='psalm-tone'>Psalm Toned</option>
           </select>
+        </span>
       </div>
       <textarea id="txtIntroitus"></textarea>
     </div>
@@ -199,7 +203,7 @@ div[part] {
   </div>
   <div id='divKyrie' part='kyrie' class='ordinary'>
     <div class='block hide-print'>
-      <label id="lblKyrie" for="txtKyrie"><a target="_blank">Kyrie</a></label>
+      <label class="hide-ss" id="lblKyrie" for="txtKyrie"><a target="_blank">Kyrie</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selKyrie'></select>
@@ -216,7 +220,7 @@ div[part] {
   </div>
   <div id='divGloria' part='gloria' class='ordinary'>
     <div class='block hide-print'>
-      <label id="lblGloria" for="txtGloria"><a target="_blank">Gloria</a></label>
+      <label class="hide-ss" id="lblGloria" for="txtGloria"><a target="_blank">Gloria</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selGloria'></select>
@@ -233,7 +237,7 @@ div[part] {
   </div>
   <div id='divGraduale' part='graduale' class='multiple-graduales-0'>
     <div class='block hide-print'>
-      <label id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
+      <label class="hide-ss" id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomGraduale" placeholder="Graduale Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options graduale' id='gradualeOptions'>
@@ -241,16 +245,20 @@ div[part] {
         <select id='selOptionsGraduale'></select>
       </span>
       <div class='right'>
-        <label for="selToneGraduale" class='sel-label'>Mode</label>
-        <select id="selToneGraduale" class='sel-style tones'></select>
-        <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
-        <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleGraduale" class='sel-style'>
-          <option value='full'>Full Gradual</option>
-          <option value='psalm-tone'>Psalm Toned</option>
-          <option class='alleluia' value='psalm-tone-sal' style='display:none'>à la Chants Abrégés</option>
-          <option class='alleluia' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option>
-        </select>
+        <span class='child-other'>
+          <label for="selToneGraduale" class='sel-label'>Mode</label>
+          <select id="selToneGraduale" class='sel-style tones'></select>
+          <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
+          <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleGraduale" class='sel-style'>
+            <option value='full'>Full Gradual</option>
+            <option value='psalm-tone'>Psalm Toned</option>
+            <option class='alleluia' value='psalm-tone-sal' style='display:none'>à la Chants Abrégés</option>
+            <option class='alleluia' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option>
+          </select>
+        </span>
       </div>
       <textarea id="txtGraduale"></textarea>
     </div>
@@ -264,7 +272,7 @@ div[part] {
   </div>
   <div id='divTractus' part='tractus'>
     <div class='block hide-print'>
-      <label id="lblTractus" for="txtTractus"><a target="_blank">Tractus</a></label>
+      <label class="hide-ss" id="lblTractus" for="txtTractus"><a target="_blank">Tractus</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomTractus" placeholder="Tractus Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options tractus' id='tractusOptions'>
@@ -272,11 +280,15 @@ div[part] {
         <select id='selOptionsTractus'></select>
       </span>
       <div class='right'>
-        <label for="selToneTractus" class='sel-label'>Mode</label>
-        <select id="selToneTractus" class='sel-style tones'></select>
-        <select id="selToneEndingTractus" class='sel-style endings tractus'></select>
-        <input id='cbSolemnTractus' type='checkbox' class='cbSolemn tractus' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleTractus" class='sel-style'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
+        <span class='child-other'>
+          <label for="selToneTractus" class='sel-label'>Mode</label>
+          <select id="selToneTractus" class='sel-style tones'></select>
+          <select id="selToneEndingTractus" class='sel-style endings tractus'></select>
+          <input id='cbSolemnTractus' type='checkbox' class='cbSolemn tractus' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleTractus" class='sel-style'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
+        </span>
       </div>
       <textarea id="txtTractus"></textarea>
     </div>
@@ -290,7 +302,7 @@ div[part] {
   </div>
   <div id='divAlleluia' part='alleluia'>
     <div class='block hide-print'>
-      <label id="lblAlleluia" for="txtAlleluia"><a target="_blank">Alleluia</a></label>
+      <label class="hide-ss" id="lblAlleluia" for="txtAlleluia"><a target="_blank">Alleluia</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomAlleluia" placeholder="Alleluia Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options alleluia' id='alleluiaOptions'>
@@ -298,17 +310,21 @@ div[part] {
         <select id='selOptionsAlleluia'></select>
       </span>
       <div class='right'>
-        <label for="selToneAlleluia" class='sel-label'>Mode</label>
-        <select id="selToneAlleluia" class='sel-style tones'></select>
-        <select id="selToneEndingAlleluia" class='sel-style endings alleluia'></select>
-        <input id='cbSolemnAlleluia' type='checkbox' class='cbSolemn alleluia' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleAlleluia" class='sel-style'>
-          <option value='full'>Full Alleluia</option>
-          <option value='psalm-tone'>à la Liber Brevior</option>
-          <option value='psalm-tone-sal'>à la Chants Abrégés</option>
-          <option value='psalm-tone2'>Psalm Toned</option>
-          <option value='psalm-tone1'>Completely Psalm Toned</option>
-        </select>
+        <span class='child-other'>
+          <label for="selToneAlleluia" class='sel-label'>Mode</label>
+          <select id="selToneAlleluia" class='sel-style tones'></select>
+          <select id="selToneEndingAlleluia" class='sel-style endings alleluia'></select>
+          <input id='cbSolemnAlleluia' type='checkbox' class='cbSolemn alleluia' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleAlleluia" class='sel-style'>
+            <option value='full'>Full Alleluia</option>
+            <option value='psalm-tone'>à la Liber Brevior</option>
+            <option value='psalm-tone-sal'>à la Chants Abrégés</option>
+            <option value='psalm-tone2'>Psalm Toned</option>
+            <option value='psalm-tone1'>Completely Psalm Toned</option>
+          </select>
+        </span>
       </div>
       <textarea id="txtAlleluia"></textarea>
     </div>
@@ -322,8 +338,8 @@ div[part] {
   </div>
   <div id='divSequentia' part='sequentia'>
     <div class='hide-print'>
-      <label id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
-      <a class='toggleShowChantPreview'>(<span class='showHide'>Hide</span> Chant)</a>
+      <label class="hide-ss" id="lblSequentia" for="txtSequentia"><a target="_blank">Sequentia</a></label>
+      <a class='toggleShowChantPreview'>(<span class='showHide'>Hide</span> Sequence)</a>
       <input id="txtCustomSequentia" placeholder="Sequentia Search Text" class="sel-custom" style="display:none"/>
     </div>
     <div class='chant-parent'>
@@ -334,7 +350,7 @@ div[part] {
   </div>
   <div id='divCredo' part='credo' class='ordinary'>
     <div class='block hide-print'>
-      <label id="lblCredo" for="txtCredo"><a target="_blank">Credo</a></label>
+      <label class="hide-ss" id="lblCredo" for="txtCredo"><a target="_blank">Credo</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selCredo'></select>
@@ -351,7 +367,7 @@ div[part] {
   </div>
   <div id='divOffertorium' part='offertorium'>
     <div class='block hide-print'>
-      <label id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
+      <label class="hide-ss" id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomOffertorium" placeholder="Offertorium Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options offertorium' id='offertoriumOptions'>
@@ -359,12 +375,16 @@ div[part] {
         <select id='selOptionsOffertorium'></select>
       </span>
       <div class='right'>
-        <label for="selToneOffertorium" class='sel-label'>Mode</label>
-        <select id="selToneOffertorium" class='sel-style tones'></select>
-        <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
-        <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
-      </div>
+        <span class='child-other'>
+          <label for="selToneOffertorium" class='sel-label'>Mode</label>
+          <select id="selToneOffertorium" class='sel-style tones'></select>
+          <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
+          <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
+        </div>
+      </span>
       <textarea id="txtOffertorium"></textarea>
     </div>
     <div class='block right'>
@@ -377,7 +397,7 @@ div[part] {
   </div>
   <div id='divSanctus' part='sanctus' class='ordinary'>
     <div class='block hide-print'>
-      <label id="lblSanctus" for="txtSanctus"><a target="_blank">Sanctus</a></label>
+      <label class="hide-ss" id="lblSanctus" for="txtSanctus"><a target="_blank">Sanctus</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selSanctus'></select>
@@ -394,7 +414,7 @@ div[part] {
   </div>
   <div id='divAgnus' part='agnus' class='ordinary'>
     <div class='block hide-print'>
-      <label id="lblAgnus" for="txtAgnus"><a target="_blank">Agnus</a></label>
+      <label class="hide-ss" id="lblAgnus" for="txtAgnus"><a target="_blank">Agnus</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selAgnus'></select>
@@ -411,7 +431,7 @@ div[part] {
   </div>
   <div id='divCommunio' part='communio'>
     <div class='block hide-print'>
-      <label id="lblCommunio" for="txtCommunio"><a target="_blank">Communio</a></label>
+      <label class="hide-ss" id="lblCommunio" for="txtCommunio"><a target="_blank">Communio</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomCommunio" placeholder="Communio Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options communio' id='communioOptions'>
@@ -419,11 +439,15 @@ div[part] {
         <select id='selOptionsCommunio'></select>
       </span>
       <div class='right'>
-        <label for="selToneCommunio" class='sel-label'>Mode</label>
-        <select id="selToneCommunio" class='sel-style tones'></select>
-        <select id="selToneEndingCommunio" class='sel-style endings communio'></select>
-        <input id='cbSolemnCommunio' type='checkbox' class='cbSolemn communio' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleCommunio" class='sel-style'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
+        <span class='child-other'>
+          <label for="selToneCommunio" class='sel-label'>Mode</label>
+          <select id="selToneCommunio" class='sel-style tones'></select>
+          <select id="selToneEndingCommunio" class='sel-style endings communio'></select>
+          <input id='cbSolemnCommunio' type='checkbox' class='cbSolemn communio' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleCommunio" class='sel-style'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
+        </span>
       </div>
       <textarea id="txtCommunio"></textarea>
     </div>
@@ -437,7 +461,7 @@ div[part] {
   </div>
   <div id='divIte' part='ite' class='ordinary'>
     <div class='block hide-print'>
-      <label id="lblIte" for="txtIte"><a target="_blank">Ite</a></label>
+      <label class="hide-ss" id="lblIte" for="txtIte"><a target="_blank">Ite</a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selIte'></select>
