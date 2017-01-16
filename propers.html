@@ -173,14 +173,18 @@ div[part] {
         <label for='selOptionsIntroitus'>&mdash; Pick One: </label>
         <select id='selOptionsIntroitus'></select>
       </span>
-      <div class='right'>
-        <label for="selToneIntroitus" class='sel-label'>Mode</label>
-        <select id="selToneIntroitus" class='sel-style tones'></select>
-        <select id="selStyleIntroitus" class='sel-style'>
-          <option value='full'>Full Introit</option>
-          <option value='full-gloria'>Full w/Gloria Patri</option>
-          <option value='psalm-tone'>Psalm Toned</option>
+      <div class='flex right'>
+        <span class='child-other'>
+          <label for="selToneIntroitus" class='sel-label'>Mode</label>
+          <select id="selToneIntroitus" class='sel-style tones'></select>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleIntroitus" class='sel-style'>
+            <option value='full'>Full Introit</option>
+            <option value='full-gloria'>Full w/Gloria Patri</option>
+            <option value='psalm-tone'>Psalm Toned</option>
           </select>
+        </span>
       </div>
       <textarea id="txtIntroitus"></textarea>
     </div>
@@ -236,16 +240,20 @@ div[part] {
         <select id='selOptionsGraduale'></select>
       </span>
       <div class='right'>
-        <label for="selToneGraduale" class='sel-label'>Mode</label>
-        <select id="selToneGraduale" class='sel-style tones'></select>
-        <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
-        <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleGraduale" class='sel-style'>
-          <option value='full'>Full Gradual</option>
-          <option value='psalm-tone'>Psalm Toned</option>
-          <option class='alleluia' value='psalm-tone-sal' style='display:none'>à la Chants Abrégés</option>
-          <option class='alleluia' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option>
-        </select>
+        <span class='child-other'>
+          <label for="selToneGraduale" class='sel-label'>Mode</label>
+          <select id="selToneGraduale" class='sel-style tones'></select>
+          <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
+          <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleGraduale" class='sel-style'>
+            <option value='full'>Full Gradual</option>
+            <option value='psalm-tone'>Psalm Toned</option>
+            <option class='alleluia' value='psalm-tone-sal' style='display:none'>à la Chants Abrégés</option>
+            <option class='alleluia' value='psalm-tone1' style='display:none'>Completely Psalm Toned</option>
+          </select>
+        </span>
       </div>
       <textarea id="txtGraduale"></textarea>
     </div>
@@ -267,11 +275,15 @@ div[part] {
         <select id='selOptionsTractus'></select>
       </span>
       <div class='right'>
-        <label for="selToneTractus" class='sel-label'>Mode</label>
-        <select id="selToneTractus" class='sel-style tones'></select>
-        <select id="selToneEndingTractus" class='sel-style endings tractus'></select>
-        <input id='cbSolemnTractus' type='checkbox' class='cbSolemn tractus' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleTractus" class='sel-style'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
+        <span class='child-other'>
+          <label for="selToneTractus" class='sel-label'>Mode</label>
+          <select id="selToneTractus" class='sel-style tones'></select>
+          <select id="selToneEndingTractus" class='sel-style endings tractus'></select>
+          <input id='cbSolemnTractus' type='checkbox' class='cbSolemn tractus' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleTractus" class='sel-style'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
+        </span>
       </div>
       <textarea id="txtTractus"></textarea>
     </div>
@@ -293,17 +305,21 @@ div[part] {
         <select id='selOptionsAlleluia'></select>
       </span>
       <div class='right'>
-        <label for="selToneAlleluia" class='sel-label'>Mode</label>
-        <select id="selToneAlleluia" class='sel-style tones'></select>
-        <select id="selToneEndingAlleluia" class='sel-style endings alleluia'></select>
-        <input id='cbSolemnAlleluia' type='checkbox' class='cbSolemn alleluia' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleAlleluia" class='sel-style'>
-          <option value='full'>Full Alleluia</option>
-          <option value='psalm-tone'>à la Liber Brevior</option>
-          <option value='psalm-tone-sal'>à la Chants Abrégés</option>
-          <option value='psalm-tone2'>Psalm Toned</option>
-          <option value='psalm-tone1'>Completely Psalm Toned</option>
-        </select>
+        <span class='child-other'>
+          <label for="selToneAlleluia" class='sel-label'>Mode</label>
+          <select id="selToneAlleluia" class='sel-style tones'></select>
+          <select id="selToneEndingAlleluia" class='sel-style endings alleluia'></select>
+          <input id='cbSolemnAlleluia' type='checkbox' class='cbSolemn alleluia' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleAlleluia" class='sel-style'>
+            <option value='full'>Full Alleluia</option>
+            <option value='psalm-tone'>à la Liber Brevior</option>
+            <option value='psalm-tone-sal'>à la Chants Abrégés</option>
+            <option value='psalm-tone2'>Psalm Toned</option>
+            <option value='psalm-tone1'>Completely Psalm Toned</option>
+          </select>
+        </span>
       </div>
       <textarea id="txtAlleluia"></textarea>
     </div>
@@ -354,12 +370,16 @@ div[part] {
         <select id='selOptionsOffertorium'></select>
       </span>
       <div class='right'>
-        <label for="selToneOffertorium" class='sel-label'>Mode</label>
-        <select id="selToneOffertorium" class='sel-style tones'></select>
-        <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
-        <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
-      </div>
+        <span class='child-other'>
+          <label for="selToneOffertorium" class='sel-label'>Mode</label>
+          <select id="selToneOffertorium" class='sel-style tones'></select>
+          <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
+          <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
+        </div>
+      </span>
       <textarea id="txtOffertorium"></textarea>
     </div>
     <div class='block right'>
@@ -414,11 +434,15 @@ div[part] {
         <select id='selOptionsCommunio'></select>
       </span>
       <div class='right'>
-        <label for="selToneCommunio" class='sel-label'>Mode</label>
-        <select id="selToneCommunio" class='sel-style tones'></select>
-        <select id="selToneEndingCommunio" class='sel-style endings communio'></select>
-        <input id='cbSolemnCommunio' type='checkbox' class='cbSolemn communio' title='Check this box to use the solemn psalm tone.'>
-        <select id="selStyleCommunio" class='sel-style'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
+        <span class='child-other'>
+          <label for="selToneCommunio" class='sel-label'>Mode</label>
+          <select id="selToneCommunio" class='sel-style tones'></select>
+          <select id="selToneEndingCommunio" class='sel-style endings communio'></select>
+          <input id='cbSolemnCommunio' type='checkbox' class='cbSolemn communio' title='Check this box to use the solemn psalm tone.'>
+        </span>
+        <span class='child-main'>
+          <select id="selStyleCommunio" class='sel-style'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
+        </span>
       </div>
       <textarea id="txtCommunio"></textarea>
     </div>

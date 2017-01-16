@@ -86,6 +86,22 @@ tspan.selectable{
   .hide-ss {
     display: none;
   }
+  .flex {
+    -webkit-display: flex;
+    display: flex;
+  }
+  .flex > .child-main {
+    -webkit-order: 1;
+    order: 1;
+    margin-right: 6px;
+  }
+  .flex > .child-other {
+    -webkit-order: 2;
+    order: 2;
+  }
+  .right {
+    float: none!important;
+  }
   select {
     font-size: 16px;
   }
