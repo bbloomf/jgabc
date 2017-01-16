@@ -191,20 +191,22 @@ $(function(){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
-        var plaintext = decompile(gabc,true);
-        var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
-          return line.split(/\s*[|*]\s*/);
-        });
         var text;
-        if(!sel[part].pattern) {
-          sel[part].pattern = deducePattern(plaintext, lines);
+        if(!isOrdinaryPart) {
+          var plaintext = decompile(gabc,true);
+          var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
+            return line.split(/\s*[|*]\s*/);
+          });
+          if(!sel[part].pattern) {
+            sel[part].pattern = deducePattern(plaintext, lines);
+          }
+          if(!sel[part].pattern) {
+            text = sel[part].text = versify(plaintext);
+          } else {
+            text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
+          }
         }
-        if(!sel[part].pattern) {
-          text = sel[part].text = versify(plaintext);
-        } else {
-          text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
-        }
-        var truePart = isAlleluia(part,text)? 'alleluia' : partType;
+        var truePart = (!isOrdinaryPart && isAlleluia(part,text))? 'alleluia' : partType;
         if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
             $('#selStyle'+capPart+'>option.alleluia').show();
