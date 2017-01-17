@@ -200,10 +200,10 @@ $(function(){
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines);
           }
-          if(!sel[part].pattern) {
-            text = sel[part].text = versify(plaintext);
-          } else {
+          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0].length) {
             text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
+          } else {
+            text = sel[part].text = versify(plaintext);
           }
         }
         var truePart = (!isOrdinaryPart && isAlleluia(part,text))? 'alleluia' : partType;
@@ -692,13 +692,13 @@ $(function(){
           pat = pattern[lineNum],
           capitalize = true;
       segments.forEach(function(seg, segNum) {
-        if(capitalize) {
+        if(capitalize && seg[0]) {
           text += seg[0].toUpperCase() + seg.slice(1);
           capitalize = false;
         } else {
           text += seg;
         }
-        var code = pat[segNum];
+        var code = pat && pat[segNum];
         switch(code) {
           case '*':
           case '†':

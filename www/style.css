@@ -89,11 +89,13 @@ tspan.selectable{
   .flex {
     -webkit-display: flex;
     display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
   }
   .flex > .child-main {
     -webkit-order: 1;
     order: 1;
-    margin-right: 6px;
+    margin: 0 6px 6px 0;
   }
   .flex > .child-other {
     -webkit-order: 2;
