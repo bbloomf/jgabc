@@ -1307,6 +1307,7 @@ $(function(){
         return barType + '/.';
       }).replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
+      .replace(/!\//,'/') // some gregobase chants are encoded this way for some reason
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
       .replace(/<v>\\greheightstar<\/v>/g,'*')
