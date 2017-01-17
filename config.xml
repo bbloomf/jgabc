@@ -11,6 +11,7 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-insomnia" />
     <!-- cordova plugin add https://github.com/Initsogar/cordova-webintent.git -->
+    <!-- cordova plugin add cordova-plugin-inappbrowser -->
     <!--
         Add to activity of android manifest
         <intent-filter>
