@@ -1,5 +1,3 @@
-for small screens, the select elements should always be on the left
-
 Selection of feast by date
 
 better layout psalmtone tool for a phone
