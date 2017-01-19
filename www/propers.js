@@ -1302,7 +1302,7 @@ $(function(){
     var prop = sel[part];
     var ctxt = prop.ctxt;
     // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-    prop.activeGabc = prop.activeGabc.replace(/(a[b-m]a|b[c-m]b|c[d-m]c|d[e-m]d|e[f-m]e|f[g-m]f|g[h-m]g|h[i-m]h|i[j-m]i|j[k-m]j|k[l-m]k|lml)__(?!_)/g,'$1___');
+    prop.activeGabc = prop.activeGabc.replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_');
     var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
