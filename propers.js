@@ -30,6 +30,14 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var propersHashFalse = {
+    tractusPattern:false,
+    offertoriumPattern:false,
+    introitusPattern:false,
+    gradualePattern:false,
+    communioPattern:false,
+    alleluiaPattern:false
+  };
   var NBSP = '\xA0';
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
   function EasterDates(Y) {
@@ -334,12 +342,12 @@ $(function(){
       $('#selSundayNovus,#selYearNovus').show();
       $('#btnCalendar').find('span').text('Novus Ordo Calendar');
     }
-    addToHash({
+    addToHash($.extend({
       sundayNovus: selDay,
       sunday: false,
       saint: false,
       mass: false
-    });
+    }, propersHashFalse));
     updateDayNovus();
   };
   var getSeasonForDate = function(date) {
@@ -364,7 +372,7 @@ $(function(){
         hash[this.id] = false;
       }
     });
-    addToHash(hash);
+    addToHash($.extend(hash, propersHashFalse));
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       var date = new Date();
