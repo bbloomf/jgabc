@@ -30,31 +30,113 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var propersHashFalse = {
+    tractusPattern:false,
+    offertoriumPattern:false,
+    introitusPattern:false,
+    gradualePattern:false,
+    communioPattern:false,
+    alleluiaPattern:false
+  };
   var NBSP = '\xA0';
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
-  function EasterDates(Y) {
-    var C = Math.floor(Y/100);
-    var N = Y - 19*Math.floor(Y/19);
-    var K = Math.floor((C - 17)/25);
-    var I = C - Math.floor(C/4) - Math.floor((C - K)/3) + 19*N + 15;
-    I = I - 30*Math.floor((I/30));
-    I = I - Math.floor(I/28)*(1 - Math.floor(I/28)*Math.floor(29/(I + 1))*Math.floor((21 - N)/11));
-    var J = Y + Math.floor(Y/4) + I + 2 - C + Math.floor(C/4);
-    J = J - 7*Math.floor(J/7);
-    var L = I - J;
-    var M = 3 + Math.floor((L + 40)/44);
-    var D = L + 28 - 31*Math.floor(M/4);
-
-    var easter = new Date(Y,M-1,D);
-    var septuagesima = new Date(easter);
-    var pentecost = new Date(easter);
-    septuagesima.setDate(easter.getDate() -(7 * 9));
-    pentecost.setDate(easter.getDate() + (7 * 7));
-    return {
-      easter: easter,
-      septuagesima: septuagesima,
-      pentecost: pentecost
+  var dateCache = {};
+  var Dates = function(Y) {
+    var result = {};
+    result.year = Y;
+    result.pascha = moment.easter(Y);
+    result.septuagesima = moment(result.pascha).subtract(7*9,'days');
+    result.quad1 = moment(result.septuagesima).add(7*3,'days');
+    result.ascension = moment(result.pascha).add(39,'days');
+    result.pentecost = moment(result.pascha).add(49,'days');
+    result.nativitas = moment([Y,11,25]);
+    result.advent1 = moment(result.nativitas).subtract((result.nativitas.day() || 7) + 7*3,'days');
+    result.corpusChristi = moment(result.pentecost).add(11,'days');
+    result.sacredHeart = moment(result.pentecost).add(19,'days');
+    result.ChristusRex = moment([Y,9,31]);
+    result.ChristusRex.subtract(result.ChristusRex.day(),'days');
+    result.epiphany = moment([Y,0,6]);
+    // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
+    // in which case The Holy Family will be on the Saturday following.
+    result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
+    dateCache[Y] = result;
+    return result;
+  };
+  var dateForSundayKey = function(key) {
+    var weekdayKeys = ['m','t','w','h','f','s'];
+    var m;
+    if(key.match(/^[A-Z][a-z]{2}\d{1,2}/)) {
+      m = moment(key.replace(/_.+$/,''),'MMMD');
+      if(m.isValid()) return m;
     }
+    var dates = Dates(moment().year());
+    var match;
+    if(match = key.match(/Adv(\d)(Sat)?/)) {
+      m = moment(dates.advent1);
+      m.add(parseInt(match[1])-1, 'weeks');
+      if(match[2]) m.add(6, 'days');
+    } else if(match = key.match(/Epi(\d)/)) {
+      if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
+      m = moment(dates.epiphany);
+      m = m.add(parseInt(match[1]), 'weeks').subtract(m.day()||(match[1]==1?1:0), 'days');
+    } else if(match = key.match(/Quad(\d)([mtwhfs]|Sat)?/)) {
+      m = moment(dates.septuagesima).add(2 + parseInt(match[1]), 'weeks');
+      if(match[2]) {
+        var day = (match[2]=='Sat')? 6 : 1 + weekdayKeys.indexOf(match[2]);
+        m = m.add(day, 'day');
+      }
+    } else if(match = key.match(/Pasc(\d)([mtwhfs])?/)) {
+      m = moment(dates.pascha).add(parseInt(match[1]), 'weeks');
+      if(match[2]) {
+        var day = 1 + weekdayKeys.indexOf(match[2]);
+        m = m.add(day, 'day');
+      }
+    } else if(match = key.match(/Pent(\d+)([mtwhfs])?/)) {
+      if(match[1] == 23) {
+        return moment(dates.advent1).subtract(1, 'week');
+      }
+      m = moment(dates.pentecost).add(parseInt(match[1]), 'weeks');
+      if(match[2]) {
+        var day = 1 + weekdayKeys.indexOf(match[2]);
+        m = m.add(day, 'day');
+      }
+    }
+    if(m && m.isValid()) return m;
+    switch(key) {
+      case "Nat1":
+        m = moment('12-25','MM-DD').add(1, 'week');
+        m = m.subtract(m.day(), 'days');
+        break;
+      case "Nat2":
+        ///Sunday between 01/01 and 01/06, or, with this lacking, 2 January:: The most holy Name of Jesus, II class
+        m = moment('01-06','MM-DD');
+        m = m.subtract(m.day(), 'days');
+        if(m.isSameOrAfter(moment('01-06','MM-DD')) || m.isSameOrBefore(moment('01-01','MM-DD'))) m = moment('01-02','MM-DD');
+        break;
+      case "Epi":
+        return dates.epiphany;
+      case "Septua":
+        return moment(dates.septuagesima);
+      case "Sexa":
+        return moment(dates.septuagesima).add(1, 'week');
+      case "Quinqua":
+        return moment(dates.septuagesima).add(2, 'weeks');
+      case "AshWed":
+        return moment(dates.septuagesima).add(17, 'days');
+      case "Asc":
+        return dates.ascension;
+      case "CorpusChristi":
+        return dates.corpusChristi;
+      case "SCJ":
+        return dates.sacredHeart;
+      case "EmbSatSept":
+        m = moment('09-21','MM-DD');
+        m = m.subtract(m.day(), 'days').add(6, 'days');
+        break;
+      case "ChristusRex":
+        return dates.ChristusRex;
+    }
+    return m;
   }
   $('#menu').menu({select: function(e,ui){e.preventDefault();}});
   var partAbbrev = {
@@ -334,19 +416,19 @@ $(function(){
       $('#selSundayNovus,#selYearNovus').show();
       $('#btnCalendar').find('span').text('Novus Ordo Calendar');
     }
-    addToHash({
+    addToHash($.extend({
       sundayNovus: selDay,
       sunday: false,
       saint: false,
       mass: false
-    });
+    }, propersHashFalse));
     updateDayNovus();
   };
-  var getSeasonForDate = function(date) {
-    var easterDates = EasterDates(date.getFullYear());
-    if(date >= easterDates.septuagesima && date < easterDates.easter) {
+  var getSeasonForMoment = function(m) {
+    var dates = Dates(m.year());
+    if(m.isSameOrAfter(dates.septuagesima) && m.isBefore(dates.pascha)) {
       return 'Quad';
-    } else if(date >= easterDates.easter && date < easterDates.pentecost) {
+    } else if(m.isSameOrAfter(dates.pascha) && m.isBefore(dates.pentecost)) {
       return 'Pasch';
     }
     return '';
@@ -364,16 +446,13 @@ $(function(){
         hash[this.id] = false;
       }
     });
-    addToHash(hash);
+    addToHash($.extend(hash, propersHashFalse));
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
-      var date = new Date();
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      var dateMatch = selDay.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)/);
-      if(dateMatch) {
-        date = new Date(date.getFullYear(), months.indexOf(dateMatch[1]), parseInt(dateMatch[2]));
-        if(date < new Date()) date.setYear(date.getFullYear() + 1);
-        $selTempus.val(selTempus = getSeasonForDate(date));
+      var m = moment(selDay,'MMMD');
+      if(m.isValid()) {
+        if(m.isBefore(moment())) m.add(1, 'year');
+        $selTempus.val(selTempus = getSeasonForMoment(m));
       }
     } else {
       selTempus = '';
@@ -1460,6 +1539,63 @@ $(function(){
       $sel.append($temp);
     });
   };
+  var i = 1;
+  var now = moment().startOf('day');
+  while(i < saintKeys.length) {
+    var m = moment(saintKeys[i].key,'MMMD');
+    if(m.isSameOrAfter(now)) break;
+    ++i;
+  }
+  var beginningOfYearEntry = {title:"(Principium Annis)",en:"(Beginning of the Year)"}
+  var moveToEnd = saintKeys.splice(1,i - 1);
+  if(i < saintKeys.length && i >= 1) saintKeys.push(beginningOfYearEntry);
+  saintKeys = saintKeys.concat(moveToEnd);
+
+  i = 1;
+  var outoforder = {
+    EmbSatSept: null,
+    ChristusRex: null
+  };
+  while(i < sundayKeys.length) {
+    var sunday = sundayKeys[i];
+    var m = dateForSundayKey(sunday.key);
+    if(!m.isValid()) console.error(sunday);
+    sunday.date = m;
+    if(sunday.key in outoforder) {
+      outoforder[sunday.key] = sunday;
+      sundayKeys.splice(i,1);
+    } else {
+      ++i;
+    }
+  }
+
+  // Put EmbSatSept and ChristusRex in the proper order
+  Object.keys(outoforder).forEach(function(key) {
+    var toPlace = outoforder[key];
+    var lastDate = moment('12-31','MM-DD');
+    var i = 1;
+    while(i < sundayKeys.length) {
+      var sunday = sundayKeys[i];
+      var next = sundayKeys[++i];
+      if(!next || (sunday.date.isBefore(toPlace.date) && next.date.isSameOrAfter(toPlace.date))) {
+        sundayKeys.splice(i, 0, toPlace);
+        break;
+      }
+    }
+  });
+
+  var i = 1;
+  while(i < sundayKeys.length) {
+    var sunday = sundayKeys[i];
+    var next = sundayKeys[++i];
+    if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now))) {
+      moveToEnd = sundayKeys.splice(1, i - 1);
+      sundayKeys.push(beginningOfYearEntry);
+      sundayKeys = sundayKeys.concat(moveToEnd);
+      break;
+    }
+  }
+
   populate(sundayKeys,$selSunday);
   populate(sundaysNovusOrdo,$selSundayNovus);
   populate(saintKeys,$selSaint);
