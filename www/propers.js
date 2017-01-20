@@ -6,6 +6,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   communio:{},
   alleluia:{},
   sequentia:{},
+  asperges:{},
   kyrie:{},
   gloria:{},
   credo:{},
@@ -391,7 +392,7 @@ $(function(){
     addToHash('tempus', selTempus);
     updateDay();
   };
-  var ordinaryParts = ['kyrie','gloria','credo','sanctus','agnus','ite'];
+  var ordinaryParts = ['asperges','kyrie','gloria','credo','sanctus','agnus','ite'];
   var selectedOrdinary = function(e){
     selOrdinary = $(this).val();
     addToHash('ordinary', selOrdinary);

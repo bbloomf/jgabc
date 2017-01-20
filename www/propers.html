@@ -148,6 +148,7 @@ div[part] {
             <li class="ui-state-disabled"><a href='#' id='includeOffertorium'><span class='ui-icon ui-icon-check'></span><span class='label'>Offertorium</span></a></li>
             <li class="ui-state-disabled"><a href='#' id='includeCommunio'><span class='ui-icon ui-icon-check'></span><span class='label'>Communio</span></a></li>
             <li class="centered-heading ordinary">Ordinary</li>
+            <li class="ui-state-disabled ordinary"><a href='#' id='includeAsperges'><span class='ui-icon ui-icon-check'></span><span class='label'>Asperges</span></a></li>
             <li class="ui-state-disabled ordinary"><a href='#' id='includeKyrie'><span class='ui-icon ui-icon-check'></span><span class='label'>Kyrie</span></a></li>
             <li class="ui-state-disabled ordinary"><a href='#' id='includeGloria'><span class='ui-icon ui-icon-check'></span><span class='label'>Gloria</span></a></li>
             <li class="ui-state-disabled ordinary"><a href='#' id='includeCredo'><span class='ui-icon ui-icon-check'></span><span class='label'>Credo</span></a></li>
@@ -169,6 +170,23 @@ div[part] {
     </div>
   </div>
   <hr class='hide-print block'>
+  <div id='divAsperges' part='asperges' class='ordinary'>
+    <div class='block hide-print'>
+      <label class="hide-ss" id="lblAsperges" for="txtAsperges"><a target="_blank">Asperges</a></label>
+      <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
+      <div class='right'>
+        <select id='selAsperges'></select>
+      </div>
+      <textarea id="txtAsperges"></textarea>
+    </div>
+    <div class='block right'>
+      <div class='chant-parent'>
+        <div id="asperges-preview-container" class='preview-container'>
+          <div id="asperges-preview" class='chant-preview'></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id='divIntroitus' part='introitus'>
     <div class='block hide-print'>
       <label class="hide-ss" id="lblIntroitus" for="txtIntroitus"><a target="_blank">Introitus</a></label>
