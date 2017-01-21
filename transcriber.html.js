@@ -207,6 +207,8 @@ function splitText(text) {
       return Syl.syllabify(text,'en');
     case 'pl':
       return Syl.syllabify(text,'pl');
+    case 'la-liturgical':
+      return Syl.syllabify(text,'la');
   }
 
   //for handling parenthesized elisions, we will remove the parentheses but keep track of where they were.
@@ -296,6 +298,10 @@ function updateSyl(txt) {
 function updateText() {
   updateSyl();
   updateEditor();
+}
+
+function selLanguageChanged() {
+  localStorage.selLanguage = $(this).val();
 }
 
 function decompile(mixed) {
@@ -443,6 +449,9 @@ $(function() {
   } else {
     gabcStar = '<v>\\greheightstar</v>'
   }
+  if(localStorage.selLanguage) {
+    $('#selLanguage').val(localStorage.selLanguage);
+  }
   $("#txtGabcStar").val(gabcStar).keyup(updateGabcStar);
   $("#chant-parent2").resizable({handles:"e"});
   $("#lnkToggleMode").click(toggleMode);
@@ -451,7 +460,7 @@ $(function() {
   $("#hymntext").keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
-  $("#selLanguage").change(updateText);
+  $("#selLanguage").change(selLanguageChanged);
   var getGabc = function(){
     var gabc = $('#editor').val(),
         header = getHeader(gabc);
