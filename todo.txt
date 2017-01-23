@@ -1,7 +1,8 @@
-Selection of feast by date
+Ite automatically with exsurge two verse: (c3) I|<sp>R/</sp>. De(gxd!f!gh)te,|o(h.ivHGh.kvIH'Ghih. ,gxhvFE'Dgf) mis|gra(e')sa|ti-(e) est.|as.(d.) (::)
+
+Automatic removal of all caps first word as in Asperges and others
 
 better layout psalmtone tool for a phone
-better layout propers tool for a phone
 
 totally remove jgabc.js dependency
 
