@@ -22,7 +22,7 @@ var https= require('https'),
                     fileData += data;
                   });
                   result.on('end',function(){
-                    fileData = fileData.replace(/(\n%%\n\s*.*?\([cf]b?[1-4]\)\s*([A-Z]{3}\([^)]*\)\s+|[A-Z]{2}(?:\([^)]*\))?|[A-Z]\([^)]*\)))((?:[A-Z]+\([^)]*\))*)/,
+                    fileData = fileData.replace(/(\n%%\n\s*\([cf]b?[1-4]\)\s*([A-Z]{3}\([^)]*\)\s+|[A-Z]{2}(?:\([^)]*\))?|[A-Z]\([^)]*\)))((?:[A-Z]+\([^)]*\))*)/,
                       function(match,beginning,context,replacePart) {
                         var replacement = replacePart.replace(/([A-Z]+)(\([^)]*\))/g, function(whole, lyric, gabc) {
                           return lyric.toLowerCase() + gabc;
@@ -32,6 +32,10 @@ var https= require('https'),
                           console.info(context + replacePart + '\n' + context + replacement);
                         }
                         return beginning + replacement;
+                      });
+                    fileData = fileData.replace(/(\n%%\n\s*\([cf]b?[1-4]\)\s*[A-Z])([a-z]([a-z](?=\([^)]*\)\s+))?)/,
+                      function(match, beginning, replacePart){
+                        return beginning + replacePart.toUpperCase();
                       });
                     fs.writeFileSync(file,fileData);
                     console.info('Processed ' + (i+1) + ' of ' + ids.length + ': ' + file + '; ' + active + ' active');
