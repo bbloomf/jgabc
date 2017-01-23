@@ -7,6 +7,7 @@ var https= require('https'),
     active = 0,
     max = 10,
     i = 0,
+    replacements = [],
     timeA = new Date(),
     callback = function(startedWorker) {
         if(active > 0 && startedWorker) --active;
@@ -21,6 +22,17 @@ var https= require('https'),
                     fileData += data;
                   });
                   result.on('end',function(){
+                    fileData = fileData.replace(/(\n%%\n\s*.*?\([cf]b?[1-4]\)\s*([A-Z]{3}\([^)]*\)\s+|[A-Z]{2}(?:\([^)]*\))?|[A-Z]\([^)]*\)))((?:[A-Z]+\([^)]*\))*)/,
+                      function(match,beginning,context,replacePart) {
+                        var replacement = replacePart.replace(/([A-Z]+)(\([^)]*\))/g, function(whole, lyric, gabc) {
+                          return lyric.toLowerCase() + gabc;
+                        });
+                        if(replacePart) {
+                          replacements.push(context + replacePart + '\n' + context + replacement);
+                          console.info(context + replacePart + '\n' + context + replacement);
+                        }
+                        return beginning + replacement;
+                      });
                     fs.writeFileSync(file,fileData);
                     console.info('Processed ' + (i+1) + ' of ' + ids.length + ': ' + file + '; ' + active + ' active');
                     callback(true);
@@ -32,6 +44,7 @@ var https= require('https'),
         if(active === 0 && i == ids.length) {
           var time = (new Date() - timeA) / 1000;
           console.info('Finished in ' + time + ' seconds!');
+          // console.info(replacements.join('\n\n'));
         }
     };
 callback();
