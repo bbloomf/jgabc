@@ -1401,6 +1401,8 @@ $(function(){
         .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
         .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
+        .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
+        .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
         .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2'); // change things like "et :(gabc)" to "et:(gabc) "
     var gabcHeader = '';
