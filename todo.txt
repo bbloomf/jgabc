@@ -1,6 +1,8 @@
-Ite automatically with exsurge two verse: (c3) I|<sp>R/</sp>. De(gxd!f!gh)te,|o(h.ivHGh.kvIH'Ghih. ,gxhvFE'Dgf) mis|gra(e')sa|ti-(e) est.|as.(d.) (::)
+find unaccented words and add accent:
+(?<=\s)([BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz]*[aeiouy][BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz\.,;:!?]*\([^\)]*\)){3,}(?=\s)
 
-Automatic removal of all caps first word as in Asperges and others
+re-syllabify based on hyphenation patterns
+
 
 better layout psalmtone tool for a phone
 
