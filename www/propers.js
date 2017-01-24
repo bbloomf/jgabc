@@ -227,7 +227,9 @@ $(function(){
       partType = match[1];
       partIndex = parseInt(match[2]);
     }
-    var isOrdinaryPart = (part+'ID') in selOrdinaries;
+    var capPart = part[0].toUpperCase()+part.slice(1);
+    var $div = $('#div'+capPart);
+    var isOrdinaryPart = $div.is('.ordinary');
     if(isNovus && !isOrdinaryPart) {
       var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
@@ -259,13 +261,11 @@ $(function(){
         partIndex++;  // for human readable 1-based index.
       }
     }
-    var capPart = part[0].toUpperCase()+part.slice(1);
-    var $div = $('#div'+capPart);
     var $includePart = $('#include'+capPart);
-    if(id || (selDay=='custom' && !$div.is('.ordinary'))) {
+    $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
+    if(id || (selDay=='custom' && !isOrdinaryPart)) {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
-      $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
       $div.show();
       var $sel = $('#sel'+capPart);
       var selValue = $sel.val();
@@ -331,7 +331,7 @@ $(function(){
         updateGabc('');
       }
     } else {
-      if($div.is('.ordinary')) {
+      if(isOrdinaryPart) {
         $div.find('.chant-preview').empty();
       } else {
         $div.hide();
@@ -477,7 +477,6 @@ $(function(){
     addToHash('ordinary', selOrdinary);
     massName = $(this.selectedOptions[0]).text();
     massName = massName.slice(0, massName.indexOf(' -'));
-    $('.ordinary').toggle(!!selOrdinary);
     var ordinary = massOrdinary[selOrdinary - 1] || {};
     ordinaryParts.forEach(function(part){
       var capPart = part[0].toUpperCase() + part.slice(1),
@@ -498,46 +497,45 @@ $(function(){
       }
       if(selectedPart.length == 0) optionNone.attr('default', true).attr('selected', true);
       $select.empty().append(optionNone);
-      if(selOrdinary) {
-        var options = [];
-        options.push(selectedPart);
-        var temp = selectedPart.reduce(function(result,part){
-          result[part.id] = part;
-          return result;
-        }, {});
-        options.push(adLibPart.filter(function(part){
-          if(!(part.id in temp)) return true;
-        }));
-        temp = adLibPart.reduce(function(result,part){
-          result[part.id] = part;
-          return result;
-        }, temp);
-        options.push(massOrdinary.reduce(function(result,mass){
-          var p = mass[part];
-          if(!p) return result;
-          if(p.constructor != [].constructor) p = [p];
-          p.forEach(function(one){
-            if(!(one.id in temp)) result.push(one);
-          });
-          return result;
-        }, []));
-        options.forEach(function(optGroup, index){
-          if(optGroup.length == 0) return;
-          var $optGroup = $('<optgroup></optgroup>');
-          var label = [massName, 'Ad Libitum', 'Other Masses'][index];
-          $optGroup.attr('label', label);
-          optGroup.forEach(function(option, optIndex){
-            var $option = $('<option></option>').
-              text(option.name || '').
-              val(option.id).
-              appendTo($optGroup);
-            if(index == 0 && optIndex == 0) {
-              $option.attr('default', true).attr('selected', true);
-            }
-          });
-          $optGroup.appendTo($select);
+      var options = [];
+      options.push(selectedPart);
+      var temp = selectedPart.reduce(function(result,part){
+        result[part.id] = part;
+        return result;
+      }, {});
+      options.push(adLibPart.filter(function(part){
+        if(!(part.id in temp)) return true;
+      }));
+      temp = adLibPart.reduce(function(result,part){
+        result[part.id] = part;
+        return result;
+      }, temp);
+      options.push(massOrdinary.reduce(function(result,mass){
+        var p = mass[part];
+        if(!p) return result;
+        if(p.constructor != [].constructor) p = [p];
+        p.forEach(function(one){
+          if(!(one.id in temp)) result.push(one);
         });
-      }
+        return result;
+      }, []));
+      options.forEach(function(optGroup, index){
+        if(optGroup.length == 0) return;
+        var $optGroup = $('<optgroup></optgroup>');
+        var label = [massName, 'Ad Libitum', 'Other Masses'][index];
+        $optGroup.attr('label', label);
+        optGroup.forEach(function(option, optIndex){
+          var $option = $('<option></option>').
+            text(option.name || '').
+            val(option.id).
+            appendTo($optGroup);
+          if(index == 0 && optIndex == 0) {
+            $option.attr('default', true).attr('selected', true);
+          }
+        });
+        $optGroup.appendTo($select);
+      });
+
       $select.change();
     });
   };
@@ -1622,11 +1620,6 @@ $(function(){
   });
   ordinaryKeys.unshift({
     key: '',
-    title: 'Nulla Missa Cantu Gregoriano',
-    en: 'No Chant Mass inline'
-  });
-  ordinaryKeys.push({
-    key: 'ad-lib',
     title: 'Ad Libitum',
     en: 'Ad Libitum'
   })
