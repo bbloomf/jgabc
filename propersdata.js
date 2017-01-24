@@ -83,7 +83,7 @@
     {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"}
 ];
 var otherKeys = [
-    {title:"Selige aliam Missam...",en:"Select another Mass..."},
+    {title:"Selige alia propria...",en:"Select other propers..."},
     {title:"Missa quælibet",key:"custom",en:"Custom"},
     {key:"nuptialis",title:"Missa nuptialis",en:"Wedding Mass"},
     {key:"defunctorum",title:"Missa pro Defunctis",en:"Mass for the Dead"},
