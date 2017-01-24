@@ -1,8 +1,4 @@
-find unaccented words and add accent:
-(?<=\s)([BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz]*[aeiouy][BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz\.,;:!?]*\([^\)]*\)){3,}(?=\s)
-
 re-syllabify based on hyphenation patterns
-
 
 better layout psalmtone tool for a phone
 
@@ -26,3 +22,6 @@ The intonation of the termination of tone 6 changes based on the accentuation:
 "6":{"clef":"c4","mediant":"fg gf gh hr g 'ixi hr 'g fr f.","termination":"f gh hj g fr g fd f g f."},
 "7":{"clef":"c3","mediant":"ehg hi ir 'ik jr jr 'ji ij..","termination":"ig hi ir i!jwk i h hr 'hhh fe.."},
 "8":{"clef":"c4","mediant":"g hg gj jr ji jk k 'jk jr j.","termination":"jh hj jr j/ji gh ji 'h hr g."}}
+
+find unaccented words and add accent:
+(?<=\s)([BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz]*[aeiouy][BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz\.,;:!?]*\([^\)]*\)){3,}(?=\s)
