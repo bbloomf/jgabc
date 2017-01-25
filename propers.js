@@ -1945,7 +1945,7 @@ console.info(JSON.stringify(selPropers));
           });
           sel[part].pattern = pattern;
         }
-        $this.val(style).change();
+        if($this.val() != style) $this.val(style).change();
       }
     });
     allowAddToHash = true;
