@@ -1403,11 +1403,9 @@ $(function(){
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
         .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2'); // change things like "et :(gabc)" to "et:(gabc) "
-    var gabcHeader = '';
-    var headerEndIndex = gabc.indexOf('\n%%\n');
-    if(headerEndIndex >= 0) {
-      gabcHeader = gabc.slice(0,headerEndIndex).split(/\r?\n/);
-      gabc = gabc.slice(headerEndIndex + 4);
+    var gabcHeader = getHeader(gabc);
+    if(gabcHeader.original) {
+      gabc = gabc.slice(gabcHeader.original.length);
     }
     var score = prop.score;
     if(score) {
@@ -1416,16 +1414,12 @@ $(function(){
     } else {
       var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
       score = prop.score = new exsurge.ChantScore(ctxt, mappings, true);
-      score.annotation = new exsurge.Annotation(ctxt, "%V%");
     }
-    if(gabcHeader) {
-      gabcHeader = gabcHeader.reduce(function(result,line){
-        var match = line.match(/^([\w-_]+):\s*([^;\r\n]*)(?:;|$)/i);
-        if(match && !result[match[1]]) result[match[1]] = match[2];
-        return result;
-      }, {});
-      if(gabcHeader.annotation) {
-        score.annotation = new exsurge.Annotation(ctxt, gabcHeader.annotation);
+    if(gabcHeader.original) {
+      if(gabcHeader.annotationArray) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotationArray[0]+'%', '%'+gabcHeader.annotationArray[1]+'%');
+      } else if(gabcHeader.annotation) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
       }
     }
     layoutChant(part);
