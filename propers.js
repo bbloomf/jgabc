@@ -1424,6 +1424,13 @@ $(function(){
     }
     layoutChant(part);
   }
+  var queue = [];
+  function processQueue() {
+    var callback;
+    while(callback = queue.shift()) {
+      callback();
+    }
+  }
 
   var layoutChant = function(part, synchronous) {
     var chantContainer = $('#'+part+'-preview')[0];
@@ -1445,7 +1452,11 @@ $(function(){
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
           chantContainer.innerHTML = score.createSvg(ctxt);
-          updateTextSize(part);
+          var callback = function() {
+            updateTextSize(part);
+          };
+          queue.push(callback);
+          setTimeout(processQueue, 100);
         });
       });
     }
