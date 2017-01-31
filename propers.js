@@ -283,7 +283,7 @@ $(function(){
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines);
           }
-          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0].length) {
+          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
             text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
           } else {
             text = sel[part].text = versify(plaintext);
@@ -871,12 +871,12 @@ $(function(){
     return text;
   }
   var toggleEditMarkings = function(event) {
-    event.preventDefault();
+    event && event.preventDefault && event.preventDefault();
     var $this = $(this),
         $part = $this.parents('div[part]'),
         part = $part.attr('part'),
         $showHide = $this.find('.showHide'),
-        showing = $showHide.toggleClass('showing').hasClass('showing'),
+        showing = $showHide.toggleClass('showing', event).hasClass('showing'),
         $blockRight = $part.find('.block.right'),
         $psalmEditor = $blockRight.find('.psalm-editor');
     $showHide.text(showing? 'Hide' : 'Show');
@@ -962,6 +962,7 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
+      if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
       $toggleEditMarkings.hide();
       $selToneEnding.hide();
       $cbSolemn.hide();
