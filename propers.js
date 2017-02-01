@@ -446,6 +446,9 @@ $(function(){
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
       sel.extraChants.forEach(function(chant, i) {
+        if(chant.title) {
+          $container.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+        }
         if(chant.rubric) {
           $container.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
         }
@@ -467,6 +470,9 @@ $(function(){
             });
           }
           if(chant.gabc) updateExsurge(part);
+        }
+        if(chant.html) {
+          $container.append($('<div>').html(chant.html));
         }
       });
     }
