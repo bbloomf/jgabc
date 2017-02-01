@@ -356,7 +356,7 @@ var extraChants = {
       id: 30
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
-      gabc: "annotation: <sp>V/</sp>;\n%%\n(c3) Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) <i>or:</i>(::) A(f)men.(h.) (::)"
+      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) <i>or:</i>(::) A(f)men.(h.) (::)"
     }, {
       rubric: "During the procession, the following antiphons are sung:",
       id: 1311
@@ -380,6 +380,67 @@ var extraChants = {
       id: 1208
     }, {
       id: 743
+    }
+  ],
+  "Quad6": [
+    {
+      rubric: "After Terce and the Asperges given in the usual manner, the Priest blesses the palms or branches of olive or of other trees, which have been placed before the altar or at the Epistle side. The choir first sings the following Antiphon:",
+      id: 817
+    }, {
+      rubric: "After the Blessing, the Celebrant distributes the Palms, whilst the Choir sings the following Antiphons:",
+      id: 1215,
+      psalm: "23:1-2, 7-10"
+    }, {
+      id: 1155,
+      psalm: "46"
+    }, {
+      title: "The Procession with Blessed Palms",
+      rubric: "After the Gospel, the celebrant, with the ministers (or servers), returns to the foot of the altar, makes reverence, and blesses incense. Then the deacon (or celebrant) turns to the people and says:",
+      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
+    }, {
+      rubric: "As the procession begins, all or some of the following antiphons may be sung:",
+      id: 247
+    }, {
+      id: 173
+    }, {
+      id: 770
+    }, {
+      id: 901
+    }, {
+      rubric: "In the course of the procession the following hymn is sung. If possible, the whole congregation should sing each time the refrain <Glória laus> as shown below.",
+      id: 259
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-2"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-3"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-4"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-5"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-6"
+    }, {
+      rubric: "All: <Glória, laus.> Then the following antiphon is sung:",
+      id: 532
+    }, {
+      rubric: "Or, alternatively:",
+      id: 1092,
+      psalm: "147"
+    }, {
+      rubric: "The antiphon <Omnes colláudant> is repeated, as above.",
+      id: 1312
+    }, {
+      id: 1051
+    }, {
+      rubric: "The faithful may also sing the hymn <Christus vincit> or any other chant in honor of Christ the King."
+    }, {
+      rubric: "When the procession enters the church, that is, as the celebrant goes through the door, this last responsory is begun:",
+      id: 606
     }
   ]
 }

@@ -447,7 +447,7 @@ $(function(){
       // set up the chants for first time rendering:
       sel.extraChants.forEach(function(chant, i) {
         if(chant.rubric) {
-          $container.append($('<div>').addClass('rubric').text(chant.rubric));
+          $container.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
         }
         if(chant.gabc || chant.id) {
           var part = 'extra-' + i;
@@ -455,7 +455,8 @@ $(function(){
             gabc: chant.gabc,
             activeGabc: chant.gabc,
             id: chant.id,
-            style: 'full'
+            style: 'full',
+            noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
           };
           $container.append($('<div>').attr('id',part+'-preview'));
           makeChantContextForSel(sel[part]);
@@ -1450,7 +1451,8 @@ $(function(){
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
-        .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2'); // change things like "et :(gabc)" to "et:(gabc) "
+        .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+        .replace(/(\s[^(\w]+)\s+(\w+[^\(\s]*\()/g,'$1$2'); // change things like "« hoc" to "«hoc"
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
@@ -1461,14 +1463,14 @@ $(function(){
       score.updateNotations(ctxt);
     } else {
       var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
-      score = prop.score = new exsurge.ChantScore(ctxt, mappings, true);
+      score = prop.score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
     }
     if(gabcHeader.original) {
       if(gabcHeader.annotationArray) {
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotationArray[0]+'%', '%'+gabcHeader.annotationArray[1]+'%');
       } else if(gabcHeader.annotation) {
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
-      } else if(gabcHeader.mode || gabcHeader['office-part']) {
+      } else if(!prop.noDropCap && (gabcHeader.mode || gabcHeader['office-part'])) {
         var annotation;
         if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
         if(annotation) {
