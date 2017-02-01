@@ -146,7 +146,9 @@ $(function(){
     graduale:'Grad.',
     communio:'Comm.',
     sequentia: 'Seq.',
-    hymnus: 'Hymn.'
+    hymnus: 'Hymn.',
+    antiphona: "Ant.",
+    responsorium: "Resp."
   };
   var defaultTermination={
     '1':'f',
@@ -283,7 +285,7 @@ $(function(){
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines);
           }
-          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0].length) {
+          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
             text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
           } else {
             text = sel[part].text = versify(plaintext);
@@ -433,6 +435,41 @@ $(function(){
     }
     return '';
   }
+  var showHideExtraChants = function(e) {
+    e && e.preventDefault && e.preventDefault();
+    var $this = $('#divExtraChants a.showHide'),
+        $showHide = $this.find('span.showHide'),
+        $container = $('#extra-chants'),
+        showHide = typeof(e)=='boolean'? e : $showHide.text() === 'Show';
+    $showHide.text(showHide? 'Hide' : 'Show');
+    $container.toggle(showHide);
+    if(showHide && $container.is(':empty')) {
+      // set up the chants for first time rendering:
+      sel.extraChants.forEach(function(chant, i) {
+        if(chant.rubric) {
+          $container.append($('<div>').addClass('rubric').text(chant.rubric));
+        }
+        if(chant.gabc || chant.id) {
+          var part = 'extra-' + i;
+          sel[part] = {
+            gabc: chant.gabc,
+            activeGabc: chant.gabc,
+            id: chant.id,
+            style: 'full'
+          };
+          $container.append($('<div>').attr('id',part+'-preview'));
+          makeChantContextForSel(sel[part]);
+          if(chant.id) {
+            $.get('gabc/'+chant.id+'.gabc',function(gabc) {
+              sel[part].gabc = sel[part].activeGabc = gabc;
+              updateExsurge(part);
+            });
+          }
+          if(chant.gabc) updateExsurge(part);
+        }
+      });
+    }
+  }
   var selectedDay = function(e){
     selDay = $(this).val();
     var hash = {
@@ -463,6 +500,14 @@ $(function(){
       $('.sel-custom').show();
     } else {
       $('.sel-custom').hide();
+    }
+    $("#extra-chants").empty();
+    sel.extraChants = extraChants[selDay];
+    if(sel.extraChants) {
+      $("#divExtraChants").show();
+      showHideExtraChants(false);
+    } else {
+      $("#divExtraChants").hide();
     }
     updateDay();
   };
@@ -871,12 +916,12 @@ $(function(){
     return text;
   }
   var toggleEditMarkings = function(event) {
-    event.preventDefault();
+    event && event.preventDefault && event.preventDefault();
     var $this = $(this),
         $part = $this.parents('div[part]'),
         part = $part.attr('part'),
         $showHide = $this.find('.showHide'),
-        showing = $showHide.toggleClass('showing').hasClass('showing'),
+        showing = $showHide.toggleClass('showing', event).hasClass('showing'),
         $blockRight = $part.find('.block.right'),
         $psalmEditor = $blockRight.find('.psalm-editor');
     $showHide.text(showing? 'Hide' : 'Show');
@@ -962,6 +1007,7 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
+      if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
       $toggleEditMarkings.hide();
       $selToneEnding.hide();
       $cbSolemn.hide();
@@ -1381,11 +1427,13 @@ $(function(){
     var ctxt = prop.ctxt;
     // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
     prop.activeGabc = prop.activeGabc.replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_');
+    prop.activeGabc = prop.activeGabc.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/AE/,'Æ').replace(/OE/,'Œ');
     var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
-      }).replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
+      .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/!\//,'/') // some gregobase chants are encoded this way for some reason
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
@@ -1420,6 +1468,14 @@ $(function(){
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotationArray[0]+'%', '%'+gabcHeader.annotationArray[1]+'%');
       } else if(gabcHeader.annotation) {
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
+      } else if(gabcHeader.mode || gabcHeader['office-part']) {
+        var annotation;
+        if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
+        if(annotation) {
+          score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
+        } else if(gabcHeader.mode) {
+          score.annotation = new exsurge.Annotations(ctxt, '%'+romanNumeral[gabcHeader.mode]+'%');
+        }
       }
     }
     layoutChant(part);
@@ -1955,6 +2011,7 @@ console.info(JSON.stringify(selPropers));
     });
     allowAddToHash = true;
   }
+  $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
   hashChanged();
 });

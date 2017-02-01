@@ -346,6 +346,28 @@ var saintKeys = [
     {key:"Dec28",title:"Dec 28: The Holy Innocents",en:"Dec 28: The Holy Innocents"}
     /* END_GEN */
 ];
+var extraChants = {
+  "Feb2": [
+    {
+      rubric: "After the prayers, the Priest puts incense into the thurible. Whilst he distributes the candles, the choir sings:",
+      id: 2897
+    }, {
+      rubric: "When the distribution of candles is ended, the Choir sings:",
+      id: 30
+    }, {
+      rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
+      gabc: "annotation: <sp>V/</sp>;\n%%\n(c3) Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) <i>or:</i>(::) A(f)men.(h.) (::)"
+    }, {
+      rubric: "During the procession, the following antiphons are sung:",
+      id: 1311
+    }, {
+      id: 46
+    }, {
+      rubric: "On re-entering the church, the following Responsory is sung:",
+      id: 513
+    }
+  ]
+}
 var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"",title:"Inter Annum",en:"During the Year"},{key:"Quad",title:"Septuagesima usque ad Finem Quadragesimæ",en:"Septuagesima through Lent"},{key:"Pasch",title:"Tempus Paschale",en:"Paschal Time"}];
 //{key:"",title:"",en:""}
 /*TODO: sequences. All Souls, seven sorrows. anything else? */
