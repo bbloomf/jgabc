@@ -366,6 +366,21 @@ var extraChants = {
       rubric: "On re-entering the church, the following Responsory is sung:",
       id: 513
     }
+  ],
+  "AshWed": [
+    {
+      rubric: "The ashes, made from olive branches or other branches blessed the previous year, are placed in a vessel on the altar."
+    }, {
+      rubric: "The Choir first sings the following Antiphon:",
+      id: 1081
+    }, {
+      rubric: "During the imposition of the ashes, the Chior sings:",
+      id: 313
+    }, {
+      id: 1208
+    }, {
+      id: 743
+    }
   ]
 }
 var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"",title:"Inter Annum",en:"During the Year"},{key:"Quad",title:"Septuagesima usque ad Finem Quadragesimæ",en:"Septuagesima through Lent"},{key:"Pasch",title:"Tempus Paschale",en:"Paschal Time"}];
