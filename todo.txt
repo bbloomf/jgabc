@@ -1,3 +1,5 @@
+don't re-versify verses...
+alleluia verse: possibility of tertium quid
 re-syllabify based on hyphenation patterns
 
 better layout psalmtone tool for a phone

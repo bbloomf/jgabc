@@ -1391,6 +1391,11 @@ $(function(){
       .replace(/!\//,'/') // some gregobase chants are encoded this way for some reason
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/ae/g,'æ')
+      .replace(/oe/g,'œ')
+      .replace(/aé/g,'ǽ')
+      .replace(/AE/,'Æ')
+      .replace(/OE/,'Œ')
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')

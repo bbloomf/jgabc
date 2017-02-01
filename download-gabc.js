@@ -59,6 +59,7 @@ var latin = window.Hypher.languages.la_VA;
                         });
                       }
                     });
+                    //content = content.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/AE/,'Æ').replace(/OE/,'Œ');
                     content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*([A-Z]{3}\([^)]*\)\s+|[A-Z]{2}(?:\([^)]*\))?|[A-Z]\([^)]*\)))((?:[A-Z]+\([^)]*\))*)/,
                       function(match,beginning,context,replacePart) {
                         var replacement = replacePart.replace(/([A-Z]+)(\([^)]*\))/g, function(whole, lyric, gabc) {
