@@ -36,12 +36,33 @@ textarea {
   box-sizing: border-box;
   display: none;
 }
+.verses {
+  font-size: 120%;
+  font-family: 'Crimson Text';
+}
+.verses .rubric {
+  font-size: inherit;
+  white-space: nowrap;
+  padding-left: 10pt;
+}
+.chant-title {
+  text-align: center;
+  font-size: 110%;
+  font-weight: bold;
+  font-family: 'Crimson Text';
+  text-transform: uppercase;
+  margin: 0.75em 0 -0.5em;
+  line-height: 1;
+}
 .rubric {
   font-family: 'Crimson Text';
   font-size: 120%;
   font-style: italic;
   color: #e00;
   margin: 0.5em 0 0.25em;
+}
+.rubric.after {
+  margin-top: 0;
 }
 .rubric .quote {
   font-style: normal;

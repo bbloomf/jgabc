@@ -446,6 +446,9 @@ $(function(){
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
       sel.extraChants.forEach(function(chant, i) {
+        if(chant.title) {
+          $container.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+        }
         if(chant.rubric) {
           $container.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
         }
@@ -462,11 +465,17 @@ $(function(){
           makeChantContextForSel(sel[part]);
           if(chant.id) {
             $.get('gabc/'+chant.id+'.gabc',function(gabc) {
-              sel[part].gabc = sel[part].activeGabc = gabc;
+              sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
               updateExsurge(part);
             });
           }
           if(chant.gabc) updateExsurge(part);
+        }
+        if(chant.rubricAfter) {
+          $container.append($('<div>').addClass('rubric').addClass('after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+        }
+        if(chant.html) {
+          $container.append($('<div>').html(chant.html));
         }
       });
     }
