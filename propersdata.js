@@ -357,7 +357,7 @@ var extraChants = {
       rubricAfter: "Repeat: <Exsúrge Dómine.>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
-      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) <i>or:</i>(::) A(f)men.(h.) (::)"
+      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "During the procession, the following antiphons are sung:",
       id: 1311

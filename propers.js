@@ -30,6 +30,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var propersHashFalse = {
     tractusPattern:false,
     offertoriumPattern:false,
@@ -264,7 +265,7 @@ $(function(){
       }
     }
     var $includePart = $('#include'+capPart);
-    $('#lbl'+capPart).find('a').attr('href',id? 'http://gregobase.selapa.net/chant.php?id='+id : null);
+    $('#lbl'+capPart).find('a').attr('href',id? gregobaseUrlPrefix+id : null);
     if(id || (selDay=='custom' && !isOrdinaryPart)) {
       $includePart.parent('li').removeClass('ui-state-disabled');
       var $txt = $('#txt'+capPart);
@@ -466,7 +467,7 @@ $(function(){
           if(chant.id) {
             $.get('gabc/'+chant.id+'.gabc',function(gabc) {
               sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
-              updateExsurge(part);
+              updateExsurge(part, chant.id);
             });
           }
           if(chant.gabc) updateExsurge(part);
@@ -1431,7 +1432,7 @@ $(function(){
     makeChantContextForSel(this);
   });
 
-  var updateExsurge = function(part) {
+  var updateExsurge = function(part, id) {
     var chantContainer = $('#'+part+'-preview')[0];
     var prop = sel[part];
     var ctxt = prop.ctxt;
@@ -1489,7 +1490,7 @@ $(function(){
         }
       }
     }
-    layoutChant(part);
+    layoutChant(part, false, id);
   }
   var queue = [];
   function processQueue() {
@@ -1499,8 +1500,10 @@ $(function(){
     }
   }
 
-  var layoutChant = function(part, synchronous) {
-    var chantContainer = $('#'+part+'-preview')[0];
+  var layoutChant = function(part, synchronous, id) {
+    var chantContainer = $('#'+part+'-preview');
+    chantContainer.attr('gregobase-id', id || null);
+    chantContainer = chantContainer[0];
     if(!chantContainer) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
@@ -2024,5 +2027,9 @@ console.info(JSON.stringify(selPropers));
   }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
+  $(document).on('click', 'div[gregobase-id] text.dropCap', function() {
+    var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
+    window.open(gregobaseUrlPrefix + id, '_blank');
+  })
   hashChanged();
 });
