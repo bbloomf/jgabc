@@ -54,11 +54,20 @@ textarea {
   margin: 0.75em 0 -0.5em;
   line-height: 1;
 }
+[style*="fill:#f00;"] {
+  fill: #d00!important;
+}
+div[gregobase-id] text.dropCap {
+  cursor: pointer;
+}
+div[gregobase-id] text.dropCap:hover {
+  fill: #d00!important;
+}
 .rubric {
   font-family: 'Crimson Text';
   font-size: 120%;
   font-style: italic;
-  color: #e00;
+  color: #d00;
   margin: 0.5em 0 0.25em;
 }
 .rubric.after {

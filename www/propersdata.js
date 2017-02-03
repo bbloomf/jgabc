@@ -33,6 +33,7 @@
     {key:"Quad6m",title:"Feria II Hebdomadæ Sanctæ",en:"Monday in Holy Week"},
     {key:"Quad6t",title:"Feria III Hebdomadæ Sanctæ",en:"Tuesday in Holy Week"},
     {key:"Quad6w",title:"Feria IV Hebdomadæ Sanctæ",en:"Wednesday in Holy Week"},
+    {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
     {key:"Pasc0",title:"*Dominica Resurrectionis",en:"Easter Sunday"},
     {key:"Pasc0m",title:"Feria II Infra Oct Paschæ",en:"Easter Monday"},
     {key:"Pasc0t",title:"Feria III Infra Oct Paschæ",en:"Easter Tuesday"},
@@ -357,7 +358,7 @@ var extraChants = {
       rubricAfter: "Repeat: <Exsúrge Dómine.>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
-      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) <i>or:</i>(::) A(f)men.(h.) (::)"
+      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "During the procession, the following antiphons are sung:",
       id: 1311
@@ -557,6 +558,7 @@ var proprium = {
   Quad6m: {introitusID:226,gradualeID:783,tractusID:425,offertoriumID:411,communioID:196},
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588},
+  Quad6h: {introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:666,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},
