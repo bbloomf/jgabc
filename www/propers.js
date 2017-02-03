@@ -280,7 +280,7 @@ $(function(){
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text;
         if(!isOrdinaryPart) {
-          var plaintext = decompile(gabc,true);
+          var plaintext = decompile(gabc,true).replace(/<alt>.*?<\/alt>/g,'');
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return line.split(/\s*[|*]\s*/);
           });
@@ -602,8 +602,7 @@ $(function(){
     regexOuter.exec('');
     mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
-      .replace(/<v>\\greheightstar<\/v>/g,'*')
-      .replace(/<alt>[^<]+<\/alt>/,'');
+      .replace(/<v>\\greheightstar<\/v>/g,'*');
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
@@ -918,7 +917,7 @@ $(function(){
     "œ": /<sp>'?(oe|œ)<\/sp>/g,
     "[$1]": /<sp>(.*?)<\/sp>/g,
 
-    "($1)": /<alt>(.*?)<\/alt>/g
+    "($1) ": /<alt>(.*?)<\/alt>\s*/g
   };
   var replaceGabcTags = function(text) {
     Object.keys(tagReplacements).forEach(function(replace) {
@@ -1458,7 +1457,6 @@ $(function(){
         })
         .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
-        .replace(/<alt>[^<]+<\/alt>/g,'')  // not currently supported by Exsurge
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
