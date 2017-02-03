@@ -43,6 +43,7 @@ $(function(){
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
   var dateCache = {};
   var Dates = function(Y) {
+    if(dateCache[Y]) return dateCache[Y];
     var result = {};
     result.year = Y;
     result.pascha = moment.easter(Y);
@@ -499,7 +500,7 @@ $(function(){
       $selTempus.show();
       var m = moment(selDay,'MMMD');
       if(m.isValid()) {
-        if(m.isBefore(moment())) m.add(1, 'year');
+        if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
         $selTempus.val(selTempus = getSeasonForMoment(m));
       }
     } else {
