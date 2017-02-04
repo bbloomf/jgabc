@@ -576,10 +576,18 @@ $(function(){
         });
         return result;
       }, []));
+      var labelArray = [massName, 'Ad Libitum', 'Masses'];
+      if(selectedPart.length == 0) {
+        // move the Masses ahead of the ad libitum parts:
+        options.splice(1,0,options.pop());
+        labelArray.splice(1,0,labelArray.pop());
+      } else {
+        labelArray[2] = 'Other Masses';
+      }
       options.forEach(function(optGroup, index){
         if(optGroup.length == 0) return;
         var $optGroup = $('<optgroup></optgroup>');
-        var label = [massName, 'Ad Libitum', 'Other Masses'][index];
+        var label = labelArray[index];
         $optGroup.attr('label', label);
         optGroup.forEach(function(option, optIndex){
           var $option = $('<option></option>').
