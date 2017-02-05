@@ -280,7 +280,7 @@ $(function(){
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text;
         if(!isOrdinaryPart) {
-          var plaintext = decompile(gabc,true).replace(/<alt>.*?<\/alt>/g,'');
+          var plaintext = decompile(gabc,true);
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return line.split(/\s*[|*]\s*/);
           });
