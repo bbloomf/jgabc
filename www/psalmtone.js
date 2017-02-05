@@ -625,6 +625,12 @@ function applyPsalmTone(options) {
   if(tmp.length>1 && tmp.slice(-1)[0].length>0) {
     suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
+  // use <alt> as a prefix; don't consider it part of the psalm text
+  var match = text.match(/<alt>(.*?)<\/alt>/);
+  if(match) {
+    text = text.slice(0, match.index) + text.slice(match.index + match[0].length);
+    prefix = match[0] + prefix;
+  }
   var syl = getSyllables(text,bi);
   var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor,clef) : gabc;
   if(typeof(toneList.eval)=="function"){
