@@ -19,7 +19,29 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener("pause", this.onPause, false);
+        document.addEventListener("resume", this.onResume, false);
+    },
+
+    // pause Event Handler
+    onPause: function() {
+        // Store current url in local storage
+        if(location.hash && location.pathname.match(/\/propers\.html$/)) {
+            localStorage.savedHash = location.hash;
+            localStorage.savedTime = new Date().getTime();
+        } else {
+            delete localStorage.savedHash;
+            delete localStorage.savedTime;
+        }
+    },
+
+    // resume Event Handler
+    onResume: function() {
+        // check for url in local storage
+        if(localStorage.savedHash && (new Date().getTime() - localStorage.savedTime < 7200000)) {
+            if(location.hash != localStorage.savedHash) location = 'propers.html' + localStorage.savedHash;
+        }
     },
 
     // deviceready Event Handler
@@ -29,13 +51,19 @@ var app = {
     onDeviceReady: function() {
         window.plugins.webintent.getUri(function(url) {
             if(url) app.handleUrl(url);
+            else app.onResume();
         }); 
         window.plugins.webintent.onNewIntent(function(url) {
             if(url) app.handleUrl(url);
+            else app.onResume();
         });
     },
 
     handleUrl: function(url) {
+        if(!url) {
+            app.onResume();
+            return;
+        }
         var urlRegex = /\/\/bbloomf.github.io\/jgabc\/(.*)$/i;
         var match = urlRegex.exec(url);
         if(match) {
