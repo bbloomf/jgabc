@@ -233,7 +233,8 @@ $(function(){
       partIndex = parseInt(match[2]);
     }
     var capPart = part[0].toUpperCase()+part.slice(1);
-    var $div = $('#div'+capPart);
+    var $div = $('#div'+capPart)
+    $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
     if(isNovus && !isOrdinaryPart) {
       var optionID = novusOption[partType]||0;
@@ -329,6 +330,10 @@ $(function(){
         if(!$selTone.length) {
           sel[part].style = 'full';
           updateTextAndChantForPart(part);
+        }
+        var $toggleEditMarkings = $div.find('.toggleEditMarkings');
+        if($toggleEditMarkings.find('.showHide').hasClass('showing')) {
+          toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
       };
       if(id) {
