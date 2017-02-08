@@ -54,25 +54,25 @@ var latin = window.Hypher.languages.la_VA;
                             val = otherSyls.join('-').toLowerCase();
                         if(key != val) sylReplacements[key] = val;
                         var i = 0;
-                        return whole; // don't actually perform the replacement for now
+                        //return whole; // don't actually perform the replacement for now
                         return whole.replace(regex, function(match, first, second){
                           return otherSyls[i++] + second;
                         });
                       }
                     });
                     //content = content.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/AE/,'Æ').replace(/OE/,'Œ');
-                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*([A-Z]{3}\([^)]*\)\s+|[A-Z]{2}(?:\([^)]*\))?|[A-Z]\([^)]*\)))((?:[A-Z]+\([^)]*\))*)/,
+                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*([A-ZŒÆÁÉÍÓÚÝǼ]{3}\([^)]*\)\s+|[A-ZŒÆÁÉÍÓÚÝǼ]{2}(?:\([^)]*\))?|[A-ZŒÆÁÉÍÓÚÝǼ]\([^)]*\)))((?:[A-ZŒÆÁÉÍÓÚÝǼ]+[\.,;:]?\([^)]*\))*)/,
                       function(match,beginning,context,replacePart) {
-                        var replacement = replacePart.replace(/([A-Z]+)(\([^)]*\))/g, function(whole, lyric, gabc) {
+                        var replacement = replacePart.replace(/([A-ZŒÆÁÉÍÓÚÝǼ]+[\.,;:]?)(\([^)]*\))/g, function(whole, lyric, gabc) {
                           return lyric.toLowerCase() + gabc;
                         });
                         if(replacePart) {
                           replacements.push(context + replacePart + '\n' + context + replacement);
-                          console.info(context + replacePart + '\n' + context + replacement);
+                          console.info(file + ':\n' + context + replacePart + '\n' + context + replacement);
                         }
                         return beginning + replacement;
                       });
-                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*[A-Z])([a-z]([a-z](?=\([^)]*\)\s+))?)/,
+                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*[A-ZŒÆÁÉÍÓÚÝǼ])([a-zœæáéíóúýǽ]([a-zœæáéíóúýǽ](?=\([^)]*\)\s+))?)/,
                       function(match, beginning, replacePart){
                         return beginning + replacePart.toUpperCase();
                       });
@@ -89,7 +89,7 @@ var latin = window.Hypher.languages.la_VA;
           console.info('Finished in ' + time + ' seconds!');
           // console.info(replacements.join('\n\n'));
           console.info(errors.join('\n'));
-          console.info(JSON.stringify(sylReplacements, null, 2));
+          //console.info(JSON.stringify(sylReplacements, null, 2));
         }
     };
 callback();

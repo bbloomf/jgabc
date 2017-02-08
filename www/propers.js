@@ -39,6 +39,7 @@ $(function(){
     communioPattern:false,
     alleluiaPattern:false
   };
+  var gradualeOptionsWhenAlleluia = $('#selStyleGraduale>option.alleluia').detach();
   var NBSP = '\xA0';
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
   var dateCache = {};
@@ -232,7 +233,8 @@ $(function(){
       partIndex = parseInt(match[2]);
     }
     var capPart = part[0].toUpperCase()+part.slice(1);
-    var $div = $('#div'+capPart);
+    var $div = $('#div'+capPart)
+    $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
     if(isNovus && !isOrdinaryPart) {
       var optionID = novusOption[partType]||0;
@@ -278,9 +280,11 @@ $(function(){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
-        var text;
+        var text,
+            truePart = partType;
         if(!isOrdinaryPart) {
           var plaintext = decompile(gabc,true);
+          if(isAlleluia(part,plaintext)) truePart = 'alleluia';
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return line.split(/\s*[|*]\s*/);
           });
@@ -290,19 +294,18 @@ $(function(){
           if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
             text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
           } else {
-            text = sel[part].text = versify(plaintext);
+            text = sel[part].text = versify(plaintext, truePart.match(/alleluia|graduale/));
           }
         }
-        var truePart = (!isOrdinaryPart && isAlleluia(part,text))? 'alleluia' : partType;
         if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
-            $('#selStyle'+capPart+'>option.alleluia').show();
+            $('#selStyle'+capPart).append(gradualeOptionsWhenAlleluia.clone());
           } else {
+            gradualeOptionsWhenAlleluia.remove();
             if(header['office-part']=='Hymnus') {
               truePart = 'hymnus';
               partIndex = null;
             }
-            $('#selStyle'+capPart+'>option.alleluia').hide();
             var $style = $('#selStyle'+capPart);
             if($style.val()=='psalm-tone1') {
               $style.val('psalm-tone');
@@ -327,6 +330,10 @@ $(function(){
         if(!$selTone.length) {
           sel[part].style = 'full';
           updateTextAndChantForPart(part);
+        }
+        var $toggleEditMarkings = $div.find('.toggleEditMarkings');
+        if($toggleEditMarkings.find('.showHide').hasClass('showing')) {
+          toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
       };
       if(id) {
@@ -781,12 +788,12 @@ $(function(){
     }
     return verse;
   }
-  var versify = function(text){
+  var versify = function(text, allowSplittingLines){
     var lines = text.split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
       var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
-      var verses = splitIntoVerses(line);
+      var verses = allowSplittingLines? splitIntoVerses(line) : [line];
       if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
         verses[0] = lines[i];
       }

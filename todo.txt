@@ -1,4 +1,3 @@
-don't re-versify verses...
 alleluia verse: possibility of tertium quid...
 maybe change the editor so that long tap or double click sets pause and single click toggles *
 add links to gregorianbooks?
@@ -15,9 +14,7 @@ totally remove jgabc.js dependency
 
 possibly provide links to http://www.gregorianbooks.com/propers.html#... from the propers tool
 
-1,2,3,4,5,7,8 seem good.
-
-6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.
+Introit Tone 6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.
 The intonation of the termination of tone 6 changes based on the accentuation:
   If the 2nd syllable is accented, it begins h hj (see 1012, 1200, 1924 of liber.pdf)
   If the 3rd syllable is accented, it begins f gh hj (see 658, 1171, 1264 of liber.pdf) as I have written below.
