@@ -278,7 +278,8 @@ $(function(){
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>');
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
-        var text;
+        var text,
+            truePart = (!isOrdinaryPart && isAlleluia(part,text))? 'alleluia' : partType;
         if(!isOrdinaryPart) {
           var plaintext = decompile(gabc,true);
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
@@ -290,10 +291,9 @@ $(function(){
           if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
             text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
           } else {
-            text = sel[part].text = versify(plaintext);
+            text = sel[part].text = versify(plaintext, truePart.match(/alleluia|graduale/));
           }
         }
-        var truePart = (!isOrdinaryPart && isAlleluia(part,text))? 'alleluia' : partType;
         if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
             $('#selStyle'+capPart+'>option.alleluia').show();
@@ -781,12 +781,12 @@ $(function(){
     }
     return verse;
   }
-  var versify = function(text){
+  var versify = function(text, allowSplittingLines){
     var lines = text.split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
       var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
-      var verses = splitIntoVerses(line);
+      var verses = allowSplittingLines? splitIntoVerses(line) : [line];
       if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
         verses[0] = lines[i];
       }
