@@ -54,7 +54,7 @@ var latin = window.Hypher.languages.la_VA;
                             val = otherSyls.join('-').toLowerCase();
                         if(key != val) sylReplacements[key] = val;
                         var i = 0;
-                        return whole; // don't actually perform the replacement for now
+                        //return whole; // don't actually perform the replacement for now
                         return whole.replace(regex, function(match, first, second){
                           return otherSyls[i++] + second;
                         });
