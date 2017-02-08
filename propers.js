@@ -39,6 +39,7 @@ $(function(){
     communioPattern:false,
     alleluiaPattern:false
   };
+  var gradualeOptionsWhenAlleluia = $('#selStyleGraduale>option.alleluia').detach();
   var NBSP = '\xA0';
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
   var dateCache = {};
@@ -279,9 +280,10 @@ $(function(){
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text,
-            truePart = (!isOrdinaryPart && isAlleluia(part,text))? 'alleluia' : partType;
+            truePart = partType;
         if(!isOrdinaryPart) {
           var plaintext = decompile(gabc,true);
+          if(isAlleluia(part,plaintext)) truePart = 'alleluia';
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return line.split(/\s*[|*]\s*/);
           });
@@ -296,13 +298,13 @@ $(function(){
         }
         if(part.match(/^graduale/)) {
           if(truePart == 'alleluia') {
-            $('#selStyle'+capPart+'>option.alleluia').show();
+            $('#selStyle'+capPart).append(gradualeOptionsWhenAlleluia.clone());
           } else {
+            gradualeOptionsWhenAlleluia.remove();
             if(header['office-part']=='Hymnus') {
               truePart = 'hymnus';
               partIndex = null;
             }
-            $('#selStyle'+capPart+'>option.alleluia').hide();
             var $style = $('#selStyle'+capPart);
             if($style.val()=='psalm-tone1') {
               $style.val('psalm-tone');
