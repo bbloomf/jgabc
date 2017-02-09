@@ -290,12 +290,12 @@ $(function(){
             return line.split(/\s*[|*]\s*/);
           });
           if(!sel[part].pattern) {
-            sel[part].pattern = deducePattern(plaintext, lines);
+            sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
           if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
             text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
           } else {
-            text = sel[part].text = versify(plaintext, truePart.match(/alleluia|graduale/));
+            text = sel[part].text = versify(plaintext, !truePart.match(/alleluia|graduale|tractus/));
           }
         }
         if(part.match(/^graduale/)) {
@@ -805,11 +805,13 @@ $(function(){
         result += normalizeMediant(verses[j]) + '\n';
       }
     }
-    return result.replace(/^\s+|\s+$/,'');
+    return result.trim();
   }
 
-  function deducePattern(text, lines) {
-    var versified = text.split('\n').map(versify);
+  function deducePattern(text, lines, allowSplittingLines) {
+    var versified = text.split('\n').map(function(text) {
+      return versify(text, allowSplittingLines);
+    });
     var pattern = lines.map(function(segments, i) {
       var regex = /\s*([†*\n])/g,
           pat = [],
@@ -1268,7 +1270,7 @@ $(function(){
     var firstVerse = true;
     var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
     for(var i=0; i<lines.length; ++i) {
-      var line = splitLine(lines[i]);
+      var line = splitLine(lines[i], introitTone? 3 : 2);
       var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
       if(italicNote) {
         italicNote = italicNote[0];
@@ -1287,8 +1289,9 @@ $(function(){
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
-        if(false && introitTone && line[0].match(/†/)) { //TODO: Make this optional perhaps
-          var left = line[0].split('†');
+        if(introitTone && line.length == 3) { //TODO: Make this optional perhaps
+          var left = [line[0], line[1]];
+          line.splice(1,1);
           gabc += (italicNote||'') + applyPsalmTone({
             text: left[0].trim(),
             gabc: gMediant,
@@ -1353,7 +1356,7 @@ $(function(){
             suffix: true,
             italicizeIntonation: false,
             favor: 'termination',
-            flexEqualsTenor: introitTone
+            flexEqualsTenor: true
           })) + " (::)\n";
         if(i==0) {
           //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));

@@ -1279,11 +1279,56 @@ Evaluatable.prototype.eval = function(){
   return eval(this.string);
 };
 
-function splitLine(oLine) {
+function sumArray(array) {
+  return array.reduce(function(a,b) { return a+b; });
+}
+function maxDiff(array) {
+  var diff = 0;
+  for(var i=0; i < array.length - 1; ++i) {
+    for(var j=i+1; j < array.length; ++j) {
+      diff += Math.abs(array[i] - array[j]);
+    }
+  }
+  return diff;
+}
+
+function splitPosition(sylCounts) {
+  var totalSyllables = sumArray(sylCounts);
+  var syllables = 0, difference, lastDifference = Infinity;
+  for(var i=0; i < sylCounts.length; ++i) {
+    syllables += sylCounts[i];
+    difference = Math.abs(totalSyllables - syllables - syllables)
+    if(difference > lastDifference) break;
+    lastDifference = difference;
+  }
+  return i;
+}
+
+function splitLine(oLine, segments) {
+  if(!segments) segments = 2;
   var line = oLine.split(' * ');
-  if(line.length == 3) {
-    var temp = line.splice(0,2);
-    line.splice(0,0,temp.join(' ' + sym_flex + ' '));
+  if(line.length > segments) {
+    // Split the line so that the two segments have as close to the same number of syllables possible, favoring the length of the first segment
+    var sylCounts = line.map(function(segment) {
+      return segment.match(regexLatin).length;
+    });
+    // if there are 3 segments right now, but we're only asking for two, always put the flex in the first segment
+    var i = line.length == 3? 2 : splitPosition(sylCounts);
+    if(segments === 3) {
+      var maxI = sylCounts.length - 2, difference, lastDifference = Infinity, j, lastJ;
+      i = 1;
+      while(i <= maxI) {
+        j = i + splitPosition(sylCounts.slice(i));
+        difference = maxDiff([sumArray(sylCounts.slice(0,i)), sumArray(sylCounts.slice(i, j)), sumArray(sylCounts.slice(j))]);
+        if(difference > lastDifference) break;
+        lastDifference = difference;
+        lastJ = j;
+        ++i;
+      }
+      --i;
+      return [line.slice(0,i).join(' ' + sym_flex + ' '), line.slice(i,lastJ).join(' ' + sym_flex + ' '), line.slice(lastJ).join(' ' + sym_flex + ' ')];
+    }
+    return [line.slice(0,i).join(' ' + sym_flex + ' '), line.slice(i).join(' ' + sym_flex + ' ')];
   }
   return line;
 }
