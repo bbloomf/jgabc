@@ -547,7 +547,7 @@ $(function() {
   });
   $("#chant-parent2").resizable({handles:"e"});
   $(window).resize(windowResized);
-  $("#selFormat").append('<option>' + getKeys(bi_formats).join('</option><option>') + '</option>');
+  $("#selFormat").append('<option>' + Object.keys(bi_formats).join('</option><option>') + '</option>');
   $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
   $("#versetext").keyup(updateText).keydown(makeInternationalTextBoxKeyDown(false));
   if(localStorage.text) $("#versetext").val(localStorage.text);

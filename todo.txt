@@ -1,12 +1,11 @@
-alleluia verse: possibility of tertium quid...
-maybe change the editor so that long tap or double click sets pause and single click toggles *
+clean up versification code
+allow saving psalm tone settings in reference to a specific Mass for 4 weeks
+re-write psalmtoning algorithm to be clearer
 add links to gregorianbooks?
 
 add other chants outside of Mass: Holy Week, etc., anything that's in the liber brevior should be in the propers tool
 add link to gregoBase for extra chants
 
-
-re-syllabify based on hyphenation patterns
 
 better layout psalmtone tool for a phone
 

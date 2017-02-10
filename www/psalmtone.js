@@ -1,6 +1,6 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
+var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
 var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
@@ -19,6 +19,15 @@ if(localStorage.gabcStar) {
 }
 String.prototype.format = function(keys){
   return this.replace(/\$([a-z]+)/gi,function(e){return keys[e.slice(1)]||e;});
+}
+String.prototype.countSyllables = function() {
+  return (this.match && this.match(regexLatin) || []).length;
+}
+Array.prototype.sum = function() { return this.reduce(function(a,b){ return a+b; }, 0) }
+Array.prototype.mapSyllableCounts = function() {
+  return this.map(function(substring) {
+    return substring.countSyllables();
+  })
 }
 var o_bi_formats = 
     bi_formats = (function(){
@@ -380,7 +389,7 @@ var Syl = (function(){
             wi=0,
             di;
         while(i<d.length){
-          tmp[10]="";
+          tmp[9]="";
           di=wi+d[i];
           if(m[5]){
             if(di>opi){
@@ -397,7 +406,7 @@ var Syl = (function(){
           tmp.index=index+wi;
           if(wi + tmp[2].length >= ai[0]){
             ai.shift();
-            tmp[7] = '*';
+            tmp[6] = '*';
           }
           var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
           prefix = null;
@@ -412,10 +421,10 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[8] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
-        tmp[9]=" ";
-        tmp[10]=m[10];
-        if(ai.length) tmp[7]='*';
+        tmp[7] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
+        tmp[8]=" ";
+        tmp[9]=m[10];
+        if(ai.length) tmp[6]='*';
         tmp.index=index+wi;
         var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
         tmpSyllable.word = wordSyls;
@@ -453,7 +462,7 @@ var Syl = (function(){
     addResult:function(list){
       intUpdate=setTimeout(function(){Syl.updateWords();},5000);
       var array=list.split(" ");
-      for(i in array){
+      for(var i=0; i < array.length; ++i){
         var w=array[i],
             data=[],
             idx=w.indexOf('-'),
@@ -472,8 +481,8 @@ var Syl = (function(){
 })();
 function syllable(match,index,bi) {
   var nbsp=bi?bi.nbsp:" ";
-  var prespace=match[4]||match[5]||"";
-  var isAccent = (match[7] == '*' || regexAccent.test(match[3]));
+  var prespace=match[4]||"";
+  var isAccent = (match[6] == '*' || regexAccent.test(match[3]));
   if(typeof(match)=="string"){
     if(bi && bi.makeSylSubstitutions)match = bi.makeSylSubstitutions(match);
     return {index:index,
@@ -506,26 +515,26 @@ function syllable(match,index,bi) {
       match[3]=match[3].replace(')','</i>');
     }
     var oTags=getTagsFrom(match[1]);
-    var cTags=getTagsFrom(match[10]);
+    var cTags=getTagsFrom(match[9]);
     var tmp;
     var prepunc=typeof(index) == "string"? index.replace(/(["'«»‘’“”„‟‹›‛])\s*/g,"$1"+nbsp).replace(/(\d+)\.?\s*/g,"$1."+nbsp) : "";
     var sylnospace=match[3].slice(prespace.length);
     return {index: match.index,
             all: match[2],
-            syl: match[1] + (prepunc?sylnospace:match[3]) + match[10],
-            vowel: match[6]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
-            separator: match[7], // - or *
-            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
+            syl: match[1] + (prepunc?sylnospace:match[3]) + match[9],
+            vowel: match[5]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
+            separator: match[6], // - or *
+            punctuation: match[7]? (match[7].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
-            space: match[9],
+            space: match[8],
             accent: isAccent,
             prepunctuation: prepunc,
             word: undefined,
             oTags: oTags,
             cTags: cTags,
             elision: elision,
-            flex: match[8] && match[8].match(/†$/),
+            flex: match[7] && match[7].match(/†$/),
             mediant: match[8] && match[8].match(/\*$/)
     };
   }
@@ -539,25 +548,14 @@ function toneGabc(match) {
           open: match[4] == "r"
          };
 }
-function getKeys(aa) {
-  var result = [];
-  var i;
-  for(i in aa) {
-    result.push(i);
-  }
-  return result;
-}
 function getPsalmTones(tones) {
-  return getKeys(tones||g_tones);
+  return Object.keys(tones||g_tones);
 }
 function getEndings(tone) {
   var endings = [];
   var t = g_tones[tone];
   if(t && t.terminations) {
-    var i;
-    for(i in t.terminations) {
-      endings.push(i);
-    }
+    return Object.keys(t.terminations);
   }
   return endings;
 }
@@ -1238,7 +1236,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
           var pI = temp.length;
           while(pI >= 0 && !/p/i.test(temp[--pI].tagName)) ;
           temp = temp[pI].innerHTML.split('\n');
-          for(var i in temp) {
+          for(var i = 0; i<temp.length; ++i) {
             temp[i] = temp[i].trim();
           }
           data = temp.join(' ').replace(/\s*<br>\s*/g,"\n");
@@ -1279,11 +1277,51 @@ Evaluatable.prototype.eval = function(){
   return eval(this.string);
 };
 
-function splitLine(oLine) {
+function maxDiff(array) {
+  var diff = 0;
+  for(var i=0; i < array.length - 1; ++i) {
+    for(var j=i+1; j < array.length; ++j) {
+      diff += Math.abs(array[i] - array[j]);
+    }
+  }
+  return diff;
+}
+
+function splitPosition(sylCounts) {
+  var totalSyllables = sylCounts.sum();
+  var syllables = 0, difference, lastDifference = Infinity;
+  for(var i=0; i < sylCounts.length; ++i) {
+    syllables += sylCounts[i];
+    difference = Math.abs(totalSyllables - syllables - syllables)
+    if(difference > lastDifference) break;
+    lastDifference = difference;
+  }
+  return i;
+}
+
+function splitLine(oLine, segments) {
+  if(!segments) segments = 2;
   var line = oLine.split(' * ');
-  if(line.length == 3) {
-    var temp = line.splice(0,2);
-    line.splice(0,0,temp.join(' ' + sym_flex + ' '));
+  if(line.length > segments) {
+    // Split the line so that the two segments have as close to the same number of syllables possible, favoring the length of the first segment
+    var sylCounts = line.mapSyllableCounts();
+    // if there are 3 segments right now, but we're only asking for two, always put the flex in the first segment
+    var i = line.length == 3? 2 : splitPosition(sylCounts);
+    if(segments === 3) {
+      var maxI = sylCounts.length - 2, difference, lastDifference = Infinity, j, lastJ;
+      i = 1;
+      while(i <= maxI) {
+        j = i + splitPosition(sylCounts.slice(i));
+        difference = maxDiff([sumArray(sylCounts.slice(0,i)), sumArray(sylCounts.slice(i, j)), sumArray(sylCounts.slice(j))]);
+        if(difference > lastDifference) break;
+        lastDifference = difference;
+        lastJ = j;
+        ++i;
+      }
+      --i;
+      return [line.slice(0,i).join(' ' + sym_flex + ' '), line.slice(i,lastJ).join(' ' + sym_flex + ' '), line.slice(lastJ).join(' ' + sym_flex + ' ')];
+    }
+    return [line.slice(0,i).join(' ' + sym_flex + ' '), line.slice(i).join(' ' + sym_flex + ' ')];
   }
   return line;
 }
