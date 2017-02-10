@@ -1,6 +1,6 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|^)(?:s[uú](?:bs?|s(?=[cpqt]))|tr[aá]ns|p[oó]st|[aá]d|[oó]bs|[eé]x|p[eéoó]r|[ií]n|r[eé](?:d(?=d|[aeiouyáéëíóúýǽæœ]))))|(?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
+var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
 var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
@@ -380,7 +380,7 @@ var Syl = (function(){
             wi=0,
             di;
         while(i<d.length){
-          tmp[10]="";
+          tmp[9]="";
           di=wi+d[i];
           if(m[5]){
             if(di>opi){
@@ -397,7 +397,7 @@ var Syl = (function(){
           tmp.index=index+wi;
           if(wi + tmp[2].length >= ai[0]){
             ai.shift();
-            tmp[7] = '*';
+            tmp[6] = '*';
           }
           var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
           prefix = null;
@@ -412,10 +412,10 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[8] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
-        tmp[9]=" ";
-        tmp[10]=m[10];
-        if(ai.length) tmp[7]='*';
+        tmp[7] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
+        tmp[8]=" ";
+        tmp[9]=m[10];
+        if(ai.length) tmp[6]='*';
         tmp.index=index+wi;
         var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
         tmpSyllable.word = wordSyls;
@@ -472,8 +472,8 @@ var Syl = (function(){
 })();
 function syllable(match,index,bi) {
   var nbsp=bi?bi.nbsp:" ";
-  var prespace=match[4]||match[5]||"";
-  var isAccent = (match[7] == '*' || regexAccent.test(match[3]));
+  var prespace=match[4]||"";
+  var isAccent = (match[6] == '*' || regexAccent.test(match[3]));
   if(typeof(match)=="string"){
     if(bi && bi.makeSylSubstitutions)match = bi.makeSylSubstitutions(match);
     return {index:index,
@@ -506,26 +506,26 @@ function syllable(match,index,bi) {
       match[3]=match[3].replace(')','</i>');
     }
     var oTags=getTagsFrom(match[1]);
-    var cTags=getTagsFrom(match[10]);
+    var cTags=getTagsFrom(match[9]);
     var tmp;
     var prepunc=typeof(index) == "string"? index.replace(/(["'«»‘’“”„‟‹›‛])\s*/g,"$1"+nbsp).replace(/(\d+)\.?\s*/g,"$1."+nbsp) : "";
     var sylnospace=match[3].slice(prespace.length);
     return {index: match.index,
             all: match[2],
-            syl: match[1] + (prepunc?sylnospace:match[3]) + match[10],
-            vowel: match[6]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
-            separator: match[7], // - or *
-            punctuation: match[8]? (match[8].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
+            syl: match[1] + (prepunc?sylnospace:match[3]) + match[9],
+            vowel: match[5]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
+            separator: match[6], // - or *
+            punctuation: match[7]? (match[7].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
-            space: match[9],
+            space: match[8],
             accent: isAccent,
             prepunctuation: prepunc,
             word: undefined,
             oTags: oTags,
             cTags: cTags,
             elision: elision,
-            flex: match[8] && match[8].match(/†$/),
+            flex: match[7] && match[7].match(/†$/),
             mediant: match[8] && match[8].match(/\*$/)
     };
   }
