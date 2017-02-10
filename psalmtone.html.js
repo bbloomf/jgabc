@@ -379,7 +379,25 @@ function updateFormat() {
   $("#txtUserNotes").val(f.userNotes);
   updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/) || oldFormat.match(/gabc(?=$|-)/));
 }
+function sanitizeFormats(bi_formats) {
+  for(key in bi_formats) {
+    var format = bi_formats[key];
+    for(i in format) {
+      var values = format[i];
+      if(values.constructor === [].constructor) {
+        for(var j=0; j<values.length; ++j) {
+          var val = values[j];
+          var indexOfLt = val.lastIndexOf('<');
+          if(indexOfLt >= 0 && val.indexOf('>',indexOfLt) < 0) {
+            values[j] += '>';
+          }
+        }
+      }
+    }
+  }
+}
 function storeBiFormatsAndUpdate() {
+  sanitizeFormats(bi_formats);
   localStorage.bi_formats = JSON.stringify(bi_formats);
   updateEditor(useFormat.match(/gabc(?=$|-)/));
 }
