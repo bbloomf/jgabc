@@ -1,5 +1,16 @@
 var linkSelector="";
 var linkDownloadSelector="";
+
+var utf8_bom=String.fromCharCode(0xEF)+String.fromCharCode(0xBB)+String.fromCharCode(0xBF);
+function encode_utf8( s )
+{
+  return utf8_bom+unescape( encodeURIComponent( s ) );
+}
+function decode_utf8( s )
+{
+  return decodeURIComponent( escape( s ) );
+}
+
 function setPdfLinkSelector(sel){
   linkSelector=sel;
 };

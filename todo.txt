@@ -1,5 +1,5 @@
-clean up versification code
 allow saving psalm tone settings in reference to a specific Mass for 4 weeks
+clean up versification code
 re-write psalmtoning algorithm to be clearer
 add links to gregorianbooks?
 
