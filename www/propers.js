@@ -39,7 +39,8 @@ $(function(){
     communioPattern:false,
     alleluiaPattern:false
   };
-  var gradualeOptionsWhenAlleluia = $('#selStyleGraduale>option.alleluia').detach();
+  var $gradualeOptions = $('#selStyleGraduale>option').clone();
+  var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
   var NBSP = '\xA0';
   // the following function is based on one taken from http://www.irt.org/articles/js052/index.htm
   var dateCache = {};
@@ -298,19 +299,22 @@ $(function(){
           }
         }
         if(part.match(/^graduale/)) {
+          var $style = $('#selStyle'+capPart),
+              styleVal = $style.val();
+          $style.empty();
           if(truePart == 'alleluia') {
-            $('#selStyle'+capPart).append(gradualeOptionsWhenAlleluia.clone());
+            $style.append($alleluiaOptions.clone());
           } else {
-            gradualeOptionsWhenAlleluia.remove();
+            $style.append($gradualeOptions.clone());
             if(header['office-part']=='Hymnus') {
               truePart = 'hymnus';
               partIndex = null;
             }
-            var $style = $('#selStyle'+capPart);
-            if($style.val()=='psalm-tone1') {
-              $style.val('psalm-tone');
+            if(styleVal.match(/^psalm-tone/)) {
+              styleVal = 'psalm-tone';
             }
           }
+          $style.val(styleVal);
         }
         var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
         if(capTruePart) {
