@@ -23,7 +23,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
     ++mapOffset;
   }
   localStorage.elisionHasNote=useElisionGabc;
-  for(i in syl) {
+  for(var i = 0; i < syl.length; ++i) {
     if(newLines > 0) {
       result+="\n".repeat(newLines);
       newLines = 0;

@@ -56,7 +56,7 @@ function GabcHeader(text){
   if(match){
     var txtHeader = this.original = text.slice(0,match.index+match[0].length);
     var lines = txtHeader.split(/\r?\n/g);
-    for(i in lines){
+    for(var i=0; i < lines.length; ++i){
       var line=lines[i],
           match = regexHeaderLine.exec(line);
       if(match){
@@ -88,7 +88,7 @@ GabcHeader.prototype.toString = function(){
     if(key=='length' || key=='original' || key=='comments' || key=='cValues' || (typeof this[key])!="string")continue;
     var array = this[key+'Array'];
     if(array) {
-      for(i in array) {
+      for(var i=0; i < array.length; ++i) {
         result.push(key + ': ' + array[i] + ';');
       }
     } else {
@@ -96,10 +96,11 @@ GabcHeader.prototype.toString = function(){
     }
   }
   for(key in this.cValues){
-    if(key.length==0)continue;
+    if(key.length==0 || !this.cValues.hasOwnProperty(key))continue;
     result .push('%'+key + ': ' + this.cValues[key] + ';');
   }
   for(i in this.comments){
+    if(!this.comments.hasOwnProperty(i)) continue;
     try{
       result.splice(i,0,this.comments[i]);
     } catch(e){}

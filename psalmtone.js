@@ -20,6 +20,15 @@ if(localStorage.gabcStar) {
 String.prototype.format = function(keys){
   return this.replace(/\$([a-z]+)/gi,function(e){return keys[e.slice(1)]||e;});
 }
+String.prototype.countSyllables = function() {
+  return (this.match && this.match(regexLatin) || []).length;
+}
+Array.prototype.sum = function() { return this.reduce(function(a,b){ return a+b; }, 0) }
+Array.prototype.mapSyllableCounts = function() {
+  return this.map(function(substring) {
+    return substring.countSyllables();
+  })
+}
 var o_bi_formats = 
     bi_formats = (function(){
                     var _syl_subRegex= /ǽ/g;
@@ -453,7 +462,7 @@ var Syl = (function(){
     addResult:function(list){
       intUpdate=setTimeout(function(){Syl.updateWords();},5000);
       var array=list.split(" ");
-      for(i in array){
+      for(var i=0; i < array.length; ++i){
         var w=array[i],
             data=[],
             idx=w.indexOf('-'),
@@ -539,25 +548,14 @@ function toneGabc(match) {
           open: match[4] == "r"
          };
 }
-function getKeys(aa) {
-  var result = [];
-  var i;
-  for(i in aa) {
-    result.push(i);
-  }
-  return result;
-}
 function getPsalmTones(tones) {
-  return getKeys(tones||g_tones);
+  return Object.keys(tones||g_tones);
 }
 function getEndings(tone) {
   var endings = [];
   var t = g_tones[tone];
   if(t && t.terminations) {
-    var i;
-    for(i in t.terminations) {
-      endings.push(i);
-    }
+    return Object.keys(t.terminations);
   }
   return endings;
 }
@@ -1238,7 +1236,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
           var pI = temp.length;
           while(pI >= 0 && !/p/i.test(temp[--pI].tagName)) ;
           temp = temp[pI].innerHTML.split('\n');
-          for(var i in temp) {
+          for(var i = 0; i<temp.length; ++i) {
             temp[i] = temp[i].trim();
           }
           data = temp.join(' ').replace(/\s*<br>\s*/g,"\n");
@@ -1279,9 +1277,6 @@ Evaluatable.prototype.eval = function(){
   return eval(this.string);
 };
 
-function sumArray(array) {
-  return array.reduce(function(a,b) { return a+b; });
-}
 function maxDiff(array) {
   var diff = 0;
   for(var i=0; i < array.length - 1; ++i) {
@@ -1293,7 +1288,7 @@ function maxDiff(array) {
 }
 
 function splitPosition(sylCounts) {
-  var totalSyllables = sumArray(sylCounts);
+  var totalSyllables = sylCounts.sum();
   var syllables = 0, difference, lastDifference = Infinity;
   for(var i=0; i < sylCounts.length; ++i) {
     syllables += sylCounts[i];
@@ -1309,9 +1304,7 @@ function splitLine(oLine, segments) {
   var line = oLine.split(' * ');
   if(line.length > segments) {
     // Split the line so that the two segments have as close to the same number of syllables possible, favoring the length of the first segment
-    var sylCounts = line.map(function(segment) {
-      return segment.match(regexLatin).length;
-    });
+    var sylCounts = line.mapSyllableCounts();
     // if there are 3 segments right now, but we're only asking for two, always put the flex in the first segment
     var i = line.length == 3? 2 : splitPosition(sylCounts);
     if(segments === 3) {

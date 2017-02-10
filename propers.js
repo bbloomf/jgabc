@@ -695,13 +695,6 @@ $(function(){
     s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
-  var getSylCount = function(splitArray) {
-    var syls=[];
-    for(var j=0; j<splitArray.length; ++j) {
-      syls[j] = (splitArray[j].match(reVowels) || []).length;
-    }
-    return syls;
-  }
   
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
@@ -729,12 +722,12 @@ $(function(){
         var left = split.slice(i,j).join('*');
         var normalizedLeft = normalizeMediant(left).split('*');
         var segmentsRemaining = split.length - j;
-        if(normalizedLeft.length == 2 && Math.min.apply(null,getSylCount(normalizedLeft))>=7) {
+        if(normalizedLeft.length == 2 && Math.min.apply(null,normalizedLeft.mapSyllableCounts())>=7) {
           if (segmentsRemaining == 1) {
             //Check to make sure the one remaining segment can also be split.
             var right = split[j];
             var normalizedRight = normalizeMediant(right).split('*');
-            if(normalizedRight.length != 2 || Math.min.apply(null,getSylCount(normalizedRight))<7) {
+            if(normalizedRight.length != 2 || Math.min.apply(null,normalizedRight.mapSyllableCounts())<7) {
               j++;
             }
           }
@@ -750,24 +743,17 @@ $(function(){
       return [line];
     }
   }
-  var sum = function(array){
-    var result = 0;
-    for(var i=array.length-1; i>=0; --i){
-      result += array[i];
-    }
-    return result;
-  }
   var makeVerse = function(arrayVerse) {
-    var syls = getSylCount(arrayVerse);
+    var syls = arrayVerse.mapSyllableCounts();
     for(var i=1;i<arrayVerse.length; ++i) {
-      var left = sum(syls.slice(0,i));
-      var right = sum(syls.slice(i));
+      var left = syls.slice(0,i).sum();
+      var right = syls.slice(i).sum();
       if(left >= right || i==(arrayVerse.length-1)) {
         var leftText;
         if(left >= 20) {
           leftText = normalizeMediant(arrayVerse.slice(0,i).join('*'));
           var leftArray = leftText.split('*');
-          var leftSyls = getSylCount(leftArray);
+          var leftSyls = leftArray.mapSyllableCounts();
           if(leftSyls.length==2 && Math.min.apply(null,leftSyls)>=10) {
             leftText = leftText.replace('*','†') + ' ';
           } else {
