@@ -680,7 +680,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]?\s*$/,'');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   
