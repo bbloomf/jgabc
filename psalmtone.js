@@ -1331,7 +1331,7 @@ function splitLine(oLine, segments) {
       i = 1;
       while(i <= maxI) {
         j = i + splitPosition(sylCounts.slice(i));
-        difference = maxDiff([sumArray(sylCounts.slice(0,i)), sumArray(sylCounts.slice(i, j)), sumArray(sylCounts.slice(j))]);
+        difference = maxDiff([sylCounts.slice(0,i).sum(), sylCounts.slice(i, j).sum(), sylCounts.slice(j).sum()]);
         if(difference > lastDifference) break;
         lastDifference = difference;
         lastJ = j;
