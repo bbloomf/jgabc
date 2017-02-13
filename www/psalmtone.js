@@ -624,12 +624,13 @@ function applyPsalmTone(options) {
     suffix = tmp[typeof(verseNum)=='number'? (verseNum-1)%tmp.length : 0];
   }
   // use <alt> as a prefix; don't consider it part of the psalm text
-  var match = text.match(/<alt>(.*?)<\/alt>/);
+  var match = text.match && text.match(/<alt>(.*?)<\/alt>/);
   if(match) {
     text = text.slice(0, match.index) + text.slice(match.index + match[0].length);
     prefix = match[0] + prefix;
   }
   var syl = getSyllables(text,bi);
+  var biFlex = bi.flex || ['','','',''];
   var toneList = typeof(gabc)=="string"? getGabcTones(gabc,undefined,flexEqualsTenor,clef) : gabc;
   if(typeof(toneList.eval)=="function"){
     t = syl.slice(-3).reverse();
@@ -807,17 +808,25 @@ function applyPsalmTone(options) {
         if(lastOpen) {
           var tenorUntilAccent = false;
           var oldSi = si;
+          var flexAccent = false;
           while(si > ti && s) {
             if(s.flex) {
               if(flexEqualsTenor) {
                 r=s.prepunctuation + s.syl + s.punctuation + "(" + toneList.toneFlex + ".) (,)"+r;
               } else {
-                r=s.prepunctuation + s.syl + s.punctuation + " †(" + toneList.toneFlex + ".)"+r;
+                r=s.prepunctuation + s.prespace + biFlex[2] + s.sylnospace + biFlex[3] + s.punctuation + " †(" + toneList.toneFlex + ".)"+r;
               }
               tenorUntilAccent = "(" + toneList.toneFlex + ")";
             } else {
+              flexAccent = tenorUntilAccent && s.accent;
               tenorUntilAccent = !s.accent && tenorUntilAccent;
-              r=s.prepunctuation + s.syl + s.punctuation + (tenorUntilAccent || lastOpen.gabcClosed)+r;
+              if(tenorUntilAccent) {
+                r=s.prepunctuation + s.prespace + biFlex[2] + s.sylnospace + biFlex[3] + s.punctuation + tenorUntilAccent + r;
+              } else if(flexAccent) {
+                r=s.prepunctuation + s.prespace + biFlex[0] + s.sylnospace + biFlex[1] + s.punctuation + lastOpen.gabcClosed + r;
+              } else {
+                r=s.prepunctuation + s.syl + s.punctuation + lastOpen.gabcClosed + r;
+              }
             }
             --si;
             s = syl[si];
@@ -1091,6 +1100,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   if(!sylsAfterBold) sylsAfterBold = 0;
   var f = bi_formats[format];
   if(!f) f = bi_formats.html;
+  var biFlex = f.flex || ['','','',''];
   var verseNum = regexVerseNumber.exec(text);
   if(verseNum) {
     if(prefix)text = text.slice(verseNum[0].length);
@@ -1113,12 +1123,11 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
   var doneAccents = 0;
   var donePrep = 0;
   var sylCount = 0;
-  var i=syl.length - 1;
-  var lastAccentI = i + 1;
+  var lastAccentI = syl.length;
   var result = '';
   var bold = false;
   var vow;
-  for(; i >= 0; --i) {
+  for(var i=lastAccentI - 1; i >= 0; --i) {
     var s = syl[i];
     if(sylCount < sylsAfterBold) {
       ++sylCount;
@@ -1167,8 +1176,18 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
       }
       result = s.prepunctuation + result;
       ++donePrep;
+    } else if(s.flex) {
+      result = s.prepunctuation + s.prespace + biFlex[2] + s.sylnospace + biFlex[3] + s.punctuation + f.nbsp + sym_flex + result;
+      var j = i - 2
+      --i;
+      while(!syl[i].accent && i >= j) {
+        result = syl[i].prepunctuation + syl[i].prespace + biFlex[2] + syl[i].sylnospace + biFlex[3] + syl[i].punctuation + result;
+        --i;
+      }
+      s = syl[i];
+      result = s.prepunctuation + s.prespace + biFlex[0] + s.sylnospace + biFlex[1] + s.punctuation + result;
     } else {
-      result = s.prepunctuation + s.syl + s.punctuation + (s.flex?f.nbsp+sym_flex:"") + result;
+      result = s.prepunctuation + s.syl + s.punctuation + result;
     }
   }
   return ((prefix && prefix.replace(/\(([^$]*)\$c([^)]*)\)/gi,String(verseNum?("$1" + verseNum + "$2"):"")).replace(/\$c/gi,String(verseNum))) || "")
@@ -1312,7 +1331,7 @@ function splitLine(oLine, segments) {
       i = 1;
       while(i <= maxI) {
         j = i + splitPosition(sylCounts.slice(i));
-        difference = maxDiff([sumArray(sylCounts.slice(0,i)), sumArray(sylCounts.slice(i, j)), sumArray(sylCounts.slice(j))]);
+        difference = maxDiff([sylCounts.slice(0,i).sum(), sylCounts.slice(i, j).sum(), sylCounts.slice(j).sum()]);
         if(difference > lastDifference) break;
         lastDifference = difference;
         lastJ = j;

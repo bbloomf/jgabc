@@ -154,6 +154,18 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
         <td><input type="text" id="txtEndAccented"/></td>
       </tr>
       <tr>
+        <td><label for="txtBeginFlexAccented" title="This text will be added just before each accented syllable immediately before a flex.&#10;&#10;Hoc est ex*émplum; †">Begin Flex Accented Syllable:</label></td>
+        <td><input type="text" id="txtBeginFlexAccented"/></td>
+        <td style="padding-left:12pt;"><label for="txtEndFlexAccented" title="This text will be added just after each accented syllable immediately before a flex.&#10;&#10;Hoc est exém*plum; †">End Flex Accented Syllable:</label></td>
+        <td><input type="text" id="txtEndFlexAccented"/></td>
+      </tr>
+      <tr>
+        <td><label for="txtBeginFlex" title="This text will be added just before a syllable immediately following the last accented syllable before a flex.&#10;&#10;Hoc est exém*plum; †">Begin Flex Syllable:</label></td>
+        <td><input type="text" id="txtBeginFlex"/></td>
+        <td style="padding-left:12pt;"><label for="txtEndFlex" title="This text will be added just after any syllable immediately before a flex.&#10;&#10;Hoc est exémplum*; †">End Flex Syllable:</label></td>
+        <td><input type="text" id="txtEndFlex"/></td>
+      </tr>
+      <tr>
         <td><label for="txtPrefix" title="Inserted before every verse.&#10;$c will be replaced by the verse number.&#10;&#10;If commas are present, it will cycle through each prefix in the comma separated list, e.g., '1,2,3' -> '1,2,3,1,2,etc.'">Verse Prefix:</label></td>
         <td><input type="text" id="txtPrefix"/></td>
         <td style="padding-left:12pt;"><label for="txtSuffix" title="Inserted after every verse.&#10;$c will be replaced by the verse number.">Verse Suffix:</label></td>

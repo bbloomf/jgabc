@@ -362,10 +362,15 @@ function updateFormat() {
   localStorage.selFormat = useFormat;
   $("#btnDelFormat").val(((useFormat in o_bi_formats)? "Reset" : "Delete") + " Current Format");
   var f = bi_formats[useFormat];
+  if(!f.flex) f.flex = ['','','',''];
   $("#txtBeginPrep").val(f.italic[0]);
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
   $("#txtEndAccented").val(f.bold[1]);
+  $("#txtBeginFlexAccented").val(f.flex[0]);
+  $("#txtEndFlexAccented").val(f.flex[1]);
+  $("#txtBeginFlex").val(f.flex[2]);
+  $("#txtEndFlex").val(f.flex[3]);
   $("#txtPrefix").val(f.verse[0]||"");
   $("#txtSuffix").val(f.verse[1]||"");
   $("#txtNbsp").val(f.nbsp);
@@ -374,7 +379,25 @@ function updateFormat() {
   $("#txtUserNotes").val(f.userNotes);
   updateEditor((JSON.stringify(gabcFormat) != JSON.stringify(oldGabcFormat)) || useFormat.match(/gabc(?=$|-)/) || oldFormat.match(/gabc(?=$|-)/));
 }
+function sanitizeFormats(bi_formats) {
+  for(key in bi_formats) {
+    var format = bi_formats[key];
+    for(i in format) {
+      var values = format[i];
+      if(values.constructor === [].constructor) {
+        for(var j=0; j<values.length; ++j) {
+          var val = values[j];
+          var indexOfLt = val.lastIndexOf('<');
+          if(indexOfLt >= 0 && val.indexOf('>',indexOfLt) < 0) {
+            values[j] += '>';
+          }
+        }
+      }
+    }
+  }
+}
 function storeBiFormatsAndUpdate() {
+  sanitizeFormats(bi_formats);
   localStorage.bi_formats = JSON.stringify(bi_formats);
   updateEditor(useFormat.match(/gabc(?=$|-)/));
 }
@@ -384,6 +407,22 @@ function updateBeginAccented() {
 }
 function updateEndAccented() {
   bi_formats[useFormat].bold[1] = $("#txtEndAccented").val();
+  storeBiFormatsAndUpdate();
+}
+function updateBeginFlexAccented() {
+  bi_formats[useFormat].flex[0] = $("#txtBeginFlexAccented").val();
+  storeBiFormatsAndUpdate();
+}
+function updateEndFlexAccented() {
+  bi_formats[useFormat].flex[1] = $("#txtEndFlexAccented").val();
+  storeBiFormatsAndUpdate();
+}
+function updateBeginFlex() {
+  bi_formats[useFormat].flex[2] = $("#txtBeginFlex").val();
+  storeBiFormatsAndUpdate();
+}
+function updateEndFlex() {
+  bi_formats[useFormat].flex[3] = $("#txtEndFlex").val();
   storeBiFormatsAndUpdate();
 }
 function updateBeginPrep() {
@@ -474,7 +513,7 @@ function newFormat() {
     name = prompt("There is already a format named '" + name + "'.  Please enter a new name.");
   }
   if(name.length > 0) {
-    bi_formats[name] = {italic:["_","_"],bold:["*","*"],nbsp:" ",verse:["$c. ",""]};
+    bi_formats[name] = {italic:["_","_"],bold:["*","*"],flex:["","","",""],nbsp:" ",verse:["$c. ",""]};
     $("#selFormat").append('<option>' + name + '</option>');
     $("#selFormat").val(name);
     updateFormat();
@@ -767,6 +806,10 @@ $(function() {
   $("#txtEndPrep").keyup(updateEndPrep);
   $("#txtBeginAccented").keyup(updateBeginAccented);
   $("#txtEndAccented").keyup(updateEndAccented);
+  $("#txtBeginFlexAccented").keyup(updateBeginFlexAccented);
+  $("#txtEndFlexAccented").keyup(updateEndFlexAccented);
+  $("#txtBeginFlex").keyup(updateBeginFlex);
+  $("#txtEndFlex").keyup(updateEndFlex);
   $("#cbIncludeGloriaPatri").change(updateGloriaPatri);
   $("#cbIncludeGloriaPatri")[0].checked = (localStorage.cbIncludeGloriaPatri != "false");
   $("#cbUseNovaVulgata")[0].checked = useNovaVulgata = (localStorage.cbUseNovaVulgata == "true");
@@ -836,6 +879,7 @@ $(function() {
   var chantContainer = $('#chant-preview')[0];
   var score;
   $('#txtGabc').keyup(function(){
+    updateLinks(this.value);
     var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
