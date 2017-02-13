@@ -1,3 +1,4 @@
+Jan24 --- Alleluia verse doesn't get versified...
 allow saving psalm tone settings in reference to a specific Mass for 4 weeks
 clean up versification code
 re-write psalmtoning algorithm to be clearer

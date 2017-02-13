@@ -31,14 +31,6 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   yearArray = ['A','B','C'];
 $(function(){
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
-  var propersHashFalse = {
-    tractusPattern:false,
-    offertoriumPattern:false,
-    introitusPattern:false,
-    gradualePattern:false,
-    communioPattern:false,
-    alleluiaPattern:false
-  };
   var $gradualeOptions = $('#selStyleGraduale>option').clone();
   var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
   var NBSP = '\xA0';
@@ -431,12 +423,7 @@ $(function(){
       $('#selSundayNovus,#selYearNovus').show();
       $('#btnCalendar').find('span').text('Novus Ordo Calendar');
     }
-    addToHash($.extend({
-      sundayNovus: selDay,
-      sunday: false,
-      saint: false,
-      mass: false
-    }, propersHashFalse));
+    clearHash({ sundayNovus: selDay }, selDay);
     updateDayNovus();
   };
   var getSeasonForMoment = function(m) {
@@ -506,7 +493,8 @@ $(function(){
         hash[this.id] = false;
       }
     });
-    addToHash($.extend(hash, propersHashFalse));
+    clearHash(hash, selDay);
+    loadStoredDataForKey(selDay);
     if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       var m = moment(selDay,'MMMD');
@@ -517,7 +505,7 @@ $(function(){
     } else {
       selTempus = '';
       $selTempus.prop('selectedIndex',0).hide();
-      addToHash('tempus', false);
+      addToHash('tempus', false, true);
     }
     if(selDay=='custom') {
       $('.sel-custom').show();
@@ -985,6 +973,10 @@ $(function(){
   }
   
   var updateStyle = function(part,style){
+    addToHash('style'+part[0].toUpperCase()+part.slice(1), style == 'full' ? '' : style);
+    if(style == 'full') {
+      addToHash(part+'Pattern','');
+    }
     sel[part].style = style;
     var capPart = part[0].toUpperCase() + part.slice(1);
     var $selToneEnding = $('#selToneEnding' + capPart),
@@ -1749,10 +1741,11 @@ $(function(){
     var style=this.value;
     if(this.id=='selStyle') {
       if(style!='mixed') {
-        $('select[id^=selStyle]:not(#selStyle)').val(style).each(function(i,o){updateStyle(o.id.slice(8).toLowerCase(),style);});
+        $('select[id^=selStyle]:not(#selStyle)').val(style).each(function(i,o){
+          updateStyle(o.id.slice(8).toLowerCase(),style);
+        });
       }
     } else {
-      addToHash(this.id, style == 'full' ? '' : style);
       updateStyle(this.id.slice(8).toLowerCase(),style);
       var baseStyle = style.replace(/\d+$/,'');
       $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
@@ -1970,8 +1963,26 @@ console.info(JSON.stringify(selPropers));
     return s;
   }
   var allowAddToHash = false;
-  function addToHash(a,b) {
+  function clearHash(obj,key) {
     if(!allowAddToHash) return;
+    $(window).off('hashchange',hashChanged);
+    location.hash = '';
+    $('#selStyle').val('full');
+    Object.keys(sel).forEach(function(key) {
+      if(sel[key] && 'style' in sel[key]) {
+        sel[key].style = 'full';
+        $('#selStyle' + key[0].toUpperCase() + key.slice(1)).val('full');
+      }
+    });
+    addToHash(obj,undefined,true);
+    $(window).on('hashchange',hashChanged);
+    loadStoredDataForKey(key);
+  }
+  /// addToHash(object)
+  /// addToHash(key,value)
+  function addToHash(a,b,dontStore) {
+    if(!allowAddToHash) return;
+    $(window).off('hashchange',hashChanged);
     var hash = parseHash();
     if(!hash) return;
     if(typeof b == 'undefined') {
@@ -1990,6 +2001,31 @@ console.info(JSON.stringify(selPropers));
       });
     }
     if(hash.toString() != location.hash) location.hash = hash;
+    var key = ['sunday','saint','mass','sundayNovus'].reduce(function(result, key){
+      return result || (hash[key] && key);
+    },'');
+    if(key && !dontStore) {
+      var realKey = hash[key];
+      delete hash[key];
+      var hashString = hash.toString();
+      console.info(realKey, hashString);
+      localStorage[realKey] = hashString;
+      var storedKeys = JSON.parse(localStorage.storedKeys || "[]");
+      var index;
+      while((index = storedKeys.indexOf(realKey)) >= 0) {
+        storedKeys.splice(index,1);
+      }
+      storedKeys.push(realKey);
+      while(storedKeys.length > 4) {
+        delete localStorage[storedKeys.shift()];
+      }
+      localStorage.storedKeys = JSON.stringify(storedKeys);
+    }
+    $(window).on('hashchange',hashChanged);
+  }
+  function loadStoredDataForKey(key) {
+    var hash = localStorage[key];
+    if(hash) location.hash += hash;
   }
   function hashChanged() {
     allowAddToHash = false;
