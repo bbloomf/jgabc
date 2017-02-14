@@ -538,6 +538,7 @@ $(function(){
       var capPart = part[0].toUpperCase() + part.slice(1),
           $part = $('[part=' + part + ']'),
           $select = $part.find('select'),
+          selectVal = $select.val(),
           selectedPart = ordinary[part] || [],
           adLibPart = ordinaryAdLib[part] || [],
           optionNone = $('<option></option>').val('no').text('No ' + capPart);
@@ -599,7 +600,9 @@ $(function(){
         });
         $optGroup.appendTo($select);
       });
-
+      if(part == 'asperges') {
+        $select.val(selectVal);
+      }
       $select.change();
     });
   };
