@@ -538,6 +538,7 @@ $(function(){
       var capPart = part[0].toUpperCase() + part.slice(1),
           $part = $('[part=' + part + ']'),
           $select = $part.find('select'),
+          selectVal = $select.val(),
           selectedPart = ordinary[part] || [],
           adLibPart = ordinaryAdLib[part] || [],
           optionNone = $('<option></option>').val('no').text('No ' + capPart);
@@ -599,7 +600,9 @@ $(function(){
         });
         $optGroup.appendTo($select);
       });
-
+      if(part == 'asperges') {
+        $select.val(selectVal);
+      }
       $select.change();
     });
   };
@@ -680,7 +683,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]?\s*$/,'');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   
