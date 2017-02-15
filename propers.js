@@ -1435,13 +1435,77 @@ $(function(){
     makeChantContextForSel(this);
   });
 
+  var mapStrings = window.mapStrings = function(before, after, beforeStart, afterStart) {
+    beforeStart = beforeStart || 0;
+    afterStart = afterStart || 0;
+    var oldIndexMap = {}, i;
+    for (i = 0; i < before.length; i++) {
+        oldIndexMap[before[i]] = oldIndexMap[before[i]] || [];
+        oldIndexMap[before[i]].push(i);
+    }
+    var overlap = [], startOld, startNew, subLength, inew;
+    startOld = startNew = subLength = 0;
+
+    for (inew = 0; inew < after.length; inew++) {
+        var _overlap                = [];
+        oldIndexMap[after[inew]]    = oldIndexMap[after[inew]] || [];
+        for (i = 0; i < oldIndexMap[after[inew]].length; i++) {
+            var iold        = oldIndexMap[after[inew]][i];
+            // now we are considering all values of val such that
+            // `before[iold] == after[inew]`
+            _overlap[iold]  = ((iold && overlap[iold-1]) || 0) + 1;
+            if (_overlap[iold] > subLength) {
+                // this is the largest substring seen so far, so store its
+                // indices
+                subLength   = _overlap[iold];
+                startOld    = iold - subLength + 1;
+                startNew    = inew - subLength + 1;
+            }
+        }
+        overlap = _overlap;
+    }
+
+    if (subLength === 0) {
+        // If no common substring is found, we return an insert and delete...
+        var result = [];
+        before.length && result.push(['-', before]);
+        after.length  && result.push(['+', after]);
+        return [];
+    }
+
+    // ...otherwise, the common substring is unchanged and we recursively
+    // diff the text before and after that substring
+    return [].concat(
+        mapStrings(before.slice(0, startOld), after.slice(0, startNew), beforeStart, afterStart),
+        [[beforeStart + startOld, afterStart + startNew, subLength]],
+        mapStrings(before.slice(startOld + subLength), after.slice(startNew + subLength), beforeStart+startOld+subLength, afterStart+startNew+subLength)
+    );
+  }
+
+  function makeExsurgeToGabcMapper(a,b) {
+    var map = mapStrings(a, b);
+    return function(index) {
+      // maps a[index] to index of b
+      for(var i=0; i<map.length; ++i) {
+        if(index >= map[i][0] && (i === map.length - 1 || index < map[i+1][0])) {
+          return map[i][1] + index - map[i][0];
+        }
+      }
+    }
+  }
+
   var updateExsurge = function(part, id) {
     var chantContainer = $('#'+part+'-preview')[0];
     var prop = sel[part];
     var ctxt = prop.ctxt;
     // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-    prop.activeGabc = prop.activeGabc.replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_');
-    prop.activeGabc = prop.activeGabc.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/,'Æ').replace(/O[Ee]/,'Œ');
+    prop.activeGabc = prop.activeGabc.replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
+      .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
+      .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
+      .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+      .replace(/(\s[^(\w]+)\s+(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
+      .replace(/\s*\n\s*/g,'\n')
+      .replace(/\s{2,}/g,' ')
     var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
@@ -1451,26 +1515,21 @@ $(function(){
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
-      .replace(/!\//,'/') // some gregobase chants are encoded this way for some reason
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
-        .replace(/(\([^)]*)([a-m])([vV]{2,3})/g, function(x,beginning,note,virgaCount) { // clumsy fix until it gets added to exsurge
-          return beginning + new Array(virgaCount.length+1).join(note+virgaCount[0])
-        })
         .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
-        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}') // center above vowel after u in cases of ngu[vowel] or qu[vowel]
-        .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-        .replace(/(\s[^(\w]+)\s+(\w+[^\(\s]*\()/g,'$1$2'); // change things like "« hoc" to "«hoc"
+        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
     }
+    prop.activeExsurge = gabc;
     var score = prop.score;
     if(score) {
       exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, gabc);
@@ -1479,6 +1538,7 @@ $(function(){
       var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
       score = prop.score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
     }
+    prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
     if(gabcHeader.original) {
       if(gabcHeader.annotationArray) {
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotationArray[0]+'%', '%'+gabcHeader.annotationArray[1]+'%');
@@ -2078,6 +2138,15 @@ console.info(JSON.stringify(selPropers));
   $(document).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
-  })
+  }).on('click', 'use[sourceindex],text[sourceindex]', function() {
+    var $this = $(this),
+        $part = $this.parents('[part]'),
+        part = $part.attr('part'),
+        gabcIndex = sel[part].mapExsurgeToGabc(parseInt($this.attr('sourceindex')));
+    if(!$part.hasClass('show-gabc')) $part.find('a.toggleShowGabc').click();
+    var textarea = $part.find('textarea')[0];
+    textarea.setSelectionRange(gabcIndex, gabcIndex+1);
+    textarea.focus();
+  });
   hashChanged();
 });
