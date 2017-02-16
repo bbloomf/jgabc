@@ -699,8 +699,10 @@ $(function(){
     var fullbars = line.match(reFullBars);
     var halfbars = line.match(reHalfBars);
     if(!fullbars && !halfbars) {
-      line = line.replace(reCommaWords,function(a){return a + '| '})
-                 .replace(reFullStops,function(a){return a + '* '});
+      // if there weren't any bars, we have to consider the punctuation that didn't coincide with a bar
+      // TODO: find out which chants this happens on.
+      line = line.replace(reCommaWords,'$&| ')
+                 .replace(reFullStops,'$&* ');
       fullbars = line.match(reFullBars);
       halfbars = line.match(reHalfBars);
     }
@@ -710,15 +712,20 @@ $(function(){
       split = line.split(reFullBars);
       var i=0;
       for(var j=1; j<=split.length; ++j) {
+        // go through all the possible full bar splits and see if verses can be made out of them:
         var left = split.slice(i,j).join('*');
         var normalizedLeft = normalizeMediant(left).split('*');
         var segmentsRemaining = split.length - j;
         if(normalizedLeft.length == 2 && Math.min.apply(null,normalizedLeft.mapSyllableCounts())>=7) {
+          // if the current verse (split from before j to j) can be split in two, with each segment having more than 7 syllables,
+          // and there is only one segment remaining, we need to make sure that segment can be a verse on its own
           if (segmentsRemaining == 1) {
             //Check to make sure the one remaining segment can also be split.
             var right = split[j];
             var normalizedRight = normalizeMediant(right).split('*');
             if(normalizedRight.length != 2 || Math.min.apply(null,normalizedRight.mapSyllableCounts())<7) {
+              // if this segment couldn't be split in two or at least one of its segments would have a syllable count less than 7,
+              // we will need to group it in with the previously considered verse.
               j++;
             }
           }
@@ -726,11 +733,13 @@ $(function(){
           i = j;
         }
         if(j == split.length && j>i) {
+          // if we have a verse left over, add it:
           verses.push(split.slice(i,j).join('*'));
         }
       }
       return verses;
     } else {
+      // don't make multiple verses out of it if there were no full bars / full stops
       return [line];
     }
   }
@@ -740,8 +749,10 @@ $(function(){
       var left = syls.slice(0,i).sum();
       var right = syls.slice(i).sum();
       if(left >= right || i==(arrayVerse.length-1)) {
+        // if there are more syllables on the left now than on the right, or this is our last pass:
         var leftText;
         if(left >= 20) {
+          // if the left side has 20 or more syllables, let's try to add a flex:
           leftText = normalizeMediant(arrayVerse.slice(0,i).join('*'));
           var leftArray = leftText.split('*');
           var leftSyls = leftArray.mapSyllableCounts();
@@ -773,9 +784,13 @@ $(function(){
     var lines = text.split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
+      // Don't consider the bars that weren't coincident with punctuation:
       var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
+      // Each line is already considered a verse, but sometimes we have to split a line further into verses.
+      // We don't allow this on alleluias, graduals, or tracts though, because they already have the verses marked.
       var verses = allowSplittingLines? splitIntoVerses(line) : [line];
       if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
+        // if there aren't any full or half bars left to split at, we will need to bring back in the bars that weren't coincident with punctuation:
         verses[0] = lines[i];
       }
       for(var j=0; j<verses.length; ++j) {

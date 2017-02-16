@@ -149,10 +149,21 @@ text.annotation {
 [part].show-gabc use[sourceindex],
 [part].show-gabc text[sourceindex] {
   cursor: pointer;
+  fill: #3261ff;
+}
+[part].show-gabc use[sourceindex][style*="fill:#f00;"],
+[part].show-gabc text[sourceindex][style*="fill:#f00;"],
+[part].show-gabc text[sourceindex] tspan[style="font-style:italic;"] {
+  fill: #f77!important;
 }
 [part].show-gabc use[sourceindex]:hover,
 [part].show-gabc text[sourceindex]:hover {
-  filter: url(#glow);
+  fill: #000;
+}
+[part].show-gabc use[sourceindex][style*="fill:#f00;"]:hover,
+[part].show-gabc text[sourceindex][style*="fill:#f00;"]:hover,
+[part].show-gabc text[sourceindex]:hover tspan[style="font-style:italic;"] {
+  fill: #d00!important;
 }
 </style>
 <body class='sans' style="margin:8px;">
