@@ -152,7 +152,7 @@ text.annotation {
 }
 [part].show-gabc use[sourceindex]:hover,
 [part].show-gabc text[sourceindex]:hover {
-  fill: #d00;
+  filter: url(#glow);
 }
 </style>
 <body class='sans' style="margin:8px;">
@@ -551,5 +551,21 @@ text.annotation {
       </div>
     </div>
   </div>
+  <svg class="bg-blur">
+  <defs>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="dilated" />
+      <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="dilated-smaller" />
+      <feComposite operator="out" in="dilated" in2="dilated-smaller" result="outline"/>
+      <feGaussianBlur in="outline" stdDeviation="2 2" result="glow"/>
+      <feFlood flood-color="#3e7bff" result="COLOR" />
+      <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
+      <feMerge>
+        <feMergeNode in="glow-color"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  </svg>
 </body>
 </html>
