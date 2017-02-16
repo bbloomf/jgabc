@@ -151,18 +151,18 @@ text.annotation {
   cursor: pointer;
   fill: #3261ff;
 }
-[part].show-gabc use[sourceindex][style*="fill:#f00;"],
 [part].show-gabc text[sourceindex][style*="fill:#f00;"],
-[part].show-gabc text[sourceindex] tspan[style="font-style:italic;"] {
+[part].show-gabc text[sourceindex] tspan[style="font-style:italic;"],
+[part].show-gabc text[sourceindex] [style*="fill:#f00;"] {
   fill: #f77!important;
 }
 [part].show-gabc use[sourceindex]:hover,
 [part].show-gabc text[sourceindex]:hover {
   fill: #000;
 }
-[part].show-gabc use[sourceindex][style*="fill:#f00;"]:hover,
 [part].show-gabc text[sourceindex][style*="fill:#f00;"]:hover,
-[part].show-gabc text[sourceindex]:hover tspan[style="font-style:italic;"] {
+[part].show-gabc text[sourceindex]:hover tspan[style="font-style:italic;"],
+[part].show-gabc text[sourceindex]:hover [style*="fill:#f00;"] {
   fill: #d00!important;
 }
 </style>
