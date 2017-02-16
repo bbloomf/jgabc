@@ -2138,14 +2138,13 @@ console.info(JSON.stringify(selPropers));
   $(document).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
-  }).on('click', 'use[sourceindex],text[sourceindex]', function() {
+  }).on('click', '[part].show-gabc use[sourceindex],[part].show-gabc text[sourceindex]', function() {
     var $this = $(this),
         $part = $this.parents('[part]'),
         part = $part.attr('part'),
         gabcIndex = sel[part].mapExsurgeToGabc(parseInt($this.attr('sourceindex')));
-    if(!$part.hasClass('show-gabc')) $part.find('a.toggleShowGabc').click();
     var textarea = $part.find('textarea')[0];
-    textarea.setSelectionRange(gabcIndex, gabcIndex+1);
+    textarea.setSelectionRange(gabcIndex, gabcIndex);
     textarea.focus();
   });
   hashChanged();
