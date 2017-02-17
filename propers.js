@@ -1962,6 +1962,7 @@ $(function(){
         part = capPart.toLowerCase(),
         temp = chantID[part][ui.item.value];
     addToHash(part, (selPropers[part+'ID'] = (temp.Solesmes || temp).id || ''));
+    sel[part].pattern = null;
 console.info(JSON.stringify(selPropers));
     updatePart(part);
   };
