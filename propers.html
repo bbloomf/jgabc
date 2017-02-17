@@ -150,10 +150,13 @@ text.annotation {
 [part].show-gabc text[sourceindex] {
   cursor: pointer;
 }
-[part].show-gabc use[sourceindex]:hover,
+[part].show-gabc use[sourceindex]:hover {
+  fill: #3261ff;
+  filter: url(#note-glow);
+}
 [part].show-gabc text[sourceindex]:hover {
   fill: #3261ff;
-  filter: url(#glow);
+  filter: url(#text-glow);
 }
 [part].show-gabc text[sourceindex][style*="fill:#f00;"]:hover,
 [part].show-gabc text[sourceindex]:hover tspan[style="font-style:italic;"],
@@ -559,11 +562,21 @@ text.annotation {
   </div>
   <svg class="bg-blur">
   <defs>
-    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+    <filter id="text-glow" x="-100%" y="-100%" width="300%" height="300%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow"/>
       <feFlood flood-color="#3261ff" result="COLOR" />
       <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
       <feMerge>
+        <feMergeNode in="glow-color"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="note-glow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow"/>
+      <feFlood flood-color="#3261ff" result="COLOR" />
+      <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
+      <feMerge>
+        <feMergeNode in="glow-color"/>
         <feMergeNode in="glow-color"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
