@@ -151,6 +151,20 @@ div[part] {
 text.annotation {
   font-weight: 600;
 }
+[part].show-gabc use[sourceindex],
+[part].show-gabc text[sourceindex] {
+  cursor: pointer;
+}
+[part].show-gabc use[sourceindex]:hover,
+[part].show-gabc text[sourceindex]:hover {
+  fill: #3261ff;
+  filter: url(#glow);
+}
+[part].show-gabc text[sourceindex][style*="fill:#f00;"]:hover,
+[part].show-gabc text[sourceindex]:hover tspan[style="font-style:italic;"],
+[part].show-gabc text[sourceindex]:hover [style*="fill:#f00;"] {
+  fill: #3261ff!important;
+}
 </style>
 <body class='sans' style="margin:8px;">
   <form id="pdfForm" target="_blank" method="get" action="http://apps.illuminarepublications.com/gregorio/">
@@ -229,7 +243,7 @@ text.annotation {
       <div class='right'>
         <select id='selAsperges'></select>
       </div>
-      <textarea id="txtAsperges"></textarea>
+      <textarea id="txtAsperges" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -265,7 +279,7 @@ text.annotation {
           </select>
         </span>
       </div>
-      <textarea id="txtIntroitus"></textarea>
+      <textarea id="txtIntroitus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -282,7 +296,7 @@ text.annotation {
       <div class='right'>
         <select id='selKyrie'></select>
       </div>
-      <textarea id="txtKyrie"></textarea>
+      <textarea id="txtKyrie" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -299,7 +313,7 @@ text.annotation {
       <div class='right'>
         <select id='selGloria'></select>
       </div>
-      <textarea id="txtGloria"></textarea>
+      <textarea id="txtGloria" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -332,7 +346,7 @@ text.annotation {
           </select>
         </span>
       </div>
-      <textarea id="txtGraduale"></textarea>
+      <textarea id="txtGraduale" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -362,7 +376,7 @@ text.annotation {
           <select id="selStyleTractus" class='sel-style'><option value='full'>Full Tract</option><option value='psalm-tone'>Psalm Toned</option></select>
         </span>
       </div>
-      <textarea id="txtTractus"></textarea>
+      <textarea id="txtTractus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -398,7 +412,7 @@ text.annotation {
           </select>
         </span>
       </div>
-      <textarea id="txtAlleluia"></textarea>
+      <textarea id="txtAlleluia" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -427,7 +441,7 @@ text.annotation {
       <div class='right'>
         <select id='selCredo'></select>
       </div>
-      <textarea id="txtCredo"></textarea>
+      <textarea id="txtCredo" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -457,7 +471,7 @@ text.annotation {
           <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
         </div>
       </span>
-      <textarea id="txtOffertorium"></textarea>
+      <textarea id="txtOffertorium" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -474,7 +488,7 @@ text.annotation {
       <div class='right'>
         <select id='selSanctus'></select>
       </div>
-      <textarea id="txtSanctus"></textarea>
+      <textarea id="txtSanctus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -491,7 +505,7 @@ text.annotation {
       <div class='right'>
         <select id='selAgnus'></select>
       </div>
-      <textarea id="txtAgnus"></textarea>
+      <textarea id="txtAgnus" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -521,7 +535,7 @@ text.annotation {
           <select id="selStyleCommunio" class='sel-style'><option value='full'>Full Communion</option><option value='psalm-tone'>Psalm Toned</option></select>
         </span>
       </div>
-      <textarea id="txtCommunio"></textarea>
+      <textarea id="txtCommunio" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -538,7 +552,7 @@ text.annotation {
       <div class='right'>
         <select id='selIte'></select>
       </div>
-      <textarea id="txtIte"></textarea>
+      <textarea id="txtIte" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </div>
     <div class='block right'>
       <div class='chant-parent'>
@@ -548,5 +562,18 @@ text.annotation {
       </div>
     </div>
   </div>
+  <svg class="bg-blur">
+  <defs>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow"/>
+      <feFlood flood-color="#3261ff" result="COLOR" />
+      <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
+      <feMerge>
+        <feMergeNode in="glow-color"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  </svg>
 </body>
 </html>
