@@ -1583,11 +1583,10 @@ $(function(){
   var layoutChant = function(part, synchronous, id) {
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
-    chantContainer = chantContainer[0];
-    if(!chantContainer) return;
+    if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var newWidth = chantContainer.clientWidth - 4;
+    var newWidth = chantContainer.width() - 4;
     if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
@@ -1595,13 +1594,13 @@ $(function(){
       score.performLayout(ctxt);
       score.layoutChantLines(ctxt, ctxt.width);
       // render the score to svg code
-      chantContainer.innerHTML = score.createSvgForEachLine(ctxt);
+      chantContainer.empty().append(score.createSvgNodeForEachLine(ctxt));
       updateTextSize(part);
     } else {
       score.performLayoutAsync(ctxt, function() {
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
-          chantContainer.innerHTML = score.createSvg(ctxt);
+          chantContainer.empty().append(score.createSvgNode(ctxt));
           var callback = function() {
             updateTextSize(part);
           };
