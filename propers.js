@@ -913,7 +913,7 @@ $(function(){
       return pattern;
     });
     sel[part].text = versifyByPattern(lines, versePattern);
-    updateTextAndChantForPart(part)
+    updateTextAndChantForPart(part, true);
     addToHash(part + 'Pattern', versePattern.map(function(pattern) {
         return pattern.join(',').replace(/,+$/,'').replace(/,{2,}/g, function(match, index) {
           var len = match.length;
@@ -1409,7 +1409,7 @@ $(function(){
     return applyLiquescents(gabc);
   }
 
-  var updateTextAndChantForPart = function(part) {
+  var updateTextAndChantForPart = function(part, updateFromOldScore) {
     var gabc,
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
@@ -1445,7 +1445,7 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    if(gabc) updateExsurge(part);
+    if(gabc) updateExsurge(part, null, updateFromOldScore);
   }
   function makeChantContextForSel(sel) {
     var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
@@ -1507,8 +1507,9 @@ $(function(){
   }
 
   function makeExsurgeToGabcMapper(a,b) {
-    var map = mapStrings(a, b);
+    var map;
     return function(index) {
+      if(!map) map = mapStrings(a, b);
       // maps a[index] to index of b
       for(var i=0; i<map.length; ++i) {
         if(index >= map[i][0] && (i === map.length - 1 || index < map[i+1][0])) {
@@ -1518,7 +1519,7 @@ $(function(){
     }
   }
 
-  var updateExsurge = function(part, id) {
+  var updateExsurge = function(part, id, updateFromOldScore) {
     var chantContainer = $('#'+part+'-preview')[0];
     var prop = sel[part];
     var ctxt = prop.ctxt;
@@ -1547,7 +1548,7 @@ $(function(){
     }
     prop.activeExsurge = gabc;
     var score = prop.score;
-    if(score) {
+    if(score && updateFromOldScore) {
       exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, gabc);
       score.updateNotations(ctxt);
     } else {
@@ -1848,19 +1849,19 @@ $(function(){
       sel[part].termination = $selEnding.val();
       if(sel[part].style == 'psalm-tone') $selEnding.show();
     }
-    updateTextAndChantForPart(part);
+    updateTextAndChantForPart(part, true);
   });
   $('select.endings').change(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].termination = this.value;
-    updateTextAndChantForPart(part);
+    updateTextAndChantForPart(part, true);
   });
   $('input.cbSolemn').change(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].solemn = this.checked;
-    updateTextAndChantForPart(part);
+    updateTextAndChantForPart(part, true);
   });
   var $selTones = $('select.tones');
   for(var i=1; i<=8; ++i) {
@@ -1871,10 +1872,10 @@ $(function(){
         part = capPart.toLowerCase();
     if(sel[part].style.match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
-      updateTextAndChantForPart(part,false);
+      updateTextAndChantForPart(part, true);
     } else if(sel[part].style == 'full' && sel[part].gabc != this.value) {
       sel[part].gabc = this.value;
-      updateTextAndChantForPart(part,false);
+      updateTextAndChantForPart(part, true);
     }
   });
   var getAllGabc = function() {
