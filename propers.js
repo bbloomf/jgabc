@@ -276,7 +276,7 @@ $(function(){
           .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
           .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
           .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-          .replace(/(\s[^(\w]+)\s+(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
+          .replace(/(\s[^(\w†*]+)\s+(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
           .replace(/\s*\n\s*/g,'\n')
           .replace(/\s{2,}/g,' ')
     
@@ -1528,7 +1528,7 @@ $(function(){
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1^$2^$3')
+      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
