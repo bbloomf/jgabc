@@ -1196,10 +1196,18 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
 }
 splitPsalmsMap = {
   "7"   : [10, 8],
+  "30"  : [10, 12, 9],
+  "32"  : [11, 11],
   "33"  : [10, 12],
+  "43"  : [10, 11, 7],
+  "58"  : [10, 10],
   "70"  : [13, 13],
   "76"  : [12, 8],
-  "102" : [12, 10]
+  "102" : [12, 10],
+  "135" : [9, 18],
+  "138" : [12, 11],
+  "143" : [9, 9],
+  "144" : [7, 6, 9]
 };
 function slicePsalm(text, psalmNum, psalmPart){
   if(psalmPart>0){
