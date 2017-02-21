@@ -2155,17 +2155,133 @@ console.info(JSON.stringify(selPropers));
   }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
-  $(document).on('click', 'div[gregobase-id] text.dropCap', function() {
+  function removeChantContextMenus() {
+    $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active'); });
+    $('.chant-context').remove();
+  }
+  $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
-  }).on('click', '[part].show-gabc use[source-index],[part].show-gabc text[source-index]', function() {
+  }).on('click', '[part] use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+    removeChantContextMenus();
+    e.stopPropagation();
     var $this = $(this),
+        $neume = $this.parent(),
         $part = $this.parents('[part]'),
+        showingGabc = $part.hasClass('show-gabc'),
         part = $part.attr('part'),
         gabcIndex = sel[part].mapExsurgeToGabc(this.source.sourceIndex);
-    var textarea = $part.find('textarea')[0];
-    textarea.setSelectionRange(gabcIndex, gabcIndex);
-    textarea.focus();
+    if(showingGabc) {
+      var textarea = $part.find('textarea')[0];
+      textarea.setSelectionRange(gabcIndex, gabcIndex);
+      textarea.focus();
+    } else {
+      let source = this.source,
+          isText = false,
+          score,
+          note,
+          notes,
+          noteIndex,
+          neume,
+          notations,
+          previousNote,
+          nextNote,
+          acceptsBarBefore,
+          acceptsBarAfter,
+          hasBarBefore,
+          hasBarAfter,
+          isRepeatedNote,
+          hasEpisemata,
+          hasMorae,
+          isTorculus;
+          
+      switch(this.nodeName) {
+        case 'use':
+          note = source.neume && source;
+          neume = note? note.neume : source;
+          notations = neume.mapping.notations;
+          notes = notations.reduce(function(result, notation) {
+            if(notation.notes) return result.concat(notation.notes);
+            return result;
+          }, []);
+          if(note) {
+            noteIndex = notes.indexOf(note);
+            acceptsBarAfter = noteIndex === notes.length - 1;
+            previousNote = notes[noteIndex-1];
+            nextNote = notes[noteIndex+1];
+            if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
+            if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
+            isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
+            hasMorae = note.morae.length > 0;
+            hasEpisemata = note.episemata.length > 0;
+            isTorculus = neume.constructor === exsurge.Torculus;
+          } else {
+            noteIndex = notations.indexOf(neume);
+            acceptsBarAfter = noteIndex === notations.length - 1;
+          }
+          acceptsBarBefore = noteIndex === 0;
+          break;
+        case 'text':
+          isText = true;
+          $neume = $this;
+          neume = $this.parent().find('use').prop('source');
+          neume = neume && neume.neume;
+          acceptsBarBefore = !neume,
+          acceptsBarAfter = !neume;
+          if(neume) {
+            notations = neume.mapping.notations
+            let i,
+                firstNeume = notations.reduce(function(result, notation){ return result || (notation.notes && notation); }, null),
+                lastNeume = notations.reduceRight(function(result, notation){ return result || (notation.notes && notation); }, null)
+            acceptsBarBefore = firstNeume === neume;
+            acceptsBarAfter = lastNeume === neume;
+          }
+          break;
+      }
+      if(neume && (acceptsBarBefore || acceptsBarAfter)) {
+        score = neume.score;
+        notations = score.notations;
+        noteIndex = notations.indexOf(neume);
+        previousNote = notations[noteIndex-1];
+        if(previousNote && previousNote.accidentalType) previousNote = notations[noteIndex-2];
+        nextNote = notations[noteIndex+1];
+        if(!previousNote) acceptsBarBefore = false;
+        hasBarBefore = previousNote && previousNote.isDivider;
+        hasBarAfter = nextNote && nextNote.isDivider;
+      }
+      if(acceptsBarBefore || acceptsBarAfter || isRepeatedNote || hasEpisemata || hasMorae) {
+        var $toolbar = $('<div>').addClass('chant-context');
+        if(acceptsBarBefore)
+          $toolbar.append($('<button>').text((hasBarBefore? 'Remove' : ' Add') + ' Bar Before').button());
+        if(acceptsBarAfter)
+          $toolbar.append($('<button>').text((hasBarAfter? 'Remove' : ' Add') + ' Bar After').button());
+        if(isRepeatedNote)
+          $toolbar.append($('<button>').text('Remove Punctum').button());
+        if(hasEpisemata) {
+          $toolbar.append($('<button>').text('Remove Episemata').button());
+          if(isTorculus) {
+            $toolbar.append($('<button>').text('1 & 2').button());
+            $toolbar.append($('<button>').text('Middle').button());
+          }
+        }
+        if(hasMorae)
+          $toolbar.append($('<button>').text('Remove Mora').button());
+        this.classList.add('active');
+        $toolbar.appendTo(document.body);
+        $toolbar.buttonset().offset({
+          top: $neume.offset().top + $neume[0].getBBox().height + (isText? 0 : 2),
+          left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
+        });
+      }
+      // buttons:
+      // acceptsBarBefore? add/remove bar before based on hasBarBefore
+      // acceptsBarAfter? add/remove bar """; add/remove mora
+      // isRepeatedNote? remove note
+      // hasEpisemata? remove episemata
+      // hasEpisemata && isTorculus? only middle, only first and second
+
+      // TODO : Need a button to add a carry over
+    }
   });
   hashChanged();
 });

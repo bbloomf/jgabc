@@ -146,21 +146,29 @@ div[part] {
 text.annotation {
   font-weight: 600;
 }
-[part].show-gabc use[source-index],
-[part].show-gabc text[source-index] {
+div.chant-context {
+  display: inline-block;
+}
+[part] use[source-index],
+[part] text[source-index] {
   cursor: pointer;
 }
-[part].show-gabc use[source-index]:hover {
+[part].show-gabc use[source-index]:hover,
+[part] use[source-index].active {
   fill: #3261ff;
   filter: url(#note-glow);
 }
-[part].show-gabc text[source-index]:hover {
+[part].show-gabc text[source-index]:hover,
+[part] text[source-index].active {
   fill: #3261ff;
   filter: url(#text-glow);
 }
 [part].show-gabc text[source-index][style*="fill:#f00;"]:hover,
 [part].show-gabc text[source-index]:hover tspan[style="font-style:italic;"],
-[part].show-gabc text[source-index]:hover [style*="fill:#f00;"] {
+[part].show-gabc text[source-index]:hover [style*="fill:#f00;"],
+[part] text[source-index][style*="fill:#f00;"].active,
+[part] text[source-index].active tspan[style="font-style:italic;"],
+[part] text[source-index].active [style*="fill:#f00;"] {
   fill: #3261ff!important;
 }
 </style>
