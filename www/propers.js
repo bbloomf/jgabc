@@ -397,7 +397,9 @@ $(function(){
     });
   }
   var updateDay = function() {
-    selPropers = proprium[selDay + selTempus];
+    var ref = proprium[selDay].ref || selDay;
+    selPropers = proprium[ref + selTempus];
+    if(selPropers.ref) selPropers = proprium[selPropers.ref];
     if(selPropers || selDay=='custom') {
       removeMultipleGraduales();
       if(selPropers) {
@@ -504,7 +506,8 @@ $(function(){
     });
     clearHash(hash, selDay);
     loadStoredDataForKey(selDay);
-    if((selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
+    var ref = proprium[selDay].ref || selDay;
+    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
       $selTempus.show();
       var m = moment(selDay,'MMMD');
       if(m.isValid()) {
