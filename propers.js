@@ -2159,10 +2159,75 @@ console.info(JSON.stringify(selPropers));
     $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active'); });
     $('.chant-context').remove();
   }
+  function getNoteProperties(note) {
+    var neume = note.neume;
+    var notations = neume.mapping.notations;
+    var notes = notations.reduce(function(result, notation) {
+      if(notation.notes) return result.concat(notation.notes);
+      return result;
+    }, []);
+    var noteIndex = notes.indexOf(note);
+    var previousNote = notes[noteIndex-1];
+    var nextNote = notes[noteIndex+1];
+    if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
+    if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
+    var result = {note: note, notes: notes, noteIndex: noteIndex};
+    result.isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
+    result.hasMorae = note.morae.length > 0;
+    result.hasEpisemata = note.episemata.length > 0;
+    result.isTorculus = neume.constructor === exsurge.Torculus;
+    result.acceptsBarAfter = noteIndex === notes.length - 1;
+    return result;
+  }
+  // go through <use>s in $notation, and move on to siblings of $notation if they do not have lyrics.
+  // start at the selected <use> if any
+  function findNextInterestingNote($notation, $selected) {
+    var $originalNotation = $notation,
+        $current;
+    // check to make sure $selected is from the same syllable:
+    if($selected && $selected.length) {
+      let selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
+          notations = selectedNotation.score.notations,
+          index = notations.indexOf(selectedNotation);
+      while(index > 0 && !selectedNotation.hasLyrics()) {
+        selectedNotation = notations[--index];
+      }
+      if(!selectedNotation || selectedNotation.lyrics[0] != $notation[0].source.lyrics[0]) $selected = null;
+    }
+    if($selected && $selected.length) {
+      $current = $selected.nextAll('use').first();
+      $notation = $selected.parent().parent();
+    }
+    var startingNotation = $notation[0];
+    while($notation[0]===startingNotation || !$notation[0].source.hasLyrics()) {
+      var $current = $current? $current : $notation.find('use').first();
+      while($current.length) {
+        var note = $current[0].source;
+        if(note && note.neume) {
+          var properties = getNoteProperties(note);
+          if(properties.isRepeatedNote || properties.hasEpisemata || properties.hasMorae || properties.acceptsBarAfter) {
+            $current[0].classList.add('active');
+            return properties;
+          }
+        }
+        $current = $current.nextAll('use').first();
+      }
+      $current = null;
+      var temp = $notation.next();
+      if(temp.length === 0) {
+        temp = $notation.parent().next().find('g').first();
+      }
+      $notation = temp;
+      if($notation.length == 0) break;
+    }
+    if($selected && $selected.length) return findNextInterestingNote($originalNotation);
+    return null;
+  }
   $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
   }).on('click', '[part] use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+    var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
@@ -2176,6 +2241,7 @@ console.info(JSON.stringify(selPropers));
       textarea.setSelectionRange(gabcIndex, gabcIndex);
       textarea.focus();
     } else {
+      if($part.hasClass('ordinary')) return;
       let source = this.source,
           isText = false,
           score,
@@ -2190,31 +2256,16 @@ console.info(JSON.stringify(selPropers));
           acceptsBarAfter,
           hasBarBefore,
           hasBarAfter,
-          isRepeatedNote,
-          hasEpisemata,
-          hasMorae,
-          isTorculus;
+          noteProperties;
           
       switch(this.nodeName) {
         case 'use':
           note = source.neume && source;
           neume = note? note.neume : source;
           notations = neume.mapping.notations;
-          notes = notations.reduce(function(result, notation) {
-            if(notation.notes) return result.concat(notation.notes);
-            return result;
-          }, []);
           if(note) {
-            noteIndex = notes.indexOf(note);
-            acceptsBarAfter = noteIndex === notes.length - 1;
-            previousNote = notes[noteIndex-1];
-            nextNote = notes[noteIndex+1];
-            if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
-            if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
-            isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
-            hasMorae = note.morae.length > 0;
-            hasEpisemata = note.episemata.length > 0;
-            isTorculus = neume.constructor === exsurge.Torculus;
+            noteProperties = getNoteProperties(note);
+            acceptsBarAfter = noteProperties.acceptsBarAfter;
           } else {
             noteIndex = notations.indexOf(neume);
             acceptsBarAfter = noteIndex === notations.length - 1;
@@ -2224,8 +2275,13 @@ console.info(JSON.stringify(selPropers));
         case 'text':
           isText = true;
           $neume = $this;
-          neume = $this.parent().find('use').prop('source');
-          neume = neume && neume.neume;
+          noteProperties = findNextInterestingNote($this.parent(), $selected) || {};
+          if(noteProperties.acceptsBarAfter) {
+            neume = noteProperties.note.neume;
+          } else {
+            neume = $this.parent().find('use').prop('source');
+            neume = neume && neume.neume;
+          }
           acceptsBarBefore = !neume,
           acceptsBarAfter = !neume;
           if(neume) {
@@ -2249,22 +2305,22 @@ console.info(JSON.stringify(selPropers));
         hasBarBefore = previousNote && previousNote.isDivider;
         hasBarAfter = nextNote && nextNote.isDivider;
       }
-      if(acceptsBarBefore || acceptsBarAfter || isRepeatedNote || hasEpisemata || hasMorae) {
+      if(acceptsBarBefore || acceptsBarAfter || noteProperties.isRepeatedNote || noteProperties.hasEpisemata || noteProperties.hasMorae || noteProperties.acceptsBarAfter) {
         var $toolbar = $('<div>').addClass('chant-context');
         if(acceptsBarBefore)
           $toolbar.append($('<button>').text((hasBarBefore? 'Remove' : ' Add') + ' Bar Before').button());
-        if(acceptsBarAfter)
+        if(acceptsBarAfter || noteProperties.acceptsBarAfter)
           $toolbar.append($('<button>').text((hasBarAfter? 'Remove' : ' Add') + ' Bar After').button());
-        if(isRepeatedNote)
+        if(noteProperties.isRepeatedNote)
           $toolbar.append($('<button>').text('Remove Punctum').button());
-        if(hasEpisemata) {
+        if(noteProperties.hasEpisemata) {
           $toolbar.append($('<button>').text('Remove Episemata').button());
-          if(isTorculus) {
+          if(noteProperties.isTorculus) {
             $toolbar.append($('<button>').text('1 & 2').button());
             $toolbar.append($('<button>').text('Middle').button());
           }
         }
-        if(hasMorae)
+        if(noteProperties.hasMorae)
           $toolbar.append($('<button>').text('Remove Mora').button());
         this.classList.add('active');
         $toolbar.appendTo(document.body);
