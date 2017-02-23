@@ -2161,6 +2161,22 @@ console.info(JSON.stringify(selPropers));
     });
     allowAddToHash = true;
   }
+  function getTransformForPart(part) {
+    var currentTransform = parseHash()[part+'Transform'];
+    currentTransform = currentTransform? currentTransform.split(';') : [];
+    return currentTransform.map(function(s){
+      var a = s.split(',');
+      return {index: parseInt(a[0]), removeLen: parseInt(a[1]), addString: a[2]};
+    });
+  }
+  function addTransformToHash(part, transforms) {
+    var currentTransform = getTransformForPart(part);
+    transforms = currentTransform.concat(transforms);
+    transforms = transforms.map(function(t){
+      return [t.index, t.removeLen, t.addString||''].join(',');
+    }).join(';');
+    addToHash(part+'Transform',transforms);
+  }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
   function removeChantContextMenus() {
@@ -2368,8 +2384,8 @@ console.info(JSON.stringify(selPropers));
     splice.forEach(function(splice){
       gabc = gabc.slice(0,splice.index) + (splice.addString||'') + gabc.slice(splice.index + splice.removeLen);
     });
+    addTransformToHash(e.data.part, splice);
     proper.activeExsurge = gabc;
-    console.info(gabc);
     updateFromActiveExsurge(e.data.part, null, true);
   }
   $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
