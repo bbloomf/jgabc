@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,6 +13,7 @@
   <link rel="icon" href="icon/clear-main.png" type="image/png" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> -->
   <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i&text=:;,()[]?.%22'%E2%80%A0*QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmáéíóúýäëæǽœœ%CC%81/1234567890-" rel="stylesheet">
   <script src="jquery.autosize-min.js"></script>
   <script src="jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -151,21 +152,33 @@ div[part] {
 text.annotation {
   font-weight: 600;
 }
-[part].show-gabc use[source-index],
-[part].show-gabc text[source-index] {
+div.chant-context {
+  display: inline-block;
+}
+[part] use[source-index],
+[part] text[source-index] {
   cursor: pointer;
 }
-[part].show-gabc use[source-index]:hover {
+[part].ordinary:not(.show-gabc) use[source-index],
+[part].ordinary:not(.show-gabc) text[source-index] {
+  cursor: default;
+}
+[part].show-gabc use[source-index]:hover,
+[part] use[source-index].active {
   fill: #3261ff;
   filter: url(#note-glow);
 }
-[part].show-gabc text[source-index]:hover {
+[part].show-gabc text[source-index]:hover,
+[part] text[source-index].active {
   fill: #3261ff;
   filter: url(#text-glow);
 }
 [part].show-gabc text[source-index][style*="fill:#f00;"]:hover,
 [part].show-gabc text[source-index]:hover tspan[style="font-style:italic;"],
-[part].show-gabc text[source-index]:hover [style*="fill:#f00;"] {
+[part].show-gabc text[source-index]:hover [style*="fill:#f00;"],
+[part] text[source-index][style*="fill:#f00;"].active,
+[part] text[source-index].active tspan[style="font-style:italic;"],
+[part] text[source-index].active [style*="fill:#f00;"] {
   fill: #3261ff!important;
 }
 </style>

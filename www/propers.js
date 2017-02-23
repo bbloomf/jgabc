@@ -397,9 +397,9 @@ $(function(){
     });
   }
   var updateDay = function() {
-    var ref = proprium[selDay].ref || selDay;
+    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[ref + selTempus];
-    if(selPropers.ref) selPropers = proprium[selPropers.ref];
+    if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     if(selPropers || selDay=='custom') {
       removeMultipleGraduales();
       if(selPropers) {
@@ -506,7 +506,7 @@ $(function(){
     });
     clearHash(hash, selDay);
     loadStoredDataForKey(selDay);
-    var ref = proprium[selDay].ref || selDay;
+    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
       $selTempus.show();
       var m = moment(selDay,'MMMD');
@@ -1523,7 +1523,6 @@ $(function(){
   }
 
   var updateExsurge = function(part, id, updateFromOldScore) {
-    var chantContainer = $('#'+part+'-preview')[0];
     var prop = sel[part];
     var ctxt = prop.ctxt;
     var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
@@ -1549,8 +1548,17 @@ $(function(){
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
     }
+    prop.gabcHeader = gabcHeader;
     prop.activeExsurge = gabc;
+    updateFromActiveExsurge(part, id, updateFromOldScore);
+  }
+  function updateFromActiveExsurge(part, id, updateFromOldScore) {
+    var chantContainer = $('#'+part+'-preview')[0];
+    var prop = sel[part];
+    var ctxt = prop.ctxt;
     var score = prop.score;
+    var gabc = prop.activeExsurge;
+    var gabcHeader = prop.gabcHeader;
     if(score && updateFromOldScore) {
       exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, gabc);
       score.updateNotations(ctxt);
@@ -2153,19 +2161,316 @@ console.info(JSON.stringify(selPropers));
     });
     allowAddToHash = true;
   }
+  function getTransformForPart(part) {
+    var currentTransform = parseHash()[part+'Transform'];
+    currentTransform = currentTransform? currentTransform.split(';') : [];
+    return currentTransform.map(function(s){
+      var a = s.split(',');
+      return {index: parseInt(a[0]), removeLen: parseInt(a[1]), addString: a[2]};
+    });
+  }
+  function addTransformToHash(part, transforms) {
+    var currentTransform = getTransformForPart(part);
+    transforms = currentTransform.concat(transforms);
+    transforms = transforms.map(function(t){
+      return [t.index, t.removeLen, t.addString||''].join(',');
+    }).join(';');
+    addToHash(part+'Transform',transforms);
+  }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
-  $(document).on('click', 'div[gregobase-id] text.dropCap', function() {
+  function removeChantContextMenus() {
+    $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active'); });
+    $('.chant-context').remove();
+  }
+  function getNoteProperties(note) {
+    var neume = note.neume;
+    var notations = neume.mapping.notations;
+    var notes = notations.reduce(function(result, notation) {
+      if(notation.notes) return result.concat(notation.notes);
+      return result;
+    }, []);
+    var noteIndex = notes.indexOf(note);
+    var previousNote = notes[noteIndex-1];
+    var nextNote = notes[noteIndex+1];
+    if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
+    if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
+    var result = {note: note, notes: notes, noteIndex: noteIndex};
+    result.isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
+    result.hasMorae = note.morae.length > 0;
+    result.hasEpisemata = note.episemata.length > 0;
+    result.isTorculus = neume.constructor === exsurge.Torculus;
+    if(result.isTorculus) {
+      result.torculusNotes = neume.notes;
+    }
+    result.acceptsBarBefore = noteIndex == 0;
+    result.acceptsBarAfter = noteIndex === notes.length - 1;
+    result.acceptsMora = result.acceptsBarAfter && !result.hasMorae;
+    if(result.acceptsBarBefore || result.acceptsBarAfter) {
+      let score = neume.score;
+      notations = score.notations;
+      noteIndex = notations.indexOf(neume);
+      result.prevNotation = notations[noteIndex-1];
+      if(result.prevNotation && result.prevNotation.accidentalType) result.prevNotation = notations[noteIndex-2];
+      result.nextNotation = notations[noteIndex+1];
+      if(!result.prevNotation) result.acceptsBarBefore = false;
+      if(result.prevNotation && result.prevNotation.isDivider) {
+        if(result.prevNotation.constructor == exsurge.QuarterBar) result.hasBarBefore = true;
+        else result.acceptsBarBefore = false;
+      }
+      if(result.nextNotation && result.nextNotation.isDivider) {
+        if(result.nextNotation.constructor == exsurge.QuarterBar) result.hasBarAfter = true;
+        else result.acceptsBarAfter = result.acceptsBarAfter = false;
+      }
+    }
+    return result;
+  }
+  // go through <use>s in $notation, and move on to siblings of $notation if they do not have lyrics.
+  // start at the selected <use> if any
+  function findNextInterestingNote($notation, $selected) {
+    var $originalNotation = $notation,
+        $current;
+    // check to make sure $selected is from the same syllable:
+    if($selected && $selected.length) {
+      let selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
+          notations = selectedNotation.score.notations,
+          index = notations.indexOf(selectedNotation);
+      while(index > 0 && !selectedNotation.hasLyrics()) {
+        selectedNotation = notations[--index];
+      }
+      if(!selectedNotation || selectedNotation.lyrics[0] != $notation[0].source.lyrics[0]) $selected = null;
+    }
+    if($selected && $selected.length) {
+      $current = $selected.nextAll('use').first();
+      $notation = $selected.parent().parent();
+    }
+    var startingNotation = $notation[0];
+    while($notation[0]===startingNotation || !$notation[0].source.hasLyrics()) {
+      var $current = $current? $current : $notation.find('use').first();
+      while($current.length) {
+        var note = $current[0].source;
+        if(note && note.neume) {
+          var properties = getNoteProperties(note);
+          if(properties.isRepeatedNote || properties.hasEpisemata || properties.hasMorae || properties.acceptsBarBefore || properties.acceptsBarAfter) {
+            $current[0].classList.add('active');
+            return properties;
+          }
+        }
+        $current = $current.nextAll('use').first();
+      }
+      $current = null;
+      var temp = $notation.next();
+      if(temp.length === 0) {
+        temp = $notation.parent().next().find('g').first();
+      }
+      $notation = temp;
+      if($notation.length == 0) break;
+    }
+    if($selected && $selected.length) return findNextInterestingNote($originalNotation);
+    return null;
+  }
+  function editorialChange(e) {
+    var regexGabcNote = /-?[a-mA-M]([oOwWvVrRsS]*)[xy#~\+><_\.'012345]*(?:\[[^\]]*\]?)*/,
+        proper = sel[e.data.part],
+        gabc = proper.activeExsurge,
+        noteProperties = e.data.noteProperties,
+        note = noteProperties.note,
+        splice = {
+          index: 0,
+          removeLen: 0
+        };
+    switch(e.data.action) {
+      case 'toggleBarBefore':
+        if(e.data.barBefore) {
+          let mapping = e.data.barBefore.mapping;
+          splice.index = mapping.sourceIndex;
+          splice.removeLen = mapping.source.length;
+        } else {
+          splice.index = (note.neume || note).mapping.sourceIndex;
+          splice.addString = '(,) ';
+        }
+        break;
+      case 'toggleBarAfter':
+        if(e.data.barAfter) {
+          let mapping = e.data.barAfter.mapping;
+          splice.index = mapping.sourceIndex;
+          splice.removeLen = mapping.source.length;
+        } else {
+          splice.index = (note.neume || note).mapping.sourceIndex + (note.neume || note).mapping.source.length;
+          splice.addString = ' (,) ';
+        }
+        break;
+
+      case 'addCarryOverBefore':
+      case 'addCarryOverAfter':
+        var bar = e.data.barBefore || e.data.barAfter;
+        if(bar) {
+          let mapping = bar.mapping,
+              mappings = bar.score.mappings,
+              index = mappings.indexOf(mapping),
+              beforeBar = mappings[index - 1];
+          splice.index = beforeBar.sourceIndex + beforeBar.source.length - 1;
+          splice.addString = '[ob:0;6mm]';
+        }
+        break;
+      case 'removePunctum':
+        splice.index = note.sourceIndex;
+        let match = gabc.slice(splice.index).match(regexGabcNote);
+        if(match) {
+          splice.removeLen = match[0].length;
+          if(match[1].length > 1) {
+            // if it is a repeated virga, etc. just remove one of the repeat characters:
+            splice.removeLen = 1;
+            splice.index++;
+          }
+        }
+        else splice.removeLen = 0;
+        break;
+      case 'removeEpisemata':
+        if(noteProperties.isTorculus) {
+          let index = noteProperties.torculusNotes[0].sourceIndex,
+              index2 = noteProperties.torculusNotes[2].sourceIndex,
+              match = gabc.slice(index2).match(regexGabcNote);
+          if(match) {
+            let sub = gabc.slice(index,index2+match[0].length),
+                regex = /_+/g;
+            splice = [];
+            while(match = regex.exec(sub)) {
+              splice.unshift({
+                index: index + match.index,
+                removeLen: match[0].length
+              });
+            }
+          }
+        } else {
+          splice.index = gabc.indexOf('_', note.sourceIndex);
+          if(splice.index >= 0) splice.removeLen = 1;
+          else splice.index = 0;
+        }
+        break;
+      case 'torculusFirstSecond':
+      case 'torculusMiddle':
+        if(noteProperties.torculusNotes) {
+          let index1 = noteProperties.torculusNotes[1].sourceIndex,
+              index2 = noteProperties.torculusNotes[2].sourceIndex,
+              match = gabc.slice(index2).match(regexGabcNote);
+          if(match) {
+            let sub = gabc.slice(index2,index2+match[0].length),
+                regex = /_+/;
+            splice = [];
+            if(match = regex.exec(sub)) {
+              splice.push({
+                index: index2 + match.index,
+                removeLen: match[0].length
+              });
+            }
+            sub = gabc.slice(index1,index2);
+            match = sub.match(/_+/);
+            splice.push({
+              index: index1 + (match? match.index : 1),
+              removeLen: match? match[0].length : 0,
+              addString: (e.data.action==='torculusMiddle')? '_' : '__'
+            });
+          }
+        }
+        break;
+      case 'removeMora':
+        splice.index = gabc.indexOf('.', note.sourceIndex);
+        if(splice.index >= 0) splice.removeLen = 1;
+        else splice.index = 0;
+        break;
+    }
+    if(splice.constructor != [].constructor) splice = [splice];
+    splice.forEach(function(splice){
+      gabc = gabc.slice(0,splice.index) + (splice.addString||'') + gabc.slice(splice.index + splice.removeLen);
+    });
+    addTransformToHash(e.data.part, splice);
+    proper.activeExsurge = gabc;
+    updateFromActiveExsurge(e.data.part, null, true);
+  }
+  $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
-  }).on('click', '[part].show-gabc use[source-index],[part].show-gabc text[source-index]', function() {
+  }).on('click', '[part] use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+    var $selected = $('[part] use[source-index].active');
+    removeChantContextMenus();
+    e.stopPropagation();
     var $this = $(this),
+        $neume = $this.parent(),
         $part = $this.parents('[part]'),
+        showingGabc = $part.hasClass('show-gabc'),
         part = $part.attr('part'),
         gabcIndex = sel[part].mapExsurgeToGabc(this.source.sourceIndex);
-    var textarea = $part.find('textarea')[0];
-    textarea.setSelectionRange(gabcIndex, gabcIndex);
-    textarea.focus();
+    if(showingGabc) {
+      var textarea = $part.find('textarea')[0];
+      textarea.setSelectionRange(gabcIndex, gabcIndex);
+      textarea.focus();
+    } else {
+      if($part.hasClass('ordinary')) return;
+      let source = this.source,
+          isText = false,
+          note,
+          notes,
+          noteIndex,
+          neume,
+          notations,
+          noteProperties;
+          
+      switch(this.nodeName) {
+        case 'use':
+          note = source.neume && source;
+          neume = note? note.neume : source;
+          notations = neume.mapping.notations;
+          if(note) {
+            noteProperties = getNoteProperties(note);
+          } else {
+            noteIndex = notations.indexOf(neume);
+            noteProperties = { acceptsBarAfter: noteIndex === notations.length - 1 };
+          }
+          acceptsBarBefore = noteIndex === 0;
+          break;
+        case 'text':
+          isText = true;
+          $neume = $this;
+          noteProperties = findNextInterestingNote($this.parent(), $selected) || {};
+          if(noteProperties.acceptsBarAfter) {
+            neume = noteProperties.note.neume;
+          } else {
+            neume = $this.parent().find('use').prop('source');
+            if(!noteProperties.note) noteProperties.note = neume;
+            neume = neume && neume.neume;
+          }
+          break;
+      }
+      if(noteProperties.acceptsBarBefore || noteProperties.acceptsBarAfter || noteProperties.isRepeatedNote || noteProperties.hasEpisemata || noteProperties.hasMorae) {
+        var $toolbar = $('<div>').addClass('chant-context');
+        if(noteProperties.acceptsBarBefore) {
+          $toolbar.append($('<button>').text((noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar Before').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
+          if(noteProperties.hasBarBefore) $toolbar.append($('<button>').text('Add CO <-').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
+        }
+        if(noteProperties.acceptsBarAfter) {
+          $toolbar.append($('<button>').text((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar After').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
+          if(noteProperties.hasBarAfter) $toolbar.append($('<button>').text('Add CO ->').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
+        }
+        if(noteProperties.isRepeatedNote)
+          $toolbar.append($('<button>').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange).button());
+        if(noteProperties.hasEpisemata) {
+          $toolbar.append($('<button>').text('Remove Episemata').click({action:'removeEpisemata', part: part, noteProperties: noteProperties}, editorialChange).button());
+          if(noteProperties.isTorculus) {
+            $toolbar.append($('<button>').text('1 & 2').click({action:'torculusFirstSecond', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').text('Middle').click({action:'torculusMiddle', part: part, noteProperties: noteProperties}, editorialChange).button());
+          }
+        }
+        if(noteProperties.hasMorae)
+          $toolbar.append($('<button>').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange).button());
+        this.classList.add('active');
+        $toolbar.appendTo(document.body);
+        $toolbar.buttonset().offset({
+          top: $neume.offset().top + $neume[0].getBBox().height + (isText? 0 : 2),
+          left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
+        });
+      }
+    }
   });
   hashChanged();
 });
