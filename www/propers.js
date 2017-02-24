@@ -30,6 +30,37 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var LocationHash = function(hash) {
+    var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
+    var curMatch;
+    while(curMatch = regexKeyVal.exec(hash)) {
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+    }
+    return this;
+  };
+  LocationHash.prototype.toString = function() {
+    var result = '';
+    var hash = this;
+    if(!hash.selSundayNovus) delete hash.selYearNovus;
+    Object.keys(hash).forEach(function(key) {
+      switch(typeof(hash[key])) {
+        case 'boolean':
+          if(hash[key]) result += '#' + key;
+          break;
+        case 'string':
+          if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
+          // otherwise, fall through to default:
+        default:
+          result += '#' + key + '=' + hash[key];
+          break;
+      }
+    });
+    return result;
+  }
+  function parseHash() {
+    if(!LocationHash) return null;
+    return new LocationHash(location.hash);
+  }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var $gradualeOptions = $('#selStyleGraduale>option').clone();
   var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
@@ -268,6 +299,7 @@ $(function(){
       $div.show();
       var $sel = $('#sel'+capPart);
       var selValue = $sel.val();
+      sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
         if(selValue != $sel.val()) return;
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
@@ -331,15 +363,19 @@ $(function(){
         }
         gabc = gabc? (header + gabc.slice(header.original.length)) : '';
         sel[part].gabc = gabc;
-        var $selTone = $('#selTone' + capPart).val(header.mode).change();
+        sel[part].originalMode = header.mode;
+        var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
         if(!$selTone.length) {
           sel[part].style = 'full';
           updateTextAndChantForPart(part);
+        } else if(sel[part].overrideToneEnding) {
+          var $selToneEnding = $('#selToneEnding' + capPart).val(sel[part].overrideToneEnding).change();
         }
         var $toggleEditMarkings = $div.find('.toggleEditMarkings');
         if($toggleEditMarkings.find('.showHide').hasClass('showing')) {
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
+        if(!sel[part].style.match(/^psalm-tone/)) $toggleEditMarkings.hide();
       };
       if(id) {
         $.get('gabc/'+id+'.gabc',updateGabc);
@@ -1014,8 +1050,10 @@ $(function(){
         $cbSolemn = $('#cbSolemn' + capPart),
         $right = $selTone.parent(),
         $toggleEditMarkings = $right.find('.toggleEditMarkings'),
+        $part = $('[part='+part+']'),
         gabc = sel[part].gabc;
     if(style.match(/^psalm-tone/)) {
+      $part.addClass('psalm-toned').removeClass('full');
       if($toggleEditMarkings.length == 0) {
         $toggleEditMarkings = $("<a href='' class='toggleEditMarkings'>(<span class='showHide'>Show</span> Editor)</a>")
         $toggleEditMarkings.click(toggleEditMarkings);
@@ -1047,6 +1085,7 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
+      $part.removeClass('psalm-toned').addClass('full');
       if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
       $toggleEditMarkings.hide();
       $selToneEnding.hide();
@@ -1549,7 +1588,7 @@ $(function(){
       gabc = gabc.slice(gabcHeader.original.length);
     }
     prop.gabcHeader = gabcHeader;
-    prop.activeExsurge = gabc;
+    prop.activeExsurge = splicePartGabc(part, gabc);
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
@@ -1847,6 +1886,9 @@ $(function(){
     //update endings for this tone.
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
+    if(sel[part].style.match(/^psalm-tone/)) {
+      addToHash('style'+capPart, sel[part].style + (this.value == sel[part].originalMode? '' : ';' + this.value + (defaultTermination[this.value]||'')));
+    }
     sel[part].mode = this.value;
     $selEnding = $('#selToneEnding' + capPart);
     var tone = this.value + '.',
@@ -1864,6 +1906,9 @@ $(function(){
   $('select.endings').change(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
+    if(sel[part].style.match(/^psalm-tone/)) {
+      addToHash('style'+capPart, sel[part].style + ((sel[part].mode == sel[part].originalMode && this.value==defaultTermination[sel[part].mode])? '' : ';' + sel[part].mode + this.value));
+    }
     sel[part].termination = this.value;
     updateTextAndChantForPart(part, true);
   });
@@ -2015,37 +2060,6 @@ console.info(JSON.stringify(selPropers));
   }
   window.onbeforeprint = relayoutAllChantSync;
   window.onafterprint = relayoutAllChantSync;
-  var LocationHash = function(hash) {
-    var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
-    var curMatch;
-    while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
-    }
-    return this;
-  };
-  LocationHash.prototype.toString = function() {
-    var result = '';
-    var hash = this;
-    if(!hash.selSundayNovus) delete hash.selYearNovus;
-    Object.keys(hash).forEach(function(key) {
-      switch(typeof(hash[key])) {
-        case 'boolean':
-          if(hash[key]) result += '#' + key;
-          break;
-        case 'string':
-          if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
-          // otherwise, fall through to default:
-        default:
-          result += '#' + key + '=' + hash[key];
-          break;
-      }
-    });
-    return result;
-  }
-  function parseHash() {
-    if(!LocationHash) return null;
-    return new LocationHash(location.hash);
-  }
   function removeSelIfPresent(s) {
     if(typeof(s) != 'string') return s;
     if(s.match(/^sel[A-Z]/)) {
@@ -2053,11 +2067,11 @@ console.info(JSON.stringify(selPropers));
     }
     return s;
   }
-  var allowAddToHash = false;
+  var allowAddToHash = false,
+      lastHandledHash = '';
   function clearHash(obj,key) {
     if(!allowAddToHash) return;
-    $(window).off('hashchange',hashChanged);
-    location.hash = '';
+    lastHandledHash = location.hash = '';
     $('#selStyle').val('full');
     Object.keys(sel).forEach(function(key) {
       if(sel[key] && 'style' in sel[key]) {
@@ -2066,14 +2080,12 @@ console.info(JSON.stringify(selPropers));
       }
     });
     addToHash(obj,undefined,true);
-    $(window).on('hashchange',hashChanged);
     loadStoredDataForKey(key);
   }
   /// addToHash(object)
   /// addToHash(key,value)
   function addToHash(a,b,dontStore) {
     if(!allowAddToHash) return;
-    $(window).off('hashchange',hashChanged);
     var hash = parseHash();
     if(!hash) return;
     if(typeof b == 'undefined') {
@@ -2091,7 +2103,7 @@ console.info(JSON.stringify(selPropers));
         delete hash[part];
       });
     }
-    if(hash.toString() != location.hash) location.hash = hash;
+    lastHandledHash = location.hash = hash.toString();
     var key = ['sunday','saint','mass','sundayNovus'].reduce(function(result, key){
       return result || (hash[key] && key);
     },'');
@@ -2112,13 +2124,14 @@ console.info(JSON.stringify(selPropers));
       }
       localStorage.storedKeys = JSON.stringify(storedKeys);
     }
-    $(window).on('hashchange',hashChanged);
   }
   function loadStoredDataForKey(key) {
     var hash = localStorage[key];
-    if(hash) location.hash += hash;
+    if(hash) location.hash = (new LocationHash(hash+location.hash)).toString();
   }
   function hashChanged() {
+    if(lastHandledHash === location.hash) return;
+    lastHandledHash = location.hash;
     allowAddToHash = false;
     var hash = parseHash();
     ['sunday', 'sundayNovus', 'saint', 'mass',
@@ -2146,7 +2159,8 @@ console.info(JSON.stringify(selPropers));
           part = capPart[0].toLowerCase() + capPart.slice(1),
           style = hash[part];
       if(style) {
-        part = part.slice(5).toLowerCase();
+        capPart = part.slice(5);
+        part = capPart.toLowerCase();
         var pattern = hash[part+'Pattern'];
         if(pattern) {
           pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
@@ -2156,26 +2170,54 @@ console.info(JSON.stringify(selPropers));
           });
           sel[part].pattern = pattern;
         }
-        if($this.val() != style) $this.val(style).change();
+        styleParts = style.split(';');
+        if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
+        if(styleParts[1]) {
+          var termination = styleParts[1],
+              tone = termination[0],
+              ending = termination.slice(1),
+              $selToneEnding = $('#selToneEnding' + capPart),
+              $selTone = $('#selTone' + capPart);
+          sel[part].overrideTone = tone;
+          sel[part].overrideToneEnding = ending;
+          if($selTone.val() != tone) $selTone.val(tone).change();
+          if($selToneEnding.val() != ending) $selToneEnding.val(ending).change();
+        }
       }
     });
     allowAddToHash = true;
   }
-  function getTransformForPart(part) {
-    var currentTransform = parseHash()[part+'Transform'];
-    currentTransform = currentTransform? currentTransform.split(';') : [];
-    return currentTransform.map(function(s){
-      var a = s.split(',');
+  function splicePartGabc(part, gabc) {
+    var splices = getSpliceForPart(part);
+    $('div[part='+part+']').toggleClass('modified', !!splices.length);
+    return spliceGabc(splices, gabc);
+  }
+  function spliceGabc(splices, gabc) {
+    splices.forEach(function(splice){
+      gabc = gabc.slice(0,splice.index) + (splice.addString||'') + gabc.slice(splice.index + splice.removeLen);
+    });
+    return gabc;
+  }
+  function getSpliceForPart(part) {
+    if(sel[part].style.match(/^psalm-tone/)) return [];
+    var currentSplice = parseHash()[part+'Splice'];
+    currentSplice = (currentSplice && currentSplice.split)? currentSplice.split('|') : [];
+    return currentSplice.map(function(s){
+      var a = s.split('/');
       return {index: parseInt(a[0]), removeLen: parseInt(a[1]), addString: a[2]};
     });
   }
-  function addTransformToHash(part, transforms) {
-    var currentTransform = getTransformForPart(part);
-    transforms = currentTransform.concat(transforms);
-    transforms = transforms.map(function(t){
-      return [t.index, t.removeLen, t.addString||''].join(',');
-    }).join(';');
-    addToHash(part+'Transform',transforms);
+  function addSpliceToHash(part, splices) {
+    var currentSplice = getSpliceForPart(part);
+    splices = currentSplice.concat(splices);
+    splices = splices.map(function(t){
+      return [t.index, t.removeLen, t.addString||''].join('/');
+    }).join('|');
+    addToHash(part+'Splice',splices);
+  }
+  function removeSplicesForPart(part) {
+    addToHash(part+'Splice',false);
+    updateExsurge(part, null, true);
   }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
@@ -2215,11 +2257,11 @@ console.info(JSON.stringify(selPropers));
       result.nextNotation = notations[noteIndex+1];
       if(!result.prevNotation) result.acceptsBarBefore = false;
       if(result.prevNotation && result.prevNotation.isDivider) {
-        if(result.prevNotation.constructor == exsurge.QuarterBar) result.hasBarBefore = true;
+        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula) result.hasBarBefore = true;
         else result.acceptsBarBefore = false;
       }
       if(result.nextNotation && result.nextNotation.isDivider) {
-        if(result.nextNotation.constructor == exsurge.QuarterBar) result.hasBarAfter = true;
+        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula) result.hasBarAfter = true;
         else result.acceptsBarAfter = result.acceptsBarAfter = false;
       }
     }
@@ -2326,7 +2368,7 @@ console.info(JSON.stringify(selPropers));
         }
         else splice.removeLen = 0;
         break;
-      case 'removeEpisemata':
+      case 'removeEpisema':
         if(noteProperties.isTorculus) {
           let index = noteProperties.torculusNotes[0].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
@@ -2348,8 +2390,10 @@ console.info(JSON.stringify(selPropers));
           else splice.index = 0;
         }
         break;
-      case 'torculusFirstSecond':
-      case 'torculusMiddle':
+      case 'torculus1':
+      case 'torculus2':
+      case 'torculus3':
+      case 'torculus12':
         if(noteProperties.torculusNotes) {
           let index1 = noteProperties.torculusNotes[1].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
@@ -2366,11 +2410,31 @@ console.info(JSON.stringify(selPropers));
             }
             sub = gabc.slice(index1,index2);
             match = sub.match(/_+/);
-            splice.push({
-              index: index1 + (match? match.index : 1),
-              removeLen: match? match[0].length : 0,
-              addString: (e.data.action==='torculusMiddle')? '_' : '__'
-            });
+            switch(e.data.action) {
+              case 'torculus2':
+              case 'torculus12':
+                splice.push({
+                  index: index1 + (match? match.index : 1),
+                  removeLen: match? match[0].length : 0,
+                  addString: (e.data.action==='torculus2')? '_' : '__'
+                });
+                break;
+              case 'torculus1':
+                splice.push({
+                  index: index1,
+                  removeLen: 0,
+                  addString: '_'
+                });
+                break;
+              case 'torculus3':
+                if(splice[0]) splice[0].removeLen--;
+                else splice.push({
+                  index: index2 + 1,
+                  removeLen: 0,
+                  addString: '_'
+                });
+                break;
+            }
           }
         }
         break;
@@ -2381,17 +2445,20 @@ console.info(JSON.stringify(selPropers));
         break;
     }
     if(splice.constructor != [].constructor) splice = [splice];
-    splice.forEach(function(splice){
-      gabc = gabc.slice(0,splice.index) + (splice.addString||'') + gabc.slice(splice.index + splice.removeLen);
-    });
-    addTransformToHash(e.data.part, splice);
+    gabc = spliceGabc(splice, gabc);
+    $('div[part='+e.data.part+']').addClass('modified');
+    addSpliceToHash(e.data.part, splice);
     proper.activeExsurge = gabc;
     updateFromActiveExsurge(e.data.part, null, true);
   }
   $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
-  }).on('click', '[part] use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part] button.remove-modifications', function(e) {
+    var $part = $(this).parents('[part]'),
+        part = $part.attr('part');
+    removeSplicesForPart(part);
+  }).on('click', '[part].full use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
     var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
     e.stopPropagation();
@@ -2455,10 +2522,12 @@ console.info(JSON.stringify(selPropers));
         if(noteProperties.isRepeatedNote)
           $toolbar.append($('<button>').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange).button());
         if(noteProperties.hasEpisemata) {
-          $toolbar.append($('<button>').text('Remove Episemata').click({action:'removeEpisemata', part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange).button());
           if(noteProperties.isTorculus) {
-            $toolbar.append($('<button>').text('1 & 2').click({action:'torculusFirstSecond', part: part, noteProperties: noteProperties}, editorialChange).button());
-            $toolbar.append($('<button>').text('Middle').click({action:'torculusMiddle', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange).button());
           }
         }
         if(noteProperties.hasMorae)
