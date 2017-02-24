@@ -104,7 +104,7 @@ tspan.selectable{
   .right {
     float: none!important;
   }
-  select {
+  select, button {
     font-size: 16px;
   }
   select.small-screen {
