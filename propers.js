@@ -371,6 +371,7 @@ $(function(){
         if($toggleEditMarkings.find('.showHide').hasClass('showing')) {
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
+        if(!sel[part].style.match(/^psalm-tone/)) $toggleEditMarkings.hide();
       };
       if(id) {
         $.get('gabc/'+id+'.gabc',updateGabc);
@@ -1045,8 +1046,10 @@ $(function(){
         $cbSolemn = $('#cbSolemn' + capPart),
         $right = $selTone.parent(),
         $toggleEditMarkings = $right.find('.toggleEditMarkings'),
+        $part = $('[part='+part+']'),
         gabc = sel[part].gabc;
     if(style.match(/^psalm-tone/)) {
+      $part.addClass('psalm-toned').removeClass('full');
       if($toggleEditMarkings.length == 0) {
         $toggleEditMarkings = $("<a href='' class='toggleEditMarkings'>(<span class='showHide'>Show</span> Editor)</a>")
         $toggleEditMarkings.click(toggleEditMarkings);
@@ -1078,6 +1081,7 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
+      $part.removeClass('psalm-toned').addClass('full');
       if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
       $toggleEditMarkings.hide();
       $selToneEnding.hide();
@@ -2173,6 +2177,7 @@ console.info(JSON.stringify(selPropers));
     return gabc;
   }
   function getSpliceForPart(part) {
+    if(sel[part].style.match(/^psalm-tone/)) return [];
     var currentSplice = parseHash()[part+'Splice'];
     currentSplice = (currentSplice && currentSplice.split)? currentSplice.split('|') : [];
     return currentSplice.map(function(s){
@@ -2431,7 +2436,7 @@ console.info(JSON.stringify(selPropers));
     var $part = $(this).parents('[part]'),
         part = $part.attr('part');
     removeSplicesForPart(part);
-  }).on('click', '[part] use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part].full use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
     var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
     e.stopPropagation();
