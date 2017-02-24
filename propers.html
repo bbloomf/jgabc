@@ -25,6 +25,15 @@
   <script src="exsurge.min.js"></script>
 </head>
 <style>
+.ol {
+  text-decoration: overline;
+}
+button.remove-modifications {
+  display: none;
+}
+[part].modified button.remove-modifications {
+  display: inline;
+}
 textarea {
   padding:0;
   width:100%;
@@ -279,6 +288,7 @@ div.chant-context {
       </span>
       <div class='flex right'>
         <span class='child-other'>
+          <button class='remove-modifications'>Remove Modifications</button>
           <label for="selToneIntroitus" class='sel-label'>Mode</label>
           <select id="selToneIntroitus" class='sel-style tones'></select>
         </span>
@@ -345,6 +355,7 @@ div.chant-context {
       </span>
       <div class='flex right'>
         <span class='child-other'>
+          <button class='remove-modifications'>Remove Modifications</button>
           <label for="selToneGraduale" class='sel-label'>Mode</label>
           <select id="selToneGraduale" class='sel-style tones'></select>
           <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
@@ -378,6 +389,7 @@ div.chant-context {
       </span>
       <div class='flex right'>
         <span class='child-other'>
+          <button class='remove-modifications'>Remove Modifications</button>
           <label for="selToneTractus" class='sel-label'>Mode</label>
           <select id="selToneTractus" class='sel-style tones'></select>
           <select id="selToneEndingTractus" class='sel-style endings tractus'></select>
@@ -408,6 +420,7 @@ div.chant-context {
       </span>
       <div class='flex right'>
         <span class='child-other'>
+          <button class='remove-modifications'>Remove Modifications</button>
           <label for="selToneAlleluia" class='sel-label'>Mode</label>
           <select id="selToneAlleluia" class='sel-style tones'></select>
           <select id="selToneEndingAlleluia" class='sel-style endings alleluia'></select>
@@ -473,6 +486,7 @@ div.chant-context {
       </span>
       <div class='flex right'>
         <span class='child-other'>
+          <button class='remove-modifications'>Remove Modifications</button>
           <label for="selToneOffertorium" class='sel-label'>Mode</label>
           <select id="selToneOffertorium" class='sel-style tones'></select>
           <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
@@ -537,6 +551,7 @@ div.chant-context {
       </span>
       <div class='flex right'>
         <span class='child-other'>
+          <button class='remove-modifications'>Remove Modifications</button>
           <label for="selToneCommunio" class='sel-label'>Mode</label>
           <select id="selToneCommunio" class='sel-style tones'></select>
           <select id="selToneEndingCommunio" class='sel-style endings communio'></select>

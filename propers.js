@@ -30,6 +30,37 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var LocationHash = function(hash) {
+    var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
+    var curMatch;
+    while(curMatch = regexKeyVal.exec(hash)) {
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+    }
+    return this;
+  };
+  LocationHash.prototype.toString = function() {
+    var result = '';
+    var hash = this;
+    if(!hash.selSundayNovus) delete hash.selYearNovus;
+    Object.keys(hash).forEach(function(key) {
+      switch(typeof(hash[key])) {
+        case 'boolean':
+          if(hash[key]) result += '#' + key;
+          break;
+        case 'string':
+          if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
+          // otherwise, fall through to default:
+        default:
+          result += '#' + key + '=' + hash[key];
+          break;
+      }
+    });
+    return result;
+  }
+  function parseHash() {
+    if(!LocationHash) return null;
+    return new LocationHash(location.hash);
+  }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var $gradualeOptions = $('#selStyleGraduale>option').clone();
   var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
@@ -1549,7 +1580,7 @@ $(function(){
       gabc = gabc.slice(gabcHeader.original.length);
     }
     prop.gabcHeader = gabcHeader;
-    prop.activeExsurge = gabc;
+    prop.activeExsurge = splicePartGabc(part, gabc);
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
@@ -2015,37 +2046,6 @@ console.info(JSON.stringify(selPropers));
   }
   window.onbeforeprint = relayoutAllChantSync;
   window.onafterprint = relayoutAllChantSync;
-  var LocationHash = function(hash) {
-    var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
-    var curMatch;
-    while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
-    }
-    return this;
-  };
-  LocationHash.prototype.toString = function() {
-    var result = '';
-    var hash = this;
-    if(!hash.selSundayNovus) delete hash.selYearNovus;
-    Object.keys(hash).forEach(function(key) {
-      switch(typeof(hash[key])) {
-        case 'boolean':
-          if(hash[key]) result += '#' + key;
-          break;
-        case 'string':
-          if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
-          // otherwise, fall through to default:
-        default:
-          result += '#' + key + '=' + hash[key];
-          break;
-      }
-    });
-    return result;
-  }
-  function parseHash() {
-    if(!LocationHash) return null;
-    return new LocationHash(location.hash);
-  }
   function removeSelIfPresent(s) {
     if(typeof(s) != 'string') return s;
     if(s.match(/^sel[A-Z]/)) {
@@ -2116,7 +2116,7 @@ console.info(JSON.stringify(selPropers));
   }
   function loadStoredDataForKey(key) {
     var hash = localStorage[key];
-    if(hash) location.hash += hash;
+    if(hash) location.hash = (new LocationHash(hash+location.hash)).toString();
   }
   function hashChanged() {
     allowAddToHash = false;
@@ -2161,21 +2161,36 @@ console.info(JSON.stringify(selPropers));
     });
     allowAddToHash = true;
   }
-  function getTransformForPart(part) {
-    var currentTransform = parseHash()[part+'Transform'];
-    currentTransform = currentTransform? currentTransform.split(';') : [];
-    return currentTransform.map(function(s){
-      var a = s.split(',');
+  function splicePartGabc(part, gabc) {
+    var splices = getSpliceForPart(part);
+    $('div[part='+part+']').toggleClass('modified', !!splices.length);
+    return spliceGabc(splices, gabc);
+  }
+  function spliceGabc(splices, gabc) {
+    splices.forEach(function(splice){
+      gabc = gabc.slice(0,splice.index) + (splice.addString||'') + gabc.slice(splice.index + splice.removeLen);
+    });
+    return gabc;
+  }
+  function getSpliceForPart(part) {
+    var currentSplice = parseHash()[part+'Splice'];
+    currentSplice = (currentSplice && currentSplice.split)? currentSplice.split('|') : [];
+    return currentSplice.map(function(s){
+      var a = s.split('/');
       return {index: parseInt(a[0]), removeLen: parseInt(a[1]), addString: a[2]};
     });
   }
-  function addTransformToHash(part, transforms) {
-    var currentTransform = getTransformForPart(part);
-    transforms = currentTransform.concat(transforms);
-    transforms = transforms.map(function(t){
-      return [t.index, t.removeLen, t.addString||''].join(',');
-    }).join(';');
-    addToHash(part+'Transform',transforms);
+  function addSpliceToHash(part, splices) {
+    var currentSplice = getSpliceForPart(part);
+    splices = currentSplice.concat(splices);
+    splices = splices.map(function(t){
+      return [t.index, t.removeLen, t.addString||''].join('/');
+    }).join('|');
+    addToHash(part+'Splice',splices);
+  }
+  function removeSplicesForPart(part) {
+    addToHash(part+'Splice',false);
+    updateExsurge(part, null, true);
   }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
@@ -2215,11 +2230,11 @@ console.info(JSON.stringify(selPropers));
       result.nextNotation = notations[noteIndex+1];
       if(!result.prevNotation) result.acceptsBarBefore = false;
       if(result.prevNotation && result.prevNotation.isDivider) {
-        if(result.prevNotation.constructor == exsurge.QuarterBar) result.hasBarBefore = true;
+        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula) result.hasBarBefore = true;
         else result.acceptsBarBefore = false;
       }
       if(result.nextNotation && result.nextNotation.isDivider) {
-        if(result.nextNotation.constructor == exsurge.QuarterBar) result.hasBarAfter = true;
+        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula) result.hasBarAfter = true;
         else result.acceptsBarAfter = result.acceptsBarAfter = false;
       }
     }
@@ -2326,7 +2341,7 @@ console.info(JSON.stringify(selPropers));
         }
         else splice.removeLen = 0;
         break;
-      case 'removeEpisemata':
+      case 'removeEpisema':
         if(noteProperties.isTorculus) {
           let index = noteProperties.torculusNotes[0].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
@@ -2348,8 +2363,10 @@ console.info(JSON.stringify(selPropers));
           else splice.index = 0;
         }
         break;
-      case 'torculusFirstSecond':
-      case 'torculusMiddle':
+      case 'torculus1':
+      case 'torculus2':
+      case 'torculus3':
+      case 'torculus12':
         if(noteProperties.torculusNotes) {
           let index1 = noteProperties.torculusNotes[1].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
@@ -2366,11 +2383,31 @@ console.info(JSON.stringify(selPropers));
             }
             sub = gabc.slice(index1,index2);
             match = sub.match(/_+/);
-            splice.push({
-              index: index1 + (match? match.index : 1),
-              removeLen: match? match[0].length : 0,
-              addString: (e.data.action==='torculusMiddle')? '_' : '__'
-            });
+            switch(e.data.action) {
+              case 'torculus2':
+              case 'torculus12':
+                splice.push({
+                  index: index1 + (match? match.index : 1),
+                  removeLen: match? match[0].length : 0,
+                  addString: (e.data.action==='torculus2')? '_' : '__'
+                });
+                break;
+              case 'torculus1':
+                splice.push({
+                  index: index1,
+                  removeLen: 0,
+                  addString: '_'
+                });
+                break;
+              case 'torculus3':
+                if(splice[0]) splice[0].removeLen--;
+                else splice.push({
+                  index: index2 + 1,
+                  removeLen: 0,
+                  addString: '_'
+                });
+                break;
+            }
           }
         }
         break;
@@ -2381,16 +2418,19 @@ console.info(JSON.stringify(selPropers));
         break;
     }
     if(splice.constructor != [].constructor) splice = [splice];
-    splice.forEach(function(splice){
-      gabc = gabc.slice(0,splice.index) + (splice.addString||'') + gabc.slice(splice.index + splice.removeLen);
-    });
-    addTransformToHash(e.data.part, splice);
+    gabc = spliceGabc(splice, gabc);
+    $('div[part='+e.data.part+']').addClass('modified');
+    addSpliceToHash(e.data.part, splice);
     proper.activeExsurge = gabc;
     updateFromActiveExsurge(e.data.part, null, true);
   }
   $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
+  }).on('click', '[part] button.remove-modifications', function(e) {
+    var $part = $(this).parents('[part]'),
+        part = $part.attr('part');
+    removeSplicesForPart(part);
   }).on('click', '[part] use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
     var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
@@ -2455,10 +2495,12 @@ console.info(JSON.stringify(selPropers));
         if(noteProperties.isRepeatedNote)
           $toolbar.append($('<button>').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange).button());
         if(noteProperties.hasEpisemata) {
-          $toolbar.append($('<button>').text('Remove Episemata').click({action:'removeEpisemata', part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange).button());
           if(noteProperties.isTorculus) {
-            $toolbar.append($('<button>').text('1 & 2').click({action:'torculusFirstSecond', part: part, noteProperties: noteProperties}, editorialChange).button());
-            $toolbar.append($('<button>').text('Middle').click({action:'torculusMiddle', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange).button());
           }
         }
         if(noteProperties.hasMorae)
