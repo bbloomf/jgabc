@@ -2164,61 +2164,62 @@ console.info(JSON.stringify(selPropers));
     if(hash) location.hash = (new LocationHash(hash+location.hash)).toString();
   }
   function hashChanged() {
-    if(lastHandledHash === location.hash) return;
-    lastHandledHash = location.hash;
-    allowAddToHash = false;
-    var hash = parseHash();
-    ['sunday', 'sundayNovus', 'saint', 'mass',
-     'tempus', 'yearNovus',
-     'ordinary'].concat(ordinaryParts).reduce(function(result, key) {
-      if(key in hash) {
-        var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
-        if($elem.val() != hash[key]) $elem.val(hash[key]).change();
+    if(lastHandledHash !== location.hash) {
+      lastHandledHash = location.hash;
+      allowAddToHash = false;
+      var hash = parseHash();
+      ['sunday', 'sundayNovus', 'saint', 'mass',
+       'tempus', 'yearNovus',
+       'ordinary'].concat(ordinaryParts).reduce(function(result, key) {
+        if(key in hash) {
+          var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
+          if($elem.val() != hash[key]) $elem.val(hash[key]).change();
+        }
+      }, null);
+      if(hash.mass == 'custom') {
+        $('input.sel-custom').each(function(){
+          var $this=$(this),
+              capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+              part = capPart.toLowerCase();
+          if(hash[part]) {
+            selPropers[part+'ID'] = hash[part];
+            updatePart(part);
+          }
+        });
       }
-    }, null);
-    if(hash.mass == 'custom') {
-      $('input.sel-custom').each(function(){
+      $('select[id^=selStyle]').each(function(){
         var $this=$(this),
-            capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
-            part = capPart.toLowerCase();
-        if(hash[part]) {
-          selPropers[part+'ID'] = hash[part];
-          updatePart(part);
+            capPart = this.id.slice(3),
+            part = capPart[0].toLowerCase() + capPart.slice(1),
+            style = hash[part];
+        if(style) {
+          capPart = part.slice(5);
+          part = capPart.toLowerCase();
+          var pattern = hash[part+'Pattern'];
+          if(pattern) {
+            pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
+              return new Array(parseInt(num)).join(',');
+            }).split(';').map(function(seg) {
+              return seg.split(',');
+            });
+            sel[part].pattern = pattern;
+          }
+          styleParts = style.split(';');
+          if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
+          if(styleParts[1]) {
+            var termination = styleParts[1],
+                tone = termination[0],
+                ending = termination.slice(1),
+                $selToneEnding = $('#selToneEnding' + capPart),
+                $selTone = $('#selTone' + capPart);
+            sel[part].overrideTone = tone;
+            sel[part].overrideToneEnding = ending;
+            if($selTone.val() != tone) $selTone.val(tone).change();
+            if($selToneEnding.val() != ending) $selToneEnding.val(ending).change();
+          }
         }
       });
     }
-    $('select[id^=selStyle]').each(function(){
-      var $this=$(this),
-          capPart = this.id.slice(3),
-          part = capPart[0].toLowerCase() + capPart.slice(1),
-          style = hash[part];
-      if(style) {
-        capPart = part.slice(5);
-        part = capPart.toLowerCase();
-        var pattern = hash[part+'Pattern'];
-        if(pattern) {
-          pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
-            return new Array(parseInt(num)).join(',');
-          }).split(';').map(function(seg) {
-            return seg.split(',');
-          });
-          sel[part].pattern = pattern;
-        }
-        styleParts = style.split(';');
-        if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
-        if(styleParts[1]) {
-          var termination = styleParts[1],
-              tone = termination[0],
-              ending = termination.slice(1),
-              $selToneEnding = $('#selToneEnding' + capPart),
-              $selTone = $('#selTone' + capPart);
-          sel[part].overrideTone = tone;
-          sel[part].overrideToneEnding = ending;
-          if($selTone.val() != tone) $selTone.val(tone).change();
-          if($selToneEnding.val() != ending) $selToneEnding.val(ending).change();
-        }
-      }
-    });
     allowAddToHash = true;
   }
   function splicePartGabc(part, gabc) {
