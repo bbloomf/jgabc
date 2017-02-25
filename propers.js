@@ -1016,7 +1016,7 @@ $(function(){
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
-              $button.addClass('toggle-mediant');
+              $button.addClass('toggle-mediant btn btn-xs btn-default');
               $button.attr('line', lineNum).attr('seg', segNum);
               $button.click(toggleMediant);
               $button.text(code);
@@ -2497,7 +2497,7 @@ console.info(JSON.stringify(selPropers));
     var $part = $(this).parents('[part]'),
         part = $part.attr('part');
     removeSplicesForPart(part);
-  }).on('click', '[part].full use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap)', function(e) {
     var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
     e.stopPropagation();
@@ -2551,11 +2551,11 @@ console.info(JSON.stringify(selPropers));
       if(noteProperties.acceptsBarBefore || noteProperties.acceptsBarAfter || noteProperties.isRepeatedNote || noteProperties.hasEpisemata || noteProperties.hasMorae) {
         var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
         if(noteProperties.acceptsBarBefore) {
-          $toolbar.append($('<button>').addClass('btn btn-default').text((noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar Before').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
           if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
         }
         if(noteProperties.acceptsBarAfter) {
-          $toolbar.append($('<button>').addClass('btn btn-default').text((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar After').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-default').html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
           if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-default').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
         }
         if(noteProperties.isRepeatedNote)
