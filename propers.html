@@ -6,8 +6,8 @@
   <title>Mass Propers</title>
   <link rel="icon" href="icon/clear-main.png" type="image/png" />
   <link rel="stylesheet" type="text/css" href="style.css" />
-  <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" />
-  <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" /> -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i&text=:;,()[]?.%22'%E2%80%A0*QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmáéíóúýäëæǽœœ%CC%81/1234567890-" rel="stylesheet">
   <script src="jquery.min.js" type="text/javascript"></script>
   <script src="jquery.autosize-min.js"></script>
@@ -25,6 +25,14 @@
   <script src="exsurge.min.js"></script>
 </head>
 <style>
+label {
+  font-weight: 400;
+}
+a:not([href]),
+a:not([href]):hover {
+  color: #000;
+  text-decoration: none;
+}
 .ol {
   text-decoration: overline;
 }
@@ -213,7 +221,7 @@ div.chant-context {
     </div>
   </div>
   <div class='hide-print'>
-    <button id='btnCalendar' value='traditional' style='button'>Traditional Calendar</button>
+    <button id='btnCalendar' class='btn btn-default' value='traditional' style='button'>Traditional Calendar</button>
     <select id="selSunday" class="small-screen" style='margin:0'></select>
     <select id="selSundayNovus" class="small-screen" style='margin:0;display:none'></select>
     <select id="selSaint" class="small-screen" style='margin:0'></select>
@@ -221,29 +229,29 @@ div.chant-context {
     <select id="selTempus" class="small-screen" style='display:none;margin:0'></select>
     <select id="selYearNovus" class="small-screen" style='display:none;margin:0'></select>
     <div class="right hide-ss">
-      <ul id='menu'>
-        <li>
-          <a href='#'>Include in PDF...</a>
-          <ul class='include-in-pdf'>
-            <li class="centered-heading">Propers</li>
-            <li class="ui-state-disabled"><a href='#' id='includeIntroitus'><span class='ui-icon ui-icon-check'></span><span class='label'>Introitus</span></a></li>
-            <li class="ui-state-disabled multiple-graduales-0"><a href='#' id='includeGraduale'><span class='ui-icon ui-icon-check'></span><span class='label'>Graduale</span></a></li>
-            <li class="ui-state-disabled"><a href='#' id='includeTractus'><span class='ui-icon ui-icon-check'></span><span class='label'>Tractus</span></a></li>
-            <li class="ui-state-disabled"><a href='#' id='includeAlleluia'><span class='ui-icon ui-icon-check'></span><span class='label'>Alleluia</span></a></li>
-            <li class="ui-state-disabled"><a href='#' id='includeSequentia'><span class='ui-icon ui-icon-check'></span><span class='label'>Sequentia</span></a></li>
-            <li class="ui-state-disabled"><a href='#' id='includeOffertorium'><span class='ui-icon ui-icon-check'></span><span class='label'>Offertorium</span></a></li>
-            <li class="ui-state-disabled"><a href='#' id='includeCommunio'><span class='ui-icon ui-icon-check'></span><span class='label'>Communio</span></a></li>
-            <li class="centered-heading ordinary">Ordinary</li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeAsperges'><span class='ui-icon ui-icon-check'></span><span class='label'>Asperges</span></a></li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeKyrie'><span class='ui-icon ui-icon-check'></span><span class='label'>Kyrie</span></a></li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeGloria'><span class='ui-icon ui-icon-check'></span><span class='label'>Gloria</span></a></li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeCredo'><span class='ui-icon ui-icon-check'></span><span class='label'>Credo</span></a></li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeSanctus'><span class='ui-icon ui-icon-check'></span><span class='label'>Sanctus</span></a></li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeAgnus'><span class='ui-icon ui-icon-check'></span><span class='label'>Agnus</span></a></li>
-            <li class="ui-state-disabled ordinary"><a href='#' id='includeIte'><span class='ui-icon ui-icon-check'></span><span class='label'>Ite</span></a></li>
-          </ul>
-        </li>
-      </ul>
+      <div class="btn-group open-on-hover">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Include in PDF <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li class="centered-heading">Propers</li>
+          <li class="disabled"><a href='#' id='includeIntroitus'><span class='glyphicon glyphicon-check'></span> <span>Introitus</span></a></li>
+          <li class="disabled multiple-graduales-0"><a href='#' id='includeGraduale'><span class='glyphicon glyphicon-check'></span> <span>Graduale</span></a></li>
+          <li class="disabled"><a href='#' id='includeTractus'><span class='glyphicon glyphicon-check'></span> <span>Tractus</span></a></li>
+          <li class="disabled"><a href='#' id='includeAlleluia'><span class='glyphicon glyphicon-check'></span> <span>Alleluia</span></a></li>
+          <li class="disabled"><a href='#' id='includeSequentia'><span class='glyphicon glyphicon-check'></span> <span>Sequentia</span></a></li>
+          <li class="disabled"><a href='#' id='includeOffertorium'><span class='glyphicon glyphicon-check'></span> <span>Offertorium</span></a></li>
+          <li class="disabled"><a href='#' id='includeCommunio'><span class='glyphicon glyphicon-check'></span> <span>Communio</span></a></li>
+          <li class="centered-heading ordinary">Ordinary</li>
+          <li class="disabled ordinary"><a href='#' id='includeAsperges'><span class='glyphicon glyphicon-check'></span> <span>Asperges</span></a></li>
+          <li class="disabled ordinary"><a href='#' id='includeKyrie'><span class='glyphicon glyphicon-check'></span> <span>Kyrie</span></a></li>
+          <li class="disabled ordinary"><a href='#' id='includeGloria'><span class='glyphicon glyphicon-check'></span> <span>Gloria</span></a></li>
+          <li class="disabled ordinary"><a href='#' id='includeCredo'><span class='glyphicon glyphicon-check'></span> <span>Credo</span></a></li>
+          <li class="disabled ordinary"><a href='#' id='includeSanctus'><span class='glyphicon glyphicon-check'></span> <span>Sanctus</span></a></li>
+          <li class="disabled ordinary"><a href='#' id='includeAgnus'><span class='glyphicon glyphicon-check'></span> <span>Agnus</span></a></li>
+          <li class="disabled ordinary"><a href='#' id='includeIte'><span class='glyphicon glyphicon-check'></span> <span>Ite</span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
   <div class='hide-print'>
