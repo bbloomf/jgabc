@@ -2137,7 +2137,6 @@ console.info(JSON.stringify(selPropers));
         delete hash[part];
       });
     }
-    lastHandledHash = location.hash = hash.toString();
     var key = ['sunday','saint','mass','sundayNovus'].reduce(function(result, key){
       return result || (hash[key] && key);
     },'');
