@@ -363,7 +363,10 @@ $(function(){
         }
         gabc = gabc? (header + gabc.slice(header.original.length)) : '';
         sel[part].gabc = gabc;
-        sel[part].originalMode = header.mode;
+        sel[part].mode = sel[part].originalMode = header.mode;
+        if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
+          sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
+        }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
         if(!$selTone.length) {
           sel[part].style = 'full';
@@ -375,7 +378,7 @@ $(function(){
         if($toggleEditMarkings.find('.showHide').hasClass('showing')) {
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
-        if(!sel[part].style.match(/^psalm-tone/)) $toggleEditMarkings.hide();
+        if(!(sel[part].style||'').match(/^psalm-tone/)) $toggleEditMarkings.hide();
       };
       if(id) {
         $.get('gabc/'+id+'.gabc',updateGabc);
@@ -1183,37 +1186,68 @@ $(function(){
         }
       }
     }
-    return result + temp + " (::)\n";
+    return applyLiquescents(result + temp + " (::)\n");
   }
   
   var isAlleluia = function(part,text){
     return part=='alleluia' || (part.match(/^graduale/) && removeDiacritics(text).match(/^allelu[ij]a/i));
   }
 
-  var getFullGloriaPatriGabc = function(part) {
+  var getIntroitTone = function(part) {
     var gabc = part.gabc;
     if(!gabc) return;
     var tone = g_tones['Introit ' + part.mode];
-    var gMediant = tone.mediant;
-    var gTermination = tone.termination;
-    if(!gTermination) {
-      if(!(gTermination = tone.terminations[termination])) {
-        for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
-      }
+    var mediant = tone.mediant;
+    var termination = tone.termination;
+    if(!termination) {
+      termination = mediant;
     }
     var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
     if(clef) {
       clef = clef[1];
       if(clef != tone.clef) {
-        gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
-        gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+        mediant = shiftGabcForClefChange(mediant,clef,tone.clef);
+        termination = shiftGabcForClefChange(termination,clef,tone.clef);
       }
     } else clef = tone.clef;
-    var gAmenTones;
-    var header = getHeader(gabc);
-    gAmenTones = regexGabcGloriaPatri.exec(gabc);
-    if(!gAmenTones) gAmenTones = {index: gabc.length};
-    return gabc.slice(0,gAmenTones.index) + psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
+    return {
+      clef: clef,
+      mediant: mediant,
+      termination: termination,
+    };
+  }
+
+  var getAspergesVerseAndGloriaPatriGabc = function(part) {
+    var gabc = part.gabc;
+    var tone = getIntroitTone(part);
+    if(!tone) return;
+    var lastDoubleBar = gabc.lastIndexOf('(::)');
+    if(lastDoubleBar < 0) throw "no double bar found in gabc: " + gabc;
+    lastDoubleBar += 4;
+    var verse = "Miserére mei Deus,\nsecúndum magnam misericórdiam tuam.".split('\n');
+    return gabc.slice(0,lastDoubleBar) + '<i>Ps.~50.</i> ' + applyLiquescents(applyPsalmTone({
+      text: verse[0],
+      gabc: tone.mediant,
+      clef: tone.clef,
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
+    }) + ' *(:)' + applyPsalmTone({
+      text: verse[1],
+      gabc: tone.termination,
+      clef: tone.clef,
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
+    }) + ' (::)' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,null,tone.clef));
+  }
+
+  var getFullGloriaPatriGabc = function(part) {
+    var gabc = part.gabc;
+    var tone = getIntroitTone(part);
+    if(!tone) return;
+    var amenTones;
+    amenTones = regexGabcGloriaPatri.exec(gabc);
+    if(!amenTones) amenTones = {index: gabc.length};
+    return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
   var getPsalmToneForPart = function(part){
@@ -1886,7 +1920,7 @@ $(function(){
     //update endings for this tone.
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    if(sel[part].style.match(/^psalm-tone/)) {
+    if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + (this.value == sel[part].originalMode? '' : ';' + this.value + (defaultTermination[this.value]||'')));
     }
     sel[part].mode = this.value;
@@ -1906,7 +1940,7 @@ $(function(){
   $('select.endings').change(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    if(sel[part].style.match(/^psalm-tone/)) {
+    if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + ((sel[part].mode == sel[part].originalMode && this.value==defaultTermination[sel[part].mode])? '' : ';' + sel[part].mode + this.value));
     }
     sel[part].termination = this.value;
@@ -1925,7 +1959,7 @@ $(function(){
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    if(sel[part].style.match(/^psalm-tone/) && sel[part].text != this.value) {
+    if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
       updateTextAndChantForPart(part, true);
     } else if(sel[part].style == 'full' && sel[part].gabc != this.value) {
@@ -2199,7 +2233,7 @@ console.info(JSON.stringify(selPropers));
     return gabc;
   }
   function getSpliceForPart(part) {
-    if(sel[part].style.match(/^psalm-tone/)) return [];
+    if((sel[part].style||'').match(/^psalm-tone/)) return [];
     var currentSplice = parseHash()[part+'Splice'];
     currentSplice = (currentSplice && currentSplice.split)? currentSplice.split('|') : [];
     return currentSplice.map(function(s){
