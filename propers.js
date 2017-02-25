@@ -2573,7 +2573,7 @@ console.info(JSON.stringify(selPropers));
         this.classList.add('active');
         $toolbar.appendTo(document.body);
         $toolbar.offset({
-          top: $neume.offset().top + $neume[0].getBBox().height + (isText? 0 : 2),
+          top: $neume.offset().top + $neume[0].getBBox().height + 2,
           left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
         });
       }
