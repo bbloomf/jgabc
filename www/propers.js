@@ -165,7 +165,6 @@ $(function(){
     }
     return m;
   }
-  $('#menu').menu({select: function(e,ui){e.preventDefault();}});
   var partAbbrev = {
     tractus:'Tract.',
     offertorium:'Offert.',
@@ -294,7 +293,7 @@ $(function(){
     var $includePart = $('#include'+capPart);
     $('#lbl'+capPart).find('a').attr('href',id? gregobaseUrlPrefix+id : null);
     if(id || (selDay=='custom' && !isOrdinaryPart)) {
-      $includePart.parent('li').removeClass('ui-state-disabled');
+      $includePart.parent('li').removeClass('disabled');
       var $txt = $('#txt'+capPart);
       $div.show();
       var $sel = $('#sel'+capPart);
@@ -363,7 +362,10 @@ $(function(){
         }
         gabc = gabc? (header + gabc.slice(header.original.length)) : '';
         sel[part].gabc = gabc;
-        sel[part].originalMode = header.mode;
+        sel[part].mode = sel[part].originalMode = header.mode;
+        if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
+          sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
+        }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
         if(!$selTone.length) {
           sel[part].style = 'full';
@@ -375,7 +377,7 @@ $(function(){
         if($toggleEditMarkings.find('.showHide').hasClass('showing')) {
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
-        if(!sel[part].style.match(/^psalm-tone/)) $toggleEditMarkings.hide();
+        if(!(sel[part].style||'').match(/^psalm-tone/)) $toggleEditMarkings.hide();
       };
       if(id) {
         $.get('gabc/'+id+'.gabc',updateGabc);
@@ -388,7 +390,7 @@ $(function(){
       } else {
         $div.hide();
       }
-      $includePart.parent('li').addClass('ui-state-disabled');
+      $includePart.parent('li').addClass('disabled');
     }
   }
   var removeMultipleGraduales = function() {
@@ -468,7 +470,7 @@ $(function(){
       isNovus = true;
       $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
-      $('#btnCalendar').find('span').text('Novus Ordo Calendar');
+      $('#btnCalendar').text('Novus Ordo Calendar');
     }
     clearHash({ sundayNovus: selDay }, selDay);
     updateDayNovus();
@@ -1014,7 +1016,7 @@ $(function(){
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
-              $button.addClass('toggle-mediant');
+              $button.addClass('toggle-mediant btn btn-xs btn-default');
               $button.attr('line', lineNum).attr('seg', segNum);
               $button.click(toggleMediant);
               $button.text(code);
@@ -1183,37 +1185,68 @@ $(function(){
         }
       }
     }
-    return result + temp + " (::)\n";
+    return applyLiquescents(result + temp + " (::)\n");
   }
   
   var isAlleluia = function(part,text){
     return part=='alleluia' || (part.match(/^graduale/) && removeDiacritics(text).match(/^allelu[ij]a/i));
   }
 
-  var getFullGloriaPatriGabc = function(part) {
+  var getIntroitTone = function(part) {
     var gabc = part.gabc;
     if(!gabc) return;
     var tone = g_tones['Introit ' + part.mode];
-    var gMediant = tone.mediant;
-    var gTermination = tone.termination;
-    if(!gTermination) {
-      if(!(gTermination = tone.terminations[termination])) {
-        for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
-      }
+    var mediant = tone.mediant;
+    var termination = tone.termination;
+    if(!termination) {
+      termination = mediant;
     }
     var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
     if(clef) {
       clef = clef[1];
       if(clef != tone.clef) {
-        gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
-        gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+        mediant = shiftGabcForClefChange(mediant,clef,tone.clef);
+        termination = shiftGabcForClefChange(termination,clef,tone.clef);
       }
     } else clef = tone.clef;
-    var gAmenTones;
-    var header = getHeader(gabc);
-    gAmenTones = regexGabcGloriaPatri.exec(gabc);
-    if(!gAmenTones) gAmenTones = {index: gabc.length};
-    return gabc.slice(0,gAmenTones.index) + psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
+    return {
+      clef: clef,
+      mediant: mediant,
+      termination: termination,
+    };
+  }
+
+  var getAspergesVerseAndGloriaPatriGabc = function(part) {
+    var gabc = part.gabc;
+    var tone = getIntroitTone(part);
+    if(!tone) return;
+    var lastDoubleBar = gabc.lastIndexOf('(::)');
+    if(lastDoubleBar < 0) throw "no double bar found in gabc: " + gabc;
+    lastDoubleBar += 4;
+    var verse = "Miserére mei Deus,\nsecúndum magnam misericórdiam tuam.".split('\n');
+    return gabc.slice(0,lastDoubleBar) + '<i>Ps.~50.</i> ' + applyLiquescents(applyPsalmTone({
+      text: verse[0],
+      gabc: tone.mediant,
+      clef: tone.clef,
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
+    }) + ' *(:)' + applyPsalmTone({
+      text: verse[1],
+      gabc: tone.termination,
+      clef: tone.clef,
+      format: bi_formats.gabc,
+      flexEqualsTenor: true
+    }) + ' (::)' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,null,tone.clef));
+  }
+
+  var getFullGloriaPatriGabc = function(part) {
+    var gabc = part.gabc;
+    var tone = getIntroitTone(part);
+    if(!tone) return;
+    var amenTones;
+    amenTones = regexGabcGloriaPatri.exec(gabc);
+    if(!amenTones) amenTones = {index: gabc.length};
+    return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
   var getPsalmToneForPart = function(part){
@@ -1851,18 +1884,18 @@ $(function(){
     addToHash(part, $(this.selectedOptions[0]).attr('default')? false : this.value);
     updatePart(part, this.selectedOptions[0].innerText);
   })
-  $('#btnCalendar').button().click(function(e){
+  $('#btnCalendar').click(function(e){
     var $this = $(this);
     isNovus = !isNovus;
     if(isNovus) {
       $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
-      $this.find('span').text('Novus Ordo Calendar');
+      $this.text('Novus Ordo Calendar');
       $('#selSundayNovus').prop('selectedIndex',0).change();
     } else {
       $('#selSunday,#selSaint,#selMass,#selTempus').show();
       $('#selSundayNovus,#selYearNovus').hide();
-      $this.find('span').text('Traditional Calendar');
+      $this.text('Traditional Calendar');
       $('#selSunday').prop('selectedIndex',0).change();
     }
   });
@@ -1886,7 +1919,7 @@ $(function(){
     //update endings for this tone.
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    if(sel[part].style.match(/^psalm-tone/)) {
+    if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + (this.value == sel[part].originalMode? '' : ';' + this.value + (defaultTermination[this.value]||'')));
     }
     sel[part].mode = this.value;
@@ -1906,7 +1939,7 @@ $(function(){
   $('select.endings').change(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    if(sel[part].style.match(/^psalm-tone/)) {
+    if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + ((sel[part].mode == sel[part].originalMode && this.value==defaultTermination[sel[part].mode])? '' : ';' + sel[part].mode + this.value));
     }
     sel[part].termination = this.value;
@@ -1925,7 +1958,7 @@ $(function(){
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
-    if(sel[part].style.match(/^psalm-tone/) && sel[part].text != this.value) {
+    if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
       updateTextAndChantForPart(part, true);
     } else if(sel[part].style == 'full' && sel[part].gabc != this.value) {
@@ -1943,7 +1976,7 @@ $(function(){
           proper = sel[part],
           gabc = proper.activeGabc || proper.gabc,
           header = getHeader(gabc);
-      if($includePart.parent('li').hasClass('ui-state-disabled') ||
+      if($includePart.parent('li').hasClass('disabled') ||
         includePropers.indexOf(part)<0 ||
         !gabc) return;
       header.name = '';
@@ -1980,18 +2013,19 @@ $(function(){
     includePropers.push(this.id.slice(7).toLowerCase());
   }).click(function(e){
     e.preventDefault();
+    e.stopPropagation();
     var capPart = this.id.slice(7),
         part = capPart.toLowerCase(),
         i = includePropers.indexOf(part),
-        $span = $(this).find('span.ui-icon');
+        $span = $(this).find('span.glyphicon');
     if(i<0) {
       // wasn't included, now it will be:
       includePropers.push(part);
-      $span.show();
+      $span.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
     } else {
       //had been included, now it won't be:
       includePropers.splice(i,1);
-      $span.hide();
+      $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   });
   $('a.toggleShowGabc').attr('href','').click(function(e){
@@ -2103,7 +2137,7 @@ console.info(JSON.stringify(selPropers));
         delete hash[part];
       });
     }
-    lastHandledHash = location.hash = hash.toString();
+    location.hash = hash;
     var key = ['sunday','saint','mass','sundayNovus'].reduce(function(result, key){
       return result || (hash[key] && key);
     },'');
@@ -2130,61 +2164,62 @@ console.info(JSON.stringify(selPropers));
     if(hash) location.hash = (new LocationHash(hash+location.hash)).toString();
   }
   function hashChanged() {
-    if(lastHandledHash === location.hash) return;
-    lastHandledHash = location.hash;
-    allowAddToHash = false;
-    var hash = parseHash();
-    ['sunday', 'sundayNovus', 'saint', 'mass',
-     'tempus', 'yearNovus',
-     'ordinary'].concat(ordinaryParts).reduce(function(result, key) {
-      if(key in hash) {
-        var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
-        if($elem.val() != hash[key]) $elem.val(hash[key]).change();
+    if(lastHandledHash !== location.hash) {
+      lastHandledHash = location.hash;
+      allowAddToHash = false;
+      var hash = parseHash();
+      ['sunday', 'sundayNovus', 'saint', 'mass',
+       'tempus', 'yearNovus',
+       'ordinary'].concat(ordinaryParts).reduce(function(result, key) {
+        if(key in hash) {
+          var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
+          if($elem.val() != hash[key]) $elem.val(hash[key]).change();
+        }
+      }, null);
+      if(hash.mass == 'custom') {
+        $('input.sel-custom').each(function(){
+          var $this=$(this),
+              capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+              part = capPart.toLowerCase();
+          if(hash[part]) {
+            selPropers[part+'ID'] = hash[part];
+            updatePart(part);
+          }
+        });
       }
-    }, null);
-    if(hash.mass == 'custom') {
-      $('input.sel-custom').each(function(){
+      $('select[id^=selStyle]').each(function(){
         var $this=$(this),
-            capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
-            part = capPart.toLowerCase();
-        if(hash[part]) {
-          selPropers[part+'ID'] = hash[part];
-          updatePart(part);
+            capPart = this.id.slice(3),
+            part = capPart[0].toLowerCase() + capPart.slice(1),
+            style = hash[part];
+        if(style) {
+          capPart = part.slice(5);
+          part = capPart.toLowerCase();
+          var pattern = hash[part+'Pattern'];
+          if(pattern) {
+            pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
+              return new Array(parseInt(num)).join(',');
+            }).split(';').map(function(seg) {
+              return seg.split(',');
+            });
+            sel[part].pattern = pattern;
+          }
+          styleParts = style.split(';');
+          if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
+          if(styleParts[1]) {
+            var termination = styleParts[1],
+                tone = termination[0],
+                ending = termination.slice(1),
+                $selToneEnding = $('#selToneEnding' + capPart),
+                $selTone = $('#selTone' + capPart);
+            sel[part].overrideTone = tone;
+            sel[part].overrideToneEnding = ending;
+            if($selTone.val() != tone) $selTone.val(tone).change();
+            if($selToneEnding.val() != ending) $selToneEnding.val(ending).change();
+          }
         }
       });
     }
-    $('select[id^=selStyle]').each(function(){
-      var $this=$(this),
-          capPart = this.id.slice(3),
-          part = capPart[0].toLowerCase() + capPart.slice(1),
-          style = hash[part];
-      if(style) {
-        capPart = part.slice(5);
-        part = capPart.toLowerCase();
-        var pattern = hash[part+'Pattern'];
-        if(pattern) {
-          pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
-            return new Array(parseInt(num)).join(',');
-          }).split(';').map(function(seg) {
-            return seg.split(',');
-          });
-          sel[part].pattern = pattern;
-        }
-        styleParts = style.split(';');
-        if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
-        if(styleParts[1]) {
-          var termination = styleParts[1],
-              tone = termination[0],
-              ending = termination.slice(1),
-              $selToneEnding = $('#selToneEnding' + capPart),
-              $selTone = $('#selTone' + capPart);
-          sel[part].overrideTone = tone;
-          sel[part].overrideToneEnding = ending;
-          if($selTone.val() != tone) $selTone.val(tone).change();
-          if($selToneEnding.val() != ending) $selToneEnding.val(ending).change();
-        }
-      }
-    });
     allowAddToHash = true;
   }
   function splicePartGabc(part, gabc) {
@@ -2199,7 +2234,7 @@ console.info(JSON.stringify(selPropers));
     return gabc;
   }
   function getSpliceForPart(part) {
-    if(sel[part].style.match(/^psalm-tone/)) return [];
+    if((sel[part].style||'').match(/^psalm-tone/)) return [];
     var currentSplice = parseHash()[part+'Splice'];
     currentSplice = (currentSplice && currentSplice.split)? currentSplice.split('|') : [];
     return currentSplice.map(function(s){
@@ -2224,6 +2259,7 @@ console.info(JSON.stringify(selPropers));
   function removeChantContextMenus() {
     $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active'); });
     $('.chant-context').remove();
+    $('.btn-group.open').removeClass('open');
   }
   function getNoteProperties(note) {
     var neume = note.neume;
@@ -2454,11 +2490,14 @@ console.info(JSON.stringify(selPropers));
   $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
+  }).on('click', '[data-toggle="dropdown"]', function(e) {
+    $(this).parent('.btn-group').toggleClass('open');
+    e.stopPropagation();
   }).on('click', '[part] button.remove-modifications', function(e) {
     var $part = $(this).parents('[part]'),
         part = $part.attr('part');
     removeSplicesForPart(part);
-  }).on('click', '[part].full use[source-index],[part] text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap)', function(e) {
     var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
     e.stopPropagation();
@@ -2510,32 +2549,32 @@ console.info(JSON.stringify(selPropers));
           break;
       }
       if(noteProperties.acceptsBarBefore || noteProperties.acceptsBarAfter || noteProperties.isRepeatedNote || noteProperties.hasEpisemata || noteProperties.hasMorae) {
-        var $toolbar = $('<div>').addClass('chant-context');
+        var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
         if(noteProperties.acceptsBarBefore) {
-          $toolbar.append($('<button>').text((noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar Before').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
-          if(noteProperties.hasBarBefore) $toolbar.append($('<button>').text('Add CO <-').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
         }
         if(noteProperties.acceptsBarAfter) {
-          $toolbar.append($('<button>').text((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar After').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
-          if(noteProperties.hasBarAfter) $toolbar.append($('<button>').text('Add CO ->').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').addClass('btn btn-default').html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-default').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
         }
         if(noteProperties.isRepeatedNote)
-          $toolbar.append($('<button>').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').addClass('btn btn-default').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange));
         if(noteProperties.hasEpisemata) {
-          $toolbar.append($('<button>').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').addClass('btn btn-default').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange));
           if(noteProperties.isTorculus) {
-            $toolbar.append($('<button>').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange).button());
-            $toolbar.append($('<button>').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange).button());
-            $toolbar.append($('<button>').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange).button());
-            $toolbar.append($('<button>').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange).button());
+            $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-default').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-default').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange));
           }
         }
         if(noteProperties.hasMorae)
-          $toolbar.append($('<button>').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange).button());
+          $toolbar.append($('<button>').addClass('btn btn-default').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
         this.classList.add('active');
         $toolbar.appendTo(document.body);
-        $toolbar.buttonset().offset({
-          top: $neume.offset().top + $neume[0].getBBox().height + (isText? 0 : 2),
+        $toolbar.offset({
+          top: $neume.offset().top + $neume[0].getBBox().height + 2,
           left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
         });
       }
