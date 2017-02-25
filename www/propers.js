@@ -2331,6 +2331,8 @@ console.info(JSON.stringify(selPropers));
           var properties = getNoteProperties(note);
           if(properties.isRepeatedNote || properties.hasEpisemata || properties.hasMorae || properties.acceptsBarBefore || properties.acceptsBarAfter) {
             $current[0].classList.add('active');
+            properties.$note = $current;
+            properties.$neume = $notation;
             return properties;
           }
         }
@@ -2551,30 +2553,33 @@ console.info(JSON.stringify(selPropers));
       if(noteProperties.acceptsBarBefore || noteProperties.acceptsBarAfter || noteProperties.isRepeatedNote || noteProperties.hasEpisemata || noteProperties.hasMorae) {
         var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
         if(noteProperties.acceptsBarBefore) {
-          $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
-          if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
         }
         if(noteProperties.acceptsBarAfter) {
-          $toolbar.append($('<button>').addClass('btn btn-default').html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
-          if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-default').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
+          if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
         }
         if(noteProperties.isRepeatedNote)
-          $toolbar.append($('<button>').addClass('btn btn-default').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange));
         if(noteProperties.hasEpisemata) {
-          $toolbar.append($('<button>').addClass('btn btn-default').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange));
           if(noteProperties.isTorculus) {
-            $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange));
-            $toolbar.append($('<button>').addClass('btn btn-default').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange));
-            $toolbar.append($('<button>').addClass('btn btn-default').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange));
-            $toolbar.append($('<button>').addClass('btn btn-default').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-primary').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange));
+            $toolbar.append($('<button>').addClass('btn btn-primary').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange));
           }
         }
         if(noteProperties.hasMorae)
-          $toolbar.append($('<button>').addClass('btn btn-default').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
         this.classList.add('active');
         $toolbar.appendTo(document.body);
+        var $neume = (noteProperties.$neume || $neume.parent()),
+            staffTop = $neume.parent().offset().top,
+            neumeTop = $neume.offset().top - 4;
         $toolbar.offset({
-          top: $neume.offset().top + $neume[0].getBBox().height + 2,
+          top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
           left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
         });
       }
