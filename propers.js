@@ -292,6 +292,7 @@ $(function(){
     }
     var $includePart = $('#include'+capPart);
     $('#lbl'+capPart).find('a').attr('href',id? gregobaseUrlPrefix+id : null);
+    $div.toggleClass('showing-chant', id && id != 'no');
     if(id || (selDay=='custom' && !isOrdinaryPart)) {
       $includePart.parent('li').removeClass('disabled');
       var $txt = $('#txt'+capPart);
