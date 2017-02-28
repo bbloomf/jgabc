@@ -10,6 +10,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   kyrie:{},
   gloria:{},
   credo:{},
+  preface:{},
   sanctus:{},
   agnus:{},
   ite:{}
@@ -292,6 +293,7 @@ $(function(){
     }
     var $includePart = $('#include'+capPart);
     $('#lbl'+capPart).find('a').attr('href',id? gregobaseUrlPrefix+id : null);
+    $div.toggleClass('showing-chant', !!(id && id != 'no'));
     if(id || (selDay=='custom' && !isOrdinaryPart)) {
       $includePart.parent('li').removeClass('disabled');
       var $txt = $('#txt'+capPart);
@@ -577,7 +579,7 @@ $(function(){
     addToHash('tempus', selTempus);
     updateDay();
   };
-  var ordinaryParts = ['asperges','kyrie','gloria','credo','sanctus','agnus','ite'];
+  var ordinaryParts = ['asperges','kyrie','gloria','credo','preface','sanctus','agnus','ite'];
   var selectedOrdinary = function(e){
     selOrdinary = $(this).val();
     addToHash('ordinary', selOrdinary);
@@ -618,12 +620,19 @@ $(function(){
         return result;
       }, temp);
       options.push(massOrdinary.reduce(function(result,mass){
-        var p = mass[part];
-        if(!p) return result;
-        if(p.constructor != [].constructor) p = [p];
-        p.forEach(function(one){
-          if(!(one.id in temp)) result.push(one);
-        });
+        var parts = [part];
+        if(part == 'ite') parts.push('benedicamus');
+        for(var i = 0; i < parts.length; ++i) {
+          var p = mass[parts[i]];
+          if(!p) continue;
+          if(p.constructor != [].constructor) p = [p];
+          p.forEach(function(one){
+            if(!(one.id in temp)) {
+              result.push(one);
+              temp[one.id] = one;
+            }
+          });
+        }
         return result;
       }, []));
       var labelArray = [massName, 'Ad Libitum', 'Masses'];
