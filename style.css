@@ -90,7 +90,7 @@ tspan.selectable{
 }
 @media screen and (max-width: 768px) {
   .hide-ss {
-    display: none;
+    display: none!important;
   }
   .flex {
     -webkit-display: flex;
