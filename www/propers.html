@@ -219,6 +219,9 @@ div.chant-context {
 [part] text[source-index].active [style*="fill:#f00;"] {
   fill: #337ab7!important;
 }
+.cordova-only {
+  display: none;
+}
 </style>
 <body class='sans' style="margin:8px;">
   <form id="pdfForm" target="_blank" method="get" action="http://apps.illuminarepublications.com/gregorio/">
@@ -243,10 +246,11 @@ div.chant-context {
       <li role="presentation" class="active"><a>Propers Tool</a></li>
       <li role="presentation"><a href="faq.html">(About)</a></li>
     </ul>
-    <div style="float:right" class="btn-group hide-ss" role="group">
+    <div style="float:right;margin-left:8px" class="btn-group hide-ss" role="group">
       <a class='btn btn-xs btn-primary' href='#' id='lnkPdfDirect'>PDF</a>
       <a class='btn btn-xs btn-default' href='#' id='lnkPdf'>Further PDF options</a>
     </div>
+    <a style="float:right" class="cordova-only btn btn-sm btn-primary" href="#" id="shareUrl"><span class='glyphicon glyphicon-share'></span> Share Current Settings</a>
   </div>
   <div class='hide-print'>
     <button id='btnCalendar' class='btn btn-default' value='traditional' style='button'>Traditional Calendar</button>
