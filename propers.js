@@ -2245,7 +2245,7 @@ console.info(JSON.stringify(selPropers));
   function getSpliceForPart(part) {
     if((sel[part].style||'').match(/^psalm-tone/)) return [];
     var currentSplice = parseHash()[part+'Splice'];
-    currentSplice = (currentSplice && currentSplice.split)? currentSplice.split('|') : [];
+    currentSplice = (currentSplice && currentSplice.split)? currentSplice.replace(/&/g,' ').split('|') : [];
     return currentSplice.map(function(s){
       var a = s.split('/');
       return {index: parseInt(a[0]), removeLen: parseInt(a[1]), addString: a[2]};
@@ -2256,7 +2256,7 @@ console.info(JSON.stringify(selPropers));
     splices = currentSplice.concat(splices);
     splices = splices.map(function(t){
       return [t.index, t.removeLen, t.addString||''].join('/');
-    }).join('|');
+    }).join('|').replace(/ /g,'&');
     addToHash(part+'Splice',splices);
   }
   function removeSplicesForPart(part) {
