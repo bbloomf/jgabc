@@ -61,7 +61,7 @@ var latin = window.Hypher.languages.la_VA;
                       }
                     });
                     //content = content.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/AE/,'Æ').replace(/OE/,'Œ');
-                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*([A-ZŒÆÁÉÍÓÚÝǼ]{3}\([^)]*\)\s+|[A-ZŒÆÁÉÍÓÚÝǼ]{2}(?:\([^)]*\))?|[A-ZŒÆÁÉÍÓÚÝǼ]\([^)]*\)))((?:[A-ZŒÆÁÉÍÓÚÝǼ]+[\.,;:]?\([^)]*\))*)/,
+                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*([A-ZŒÆÁÉÍÓÚÝǼ]{3}[:,;!.]?\([^)]*\)\s+|[A-ZŒÆÁÉÍÓÚÝǼ]{2}(?:\([^)]*\))?|[A-ZŒÆÁÉÍÓÚÝǼ]\([^)]*\)))((?:[A-ZŒÆÁÉÍÓÚÝǼ]+[\.,;:]?\([^)]*\))*)/,
                       function(match,beginning,context,replacePart) {
                         var replacement = replacePart.replace(/([A-ZŒÆÁÉÍÓÚÝǼ]+[\.,;:]?)(\([^)]*\))/g, function(whole, lyric, gabc) {
                           return lyric.toLowerCase() + gabc;

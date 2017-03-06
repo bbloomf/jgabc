@@ -977,6 +977,7 @@ function getGabcTones(gabc,prefix,flexEqualsTenor,clef) {
     if(ton.accent) {
       ++accents;
       state = 1;
+      preparatory = 0;
       if(lastOpen) {
         lastOpen = undefined;
       } else if(tones[i-1].open) {
