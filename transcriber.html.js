@@ -15,38 +15,90 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
       newLines = 0,
       elisionOn=0,
       elisionGabc,
-      cSyl, cGabc,
-      useElisionGabc=$("#cbElisionHasNote")[0].checked;
+      i, cSyl, cGabc,
+      useElisionGabc=$("#cbElisionHasNote").prop('checked'),
+      multipleVerses=$("#cbMultipleVerses").prop('checked') && repeat;
   if(!mapOffset){
     mapOffset=0;
   } else {
     ++mapOffset;
   }
   localStorage.elisionHasNote=useElisionGabc;
-  for(var i = 0; i < syl.length; ++i) {
+  if(multipleVerses) {
+    var originalSyl = syl;
+    syl = [];
+    var firstPass = true;
+    var iS = 0;
+    for(i = 0; i < originalSyl.length; ++i) {
+      cSyl = originalSyl[i];
+      cGabc = gSyl[iG++]||emptyGabc;
+      if(cGabc.isClef && (iG==1||i>0)){
+        cGabc = gSyl[iG++]||emptyGabc;
+      }
+      
+      if(firstPass) {
+        syl[i] = [cSyl];
+      } else {
+        cSyl.syl = cSyl.syl.replace(/^\s+/,'');
+        if(cSyl.elision != syl[iS][0].elision) {
+          if(cSyl.elision) {
+            syl.splice(iS,0,cSyl);
+          } else {
+            syl[++iS].push(cSyl);
+          }
+        } else {
+          syl[iS].push(cSyl);
+        }
+        ++iS;
+      }
+      if(cSyl.elision) --iG;
+      if(iG >= gSyl.length) {
+        iG = iS = 0;
+        firstPass = false;
+      }
+      cGabc = gSyl[iG]||emptyGabc;
+      while(!cGabc.hasSyllable) {
+        ++iG;
+        if(iG >= gSyl.length && gSyl.length > 1) {
+          iG = iS = 0;
+          firstPass = false;
+        }
+        cGabc = gSyl[iG]||emptyGabc;
+      }
+    }
+  }
+  iG = 0;
+  for(i = 0; i < syl.length; ++i) {
     if(newLines > 0) {
       result+="\n".repeat(newLines);
       newLines = 0;
     }
     cSyl = syl[i];
     if(!elisionOn) cGabc = gSyl[iG++]||emptyGabc;
-    if(cGabc.isClef){
-      if(iG==1||i>0){
-        _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
-        result+=cGabc.gabc;
-        cGabc = gSyl[iG++]||emptyGabc;
-      }
+    if(cGabc.isClef && (iG==1||i>0)){
+      _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
+      result+=cGabc.gabc;
+      cGabc = gSyl[iG++]||emptyGabc;
     }
-    result+=cSyl.syl;
-    if(cSyl.punctuation.length > 0) {
-      if(cSyl.space && cSyl.punctuation.match(/(^|[^\\])\\$/)) {
-        //if it ends with exactly one backslash, consider the following space as part of this syllable:
-        if(cSyl.punctuation.length>1) result+=cSyl.punctuation.slice(0,-1);
-        --iG;
-        continue;
+    if(!multipleVerses) cSyl = [cSyl];
+    for(var j = 0; j < cSyl.length; ++j) {
+      var curSyl = cSyl[j];
+      if(j > 0) {
+        result+='|';
       }
-      result+=cSyl.punctuation;
+      result+=curSyl.syl;
+      if(curSyl.punctuation.length > 0) {
+        if(curSyl.space && curSyl.punctuation.match(/(^|[^\\])\\$/)) {
+          //if it ends with exactly one backslash, consider the following space as part of this syllable:
+          if(curSyl.punctuation.length>1) result+=curSyl.punctuation.slice(0,-1);
+          --iG;
+          continue;
+        }
+        result+=curSyl.punctuation;
+      }
+      if(j>0 && (curSyl.space||curSyl.punctuation)) result += ' ';
     }
+    cSyl = cSyl[0];
     if(cSyl.syl) {
       if(cSyl.elision) {
         if(useElisionGabc) {
@@ -124,7 +176,7 @@ function updateEditor() {
   var count = Math.min(gsCount,sCount);
   var maxCount = Math.max(gsCount,sCount);
   var header = getHeader(localStorage.transcribeHeader||'');
-  header["initial-style"] = (syl[0] && syl[0][0] && !syl[0][0].all.match(/^[A-Z]/))? 0 : 1;
+  header["initial-style"] = (syl[0] && syl[0][0] && !syl[0][0].all.match(/^[A-Z]/))? '0' : '1';
   var headerString = header.toString();
   var $gabc = $("#hymngabc");
   if($gabc.is(":visible")){
@@ -460,6 +512,7 @@ $(function() {
   $("#hymntext").keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
+  $("#cbMultipleVerses").click(updateText);
   $("#selLanguage").change(selLanguageChanged);
   var getGabc = function(){
     var gabc = $('#editor').val(),
