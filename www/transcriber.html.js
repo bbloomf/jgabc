@@ -483,6 +483,7 @@ function windowResized(){
   $cp.height(totalHeight - edHeight);
   $ed.height(edHeight);
   $("#blankSpace").height(Math.max($("#oneBox").height(),$("#twoBoxes").height()));
+  exsurge.layoutMyChant();
 }
 
 function toggleMode(e){
@@ -575,6 +576,7 @@ $(function() {
     layoutChant();
   });
   function layoutChant() {
+    if(!score) return;
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
       score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
