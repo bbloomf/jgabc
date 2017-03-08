@@ -7,6 +7,7 @@ var emptyGabc={gabc:'()',hasSyllable:true};
 var emptySyl={syl:'',punctuation:''};
 var emptySylElision=$.extend({elision:1},emptySyl);
 var _hymnGabcMap=[];
+//TODO: have an option to use a regular * instead of <v>\greheightstar</v>
 var gabcStar;
 function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
   var result = "",
@@ -208,7 +209,7 @@ function updateEditor() {
     result += applyGabc(syl[i],gSyl[i],i<maxCount-1,result.length,headerString.length) + '\n';
   }
   $("#editor").val(result)
-    .off("keyup",updateBoth)
+    .unbind("keyup",updateBoth)
     .keyup()
     .keyup(updateBoth);
   updateLocalHeader();
@@ -544,65 +545,6 @@ $(function() {
     $("#pdfFormDirect").submit();
   });
   setGabcLinkSelector("#lnkDownloadGabc");
-
-  var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
-  ctxt.lyricTextFont = "'Crimson Text', serif";
-  ctxt.lyricTextSize *= 1.2;
-  ctxt.dropCapTextFont = ctxt.lyricTextFont;
-  ctxt.annotationTextFont = ctxt.lyricTextFont;
-  var chantContainer = $('#chant-preview')[0];
-  var score;
-  $('#editor').keyup(function(){
-    updateLinks(this.value);
-    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
-      .replace(/<b><\/b>/g,'')
-      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
-      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
-      .replace(/<v>\\greheightstar<\/v>/g,'*')
-      .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}')
-      .replace(/<\/?sc>/g,'%')
-      .replace(/<\/?b>/g,'*')
-      .replace(/<\/?i>/g,'_')
-        .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
-        .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
-    var header = getHeader(this.value);
-    var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
-    score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
-    if(header['initial-style']!=='0' && header.annotation) {
-      score.annotation = new exsurge.Annotation(ctxt, header.annotation);
-    }
-    layoutChant();
-  });
-  function layoutChant() {
-    // perform layout on the chant
-    score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
-        // render the score to svg code
-        chantContainer.innerHTML = score.createSvg(ctxt);
-      });
-    });
-  }
-  function layoutChantSync() {
-    // perform layout on the chant
-    score.performLayout(ctxt);
-    score.layoutChantLines(ctxt, chantContainer.clientWidth);
-    // render the score to svg code
-    chantContainer.innerHTML = score.createSvgForEachLine(ctxt);
-  }
-  exsurge.layoutMyChant = layoutChant;
-  if (window.matchMedia) {
-    var mediaQueryList = window.matchMedia('print');
-    mediaQueryList.addListener(function(mql) {
-      if (mql.matches) {
-        layoutChantSync();
-      } else {
-        layoutChantSync();
-      }
-    });
-  }
-  window.onbeforeprint = layoutChantSync;
-  window.onafterprint = layoutChantSync;
-
   windowResized();
   updateEditor();
 });

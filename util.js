@@ -11,6 +11,45 @@ function decode_utf8( s )
   return decodeURIComponent( escape( s ) );
 }
 
+var regexToneModifiers = /(')|(\.{1,2})|(_{1,4}0?)/g
+var regexTones = new RegExp("([/ ,;:`]+)|((?:[fF]|[cC][bB]?)[1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])|(\\+))?((?:" + regexToneModifiers.source.replace(/\((?!\?:)/g,"(?:") + ")*)(?:\\[([^\\]]*)(?:]|$))?|(z0))","g");
+//                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)                                )*)|(z0))|\[([^\]]*)(?:\]|$)
+//                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)
+var regexTonesSpliceIndex=27;
+var regexToneModifiersCount = 4;
+var rtg = {
+  whitespace: 1,
+  clef: 2,
+  initioDebilis: 3,
+  tone: 4,
+  toneUpper: 5, // diamond
+  toneLower: 6,
+  noteType: 7,      // (([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|([oO])|([xy])|(q)]|(R|r0|r(?![1-5]))|(r[1-5])|(\+))
+  virga: 8,        // [Vv]{1,3}
+  stropha: 9,      // s{1,3}
+  liquescentia: 10,      // [<>~]
+  ascendingLiquescentia: 11,  // <
+  descendingLiquescentia: 12,  // >
+  diminutiveLiquescentia: 13,  // ~
+  quilisma: 14,      // w
+  oriscus: 15,      // o
+  oriscusReverse: 16,    // O
+  accidental: 17,      // [xy]
+  flat: 18,        // x
+  natural: 19,      // y
+  q: 20,        // q
+  lineaPunctum: 22,      // R
+  lineaPunctumCavum: 23,    // r0
+  punctumCavum: 24,      // r
+  rNumber: 25,      // r[1-5]
+  custos: 26,       // \+
+  ictus: 27,        // (')
+  dot: 28,          // (\.{1,2})
+  episema: 29,      // ((?:_0?)){1,4})
+  bracketed: 30,     // [text]
+  autoCustos: 31    // z0
+};
+
 function setPdfLinkSelector(sel){
   linkSelector=sel;
 };
