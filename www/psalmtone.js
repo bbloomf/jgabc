@@ -845,6 +845,10 @@ function applyPsalmTone(options) {
             italic = (tones[ti-1] && !tones[ti-1].open && !tones[ti-1].accent);
           }
         }
+        if(italic && ti>2 && tones[ti-1].open && tones[ti-2].accent) {
+          // if this is the end of a series of unaccented syllables following a prior accent, we don't want to mark it:
+          italic = false;
+        }
         if(italic) {
           if(onlyVowel) {
             if(ti>0 && tones[ti-1].open && (vow = regexVowel.exec(s.syl))) {
