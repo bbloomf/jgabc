@@ -4,8 +4,7 @@ var hy_options = {
 //var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
   var regexGabc = /(((?:([`,;:]\d*z?)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.|$))/ig;
 var emptyGabc={gabc:'()',hasSyllable:true};
-var emptySyl={syl:'',punctuation:''};
-var emptySylElision=$.extend({elision:1},emptySyl);
+var emptySylElision={syl:'',punctuation:'',elision:1};
 var _hymnGabcMap=[];
 var gabcStar;
 function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
@@ -41,20 +40,22 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
         syl[i] = [cSyl];
       } else {
         cSyl.syl = cSyl.syl.replace(/^\s+/,'');
-        if(cSyl.elision != syl[iS][0].elision) {
-          if(cSyl.elision) {
-            syl.splice(iS,0,[]);
-            for(var j=passNum; j>0; --j) {
-              syl[iS].push(emptySylElision);
+        if(cSyl.syl) {
+          if(cSyl.elision != syl[iS][0].elision) {
+            if(cSyl.elision) {
+              syl.splice(iS,0,[]);
+              for(var j=passNum; j>0; --j) {
+                syl[iS].push(emptySylElision);
+              }
+            } else {
+              syl[iS++].push(emptySylElision);
             }
-          } else {
-            syl[iS++].push(emptySyl);
           }
+          syl[iS].push(cSyl);
+          ++iS;
         }
-        syl[iS].push(cSyl);
-        ++iS;
       }
-      if(cSyl.elision) --iG;
+      if(cSyl.elision || !cSyl.syl) --iG;
       if(iG >= gSyl.length) {
         iG = iS = 0;
         ++passNum;
@@ -102,7 +103,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
       if(j>0 && (curSyl.space||curSyl.punctuation)) result += ' ';
     }
     cSyl = cSyl[0];
-    if(cSyl.syl) {
+    if(cSyl.syl || cSyl === emptySylElision) {
       if(cSyl.elision) {
         if(useElisionGabc) {
           if(!cGabc.tones || cGabc.tones.length<=1) {
