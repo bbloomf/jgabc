@@ -500,6 +500,24 @@ function updateGabcStar(newStar){
   localStorage.gabcStar = gabcStar = newStar;
   updateEditor(true);
 }
+function saveAsPng(name, dpi) {
+  saveSvgAsPng($('#chant-preview').find('svg')[0], name, {scale: dpi / 96});
+}
+function getName() {
+  var gabc = $('#editor').val(),
+    header = getHeader(gabc);
+  return header.name || 'Untitled';
+}
+function savePng(e) {
+  if(e && e.preventDefault) e.preventDefault();
+  name = getName() + '.png';
+  saveAsPng(name, 300);
+}
+function saveAsSvg(e) {
+  if(e && e.preventDefault) e.preventDefault();
+  name = getName() + '.svg';
+  saveSvg($('#chant-preview').find('svg')[0], name);
+}
 $(function() {
   if(localStorage.gabcStar) {
     gabcStar = localStorage.gabcStar;
@@ -519,6 +537,8 @@ $(function() {
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
   $("#cbMultipleVerses").click(updateText);
   $("#selLanguage").change(selLanguageChanged);
+  $("#lnkDownloadPng").click(savePng);
+  $("#lnkDownloadSvg").click(saveAsSvg);
   var getGabc = function(){
     var gabc = $('#editor').val(),
         header = getHeader(gabc);
