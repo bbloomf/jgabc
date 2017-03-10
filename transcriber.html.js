@@ -501,22 +501,34 @@ function updateGabcStar(newStar){
   updateEditor(true);
 }
 function saveAsPng(name, dpi) {
-  saveSvgAsPng($('#chant-preview').find('svg')[0], name, {scale: dpi / 96});
+  saveSvgAsPng(exportChant(), name, {scale: dpi / 96});
 }
-function getName() {
+function saveAsPngs(name, dpi) {
+  var lines = exportChant(true);
+  for(var i = 0; i < lines.length; ++i) {
+    saveSvgAsPng(lines[i], name.replace(/\.png$/,'-' + (i+1) + '.png'), {scale: dpi / 96});
+  }
+}
+function currentHeader() {
   var gabc = $('#editor').val(),
     header = getHeader(gabc);
-  return header.name || 'Untitled';
+  header.name = header.name || 'Untitled';
+  return header;
 }
 function savePng(e) {
   if(e && e.preventDefault) e.preventDefault();
-  name = getName() + '.png';
-  saveAsPng(name, 300);
+  var header = currentHeader();
+  name = header.name + '.png';
+  var dpi = parseInt(header.dpi) || 300;
+  console.info(e);
+  if(e.metaKey || e.ctrlKey) saveAsPngs(name, dpi);
+    else saveAsPng(name, dpi);
 }
 function saveAsSvg(e) {
   if(e && e.preventDefault) e.preventDefault();
-  name = getName() + '.svg';
-  saveSvg($('#chant-preview').find('svg')[0], name);
+  var header = currentHeader();
+  name = header.name + '.svg';
+  saveSvg(exportChant(), name);
 }
 $(function() {
   if(localStorage.gabcStar) {
@@ -572,11 +584,15 @@ $(function() {
   ctxt.lyricTextSize *= 1.2;
   ctxt.dropCapTextFont = ctxt.lyricTextFont;
   ctxt.annotationTextFont = ctxt.lyricTextFont;
+  var exportContext = new exsurge.ChantContext();
+  exportContext.lyricTextFont = "'Crimson Text', serif";
+  exportContext.lyricTextSize *= 1.2;
+  exportContext.dropCapTextFont = exportContext.lyricTextFont;
+  exportContext.annotationTextFont = exportContext.lyricTextFont;
   var chantContainer = $('#chant-preview')[0];
   var score;
-  $('#editor').keyup(function(){
-    updateLinks(this.value);
-    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+  function gabcToExsurge(gabc) {
+    return gabc.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
@@ -587,6 +603,10 @@ $(function() {
       .replace(/<\/?i>/g,'_')
         .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
         .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
+  }
+  $('#editor').keyup(function(){
+    updateLinks(this.value);
+    var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
     score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
@@ -595,6 +615,37 @@ $(function() {
     }
     layoutChant();
   });
+  window.exportChant = function(eachLine) {
+    var gabc = $('#editor').val(),
+        code = gabcToExsurge(gabc),
+        header = getHeader(gabc),
+        mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
+        score = new exsurge.ChantScore(exportContext, mappings, header['intital-style']!=='0');
+    if(header['initial-style']!=='0' && header.annotation) {
+      score.annotation = new exsurge.Annotation(exportContext, header.annotation);
+    }
+    var width = header.width || header.cValues.width;
+    var match = width && width.match(/(\d+(?:\.\d+)?)(in|(([mc]?)m))?/);
+    if(match) {
+      width = parseFloat(match[1]);
+      if(match[3]) {
+        var divisor = 0.0254;
+        if(match[4]) divisor *= match[4]=='c'? 100 : 1000;
+        width /= divisor;
+      }
+      // width is now in inches!
+    } else {
+      width = 6;
+    }
+    width *= 96;
+    score.performLayout(exportContext);
+    score.layoutChantLines(exportContext, width);
+    if(eachLine) {
+      return score.createSvgNodeForEachLine(exportContext);
+    } else {
+      return score.createSvgNode(exportContext);
+    }
+  }
   function layoutChant() {
     if(!score) return;
     // perform layout on the chant
