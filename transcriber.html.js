@@ -615,15 +615,7 @@ $(function() {
     }
     layoutChant();
   });
-  window.exportChant = function(eachLine) {
-    var gabc = $('#editor').val(),
-        code = gabcToExsurge(gabc),
-        header = getHeader(gabc),
-        mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
-        score = new exsurge.ChantScore(exportContext, mappings, header['intital-style']!=='0');
-    if(header['initial-style']!=='0' && header.annotation) {
-      score.annotation = new exsurge.Annotation(exportContext, header.annotation);
-    }
+  function getWidthInPixels(header) {
     var width = header.width || header.cValues.width;
     var match = width && width.match(/(\d+(?:\.\d+)?)(in|(([mc]?)m))?/);
     if(match) {
@@ -635,9 +627,21 @@ $(function() {
       }
       // width is now in inches!
     } else {
-      width = 6;
+      return null;
     }
     width *= 96;
+    return width;
+  }
+  window.exportChant = function(eachLine) {
+    var gabc = $('#editor').val(),
+        code = gabcToExsurge(gabc),
+        header = getHeader(gabc),
+        mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
+        score = new exsurge.ChantScore(exportContext, mappings, header['intital-style']!=='0');
+    if(header['initial-style']!=='0' && header.annotation) {
+      score.annotation = new exsurge.Annotation(exportContext, header.annotation);
+    }
+    var width = getWidthInPixels(header) || 6 * 96;
     score.performLayout(exportContext);
     score.layoutChantLines(exportContext, width);
     if(eachLine) {
@@ -650,9 +654,19 @@ $(function() {
     if(!score) return;
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+      var width = getWidthInPixels(currentHeader());
+      var responsiveSVG = !!width;
+      if(!width) width = chantContainer.clientWidth;
+      score.layoutChantLines(ctxt, width, function() {
         // render the score to svg code
-        chantContainer.innerHTML = score.createSvg(ctxt);
+        var svg = score.createSvgNode(ctxt);
+        if(responsiveSVG) {
+          svg.removeAttribute('width');
+          svg.removeAttribute('height');
+        } else {
+          svg.removeAttribute('viewBox');
+        }
+        $(chantContainer).empty().append(svg);
       });
     });
   }
