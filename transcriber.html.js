@@ -519,7 +519,7 @@ function savePng(e) {
   if(e && e.preventDefault) e.preventDefault();
   var header = currentHeader();
   name = header.name + '.png';
-  var dpi = parseInt(header.dpi) || 300;
+  var dpi = parseInt(header.dpi || header.cValues.dpi) || 300;
   console.info(e);
   if(e.metaKey || e.ctrlKey) saveAsPngs(name, dpi);
     else saveAsPng(name, dpi);
