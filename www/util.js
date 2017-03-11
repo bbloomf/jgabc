@@ -79,7 +79,8 @@ function updateLinks(text){
       var filename = header.name||"Untitled";
       if(!filename.match(/\.gabc$/))filename += ".gabc";
       $(linkDownloadSelector).attr("charset","UTF-8")
-        .attr("href",url)
+        .prop("href",url)
+        .prop("download",filename)
         .attr("data-downloadurl","text/plain:"+filename+":"+url);
     }
   } catch(e) {

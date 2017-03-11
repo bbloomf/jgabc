@@ -1693,7 +1693,9 @@ $(function(){
       score.performLayoutAsync(ctxt, function() {
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
-          chantContainer.empty().append(score.createSvgNode(ctxt));
+          var svg = score.createSvgNode(ctxt);
+          svg.removeAttribute('viewBox');
+          chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
           };
