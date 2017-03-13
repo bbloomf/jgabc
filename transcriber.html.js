@@ -608,8 +608,8 @@ $(function() {
     updateLinks(this.value);
     var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
-    ctxt.dropCapTextColor = header.dropCapTextColor || header.cValues.dropCapTextColor || '#000';
-    ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
+    exportContext.dropCapTextColor = ctxt.dropCapTextColor = header.dropCapTextColor || header.cValues.dropCapTextColor || '#000';
+    exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
     score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
