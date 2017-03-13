@@ -659,7 +659,7 @@ $(function(){
         });
         $optGroup.appendTo($select);
       });
-      if(part == 'asperges') {
+      if(part == 'asperges' || part == 'preface' || part == 'credo') {
         $select.val(selectVal);
       }
       $select.change();
