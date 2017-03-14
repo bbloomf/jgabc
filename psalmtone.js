@@ -421,7 +421,7 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[7] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
+        tmp[7] = m[8] + (m[9]||'').replace(/\s+(†|\*)/, ' $1');
         tmp[8]=" ";
         tmp[9]=m[10];
         if(ai.length) tmp[6]='*';
@@ -535,7 +535,7 @@ function syllable(match,index,bi) {
             cTags: cTags,
             elision: elision,
             flex: match[7] && match[7].match(/†$/),
-            mediant: match[8] && match[8].match(/\*$/)
+            mediant: match[7] && match[7].match(/\*$/)
     };
   }
 }
