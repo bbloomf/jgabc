@@ -1,18 +1,4 @@
 @font-face {
-  font-family: 'CaeciliaeStaffless';
-  font-style: normal;
-  font-weight: normal;
-  src: url('caeciliae-staffless-webfont.eot');
-  src: url('caeciliae-staffless-webfont.eot?#iefix') format('embedded-opentype'),
-    url('caeciliae-staffless-webfont.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'CaeciliaeStaffless-Print';
-  font-style: normal;
-  font-weight: normal;
-  src: url('caeciliae-staffless-print.ttf') format('truetype');
-}
-@font-face {
     font-family: 'Crimson Text';
     src: url('fonts/crimson-bold-webfont.woff2') format('woff2'),
          url('fonts/crimson-bold-webfont.woff') format('woff');

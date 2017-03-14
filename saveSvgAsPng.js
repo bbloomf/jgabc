@@ -1,7 +1,7 @@
 //from https://github.com/exupero/saveSvgAsPng
 (function() {
   var out$ = typeof exports != 'undefined' && exports || typeof define != 'undefined' && {} || this;
-
+  var downloadSupported = 'download' in document.createElement('a');
   var doctype = '<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [<!ENTITY nbsp "&#160;">]>';
 
   function isElement(obj) {
@@ -408,7 +408,12 @@
     }
   }
 
-  out$.download = function(name, uri) {
+  function getPreWindowRef() {
+    if(!(navigator.msSaveOrOpenBlob || downloadSupported)) return window.open('about:blank', '_temp', 'menubar=no,toolbar=no,status=no');
+    return null;
+  }
+
+  out$.download = function(name, uri, windowRef) {
     if (navigator.msSaveOrOpenBlob) {
       navigator.msSaveOrOpenBlob(uriToBlob(uri), name);
     } else {
@@ -423,7 +428,7 @@
         document.body.removeChild(saveLink);
       }
       else {
-        window.open(uri, '_temp', 'menubar=no,toolbar=no,status=no');
+        windowRef.location = uri;
       }
     }
   }
@@ -443,8 +448,9 @@
     requireDomNode(el);
 
     options = options || {};
+    var windowRef = getPreWindowRef();
     out$.svgAsDataUri(el, options, function(uri) {
-      out$.download(name, uri);
+      out$.download(name, uri, windowRef);
     });
   }
 
@@ -452,8 +458,9 @@
     requireDomNode(el);
 
     options = options || {};
+    var windowRef = getPreWindowRef();
     out$.svgAsPngUri(el, options, function(uri) {
-      out$.download(name, uri);
+      out$.download(name, uri, windowRef);
     });
   }
 
