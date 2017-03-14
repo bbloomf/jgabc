@@ -604,10 +604,27 @@ $(function() {
         .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
         .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
   }
+  function addHeaderKeyToContext(header, key) {
+    var match = /^exsurge\.(.+)/.exec(key);
+    if(match) {
+      var value = header[key];
+      if(!value) return;
+      key = match[1];
+      exportContext[key] = ctxt[key] = value;
+    }
+  }
   $('#editor').keyup(function(){
     updateLinks(this.value);
     var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
+    exportContext.dropCapTextColor = ctxt.dropCapTextColor = header.dropCapTextColor || header.cValues.dropCapTextColor || '#000';
+    exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
+    for(var key in header) {
+      addHeaderKeyToContext(header, key);
+    }
+    for(key in header.cValues) {
+      addHeaderKeyToContext(header.cValues, key);
+    }
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
     score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
