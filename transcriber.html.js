@@ -649,6 +649,37 @@ $(function() {
     width *= 96;
     return width;
   }
+  function setupFontFromHeader(header) {
+    var font = header.fontFamily || header.cValues.fontFamily;
+    var customFont = '';
+    ['','Bold','Italic','BoldItalic'].forEach(function(style) {
+      var key = 'font' + style + 'Src';
+      var val = header[key] || header.cValues[key];
+      var match = val && val.match(/\.([ot]tf|woff2?)/);
+      if(match) {
+        var format = match[1];
+        customFont += `
+@font-face {
+  font-family: 'Custom Lyric Font';
+  src: url('${val}') format('${format}');
+  ${style.match(/Bold/)? 'font-weight: bold;' : ''}
+  font-style: ${style.match(/Italic/)? 'italic': 'normal'};
+}`;
+      }
+    });
+    if(customFont) {
+      var fontStyle = $('style#customFontStyle');
+      if(fontStyle.length == 0) fontStyle = $('<style id="customFontStyle"></style>').appendTo(document.body);
+      fontStyle.text(customFont);
+      exportContext.lyricTextFont = ctxt.lyricTextFont = "'Custom Lyric Font'";
+    } else {
+      exportContext.lyricTextFont = ctxt.lyricTextFont = "'Crimson Text', serif";
+    }
+    exportContext.dropCapTextFont = ctxt.dropCapTextFont = ctxt.lyricTextFont;
+    exportContext.annotationTextFont = ctxt.annotationTextFont = ctxt.lyricTextFont;
+    ctxt.setGlyphScaling(ctxt.glyphScaling);
+    exportContext.setGlyphScaling(exportContext.glyphScaling);
+  }
   window.exportChant = function(eachLine) {
     var gabc = $('#editor').val(),
         code = gabcToExsurge(gabc),
@@ -669,6 +700,7 @@ $(function() {
   }
   function layoutChant() {
     if(!score) return;
+    setupFontFromHeader(currentHeader());
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
       var width = getWidthInPixels(currentHeader());
