@@ -668,9 +668,15 @@ $(function() {
       }
     });
     if(customFont) {
-      var fontStyle = $('style#customFontStyle');
-      if(fontStyle.length == 0) fontStyle = $('<style id="customFontStyle"></style>').appendTo(document.body);
-      fontStyle.text(customFont);
+      var fontStyle = document.querySelector('#customFontStyle');
+      if(fontStyle) {
+        fontStyle.removeChild(fontStyle.firstChild);
+      } else {
+        fontStyle = document.createElement('style');
+        fontStyle.id = 'customFontStyle';
+      }
+      fontStyle.appendChild(document.createTextNode(customFont));
+      document.head.appendChild(fontStyle);
       exportContext.lyricTextFont = ctxt.lyricTextFont = "'Custom Lyric Font'";
     } else {
       exportContext.lyricTextFont = ctxt.lyricTextFont = "'Crimson Text', serif";
