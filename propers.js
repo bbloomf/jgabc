@@ -494,16 +494,20 @@ $(function(){
         showHide = typeof(e)=='boolean'? e : $showHide.text() === 'Show';
     $showHide.text(showHide? 'Hide' : 'Show');
     $container.toggle(showHide);
+    var $stickyParent, $curContainer = $container;
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
       sel.extraChants.forEach(function(chant, i) {
         if(chant.title) {
-          $container.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+          $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
         }
         if(chant.rubric) {
-          $container.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+          $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
         }
         if(chant.gabc || chant.id) {
+          if(chant.sticky === 0) {
+            $curContainer = $stickyParent = $('<div>').appendTo($container);
+          }
           var part = 'extra-' + i;
           sel[part] = {
             gabc: chant.gabc,
@@ -512,7 +516,11 @@ $(function(){
             style: 'full',
             noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
           };
-          $container.append($('<div>').attr('id',part+'-preview'));
+          var $curElement;
+          $curContainer.append($curElement = $('<div>').attr('id',part+'-preview'));
+          if(chant.sticky === 0) {
+            $curElement.addClass('sticky');
+          }
           makeChantContextForSel(sel[part]);
           if(chant.id) {
             $.get('gabc/'+chant.id+'.gabc',function(gabc) {
@@ -523,10 +531,13 @@ $(function(){
           if(chant.gabc) updateExsurge(part);
         }
         if(chant.rubricAfter) {
-          $container.append($('<div>').addClass('rubric').addClass('after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+          $curContainer.append($('<div>').addClass('rubric').addClass('after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
         }
         if(chant.html) {
-          $container.append($('<div>').html(chant.html));
+          $curContainer.append($('<div>').html(chant.html));
+        }
+        if(chant.sticky === 1) {
+          $curContainer = $container;
         }
       });
     }
