@@ -1690,7 +1690,7 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var newWidth = chantContainer.width() - 4;
+    var newWidth = chantContainer.width();
     if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
