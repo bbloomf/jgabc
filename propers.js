@@ -509,6 +509,7 @@ $(function(){
             $curContainer = $stickyParent = $('<div>').appendTo($container);
           }
           var part = 'extra-' + i;
+          var options = (typeof chant.id == 'object')? chant.id : null;
           sel[part] = {
             gabc: chant.gabc,
             activeGabc: chant.gabc,
@@ -517,21 +518,42 @@ $(function(){
             noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
           };
           var $curElement;
-          $curContainer.append($curElement = $('<div>').attr('id',part+'-preview'));
+          $curElement = $('<div>').attr('id',part+'-preview')
+          makeChantContextForSel(sel[part]);
+          var downloadThisChant = function() {
+            if(sel[part].id) {
+              $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
+                sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
+                updateExsurge(part, sel[part].id);
+              });
+            }
+          };
+          if(options) {
+            // in case its sticky, we want the option to be sticky too:
+            $curElement = $('<div>').append($curElement);
+            var optionID = 0;
+            var optionKeys = Object.keys(options);
+            sel[part].id = null;
+            var nextOptionID = 0;
+            var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
+              optionID = nextOptionID;
+              nextOptionID = (optionID + 1) % optionKeys.length;
+              $(this).find('.quote').text(optionKeys[nextOptionID]);
+              sel[part].id = options[optionKeys[optionID]];
+              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+              downloadThisChant();
+            }).appendTo($curElement).click();
+          }
           if(chant.sticky === 0) {
             $curElement.addClass('sticky');
           }
-          makeChantContextForSel(sel[part]);
-          if(chant.id) {
-            $.get('gabc/'+chant.id+'.gabc',function(gabc) {
-              sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
-              updateExsurge(part, chant.id);
-            });
-          }
+          $curContainer.append($curElement);
+
+          downloadThisChant();
           if(chant.gabc) updateExsurge(part);
         }
         if(chant.rubricAfter) {
-          $curContainer.append($('<div>').addClass('rubric').addClass('after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+          $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
         }
         if(chant.html) {
           $curContainer.append($('<div>').html(chant.html));
@@ -1660,8 +1682,9 @@ $(function(){
     }
     prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
     if(gabcHeader.original) {
-      if(gabcHeader.annotationArray) {
-        score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotationArray[0]+'%', '%'+gabcHeader.annotationArray[1]+'%');
+      var annotationArray = sel[part].annotationArray || gabcHeader.annotationArray;
+      if(annotationArray) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
       } else if(gabcHeader.annotation) {
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
       } else if(!prop.noDropCap && (gabcHeader.mode || gabcHeader['office-part'])) {
