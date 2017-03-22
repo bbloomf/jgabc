@@ -782,8 +782,9 @@ $(function(){
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
   var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
-  var reFullBars = /\*/g;
-  var reHalfBars = /\|/g;
+  var reFullBars = /\s*\*\s*/g;
+  var reHalfBars = /\s*\|\s*/g;
+  var reFullOrHalfBars = /\s*[*|]\s*/g;
   var reCommaWords = /[,]\s/g;
   var reFullStops = /[.:;!?]\s/g;
   var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
@@ -805,8 +806,8 @@ $(function(){
       var i=0;
       for(var j=1; j<=split.length; ++j) {
         // go through all the possible full bar splits and see if verses can be made out of them:
-        var left = split.slice(i,j).join('*');
-        var normalizedLeft = normalizeMediant(left).split('*');
+        var left = split.slice(i,j).join(' * ');
+        var normalizedLeft = normalizeMediant(left).split(' * ');
         var segmentsRemaining = split.length - j;
         if(normalizedLeft.length == 2 && Math.min.apply(null,normalizedLeft.mapSyllableCounts())>=7) {
           // if the current verse (split from before j to j) can be split in two, with each segment having more than 7 syllables,
@@ -814,19 +815,19 @@ $(function(){
           if (segmentsRemaining == 1) {
             //Check to make sure the one remaining segment can also be split.
             var right = split[j];
-            var normalizedRight = normalizeMediant(right).split('*');
+            var normalizedRight = normalizeMediant(right).split(' * ');
             if(normalizedRight.length != 2 || Math.min.apply(null,normalizedRight.mapSyllableCounts())<7) {
               // if this segment couldn't be split in two or at least one of its segments would have a syllable count less than 7,
               // we will need to group it in with the previously considered verse.
               j++;
             }
           }
-          verses.push(split.slice(i,j).join('*'));
+          verses.push(split.slice(i,j).join(' * '));
           i = j;
         }
         if(j == split.length && j>i) {
           // if we have a verse left over, add it:
-          verses.push(split.slice(i,j).join('*'));
+          verses.push(split.slice(i,j).join(' * '));
         }
       }
       return verses;
@@ -845,7 +846,7 @@ $(function(){
         var leftText;
         if(left >= 20) {
           // if the left side has 20 or more syllables, let's try to add a flex:
-          leftText = normalizeMediant(arrayVerse.slice(0,i).join('*'));
+          leftText = normalizeMediant(arrayVerse.slice(0,i).join(' * '));
           var leftArray = leftText.split('*');
           var leftSyls = leftArray.mapSyllableCounts();
           if(leftSyls.length==2 && Math.min.apply(null,leftSyls)>=10) {
@@ -862,22 +863,14 @@ $(function(){
     return "";
   }
   var normalizeMediant = function(verse){
-    var fullBars = verse.match(reFullBars);
-    if(fullBars && fullBars.length >= 1) {
-      return makeVerse(verse.split(reFullBars));
-    }
-    var halfBars = verse.match(reHalfBars);
-    if(halfBars && halfBars.length >= 1) {
-      return makeVerse(verse.split(reHalfBars));
-    }
-    return verse;
+    return splitLine(verse.split(reFullOrHalfBars),2,false,20).join(' * ');
   }
   var versify = function(text, allowSplittingLines){
     var lines = text.split('\n');
     var result = '';
     for(var i=0; i<lines.length; ++i) {
       // Don't consider the bars that weren't coincident with punctuation:
-      var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
+      var line = lines[i]; // .replace(reBarsWithNoPunctuation,function(a,b){return b;});
       // Each line is already considered a verse, but sometimes we have to split a line further into verses.
       // We don't allow this on alleluias, graduals, or tracts though, because they already have the verses marked.
       var verses = allowSplittingLines? splitIntoVerses(line) : [line];
@@ -906,7 +899,7 @@ $(function(){
       segments.forEach(function(seg, segNum) {
         if(!match) return;
         text += seg.toLowerCase();
-        if(verse.slice(text.length, text.length + match[0].length) == match[0]) {
+        if(text.length == match.index) {
           text += match[0];
           pat.push(match[1].replace('†','*').replace('\n','℣'));
           match = regex.exec(verse),
@@ -916,8 +909,9 @@ $(function(){
         }
         if(segNum != seg.length - 1 && text.slice(-1) != '\n') text += ' ';
       });
-      if(text != verse.slice(0,text.length)) {
-        console.warn('error deducing pattern in verse: ', verse, text, segments);
+      text = text.replace(/\s+$/,'');
+      if(text.replace(/\s+/g,' ') != verse.slice(0,text.length).replace(/\s+/g,' ')) {
+        console.warn('error deducing pattern in verse:\n', verse, '\n::\n', text, segments);
         return null;
       }
       return pat;
