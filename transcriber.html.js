@@ -662,7 +662,7 @@ $(function() {
         format = format || match[1];
         customFont += `
 @font-face {
-  font-family: 'Custom Lyric Font';
+  font-family: '${font || "'Custom Lyric Font'"}';
   src: url('${val}') format('${format}');
   ${style.match(/Bold/)? 'font-weight: bold;' : ''}
   font-style: ${style.match(/Italic/)? 'italic': 'normal'};
@@ -679,9 +679,9 @@ $(function() {
       }
       fontStyle.appendChild(document.createTextNode(customFont));
       document.head.appendChild(fontStyle);
-      exportContext.lyricTextFont = ctxt.lyricTextFont = "'Custom Lyric Font'";
+      exportContext.lyricTextFont = ctxt.lyricTextFont = ""+(font || "'Custom Lyric Font'")+", serif";
     } else {
-      exportContext.lyricTextFont = ctxt.lyricTextFont = "'Crimson Text', serif";
+      exportContext.lyricTextFont = ctxt.lyricTextFont = ""+(font || "'Crimson Text'")+", serif";
     }
     exportContext.dropCapTextFont = ctxt.dropCapTextFont = ctxt.lyricTextFont;
     exportContext.annotationTextFont = ctxt.annotationTextFont = ctxt.lyricTextFont;
