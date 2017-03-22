@@ -656,8 +656,10 @@ $(function() {
       var key = 'font' + style + 'Src';
       var val = header[key] || header.cValues[key];
       var match = val && val.match(/\.([ot]tf|woff2?)/);
-      if(match) {
-        var format = match[1];
+      var format = header.fontFormat || header.cValues.fontFormat;
+      if(format && !format.match(/^([ot]f|woff2?)$/)) format = '';
+      if(val && (match || format)) {
+        format = format || match[1];
         customFont += `
 @font-face {
   font-family: 'Custom Lyric Font';
