@@ -650,24 +650,36 @@ $(function() {
     return width;
   }
   function setupFontFromHeader(header) {
-    var font = header.fontFamily || header.cValues.fontFamily;
     var customFont = '';
-    ['','Bold','Italic','BoldItalic'].forEach(function(style) {
-      var key = 'font' + style + 'Src';
-      var val = header[key] || header.cValues[key];
-      var match = val && val.match(/\.([ot]tf|woff2?)/);
-      var format = header.fontFormat || header.cValues.fontFormat;
-      if(format && !format.match(/^([ot]f|woff2?)$/)) format = '';
-      if(val && (match || format)) {
-        format = format || match[1];
-        customFont += `
+    var fontFamilies = {};
+    ['','lyric','al','dropCap','annotation'].forEach(function(fontType){
+      var prefix = fontType + (fontType? 'Font':'font');
+      var key = prefix + 'Family';
+      var font = header[key] || header.cValues[key];
+      ['','Bold','Italic','BoldItalic'].forEach(function(style) {
+        var key = prefix + style + 'Src';
+        var val = header[key] || header.cValues[key];
+        var match = val && val.match(/\.([ot]tf|woff2?)/);
+        var format = header.fontFormat || header.cValues.fontFormat;
+        if(format && !format.match(/^([ot]f|woff2?)$/)) format = '';
+        if(val && (match || format)) {
+          format = format || match[1];
+          font = font || "'Custom Exsurge Font'";
+          customFont += `
 @font-face {
-  font-family: '${font || "'Custom Lyric Font'"}';
+  font-family: '${font}';
   src: url('${val}') format('${format}');
   ${style.match(/Bold/)? 'font-weight: bold;' : ''}
   font-style: ${style.match(/Italic/)? 'italic': 'normal'};
 }`;
-      }
+        }
+        if(fontType) {
+          if(font) fontFamilies[fontType] = font;
+        } else {
+          font = font || "'Crimson Text'";
+          fontFamilies.lyric = fontFamilies.al = fontFamilies.dropCap = fontFamilies.annotation = font;
+        }
+      });
     });
     if(customFont) {
       var fontStyle = document.querySelector('#customFontStyle');
@@ -679,12 +691,11 @@ $(function() {
       }
       fontStyle.appendChild(document.createTextNode(customFont));
       document.head.appendChild(fontStyle);
-      exportContext.lyricTextFont = ctxt.lyricTextFont = ""+(font || "'Custom Lyric Font'")+", serif";
-    } else {
-      exportContext.lyricTextFont = ctxt.lyricTextFont = ""+(font || "'Crimson Text'")+", serif";
     }
-    exportContext.dropCapTextFont = ctxt.dropCapTextFont = ctxt.lyricTextFont;
-    exportContext.annotationTextFont = ctxt.annotationTextFont = ctxt.lyricTextFont;
+    exportContext.lyricTextFont = ctxt.lyricTextFont = fontFamilies.lyric + ", serif";
+    exportContext.dropCapTextFont = ctxt.dropCapTextFont = fontFamilies.dropCap + ", serif";
+    exportContext.annotationTextFont = ctxt.annotationTextFont = fontFamilies.annotation + ", serif";
+    exportContext.alTextFont = ctxt.alTextFont = fontFamilies.al + ", serif";
     ctxt.setGlyphScaling(ctxt.glyphScaling);
     exportContext.setGlyphScaling(exportContext.glyphScaling);
   }
