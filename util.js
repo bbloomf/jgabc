@@ -111,6 +111,7 @@ function GabcHeader(text){
       var line=lines[i],
           match = regexHeaderLine.exec(line);
       if(match){
+        var key = match[1].replace(/-([a-z])/g,function(a,letter) { return letter.toUpperCase(); });
         if(this[match[1]]) {
           var arrayName=match[1]+'Array';
           if(!this[arrayName]){
@@ -120,11 +121,14 @@ function GabcHeader(text){
         } else {
           this[match[1]]=match[2];
         }
+        if(key != match[1]) this[key] = this[match[1]];
       } else if((match = regexHeaderComment.exec(line))){
         if(line!='%%'){
           match = regexHeaderLine.exec(line.slice(1));
           if(match){
+            var key = match[1].replace(/-([a-z])/g,function(a,letter) { return letter.toUpperCase(); });
             this.cValues[match[1]]=match[2];
+            if(key != match[1]) this.cValues[key] = match[2];
           } else {
             this.comments[i]=line;
           }
@@ -137,6 +141,8 @@ GabcHeader.prototype.toString = function(){
   var result=[];
   for(key in this){
     if(key=='length' || key=='original' || key=='comments' || key=='cValues' || (typeof this[key])!="string")continue;
+    var alternateKey = key.replace(/[A-Z]/g,function(letter) { return '-'+letter.toLowerCase(); });
+    if(alternateKey != key && alternateKey in this) continue;
     var array = this[key+'Array'];
     if(array) {
       for(var i=0; i < array.length; ++i) {
