@@ -617,7 +617,6 @@ $(function() {
     updateLinks(this.value);
     var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
-    exportContext.dropCapTextColor = ctxt.dropCapTextColor = header.dropCapTextColor || header.cValues.dropCapTextColor || '#000';
     exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
     for(var key in header) {
       addHeaderKeyToContext(header, key);
@@ -656,6 +655,13 @@ $(function() {
       var prefix = fontType + (fontType? 'Font':'font');
       var key = prefix + 'Family';
       var font = header[key] || header.cValues[key];
+      // text color:
+      if(fontType) {
+        var colorKey = fontType+'TextColor';
+        var textColor = header[colorKey] || header.cValues[colorKey];
+        if(textColor) exportContext[colorKey] = ctxt[colorKey] = textColor;
+      }
+    
       ['','Bold','Italic','BoldItalic'].forEach(function(style) {
         var key = prefix + style + 'Src';
         var val = header[key] || header.cValues[key];
