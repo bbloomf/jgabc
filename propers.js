@@ -502,7 +502,7 @@ $(function(){
           $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
         }
         if(chant.rubric) {
-          $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+          $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
         }
         if(chant.gabc || chant.id) {
           if(chant.sticky === 0) {
@@ -550,7 +550,10 @@ $(function(){
           $curContainer.append($curElement);
 
           downloadThisChant();
-          if(chant.gabc) updateExsurge(part);
+          if(chant.gabc) {
+            sel[part].noDropCap = getHeader(chant.gabc).initialStyle !== '1';
+            updateExsurge(part);
+          }
         }
         if(chant.rubricAfter) {
           $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
