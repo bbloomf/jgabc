@@ -360,6 +360,7 @@ var extraChants = {
     }, {
       rubric: "When the distribution of candles is ended, the Choir sings:",
       id: 30,
+      gabcReplace: [/\(::\)([^()]+\(\))+$/,'(::)'], // remove the et repetitur at the end
       rubricAfter: "Repeat: <Exsúrge Dómine.>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
@@ -470,12 +471,6 @@ var extraChants = {
   ],
   "Quad6f": [
     {
-        rubric: "The lector reads the Prophecy.",
-        id: 3177
-    }, {
-        rubric: "The subdeacon sings the Lesson.",
-        id: 22
-    }, {
         rubric: "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/. Venite adoremus.> The choir sings <Venite adoremus.> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.",
         id: 2087,
         rubricAfter: "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross."
@@ -669,7 +664,7 @@ var proprium = {
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588},
   Quad6h: {introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
-  Quad6f: {extraChants: true},
+  Quad6f: {extraChants: true, gradualeID:[3177,22], ordinary: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:666,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},

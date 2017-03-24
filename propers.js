@@ -340,9 +340,10 @@ $(function(){
             $style.append($alleluiaOptions.clone());
           } else {
             $style.append($gradualeOptions.clone());
-            if(header['office-part']=='Hymnus') {
-              truePart = 'hymnus';
-              partIndex = null;
+            var temp = header['office-part'].toLowerCase();
+            if(temp in partAbbrev) {
+              truePart = temp;
+              if(truePart != 'graduale') partIndex = null;
             }
             if(styleVal.match(/^psalm-tone/)) {
               styleVal = 'psalm-tone';
@@ -440,6 +441,16 @@ $(function(){
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[ref + selTempus];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
+    $("#extra-chants").empty();
+    sel.extraChants = extraChants[selDay];
+    if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
+      $("#divExtraChants").show();
+      showHideExtraChants(false);
+    } else {
+      $("#divExtraChants").hide();
+    }
+
+    $('.ordinary').toggle(!selPropers || (selPropers.ordinary !== false));
     if(selPropers || selDay=='custom') {
       removeMultipleGraduales();
       if(selPropers) {
@@ -465,6 +476,10 @@ $(function(){
     $('div[part]').each(function(){
       updatePart($(this).attr('part'));
     });
+    var $extraChants = $('#mandatory-extra-chants').empty();
+    if(selPropers && selPropers.extraChants === true) {
+      renderExtraChants($extraChants);
+    }
   };
   var selectedDayNovus = function(e){
     selDay = $(this).val();
@@ -494,79 +509,85 @@ $(function(){
         showHide = typeof(e)=='boolean'? e : $showHide.text() === 'Show';
     $showHide.text(showHide? 'Hide' : 'Show');
     $container.toggle(showHide);
-    var $stickyParent, $curContainer = $container;
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
-      sel.extraChants.forEach(function(chant, i) {
-        if(chant.title) {
-          $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
-        }
-        if(chant.rubric) {
-          $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
-        }
-        if(chant.gabc || chant.id) {
-          if(chant.sticky === 0) {
-            $curContainer = $stickyParent = $('<div>').appendTo($container);
-          }
-          var part = 'extra-' + i;
-          var options = (typeof chant.id == 'object')? chant.id : null;
-          sel[part] = {
-            gabc: chant.gabc,
-            activeGabc: chant.gabc,
-            id: chant.id,
-            style: 'full',
-            noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
-          };
-          var $curElement;
-          $curElement = $('<div>').attr('id',part+'-preview')
-          makeChantContextForSel(sel[part]);
-          var downloadThisChant = function() {
-            if(sel[part].id) {
-              $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
-                sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
-                updateExsurge(part, sel[part].id);
-              });
-            }
-          };
-          if(options) {
-            // in case its sticky, we want the option to be sticky too:
-            $curElement = $('<div>').append($curElement);
-            var optionID = 0;
-            var optionKeys = Object.keys(options);
-            sel[part].id = null;
-            var nextOptionID = 0;
-            var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
-              optionID = nextOptionID;
-              nextOptionID = (optionID + 1) % optionKeys.length;
-              $(this).find('.quote').text(optionKeys[nextOptionID]);
-              sel[part].id = options[optionKeys[optionID]];
-              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
-              downloadThisChant();
-            }).appendTo($curElement).click();
-          }
-          if(chant.sticky === 0) {
-            $curElement.addClass('sticky');
-          }
-          $curContainer.append($curElement);
-
-          downloadThisChant();
-          if(chant.gabc) {
-            sel[part].noDropCap = getHeader(chant.gabc).initialStyle !== '1';
-            updateExsurge(part);
-          }
-        }
-        if(chant.rubricAfter) {
-          $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
-        }
-        if(chant.html) {
-          $curContainer.append($('<div>').html(chant.html));
-        }
-        if(chant.sticky === 1) {
-          $curContainer = $container;
-        }
-      });
+      renderExtraChants($container);
     }
   }
+  function renderExtraChants($container) {
+    var $stickyParent, $curContainer = $container;
+    
+    sel.extraChants.forEach(function(chant, i) {
+      if(chant.title) {
+        $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+      }
+      if(chant.rubric) {
+        $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
+      }
+      if(chant.gabc || chant.id) {
+        if(chant.sticky === 0) {
+          $curContainer = $stickyParent = $('<div>').appendTo($container);
+        }
+        var part = 'extra-' + i;
+        var options = (typeof chant.id == 'object')? chant.id : null;
+        sel[part] = {
+          gabc: chant.gabc,
+          activeGabc: chant.gabc,
+          id: chant.id,
+          style: 'full',
+          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
+        };
+        var $curElement;
+        $curElement = $('<div>').attr('id',part+'-preview')
+        makeChantContextForSel(sel[part]);
+        var downloadThisChant = function() {
+          if(sel[part].id) {
+            $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
+              if(chant.gabcReplace) gabc = gabc.replace(chant.gabcReplace[0], chant.gabcReplace[1]);
+              sel[part].gabc = sel[part].activeGabc = gabc;
+              updateExsurge(part, sel[part].id);
+            });
+          }
+        };
+        if(options) {
+          // in case its sticky, we want the option to be sticky too:
+          $curElement = $('<div>').append($curElement);
+          var optionID = 0;
+          var optionKeys = Object.keys(options);
+          sel[part].id = null;
+          var nextOptionID = 0;
+          var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
+            optionID = nextOptionID;
+            nextOptionID = (optionID + 1) % optionKeys.length;
+            $(this).find('.quote').text(optionKeys[nextOptionID]);
+            sel[part].id = options[optionKeys[optionID]];
+            sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            downloadThisChant();
+          }).appendTo($curElement).click();
+        }
+        if(chant.sticky === 0) {
+          $curElement.addClass('sticky');
+        }
+        $curContainer.append($curElement);
+
+        downloadThisChant();
+        if(chant.gabc) {
+          sel[part].noDropCap = getHeader(chant.gabc).initialStyle !== '1';
+          updateExsurge(part);
+        }
+      }
+      if(chant.rubricAfter) {
+        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+      }
+      if(chant.html) {
+        $curContainer.append($('<div>').html(chant.html));
+      }
+      if(chant.sticky === 1) {
+        $curContainer = $container;
+      }
+    });
+  }
+
   var selectedDay = function(e){
     selDay = $(this).val();
     var hash = {
@@ -599,14 +620,6 @@ $(function(){
       $('.sel-custom').show();
     } else {
       $('.sel-custom').hide();
-    }
-    $("#extra-chants").empty();
-    sel.extraChants = extraChants[selDay];
-    if(sel.extraChants) {
-      $("#divExtraChants").show();
-      showHideExtraChants(false);
-    } else {
-      $("#divExtraChants").hide();
     }
     updateDay();
   };
