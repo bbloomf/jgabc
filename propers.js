@@ -324,7 +324,7 @@ $(function(){
             return line.split(/\s*[|*]\s*/);
           });
           if(!sel[part].pattern) {
-            sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus|introitus/));
+            sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
           text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
         }
@@ -802,7 +802,7 @@ $(function(){
   var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
   var addPatternFromSplitLine = function(pattern, sLine) {
     for(var i = 0; i < sLine.length; ++i) {
-      for(var j = sLine[i].split(/ † /g).length; j > 1; --j) {
+      for(var j = sLine[i].split(/ \| /g).length; j > 1; --j) {
         pattern.push('');
       }
       if(i < sLine.length - 1) pattern.push('*');
@@ -810,7 +810,7 @@ $(function(){
   }
   var makePattern = function(line) {
     var result = [];
-    var line = splitLine(line.split(reFullOrHalfBars), 2, ' † ', 20);
+    var line = splitLine(line.split(reFullOrHalfBars), 2, ' | ', 20);
     addPatternFromSplitLine(result, line);
     return result;
   }
@@ -828,7 +828,7 @@ $(function(){
         satisfied = Math.max.apply(null,sylCounts) < 50;
         for(var i=0; satisfied && i < count; ++i) {
           // check whether we can make a satisfactory mediant for each verse:
-          var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' † ', 20);
+          var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
           sylCounts = mediantTest.mapSyllableCounts();
           satisfied = Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
           if(satisfied) {
@@ -839,7 +839,7 @@ $(function(){
           }
         }
       }
-      return result;
+      if(satisfied) return result;
     }
     return makePattern(line);
   }
