@@ -543,7 +543,10 @@ $(function(){
         var downloadThisChant = function() {
           if(sel[part].id) {
             $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
-              if(chant.gabcReplace) gabc = gabc.replace(chant.gabcReplace[0], chant.gabcReplace[1]);
+              if(chant.gabcReplace) {
+                for (var i=0; i < chant.gabcReplace.length; i += 2)
+                  gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
+              }
               sel[part].gabc = sel[part].activeGabc = gabc;
               updateExsurge(part, sel[part].id);
             });
