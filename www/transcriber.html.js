@@ -617,7 +617,6 @@ $(function() {
     updateLinks(this.value);
     var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
-    exportContext.dropCapTextColor = ctxt.dropCapTextColor = header.dropCapTextColor || header.cValues.dropCapTextColor || '#000';
     exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
     for(var key in header) {
       addHeaderKeyToContext(header, key);
@@ -649,6 +648,63 @@ $(function() {
     width *= 96;
     return width;
   }
+  function setupFontFromHeader(header) {
+    var customFont = '';
+    var fontFamilies = {};
+    ['','lyric','al','dropCap','annotation'].forEach(function(fontType){
+      var prefix = fontType + (fontType? 'Font':'font');
+      var key = prefix + 'Family';
+      var font = header[key] || header.cValues[key];
+      // text color:
+      if(fontType) {
+        var colorKey = fontType+'TextColor';
+        var textColor = header[colorKey] || header.cValues[colorKey];
+        if(textColor) exportContext[colorKey] = ctxt[colorKey] = textColor;
+      }
+    
+      ['','Bold','Italic','BoldItalic'].forEach(function(style) {
+        var key = prefix + style + 'Src';
+        var val = header[key] || header.cValues[key];
+        var match = val && val.match(/\.([ot]tf|woff2?)/);
+        var format = header.fontFormat || header.cValues.fontFormat;
+        if(format && !format.match(/^([ot]f|woff2?)$/)) format = '';
+        if(val && (match || format)) {
+          format = format || match[1];
+          font = font || "'Custom Exsurge Font'";
+          customFont += `
+@font-face {
+  font-family: '${font}';
+  src: url('${val}') format('${format}');
+  ${style.match(/Bold/)? 'font-weight: bold;' : ''}
+  font-style: ${style.match(/Italic/)? 'italic': 'normal'};
+}`;
+        }
+        if(fontType) {
+          if(font) fontFamilies[fontType] = font;
+        } else {
+          font = font || "'Crimson Text'";
+          fontFamilies.lyric = fontFamilies.al = fontFamilies.dropCap = fontFamilies.annotation = font;
+        }
+      });
+    });
+    if(customFont) {
+      var fontStyle = document.querySelector('#customFontStyle');
+      if(fontStyle) {
+        fontStyle.removeChild(fontStyle.firstChild);
+      } else {
+        fontStyle = document.createElement('style');
+        fontStyle.id = 'customFontStyle';
+      }
+      fontStyle.appendChild(document.createTextNode(customFont));
+      document.head.appendChild(fontStyle);
+    }
+    exportContext.lyricTextFont = ctxt.lyricTextFont = fontFamilies.lyric + ", serif";
+    exportContext.dropCapTextFont = ctxt.dropCapTextFont = fontFamilies.dropCap + ", serif";
+    exportContext.annotationTextFont = ctxt.annotationTextFont = fontFamilies.annotation + ", serif";
+    exportContext.alTextFont = ctxt.alTextFont = fontFamilies.al + ", serif";
+    ctxt.setGlyphScaling(ctxt.glyphScaling);
+    exportContext.setGlyphScaling(exportContext.glyphScaling);
+  }
   window.exportChant = function(eachLine) {
     var gabc = $('#editor').val(),
         code = gabcToExsurge(gabc),
@@ -669,6 +725,7 @@ $(function() {
   }
   function layoutChant() {
     if(!score) return;
+    setupFontFromHeader(currentHeader());
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
       var width = getWidthInPixels(currentHeader());

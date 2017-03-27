@@ -1,4 +1,4 @@
-﻿var sundayKeys = [
+var sundayKeys = [
     {title:"Proprium Temporum...",en:"Proper of the Time..."},
     {key:"Adv1",title:"I Adventus",en:"1st Sunday in Advent"},
     {key:"Adv2",title:"II Adventus",en:"2nd Sunday in Advent"},
@@ -36,6 +36,7 @@
     {key:"Quad6t",title:"Feria III Hebdomadæ Sanctæ",en:"Tuesday in Holy Week"},
     {key:"Quad6w",title:"Feria IV Hebdomadæ Sanctæ",en:"Wednesday in Holy Week"},
     {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
+    {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
     {key:"Pasc0",title:"*Dominica Resurrectionis",en:"Easter Sunday"},
     {key:"Pasc0m",title:"Feria II Infra Oct Paschæ",en:"Easter Monday"},
     {key:"Pasc0t",title:"Feria III Infra Oct Paschæ",en:"Easter Tuesday"},
@@ -359,6 +360,7 @@ var extraChants = {
     }, {
       rubric: "When the distribution of candles is ended, the Choir sings:",
       id: 30,
+      gabcReplace: [/\(::\)([^()]+\(\))+$/,'(::)'], // remove the et repetitur at the end
       rubricAfter: "Repeat: <Exsúrge Dómine.>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
@@ -444,7 +446,6 @@ var extraChants = {
       id: "259-6",
       sticky: 1
     }, {
-    // todo: one of these should be sticky...
       rubric: "All: <Glória, laus.> Then the following antiphon is sung:",
       id: {
         "VIII G*": 532,
@@ -466,6 +467,96 @@ var extraChants = {
     }, {
       rubric: "When the procession enters the church, that is, as the celebrant goes through the door, this last responsory is begun:",
       id: 606
+    }
+  ],
+  "Quad6f": [
+    {
+        rubric: "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/. Venite adoremus.> The choir sings <Venite adoremus.> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.",
+        id: 2087,
+        rubricAfter: "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross."
+    }, {
+        rubric: "Two cantors sing the following in the middle of the Choir:",
+        id: 157,
+    }, {
+        sticky: 0,
+        gabc: `initial-style: 1;
+annotation: <sp>V/</sp>.;
+%%
+(c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)
+<sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)
+<sp>V/</sp>. Ha(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)
+<sp>R/</sp>. Sanc(g)tus(fgf/fe) For(cd)tis.(fg!hv/hg.) (::)
+<sp>V/</sp>. Ha(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)
+<sp>R/</sp>. Sanc(gh)tus(ixhg/hiHG'g) Im(f)mor(g)tá(h)lis,(hiwjvIHiih.) (;) mi(g)se(hj/jvIH')ré(g)re(hg/h_g) no(fd)bis.(fghv/hg.) (::)
+`
+    }, {
+        rubric: "Two cantors of the second choir sing:",
+        id: 7808,
+        rubricAfter: "The two choirs respond in turn <Hagios o Theós, Sanctus Deus.> etc. It is always the first choir that sings <Hagios.>"
+    }, {
+    }, {
+        rubric: "Then two cantors of the first choir sing:",
+        id: 7809,
+        rubricAfter: "The two choirs again respond in turn <Hagios o Theós. Sanctus Deus.> etc.",
+        sticky: 1
+    }, {
+        rubric: "The following Reproaches are sung in turn by the cantors. After each Reproach, the two choirs together respond <Pópule meus.> as above, as far as the <v/. Quia.>"
+    }, {
+        rubric: "Two cantors of the second choir sing:",
+        gabc: `initial-style: 0;
+%%
+(c4)<sp>V/</sp>. E(c)go(de) prop(e)ter(e) te(e) fla(e)gel(e)lá(e)vi(e) Æ(e)gýp(d)tum(e.) (,)
+cum(e) pri(e)mo(f)gé(g)ni(f)tis(f) su(evDC)is:(c.) (;)
+et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::c+) P{}ópule
+`
+    }, {
+        rubric: "Both choirs repeat: <Pópule meus.> as far as the <v/. Quia.>",
+        id: 157,
+        sticky: 0
+    }, {
+        sticky: 1,
+        gabc: `initial-style: 0;
+%%
+(c4)<sp>V/</sp>. E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) e(e)dú(e)xi(e) de(e) Æ(e)gýp(d)to,(e.) (,)
+de(c)mér(de)so(e) Pha(e)ra(e)ó(e)ne(e) in(f) ma(g)re(f) Ru(evDC)brum:(c.) (;)
+et(c) tu(d_e) me(e) tra(e)di(e)dís(e)ti(e.) (,) prin(e)cí(e)pi(e)bus(ed) sa(f)cer(d)dó(ef)tum.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the second choir sing:</alt>(c)go(de) an(e)te(e) te(e) a(f)pé(g)ru(f)i(f) ma(evDC)re:(c.) (;)
+et(c) tu(d_e) a(e)pe(e)ru(e)ís(e)ti(e) lán(e)ce(e)a(ed) la(f)tus(d) me(ef)um.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the first choir sing:</alt>(c)go(de) an(e)te(e) te(e) præ(d)í(e)vi(e.) (,) in(e) co(f)lúm(g)na(f) nu(evDC)bis:(c.) (;)
+et(c) tu(d_e) me(e) du(e)xís(e)ti(e.) (,) ad(e) præ(e)tó(e)ri(ed)um(f) Pi(d)lá(ef)ti.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) pa(e)vi(e) man(e)na(f) per(g) de(f)sér(evDC)tum:(c.) (;)
+et(c) tu(d_e) me(e) ce(e)ci(e)dís(e)ti(e.) (,) á(e)la(e)pis(ed) et(f) fla(d)gél(ef)lis.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) po(e)tá(e)vi(e.) (,) a(e)qua(e) sa(f)lú(g)tis(f) de(f) pe(evDC)tra:(c.) (;)
+et(c) tu(d_e) me(e) po(e)tás(e)ti(e.) (,) fel(e)le(ed) et(f) a(d)cé(ef)to.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the second choir sing:</alt>(c)go(de) prop(e)ter(e) te(e.) (,) Cha(e)na(e)næ(e)ó(e)rum(f) re(g)ges(f) per(f)cús(evDC)si:(c.) (;)
+et(c) tu(d_e) per(e)cus(e)sís(e)ti(e.) (,) a(e)rún(e)di(e)ne(ed) ca(f)put(d) me(ef)um.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the first choir sing:</alt>(c)go(de) de(e)di(e) ti(e)bi(f) scep(g)trum(f) re(f)gá(evDC)le:(c.) (;)
+et(c) tu(d_e) de(e)dís(e)ti(e) cá(e)pi(e)ti(e) me(e)o(e.) (,) spí(e)ne(ed)am(f) co(d)ró(ef)nam.(edeDC.) (::c+) P{}ópule() (z)
+
+(c4)<sp>V/</sp>. E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) ex(e)al(e)tá(e)vi(f) ma(g)gna(f) vir(f)tú(evDC)te:(c.) (;)
+et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) cru(ef)cis.(edeDC.) (::c+) P{}ópule
+`
+    }, {
+        rubric: "Both choirs then sing the following antiphon:",
+        id: 428,
+        rubricAfter: "The antiphon <Crucem tuam.> is repeated"
+    }, {
+        rubric: "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/. Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn.",
+        sticky: 0,
+        id: 1128
+    }, {
+        id: 2209,
+        gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{|}/g,'_'],
+        sticky: 1
+    }, {
+        rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis.> is sung:",
+        id: 2120
     }
   ]
 }
@@ -574,6 +665,7 @@ var proprium = {
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588},
   Quad6h: {introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
+  Quad6f: {extraChants: true, gradualeID:[3177,22], ordinary: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:666,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},

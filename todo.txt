@@ -1,6 +1,8 @@
+https://github.com/bramstein/fontfaceobserver/
+
+need to make sure patterns get reset when choosing a new day
+
 option to psalm tone only some verses of the tract
-clean up versification code, fix versification of Chair of Peter propers: Tract first verse, offertory should be split into two verses
-Tract of Quinquagesima wasn't getting a mediant
 ...Only allow verse splitting at full bars, treat half bars and full bars equally and don't worry whether there is punctuation
 re-write psalmtoning algorithm to be clearer
 add links to gregorianbooks?

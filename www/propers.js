@@ -326,11 +326,7 @@ $(function(){
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
-          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
-            text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
-          } else {
-            text = sel[part].text = versify(plaintext, !truePart.match(/alleluia|graduale|tractus/));
-          }
+          text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
         }
         if(part.match(/^graduale/)) {
           var $style = $('#selStyle'+capPart),
@@ -340,9 +336,10 @@ $(function(){
             $style.append($alleluiaOptions.clone());
           } else {
             $style.append($gradualeOptions.clone());
-            if(header['office-part']=='Hymnus') {
-              truePart = 'hymnus';
-              partIndex = null;
+            var temp = header['office-part'].toLowerCase();
+            if(temp in partAbbrev) {
+              truePart = temp;
+              if(truePart != 'graduale') partIndex = null;
             }
             if(styleVal.match(/^psalm-tone/)) {
               styleVal = 'psalm-tone';
@@ -440,6 +437,16 @@ $(function(){
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[ref + selTempus];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
+    $("#extra-chants").empty();
+    sel.extraChants = extraChants[selDay];
+    if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
+      $("#divExtraChants").show();
+      showHideExtraChants(false);
+    } else {
+      $("#divExtraChants").hide();
+    }
+
+    $('.ordinary').toggle(!selPropers || (selPropers.ordinary !== false));
     if(selPropers || selDay=='custom') {
       removeMultipleGraduales();
       if(selPropers) {
@@ -465,6 +472,10 @@ $(function(){
     $('div[part]').each(function(){
       updatePart($(this).attr('part'));
     });
+    var $extraChants = $('#mandatory-extra-chants').empty();
+    if(selPropers && selPropers.extraChants === true) {
+      renderExtraChants($extraChants);
+    }
   };
   var selectedDayNovus = function(e){
     selDay = $(this).val();
@@ -494,76 +505,88 @@ $(function(){
         showHide = typeof(e)=='boolean'? e : $showHide.text() === 'Show';
     $showHide.text(showHide? 'Hide' : 'Show');
     $container.toggle(showHide);
-    var $stickyParent, $curContainer = $container;
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
-      sel.extraChants.forEach(function(chant, i) {
-        if(chant.title) {
-          $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
-        }
-        if(chant.rubric) {
-          $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
-        }
-        if(chant.gabc || chant.id) {
-          if(chant.sticky === 0) {
-            $curContainer = $stickyParent = $('<div>').appendTo($container);
-          }
-          var part = 'extra-' + i;
-          var options = (typeof chant.id == 'object')? chant.id : null;
-          sel[part] = {
-            gabc: chant.gabc,
-            activeGabc: chant.gabc,
-            id: chant.id,
-            style: 'full',
-            noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
-          };
-          var $curElement;
-          $curElement = $('<div>').attr('id',part+'-preview')
-          makeChantContextForSel(sel[part]);
-          var downloadThisChant = function() {
-            if(sel[part].id) {
-              $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
-                sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
-                updateExsurge(part, sel[part].id);
-              });
-            }
-          };
-          if(options) {
-            // in case its sticky, we want the option to be sticky too:
-            $curElement = $('<div>').append($curElement);
-            var optionID = 0;
-            var optionKeys = Object.keys(options);
-            sel[part].id = null;
-            var nextOptionID = 0;
-            var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
-              optionID = nextOptionID;
-              nextOptionID = (optionID + 1) % optionKeys.length;
-              $(this).find('.quote').text(optionKeys[nextOptionID]);
-              sel[part].id = options[optionKeys[optionID]];
-              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
-              downloadThisChant();
-            }).appendTo($curElement).click();
-          }
-          if(chant.sticky === 0) {
-            $curElement.addClass('sticky');
-          }
-          $curContainer.append($curElement);
-
-          downloadThisChant();
-          if(chant.gabc) updateExsurge(part);
-        }
-        if(chant.rubricAfter) {
-          $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
-        }
-        if(chant.html) {
-          $curContainer.append($('<div>').html(chant.html));
-        }
-        if(chant.sticky === 1) {
-          $curContainer = $container;
-        }
-      });
+      renderExtraChants($container);
     }
   }
+  function renderExtraChants($container) {
+    var $stickyParent, $curContainer = $container;
+    
+    sel.extraChants.forEach(function(chant, i) {
+      if(chant.title) {
+        $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+      }
+      if(chant.rubric) {
+        $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
+      }
+      if(chant.gabc || chant.id) {
+        if(chant.sticky === 0) {
+          $curContainer = $stickyParent = $('<div>').appendTo($container);
+        }
+        var part = 'extra-' + i;
+        var options = (typeof chant.id == 'object')? chant.id : null;
+        sel[part] = {
+          gabc: chant.gabc,
+          activeGabc: chant.gabc,
+          id: chant.id,
+          style: 'full',
+          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
+        };
+        var $curElement;
+        $curElement = $('<div>').attr('id',part+'-preview')
+        makeChantContextForSel(sel[part]);
+        var downloadThisChant = function() {
+          if(sel[part].id) {
+            $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
+              if(chant.gabcReplace) {
+                for (var i=0; i < chant.gabcReplace.length; i += 2)
+                  gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
+              }
+              sel[part].gabc = sel[part].activeGabc = gabc;
+              updateExsurge(part, sel[part].id);
+            });
+          }
+        };
+        if(options) {
+          // in case its sticky, we want the option to be sticky too:
+          $curElement = $('<div>').append($curElement);
+          var optionID = 0;
+          var optionKeys = Object.keys(options);
+          sel[part].id = null;
+          var nextOptionID = 0;
+          var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
+            optionID = nextOptionID;
+            nextOptionID = (optionID + 1) % optionKeys.length;
+            $(this).find('.quote').text(optionKeys[nextOptionID]);
+            sel[part].id = options[optionKeys[optionID]];
+            sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            downloadThisChant();
+          }).appendTo($curElement).click();
+        }
+        if(chant.sticky === 0) {
+          $curElement.addClass('sticky');
+        }
+        $curContainer.append($curElement);
+
+        downloadThisChant();
+        if(chant.gabc) {
+          sel[part].noDropCap = getHeader(chant.gabc).initialStyle !== '1';
+          updateExsurge(part);
+        }
+      }
+      if(chant.rubricAfter) {
+        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+      }
+      if(chant.html) {
+        $curContainer.append($('<div>').html(chant.html));
+      }
+      if(chant.sticky === 1) {
+        $curContainer = $container;
+      }
+    });
+  }
+
   var selectedDay = function(e){
     selDay = $(this).val();
     var hash = {
@@ -579,16 +602,20 @@ $(function(){
     });
     clearHash(hash, selDay);
     loadStoredDataForKey(selDay);
+    var m = moment(selDay,'MMMD');
+    if(m.isValid()) {
+      if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
+      selTempus = getSeasonForMoment(m);
+    } else {
+      if(selDay.match(/^(Pa|A)sc/)) selTempus = 'Pasch';
+      else if(selDay.match(/^(AshWed|Septua|Sexa|Quinqua|Quad)/)) selTempus = 'Quad';
+      else selTempus = '';
+    }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
       $selTempus.show();
-      var m = moment(selDay,'MMMD');
-      if(m.isValid()) {
-        if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
-        $selTempus.val(selTempus = getSeasonForMoment(m));
-      }
+      $selTempus.val(selTempus);
     } else {
-      selTempus = '';
       $selTempus.prop('selectedIndex',0).hide();
       addToHash('tempus', false, true);
     }
@@ -596,14 +623,6 @@ $(function(){
       $('.sel-custom').show();
     } else {
       $('.sel-custom').hide();
-    }
-    $("#extra-chants").empty();
-    sel.extraChants = extraChants[selDay];
-    if(sel.extraChants) {
-      $("#divExtraChants").show();
-      showHideExtraChants(false);
-    } else {
-      $("#divExtraChants").hide();
     }
     updateDay();
   };
@@ -782,147 +801,64 @@ $(function(){
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
   var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
-  var reFullBars = /\*/g;
-  var reHalfBars = /\|/g;
+  var reFullBars = /\s*\*\s*/g;
+  var reHalfBars = /\s*\|\s*/g;
+  var reFullOrHalfBars = /\s*[*|]\s*/g;
   var reCommaWords = /[,]\s/g;
   var reFullStops = /[.:;!?]\s/g;
   var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
-  var splitIntoVerses = function(line){
-    var fullbars = line.match(reFullBars);
-    var halfbars = line.match(reHalfBars);
-    if(!fullbars && !halfbars) {
-      // if there weren't any bars, we have to consider the punctuation that didn't coincide with a bar
-      // TODO: find out which chants this happens on.
-      line = line.replace(reCommaWords,'$&| ')
-                 .replace(reFullStops,'$&* ');
-      fullbars = line.match(reFullBars);
-      halfbars = line.match(reHalfBars);
+  var addPatternFromSplitLine = function(pattern, sLine) {
+    for(var i = 0; i < sLine.length; ++i) {
+      for(var j = sLine[i].split(/ \| /g).length; j > 1; --j) {
+        pattern.push('');
+      }
+      if(i < sLine.length - 1) pattern.push('*');
     }
-    var split;
-    if(fullbars) {
-      verses = [];
-      split = line.split(reFullBars);
-      var i=0;
-      for(var j=1; j<=split.length; ++j) {
-        // go through all the possible full bar splits and see if verses can be made out of them:
-        var left = split.slice(i,j).join('*');
-        var normalizedLeft = normalizeMediant(left).split('*');
-        var segmentsRemaining = split.length - j;
-        if(normalizedLeft.length == 2 && Math.min.apply(null,normalizedLeft.mapSyllableCounts())>=7) {
-          // if the current verse (split from before j to j) can be split in two, with each segment having more than 7 syllables,
-          // and there is only one segment remaining, we need to make sure that segment can be a verse on its own
-          if (segmentsRemaining == 1) {
-            //Check to make sure the one remaining segment can also be split.
-            var right = split[j];
-            var normalizedRight = normalizeMediant(right).split('*');
-            if(normalizedRight.length != 2 || Math.min.apply(null,normalizedRight.mapSyllableCounts())<7) {
-              // if this segment couldn't be split in two or at least one of its segments would have a syllable count less than 7,
-              // we will need to group it in with the previously considered verse.
-              j++;
+  }
+  var makePattern = function(line) {
+    var result = [];
+    var line = splitLine(line.split(reFullOrHalfBars), 2, ' | ', 20);
+    addPatternFromSplitLine(result, line);
+    return result;
+  }
+  var splitIntoVerses = window.splitIntoVerses = function(line) {
+    var fullbars = line.match(reFullBars);
+    var numSyllables = line.countSyllables();
+    if(numSyllables > 30 && fullbars) {
+      var split = line.split(reFullBars);
+      var satisfied = false;
+      var result;
+      for(var count = 2; !satisfied && count < 5; ++count) {
+        result = [];
+        var test = splitLine(split, count, ' * '),
+            sylCounts = test.mapSyllableCounts();
+        satisfied = Math.max.apply(null,sylCounts) < 50;
+        for(var i=0; satisfied && i < count; ++i) {
+          // check whether we can make a satisfactory mediant for each verse:
+          var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
+          sylCounts = mediantTest.mapSyllableCounts();
+          satisfied = Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          if(satisfied) {
+            addPatternFromSplitLine(result, mediantTest);
+            if(i < count - 1) {
+              result.push('℣');
             }
           }
-          verses.push(split.slice(i,j).join('*'));
-          i = j;
-        }
-        if(j == split.length && j>i) {
-          // if we have a verse left over, add it:
-          verses.push(split.slice(i,j).join('*'));
         }
       }
-      return verses;
-    } else {
-      // don't make multiple verses out of it if there were no full bars / full stops
-      return [line];
+      if(satisfied) return result;
     }
+    return makePattern(line);
   }
-  var makeVerse = function(arrayVerse) {
-    var syls = arrayVerse.mapSyllableCounts();
-    for(var i=1;i<arrayVerse.length; ++i) {
-      var left = syls.slice(0,i).sum();
-      var right = syls.slice(i).sum();
-      if(left >= right || i==(arrayVerse.length-1)) {
-        // if there are more syllables on the left now than on the right, or this is our last pass:
-        var leftText;
-        if(left >= 20) {
-          // if the left side has 20 or more syllables, let's try to add a flex:
-          leftText = normalizeMediant(arrayVerse.slice(0,i).join('*'));
-          var leftArray = leftText.split('*');
-          var leftSyls = leftArray.mapSyllableCounts();
-          if(leftSyls.length==2 && Math.min.apply(null,leftSyls)>=10) {
-            leftText = leftText.replace('*','†') + ' ';
-          } else {
-            leftText = null;
-          }
-        }
-        if(!leftText) leftText = arrayVerse.slice(0,i).join('');
-        var result = (leftText + '*' + arrayVerse.slice(i).join('')).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
-        return result[0].toUpperCase() + result.slice(1);
-      }
-    }
-    return "";
-  }
-  var normalizeMediant = function(verse){
-    var fullBars = verse.match(reFullBars);
-    if(fullBars && fullBars.length >= 1) {
-      return makeVerse(verse.split(reFullBars));
-    }
-    var halfBars = verse.match(reHalfBars);
-    if(halfBars && halfBars.length >= 1) {
-      return makeVerse(verse.split(reHalfBars));
-    }
-    return verse;
-  }
-  var versify = function(text, allowSplittingLines){
-    var lines = text.split('\n');
-    var result = '';
-    for(var i=0; i<lines.length; ++i) {
-      // Don't consider the bars that weren't coincident with punctuation:
-      var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
-      // Each line is already considered a verse, but sometimes we have to split a line further into verses.
-      // We don't allow this on alleluias, graduals, or tracts though, because they already have the verses marked.
-      var verses = allowSplittingLines? splitIntoVerses(line) : [line];
-      if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
-        // if there aren't any full or half bars left to split at, we will need to bring back in the bars that weren't coincident with punctuation:
-        verses[0] = lines[i];
-      }
-      for(var j=0; j<verses.length; ++j) {
-        result += normalizeMediant(verses[j]) + '\n';
-      }
-    }
-    return result.trim();
+  var versify = function(line, allowSplitting){
+    if(allowSplitting) return splitIntoVerses(line);
+    return makePattern(line);
   }
 
   function deducePattern(text, lines, allowSplittingLines) {
-    var versified = text.split('\n').map(function(text) {
+    return text.split('\n').map(function(text) {
       return versify(text, allowSplittingLines);
     });
-    var pattern = lines.map(function(segments, i) {
-      var regex = /\s*([†*\n])/g,
-          pat = [],
-          verse = versified[i].toLowerCase(),
-          text = '',
-          match = regex.exec(verse),
-          nextVerseChar = (match||{}).index;
-      segments.forEach(function(seg, segNum) {
-        if(!match) return;
-        text += seg.toLowerCase();
-        if(verse.slice(text.length, text.length + match[0].length) == match[0]) {
-          text += match[0];
-          pat.push(match[1].replace('†','*').replace('\n','℣'));
-          match = regex.exec(verse),
-          nextVerseChar = (match||{}).index;
-        } else {
-          pat.push('');
-        }
-        if(segNum != seg.length - 1 && text.slice(-1) != '\n') text += ' ';
-      });
-      if(text != verse.slice(0,text.length)) {
-        console.warn('error deducing pattern in verse: ', verse, text, segments);
-        return null;
-      }
-      return pat;
-    });
-    return pattern;
   }
 
   function versifyByPattern(lines, pattern) {
@@ -1639,11 +1575,30 @@ $(function(){
   var updateExsurge = function(part, id, updateFromOldScore) {
     var prop = sel[part];
     var ctxt = prop.ctxt;
-    var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+    var gabc = prop.activeGabc;
+    var TP = selTempus == 'Pasch';
+    if(gabc.match(/\+[^)]*\(/)) {
+      // if it has a + (†) that marks T.P or extra T.P
+      if((TP && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>/i)) || ((!TP && gabc.match(/<i>.*?extra\s+T\.\s+P\./i)))) {
+        // remove the part that is not marked second (the part before _T. P._ or _Extra T. P._)
+        gabc = gabc.replace(/\+(\([^)]+\)\s?)?[^+]+?(\+|<\/i>\W+)+\s*/,'$1');
+      } else {
+        // remove the + marker and the second part [the part after the (::)]:
+        gabc = gabc.replace(/\+(?:\(\))?\s*([^+]+?)(?:<i>.*?<\/i>)?(\(::\)).*/,'$1$2');
+      }
+    }
+    if(TP) {
+      gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
+    } else {
+      gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>.*?(?=\(::\))/,'')
+        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\).*?(?=[^\s(]*\(::\))/,'');
+    }
+    gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
+      .replace(/[^()\s][^()]+(?=\s+[^\s(]+\()/g,'^$&^')
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
@@ -2189,6 +2144,7 @@ console.info(JSON.stringify(selPropers));
     if(key && !dontStore) {
       var realKey = hash[key];
       delete hash[key];
+      delete hash.tempus;
       var hashString = hash.toString();
       console.info(realKey, hashString);
       localStorage[realKey] = hashString;
