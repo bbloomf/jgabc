@@ -479,6 +479,7 @@ var extraChants = {
         id: 157,
     }, {
         sticky: 0,
+        chantScaleIf: ["(max-width: 450px)", 0.8],
         gabc: `initial-style: 1;
 annotation: <sp>V/</sp>.;
 %%
@@ -512,7 +513,8 @@ et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::
     }, {
         rubric: "Both choirs repeat: <Pópule meus.> as far as the <v/. Quia.>",
         id: 157,
-        sticky: 0
+        sticky: 0,
+        chantScaleIf: ["(max-width: 450px)", 0.8]
     }, {
         sticky: 1,
         gabc: `initial-style: 0;
@@ -549,6 +551,7 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
     }, {
         rubric: "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/. Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn.",
         sticky: 0,
+        chantScaleIf: ["(max-width: 450px)", 0.8],
         id: 1128
     }, {
         id: 2209,

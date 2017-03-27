@@ -542,8 +542,15 @@ $(function(){
           activeGabc: chant.gabc,
           id: chant.id,
           style: 'full',
-          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
+          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/)),
+          scale: 1
         };
+        if(chant.chantScaleIf && window.matchMedia) {
+          var mediaQuery = window.matchMedia(chant.chantScaleIf[0]);
+          if(mediaQuery.matches) {
+            sel[part].chantScale = chant.chantScaleIf[1];
+          }
+        }
         var $curElement;
         $curElement = $('<div>').attr('id',part+'-preview')
         makeChantContextForSel(sel[part]);
@@ -1673,7 +1680,8 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var newWidth = chantContainer.width();
+    var scale = sel[part].chantScale || 1;
+    var newWidth = Math.floor(chantContainer.width() / scale);
     if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
@@ -1688,7 +1696,12 @@ $(function(){
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
-          svg.removeAttribute('viewBox');
+          if(scale == 1) {
+            svg.removeAttribute('viewBox');
+          } else {
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+          }
           chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
