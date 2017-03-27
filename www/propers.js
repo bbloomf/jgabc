@@ -31,6 +31,17 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
+  var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
+  var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
+  var reFullBars = /\s*\*\s*/g;
+  var reFullBarsOrFullStops = /(?:[:;.?!]?\s*\*|[:;.?!]\s)\s*/g;
+  var reHalfBars = /\s*\|\s*/g;
+  var reFullOrHalfBars = /\s*[*|]\s*/g;
+  var reFullOrHalfBarsOrFullStops = /(?:[:;.?!]?\s*[*|]|[:;.?!]\s)\s*/g;
+  var reCommaWords = /[,]\s/g;
+  var reFullStops = /[.:;!?]\s/g;
+  var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
   var LocationHash = function(hash) {
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
@@ -321,7 +332,7 @@ $(function(){
           var plaintext = decompile(gabc,true);
           if(isAlleluia(part,plaintext)) truePart = 'alleluia';
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
-            return line.split(/\s*[|*]\s*/);
+            return line.split(reFullOrHalfBarsOrFullStops);
           });
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
@@ -798,15 +809,6 @@ $(function(){
     return s;
   };
   
-  var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
-  var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
-  var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
-  var reFullBars = /\s*\*\s*/g;
-  var reHalfBars = /\s*\|\s*/g;
-  var reFullOrHalfBars = /\s*[*|]\s*/g;
-  var reCommaWords = /[,]\s/g;
-  var reFullStops = /[.:;!?]\s/g;
-  var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
   var addPatternFromSplitLine = function(pattern, sLine) {
     for(var i = 0; i < sLine.length; ++i) {
       for(var j = sLine[i].split(/ \| /g).length; j > 1; --j) {
@@ -817,8 +819,11 @@ $(function(){
   }
   var makePattern = function(line) {
     var result = [];
-    var line = splitLine(line.split(reFullOrHalfBars), 2, ' | ', 20);
-    addPatternFromSplitLine(result, line);
+    var sLine = splitLine(line.split(reFullBarsOrFullStops), 2, ' | ', 20);
+    if(sLine.length < 2 || Math.max.apply(null,sLine.mapSyllableCounts()) > 20) {
+      sLine = splitLine(line.split(reFullOrHalfBarsOrFullStops), 2, ' | ', 20);
+    }
+    addPatternFromSplitLine(result, sLine);
     return result;
   }
   var splitIntoVerses = window.splitIntoVerses = function(line) {
@@ -1598,7 +1603,7 @@ $(function(){
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/[^()\s][^()]+(?=\s+[^\s(]+\()/g,'^$&^')
+      .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g,'$1^$2^')
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
