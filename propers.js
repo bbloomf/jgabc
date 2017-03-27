@@ -439,7 +439,7 @@ $(function(){
   }
   var updateDay = function() {
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    selPropers = proprium[ref + selTempus];
+    selPropers = proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay];
