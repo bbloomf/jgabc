@@ -606,16 +606,20 @@ $(function(){
     });
     clearHash(hash, selDay);
     loadStoredDataForKey(selDay);
+    var m = moment(selDay,'MMMD');
+    if(m.isValid()) {
+      if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
+      selTempus = getSeasonForMoment(m);
+    } else {
+      if(selDay.match(/^(Pa|A)sc/)) selTempus = 'Pasch';
+      else if(selDay.match(/^(AshWed|Septua|Sexa|Quinqua|Quad)/)) selTempus = 'Quad';
+      else selTempus = '';
+    }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
       $selTempus.show();
-      var m = moment(selDay,'MMMD');
-      if(m.isValid()) {
-        if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
-        $selTempus.val(selTempus = getSeasonForMoment(m));
-      }
+      $selTempus.val(selTempus);
     } else {
-      selTempus = '';
       $selTempus.prop('selectedIndex',0).hide();
       addToHash('tempus', false, true);
     }
@@ -1652,7 +1656,25 @@ $(function(){
   var updateExsurge = function(part, id, updateFromOldScore) {
     var prop = sel[part];
     var ctxt = prop.ctxt;
-    var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+    var gabc = prop.activeGabc;
+    var TP = selTempus == 'Pasch';
+    if(gabc.match(/\+[^)]*\(/)) {
+      // if it has a + (†) that marks T.P or extra T.P
+      if((TP && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>/i)) || ((!TP && gabc.match(/<i>.*?extra\s+T\.\s+P\./i)))) {
+        // remove the part that is not marked second (the part before _T. P._ or _Extra T. P._)
+        gabc = gabc.replace(/\+(\([^)]+\)\s?)?[^+]+?(\+|<\/i>\W+)+\s*/,'$1');
+      } else {
+        // remove the + marker and the second part [the part after the (::)]:
+        gabc = gabc.replace(/\+(?:\(\))?\s*([^+]+?)(?:<i>.*?<\/i>)?(\(::\)).*/,'$1$2');
+      }
+    }
+    if(TP) {
+      gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
+    } else {
+      gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>.*?(?=\(::\))/,'')
+        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\).*?(?=[^\s(]*\(::\))/,'');
+    }
+    gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
@@ -2203,6 +2225,7 @@ console.info(JSON.stringify(selPropers));
     if(key && !dontStore) {
       var realKey = hash[key];
       delete hash[key];
+      delete hash.tempus;
       var hashString = hash.toString();
       console.info(realKey, hashString);
       localStorage[realKey] = hashString;
