@@ -185,6 +185,7 @@ $(function(){
     '8':'G'
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\).*\(::\)/i;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -350,6 +351,8 @@ $(function(){
             }
           }
           $style.val(styleVal);
+        } else if(part == 'asperges') {
+          truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         }
         var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
         if(capTruePart) {
@@ -368,6 +371,9 @@ $(function(){
         sel[part].mode = sel[part].originalMode = header.mode;
         if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
           sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
+        }
+        if(part==='asperges' && momentIsInPassionTide(selMoment)) {
+          sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
         if(!$selTone.length) {
@@ -501,6 +507,10 @@ $(function(){
     }
     return '';
   }
+  var momentIsInPassionTide = function(m) {
+    var dates = Dates(m.year());
+    return m.isBefore(dates.pascha) && m.isSameOrAfter(moment(dates.pascha).subtract(2,'weeks'));
+  }
   var showHideExtraChants = function(e) {
     e && e.preventDefault && e.preventDefault();
     var $this = $('#divExtraChants a.showHide'),
@@ -591,6 +601,16 @@ $(function(){
     });
   }
 
+  var updateTempus = function() {
+    $('[tempus]').each(function() {
+      var $this = $(this),
+          tempus = $this.attr('tempus'),
+          negated = tempus[0] === '-';
+      if(negated) tempus = tempus.slice(1);
+      var match = tempus.toLowerCase() == selTempus.toLowerCase();
+      $this.toggle(match? !negated : negated);
+    });
+  }
   var selectedDay = function(e){
     selDay = $(this).val();
     var hash = {
@@ -609,12 +629,15 @@ $(function(){
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
       if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
+      selMoment = m;
       selTempus = getSeasonForMoment(m);
     } else {
+      selMoment = dateForSundayKey(selDay);
       if(selDay.match(/^(Pa|A)sc/)) selTempus = 'Pasch';
       else if(selDay.match(/^(AshWed|Septua|Sexa|Quinqua|Quad)/)) selTempus = 'Quad';
       else selTempus = '';
     }
+    updateTempus();
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
       $selTempus.show();
@@ -632,6 +655,7 @@ $(function(){
   };
   var selectedTempus = function(e){
     selTempus = $(this).val();
+    updateTempus();
     addToHash('tempus', selTempus);
     updateDay();
   };
@@ -725,6 +749,8 @@ $(function(){
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
     regexOuter.exec('');
+    var match = mixed.match(regexHeaderEnd);
+    if(match) mixed = mixed.slice(match.index + match[0].length);
     mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
       .replace(/<v>\\greheightstar<\/v>/g,'*');
@@ -741,7 +767,7 @@ $(function(){
     var lastClef='';
     var verseHasClef=false;
     var lastVerse=function(){return verses[verses.length-1]||null;}
-    var match=regexOuter.exec(mixed);
+    match=regexOuter.exec(mixed);
     var verseReps=0;
     while(match) {
       ws=match[rog.whitespace]||'';
@@ -1296,6 +1322,10 @@ $(function(){
       format: bi_formats.gabc,
       flexEqualsTenor: true
     }) + ' (::)' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,null,tone.clef));
+  }
+
+  var removeGloriaPatriGabc = function(part) {
+    return part.gabc.replace(regexGabcGloriaPatriEtFilio,'');
   }
 
   var getFullGloriaPatriGabc = function(part) {
@@ -2667,5 +2697,7 @@ console.info(JSON.stringify(selPropers));
       }
     }
   });
+  selTempus = getSeasonForMoment(new moment());
+  updateTempus();
   hashChanged();
 });
