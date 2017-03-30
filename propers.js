@@ -31,6 +31,17 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
+  var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
+  var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
+  var reFullBars = /\s*\*\s*/g;
+  var reFullBarsOrFullStops = /(?:[:;.?!]?\s*\*|[:;.?!]\s)\s*/g;
+  var reHalfBars = /\s*\|\s*/g;
+  var reFullOrHalfBars = /\s*[*|]\s*/g;
+  var reFullOrHalfBarsOrFullStops = /(?:[:;.?!]?\s*[*|]|[:;.?!]\s)\s*/g;
+  var reCommaWords = /[,]\s/g;
+  var reFullStops = /[.:;!?]\s/g;
+  var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
   var LocationHash = function(hash) {
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
@@ -322,16 +333,12 @@ $(function(){
           var plaintext = decompile(gabc,true);
           if(isAlleluia(part,plaintext)) truePart = 'alleluia';
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
-            return line.split(/\s*[|*]\s*/);
+            return line.split(reFullOrHalfBarsOrFullStops);
           });
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
-          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
-            text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
-          } else {
-            text = sel[part].text = versify(plaintext, !truePart.match(/alleluia|graduale|tractus/));
-          }
+          text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
         }
         if(part.match(/^graduale/)) {
           var $style = $('#selStyle'+capPart),
@@ -545,8 +552,15 @@ $(function(){
           activeGabc: chant.gabc,
           id: chant.id,
           style: 'full',
-          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
+          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/)),
+          scale: 1
         };
+        if(chant.chantScaleIf && window.matchMedia) {
+          var mediaQuery = window.matchMedia(chant.chantScaleIf[0]);
+          if(mediaQuery.matches) {
+            sel[part].chantScale = chant.chantScaleIf[1];
+          }
+        }
         var $curElement;
         $curElement = $('<div>').attr('id',part+'-preview')
         makeChantContextForSel(sel[part]);
@@ -828,144 +842,61 @@ $(function(){
     return s;
   };
   
-  var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
-  var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
-  var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
-  var reFullBars = /\s*\*\s*/g;
-  var reHalfBars = /\s*\|\s*/g;
-  var reFullOrHalfBars = /\s*[*|]\s*/g;
-  var reCommaWords = /[,]\s/g;
-  var reFullStops = /[.:;!?]\s/g;
-  var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
-  var splitIntoVerses = function(line){
-    var fullbars = line.match(reFullBars);
-    var halfbars = line.match(reHalfBars);
-    if(!fullbars && !halfbars) {
-      // if there weren't any bars, we have to consider the punctuation that didn't coincide with a bar
-      // TODO: find out which chants this happens on.
-      line = line.replace(reCommaWords,'$&| ')
-                 .replace(reFullStops,'$&* ');
-      fullbars = line.match(reFullBars);
-      halfbars = line.match(reHalfBars);
+  var addPatternFromSplitLine = function(pattern, sLine) {
+    for(var i = 0; i < sLine.length; ++i) {
+      for(var j = sLine[i].split(/ \| /g).length; j > 1; --j) {
+        pattern.push('');
+      }
+      if(i < sLine.length - 1) pattern.push('*');
     }
-    var split;
-    if(fullbars) {
-      verses = [];
-      split = line.split(reFullBars);
-      var i=0;
-      for(var j=1; j<=split.length; ++j) {
-        // go through all the possible full bar splits and see if verses can be made out of them:
-        var left = split.slice(i,j).join(' * ');
-        var normalizedLeft = normalizeMediant(left).split(' * ');
-        var segmentsRemaining = split.length - j;
-        if(normalizedLeft.length == 2 && Math.min.apply(null,normalizedLeft.mapSyllableCounts())>=7) {
-          // if the current verse (split from before j to j) can be split in two, with each segment having more than 7 syllables,
-          // and there is only one segment remaining, we need to make sure that segment can be a verse on its own
-          if (segmentsRemaining == 1) {
-            //Check to make sure the one remaining segment can also be split.
-            var right = split[j];
-            var normalizedRight = normalizeMediant(right).split(' * ');
-            if(normalizedRight.length != 2 || Math.min.apply(null,normalizedRight.mapSyllableCounts())<7) {
-              // if this segment couldn't be split in two or at least one of its segments would have a syllable count less than 7,
-              // we will need to group it in with the previously considered verse.
-              j++;
+  }
+  var makePattern = function(line) {
+    var result = [];
+    var sLine = splitLine(line.split(reFullBarsOrFullStops), 2, ' | ', 20);
+    if(sLine.length < 2 || Math.max.apply(null,sLine.mapSyllableCounts()) > 20) {
+      sLine = splitLine(line.split(reFullOrHalfBarsOrFullStops), 2, ' | ', 20);
+    }
+    addPatternFromSplitLine(result, sLine);
+    return result;
+  }
+  var splitIntoVerses = window.splitIntoVerses = function(line) {
+    var fullbars = line.match(reFullBars);
+    var numSyllables = line.countSyllables();
+    if(numSyllables > 30 && fullbars) {
+      var split = line.split(reFullBars);
+      var satisfied = false;
+      var result;
+      for(var count = 2; !satisfied && count < 5; ++count) {
+        result = [];
+        var test = splitLine(split, count, ' * '),
+            sylCounts = test.mapSyllableCounts();
+        satisfied = Math.max.apply(null,sylCounts) < 50;
+        for(var i=0; satisfied && i < count; ++i) {
+          // check whether we can make a satisfactory mediant for each verse:
+          var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
+          sylCounts = mediantTest.mapSyllableCounts();
+          satisfied = Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          if(satisfied) {
+            addPatternFromSplitLine(result, mediantTest);
+            if(i < count - 1) {
+              result.push('℣');
             }
           }
-          verses.push(split.slice(i,j).join(' * '));
-          i = j;
-        }
-        if(j == split.length && j>i) {
-          // if we have a verse left over, add it:
-          verses.push(split.slice(i,j).join(' * '));
         }
       }
-      return verses;
-    } else {
-      // don't make multiple verses out of it if there were no full bars / full stops
-      return [line];
+      if(satisfied) return result;
     }
+    return makePattern(line);
   }
-  var makeVerse = function(arrayVerse) {
-    var syls = arrayVerse.mapSyllableCounts();
-    for(var i=1;i<arrayVerse.length; ++i) {
-      var left = syls.slice(0,i).sum();
-      var right = syls.slice(i).sum();
-      if(left >= right || i==(arrayVerse.length-1)) {
-        // if there are more syllables on the left now than on the right, or this is our last pass:
-        var leftText;
-        if(left >= 20) {
-          // if the left side has 20 or more syllables, let's try to add a flex:
-          leftText = normalizeMediant(arrayVerse.slice(0,i).join(' * '));
-          var leftArray = leftText.split('*');
-          var leftSyls = leftArray.mapSyllableCounts();
-          if(leftSyls.length==2 && Math.min.apply(null,leftSyls)>=10) {
-            leftText = leftText.replace('*','†') + ' ';
-          } else {
-            leftText = null;
-          }
-        }
-        if(!leftText) leftText = arrayVerse.slice(0,i).join('');
-        var result = (leftText + '*' + arrayVerse.slice(i).join('')).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
-        return result[0].toUpperCase() + result.slice(1);
-      }
-    }
-    return "";
-  }
-  var normalizeMediant = function(verse){
-    return splitLine(verse.split(reFullOrHalfBars),2,false,20).join(' * ');
-  }
-  var versify = function(text, allowSplittingLines){
-    var lines = text.split('\n');
-    var result = '';
-    for(var i=0; i<lines.length; ++i) {
-      // Don't consider the bars that weren't coincident with punctuation:
-      var line = lines[i]; // .replace(reBarsWithNoPunctuation,function(a,b){return b;});
-      // Each line is already considered a verse, but sometimes we have to split a line further into verses.
-      // We don't allow this on alleluias, graduals, or tracts though, because they already have the verses marked.
-      var verses = allowSplittingLines? splitIntoVerses(line) : [line];
-      if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
-        // if there aren't any full or half bars left to split at, we will need to bring back in the bars that weren't coincident with punctuation:
-        verses[0] = lines[i];
-      }
-      for(var j=0; j<verses.length; ++j) {
-        result += normalizeMediant(verses[j]) + '\n';
-      }
-    }
-    return result.trim();
+  var versify = function(line, allowSplitting){
+    if(allowSplitting) return splitIntoVerses(line);
+    return makePattern(line);
   }
 
   function deducePattern(text, lines, allowSplittingLines) {
-    var versified = text.split('\n').map(function(text) {
+    return text.split('\n').map(function(text) {
       return versify(text, allowSplittingLines);
     });
-    var pattern = lines.map(function(segments, i) {
-      var regex = /\s*([†*\n])/g,
-          pat = [],
-          verse = versified[i].toLowerCase(),
-          text = '',
-          match = regex.exec(verse),
-          nextVerseChar = (match||{}).index;
-      segments.forEach(function(seg, segNum) {
-        if(!match) return;
-        text += seg.toLowerCase();
-        if(text.length == match.index) {
-          text += match[0];
-          pat.push(match[1].replace('†','*').replace('\n','℣'));
-          match = regex.exec(verse),
-          nextVerseChar = (match||{}).index;
-        } else {
-          pat.push('');
-        }
-        if(segNum != seg.length - 1 && text.slice(-1) != '\n') text += ' ';
-      });
-      text = text.replace(/\s+$/,'');
-      if(text.replace(/\s+/g,' ') != verse.slice(0,text.length).replace(/\s+/g,' ')) {
-        console.warn('error deducing pattern in verse:\n', verse, '\n::\n', text, segments);
-        return null;
-      }
-      return pat;
-    });
-    return pattern;
   }
 
   function versifyByPattern(lines, pattern) {
@@ -1709,7 +1640,7 @@ $(function(){
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/[^()\s][^()]+(?=\s+[^\s(]+\()/g,'^$&^')
+      .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g,'$1^$2^')
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
@@ -1779,7 +1710,8 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var newWidth = chantContainer.width();
+    var scale = sel[part].chantScale || 1;
+    var newWidth = Math.floor(chantContainer.width() / scale);
     if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
@@ -1794,7 +1726,12 @@ $(function(){
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
-          svg.removeAttribute('viewBox');
+          if(scale == 1) {
+            svg.removeAttribute('viewBox');
+          } else {
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+          }
           chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
