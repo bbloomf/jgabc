@@ -196,7 +196,7 @@ $(function(){
     '8':'G'
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
-  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\).*\(::\)/i;
+  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\).*\(::\)/i;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -1640,9 +1640,9 @@ $(function(){
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g,'$1^$2^')
+      .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)?(?:<(\w+)>.*?<\/\4>|[^^()<>])+)(?=\s+[^\s(]+\()/g,'$1^$2^')
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
-      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
+      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
