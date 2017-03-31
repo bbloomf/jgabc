@@ -607,7 +607,7 @@ $(function(){
         $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
       }
       if(chant.html) {
-        $curContainer.append($('<div>').html(chant.html));
+        $curContainer.append($('<div>').html(chant.html.replace(/[†*]/g,'<span class="red">$&</span>')));
       }
       if(chant.sticky === 1) {
         $curContainer = $container;
