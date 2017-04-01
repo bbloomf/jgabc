@@ -29,8 +29,14 @@
   <script src="propers.js"></script>
 <!--   <script src="../exsurge/dist/exsurge.js"></script> -->
   <script src="exsurge.min.js"></script>
+  <script src="jquery.hypher.js"></script>
+  <script src="patterns/la-hypher.js"></script>
 </head>
 <style>
+svg.bg-blur {
+  height: 0;
+  width: 0;
+}
 .sticky {
   position: -webkit-sticky;
   position: sticky;
@@ -86,6 +92,9 @@ textarea {
   font-size: inherit;
   white-space: nowrap;
   padding-left: 10pt;
+}
+.red {
+  color: #d00;
 }
 .asperges-verses .versiculum {
   font-size: 120%;
@@ -146,6 +155,7 @@ div[gregobase-id] text.dropCap:hover {
 }
 .chant-preview>svg.ChantScore {
   width: 100%;
+  page-break-inside: avoid;
 }
 select.sel-style{
   margin:1px 0 0;

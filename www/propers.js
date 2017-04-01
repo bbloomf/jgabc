@@ -186,7 +186,8 @@ $(function(){
     sequentia: 'Seq.',
     hymnus: 'Hymn.',
     antiphona: "Ant.",
-    responsorium: "Resp."
+    responsorium: "Resp.",
+    canticum: "Cant."
   };
   var defaultTermination={
     '1':'f',
@@ -196,7 +197,7 @@ $(function(){
     '8':'G'
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
-  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\).*\(::\)/i;
+  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\).*\(::\)/i;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -272,6 +273,11 @@ $(function(){
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
+    if(selPropers && selPropers[part] === false) {
+      $div.hide();
+      return; 
+    }
+    $div.show();
     if(isNovus && !isOrdinaryPart) {
       var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
@@ -490,8 +496,24 @@ $(function(){
       updatePart($(this).attr('part'));
     });
     var $extraChants = $('#mandatory-extra-chants').empty();
-    if(selPropers && selPropers.extraChants === true) {
-      renderExtraChants($extraChants);
+    $('.mandatory-extra-chant').remove();
+    if(selPropers && selPropers.extraChants === true && sel.extraChants) {
+      if(sel.extraChants.constructor === Array) {
+        renderExtraChants($extraChants, sel.extraChants);
+      } else {
+        var i = 0;
+        $.each(sel.extraChants, function(part, extraChants) {
+          var $part = $(`[part="${part}"]`);
+          if($part.length == 0) {
+            console.warn('Part not found:', part, 'placing extra chants at end of page');
+            $part = $(document.body).children().last();
+          } else {
+            $part.hide();
+          }
+          var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
+          i = renderExtraChants($extraChants, extraChants, i);
+        });
+      }
     }
   };
   var selectedDayNovus = function(e){
@@ -528,13 +550,15 @@ $(function(){
     $container.toggle(showHide);
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
-      renderExtraChants($container);
+      renderExtraChants($container, sel.extraChants);
     }
   }
-  function renderExtraChants($container) {
+  // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
+  function renderExtraChants($container, extraChants, addI) {
     var $stickyParent, $curContainer = $container;
+    if(!addI) addI = 0;
     
-    sel.extraChants.forEach(function(chant, i) {
+    extraChants.forEach(function(chant, i) {
       if(chant.title) {
         $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
       }
@@ -545,7 +569,7 @@ $(function(){
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);
         }
-        var part = 'extra-' + i;
+        var part = 'extra-' + (i + addI);
         var options = (typeof chant.id == 'object')? chant.id : null;
         sel[part] = {
           gabc: chant.gabc,
@@ -604,15 +628,19 @@ $(function(){
         }
       }
       if(chant.rubricAfter) {
-        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
       }
       if(chant.html) {
-        $curContainer.append($('<div>').html(chant.html));
+        // possibly hyphenate:
+        // Hypher.languages.la.hyphenateText('oneword')
+        // hyphenation point is '\u00ad'
+        $curContainer.append($('<div>').html(chant.html.replace(/[†*]/g,'<span class="red">$&</span>')));
       }
       if(chant.sticky === 1) {
         $curContainer = $container;
       }
     });
+    return extraChants.length + addI;
   }
 
   var updateTempus = function() {
@@ -1640,9 +1668,11 @@ $(function(){
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g,'$1^$2^')
+      .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)?(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g, function(match, whitespace, main) {
+        return (main.match(/[|^]/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
+      })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
-      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
+      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
