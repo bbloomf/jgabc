@@ -186,7 +186,8 @@ $(function(){
     sequentia: 'Seq.',
     hymnus: 'Hymn.',
     antiphona: "Ant.",
-    responsorium: "Resp."
+    responsorium: "Resp.",
+    canticum: "Cant."
   };
   var defaultTermination={
     '1':'f',
