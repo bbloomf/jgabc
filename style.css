@@ -40,6 +40,9 @@
 .verses > p > span {
   margin-bottom: 6pt;
 }
+.verses > p > span.versenum {
+  margin-bottom: 0;
+}
 .open-on-hover>.dropdown-menu {
   margin: 0;
 }
