@@ -638,6 +638,7 @@ Pa|Fi|Spí|S{a}ncta (h)ter|li |ri|(h) de|Red{é}mp|tus |Trín(h) cæ|tor |Sanc|i
         psalmtone: 'tractus' // todo...allow psalmtoning of this chant
     }, {
         title: "The Second Part of the Litany",
+        rubric: " ",
         gabc: "(c3)Pro|Pro|Ab (h)pí|pí|(h)<i>ti</i>|<i>ti</i>|<i>om</i>(g)<i>us</i>|<i>us</i> |<i>ni</i> (f) <b>es</b>|<b>es</b>|<b>ma</b>(h ir)to,|to, |lo, (i.) (,) par|ex|lí(g)ce|áu|be(h) no|di |ra (f)bis,|nos, |nos, (e) Dó|Dó|Dó(f)mi|mi|mi(e)ne.|ne. |ne. (d.) (::)",
         html: `<div class="verses" style="display:inline-block">
 <p>Ab o<i>mni</i> <i>pec</i><b>cá</b>to,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>
