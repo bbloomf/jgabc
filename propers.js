@@ -631,10 +631,14 @@ $(function(){
         $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
       }
       if(chant.html) {
-        // possibly hyphenate:
-        // Hypher.languages.la.hyphenateText('oneword')
-        // hyphenation point is '\u00ad'
-        $curContainer.append($('<div>').html(chant.html.replace(/[†*]/g,'<span class="red">$&</span>')));
+        $curContainer.append($('<div>').html(chant.html
+          .replace(/[†*]/g,'<span class="red">$&</span>')
+          .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/w+>[a-z]/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables
+          .replace(/(\s|<\/?\w+>)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]{3,})(?=\s|&nbsp;|[,.;:?!]|<\/?\w+>)/gi,function(all,preword,word){
+            if(Hypher && Hypher.languages && Hypher.languages.la) return preword + Hypher.languages.la.hyphenateText(word);
+            return all;
+          })
+        ));
       }
       if(chant.sticky === 1) {
         $curContainer = $container;
