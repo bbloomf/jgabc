@@ -433,13 +433,13 @@ $(function(){
       }
     }
   };
-  var addMultipleGraduales = function(count) {
-    var i = 0;
+  var addMultipleGraduales = function(count, startIndex) {
+    var i = startIndex || 1;
+    count += startIndex - 1;
     var $multipleGradualesTemplate = $('.multiple-graduales-0');
     var $lastGraduale = $multipleGradualesTemplate;
-    while(i < count) {
+    while(i <= count) {
       var $newGraduale = $multipleGradualesTemplate.clone(true);
-      ++i;
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
       $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
@@ -450,11 +450,13 @@ $(function(){
       });
       $newGraduale.find('.sel-style').change();
       $lastGraduale = $newGraduale;
+      ++i;
     }
     includePropers = [];
     $('a[id^=include]').each(function(){
       includePropers.push(this.id.slice(7).toLowerCase());
     });
+    return $newGraduale;
   }
   var updateDay = function() {
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
@@ -513,6 +515,9 @@ $(function(){
           var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
           i = renderExtraChants($extraChants, extraChants, i);
         });
+        $('div[part^=graduale]').each(function(){
+          updatePart($(this).attr('part'));
+        })
       }
     }
   };
@@ -565,7 +570,12 @@ $(function(){
       if(chant.rubric) {
         $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
       }
-      if(chant.gabc || chant.id) {
+      if(chant.id && chant.psalmtone) {
+        if(!selPropers.gradualeID) selPropers.gradualeID = [0];
+        addMultipleGraduales(1,selPropers.gradualeID.length);
+        $curContainer.append($('div.multiple-graduales-'+selPropers.gradualeID.length).show())
+        selPropers.gradualeID.push(chant.id);
+      } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);
         }
