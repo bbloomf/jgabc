@@ -945,7 +945,7 @@ var proprium = {
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588},
   Quad6h: {introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
   Quad6f: {extraChants: 'graduale', gradualeID:[3177,22], ordinary: false},
-  Quad6s: {extraChants: true, credo: false, agnus: false},
+  Quad6s: {extraChants: true, credo: false, agnus: false, ite: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:666,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},
