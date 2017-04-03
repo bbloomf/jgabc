@@ -433,13 +433,13 @@ $(function(){
       }
     }
   };
-  var addMultipleGraduales = function(count) {
-    var i = 0;
+  var addMultipleGraduales = function(count, startIndex) {
+    var i = startIndex || 1;
+    count += startIndex - 1;
     var $multipleGradualesTemplate = $('.multiple-graduales-0');
     var $lastGraduale = $multipleGradualesTemplate;
-    while(i < count) {
+    while(i <= count) {
       var $newGraduale = $multipleGradualesTemplate.clone(true);
-      ++i;
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
       $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
@@ -450,11 +450,13 @@ $(function(){
       });
       $newGraduale.find('.sel-style').change();
       $lastGraduale = $newGraduale;
+      ++i;
     }
     includePropers = [];
     $('a[id^=include]').each(function(){
       includePropers.push(this.id.slice(7).toLowerCase());
     });
+    return $newGraduale;
   }
   var updateDay = function() {
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
@@ -513,6 +515,9 @@ $(function(){
           var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
           i = renderExtraChants($extraChants, extraChants, i);
         });
+        $('div[part^=graduale]').each(function(){
+          updatePart($(this).attr('part'));
+        })
       }
     }
   };
@@ -565,7 +570,12 @@ $(function(){
       if(chant.rubric) {
         $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
       }
-      if(chant.gabc || chant.id) {
+      if(chant.id && chant.psalmtone) {
+        if(!selPropers.gradualeID) selPropers.gradualeID = [0];
+        addMultipleGraduales(1,selPropers.gradualeID.length);
+        $curContainer.append($('div.multiple-graduales-'+selPropers.gradualeID.length).show())
+        selPropers.gradualeID.push(chant.id);
+      } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);
         }
@@ -631,10 +641,14 @@ $(function(){
         $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
       }
       if(chant.html) {
-        // possibly hyphenate:
-        // Hypher.languages.la.hyphenateText('oneword')
-        // hyphenation point is '\u00ad'
-        $curContainer.append($('<div>').html(chant.html.replace(/[†*]/g,'<span class="red">$&</span>')));
+        $curContainer.append($('<div>').html(chant.html
+          .replace(/[†*]/g,'<span class="red">$&</span>')
+          .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/w+>[a-z]/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables
+          .replace(/(\s|<\/?\w+>)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]{3,})(?=\s|&nbsp;|[,.;:?!]|<\/?\w+>)/gi,function(all,preword,word){
+            if(Hypher && Hypher.languages && Hypher.languages.la) return preword + Hypher.languages.la.hyphenateText(word);
+            return all;
+          })
+        ));
       }
       if(chant.sticky === 1) {
         $curContainer = $container;
@@ -795,7 +809,8 @@ $(function(){
     if(match) mixed = mixed.slice(match.index + match[0].length);
     mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
-      .replace(/<v>\\greheightstar<\/v>/g,'*');
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
