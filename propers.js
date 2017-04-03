@@ -809,7 +809,8 @@ $(function(){
     if(match) mixed = mixed.slice(match.index + match[0].length);
     mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
-      .replace(/<v>\\greheightstar<\/v>/g,'*');
+      .replace(/<v>\\greheightstar<\/v>/g,'*')
+      .replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
