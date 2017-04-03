@@ -46,7 +46,7 @@ $(function(){
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
     }
     return this;
   };
@@ -485,7 +485,7 @@ $(function(){
     }
   }
   var updateDayNovus = function() {
-    selPropers = propriumNoviOrdinis[selDay + selTempus];
+    selPropers = propriumNoviOrdinis[selDay + selTempus] || propriumNoviOrdinis[selDay];
     if(selPropers) {
       selPropers.isNovus = true;
       novusOption = {};
