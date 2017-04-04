@@ -500,144 +500,152 @@ var extraChants = {
       id: 606
     }
   ],
-  "Quad6f": [
-    {
-        rubric: "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/. Venite adorémus.> The choir sings <Veníte adorémus.> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.",
-        id: 2087,
-        rubricAfter: "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross."
-    }, {
-        rubric: "Two cantors sing the following in the middle of the Choir:",
-        id: 157,
-    }, {
-        sticky: 0,
-        chantScaleIf: ["(max-width: 450px)", 0.8],
-        gabc: "initial-style: 1;\n\
-annotation: <sp>V/</sp>.;\n\
-%%\n\
-(c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)\n\
-<sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)\n\
-<sp>V/</sp>. Ha(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)\n\
-<sp>R/</sp>. Sanc(g)tus(fgf/fe) For(cd)tis.(fg!hv/hg.) (::)\n\
-<sp>V/</sp>. Ha(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)\n\
-<sp>R/</sp>. Sanc(gh)tus(ixhg/hiHG'g) Im(f)mor(g)tá(h)lis,(hiwjvIHiih.) (;) mi(g)se(hj/jvIH')ré(g)re(hg/h_g) no(fd)bis.(fghv/hg.) (::)\n"
-    }, {
-        rubric: "Two cantors of the second choir sing:",
-        id: 7808,
-        rubricAfter: "The two choirs respond in turn <Hagios o Theós, Sanctus Deus.> etc. It is always the first choir that sings <Hagios.>"
-    }, {
-    }, {
-        rubric: "Then two cantors of the first choir sing:",
-        id: 7809,
-        rubricAfter: "The two choirs again respond in turn <Hagios o Theós. Sanctus Deus.> etc.",
-        sticky: 1
-    }, {
-        rubric: "The following Reproaches are sung in turn by the cantors. After each Reproach, the two choirs together respond <Pópule meus.> as above, as far as the <v/. Quia.>"
-    }, {
-        rubric: "Two cantors of the second choir sing:",
-        gabc: "initial-style: 0;\n\
-%%\n\
-(c4)<sp>V/</sp>. E(c)go(de) prop(e)ter(e) te(e) fla(e)gel(e)lá(e)vi(e) Æ(e)gýp(d)tum(e.) (,)\n\
-cum(e) pri(e)mo(f)gé(g)ni(f)tis(f) su(evDC)is:(c.) (;)\n\
-et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::c+) P{}ópule\n"
-    }, {
-        rubric: "Both choirs repeat: <Pópule meus.> as far as the <v/. Quia.>",
-        id: 157,
-        sticky: 0,
-        chantScaleIf: ["(max-width: 450px)", 0.8]
-    }, {
-        sticky: 1,
-        gabc: "initial-style: 0;\n\
-%%\n\
-(c4)^2.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) e(e)dú(e)xi(e) de(e) Æ(e)gýp(d)to,(e.) (,)\n\
-de(c)mér(de)so(e) Pha(e)ra(e)ó(e)ne(e) in(f) ma(g)re(f) Ru(evDC)brum:(c.) (;)\n\
-et(c) tu(d_e) me(e) tra(e)di(e)dís(e)ti(e.) (,) prin(e)cí(e)pi(e)bus(ed) sa(f)cer(d)dó(ef)tum.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^3.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) an(e)te(e) te(e) a(f)pé(g)ru(f)i(f) ma(evDC)re:(c.) (;)\n\
-et(c) tu(d_e) a(e)pe(e)ru(e)ís(e)ti(e) lán(e)ce(e)a(ed) la(f)tus(d) me(ef)um.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^4.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) an(e)te(e) te(e) præ(d)í(e)vi(e.) (,) in(e) co(f)lúm(g)na(f) nu(evDC)bis:(c.) (;)\n\
-et(c) tu(d_e) me(e) du(e)xís(e)ti(e.) (,) ad(e) præ(e)tó(e)ri(ed)um(f) Pi(d)lá(ef)ti.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^5.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) pa(e)vi(e) man(e)na(f) per(g) de(f)sér(evDC)tum:(c.) (;)\n\
-et(c) tu(d_e) me(e) ce(e)ci(e)dís(e)ti(e.) (,) á(e)la(e)pis(ed) et(f) fla(d)gél(ef)lis.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^6.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) po(e)tá(e)vi(e.) (,) a(e)qua(e) sa(f)lú(g)tis(f) de(f) pe(evDC)tra:(c.) (;)\n\
-et(c) tu(d_e) me(e) po(e)tás(e)ti(e.) (,) fel(e)le(ed) et(f) a(d)cé(ef)to.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^7.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) prop(e)ter(e) te(e.) (,) Cha(e)na(e)næ(e)ó(e)rum(f) re(g)ges(f) per(f)cús(evDC)si:(c.) (;)\n\
-et(c) tu(d_e) per(e)cus(e)sís(e)ti(e.) (,) a(e)rún(e)di(e)ne(ed) ca(f)put(d) me(ef)um.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^8.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) de(e)di(e) ti(e)bi(f) scep(g)trum(f) re(f)gá(evDC)le:(c.) (;)\n\
-et(c) tu(d_e) de(e)dís(e)ti(e) cá(e)pi(e)ti(e) me(e)o(e.) (,) spí(e)ne(ed)am(f) co(d)ró(ef)nam.(edeDC.) (::c+) P{}ópule() (z)\n\
-\n\
-(c4)^9.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) ex(e)al(e)tá(e)vi(f) ma(g)gna(f) vir(f)tú(evDC)te:(c.) (;)\n\
-et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) cru(ef)cis.(edeDC.) (::c+) P{}ópule\n"
-    }, {
-        rubric: "Both choirs then sing the following antiphon:",
-        id: 428,
-        rubricAfter: "The antiphon <Crucem tuam.> is repeated"
-    }, {
-        rubric: "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/. Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn.",
-        sticky: 0,
-        chantScaleIf: ["(max-width: 450px)", 0.8],
-        id: 1128
-    }, {
-        id: 2209,
-        gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{|}/g,'_'],
-        sticky: 1
-    }, /*{
-        rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis.> is sung:",
-        id: 2120
-    }*/ {
-        rubric: "After the adoration of the Cross, the priest and clergy go to the altar of repose, and the Blessed Sacrament is borne back to the high altar.  During the procession, the following antiphons are sung:",
-        id: 1238
-    }, {
-        id: 940
-    }, {
-        id: 1335,
-        rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus.> may be sung, or else one or other of the responsories from Matins of Good Friday."
-    }, {
-        rubric: "<Psalm 21>",
-        gabc: "initial-style: 0;\n\
-%%\n\
-(f3)De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quí</b>(h)sti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)li(h)ctó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)",
-        html:'<div class="verses">\
-<p><span class="versenum">2.&nbsp;</span>Deus meus, clamábo per diem, et <i>non</i> <i>e</i><b>xáu</b>dies:&nbsp;* et nocte, et non ad insipiéntiam <b>mi</b>hi.<br></p>\
-<p><span class="versenum">3.&nbsp;</span>Tu autem in <i>san</i><i>cto</i> <b>há</b>bitas:&nbsp;* laus <b>Is</b>raël.<br></p>\
-<p><span class="versenum">4.&nbsp;</span>In te speravérunt <i>pa</i><i>tres</i> <b>no</b>stri:&nbsp;* speravérunt, et liberásti <b>e</b>os.<br></p>\
-<p><span class="versenum">5.&nbsp;</span>Ad te clamavérunt, et <i>sal</i><i>vi</i> <b>fa</b>cti sunt:&nbsp;* in te speravérunt, et non sunt con<b>fú</b>si.<br></p>\
-<p><span class="versenum">6.&nbsp;</span>Ego autem sum vermis, <i>et</i> <i>non</i> <b>ho</b>mo:&nbsp;* oppróbrium hóminum, et abjéctio <b>ple</b>bis.<br></p>\
-<p><span class="versenum">7.&nbsp;</span>Omnes vidéntes me <i>de</i><i>ri</i><b>sé</b>runt me:&nbsp;* locúti sunt lábiis, et movérunt <b>ca</b>put.<br></p>\
-<p><span class="versenum">8.&nbsp;</span>Sperávit in Dómino, erí<i>pi</i><i>at</i> <b>e</b>um:&nbsp;* salvum fáciat eum, quóniam vult <b>e</b>um.<br></p>\
-<p><span class="versenum">9.&nbsp;</span>Quóniam tu es, qui extraxísti <i>me</i> <i>de</i> <b>ven</b>tre:&nbsp;* spes mea ab ubéribus matris <b>me</b>æ.<br></p>\
-<p><span class="versenum">10.&nbsp;</span>In te projéctus sum ex útero:&nbsp;† de ventre matris meæ Deus <i>me</i><i>us</i> <b>es</b> tu,&nbsp;* ne discésseris <b>a</b> me:<br></p>\
-<p><span class="versenum">11.&nbsp;</span>Quóniam tribulátio <i>pró</i><i>xi</i><b>ma</b> est:&nbsp;* quóniam non est qui <b>ád</b>juvet.<br></p>\
-<p><span class="versenum">12.&nbsp;</span>Circumdedérunt me ví<i>tu</i><i>li</i> <b>mul</b>ti:&nbsp;* tauri pingues obse<b>dé</b>runt me.<br></p>\
-<p><span class="versenum">13.&nbsp;</span>Aperuérunt super <i>me</i> <i>os</i> <b>su</b>um:&nbsp;* sicut leo rápiens et <b>rú</b>giens.<br></p>\
-<p><span class="versenum">14.&nbsp;</span>Sicut a<i>qua</i> <i>ef</i><b>fú</b>sus sum:&nbsp;* et dispérsa sunt ómnia ossa <b>me</b>a.<br></p>\
-<p><span class="versenum">15.&nbsp;</span>Factum est cor meum tamquam ce<i>ra</i> <i>li</i><b>qué</b>scens:&nbsp;* in médio ventris <b>me</b>i.<br></p>\
-<p><span class="versenum">16.&nbsp;</span>Aruit tamquam testa virtus mea,&nbsp;† et lingua mea adhǽsit fáu<i>ci</i><i>bus</i> <b>me</b>is:&nbsp;* et in púlverem mortis dedu<b>xí</b>sti me.<br></p>\
-<p><span class="versenum">17.&nbsp;</span>Quóniam circumdedérunt me <i>ca</i><i>nes</i> <b>mul</b>ti:&nbsp;* concílium malignántium ob<b>sé</b>dit me.<br></p>\
-<p><span class="versenum">18.&nbsp;</span>Fodérunt manus meas et <i>pe</i><i>des</i> <b>me</b>os:&nbsp;* dinumeravérunt ómnia ossa <b>me</b>a.<br></p>\
-<p><span class="versenum">19.&nbsp;</span>Ipsi vero consíderavérunt et inspexérunt me:&nbsp;† divisérunt sibi vesti<i>mén</i><i>ta</i> <b>me</b>a,&nbsp;* et super vestem meam misérunt <b>sor</b>tem.<br></p>\
-<p><span class="versenum">20.&nbsp;</span>Tu autem, Dómine, ne elongáveris auxílium <i>tu</i><i>um</i> <b>a</b> me:&nbsp;* ad defensiónem meam <b>cón</b>spice.<br></p>\
-<p><span class="versenum">21.&nbsp;</span>Erue a frámea, Deus, á<i>ni</i><i>mam</i> <b>me</b>am:&nbsp;* et de manu canis únicam <b>me</b>am.<br></p>\
-<p><span class="versenum">22.&nbsp;</span>Salva me ex o<i>re</i> <i>le</i><b>ó</b>nis:&nbsp;* et a córnibus unicórnium humilitátem <b>me</b>am.<br></p>\
-<p><span class="versenum">23.&nbsp;</span>Narrábo nomen tuum frá<i>tri</i><i>bus</i> <b>me</b>is:&nbsp;* in médio Ecclésiæ lau<b>dá</b>bo te.<br></p>\
-<p><span class="versenum">24.&nbsp;</span>Qui timétis Dóminum, lau<i>dá</i><i>te</i> <b>e</b>um:&nbsp;* univérsum semen Jacob, glorificáte <b>e</b>um.<br></p>\
-<p><span class="versenum">25.&nbsp;</span>Tímeat eum omne <i>se</i><i>men</i> <b>Is</b>raël:&nbsp;* quóniam non sprevit, neque despéxit deprecatiónem <b>páu</b>peris:<br></p>\
-<p><span class="versenum">26.&nbsp;</span>Nec avértit fáciem <i>su</i><i>am</i> <b>a</b> me:&nbsp;* et cum clamárem ad eum, exau<b>dí</b>vit me.<br></p>\
-<p><span class="versenum">27.&nbsp;</span>Apud te laus mea in ecclé<i>si</i><i>a</i> <b>ma</b>gna:&nbsp;* vota mea reddam in conspéctu timéntium <b>e</b>um.<br></p>\
-<p><span class="versenum">28.&nbsp;</span>Edent páuperes, et saturabúntur:&nbsp;† et laudábunt Dóminum qui re<i>quí</i><i>runt</i> <b>e</b>um:&nbsp;* vivent corda eórum in sǽculum <b>sǽ</b>culi.<br></p>\
-<p><span class="versenum">29.&nbsp;</span>Reminiscéntur et convertén<i>tur</i> <i>ad</i> <b>Dó</b>minum&nbsp;* univérsi fines <b>ter</b>ræ:<br></p>\
-<p><span class="versenum">30.&nbsp;</span>Et adorábunt in con<i>spé</i><i>ctu</i> <b>e</b>jus&nbsp;* univérsæ famíliæ <b>Gén</b>tium.<br></p>\
-<p><span class="versenum">31.&nbsp;</span>Quóniam Dómi<i>ni</i> <i>est</i> <b>re</b>gnum:&nbsp;* et ipse dominábitur <b>Gén</b>tium.<br></p>\
-<p><span class="versenum">32.&nbsp;</span>Manducavérunt et adoravérunt omnes <i>pin</i><i>gues</i> <b>ter</b>ræ:&nbsp;* in conspéctu ejus cadent omnes qui descéndunt in <b>ter</b>ram.<br></p>\
-<p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>i</b>psi.<br></p>\
-<p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.<br></p>\
-</div>'
-    }
-  ],
+  "Quad6f": {
+      "graduale": [
+        {
+            id: 3177,
+            psalmtone: true,
+        }, {
+            id: 22,
+            psalmtone: true
+        }, {
+            rubric: "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/. Venite adorémus.> The choir sings <Veníte adorémus.> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.",
+            id: 2087,
+            rubricAfter: "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross."
+        }, {
+            rubric: "Two cantors sing the following in the middle of the Choir:",
+            id: 157,
+        }, {
+            sticky: 0,
+            chantScaleIf: ["(max-width: 450px)", 0.8],
+            gabc: "initial-style: 1;\n\
+    annotation: <sp>V/</sp>.;\n\
+    %%\n\
+    (c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)\n\
+    <sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)\n\
+    <sp>V/</sp>. Ha(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)\n\
+    <sp>R/</sp>. Sanc(g)tus(fgf/fe) For(cd)tis.(fg!hv/hg.) (::)\n\
+    <sp>V/</sp>. Ha(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)\n\
+    <sp>R/</sp>. Sanc(gh)tus(ixhg/hiHG'g) Im(f)mor(g)tá(h)lis,(hiwjvIHiih.) (;) mi(g)se(hj/jvIH')ré(g)re(hg/h_g) no(fd)bis.(fghv/hg.) (::)\n"
+        }, {
+            rubric: "Two cantors of the second choir sing:",
+            id: 7808,
+            rubricAfter: "The two choirs respond in turn <Hagios o Theós, Sanctus Deus.> etc. It is always the first choir that sings <Hagios.>"
+        }, {
+        }, {
+            rubric: "Then two cantors of the first choir sing:",
+            id: 7809,
+            rubricAfter: "The two choirs again respond in turn <Hagios o Theós. Sanctus Deus.> etc.",
+            sticky: 1
+        }, {
+            rubric: "The following Reproaches are sung in turn by the cantors. After each Reproach, the two choirs together respond <Pópule meus.> as above, as far as the <v/. Quia.>"
+        }, {
+            rubric: "Two cantors of the second choir sing:",
+            gabc: "initial-style: 0;\n\
+    %%\n\
+    (c4)<sp>V/</sp>. E(c)go(de) prop(e)ter(e) te(e) fla(e)gel(e)lá(e)vi(e) Æ(e)gýp(d)tum(e.) (,)\n\
+    cum(e) pri(e)mo(f)gé(g)ni(f)tis(f) su(evDC)is:(c.) (;)\n\
+    et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::c+) P{}ópule\n"
+        }, {
+            rubric: "Both choirs repeat: <Pópule meus.> as far as the <v/. Quia.>",
+            id: 157,
+            sticky: 0,
+            chantScaleIf: ["(max-width: 450px)", 0.8]
+        }, {
+            sticky: 1,
+            gabc: "initial-style: 0;\n\
+    %%\n\
+    (c4)^2.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) e(e)dú(e)xi(e) de(e) Æ(e)gýp(d)to,(e.) (,)\n\
+    de(c)mér(de)so(e) Pha(e)ra(e)ó(e)ne(e) in(f) ma(g)re(f) Ru(evDC)brum:(c.) (;)\n\
+    et(c) tu(d_e) me(e) tra(e)di(e)dís(e)ti(e.) (,) prin(e)cí(e)pi(e)bus(ed) sa(f)cer(d)dó(ef)tum.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^3.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) an(e)te(e) te(e) a(f)pé(g)ru(f)i(f) ma(evDC)re:(c.) (;)\n\
+    et(c) tu(d_e) a(e)pe(e)ru(e)ís(e)ti(e) lán(e)ce(e)a(ed) la(f)tus(d) me(ef)um.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^4.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) an(e)te(e) te(e) præ(d)í(e)vi(e.) (,) in(e) co(f)lúm(g)na(f) nu(evDC)bis:(c.) (;)\n\
+    et(c) tu(d_e) me(e) du(e)xís(e)ti(e.) (,) ad(e) præ(e)tó(e)ri(ed)um(f) Pi(d)lá(ef)ti.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^5.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) pa(e)vi(e) man(e)na(f) per(g) de(f)sér(evDC)tum:(c.) (;)\n\
+    et(c) tu(d_e) me(e) ce(e)ci(e)dís(e)ti(e.) (,) á(e)la(e)pis(ed) et(f) fla(d)gél(ef)lis.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^6.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) po(e)tá(e)vi(e.) (,) a(e)qua(e) sa(f)lú(g)tis(f) de(f) pe(evDC)tra:(c.) (;)\n\
+    et(c) tu(d_e) me(e) po(e)tás(e)ti(e.) (,) fel(e)le(ed) et(f) a(d)cé(ef)to.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^7.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) prop(e)ter(e) te(e.) (,) Cha(e)na(e)næ(e)ó(e)rum(f) re(g)ges(f) per(f)cús(evDC)si:(c.) (;)\n\
+    et(c) tu(d_e) per(e)cus(e)sís(e)ti(e.) (,) a(e)rún(e)di(e)ne(ed) ca(f)put(d) me(ef)um.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^8.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) de(e)di(e) ti(e)bi(f) scep(g)trum(f) re(f)gá(evDC)le:(c.) (;)\n\
+    et(c) tu(d_e) de(e)dís(e)ti(e) cá(e)pi(e)ti(e) me(e)o(e.) (,) spí(e)ne(ed)am(f) co(d)ró(ef)nam.(edeDC.) (::c+) P{}ópule() (Z)\n\
+    \n\
+    (c4)^9.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) ex(e)al(e)tá(e)vi(f) ma(g)gna(f) vir(f)tú(evDC)te:(c.) (;)\n\
+    et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) cru(ef)cis.(edeDC.) (::c+) P{}ópule\n"
+        }, {
+            rubric: "Both choirs then sing the following antiphon:",
+            id: 428,
+            rubricAfter: "The antiphon <Crucem tuam.> is repeated"
+        }, {
+            rubric: "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/. Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn.",
+            sticky: 0,
+            chantScaleIf: ["(max-width: 450px)", 0.8],
+            id: 1128
+        }, {
+            id: 2209,
+            gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{|}/g,'_'],
+            sticky: 1
+        }, /*{
+            rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis.> is sung:",
+            id: 2120
+        }*/ {
+            rubric: "After the adoration of the Cross, the priest and clergy go to the altar of repose, and the Blessed Sacrament is borne back to the high altar.  During the procession, the following antiphons are sung:",
+            id: 1238
+        }, {
+            id: 940
+        }, {
+            id: 1335,
+            rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus.> may be sung, or else one or other of the responsories from Matins of Good Friday."
+        }, {
+            rubric: "<Psalm 21>",
+            gabc: "initial-style: 0;\n\
+    %%\n\
+    (f3)De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quí</b>(h)sti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)li(h)ctó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)",
+            html:'<div class="verses">\
+    <p><span class="versenum">2.&nbsp;</span>Deus meus, clamábo per diem, et <i>non</i> <i>e</i><b>xáu</b>dies:&nbsp;* et nocte, et non ad insipiéntiam <b>mi</b>hi.<br></p>\
+    <p><span class="versenum">3.&nbsp;</span>Tu autem in <i>san</i><i>cto</i> <b>há</b>bitas:&nbsp;* laus <b>Is</b>raël.<br></p>\
+    <p><span class="versenum">4.&nbsp;</span>In te speravérunt <i>pa</i><i>tres</i> <b>no</b>stri:&nbsp;* speravérunt, et liberásti <b>e</b>os.<br></p>\
+    <p><span class="versenum">5.&nbsp;</span>Ad te clamavérunt, et <i>sal</i><i>vi</i> <b>fa</b>cti sunt:&nbsp;* in te speravérunt, et non sunt con<b>fú</b>si.<br></p>\
+    <p><span class="versenum">6.&nbsp;</span>Ego autem sum vermis, <i>et</i> <i>non</i> <b>ho</b>mo:&nbsp;* oppróbrium hóminum, et abjéctio <b>ple</b>bis.<br></p>\
+    <p><span class="versenum">7.&nbsp;</span>Omnes vidéntes me <i>de</i><i>ri</i><b>sé</b>runt me:&nbsp;* locúti sunt lábiis, et movérunt <b>ca</b>put.<br></p>\
+    <p><span class="versenum">8.&nbsp;</span>Sperávit in Dómino, erí<i>pi</i><i>at</i> <b>e</b>um:&nbsp;* salvum fáciat eum, quóniam vult <b>e</b>um.<br></p>\
+    <p><span class="versenum">9.&nbsp;</span>Quóniam tu es, qui extraxísti <i>me</i> <i>de</i> <b>ven</b>tre:&nbsp;* spes mea ab ubéribus matris <b>me</b>æ.<br></p>\
+    <p><span class="versenum">10.&nbsp;</span>In te projéctus sum ex útero:&nbsp;† de ventre matris meæ Deus <i>me</i><i>us</i> <b>es</b> tu,&nbsp;* ne discésseris <b>a</b> me:<br></p>\
+    <p><span class="versenum">11.&nbsp;</span>Quóniam tribulátio <i>pró</i><i>xi</i><b>ma</b> est:&nbsp;* quóniam non est qui <b>ád</b>juvet.<br></p>\
+    <p><span class="versenum">12.&nbsp;</span>Circumdedérunt me ví<i>tu</i><i>li</i> <b>mul</b>ti:&nbsp;* tauri pingues obse<b>dé</b>runt me.<br></p>\
+    <p><span class="versenum">13.&nbsp;</span>Aperuérunt super <i>me</i> <i>os</i> <b>su</b>um:&nbsp;* sicut leo rápiens et <b>rú</b>giens.<br></p>\
+    <p><span class="versenum">14.&nbsp;</span>Sicut a<i>qua</i> <i>ef</i><b>fú</b>sus sum:&nbsp;* et dispérsa sunt ómnia ossa <b>me</b>a.<br></p>\
+    <p><span class="versenum">15.&nbsp;</span>Factum est cor meum tamquam ce<i>ra</i> <i>li</i><b>qué</b>scens:&nbsp;* in médio ventris <b>me</b>i.<br></p>\
+    <p><span class="versenum">16.&nbsp;</span>Aruit tamquam testa virtus mea,&nbsp;† et lingua mea adhǽsit fáu<i>ci</i><i>bus</i> <b>me</b>is:&nbsp;* et in púlverem mortis dedu<b>xí</b>sti me.<br></p>\
+    <p><span class="versenum">17.&nbsp;</span>Quóniam circumdedérunt me <i>ca</i><i>nes</i> <b>mul</b>ti:&nbsp;* concílium malignántium ob<b>sé</b>dit me.<br></p>\
+    <p><span class="versenum">18.&nbsp;</span>Fodérunt manus meas et <i>pe</i><i>des</i> <b>me</b>os:&nbsp;* dinumeravérunt ómnia ossa <b>me</b>a.<br></p>\
+    <p><span class="versenum">19.&nbsp;</span>Ipsi vero consíderavérunt et inspexérunt me:&nbsp;† divisérunt sibi vesti<i>mén</i><i>ta</i> <b>me</b>a,&nbsp;* et super vestem meam misérunt <b>sor</b>tem.<br></p>\
+    <p><span class="versenum">20.&nbsp;</span>Tu autem, Dómine, ne elongáveris auxílium <i>tu</i><i>um</i> <b>a</b> me:&nbsp;* ad defensiónem meam <b>cón</b>spice.<br></p>\
+    <p><span class="versenum">21.&nbsp;</span>Erue a frámea, Deus, á<i>ni</i><i>mam</i> <b>me</b>am:&nbsp;* et de manu canis únicam <b>me</b>am.<br></p>\
+    <p><span class="versenum">22.&nbsp;</span>Salva me ex o<i>re</i> <i>le</i><b>ó</b>nis:&nbsp;* et a córnibus unicórnium humilitátem <b>me</b>am.<br></p>\
+    <p><span class="versenum">23.&nbsp;</span>Narrábo nomen tuum frá<i>tri</i><i>bus</i> <b>me</b>is:&nbsp;* in médio Ecclésiæ lau<b>dá</b>bo te.<br></p>\
+    <p><span class="versenum">24.&nbsp;</span>Qui timétis Dóminum, lau<i>dá</i><i>te</i> <b>e</b>um:&nbsp;* univérsum semen Jacob, glorificáte <b>e</b>um.<br></p>\
+    <p><span class="versenum">25.&nbsp;</span>Tímeat eum omne <i>se</i><i>men</i> <b>Is</b>raël:&nbsp;* quóniam non sprevit, neque despéxit deprecatiónem <b>páu</b>peris:<br></p>\
+    <p><span class="versenum">26.&nbsp;</span>Nec avértit fáciem <i>su</i><i>am</i> <b>a</b> me:&nbsp;* et cum clamárem ad eum, exau<b>dí</b>vit me.<br></p>\
+    <p><span class="versenum">27.&nbsp;</span>Apud te laus mea in ecclé<i>si</i><i>a</i> <b>ma</b>gna:&nbsp;* vota mea reddam in conspéctu timéntium <b>e</b>um.<br></p>\
+    <p><span class="versenum">28.&nbsp;</span>Edent páuperes, et saturabúntur:&nbsp;† et laudábunt Dóminum qui re<i>quí</i><i>runt</i> <b>e</b>um:&nbsp;* vivent corda eórum in sǽculum <b>sǽ</b>culi.<br></p>\
+    <p><span class="versenum">29.&nbsp;</span>Reminiscéntur et convertén<i>tur</i> <i>ad</i> <b>Dó</b>minum&nbsp;* univérsi fines <b>ter</b>ræ:<br></p>\
+    <p><span class="versenum">30.&nbsp;</span>Et adorábunt in con<i>spé</i><i>ctu</i> <b>e</b>jus&nbsp;* univérsæ famíliæ <b>Gén</b>tium.<br></p>\
+    <p><span class="versenum">31.&nbsp;</span>Quóniam Dómi<i>ni</i> <i>est</i> <b>re</b>gnum:&nbsp;* et ipse dominábitur <b>Gén</b>tium.<br></p>\
+    <p><span class="versenum">32.&nbsp;</span>Manducavérunt et adoravérunt omnes <i>pin</i><i>gues</i> <b>ter</b>ræ:&nbsp;* in conspéctu ejus cadent omnes qui descéndunt in <b>ter</b>ram.<br></p>\
+    <p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>i</b>psi.<br></p>\
+    <p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.<br></p>\
+    </div>'
+        }
+      ]
+  },
     "Quad6s": {
       "asperges": [
         {
@@ -659,7 +667,7 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
 Chris(h)te,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Ký(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(gh) au(f)di(g) nos.(h.) <i>ij.</i>(::)\n\
-Chris(h)te,(g) ex(h)au(f)di(g) nos.(h.) <i>ij.</i>(::z)\n\
+Chris(h)te,(g) ex(h)au(f)di(g) nos.(h.) <i>ij.</i>(::Z)\n\
 Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sanc|i-t{a}s, (h)lis,|m{u}ndi, |te, |{u}nus (h) <b>De</b>|<b>De</b>|<b>De</b>|<b>De</b>(i)us,|us, |us, |us, (g.) (,) mi|mi|mi|mi(g)se|se|se|se(g)<i>ré</i>|<i>ré</i>|<i>ré</i>|<i>ré</i>(f)<i>re</i>|<i>re</i> |<i>re</i> |<i>re</i> (g) no|no|no|no(h)bis.|bis. |bis. |bis. (h.) (::)\n",
             html: '<div class="verses" style="display:inline-block">\
 <p>Sancta Ma<b>rí</b>a,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
@@ -938,7 +946,7 @@ var proprium = {
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588},
   Quad6h: {introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
-  Quad6f: {extraChants: 'graduale', gradualeID:[3177,22], ordinary: false},
+  Quad6f: {extraChants: true, ordinary: false},
   Quad6s: {extraChants: true, credo: false, agnus: false, ite: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},

@@ -273,7 +273,7 @@ $(function(){
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
-    if(selPropers && selPropers[part] === false) {
+    if(selPropers && (selPropers[part] === false) || (selPropers.ordinary === false && isOrdinaryPart)) {
       $div.hide();
       return; 
     }
