@@ -671,13 +671,13 @@ $(function() {
         if(val && (match || format)) {
           format = format || match[1];
           font = font || "'Custom Exsurge Font'";
-          customFont += `
-@font-face {
-  font-family: '${font}';
-  src: url('${val}') format('${format}');
-  ${style.match(/Bold/)? 'font-weight: bold;' : ''}
-  font-style: ${style.match(/Italic/)? 'italic': 'normal'};
-}`;
+          customFont += "\
+@font-face {\
+  font-family: '" + (font) + "';\
+  src: url('" + (val) + "') format('" + (format) + "');\
+  " + (style.match(/Bold/)? 'font-weight: bold;' : '') + "\
+  font-style: " + (style.match(/Italic/)? 'italic': 'normal') + ";\
+}";
         }
         if(fontType) {
           if(font) fontFamilies[fontType] = font;
