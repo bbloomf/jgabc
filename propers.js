@@ -505,7 +505,7 @@ $(function(){
       } else {
         var i = 0;
         $.each(sel.extraChants, function(part, extraChants) {
-          var $part = $(`[part="${part}"]`);
+          var $part = $('[part="'+part+'"]');
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
@@ -568,7 +568,7 @@ $(function(){
         $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
       }
       if(chant.rubric) {
-        $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
+        $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,"<span class='versiculum'>$1</span>")));
       }
       if(chant.id && chant.psalmtone) {
         if(!selPropers.gradualeID) selPropers.gradualeID = [0];
@@ -638,7 +638,7 @@ $(function(){
         }
       }
       if(chant.rubricAfter) {
-        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,`<span class='versiculum'>$1</span>`)));
+        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,"<span class='versiculum'>$1</span>")));
       }
       if(chant.html) {
         $curContainer.append($('<div>').html(chant.html
@@ -719,7 +719,7 @@ $(function(){
   var selectedOrdinary = function(e){
     selOrdinary = $(this).val();
     addToHash('ordinary', selOrdinary);
-    massName = $(this.selectedOptions[0]).text();
+    massName = $(this.options[this.selectedIndex]).text();
     massName = massName.slice(0, massName.indexOf(' -'));
     var ordinary = massOrdinary[selOrdinary - 1] || {};
     ordinaryParts.forEach(function(part){
@@ -1974,8 +1974,8 @@ $(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     selOrdinaries[part + 'ID'] = this.value;
-    addToHash(part, $(this.selectedOptions[0]).attr('default')? false : this.value);
-    updatePart(part, this.selectedOptions[0].innerText);
+    addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
+    updatePart(part, this.options[this.selectedIndex].innerText);
   })
   $('#btnCalendar').click(function(e){
     var $this = $(this);
