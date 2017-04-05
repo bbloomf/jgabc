@@ -1684,7 +1684,7 @@ $(function(){
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
       .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)?(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g, function(match, whitespace, main) {
-        return (main.match(/[|^]/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
+        return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(') // make all asterisks and daggers red
