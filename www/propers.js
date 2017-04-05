@@ -273,7 +273,7 @@ $(function(){
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
-    if(selPropers && selPropers[part] === false) {
+    if(selPropers && (selPropers[part] === false) || (selPropers.ordinary === false && isOrdinaryPart)) {
       $div.hide();
       return; 
     }
@@ -321,6 +321,11 @@ $(function(){
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
         if(selValue != $sel.val()) return;
+        var replaces = selPO[part + 'Replace'];
+        var i = 0;
+        while(replaces && i < replaces.length) {
+          gabc = gabc.replace(replaces[i++],replaces[i++]);
+        }
         gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
@@ -509,7 +514,7 @@ $(function(){
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
-          } else {
+          } else if(!(part + 'ID' in selPropers)) {
             $part.hide();
           }
           var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
@@ -1684,7 +1689,7 @@ $(function(){
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
       .replace(/(\s*)((?:<(\w+)>.*?<\/\3>)?(?:<(\w+)>.*?<\/\4>|[^()<>])+)(?=\s+[^\s(]+\()/g, function(match, whitespace, main) {
-        return (main.match(/[|^]/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
+        return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(') // make all asterisks and daggers red
