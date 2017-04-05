@@ -509,7 +509,7 @@ $(function(){
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
-          } else {
+          } else if(!(part + 'ID' in selPropers)) {
             $part.hide();
           }
           var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);

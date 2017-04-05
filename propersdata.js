@@ -500,6 +500,18 @@ var extraChants = {
       id: 606
     }
   ],
+  "Quad6h": {
+    "introitus": [
+        {
+            rubric: "<Verses ad libitum>",
+            gabc: "initial-style: 0;\n\
+%%\n\
+(c4)2. Ut(hg~) co(gh)gno(h)scá(h)mus(h) in(h) ter(h)<i>ra</i>(hg) <i>vi</i>(gi)<i>am</i>(i) <b>tu</b>(hi hr)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)<i>tá</i>(gf)<i>re</i>(gh) <i>tu</i>(g)<i>um</i>.(e.) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
+3. Con(hg~)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) <i>pó</i>(hg)<i>pu</i>(gi)<i>li</i>,(i) <b>De</b>(hi hr)us:(h.) *(:) con(hg)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(h)<i>pu</i>(gf)<i>li</i>(gh) <i>om</i>(g)<i>nes</i>.(e.) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::) () ^Kyrie IV <i>or</i> IX.^()\
+"
+        }
+    ]
+  },
   "Quad6f": {
       "graduale": [
         {
@@ -945,7 +957,7 @@ var proprium = {
   Quad6m: {introitusID:226,gradualeID:783,tractusID:425,offertoriumID:411,communioID:196},
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588},
-  Quad6h: {introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
+  Quad6h: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140},
   Quad6f: {extraChants: true, ordinary: false},
   Quad6s: {extraChants: true, credo: false, agnus: false, ite: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
