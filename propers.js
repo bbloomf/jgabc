@@ -445,7 +445,7 @@ $(function(){
   };
   var addMultipleGraduales = function(count, startIndex) {
     var i = startIndex || 1;
-    count += startIndex - 1;
+    count += i - 1;
     var $multipleGradualesTemplate = $('.multiple-graduales-0');
     var $lastGraduale = $multipleGradualesTemplate;
     while(i <= count) {
