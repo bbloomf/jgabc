@@ -22,8 +22,8 @@
   <script src="ordinarydata.js"></script>
   <script src="propersdatanovus.js"></script>
   <script src="propers.js"></script>
-<!--   <script src="../exsurge/dist/exsurge.js"></script> -->
-  <script src="exsurge.min.js"></script>
+  <script src="../exsurge/dist/exsurge.js"></script>
+  <!-- <script src="exsurge.min.js"></script> -->
   <script src="jquery.hypher.js"></script>
   <script src="patterns/la-hypher.js"></script>
 </head>
@@ -418,14 +418,14 @@ div.chant-context {
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomGraduale" placeholder="Graduale Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options graduale' id='gradualeOptions'>
-        <label for='selOptionsGraduale'>&mdash; Pick One: </label>
-        <select id='selOptionsGraduale'></select>
+        <label>&mdash; Pick One: 
+        <select id='selOptionsGraduale'></select></label>
       </span>
       <div class='flex right'>
         <span class='child-other'>
           <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
-          <label for="selToneGraduale" class='sel-label'>Mode</label>
-          <select id="selToneGraduale" class='sel-style tones'></select>
+          <label class='sel-label'>Mode
+          <select id="selToneGraduale" class='sel-style tones'></select></label>
           <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
           <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'>
         </span>

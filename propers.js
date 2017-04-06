@@ -436,25 +436,63 @@ $(function(){
     }
   };
   var setGradualeId = function(id) {
+    var appendId = function(i,val) {
+      if(!val) return val;
+      if(val.slice(-8).toLowerCase()=='graduale') return val + id;
+      return val.replace(/graduale\b/,'graduale'+id);
+    }
     return function() {
-      $(this).children().each(setGradualeId(id));
+      $(this).children().each(setGradualeId(id)).attr('id', appendId).attr('for', appendId);
       for(var i=0; i < this.attributes.length; ++i) {
         if(this.attributes[i].name != 'placeholder') this.attributes[i].value = this.attributes[i].value.replace(/(graduale)(?!\d|s)/gi,'$1'+id);
       }
     }
   };
+  var gradualeTemplate = '\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span></a></li>\
+<div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
+  <div class="block hide-print">\
+    <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
+    <a class="toggleShowGabc hide-ss">(<span class="showHide">Show</span> Text Editor)</a>\
+    <div class="flex right">\
+      <span class="child-other">\
+        <button class="btn btn-xs btn-default remove-modifications">Remove Modifications</button>\
+        <label class="sel-label">Mode\
+        <select id="selToneGraduale$num" class="sel-style tones" disabled="disabled"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>\
+        <select id="selToneEndingGraduale$num" class="sel-style endings graduale$num" style="display: none;"></select>\
+        <input id="cbSolemnGraduale$num" type="checkbox" class="cbSolemn graduale$num" title="Check this box to use the solemn psalm tone." style="display: none;">\
+      </span>\
+      <span class="child-main">\
+        <select id="selStyleGraduale$num" class="sel-style">\
+          <option value="full">Full Gradual</option>\
+          <option value="psalm-tone">Psalm Toned</option>\
+        </select>\
+      </span>\
+    </div>\
+    <textarea id="txtGraduale$num" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>\
+  </div>\
+  <div class="block right">\
+    <div class="chant-parent">\
+      <div id="graduale$num-preview-container" class="preview-container">\
+        <div id="graduale$num-preview" class="chant-preview"></div>\
+      </div>\
+    </div>\
+  </div>\
+</div>'
   var addMultipleGraduales = function(count, startIndex) {
     var i = startIndex || 1;
     count += i - 1;
-    var $multipleGradualesTemplate = $('.multiple-graduales-0');
-    var $lastGraduale = $multipleGradualesTemplate;
+    var $lastGraduale = $('.multiple-graduales-0');
     while(i <= count) {
-      var $newGraduale = $multipleGradualesTemplate.clone(true);
+      var $newGraduale = $(gradualeTemplate.replace(/\$num\b/g,i));
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
-      $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
-      $newGraduale.each(setGradualeId(i));
-      $newGraduale.find('textarea[id^=txt]').autosize();
+      $newGraduale.find('select[id^=selStyle]').change(selStyleChanged);
+      $newGraduale.find('select.endings').change(selEndingsChanged);
+      $newGraduale.find('input.cbSolemn').change(cbSolemnChanged);
+      $newGraduale.find('select.tones').change(selTonesChanged);
+      $newGraduale.find('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
+      
       $lastGraduale.each(function(i){
         $(this).after($newGraduale[i]);
       });
@@ -2007,7 +2045,7 @@ $(function(){
       $('#selSunday').prop('selectedIndex',0).change();
     }
   });
-  $('select[id^=selStyle]').change(function(e){
+  function selStyleChanged(e){
     var style=this.value;
     if(this.id=='selStyle') {
       if(style!='mixed') {
@@ -2021,9 +2059,8 @@ $(function(){
       $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
       $('#selStyle').val(baseStyle);
     }
-  });
-  $('#selStyle').change();
-  $('select.tones').change(function(e){
+  }
+  function selTonesChanged(e){
     //update endings for this tone.
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
@@ -2043,8 +2080,8 @@ $(function(){
       if(sel[part].style == 'psalm-tone') $selEnding.show();
     }
     updateTextAndChantForPart(part, true);
-  });
-  $('select.endings').change(function(e){
+  }
+  function selEndingsChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/)) {
@@ -2052,18 +2089,14 @@ $(function(){
     }
     sel[part].termination = this.value;
     updateTextAndChantForPart(part, true);
-  });
-  $('input.cbSolemn').change(function(e){
+  }
+  function cbSolemnChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].solemn = this.checked;
     updateTextAndChantForPart(part, true);
-  });
-  var $selTones = $('select.tones');
-  for(var i=1; i<=8; ++i) {
-    $selTones.append('<option>'+i+'</option>');
   }
-  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
+  function editorKeyUp(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
@@ -2073,7 +2106,16 @@ $(function(){
       sel[part].gabc = this.value;
       updateTextAndChantForPart(part, true);
     }
-  });
+  }
+  $('select[id^=selStyle]').change(selStyleChanged);
+  $('#selStyle').change();
+  $('select.endings').change(selEndingsChanged);
+  $('input.cbSolemn').change(cbSolemnChanged);
+  var $selTones = $('select.tones').change(selTonesChanged);
+  for(var i=1; i<=8; ++i) {
+    $selTones.append('<option>'+i+'</option>');
+  }
+  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
     var result=[];
     $('[part]').each(function(){
