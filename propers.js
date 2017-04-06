@@ -644,7 +644,6 @@ $(function(){
 
         downloadThisChant();
         if(chant.gabc) {
-          sel[part].noDropCap = getHeader(chant.gabc).initialStyle !== '1';
           updateExsurge(part);
         }
       }
@@ -1717,6 +1716,7 @@ $(function(){
     }
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
+    prop.noDropCap = gabcHeader.initialStyle === '0';
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {

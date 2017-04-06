@@ -356,8 +356,14 @@ var extraChants = {
   "Feb2": [
     {
       rubric: "After the prayers, the Priest puts incense into the thurible. Whilst he distributes the candles, the choir sings:",
-      id: 2897
-      // todo, split these up, so that the antiphon can be sticky
+      id: 2897,
+      gabcReplace: [/\s*\(Z\)[^#]*/,''], // remove everything after the first (Z)
+      sticky: 0,
+      chantScaleIf: ["(max-width: 450px)", 0.8]
+    }, {
+      id: 2897,
+      gabcReplace: [/(\n%%\r?\n\s*\([cf][1-4]\)\s*)[^#]*?\(Z\)/,'\ninitial-style: 0;$1'], // remove the first verse (up to the first (Z))
+      sticky: 1
     }, {
       rubric: "When the distribution of candles is ended, the Choir sings:",
       id: 30,
@@ -365,7 +371,7 @@ var extraChants = {
       rubricAfter: "Repeat: <Exsúrge Dómine>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
-      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
+      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "During the procession, the following antiphons are sung:",
       id: 1311
@@ -398,10 +404,11 @@ var extraChants = {
     }, {
       rubric: "After the Blessing, the Celebrant distributes the Palms, whilst the Choir sings the following Antiphons:",
       id: 1215,
-      sticky: 0
+      sticky: 0,
+      chantScaleIf: ["(max-width: 450px)", 0.8]
     }, {
       rubric: "<Psalm 23, 1–2 and 7–10>",
-      gabc: "\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
+      gabc: "initial-style: 0;\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
 <i>Flex:</i> pr{í}n(h)ci(h)pes,(h) ve(h)stras, †(g. h h h) 2.(::) Qui(h)a(h) ip(h)se...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
@@ -415,10 +422,11 @@ var extraChants = {
       sticky: 1
     }, {
       id: 1155,
-      sticky: 0
+      sticky: 0,
+      chantScaleIf: ["(max-width: 450px)", 0.8]
     }, {
       rubric: "<Psalm 46>",
-      gabc: "\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) 2.(::) Quó(h)ni(h)am...(h)",
+      gabc: "initial-style: 0;\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) 2.(::) Quó(h)ni(h)am...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam Dóminus ex<b>cél</b>sus, ter<b>rí</b>bilis:&nbsp;* Rex magnus super <i>om</i><i>nem</i> <b>ter</b>ram. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">3.&nbsp;</span>Subjécit <b>pó</b>pulos <b>no</b>bis:&nbsp;* et Gentes sub pé<i>di</i><i>bus</i> <b>no</b>stris.</p>\
@@ -435,7 +443,7 @@ var extraChants = {
     }, {
       title: "The Procession with Blessed Palms",
       rubric: "After the Gospel, the celebrant, with the ministers (or servers), returns to the foot of the altar, makes reverence, and blesses incense. Then the deacon (or celebrant) turns to the people and says:",
-      gabc: "\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
+      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "As the procession begins, all or some of the following antiphons may be sung:",
       id: 247
@@ -448,7 +456,8 @@ var extraChants = {
     }, {
       rubric: "In the course of the procession the following hymn is sung. If possible, the whole congregation should sing each time the refrain <Glória laus> as shown below.",
       id: 259,
-      sticky: 0
+      sticky: 0,
+      chantScaleIf: ["(max-width: 450px)", 0.8]
     }, {
       rubric: "All: <Glória, laus> The choir:",
       id: "259-2"
@@ -471,10 +480,11 @@ var extraChants = {
         "VIII G*": 532,
         "VIII G": 1092
       },
-      sticky: 0
+      sticky: 0,
+      chantScaleIf: ["(max-width: 450px)", 0.8]
     }, {
       rubric: "<Psalm 147>",
-      gabc: "\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) 2.(::) Quó(j)ni(j)am...(j)",
+      gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) 2.(::) Quó(j)ni(j)am...(j)",
       html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confortávit seras portárum tu<b>á</b>rum:&nbsp;* benedíxit fíliis <i>tu</i><i>is</i> <b>in</b> te.</p>\
 <p><span class="versenum">3.&nbsp;</span>Qui pósuit fines tuos <b>pa</b>cem:&nbsp;* et ádipe fruménti <i>sá</i><i>ti</i><b>at</b> te.</p>\
@@ -675,7 +685,7 @@ var extraChants = {
         {
             title: "The First Part of the Litany",
             rubric: "When the Collect after the fourth Lesson is finished, all kneel. The Litany of the Saints is sung without doubling the invocations, until <Propítius esto> exclusive.",
-            gabc: "(c3)Ky(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
+            gabc: "initial-style: 0;\n%%\n(c3)Ky(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Ký(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(gh) au(f)di(g) nos.(h.) <i>ij.</i>(::)\n\
@@ -732,7 +742,7 @@ Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sa
         }, {
             title: "The Second Part of the Litany",
             rubric: " ",
-            gabc: "(c3)Pro|Pro|Ab (h)pí|pí|(h)<i>ti</i>|<i>ti</i>|<i>om</i>(g)<i>us</i>|<i>us</i> |<i>ni</i> (f) <b>es</b>|<b>es</b>|<b>ma</b>(h ir)to,|to, |lo, (i.) (,) par|ex|lí(g)ce|áu|be(h) no|di |ra (f)bis,|nos, |nos, (e) Dó|Dó|Dó(f)mi|mi|mi(e)ne.|ne. |ne. (d.) (::)",
+            gabc: "initial-style: 0;\n%%\n(c3)Pro|Pro|Ab (h)pí|pí|(h)<i>ti</i>|<i>ti</i>|<i>om</i>(g)<i>us</i>|<i>us</i> |<i>ni</i> (f) <b>es</b>|<b>es</b>|<b>ma</b>(h ir)to,|to, |lo, (i.) (,) par|ex|lí(g)ce|áu|be(h) no|di |ra (f)bis,|nos, |nos, (e) Dó|Dó|Dó(f)mi|mi|mi(e)ne.|ne. |ne. (d.) (::)",
             html: '<div class="verses" style="display:inline-block">\
 <p>Ab o<i>mni</i> <i>pec</i><b>cá</b>to,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
 <p>A mor<i>te</i> <i>per</i><b>pé</b>tua,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
@@ -748,9 +758,7 @@ Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sa
 <p>In di<i>e</i> <i>ju</i><b>dí</b>cii,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
 </div>'
         }, {
-            gabc: "initial-style: 0;\n\
-%%\n\
-(c3)Pec(h)<i>ca</i>(g)<b>tó</b>(i//jr)res,(j.) (,) te(h) ro(g)gá(f)mus,(e) au(f)di(g) nos.(h.) (::)",
+            gabc: "initial-style: 0;\n%%\n(c3)Pec(h)<i>ca</i>(g)<b>tó</b>(i//jr)res,(j.) (,) te(h) ro(g)gá(f)mus,(e) au(f)di(g) nos.(h.) (::)",
             html: '<div class="verses" style="display:inline-block">\
 <p>Ut no<i>bis</i> <b>par</b>cas,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
 <p>Ut Ecclésiam tuam sanctam&nbsp;’ régere et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
