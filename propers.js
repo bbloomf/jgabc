@@ -600,10 +600,7 @@ $(function(){
           scale: 1
         };
         if(chant.chantScaleIf && window.matchMedia) {
-          var mediaQuery = window.matchMedia(chant.chantScaleIf[0]);
-          if(mediaQuery.matches) {
-            sel[part].chantScale = chant.chantScaleIf[1];
-          }
+          sel[part].chantScaleIf = [window.matchMedia(chant.chantScaleIf[0]), chant.chantScaleIf[1]];
         }
         var $curElement;
         $curElement = $('<div>').attr('id',part+'-preview')
@@ -1766,7 +1763,14 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var scale = sel[part].chantScale || 1;
+    var scale = 1;
+    if(sel[part].chantScaleIf) {
+      if(sel[part].chantScaleIf[0].matches) {
+        scale = sel[part].chantScaleIf[1];
+      }
+    } else if(sel[part].chantScale) {
+      scale = sel[part].chantScale;
+    }
     var newWidth = Math.floor(chantContainer.width() / scale);
     if(!score) return;
     ctxt.width = newWidth;
