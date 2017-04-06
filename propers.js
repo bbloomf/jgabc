@@ -257,6 +257,19 @@ $(function(){
     }
     return result;
   }
+  function runGabcReplaces(gabc) {
+    return gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
+          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
+          .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
+          .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
+          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
+          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
+          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
+          .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+          .replace(/(\s[^(\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
+          .replace(/\s*\n\s*/g,'\n')
+          .replace(/\s{2,}/g,' ')
+  }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries);
@@ -326,15 +339,7 @@ $(function(){
         while(replaces && i < replaces.length) {
           gabc = gabc.replace(replaces[i++],replaces[i++]);
         }
-        gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
-          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
-          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
-          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-          .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-          .replace(/(\s[^(\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
-          .replace(/\s*\n\s*/g,'\n')
-          .replace(/\s{2,}/g,' ')
+        gabc = runGabcReplaces(gabc);
     
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
@@ -610,6 +615,7 @@ $(function(){
                 for (var i=0; i < chant.gabcReplace.length; i += 2)
                   gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
               }
+              gabc = runGabcReplaces(gabc);
               sel[part].gabc = sel[part].activeGabc = gabc;
               updateExsurge(part, sel[part].id);
             });
