@@ -257,6 +257,19 @@ $(function(){
     }
     return result;
   }
+  function runGabcReplaces(gabc) {
+    return gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
+          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
+          .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
+          .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
+          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
+          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
+          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
+          .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+          .replace(/(\s[^(\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
+          .replace(/\s*\n\s*/g,'\n')
+          .replace(/\s{2,}/g,' ')
+  }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries);
@@ -326,15 +339,7 @@ $(function(){
         while(replaces && i < replaces.length) {
           gabc = gabc.replace(replaces[i++],replaces[i++]);
         }
-        gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
-          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
-          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
-          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-          .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-          .replace(/(\s[^(\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
-          .replace(/\s*\n\s*/g,'\n')
-          .replace(/\s{2,}/g,' ')
+        gabc = runGabcReplaces(gabc);
     
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
@@ -431,25 +436,63 @@ $(function(){
     }
   };
   var setGradualeId = function(id) {
+    var appendId = function(i,val) {
+      if(!val) return val;
+      if(val.slice(-8).toLowerCase()=='graduale') return val + id;
+      return val.replace(/graduale\b/,'graduale'+id);
+    }
     return function() {
-      $(this).children().each(setGradualeId(id));
+      $(this).children().each(setGradualeId(id)).attr('id', appendId).attr('for', appendId);
       for(var i=0; i < this.attributes.length; ++i) {
         if(this.attributes[i].name != 'placeholder') this.attributes[i].value = this.attributes[i].value.replace(/(graduale)(?!\d|s)/gi,'$1'+id);
       }
     }
   };
+  var gradualeTemplate = '\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span></a></li>\
+<div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
+  <div class="block hide-print">\
+    <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
+    <a class="toggleShowGabc hide-ss">(<span class="showHide">Show</span> Text Editor)</a>\
+    <div class="flex right">\
+      <span class="child-other">\
+        <button class="btn btn-xs btn-default remove-modifications">Remove Modifications</button>\
+        <label class="sel-label">Mode\
+        <select id="selToneGraduale$num" class="sel-style tones" disabled="disabled"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>\
+        <select id="selToneEndingGraduale$num" class="sel-style endings graduale$num" style="display: none;"></select>\
+        <input id="cbSolemnGraduale$num" type="checkbox" class="cbSolemn graduale$num" title="Check this box to use the solemn psalm tone." style="display: none;">\
+      </span>\
+      <span class="child-main">\
+        <select id="selStyleGraduale$num" class="sel-style">\
+          <option value="full">Full Gradual</option>\
+          <option value="psalm-tone">Psalm Toned</option>\
+        </select>\
+      </span>\
+    </div>\
+    <textarea id="txtGraduale$num" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>\
+  </div>\
+  <div class="block right">\
+    <div class="chant-parent">\
+      <div id="graduale$num-preview-container" class="preview-container">\
+        <div id="graduale$num-preview" class="chant-preview"></div>\
+      </div>\
+    </div>\
+  </div>\
+</div>'
   var addMultipleGraduales = function(count, startIndex) {
     var i = startIndex || 1;
-    count += startIndex - 1;
-    var $multipleGradualesTemplate = $('.multiple-graduales-0');
-    var $lastGraduale = $multipleGradualesTemplate;
+    count += i - 1;
+    var $lastGraduale = $('.multiple-graduales-0');
     while(i <= count) {
-      var $newGraduale = $multipleGradualesTemplate.clone(true);
+      var $newGraduale = $(gradualeTemplate.replace(/\$num\b/g,i));
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
-      $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
-      $newGraduale.each(setGradualeId(i));
-      $newGraduale.find('textarea[id^=txt]').autosize();
+      $newGraduale.find('select[id^=selStyle]').change(selStyleChanged);
+      $newGraduale.find('select.endings').change(selEndingsChanged);
+      $newGraduale.find('input.cbSolemn').change(cbSolemnChanged);
+      $newGraduale.find('select.tones').change(selTonesChanged);
+      $newGraduale.find('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
+      
       $lastGraduale.each(function(i){
         $(this).after($newGraduale[i]);
       });
@@ -595,10 +638,7 @@ $(function(){
           scale: 1
         };
         if(chant.chantScaleIf && window.matchMedia) {
-          var mediaQuery = window.matchMedia(chant.chantScaleIf[0]);
-          if(mediaQuery.matches) {
-            sel[part].chantScale = chant.chantScaleIf[1];
-          }
+          sel[part].chantScaleIf = [window.matchMedia(chant.chantScaleIf[0]), chant.chantScaleIf[1]];
         }
         var $curElement;
         $curElement = $('<div>').attr('id',part+'-preview')
@@ -610,6 +650,7 @@ $(function(){
                 for (var i=0; i < chant.gabcReplace.length; i += 2)
                   gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
               }
+              gabc = runGabcReplaces(gabc);
               sel[part].gabc = sel[part].activeGabc = gabc;
               updateExsurge(part, sel[part].id);
             });
@@ -638,7 +679,6 @@ $(function(){
 
         downloadThisChant();
         if(chant.gabc) {
-          sel[part].noDropCap = getHeader(chant.gabc).initialStyle !== '1';
           updateExsurge(part);
         }
       }
@@ -1711,6 +1751,7 @@ $(function(){
     }
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
+    prop.noDropCap = gabcHeader.initialStyle === '0';
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
@@ -1760,7 +1801,14 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var scale = sel[part].chantScale || 1;
+    var scale = 1;
+    if(sel[part].chantScaleIf) {
+      if(sel[part].chantScaleIf[0].matches) {
+        scale = sel[part].chantScaleIf[1];
+      }
+    } else if(sel[part].chantScale) {
+      scale = sel[part].chantScale;
+    }
     var newWidth = Math.floor(chantContainer.width() / scale);
     if(!score) return;
     ctxt.width = newWidth;
@@ -1997,7 +2045,7 @@ $(function(){
       $('#selSunday').prop('selectedIndex',0).change();
     }
   });
-  $('select[id^=selStyle]').change(function(e){
+  function selStyleChanged(e){
     var style=this.value;
     if(this.id=='selStyle') {
       if(style!='mixed') {
@@ -2011,9 +2059,8 @@ $(function(){
       $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
       $('#selStyle').val(baseStyle);
     }
-  });
-  $('#selStyle').change();
-  $('select.tones').change(function(e){
+  }
+  function selTonesChanged(e){
     //update endings for this tone.
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
@@ -2033,8 +2080,8 @@ $(function(){
       if(sel[part].style == 'psalm-tone') $selEnding.show();
     }
     updateTextAndChantForPart(part, true);
-  });
-  $('select.endings').change(function(e){
+  }
+  function selEndingsChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/)) {
@@ -2042,18 +2089,14 @@ $(function(){
     }
     sel[part].termination = this.value;
     updateTextAndChantForPart(part, true);
-  });
-  $('input.cbSolemn').change(function(e){
+  }
+  function cbSolemnChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].solemn = this.checked;
     updateTextAndChantForPart(part, true);
-  });
-  var $selTones = $('select.tones');
-  for(var i=1; i<=8; ++i) {
-    $selTones.append('<option>'+i+'</option>');
   }
-  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
+  function editorKeyUp(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
@@ -2063,7 +2106,16 @@ $(function(){
       sel[part].gabc = this.value;
       updateTextAndChantForPart(part, true);
     }
-  });
+  }
+  $('select[id^=selStyle]').change(selStyleChanged);
+  $('#selStyle').change();
+  $('select.endings').change(selEndingsChanged);
+  $('input.cbSolemn').change(cbSolemnChanged);
+  var $selTones = $('select.tones').change(selTonesChanged);
+  for(var i=1; i<=8; ++i) {
+    $selTones.append('<option>'+i+'</option>');
+  }
+  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
     var result=[];
     $('[part]').each(function(){
