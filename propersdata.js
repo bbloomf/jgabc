@@ -93,7 +93,7 @@ var otherKeys = [
     {key:"nuptialis",title:"Missa nuptialis",en:"Wedding Mass"},
     {key:"defunctorum",title:"Missa pro Defunctis",en:"Mass for the Dead"},
     {key:"dedicatio",title:"Missa Dedicationis Ecclesiæ",en:"Mass of the dedication of a church"},
-    {key:"SCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"}
+    {key:"votiveSCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"}
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -866,9 +866,10 @@ var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"
 /*TODO: sequences. All Souls, seven sorrows. anything else? */
 var proprium = {
   ChristusRex: {introitusID:128,gradualeID:583,alleluiaID:746,offertoriumID:390,communioID:1229},
-  SCJQuad: {introitusID:1320,gradualeID:1035,tractusID:1244,offertoriumID:628,communioID:1356},
-  SCJPasch: {introitusID:1320,gradualeID:907,offertoriumID:319,communioID:154,alleluiaID:1237},
-  SCJ: {communioID:1356,offertoriumID:628,introitusID:1320,gradualeID:1035,alleluiaID:907},
+  votiveSCJQuad: {introitusID:1320,gradualeID:1035,tractusID:1244,offertoriumID:628,communioID:1356},
+  votiveSCJPasch: {introitusID:1320,gradualeID:907,alleluiaID:1237,offertoriumID:319,communioID:154},
+  votiveSCJ: {ref:"SCJ"},
+  SCJ: {introitusID:1320,gradualeID:1035,alleluiaID:907,offertoriumID:628,communioID:1356},
   nuptialis: {introitusID:551,gradualeID:311,alleluiaID:191,offertoriumID:967,communioID:490},
   nuptialisQuad: {introitusID:551,gradualeID:311,tractusID:144,offertoriumID:967,communioID:490},
   nuptialisPasch: {introitusID:551,gradualeID:191,alleluiaID:505,offertoriumID:967,communioID:490},

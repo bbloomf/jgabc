@@ -174,6 +174,8 @@ $(function(){
         break;
       case "ChristusRex":
         return dates.ChristusRex;
+      default:
+        m = moment();
     }
     return m;
   }
@@ -508,7 +510,7 @@ $(function(){
   }
   var updateDay = function() {
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    selPropers = proprium[ref + selTempus] || proprium[ref];
+    selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay];
@@ -730,17 +732,13 @@ $(function(){
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
       if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
-      selMoment = m;
-      selTempus = getSeasonForMoment(m);
     } else {
-      selMoment = dateForSundayKey(selDay);
-      if(selDay.match(/^(Pa|A)sc/)) selTempus = 'Pasch';
-      else if(selDay.match(/^(AshWed|Septua|Sexa|Quinqua|Quad)/)) selTempus = 'Quad';
-      else selTempus = '';
+      m = dateForSundayKey(selDay);
     }
+    selTempus = getSeasonForMoment(m);
     updateTempus();
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
+    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       $selTempus.val(selTempus);
     } else {
@@ -1720,8 +1718,8 @@ $(function(){
     if(TP) {
       gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
     } else {
-      gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>.*?(?=\(::\))/,'')
-        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\).*?(?=[^\s(]*\(::\))/,'');
+      gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
+        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'');
     }
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
