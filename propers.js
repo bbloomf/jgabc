@@ -397,7 +397,7 @@ $(function(){
         if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
           sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
         }
-        if(part==='asperges' && momentIsInPassionTide(selMoment)) {
+        if(part==='asperges' && selPropers && selPropers.gloriaPatri === false) {
           sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
@@ -590,10 +590,6 @@ $(function(){
       return 'Pasch';
     }
     return '';
-  }
-  var momentIsInPassionTide = function(m) {
-    var dates = Dates(m.year());
-    return m.isBefore(dates.pascha) && m.isSameOrAfter(moment(dates.pascha).subtract(2,'weeks'));
   }
   var showHideExtraChants = function(e) {
     e && e.preventDefault && e.preventDefault();
@@ -1749,7 +1745,7 @@ $(function(){
     }
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
-    prop.noDropCap = gabcHeader.initialStyle === '0';
+    prop.noDropCap = (id && id.match && id.match(/-/)) || gabcHeader.initialStyle === '0';
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
