@@ -88,8 +88,8 @@ var sundayKeys = [
     {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"}
 ];
 var otherKeys = [
-    {title:"Selige alia propria...",en:"Select other propers..."},
-    {title:"Missa quælibet",key:"custom",en:"Custom"},
+    {title:"Votivæ et Aliæ Missæ...",en:"Votive/Other Masses..."},
+    {title:"Selige quidque proprium secundum inceptum",key:"custom",en:"Select each proper by incipit"},
     {key:"nuptialis",title:"Missa nuptialis",en:"Wedding Mass"},
     {key:"defunctorum",title:"Missa pro Defunctis",en:"Mass for the Dead"},
     {key:"dedicatio",title:"Missa Dedicationis Ecclesiæ",en:"Mass of the dedication of a church"},
