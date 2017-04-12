@@ -96,6 +96,9 @@ select.small-screen {
 }
 
 @media screen and (max-width: 768px) {
+  .ss-border-bottom {
+    border-bottom: 1px solid #ddd;
+  }
   .hide-ss {
     display: none!important;
   }
