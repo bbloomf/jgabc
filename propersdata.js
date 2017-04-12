@@ -516,8 +516,8 @@ var extraChants = {
             rubric: "<Verses ad libitum>",
             gabc: "initial-style: 0;\n\
 %%\n\
-(c4)2. Ut(hg~) co(gh)gno(h)scá(h)mus(h) in(h) ter(h)<i>ra</i>(hg) <i>vi</i>(gi)<i>am</i>(i) <b>tu</b>(hi hr)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)<i>tá</i>(gf)<i>re</i>(gh) <i>tu</i>(g)<i>um</i>.(e.) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
-3. Con(hg~)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) <i>pó</i>(hg)<i>pu</i>(gi)<i>li</i>,(i) <b>De</b>(hi hr)us:(h.) *(:) con(hg)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(h)<i>pu</i>(gf)<i>li</i>(gh) <i>om</i>(g)<i>nes</i>.(e.) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::) () ^Kyrie IV <i>or</i> IX.^()\
+(c4)2. Ut(hg~) co(gh)gno(h)scá(h)mus(h) in(h) ter(h)ra(hg) vi(gi)am(i) tu(hi)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)tá(gf)re(gh) tu(g)um.(e.) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
+3. Con(hg~)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(hg)pu(gi)li,(i) De(hi)us:(h.) *(:) con(hg)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(h)pu(gf)li(gh) om(g)nes.(e.) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::) () ^Kyrie IV <i>or</i> IX.^()\
 "
         }
     ]
