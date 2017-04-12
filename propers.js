@@ -577,7 +577,7 @@ $(function(){
       isNovus = true;
       $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
-      $('#btnCalendar').text('Novus Ordo Calendar');
+      $('#btnCalendar').text('Novus Ordo');
     }
     clearHash({ sundayNovus: selDay }, selDay);
     updateDayNovus();
@@ -2030,12 +2030,12 @@ $(function(){
     if(isNovus) {
       $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
-      $this.text('Novus Ordo Calendar');
+      $this.text('Novus Ordo');
       $('#selSundayNovus').prop('selectedIndex',0).change();
     } else {
       $('#selSunday,#selSaint,#selMass,#selTempus').show();
       $('#selSundayNovus,#selYearNovus').hide();
-      $this.text('Traditional Calendar');
+      $this.text('Traditional');
       $('#selSunday').prop('selectedIndex',0).change();
     }
   });

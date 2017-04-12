@@ -1,0 +1,214 @@
+svg.bg-blur {
+  height: 0;
+  width: 0;
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: -1px;
+  padding-top: 4px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+.link {
+  cursor: pointer;
+}
+label {
+  font-weight: 400;
+}
+select[disabled] {
+  color: #8c8c8c;
+}
+a:not([href]),
+a:not([href]):hover {
+  color: #000;
+  text-decoration: none;
+}
+.ol {
+  text-decoration: overline;
+}
+button.remove-modifications {
+  display: none;
+}
+[part].full.modified button.remove-modifications {
+  display: inline;
+}
+textarea {
+  padding:0;
+  width:100%;
+  min-height:100px;
+  box-sizing: border-box;
+  display: none;
+}
+.asperges-verses,
+.chant-preview {
+  display: none;
+}
+[part].showing-chant .asperges-verses,
+[part].showing-chant .chant-preview{
+  display: block;
+}
+.verses,
+.asperges-verses {
+  font-size: 120%;
+  font-family: 'Crimson Text';
+}
+.verses .rubric {
+  font-size: inherit;
+  white-space: nowrap;
+  padding-left: 10pt;
+}
+.red {
+  color: #d00;
+}
+.asperges-verses .versiculum {
+  font-size: 120%;
+  color: #d00;
+}
+.asperges-verses .rubric {
+  font-size: inherit;
+  font-style: italic;
+  color: #d00;
+}
+.chant-title {
+  text-align: center;
+  font-size: 110%;
+  font-weight: bold;
+  font-family: 'Crimson Text';
+  text-transform: uppercase;
+  margin: 0.75em 0 -0.5em;
+  line-height: 1;
+}
+text.aboveLinesText {
+  fill: #d00!important;
+}
+[style*="fill:#f00;"] {
+  fill: #d00!important;
+}
+tspan[style*="font-family:'Exsurge Characters';fill:#f00;"] {
+  font-family: 'Versiculum'!important;
+  font-variant: normal!important;
+  font-size: 106%;
+  text-transform: lowercase!important;
+  font-weight: 400!important;
+}
+div[gregobase-id] text.dropCap {
+  cursor: pointer;
+}
+div[gregobase-id] text.dropCap:hover {
+  fill: #d00!important;
+}
+.rubric {
+  font-family: 'Crimson Text';
+  font-size: 120%;
+  font-style: italic;
+  color: #d00;
+  margin: 0.5em 0 0.25em;
+}
+.rubric.after {
+  margin-top: 0;
+}
+.rubric .quote {
+  font-style: normal;
+  color: #000;
+}
+.preview-container {
+  padding: 4px 0;
+}
+.chant-parent{
+  width:100%;
+}
+.chant-preview>svg.ChantScore {
+  width: 100%;
+  page-break-inside: avoid;
+}
+select.sel-style{
+  margin:1px 0 0;
+}
+select {
+  max-width: 100%;
+}
+label.sel-label{
+  margin-top:2px;
+}
+.right {
+  float:right;
+}
+.block {
+  clear: both;
+}
+.block.right {
+  float: none;
+}
+.show-gabc div.block {
+  display: inline-block;
+  width: 50%;
+  box-sizing: border-box;
+  padding-right: 2px;
+}
+.show-gabc div.block.right {
+  padding-left: 2px;
+  padding-right: 0;
+  float: right;
+}
+.show-gabc textarea {
+  display: inline;
+}
+div[part].show-gabc {
+  border:0;
+}
+.show-gabc .chant-parent {
+  border:1px solid #aaa;
+  min-height:119px;
+}
+div[part] {
+  margin-top: 4px;
+  clear: both;
+}
+.hide-chant .chant-preview {
+  display: none;
+}
+.centered-heading {
+  font-weight: 600;
+  text-align: center;
+}
+.psalm-editor {
+  border: 1px solid #ccc;
+  padding: 6px;
+  border-radius: 4px;
+}
+text.annotation {
+  font-weight: 600;
+}
+div.chant-context {
+  display: inline-block;
+}
+[part] use[source-index],
+[part] text[source-index] {
+  cursor: pointer;
+}
+[part].ordinary:not(.show-gabc) use[source-index],
+[part].ordinary:not(.show-gabc) text[source-index] {
+  cursor: default;
+}
+[part].show-gabc use[source-index]:hover,
+[part] use[source-index].active {
+  fill: #337ab7;
+  filter: url(#note-glow);
+}
+[part].show-gabc text[source-index]:hover,
+[part] text[source-index].active {
+  fill: #337ab7;
+  filter: url(#text-glow);
+}
+[part].show-gabc text[source-index][style*="fill:#f00;"]:hover,
+[part].show-gabc text[source-index]:hover tspan[style="font-style:italic;"],
+[part].show-gabc text[source-index]:hover [style*="fill:#f00;"],
+[part] text[source-index][style*="fill:#f00;"].active,
+[part] text[source-index].active tspan[style="font-style:italic;"],
+[part] text[source-index].active [style*="fill:#f00;"] {
+  fill: #337ab7!important;
+}
+.cordova-only {
+  display: none;
+}
