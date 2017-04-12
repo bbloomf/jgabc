@@ -176,6 +176,8 @@ div[part] {
   border: 1px solid #ccc;
   padding: 6px;
   border-radius: 4px;
+  font-family: 'Crimson Text', serif;
+  font-size: 120%;
 }
 text.annotation {
   font-weight: 600;
@@ -208,6 +210,27 @@ div.chant-context {
 [part] text[source-index].active tspan[style="font-style:italic;"],
 [part] text[source-index].active [style*="fill:#f00;"] {
   fill: #337ab7!important;
+}
+button.toggle-mediant {
+  color: #d00!important;
+}
+button.toggle-mediant::before {
+  content: '\a0';
+  position: relative;
+}
+button.toggle-mediant[state="new-verse"]::before {
+  content: 'v';
+  font-family: versiculum;
+  font-size: 120%;
+  line-height: 0;
+  top: -2px;
+}
+button.toggle-mediant[state="mediant"]::before {
+  content: '*';
+}
+button.toggle-mediant[state="flex"]::before {
+  content: '†';
+  top: -2px;
 }
 .cordova-only {
   display: none;

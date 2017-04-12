@@ -1018,33 +1018,33 @@ $(function(){
         part = $part.attr('part'),
         lines = sel[part].lines,
         text = '',
-        btnText = $this.text();
-    switch(btnText) {
-      case '*':
-      case '†':
-        btnText = '℣';
+        btnState = $this.attr('state');
+    switch(btnState) {
+      case 'mediant':
+      case 'flex':
+        btnState = 'new-verse';
         break;
-      case '℣':
-        btnText = NBSP;
+      case 'new-verse':
+        btnState = '';
         break;
       default:
-        btnText = '*';
+        btnState = 'flex';
         break;
     }
-    $this.text(btnText);
+    $this.attr('state',btnState);
     var versePattern = sel[part].pattern = lines.map(function(segments, lineNum) {
       var pattern = [],
           $lastBtn = $();
       segments.forEach(function(seg, segNum) {
         var $btn = $part.find('button[line=' + lineNum + '][seg=' + segNum + ']');
         if($btn.length) {
-          btnText = $btn.text();
-          pattern.push(btnText.replace('†','*').replace(NBSP,''))
-          if(btnText.match(/[*†]/)) {
-            if($lastBtn.text() == '*') $lastBtn.text('†');
-            $btn.text('*');
+          btnState = $btn.attr('state');
+          pattern.push(btnState.replace(/flex|mediant/,'*').replace('new-verse','℣'))
+          if(btnState.match(/flex|mediant/)) {
+            if($lastBtn.attr('state') == 'mediant') $lastBtn.attr('state','flex');
+            $btn.attr('state','mediant');
             $lastBtn = $btn;
-          } else if(btnText == '℣') {
+          } else if(btnState == 'new-verse') {
             $lastBtn = $();
           }
         }
@@ -1109,7 +1109,19 @@ $(function(){
           var pat = pattern[lineNum] || [];
           segments.forEach(function(segment, segNum) {
             var $span = $('<span>'),
-                code = (pat[segNum] || NBSP).replace('†','*');
+                code = (pat[segNum] || '');
+            switch(code) {
+              case '*':
+              case '†':
+                code = 'mediant';
+                break;
+              case '℣':
+                code = 'new-verse';
+                break;
+              default:
+                code = '';
+                break;
+            }
             $span.html(replaceGabcTags(segment));
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
@@ -1117,14 +1129,14 @@ $(function(){
               $button.addClass('toggle-mediant btn btn-xs btn-default');
               $button.attr('line', lineNum).attr('seg', segNum);
               $button.click(toggleMediant);
-              $button.text(code);
-              if(code == '*') {
-                $lastBtn.text('†');
+              $button.attr('state',code);
+              if(code == 'mediant') {
+                $lastBtn.attr('state','flex');
                 $lastBtn = $button;
-              } else if(code == '℣') {
+              } else if(code == 'new-verse') {
                 $lastBtn = $();
               }
-              $psalmEditor.append($button);
+              $psalmEditor.append(' ').append($button).append(' ');
             }
           });
           if(lineNum != lines.length - 1) {
