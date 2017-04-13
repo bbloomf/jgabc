@@ -90,7 +90,15 @@ tspan.selectable{
   font-family: 'Crimson Text';
   font-size: 15px;
 }
+select.small-screen {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
 @media screen and (max-width: 768px) {
+  .ss-border-bottom {
+    border-bottom: 1px solid #ddd;
+  }
   .hide-ss {
     display: none!important;
   }
@@ -112,7 +120,7 @@ tspan.selectable{
   .right {
     float: none!important;
   }
-  select, button {
+  select, button:not(.btn) {
     font-size: 16px!important;
   }
   select.small-screen {
@@ -125,7 +133,6 @@ tspan.selectable{
   }
   button.toggle-mediant {
     font-size: 100%;
-    margin: 0 6px;
   }
 }
 @media screen {

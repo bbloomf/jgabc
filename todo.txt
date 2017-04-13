@@ -1,3 +1,10 @@
+layout updates:
+Traditional Calendar / Novus Ordo Calendar, should be changed to Calendar: and styled radio buttons, with a new line afterward
+group the first dropdowns together under a Propers heading
+
+Move all the major selections (above the hr) to a landing page
+
+
 https://github.com/bramstein/fontfaceobserver/
 
 need to make sure patterns get reset when choosing a new day
