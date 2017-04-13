@@ -988,7 +988,7 @@ var proprium = {
   Quad6m: {introitusID:226,gradualeID:783,tractusID:425,offertoriumID:411,communioID:196,gloriaPatri:false},
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397,gloriaPatri:false},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588,gloriaPatri:false},
-  Quad6h: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140, credo: false, gloriaPatri:false,
+  Quad6h: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140, credo: false, gloriaPatri:false, ite: 'benedicamus',
     agnusReplace: [/d[oó](\([^)]+\))na(\([^)]+\))\s+n[oó](\([^)]+\))bis(\([^)]+\))\s+p[aá](\([^)]+\))cem\.?(\([^)]+\))/gi, 'mi$1se$2ré$3re$4 no$5bis.$6']},
   Quad6f: {extraChants: true, ordinary: false},
   Quad6s: {extraChants: true, credo: false, agnus: false, ite: false},

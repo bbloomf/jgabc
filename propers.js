@@ -288,7 +288,7 @@ $(function(){
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
-    if(selPropers && (selPropers[part] === false) || (selPropers.ordinary === false && isOrdinaryPart)) {
+    if(selPropers && (selPropers[part] === false || (selPropers.ordinary === false && isOrdinaryPart))) {
       $div.hide();
       return; 
     }
@@ -559,7 +559,7 @@ $(function(){
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
-          } else if(!(part + 'ID' in selPropers)) {
+          } else if(!(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
             $part.hide();
           }
           var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
