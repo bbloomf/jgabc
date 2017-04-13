@@ -614,7 +614,11 @@ $(function(){
         $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
       }
       if(chant.rubric) {
-        $curContainer.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,"<span class='versiculum'>$1</span>")));
+        $curContainer.append($('<div>').addClass('rubric').html(
+          chant.rubric.replace(/>/g,'</span>').
+            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
+            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")));
       }
       if(chant.id && chant.psalmtone) {
         if(!selPropers.gradualeID) selPropers.gradualeID = [0];
@@ -681,7 +685,11 @@ $(function(){
         }
       }
       if(chant.rubricAfter) {
-        $curContainer.append($('<div>').addClass('rubric after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>').replace(/([vr])\/./g,"<span class='versiculum'>$1</span>")));
+        $curContainer.append($('<div>').addClass('rubric after').html(
+          chant.rubricAfter.replace(/>/g,'</span>').
+            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
+            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")));
       }
       if(chant.html) {
         $curContainer.append($('<div>').html(chant.html
