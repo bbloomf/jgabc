@@ -112,6 +112,9 @@ div[gregobase-id] text.dropCap:hover {
   font-style: normal;
   color: #000;
 }
+.rubric .bracket {
+  font-style: normal;
+}
 .preview-container {
   padding: 4px 0;
 }

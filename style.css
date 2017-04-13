@@ -46,6 +46,7 @@ body {
   margin-top: 0;
 }
 .verses > p > span.versenum {
+  color: #d00;
   margin-bottom: 0;
 }
 .open-on-hover>.dropdown-menu {
