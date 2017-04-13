@@ -72,7 +72,7 @@ var latin = window.Hypher.languages.la_VA;
                         }
                         return beginning + replacement;
                       });
-                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*[A-ZŒÆÁÉÍÓÚÝǼ])([a-zœæáéíóúýǽ]([a-zœæáéíóúýǽ](?=\([^)]*\)\s+))?)/,
+                    content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*[A-ZŒÆÁÉÍÓÚÝǼ])([A-ZŒÆÁÉÍÓÚÝǼa-zœæáéíóúýǽ]([a-zœæáéíóúýǽ](?=\([^)]*\)\s+))?)/,
                       function(match, beginning, replacePart){
                         return beginning + replacePart.toUpperCase();
                       });
