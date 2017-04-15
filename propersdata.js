@@ -677,10 +677,13 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
             id: 2120
         }*/ {
             rubric: "After the adoration of the Cross, the priest and clergy go to the altar of repose, and the Blessed Sacrament is borne back to the high altar.  During the procession, the following antiphons are sung:",
+            psalmtone: true,
             id: 1238
         }, {
+            psalmtone: true,
             id: 940
         }, {
+            psalmtone: true,
             id: 1335,
             rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus> may be sung, or else one or other of the responsories from Matins of Good Friday."
         }, {
@@ -813,6 +816,7 @@ Chris(i)te,(h) ex(i)au(gxg)di(h) nos.(i.) (::)\n"
         }, {
             rubric: "The choir then sings:",
             id: "507-2",
+            gabcReplace: [/(\n%%\r?\n)/,'\ninitial-style: 1;$1'], // add large initial
             rubricAfter: "<Allelúia> is not repeated."
         }, {
             id: 1247,
@@ -827,7 +831,7 @@ Chris(i)te,(h) ex(i)au(gxg)di(h) nos.(i.) (::)\n"
 office-part:Antiphona;\n\
 mode:6;\n\
 %%\n\
-(c4)Al(f)le(g')lú(h)ia,(f.) (,) al(gh)le(g')lú(f)ia,(d_c) (,) al(f)le(gh)lú(gf~)ia.(f.) (::)",
+(c4)Al(f)le(g')lú(h)ia,(f.) *(,) al(gh)le(g')lú(f)ia,(d_c) (,) al(f)le(gh)lú(gf~)ia.(f.) (::)",
             sticky: 0
         }, {
             rubric: "<Psalm 150>",
