@@ -180,6 +180,7 @@ $(function(){
     return m;
   }
   var partAbbrev = {
+    verse:'V/.',
     tractus:'Tract.',
     offertorium:'Offert.',
     introitus:'Intr.',
@@ -367,6 +368,7 @@ $(function(){
           } else {
             $style.append($gradualeOptions.clone());
             var temp = header['office-part'].toLowerCase();
+            if(temp === 'alleluia' && truePart != 'alleluia') temp = 'verse';
             if(temp in partAbbrev) {
               truePart = temp;
               if(truePart != 'graduale') partIndex = null;
@@ -379,7 +381,9 @@ $(function(){
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         }
-        var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
+        var capTruePart = truePart.replace(/(^|\s)([a-z])/g, function(all,space,letter) {
+          return space + letter.toUpperCase();
+        });
         if(capTruePart) {
           $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
