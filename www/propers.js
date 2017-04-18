@@ -750,7 +750,6 @@ $(function(){
       }
     });
     clearHash(hash, selDay);
-    loadStoredDataForKey(selDay);
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
       if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
@@ -2292,6 +2291,7 @@ console.info(JSON.stringify(selPropers));
     Object.keys(sel).forEach(function(key) {
       if(sel[key] && 'style' in sel[key]) {
         sel[key].style = 'full';
+        delete sel[key].pattern;
         $('#selStyle' + key[0].toUpperCase() + key.slice(1)).val('full');
       }
     });
