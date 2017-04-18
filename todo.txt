@@ -13,13 +13,7 @@ option to psalm tone extra mass parts
 re-write psalmtoning algorithm to be clearer
 add links to gregorianbooks?
 
-add other chants outside of Mass: Holy Week, etc., anything that's in the liber brevior should be in the propers tool
-add link to gregoBase for extra chants
 
-
-better layout psalmtone tool for a phone
-
-totally remove jgabc.js dependency
 
 
 Introit Tone 6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.
