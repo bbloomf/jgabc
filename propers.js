@@ -38,10 +38,24 @@ $(function(){
   var reFullBarsOrFullStops = /(?:[:;.?!]?\s*\*|[:;.?!]\s)\s*/g;
   var reHalfBars = /\s*\|\s*/g;
   var reFullOrHalfBars = /\s*[*|]\s*/g;
-  var reFullOrHalfBarsOrFullStops = /(?:[:;.?!]?\s*[*|]|[:;.?!]\s)\s*/g;
+  var reFullOrHalfBarsOrFullStops = /(?:([:;.?!]?)\s*[*|]|([:;.?!])\s)\s*/g;
   var reCommaWords = /[,]\s/g;
   var reFullStops = /[.:;!?]\s/g;
   var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
+  function reduceStringArrayBy(array,period) {
+    if(array.length < period) return array;
+    return array.reduce(function(result,o,i) {
+      if(!result) result = '';
+      if(!o) o = '';
+      if(typeof(result) == 'string') result = [result];
+      if(i % period === 0) {
+        result.push(o);
+      } else {
+        result[result.length - 1] += o;
+      }
+      return result;
+    });
+  }
   var LocationHash = function(hash) {
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
@@ -352,7 +366,7 @@ $(function(){
           var plaintext = decompile(gabc,true);
           if(isAlleluia(part,plaintext)) truePart = 'alleluia';
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
-            return line.split(reFullOrHalfBarsOrFullStops);
+            return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
@@ -948,7 +962,7 @@ $(function(){
     var result = [];
     var sLine = splitLine(line.split(reFullBarsOrFullStops), 2, ' | ', 20);
     if(sLine.length < 2 || Math.max.apply(null,sLine.mapSyllableCounts()) > 20) {
-      sLine = splitLine(line.split(reFullOrHalfBarsOrFullStops), 2, ' | ', 20);
+      sLine = splitLine(reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3), 2, ' | ', 20);
     }
     addPatternFromSplitLine(result, sLine);
     return result;
