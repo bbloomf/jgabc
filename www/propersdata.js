@@ -815,8 +815,8 @@ Chris(i)te,(h) ex(i)au(gxg)di(h) nos.(i.) (::)\n"
             rubricAfter: "He sings this <Allelúia> three times, each time at a higher pitch.  The choir repeats it after him each time, in the same key."
         }, {
             rubric: "The choir then sings:",
+            psalmtone: true,
             id: "507-2",
-            gabcReplace: [/(\n%%\r?\n)/,'\ninitial-style: 1;$1'], // add large initial
             rubricAfter: "<Allelúia> is not repeated."
         }, {
             id: 1247,
