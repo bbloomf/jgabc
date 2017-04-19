@@ -1152,7 +1152,7 @@ $(function(){
                 if(tag=='i') return '<i class="red">' + afterOpen;
                 return word;
               }
-              return '<span>' + Hypher.languages.la.hyphenate(word).join('</span><span>') + '</span>';
+              return '<span>' + Hypher.languages.la.hyphenate(word).join('</span><span>&shy;') + '</span>';
             }));
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
