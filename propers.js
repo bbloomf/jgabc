@@ -1152,8 +1152,26 @@ $(function(){
                 if(tag=='i') return '<i class="red">' + afterOpen;
                 return word;
               }
-              return '<span>' + Hypher.languages.la.hyphenate(word).join('</span><span>&shy;') + '</span>';
+              return Hypher.languages.la.hyphenate(word).map(function(syl, i, syls){
+                var result = '<syl';
+                if(i==0 && syls.length==2 || syl.match(/[áéíóúý]/i)) result += ' accent';
+                result += '>';
+                if(i) result += '&shy;';
+                result += syl + '</syl>';
+                return result;
+              }).join('');
             }));
+            var syls = $span.find('syl');
+            for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
+              var $syl = $(syls[i]);
+              if($syl.is('[accent]')) {
+                lastAccent = i;
+                continue;
+              }
+              if(lastAccent - i == 3) {
+                $(syls[ (lastAccent = i+1) ]).attr('accent','');
+              }
+            }
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
