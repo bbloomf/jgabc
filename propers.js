@@ -1147,7 +1147,13 @@ $(function(){
                 code = '';
                 break;
             }
-            $span.html(replaceGabcTags(segment));
+            $span.html(replaceGabcTags(segment).replace(/<([a-z]+)>(.*<\/\1>)|[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/gi, function(word,tag,afterOpen) {
+              if(tag) {
+                if(tag=='i') return '<i class="red">' + afterOpen;
+                return word;
+              }
+              return '<span>' + Hypher.languages.la.hyphenate(word).join('</span><span>') + '</span>';
+            }));
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');

@@ -1,8 +1,5 @@
-layout updates:
-Traditional Calendar / Novus Ordo Calendar, should be changed to Calendar: and styled radio buttons, with a new line afterward
-group the first dropdowns together under a Propers heading
-
 Move all the major selections (above the hr) to a landing page?
+Bold and Italic in psalm tone editor
 
 
 https://github.com/bramstein/fontfaceobserver/
