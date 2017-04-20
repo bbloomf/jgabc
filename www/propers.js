@@ -1147,7 +1147,31 @@ $(function(){
                 code = '';
                 break;
             }
-            $span.html(replaceGabcTags(segment));
+            $span.html(replaceGabcTags(segment).replace(/<([a-z]+)>(.*<\/\1>)|[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/gi, function(word,tag,afterOpen) {
+              if(tag) {
+                if(tag=='i') return '<i class="red">' + afterOpen;
+                return word;
+              }
+              return Hypher.languages.la.hyphenate(word).map(function(syl, i, syls){
+                var result = '<syl';
+                if(i==0 && syls.length==2 || syl.match(/[áéíóúý]/i)) result += ' accent';
+                result += '>';
+                if(i) result += '&shy;';
+                result += syl + '</syl>';
+                return result;
+              }).join('');
+            }));
+            var syls = $span.find('syl');
+            for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
+              var $syl = $(syls[i]);
+              if($syl.is('[accent]')) {
+                lastAccent = i;
+                continue;
+              }
+              if(lastAccent - i == 3) {
+                $(syls[ (lastAccent = i+1) ]).attr('accent','');
+              }
+            }
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
@@ -1174,6 +1198,22 @@ $(function(){
       $psalmEditor.hide();
     }
   }
+
+  function resetPartStyle(part) {
+    var capPart = part[0].toUpperCase() + part.slice(1),
+        $selToneEnding = $('#selToneEnding' + capPart),
+        $selTone = $('#selTone' + capPart),
+        $cbSolemn = $('#cbSolemn' + capPart),
+        $right = $selTone.parent(),
+        $toggleEditMarkings = $right.find('.toggleEditMarkings'),
+        $part = $('[part='+part+']');
+    $part.removeClass('psalm-toned').addClass('full');
+    if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
+    $toggleEditMarkings.hide();
+    $selToneEnding.hide();
+    $cbSolemn.hide();
+    $selTone.attr('disabled',true);
+  }
   
   var updateStyle = function(part,style){
     addToHash('style'+part[0].toUpperCase()+part.slice(1), style == 'full' ? '' : style);
@@ -1181,8 +1221,8 @@ $(function(){
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
-    var capPart = part[0].toUpperCase() + part.slice(1);
-    var $selToneEnding = $('#selToneEnding' + capPart),
+    var capPart = part[0].toUpperCase() + part.slice(1),
+        $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
         $cbSolemn = $('#cbSolemn' + capPart),
         $right = $selTone.parent(),
@@ -1222,12 +1262,7 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
-      $part.removeClass('psalm-toned').addClass('full');
-      if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
-      $toggleEditMarkings.hide();
-      $selToneEnding.hide();
-      $cbSolemn.hide();
-      $selTone.attr('disabled',true);
+      resetPartStyle(part);
       if(gabc) {
         $selTone.val(getHeader(gabc).mode);
       }
@@ -1763,7 +1798,9 @@ $(function(){
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
-      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(') // make all asterisks and daggers red
+      .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
+      .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
+      .replace(/(\s+)(<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
@@ -2293,6 +2330,7 @@ console.info(JSON.stringify(selPropers));
         sel[key].style = 'full';
         delete sel[key].pattern;
         $('#selStyle' + key[0].toUpperCase() + key.slice(1)).val('full');
+        resetPartStyle(key);
       }
     });
     addToHash(obj,undefined,true);
@@ -2760,10 +2798,15 @@ console.info(JSON.stringify(selPropers));
         $toolbar.appendTo(document.body);
         var $neume = (noteProperties.$neume || $neume.parent()),
             staffTop = $neume.parent().offset().top,
-            neumeTop = $neume.offset().top - 4;
+            neumeTop = $neume.offset().top - 4,
+            toolbarWidth = $toolbar.outerWidth(),
+            left = $this.offset().left + ( $this.width() - toolbarWidth) / 2,
+            bodyWidth = $(document.body).outerWidth();
+        if(left < 8) left = 8;
+        if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
         $toolbar.offset({
           top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
-          left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
+          left: left
         });
       }
     }

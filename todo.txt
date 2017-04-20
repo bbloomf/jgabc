@@ -1,25 +1,18 @@
-layout updates:
-Traditional Calendar / Novus Ordo Calendar, should be changed to Calendar: and styled radio buttons, with a new line afterward
-group the first dropdowns together under a Propers heading
-
 Move all the major selections (above the hr) to a landing page?
+Bold and Italic in psalm tone editor
+
+Remove ij. from second alleluia during paschaltide if not there.
+Add ij. to first alleluia if not there
 
 
 https://github.com/bramstein/fontfaceobserver/
 
 option to psalm tone only some verses of the tract
-option to psalm tone extra mass parts
-...Only allow verse splitting at full bars, treat half bars and full bars equally and don't worry whether there is punctuation
+option to psalm tone only the verse of the gradual
 re-write psalmtoning algorithm to be clearer
 add links to gregorianbooks?
 
-add other chants outside of Mass: Holy Week, etc., anything that's in the liber brevior should be in the propers tool
-add link to gregoBase for extra chants
 
-
-better layout psalmtone tool for a phone
-
-totally remove jgabc.js dependency
 
 possibly provide links to http://www.gregorianbooks.com/propers.html#... from the propers tool
 
