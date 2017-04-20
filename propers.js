@@ -1798,7 +1798,9 @@ $(function(){
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
-      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(') // make all asterisks and daggers red
+      .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
+      .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
+      .replace(/(\s+)(<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
