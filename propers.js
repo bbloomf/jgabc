@@ -2083,8 +2083,8 @@ $(function(){
   });
   ordinaryKeys.unshift({
     key: '',
-    title: 'Ordinaria Ad Libitum',
-    en: 'Mass Ordinaries...'
+    title: 'Ordinaria Missæ in cantu gregoriano',
+    en: 'Chant Mass Ordinaries...'
   })
   populate(ordinaryKeys,$selOrdinary)
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
