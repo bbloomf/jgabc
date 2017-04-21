@@ -364,7 +364,18 @@ $(function(){
             truePart = partType;
         if(!isOrdinaryPart) {
           var plaintext = decompile(gabc,true);
-          if(isAlleluia(part,plaintext)) truePart = 'alleluia';
+          if(isAlleluia(part,plaintext)) {
+            truePart = 'alleluia';
+            if(part=='graduale') {
+              // add ij. if not present:
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)/i,'$1 <i>ij.</i>');
+              plaintext = decompile(gabc,true);
+            } else if(part=='alleluia' && isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) {
+              // remove ij. if present
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
+              plaintext = decompile(gabc,true);
+            }
+          }
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });

@@ -1,8 +1,6 @@
+Improve speed
 Move all the major selections (above the hr) to a landing page?
 Bold and Italic in psalm tone editor
-
-Remove ij. from second alleluia during paschaltide if not there.
-Add ij. to first alleluia if not there
 
 
 https://github.com/bramstein/fontfaceobserver/
