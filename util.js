@@ -317,6 +317,46 @@ function gabcEditorKeyDown(e) {
       }
       break;
     }
+    case 38: // up
+    case 40: // down
+      if(e.altKey) {
+        var up = e.which === 38;
+        e.preventDefault();
+        var allGabc = this.value
+            header = getHeader(allGabc),
+            selectionStart = this.selectionStart,
+            selectionEnd = this.selectionEnd,
+            gabc = allGabc = allGabc.slice(header.original.length);
+        if(selectionStart != selectionEnd) {
+          var startIndex = Math.max(0,selectionStart - header.original.length),
+              endIndex = Math.max(0,selectionEnd - header.original.length),
+              lastOpenParen = allGabc.lastIndexOf('(',startIndex),
+              lastCloseParen = allGabc.lastIndexOf(')',startIndex),
+              firstOpenParen = allGabc.indexOf('(',endIndex),
+              firstCloseParen = allGabc.indexOf(')',endIndex);
+          if(firstOpenParen < 0) firstOpenParen = Infinity;
+          if(firstCloseParen < 0) firstCloseParen = Infinity;
+          gabc = gabc.slice(startIndex, endIndex);
+        }
+        var addendum = up? 1 : -1;
+        var replaceLetter = function(letter) {
+          return String.fromCharCode(addendum + letter.charCodeAt(0));
+        };
+        var regex = up? /[a-lA-L](?![1-4])/g : /[b-mB-M](?![1-4])/g;
+        gabc = gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
+          return '(' + gabc.replace(regex, replaceLetter) + ')';
+        });
+        if(selectionStart == selectionEnd) {
+          this.value = header.original + gabc;
+        } else {
+          if(lastOpenParen > lastCloseParen && firstCloseParen < firstOpenParen && gabc.search(/[()]/) < 0) {
+            gabc = gabc.replace(regex, replaceLetter);
+          }
+          this.value = header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex);
+        }
+        this.setSelectionRange(selectionStart, selectionEnd);
+      }
+      break;
   }
 }
 
