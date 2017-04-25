@@ -341,6 +341,34 @@ function updateGabcSide() {
   updateGSyl();
   updateEditor();
 }
+function shiftGabc(e) {
+  var up = e.which === 38;
+  if(e.altKey && (up || e.which == 40)) {
+    e.preventDefault();
+    var $this = $(this),
+        allGabc = $this.val(),
+        header = getHeader(allGabc),
+        selectionStart = this.selectionStart,
+        selectionEnd = this.selectionEnd,
+        gabc = allGabc = allGabc.slice(header.original.length);
+    if(selectionStart != selectionEnd) {
+      var startIndex = Math.max(0,selectionStart - header.original.length),
+          endIndex = Math.max(0,selectionEnd - header.original.length);
+      gabc = gabc.slice(startIndex, endIndex);
+    }
+    var addendum = up? 1 : -1;
+    var regex = up? /[a-lA-L](?![1-4])/g : /[b-mB-M](?![1-4])/g;
+    gabc = gabc.replace(regex, function(letter) {
+      return String.fromCharCode(addendum + letter.charCodeAt(0));
+    });
+    if(selectionStart == selectionEnd) {
+      $this.val(header.original + gabc);
+    } else {
+      $this.val(header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex));
+    }
+    this.setSelectionRange(selectionStart, selectionEnd);
+  }
+}
 
 function updateSyl(txt) {
   var tmp=(txt||$("#hymntext").val()).split(regexDashedLine);
@@ -543,7 +571,7 @@ $(function() {
   $("#chant-parent2").resizable({handles:"e"});
   $("#lnkToggleMode").click(toggleMode);
   $(window).resize(windowResized);
-  $("#hymngabc").keyup(updateGabcSide);
+  $("#hymngabc").keyup(updateGabcSide).keydown(shiftGabc);
   $("#hymntext").keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
