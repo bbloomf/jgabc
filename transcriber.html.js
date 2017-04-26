@@ -357,10 +357,17 @@ function shiftGabc(e) {
       gabc = gabc.slice(startIndex, endIndex);
     }
     var addendum = up? 1 : -1;
-    var regex = up? /[a-lA-L](?![1-4])/g : /[b-mB-M](?![1-4])/g;
-    gabc = gabc.replace(regex, function(letter) {
+    var replaceLetter = function(letter, clef) {
+      if(clef) return letter;
+      if((!up && letter.match(/a/i)) || (up && letter.match(/m/i))) throw true;
       return String.fromCharCode(addendum + letter.charCodeAt(0));
-    });
+    };
+    var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+    try {
+      gabc = gabc.replace(regex, replaceLetter);
+    } catch(e) {
+      return;
+    }
     if(selectionStart == selectionEnd) {
       $this.val(header.original + gabc);
     } else {

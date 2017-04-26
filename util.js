@@ -339,18 +339,28 @@ function gabcEditorKeyDown(e) {
           gabc = gabc.slice(startIndex, endIndex);
         }
         var addendum = up? 1 : -1;
-        var replaceLetter = function(letter) {
+        var replaceLetter = function(letter, clef) {
+          if(clef) return letter;
+          if((!up && letter.match(/a/i)) || (up && letter.match(/m/i))) throw true;
           return String.fromCharCode(addendum + letter.charCodeAt(0));
         };
-        var regex = up? /[a-lA-L](?![1-4])/g : /[b-mB-M](?![1-4])/g;
-        gabc = gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
-          return '(' + gabc.replace(regex, replaceLetter) + ')';
-        });
+        var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+        try {
+          gabc = gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
+            return '(' + gabc.replace(regex, replaceLetter) + ')';
+          });
+        } catch(e) {
+          return;
+        }
         if(selectionStart == selectionEnd) {
           this.value = header.original + gabc;
         } else {
           if(lastOpenParen > lastCloseParen && firstCloseParen < firstOpenParen && gabc.search(/[()]/) < 0) {
-            gabc = gabc.replace(regex, replaceLetter);
+            try {
+              gabc = gabc.replace(regex, replaceLetter);
+            } catch(e) {
+              return;
+            }
           }
           this.value = header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex);
         }
