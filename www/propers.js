@@ -215,6 +215,7 @@ $(function(){
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
   var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\).*\(::\)/i;
+  var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -392,7 +393,7 @@ $(function(){
             $style.append($alleluiaOptions.clone());
           } else {
             $style.append($gradualeOptions.clone());
-            var temp = header['office-part'].toLowerCase();
+            var temp = (header['office-part']||'').toLowerCase();
             if(temp === 'alleluia' && truePart != 'alleluia') temp = 'verse';
             if(temp in partAbbrev) {
               truePart = temp;
@@ -1282,6 +1283,7 @@ $(function(){
   }
   
   var capitalizeForBigInitial = function(text) {
+    var result = '';
     m = text.match(regexLatin);
     m = m && m[0].match(/^[a-z]+/i);
     if(m) {
@@ -1356,12 +1358,15 @@ $(function(){
       flexEqualsTenor: true
     });
     if(gAmenTones){
+      var originalGabc = gAmenTones.input || '',
+          originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
+      originalClef = originalClef? originalClef[1] : clef;
       for(var i=2,index=temp.length; i>0; --i) {
         index = 1 + temp.lastIndexOf('(',index-2);
         if(index>0) {
           var index2 = temp.indexOf(')',index);
           if(index2>=0) {
-            temp = temp.slice(0,index) + gAmenTones[i] + temp.slice(index2);
+            temp = temp.slice(0,index) + shiftGabcForClefChange(gAmenTones[i],clef,originalClef) + temp.slice(index2);
           }
         }
       }
@@ -1382,7 +1387,7 @@ $(function(){
     if(!termination) {
       termination = mediant;
     }
-    var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+    var clef = gabc.slice(getHeaderLen(gabc)).match(regexGabcClef);
     if(clef) {
       clef = clef[1];
       if(clef != tone.clef) {
@@ -1516,7 +1521,7 @@ $(function(){
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
-        clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+        clef = gabc.slice(getHeaderLen(gabc)).match(gabcClef);
         if(clef) {
           clef = clef[1];
           if(clef != tone.clef) {
@@ -1549,6 +1554,8 @@ $(function(){
         var header;
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
+          var originalClef = regexGabcClef.exec(originalGabc);
+          var psalmToneClef
         }
         gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;

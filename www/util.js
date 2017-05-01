@@ -210,6 +210,19 @@ function getTagsFrom(txt){
   return r;
 }
 
+function transposeGabc(gabc,offset) {
+  var replaceLetter = function(letter, clef) {
+    if(clef) return letter;
+    var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
+    if(!newLetter.match(/[a-m]/i)) throw true;
+    return newLetter;
+  };
+  var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+  return gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
+    return '(' + gabc.replace(regex, replaceLetter) + ')';
+  });
+}
+
 function gabcEditorKeyDown(e) {
   var $this = $(this), txt = $this.val(), selStart = this.selectionStart, selEnd = this.selectionEnd;
   switch(e.which) {
@@ -338,17 +351,9 @@ function gabcEditorKeyDown(e) {
           if(firstCloseParen < 0) firstCloseParen = Infinity;
           gabc = gabc.slice(startIndex, endIndex);
         }
-        var addendum = up? 1 : -1;
-        var replaceLetter = function(letter, clef) {
-          if(clef) return letter;
-          if((!up && letter.match(/a/i)) || (up && letter.match(/m/i))) throw true;
-          return String.fromCharCode(addendum + letter.charCodeAt(0));
-        };
-        var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+        var offset = up? 1 : -1;
         try {
-          gabc = gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
-            return '(' + gabc.replace(regex, replaceLetter) + ')';
-          });
+          gabc = transposeGabc(gabc, offset)
         } catch(e) {
           return;
         }
