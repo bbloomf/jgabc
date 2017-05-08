@@ -1521,7 +1521,7 @@ $(function(){
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
-        clef = gabc.slice(getHeaderLen(gabc)).match(gabcClef);
+        clef = gabc.slice(getHeaderLen(gabc)).match(regexGabcClef);
         if(clef) {
           clef = clef[1];
           if(clef != tone.clef) {
