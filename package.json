@@ -1,0 +1,19 @@
+{
+    "name": "io.github.bbloomf.jgabc",
+    "version": "1.6.20",
+    "displayName": "Chant Tools",
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "cordova-plugin-insomnia": {},
+            "cordova-plugin-whitelist": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "^6.2.3",
+        "cordova-ios": "^4.4.0",
+        "cordova-plugin-whitelist": "1"
+    }
+}
