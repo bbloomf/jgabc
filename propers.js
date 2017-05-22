@@ -370,12 +370,11 @@ $(function(){
             if(part=='graduale') {
               // add ij. if not present:
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)/i,'$1 <i>ij.</i>');
-              plaintext = decompile(gabc,true);
             } else if(part=='alleluia' && isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) {
               // remove ij. if present
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
-              plaintext = decompile(gabc,true);
             }
+            plaintext = decompile(gabc,true);
           }
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
@@ -385,7 +384,7 @@ $(function(){
           }
           text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
         }
-        if(part.match(/^graduale/)) {
+        if(/^(graduale|tractus)/.test(part)) {
           var $style = $('#selStyle'+capPart),
               styleVal = $style.val();
           $style.empty();
@@ -399,13 +398,22 @@ $(function(){
               truePart = temp;
               if(truePart != 'graduale') partIndex = null;
             }
-            if(styleVal.match(/^psalm-tone/)) {
+            // if it's a gradual or tract, we'll handle it below, as we add the extra option.
+            if(!/^(graduale|tractus)/.test(truePart) && /^psalm-tone/.test(styleVal)) {
               styleVal = 'psalm-tone';
             }
+            $style.val(styleVal);
           }
-          $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
+        }
+        if(/^(graduale|tractus)/.test(truePart)) {
+          $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verses'));
+          styleVal = $style.val();
+          if(/^psalm-tone[^1]/.test(styleVal)) {
+            styleVal = 'psalm-tone';
+          }
+          $style.val(styleVal);
         }
         var capTruePart = truePart.replace(/(^|\s)([a-z])/g, function(all,space,letter) {
           return space + letter.toUpperCase();
@@ -1464,9 +1472,13 @@ $(function(){
         for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
       }
     }
-    var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     var gabc;
     var lines;
+    var useOriginalClef;
+    var fullGabc = sel[part].gabc.slice(getHeaderLen(sel[part].gabc));
+    var originalClef = fullGabc.match(regexGabcClef);
+    if(originalClef) originalClef = originalClef[1];
+      
     if(isAl) {
       if(sel[part].style=='psalm-tone1') {
         lines = text.split('\n');
@@ -1521,22 +1533,37 @@ $(function(){
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
-        clef = gabc.slice(getHeaderLen(gabc)).match(regexGabcClef);
-        if(clef) {
-          clef = clef[1];
-          if(clef != tone.clef) {
-            gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
-            gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
-          }
-        } else clef = tone.clef;
+        useOriginalClef = true
         lines = sel[part].text.split('\n');
       }
       lines.splice(0,1);
     } else {
-      gabc = header + '(' + tone.clef + ') ';
+      // not alleluia
       lines = capitalizeForBigInitial(sel[part].text).split('\n');
+      gabc = header;
+      if(sel[part].style == 'psalm-tone1') {
+        // the first verse is to be full tone.
+        var firstVerse = fullGabc.match(/^.*?\S*\([^)]*::[^)]*\)/g);
+        if(firstVerse) {
+          firstVerse = firstVerse[0] + ' ';
+          gabc += firstVerse;
+          useOriginalClef = true;
+          lines.shift();
+        } else {
+          gabc += '(' + tone.clef + ') ';
+        }
+      } else {
+        gabc += '(' + tone.clef + ') ';
+      }
     }
+    if(useOriginalClef && originalClef && originalClef != tone.clef) {
+      clef = originalClef;
+      gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
+      gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+    }
+    var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     
+
     var firstVerse = true;
     var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
     for(var i=0; i<lines.length; ++i) {

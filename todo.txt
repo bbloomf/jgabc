@@ -1,3 +1,7 @@
+Need to remove clef changes at the verse 
+after the following comment
+// the first verse is to be full tone.
+
 Improve speed
 Move all the major selections (above the hr) to a landing page?
 Bold and Italic in psalm tone editor
