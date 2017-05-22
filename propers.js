@@ -408,7 +408,7 @@ $(function(){
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         }
         if(/^(graduale|tractus)/.test(truePart)) {
-          $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verses'));
+          $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
           styleVal = $style.val();
           if(/^psalm-tone[^1]/.test(styleVal)) {
             styleVal = 'psalm-tone';
@@ -1555,9 +1555,9 @@ $(function(){
       gabc = header;
       if(sel[part].style == 'psalm-tone1') {
         // the first verse is to be full tone.
-        var firstVerse = fullGabc.match(/^.*?\S*\([^)]*::[^)]*\)/g);
+        var firstVerse = /^(.*?\S*)(\([^)]*::[^)]*\))/g.exec(fullGabc);
         if(firstVerse) {
-          firstVerse = firstVerse[0] + ' ';
+          firstVerse = firstVerse[1] + '(::) ';
           gabc += firstVerse;
           useOriginalClef = true;
           lines.shift();
