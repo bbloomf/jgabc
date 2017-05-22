@@ -213,7 +213,7 @@ $(function(){
     '7':'a',
     '8':'G'
   }
-  var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
   var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\).*\(::\)/i;
   var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
   var removeDiacritics=function(string) {
@@ -1369,12 +1369,15 @@ $(function(){
       var originalGabc = gAmenTones.input || '',
           originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
       originalClef = originalClef? originalClef[1] : clef;
-      for(var i=2,index=temp.length; i>0; --i) {
+      for(var i=3,index=temp.length; i>1; --i) {
         index = 1 + temp.lastIndexOf('(',index-2);
         if(index>0) {
           var index2 = temp.indexOf(')',index);
           if(index2>=0) {
-            temp = temp.slice(0,index) + shiftGabcForClefChange(gAmenTones[i],clef,originalClef) + temp.slice(index2);
+            // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
+            var shift = parseInt(gAmenTones[1],23) - parseInt(gMediant[0],23);
+            if(isNaN(shift)) shift = 0;
+            temp = temp.slice(0,index) + shiftGabc(gAmenTones[i],shift) + temp.slice(index2);
           }
         }
       }
@@ -1441,9 +1444,18 @@ $(function(){
     var gabc = part.gabc;
     var tone = getIntroitTone(part);
     if(!tone) return;
-    var amenTones;
-    amenTones = regexGabcGloriaPatri.exec(gabc);
-    if(!amenTones) amenTones = {index: gabc.length};
+    var amenTones = regexGabcGloriaPatri.exec(gabc);
+    if(amenTones) {
+      // amenTones[1] is the first group of regexGabcGloriaPatri, which is the first note of the Gló- syllable.
+      // we need to check if the tone has been shifted to match the introit better:
+      var shift = parseInt(amenTones[1],23) - parseInt(tone.mediant[0],23);
+      if(!isNaN(shift) && shift != 0) { 
+        tone.mediant = shiftGabc(tone.mediant,shift);
+        tone.termination = shiftGabc(tone.termination,shift);
+      }
+    } else {
+      amenTones = {index: gabc.length};
+    }
     return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
