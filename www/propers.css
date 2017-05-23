@@ -64,6 +64,7 @@ textarea {
 .asperges-verses .versiculum {
   font-size: 120%;
   color: #d00;
+  line-height: 0;
 }
 .asperges-verses .rubric {
   font-size: inherit;
