@@ -638,3 +638,94 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
   }
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
+
+var onAudiolet = function(callback){
+  //var audiolet = new Audiolet(baseFreq*4,2,baseFreq);
+  try {
+    var audiolet = new Audiolet();
+    var Synth = function(frequency,duration,volume) {
+      AudioletGroup.apply(this, [audiolet, 0, 1]);
+      this.sine = new Sine(audiolet, frequency);
+      
+      this.gain = new Gain(audiolet, volume * 0.01);
+      this.env = new PercussiveEnvelope(audiolet, 1, 0.3, (duration || 1) * .3,
+          function() {
+              this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
+          }.bind(this)
+      );
+      this.envMulAdd = new Multiply(audiolet, 0.002 * volume, 0);
+
+      // Main signal path
+      this.sine.connect(this.gain);
+      this.gain.connect(this.outputs[0]);
+
+      // Envelope
+      this.env.connect(this.envMulAdd);
+      this.envMulAdd.connect(this.gain, 0, 1);
+    };
+    extend(Synth,AudioletGroup);
+    var playFreq = function(freq,duration,volume){
+      var s = new Synth(freq,duration,volume);
+      s.connect(audiolet.output);
+    };
+    var baseFreq = 140;
+    playPitch = function(pitch,duration,volume){
+      playFreq(baseFreq * Math.pow(2, pitch.octave + (pitch.step / 12)), duration, volume || 100);
+    }
+    var _isPlaying=false;
+    tempo=150;
+    setTempo = function(newTempo) { tempo = newTempo || 150; }
+    setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
+    var seq;
+    playScore = function(score, fromBeginning){
+      var noteId = fromBeginning?0:0;
+      while(seq && seq.next());
+      var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || []; }));
+      seq = new PSequence(notes,1,noteId);
+      _isPlaying=true;
+      audiolet.scheduler.setTempo(tempo);
+      audiolet.scheduler.play([seq], 1, function(note){
+        while(!_isPlaying) {
+          if(!seq.next()) return;
+        }
+        var duration = 1;
+        var nextNote = null;
+        if(note.episemata.length || note.morae.length || (nextNote && nextNote.shape == exsurge.NoteShape.Quilisma)) duration = 2;
+        // TODO: jump of a 5th followed by a semitone?
+        playPitch(note.pitch, duration);
+        // selectPunctum(noteId,true);
+        if(duration) audiolet.scheduler.setTempo(tempo/duration);
+        ++noteId;
+      });
+    };
+    stopScore = function(){
+      _isPlaying=false;
+    }
+  } catch(ex) {
+    console.warn(ex);
+  }
+  if(callback) callback();
+};
+var onSink = function(callback){
+  if(typeof(Audiolet)=='function'){
+    try{onAudiolet(callback);} catch(e){}
+  } else {
+    $.getScript('audiolet.js',function(){
+      onAudiolet(callback);
+    });
+  }
+};
+function loadSink(callback) { 
+  if(typeof(Sink)=='function'){
+    onSink(callback);
+  } else {
+    $.getScript('sink.js',function() {
+      onSink(callback);
+    });
+  }
+}
+var playScore = function(score) {
+  loadSink(function() {
+    playScore(score);
+  });
+}
