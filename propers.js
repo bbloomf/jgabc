@@ -364,7 +364,7 @@ $(function(){
         var text,
             truePart = partType;
         if(!isOrdinaryPart) {
-          var plaintext = decompile(gabc,true);
+          var plaintext = decompile(gabc,true,sel[part]);
           if(isAlleluia(part,plaintext)) {
             truePart = 'alleluia';
             if(part=='graduale') {
@@ -374,7 +374,7 @@ $(function(){
               // remove ij. if present
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
             }
-            plaintext = decompile(gabc,true);
+            plaintext = decompile(gabc,true,sel[part]);
           }
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
@@ -886,12 +886,24 @@ $(function(){
     });
   };
   
+  function Dictionary(original) {
+    this.original = original;
+    this.wordMap = [];
+  }
+  Dictionary.prototype.push = function(index) {
+    this.wordMap.push(index);
+  }
+  Dictionary.prototype.slice = function(start, end) {
+    return this.original.slice(this.wordMap[start], this.wordMap[end]);
+  }
   
-  var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
+  var decompile = function(mixed,ignoreSyllablesOnDivisiones,storeMap) {
     regexOuter.exec('');
     var match = mixed.match(regexHeaderEnd);
     if(match) mixed = mixed.slice(match.index + match[0].length);
     mixed = mixed.replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
+    var dictionary = new Dictionary(mixed);
+    if(storeMap) storeMap.originalWords = dictionary;
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
@@ -907,8 +919,14 @@ $(function(){
     var lastVerse=function(){return verses[verses.length-1]||null;}
     match=regexOuter.exec(mixed);
     var verseReps=0;
+    var newWord = true;
     while(match) {
+      if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
+        dictionary.wordMap.push(match.index);
+        newWord = false
+      }
       ws=match[rog.whitespace]||'';
+      newWord = newWord || !!ws;
       var m=undefined;
       var syl=match[rog.syl];
       if(gabc.length==0) {
@@ -1023,20 +1041,20 @@ $(function(){
     });
   }
 
+  // lines is an array of verses, each verse being an array of segments of the verse, e.g., [["Allelúia"],["Non vos relínquam órphanos:", "vado,", "et vénio ad vos,", "et gaudébit", "cor vestrum."]]
+  // pattern is an array of arrays as well, indicating the code to be used for each segment, [[], ["*", "", "", ""]]
   function versifyByPattern(lines, pattern) {
     return lines.map(function(segments, lineNum) {
       var text = '',
           pat = pattern[lineNum],
           capitalize = true;
+      if(segments.length > pat.length) pat = [''].concat(pat);
       segments.forEach(function(seg, segNum) {
-        if(capitalize && seg[0]) {
-          text += seg[0].toUpperCase() + seg.slice(1);
-          capitalize = false;
-        } else {
-          text += seg;
-        }
-        var code = pat && pat[segNum];
-        switch(code) {
+        switch(pat && pat[segNum]) {
+          case '@':
+            if(text) text += '\n';
+            text += '@ ';
+            break;
           case '*':
           case '†':
             text += ' * ';
@@ -1048,6 +1066,12 @@ $(function(){
           default:
             text += ' ';
             break;
+        }
+        if(capitalize && seg[0]) {
+          text += seg[0].toUpperCase() + seg.slice(1);
+          capitalize = false;
+        } else {
+          text += seg;
         }
       });
       return text;
@@ -1483,7 +1507,7 @@ $(function(){
     }
     var gabc;
     var lines;
-    var useOriginalClef;
+    var useOriginalClef = text.indexOf('@') >= 0;
     var fullGabc = sel[part].gabc.slice(getHeaderLen(sel[part].gabc));
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
@@ -1557,12 +1581,16 @@ $(function(){
           firstVerse = firstVerse[1] + '(::) ';
           gabc += firstVerse;
           useOriginalClef = true;
-          lines.shift();
+          lines.shift();  // shift away the first verse, since we are using the full tone for it.
+          var firstVersePattern = sel[part].pattern[0];
+          for(var i=0; i < firstVersePattern.length; ++i) {
+            if(firstVersePattern[i]=='℣') lines.shift(); // shift away any artificial verses so that the psalm toned part starts at the actual verse.
+          }
         } else {
           gabc += '(' + tone.clef + ') ';
         }
       } else {
-        gabc += '(' + tone.clef + ') ';
+        gabc += '(' + (useOriginalClef? originalClef : tone.clef) + ') ';
       }
     }
     if(useOriginalClef && originalClef && originalClef != tone.clef) {
@@ -1575,7 +1603,25 @@ $(function(){
 
     var firstVerse = true;
     var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
+    var wordsInLine = function(line) {
+      return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
+    }
     for(var i=0; i<lines.length; ++i) {
+      if(lines[i][0] == '@') {
+        var countWordsBefore = lines.slice(0, i).map(wordsInLine).sum();
+        var countWordsInVerse = wordsInLine(lines[i]);
+        var verseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+        gabc += verseGabc;
+        // check for clef changes within this verse GABC:
+        var newClef = regexGabcClef.exec(verseGabc);
+        newClef = newClef && newClef[1];
+        if(newClef && newClef != clef) {
+          gMediant = shiftGabcForClefChange(gMediant,newClef,clef);
+          gTermination = shiftGabcForClefChange(gTermination,newClef,clef);
+          clef = newClef;
+        }
+        continue;
+      }
       var line = splitLine(lines[i], introitTone? 3 : 2);
       var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
       if(italicNote) {
@@ -1591,7 +1637,7 @@ $(function(){
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
           var originalClef = regexGabcClef.exec(originalGabc);
-          var psalmToneClef
+          var psalmToneClef;
         }
         gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;
