@@ -32,6 +32,10 @@ var latin = window.Hypher.languages.la_VA;
                   result.on('end',function(){
                     var header = fileData.slice(0, fileData.indexOf('\n%%\n') + 4);
                     var content = fileData.slice(header.length);
+                    content = content.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
+                      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+                      .replace(/<v>\\greheightstar<\/v>/g,'*')
+                      .replace(/[/ ]+\)/g,')');
                     content = content.replace(/([A-Za-záéíóúýë{}]+\([^)]*\))+([A-Za-záéíóúýë]+(?=[,.;:!?]))?/g, function(whole){
                       // figure out syllabifcation...
                       // 1. build word
