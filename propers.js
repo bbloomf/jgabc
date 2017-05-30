@@ -1606,22 +1606,33 @@ $(function(){
     var wordsInLine = function(line) {
       return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
     }
+    var newClef = null;
+    var countWordsBefore = 0;
     for(var i=0; i<lines.length; ++i) {
+      var countWordsInVerse = wordsInLine(lines[i]);
+      var fullVerseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+      var nextNewClef = regexGabcClef.exec(fullVerseGabc);
+      nextNewClef = nextNewClef && nextNewClef[1];
+      countWordsBefore += countWordsInVerse;
       if(lines[i][0] == '@') {
-        var countWordsBefore = lines.slice(0, i).map(wordsInLine).sum();
-        var countWordsInVerse = wordsInLine(lines[i]);
-        var verseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
-        gabc += verseGabc;
+        if(newClef && newClef != clef) {
+          gabc = gabc.replace(/\(::\)(\s*)$/,'(z0::' + newClef + ')$1');
+          clef = newClef;
+        }
+        gabc += fullVerseGabc;
         // check for clef changes within this verse GABC:
-        var newClef = regexGabcClef.exec(verseGabc);
-        newClef = newClef && newClef[1];
+        newClef = nextNewClef;
         if(newClef && newClef != clef) {
           gMediant = shiftGabcForClefChange(gMediant,newClef,clef);
           gTermination = shiftGabcForClefChange(gTermination,newClef,clef);
           clef = newClef;
         }
+        newClef = null;
         continue;
+      } else {
+        newClef = newClef || nextNewClef;
       }
+
       var line = splitLine(lines[i], introitTone? 3 : 2);
       var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
       if(italicNote) {
