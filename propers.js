@@ -2590,7 +2590,7 @@ console.info(JSON.stringify(selPropers));
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
   function removeChantContextMenus() {
-    $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active'); });
+    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }
@@ -2822,9 +2822,16 @@ console.info(JSON.stringify(selPropers));
     proper.activeExsurge = gabc;
     updateFromActiveExsurge(e.data.part, null, true);
   }
-  $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
+  $(document).on('click', function() {
+    removeChantContextMenus();
+    stopScore();
+  }).on('click', 'div[gregobase-id] text.dropCap', function() {
     var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
     window.open(gregobaseUrlPrefix + id, '_blank');
+  }).on('click', 'div:not([gregobase-id]) text.dropCap', function(e) {
+    var score = $(this).parents('svg').prop('source');
+    playScore(score);
+    e.stopPropagation();
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
