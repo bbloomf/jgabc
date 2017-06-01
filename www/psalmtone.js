@@ -353,7 +353,7 @@ var Syl = (function(){
                 vowelCount = vowelCount? vowelCount.length : 0;
                 if(vowelCount == 0) {
                   // merge into the next syllable if there is one:
-                  if(si < d.length) {
+                  if(si < d.length - 1) {
                     d[si] += d[si + 1] || (w.length - d.reduce(function(a,b){return a+b;}));
                     d.splice(si + 1, 1);
                     --si;
