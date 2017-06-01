@@ -1064,7 +1064,7 @@ $(function(){
             capitalize = true;
             break;
           default:
-            text += ' ';
+            if(text) text += ' ';
             break;
         }
         if(capitalize && seg[0]) {
