@@ -8,30 +8,32 @@
         type: "sine",
 
 
-        playFrequency: function(freq) {
-            this.attack = this.attack || 1;
-            this.release = this.release || 1;
+        playFrequency: function(freq, options) {
+            options = options || {};
+            var attack = options.attack || this.attack || 1;
+            var release = options.release || this.release || 1;
+            var length = options.length || this.length || 0;
             var envelope = this.context.createGain();
             envelope.connect(this.context.destination);
 
             envelope.gain.setValueAtTime(0, this.context.currentTime);
-            envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, this.attack / 1000);
+            envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, attack / 1000);
             if(this.release) {
-                envelope.gain.setTargetAtTime(0, this.context.currentTime + this.attack / 1000, this.release / 1000);
+                envelope.gain.setTargetAtTime(0, this.context.currentTime + (length + attack) / 1000, release / 1000);
                 setTimeout(function() {
-                    osc.stop();
+                    osc.stop(0);
                     osc.disconnect(envelope);
                     envelope.gain.cancelScheduledValues(tones.context.currentTime);
                     envelope.disconnect(tones.context.destination);
 
-                }, this.attack * 10 + this.release * 10);
+                }, (attack + length + release) * 10);
             }
 
             var osc = this.context.createOscillator();
             osc.frequency.setValueAtTime(freq, this.context.currentTime);
             osc.type = this.type;
             osc.connect(envelope);
-            osc.start();
+            osc.start(0);
         },
 
         /** 

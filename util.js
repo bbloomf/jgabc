@@ -640,17 +640,20 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 
 (function(window) {
-  var baseFreq = 130;
+  var baseFreq = 130, timeoutNextNote;
   window.tempo=200;
-  playPitch = function(pitch,duration){
-    window.tones.release = Math.min(300, (duration * 60000 / tempo) - window.tones.attack);
-    tones.playFrequency(baseFreq * Math.pow(2, pitch.octave + (pitch.step / 12)));
+  var frequencyForPitch = function(pitch) {
+    return baseFreq * Math.pow(2, pitch.octave + (pitch.step / 12));
+  }
+  playPitch = function(pitch, options){
+    tones.playFrequency(frequencyForPitch(pitch), options);
   }
   var _isPlaying=false;
   setTempo = function(newTempo) { tempo = newTempo || 150; }
   setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
   var noteElem, syllable;
   window.playScore = function(score, fromBeginning){
+    window.clearTimeout(timeoutNextNote);
     _isPlaying = false;
     if(syllable) {
       syllable.classList.remove('active');
@@ -679,15 +682,16 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
         }
         if(note.isDivider) {
           if(syllable) syllable.classList.remove('active');
-          if(note.constructor === exsurge.HalfBar) {
-            duration = 1;
-          } else if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+          if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
             duration = 2;
-          }
+          } // otherwise (for half bar) duration is default of 1.
         }
       }
-      noteElem = $('[source-index=' + note.sourceIndex + ']', score.svg)[0];
+      noteElem = note.svgNode;
       if(noteElem) {
+        if(noteElem.attributes.getNamedItem('href').value == '#None') {
+          noteElem = noteElem.previousSibling;
+        }
         noteElem.classList.add('active');
         var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
         if(tmpSyllable && tmpSyllable != syllable) {
@@ -698,16 +702,31 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
         }
       }
       if(note.constructor === exsurge.Note) {
-        var nextNote = null; // TODO: actually get the next note here.
-        if(note.episemata.length || note.morae.length || (nextNote && nextNote.shape == exsurge.NoteShape.Quilisma)) duration = 2;
+        var nextNote = notes[noteId + 1];
+        if(nextNote.constructor != exsurge.Note) nextNote = null;
+        if(note.morae.length || (nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma))) {
+          duration = 2;
+        } else if(note.episemata.length) {
+          var prevNote = notes[noteId - 1];
+          if(prevNote.constructor != exsurge.Note) prevNote = null;
+          var episemataCount = 1;
+          if(prevNote && prevNote.episemata.length) ++ episemataCount;
+          if(nextNote && nextNote.episemata.length) ++ episemataCount;
+          duration += 1 / episemataCount;
+        }
+        var noteNeume = noteElem.parentNode.parentNode.source;
+        var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
+        var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
+        var nextNoteIsSamePitchSameSyllable = nextNoteIsForSameSyllable && frequencyForPitch(note.pitch) == frequencyForPitch(nextNote.pitch);
         // TODO: jump of a 5th followed by a semitone?
-        playPitch(note.pitch, duration);
-        // selectPunctum(noteId,true);
+        var durationMS = duration * 60000 / tempo - tones.attack;
+        var options = nextNoteIsSamePitchSameSyllable? {length: durationMS, release: tones.attack} : {release: durationMS};
+        playPitch(note.pitch, options);
       }
       ++noteId;
-      window.setTimeout(playNextNote, duration * 60000 / tempo);
+      timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
     };
-    window.setTimeout(playNextNote);
+    timeoutNextNote = window.setTimeout(playNextNote);
   };
   window.stopScore = function(){
     _isPlaying=false;
