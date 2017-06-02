@@ -639,134 +639,77 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 
-var onAudiolet = function(callback){
-  //var audiolet = new Audiolet(baseFreq*4,2,baseFreq);
-  try {
-    var audiolet = new Audiolet();
-    var Synth = function(frequency,duration,volume) {
-      AudioletGroup.apply(this, [audiolet, 0, 1]);
-      this.sine = new Sine(audiolet, frequency);
-      
-      this.gain = new Gain(audiolet, volume * 0.01);
-      this.env = new PercussiveEnvelope(audiolet, 1, 0.3, (duration || 1) * .3,
-          function() {
-              this.audiolet.scheduler.addRelative(0, this.remove.bind(this));
-          }.bind(this)
-      );
-      this.envMulAdd = new Multiply(audiolet, 0.002 * volume, 0);
-
-      // Main signal path
-      this.sine.connect(this.gain);
-      this.gain.connect(this.outputs[0]);
-
-      // Envelope
-      this.env.connect(this.envMulAdd);
-      this.envMulAdd.connect(this.gain, 0, 1);
-    };
-    extend(Synth,AudioletGroup);
-    var playFreq = function(freq,duration,volume){
-      var s = new Synth(freq,duration,volume);
-      s.connect(audiolet.output);
-    };
-    var baseFreq = 130;
-    playPitch = function(pitch,duration,volume){
-      playFreq(baseFreq * Math.pow(2, pitch.octave + (pitch.step / 12)), duration, volume || 100);
+(function(window) {
+  var baseFreq = 130;
+  window.tempo=200;
+  playPitch = function(pitch,duration){
+    window.tones.release = Math.min(300, (duration * 60000 / tempo) - window.tones.attack);
+    tones.playFrequency(baseFreq * Math.pow(2, pitch.octave + (pitch.step / 12)));
+  }
+  var _isPlaying=false;
+  setTempo = function(newTempo) { tempo = newTempo || 150; }
+  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
+  var noteElem, syllable;
+  window.playScore = function(score, fromBeginning){
+    _isPlaying = false;
+    if(syllable) {
+      syllable.classList.remove('active');
+      syllable = null;
     }
-    var _isPlaying=false;
-    tempo=200;
-    setTempo = function(newTempo) { tempo = newTempo || 150; }
-    setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
-    var seq, noteElem, syllable;
-    playScore = function(score, fromBeginning){
-      _isPlaying = false;
-      if(syllable) {
-        syllable.classList.remove('active');
-        syllable = null;
+    var originalSvg = score.svg;
+    var dropCap = $('text', originalSvg)[0];
+    if(dropCap /* && fromBeginning */)
+      dropCap.classList.add('active');
+    var noteId = fromBeginning?0:0;
+    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
+    notes.push(null);
+    _isPlaying=true;
+    var playNextNote = function(){
+      var note = notes[noteId];
+      if(noteElem) noteElem.classList.remove('active');
+      if(originalSvg != score.svg || note == null) {
+        if(syllable) syllable.classList.remove('active');
+        _isPlaying = false;
       }
-      var originalSvg = score.svg;
-      var dropCap = $('text', originalSvg)[0];
-      if(dropCap /* && fromBeginning */)
-        dropCap.classList.add('active');
-      var noteId = fromBeginning?0:0;
-      while(seq && seq.next());
-      var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
-      notes.push(null);
-      seq = new PSequence(notes,1,noteId);
-      _isPlaying=true;
-      audiolet.scheduler.setTempo(tempo);
-      audiolet.scheduler.play([seq], 1, function(note){
-        if(noteElem) noteElem.classList.remove('active');
-        if(originalSvg != score.svg || note == null) {
+      if(!_isPlaying) return;
+      var duration = 1;
+      if(note.constructor != exsurge.Note) {
+        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+          if(!(note = notes[++noteId])) return;
+        }
+        if(note.isDivider) {
           if(syllable) syllable.classList.remove('active');
-          _isPlaying = false;
-        }
-        while(!_isPlaying) {
-          if(!seq.next()) return;
-        }
-        var duration = 1;
-        if(note.constructor != exsurge.Note) {
-          while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
-            if(!(note = seq.next())) return;
-          }
-          if(note.isDivider) {
-            if(syllable) syllable.classList.remove('active');
-            if(note.constructor === exsurge.HalfBar) {
-              duration = 1;
-            } else if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
-              duration = 2;
-            }
+          if(note.constructor === exsurge.HalfBar) {
+            duration = 1;
+          } else if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+            duration = 2;
           }
         }
-        noteElem = $('[source-index=' + note.sourceIndex + ']', score.svg)[0];
-        if(noteElem) {
-          noteElem.classList.add('active');
-          var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
-          if(tmpSyllable && tmpSyllable != syllable) {
-            if(dropCap && syllable) dropCap.classList.remove('active');
-            if(syllable) syllable.classList.remove('active');
-            syllable = tmpSyllable;
-            if(syllable) syllable.classList.add('active');
-          }
+      }
+      noteElem = $('[source-index=' + note.sourceIndex + ']', score.svg)[0];
+      if(noteElem) {
+        noteElem.classList.add('active');
+        var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
+        if(tmpSyllable && tmpSyllable != syllable) {
+          if(dropCap && syllable) dropCap.classList.remove('active');
+          if(syllable) syllable.classList.remove('active');
+          syllable = tmpSyllable;
+          if(syllable) syllable.classList.add('active');
         }
-        if(note.constructor === exsurge.Note) {
-          var nextNote = null; // TODO: actually get the next note here.
-          if(note.episemata.length || note.morae.length || (nextNote && nextNote.shape == exsurge.NoteShape.Quilisma)) duration = 2;
-          // TODO: jump of a 5th followed by a semitone?
-          playPitch(note.pitch, duration);
-          // selectPunctum(noteId,true);
-        }
-        if(duration) audiolet.scheduler.setTempo(tempo/duration);
-        ++noteId;
-      });
+      }
+      if(note.constructor === exsurge.Note) {
+        var nextNote = null; // TODO: actually get the next note here.
+        if(note.episemata.length || note.morae.length || (nextNote && nextNote.shape == exsurge.NoteShape.Quilisma)) duration = 2;
+        // TODO: jump of a 5th followed by a semitone?
+        playPitch(note.pitch, duration);
+        // selectPunctum(noteId,true);
+      }
+      ++noteId;
+      window.setTimeout(playNextNote, duration * 60000 / tempo);
     };
-    stopScore = function(){
-      _isPlaying=false;
-    }
-  } catch(ex) {
-    console.warn(ex);
+    window.setTimeout(playNextNote);
+  };
+  window.stopScore = function(){
+    _isPlaying=false;
   }
-  if(callback) callback();
-};
-var onSink = function(callback){
-  if(typeof(Audiolet)=='function'){
-    try{onAudiolet(callback);} catch(e){}
-  } else {
-    $.getScript('audiolet.js',function(){
-      onAudiolet(callback);
-    });
-  }
-};
-function loadSink(callback) { 
-  if(typeof(Sink)=='function'){
-    onSink(callback);
-  } else {
-    $.getScript('sink.js',function() {
-      onSink(callback);
-    });
-  }
-}
-var playScore = function(score) {
-  loadSink(function() {
-    playScore(score);
-  });
-}
+})(window);
