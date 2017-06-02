@@ -638,3 +638,97 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
   }
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
+
+(function(window) {
+  var baseFreq = 130, timeoutNextNote;
+  window.tempo=200;
+  var frequencyForPitch = function(pitch) {
+    return baseFreq * Math.pow(2, pitch.octave + (pitch.step / 12));
+  }
+  playPitch = function(pitch, options){
+    tones.playFrequency(frequencyForPitch(pitch), options);
+  }
+  var _isPlaying=false;
+  setTempo = function(newTempo) { tempo = newTempo || 150; }
+  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
+  var noteElem, syllable;
+  window.playScore = function(score, fromBeginning){
+    window.clearTimeout(timeoutNextNote);
+    _isPlaying = false;
+    if(syllable) {
+      syllable.classList.remove('active');
+      syllable = null;
+    }
+    var originalSvg = score.svg;
+    var dropCap = $('text', originalSvg)[0];
+    if(dropCap /* && fromBeginning */)
+      dropCap.classList.add('active');
+    var noteId = fromBeginning?0:0;
+    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
+    notes.push(null);
+    _isPlaying=true;
+    var playNextNote = function(){
+      var note = notes[noteId];
+      if(noteElem) noteElem.classList.remove('active');
+      if(originalSvg != score.svg || note == null) {
+        if(syllable) syllable.classList.remove('active');
+        _isPlaying = false;
+      }
+      if(!_isPlaying) return;
+      var duration = 1;
+      if(note.constructor != exsurge.Note) {
+        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+          if(!(note = notes[++noteId])) return;
+        }
+        if(note.isDivider) {
+          if(syllable) syllable.classList.remove('active');
+          if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+            duration = 2;
+          } // otherwise (for half bar) duration is default of 1.
+        }
+      }
+      noteElem = note.svgNode;
+      if(noteElem) {
+        if(noteElem.attributes.getNamedItem('href').value == '#None') {
+          noteElem = noteElem.previousSibling;
+        }
+        noteElem.classList.add('active');
+        var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
+        if(tmpSyllable && tmpSyllable != syllable) {
+          if(dropCap && syllable) dropCap.classList.remove('active');
+          if(syllable) syllable.classList.remove('active');
+          syllable = tmpSyllable;
+          if(syllable) syllable.classList.add('active');
+        }
+      }
+      if(note.constructor === exsurge.Note) {
+        var nextNote = notes[noteId + 1];
+        if(nextNote.constructor != exsurge.Note) nextNote = null;
+        if(note.morae.length || (nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma))) {
+          duration = 2;
+        } else if(note.episemata.length) {
+          var prevNote = notes[noteId - 1];
+          if(prevNote.constructor != exsurge.Note) prevNote = null;
+          var episemataCount = 1;
+          if(prevNote && prevNote.episemata.length) ++ episemataCount;
+          if(nextNote && nextNote.episemata.length) ++ episemataCount;
+          duration += 1 / episemataCount;
+        }
+        var noteNeume = noteElem.parentNode.parentNode.source;
+        var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
+        var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
+        var nextNoteIsSamePitchSameSyllable = nextNoteIsForSameSyllable && frequencyForPitch(note.pitch) == frequencyForPitch(nextNote.pitch);
+        // TODO: jump of a 5th followed by a semitone?
+        var durationMS = duration * 60000 / tempo - tones.attack;
+        var options = nextNoteIsSamePitchSameSyllable? {length: durationMS, release: tones.attack} : {release: durationMS};
+        playPitch(note.pitch, options);
+      }
+      ++noteId;
+      timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
+    };
+    timeoutNextNote = window.setTimeout(playNextNote);
+  };
+  window.stopScore = function(){
+    _isPlaying=false;
+  }
+})(window);
