@@ -44,7 +44,7 @@
          * notes.play("eb");    // plays note e flat in default 4th octave
          * notes.play("c", 2);  // plays note c in 2nd octave
          */
-        play: function(freqOrNote, octave) {
+        play: function(freqOrNote, octave, transpose) {
             if(typeof freqOrNote === "number") {
                 this.playFrequency(freqOrNote);
             }
@@ -52,7 +52,9 @@
                 if(octave == null) {
                     octave = 4;
                 }
-                this.playFrequency(this.map[octave][this.octaveMap[freqOrNote.toLowerCase()]]);
+                this.playFrequency(this.map[octave * 12 + this.octaveMap[freqOrNote.toLowerCase()]]);
+            } else if(freqOrNote.toInt) {
+                this.playFrequency(this.map[freqOrNote.toInt() + (transpose || 0)], octave);
             }
         },
 
@@ -76,19 +78,34 @@
             "b": 11
         },
 
+        noteName: [
+            "C",
+            "C♯ / D♭",
+            "D",
+            "D♯ / E♭",
+            "E",
+            "F",
+            "F♯ / G♭",
+            "G",
+            "G♯ / A♭",
+            "A",
+            "A♯ / B♭",
+            "B"
+        ],
+
         getTimeMS: function() {
             return this.context.currentTime * 1000;
         },
 
         makeToneMap: function(pitch, tone, octave) {
             pitch *= Math.pow(2, 9 - octave);
-            var map = [];
+            var map;
             octave = 9;
-            map.unshift(makeOctaveMap(pitch, tone));
+            map = makeOctaveMap(pitch, tone);
             for(octave--; octave >= 0; octave--) {
-                map.unshift(map[0].map(function(tone) {
+                map = map.slice(0,12).map(function(tone) {
                     return tone / 2;
-                }));
+                }).concat(map);
             }
             return map;
         }

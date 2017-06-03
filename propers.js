@@ -2825,13 +2825,6 @@ console.info(JSON.stringify(selPropers));
   $(document).on('click', function() {
     removeChantContextMenus();
     stopScore();
-  }).on('click', 'div[gregobase-id] text.dropCap', function() {
-    var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
-    window.open(gregobaseUrlPrefix + id, '_blank');
-  }).on('click', 'div:not([gregobase-id]) text.dropCap', function(e) {
-    var score = $(this).parents('svg').prop('source');
-    playScore(score);
-    e.stopPropagation();
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
