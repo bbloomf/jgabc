@@ -18,15 +18,15 @@
 
             envelope.gain.setValueAtTime(0, this.context.currentTime);
             envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, attack / 1000);
-            if(this.release) {
+            var stopAndDisconnect = function() {
+                osc.stop(0);
+                osc.disconnect(envelope);
+                envelope.gain.cancelScheduledValues(tones.context.currentTime);
+                envelope.disconnect(tones.context.destination);
+            };
+            if(!options.start) {
                 envelope.gain.setTargetAtTime(0, this.context.currentTime + (length + attack) / 1000, release / 1000);
-                setTimeout(function() {
-                    osc.stop(0);
-                    osc.disconnect(envelope);
-                    envelope.gain.cancelScheduledValues(tones.context.currentTime);
-                    envelope.disconnect(tones.context.destination);
-
-                }, (attack + length + release) * 10);
+                setTimeout(stopAndDisconnect, (attack + length + release) * 10);
             }
 
             var osc = this.context.createOscillator();
@@ -34,6 +34,14 @@
             osc.type = this.type;
             osc.connect(envelope);
             osc.start(0);
+
+            if(options.start) {
+                var context = this.context;
+                return function() {
+                    envelope.gain.setTargetAtTime(0, context.currentTime, release / 1000);
+                    setTimeout(stopAndDisconnect, release * 10);
+                }
+            }
         },
 
         /** 
@@ -46,7 +54,7 @@
          */
         play: function(freqOrNote, octave, transpose) {
             if(typeof freqOrNote === "number") {
-                this.playFrequency(freqOrNote);
+                return this.playFrequency(freqOrNote, octave);
             }
             else if(typeof freqOrNote === "string") {
                 if(octave == null) {
@@ -54,7 +62,7 @@
                 }
                 this.playFrequency(this.map[octave * 12 + this.octaveMap[freqOrNote.toLowerCase()]]);
             } else if(freqOrNote.toInt) {
-                this.playFrequency(this.map[freqOrNote.toInt() + (transpose || 0)], octave);
+                return this.playFrequency(this.map[freqOrNote.toInt() + (transpose || 0)], octave);
             }
         },
 

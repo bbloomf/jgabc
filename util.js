@@ -782,9 +782,14 @@ $(function($) {
       e.stopPropagation();
       changePitch(1);
     }));
+    var stopTone;
     $toolbar.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch">' + tones.noteName[score.defaultStartPitch.step] + '</span>').click(function(e) {
       e.stopPropagation();
-      // TODO: play starting pitch until button released
+    }).mousedown(function() {
+      stopTone = tones.play(score.defaultStartPitch, {start: true});
+    }).mouseup(function() {
+      stopTone && stopTone();
+      stopTone = null;
     }));
     $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
       e.stopPropagation();

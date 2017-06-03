@@ -2822,10 +2822,7 @@ console.info(JSON.stringify(selPropers));
     proper.activeExsurge = gabc;
     updateFromActiveExsurge(e.data.part, null, true);
   }
-  $(document).on('click', function() {
-    removeChantContextMenus();
-    stopScore();
-  }).on('click', '[data-toggle="dropdown"]', function(e) {
+  $(document).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
   }).on('click', '[part] button.remove-modifications', function(e) {
