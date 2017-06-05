@@ -93,12 +93,6 @@ tspan[style*="font-family:'Exsurge Characters';fill:#f00;"] {
   text-transform: lowercase!important;
   font-weight: 400!important;
 }
-div[gregobase-id] text.dropCap {
-  cursor: pointer;
-}
-div[gregobase-id] text.dropCap:hover {
-  fill: #d00!important;
-}
 .rubric {
   font-family: 'Crimson Text';
   font-size: 120%;
@@ -196,6 +190,12 @@ div.chant-context {
 [part].ordinary:not(.show-gabc) use[source-index],
 [part].ordinary:not(.show-gabc) text[source-index] {
   cursor: default;
+}
+div text.dropCap {
+  cursor: pointer!important;
+}
+div text.dropCap:hover {
+  fill: #d00!important;
 }
 [part].show-gabc use[source-index]:hover,
 [part] use[source-index].active {
