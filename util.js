@@ -707,22 +707,22 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
         if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
         var prevNote = notes[noteId - 1];
         if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
-        if(note.morae.length || (nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma))) {
+        if(note.morae.length) {
           duration = 2;
-        } else if(note.ictus && prevNote && nextNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)) {
+        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
           duration = 1.8;
         } else if(note.episemata.length) {
           var episemataCount = 1;
           if(prevNote && prevNote.episemata.length) ++ episemataCount;
           if(nextNote && nextNote.episemata.length) ++ episemataCount;
-          duration += 1 / episemataCount;
+          duration += 0.9 / episemataCount;
         }
         var noteNeume = noteElem.parentNode.parentNode.source;
         var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
         var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
-        var nextNoteIsSamePitchSameSyllable = nextNoteIsForSameSyllable && note.pitch.toInt() == nextNote.pitch.toInt();
+        var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
         var durationMS = duration * 60000 / tempo - tones.attack;
-        var options = nextNoteIsSamePitchSameSyllable? {length: durationMS, release: tones.attack} : {release: durationMS};
+        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS, release: tones.attack};
         playPitch(note.pitch, options);
       }
       ++noteId;
