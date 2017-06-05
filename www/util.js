@@ -743,9 +743,15 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 
 $(function($) {
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
+  var stopTone;
+  var mouseUpTone = function() {
+    stopTone && stopTone();
+    stopTone = null;
+  };
   $(document).on('click', function() {
     removeChantContextMenus();
     stopScore();
+    mouseUpTone();
   }).on('click', 'svg text.dropCap', function(e) {
     e.stopPropagation();
     removeChantContextMenus();
@@ -775,24 +781,25 @@ $(function($) {
     }
     $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {
       e.stopPropagation();
+      mouseUpTone();
       playScore(score, score.defaultStartPitch);
       $toolbar.remove();
     }));
     $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
       e.stopPropagation();
+      mouseUpTone();
       changePitch(1);
     }));
-    var stopTone;
+    var mouseDownTone = function() {
+      if(!stopTone) stopTone = tones.play(score.defaultStartPitch, {start: true});
+    };
     $toolbar.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch">' + tones.noteName[score.defaultStartPitch.step] + '</span>').click(function(e) {
       e.stopPropagation();
-    }).mousedown(function() {
-      stopTone = tones.play(score.defaultStartPitch, {start: true});
-    }).mouseup(function() {
-      stopTone && stopTone();
-      stopTone = null;
-    }));
+      mouseUpTone();
+    }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
     $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
       e.stopPropagation();
+      mouseUpTone();
       changePitch(-1);
     }));
     $toolbar.appendTo(document.body);
