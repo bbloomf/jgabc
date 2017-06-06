@@ -722,7 +722,7 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
         var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
         var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
         var durationMS = duration * 60000 / tempo - tones.attack;
-        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS, release: tones.attack};
+        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS - tones.attack / 2, release: tones.attack};
         playPitch(note.pitch, options);
       }
       ++noteId;
