@@ -12,11 +12,10 @@
   <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i&text=:;,()[]?.%22'%E2%80%A0*QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmáéíóúýäëæǽœœ%CC%81/1234567890-" rel="stylesheet">
   <script src="jquery.min.js" type="text/javascript"></script>
   <script src="jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+  <script src="js/tones.js"></script>
   <script src="util.js" type="text/javascript"></script>
   <script src="psalmtone.js" type="text/javascript"></script>
   <script src="jszip.js" async type="text/javascript"></script>
-  <script src="sink.js"></script>
-  <script src="audiolet.js"></script>
   <script src="FileSaver.min.js"></script>
   <script src="psalmtone.html.js"></script>
   <script src="exsurge.min.js"></script>
@@ -127,7 +126,7 @@ textarea{
 </div>
 <table class="bordered"><tr class="bordered"><td><label for="selTones">Tone: </label><select id="selTones"></select><select id="selEnd"></select><input type="checkbox" id="cbSolemn" name="solemn"/><label for="cbSolemn">Solemn Tone</label>
 <input type="button" id="btnDelTone" value="Delete Current Tone"/><input type="button" id="btnNewTone" value="Create New Tone"/><br/>
-<label for="txtClef">Clef: </label><input type="text" id="txtClef" style="width:15pt"/><br/>
+<label for="txtClef">Clef: </label><input type="text" id="txtClef" style="width:18pt"/><br/>
 <label for="versegabc" title="Text of the psalm">Psalm GABC</label><br/><div class="tap"><textarea id="versegabc" spellcheck="false" style="height: 24pt; width: 100%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea></div>
 Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preparatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preparatory syllable<span id="sTermPrepS">s</span></span>

@@ -96,7 +96,7 @@ label {
   margin-bottom: 0;
 }
 textarea {
-  font: auto;
+  font: 12px system-ui;
 }
 select.small-screen {
   margin-top: 6px;
