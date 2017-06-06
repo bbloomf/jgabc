@@ -98,6 +98,11 @@ label {
 textarea {
   font: 12px system-ui;
 }
+input, select {
+  font-size: 11px;
+  line-height: 1.2;
+  margin: 1px;
+}
 select.small-screen {
   margin-top: 6px;
   margin-bottom: 6px;

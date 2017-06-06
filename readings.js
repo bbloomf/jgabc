@@ -664,7 +664,9 @@ $(function() {
     score.performLayoutAsync(ctxt, function() {
       score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
         // render the score to svg code
-        chantContainer.innerHTML = score.createSvg(ctxt);
+        var svg = score.createSvgNode(ctxt);
+        svg.removeAttribute('viewBox');
+        $(chantContainer).empty().append(svg);
       });
     });
   }
