@@ -638,3 +638,180 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
   }
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
+
+(function(window) {
+  var baseFreq = 130, timeoutNextNote, transpose = 0;
+  window.tempo=200;
+  playPitch = function(pitch, options){
+    tones.play(pitch, options, transpose);
+  }
+  var _isPlaying=false;
+  setTempo = function(newTempo) { tempo = newTempo || 150; }
+  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
+  var noteElem, syllable;
+  window.playScore = function(score, firstPitch){
+    if(!firstPitch) firstPitch = 48;
+    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
+    window.clearTimeout(timeoutNextNote);
+    if(syllable) {
+      syllable.classList.remove('active');
+      syllable = null;
+    }
+    var originalSvg = score.svg;
+    var dropCap = $('text', originalSvg)[0];
+    if(dropCap)
+      dropCap.classList.add('active');
+    var noteId = 0;
+    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
+    transpose = firstPitch - notes[0].pitch.toInt();
+    _isPlaying = true;
+    function playNextNote(){
+      var note = notes[noteId];
+      if(noteElem) noteElem.classList.remove('active');
+      if(originalSvg != score.svg || note == null) {
+        if(syllable) syllable.classList.remove('active');
+        _isPlaying = false;
+      }
+      if(!_isPlaying) {
+        if(dropCap) dropCap.classList.remove('active');
+        return;
+      }
+      var duration = 1;
+      if(note.constructor != exsurge.Note) {
+        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+          if(!(note = notes[++noteId])) return;
+        }
+        if(note.isDivider) {
+          if(syllable) syllable.classList.remove('active');
+          if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+            duration = 2;
+          } // otherwise (for half bar) duration is default of 1.
+        }
+      }
+      noteElem = note.svgNode;
+      if(noteElem) {
+        if(noteElem.attributes.getNamedItem('href').value == '#None') {
+          noteElem = noteElem.previousSibling;
+        }
+        noteElem.classList.add('active');
+        var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
+        if(tmpSyllable && tmpSyllable != syllable) {
+          if(dropCap && syllable) dropCap.classList.remove('active');
+          if(syllable) syllable.classList.remove('active');
+          syllable = tmpSyllable;
+          if(syllable) syllable.classList.add('active');
+        }
+      }
+      if(note.constructor === exsurge.Note) {
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        if(note.morae.length) {
+          duration = 2;
+        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
+          duration = 1.8;
+        } else if(note.episemata.length) {
+          var episemataCount = 1;
+          if(prevNote && prevNote.episemata.length) ++ episemataCount;
+          if(nextNote && nextNote.episemata.length) ++ episemataCount;
+          duration += 0.9 / episemataCount;
+        }
+        var noteNeume = noteElem.parentNode.parentNode.source;
+        var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
+        var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
+        var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
+        var durationMS = duration * 60000 / tempo - tones.attack;
+        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS, release: tones.attack};
+        playPitch(note.pitch, options);
+      }
+      ++noteId;
+      if(noteId >= notes.length) _isPlaying = false;
+      timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
+    };
+    timeoutNextNote = window.setTimeout(playNextNote);
+  };
+  window.stopScore = function(){
+    _isPlaying=false;
+  }
+  window.removeChantContextMenus = function() {
+    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
+    $('.chant-context').remove();
+    $('.btn-group.open').removeClass('open');
+  }
+})(window);
+
+$(function($) {
+  var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
+  var stopTone;
+  var mouseUpTone = function() {
+    stopTone && stopTone();
+    stopTone = null;
+  };
+  $(document).on('click', function() {
+    removeChantContextMenus();
+    stopScore();
+    mouseUpTone();
+  }).on('click', 'svg text.dropCap', function(e) {
+    e.stopPropagation();
+    removeChantContextMenus();
+    var $this = $(this);
+    var $div = $this.parents('div').first();
+    var gregoBaseId = $div.attr('gregobase-id');
+    var score = $this.parents('svg').prop('source');
+    var lowPitch = 100000, highPitch = 0;
+    var startPitch = null;
+    score.notations.forEach(function(notation) {
+      if(notation.notes) notation.notes.forEach(function(note) {
+        var pitch = note.pitch.toInt()
+        if(startPitch == null) startPitch = pitch;
+        lowPitch = Math.min(lowPitch, pitch);
+        highPitch = Math.max(highPitch, pitch);
+      });
+    });
+    // default to putting the middle pitch at G above middle C
+    score.defaultStartPitch = score.defaultStartPitch || new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+    var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
+    if(gregoBaseId) {
+      $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
+    }
+    function changePitch(offset) {
+      score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+      $toolbar.find('.start-pitch').text(tones.noteName[score.defaultStartPitch.step]);
+    }
+    $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      playScore(score, score.defaultStartPitch);
+      $toolbar.remove();
+    }));
+    $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      changePitch(1);
+    }));
+    var mouseDownTone = function() {
+      if(!stopTone) stopTone = tones.play(score.defaultStartPitch, {start: true});
+    };
+    $toolbar.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch">' + tones.noteName[score.defaultStartPitch.step] + '</span>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+    }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
+    $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      changePitch(-1);
+    }));
+    $toolbar.appendTo(document.body);
+    var staffTop = $this.parent().offset().top,
+        toolbarWidth = $toolbar.outerWidth(),
+        left = $this.offset().left + ( $this.width() - toolbarWidth) / 2,
+        bodyWidth = $(document.body).outerWidth();
+    if(left < 8) left = 8;
+    if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
+    $toolbar.offset({
+      top: staffTop - $toolbar.outerHeight(),
+      left: left
+    });
+  });
+});
