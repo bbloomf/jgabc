@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Mass Propers</title>
   <link rel="icon" href="icon/clear-main.png" type="image/png" />
-  <link rel="stylesheet" type="text/css" href="style.css" />
   <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-  <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i&text=:;,()[]?.%22'%E2%80%A0*QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmáéíóúýäëæǽœœ%CC%81/1234567890-" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" type="text/css" href="propers.css" />
+  <!-- <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,700,700i&text=:;,()[]?.%22'%E2%80%A0*QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmáéíóúýäëæǽœœ%CC%81/1234567890-" rel="stylesheet"> -->
   <script src="jquery.min.js" type="text/javascript"></script>
   <script src="jquery.autosize-min.js"></script>
   <script src="jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
   <script src="util.js"></script>
   <script src="psalmtone.js"></script>
-  <script src="sink.js"></script>
-  <script src="audiolet.js"></script>
+  <script src="js/tones.js"></script>
   <script src="moment.min.js"></script>
   <script src="moment.easter.js"></script>
   <script src="propersdata.js"></script>
@@ -24,202 +24,10 @@
   <script src="propers.js"></script>
 <!--   <script src="../exsurge/dist/exsurge.js"></script> -->
   <script src="exsurge.min.js"></script>
+  <script src="jquery.hypher.js"></script>
+  <script src="patterns/la-hypher.js"></script>
 </head>
-<style>
-label {
-  font-weight: 400;
-}
-select[disabled] {
-  color: #8c8c8c;
-}
-a:not([href]),
-a:not([href]):hover {
-  color: #000;
-  text-decoration: none;
-}
-.ol {
-  text-decoration: overline;
-}
-button.remove-modifications {
-  display: none;
-}
-[part].full.modified button.remove-modifications {
-  display: inline;
-}
-textarea {
-  padding:0;
-  width:100%;
-  min-height:100px;
-  box-sizing: border-box;
-  display: none;
-}
-.asperges-verses,
-.chant-preview {
-  display: none;
-}
-[part].showing-chant .asperges-verses,
-[part].showing-chant .chant-preview{
-  display: block;
-}
-.verses,
-.asperges-verses {
-  font-size: 120%;
-  font-family: 'Crimson Text';
-}
-.verses .rubric {
-  font-size: inherit;
-  white-space: nowrap;
-  padding-left: 10pt;
-}
-.asperges-verses .versiculum {
-  font-size: 120%;
-  color: #d00;
-}
-.asperges-verses .rubric {
-  font-size: inherit;
-  font-style: italic;
-  color: #d00;
-}
-.chant-title {
-  text-align: center;
-  font-size: 110%;
-  font-weight: bold;
-  font-family: 'Crimson Text';
-  text-transform: uppercase;
-  margin: 0.75em 0 -0.5em;
-  line-height: 1;
-}
-text.aboveLinesText {
-  fill: #d00!important;
-}
-[style*="fill:#f00;"] {
-  fill: #d00!important;
-}
-text.lyric tspan[style="font-style:italic;"] {
-  fill: #d00!important;
-}
-div[gregobase-id] text.dropCap {
-  cursor: pointer;
-}
-div[gregobase-id] text.dropCap:hover {
-  fill: #d00!important;
-}
-.rubric {
-  font-family: 'Crimson Text';
-  font-size: 120%;
-  font-style: italic;
-  color: #d00;
-  margin: 0.5em 0 0.25em;
-}
-.rubric.after {
-  margin-top: 0;
-}
-.rubric .quote {
-  font-style: normal;
-  color: #000;
-}
-.preview-container {
-  padding: 4px;
-  padding-right: 0;
-}
-.chant-parent{
-  width:100%;
-}
-.chant-preview>svg.ChantScore {
-  width: 100%;
-}
-select.sel-style{
-  margin:1px 0 0;
-}
-select {
-  max-width: 100%;
-}
-label.sel-label{
-  margin-top:2px;
-}
-.right {
-  float:right;
-}
-.block {
-  clear: both;
-}
-.block.right {
-  float: none;
-}
-.show-gabc div.block {
-  display: inline-block;
-  width: 50%;
-  box-sizing: border-box;
-  padding-right: 2px;
-}
-.show-gabc div.block.right {
-  padding-left: 2px;
-  padding-right: 0;
-  float: right;
-}
-.show-gabc textarea {
-  display: inline;
-}
-div[part].show-gabc {
-  border:0;
-}
-.show-gabc .chant-parent {
-  border:1px solid #aaa;
-  min-height:119px;
-}
-div[part] {
-  margin-top: 4px;
-  clear: both;
-}
-.hide-chant .chant-preview {
-  display: none;
-}
-.centered-heading {
-  font-weight: 600;
-  text-align: center;
-}
-.psalm-editor {
-  border: 1px solid #ccc;
-  padding: 6px;
-  border-radius: 4px;
-}
-text.annotation {
-  font-weight: 600;
-}
-div.chant-context {
-  display: inline-block;
-}
-[part] use[source-index],
-[part] text[source-index] {
-  cursor: pointer;
-}
-[part].ordinary:not(.show-gabc) use[source-index],
-[part].ordinary:not(.show-gabc) text[source-index] {
-  cursor: default;
-}
-[part].show-gabc use[source-index]:hover,
-[part] use[source-index].active {
-  fill: #337ab7;
-  filter: url(#note-glow);
-}
-[part].show-gabc text[source-index]:hover,
-[part] text[source-index].active {
-  fill: #337ab7;
-  filter: url(#text-glow);
-}
-[part].show-gabc text[source-index][style*="fill:#f00;"]:hover,
-[part].show-gabc text[source-index]:hover tspan[style="font-style:italic;"],
-[part].show-gabc text[source-index]:hover [style*="fill:#f00;"],
-[part] text[source-index][style*="fill:#f00;"].active,
-[part] text[source-index].active tspan[style="font-style:italic;"],
-[part] text[source-index].active [style*="fill:#f00;"] {
-  fill: #337ab7!important;
-}
-.cordova-only {
-  display: none;
-}
-</style>
-<body class='sans' style="margin:8px;">
+<body class='sans' style="padding:8px;">
   <form id="pdfForm" target="_blank" method="get" action="http://apps.illuminarepublications.com/gregorio/">
     <!--<input type='hidden' name='pdf' value='1'/>-->
     <input type='hidden' name='crop' value='0'/>
@@ -234,7 +42,7 @@ div.chant-context {
     <input type="hidden" id="pdff_fontsize" value="12" name="fontsize"/>
     <input type="hidden" id="pdff_fmt" name="fmt" value="pdf"/>
   </form>
-  <div style="width:100%;margin-bottom:5px" class='hide-print'>
+  <div style="width:100%;margin-bottom:5px" class='hide-print ss-border-bottom'>
     <ul class="nav nav-pills" style="display: inline-block;">
       <li role="presentation"><a href="transcriber.html">GABC Transcription Tool</a></li>
       <li role="presentation"><a href="psalmtone.html">Psalm Tone Tool</a></li>
@@ -246,19 +54,9 @@ div.chant-context {
       <a class='btn btn-xs btn-primary' href='#' id='lnkPdfDirect'>PDF</a>
       <a class='btn btn-xs btn-default' href='#' id='lnkPdf'>Further PDF options</a>
     </div>
-    <a style="float:right" class="cordova-only btn btn-sm btn-primary" href="#" id="shareUrl"><span class='glyphicon glyphicon-share'></span> Share Current Settings</a>
-  </div>
-  <div class='hide-print'>
-    <button id='btnCalendar' class='btn btn-default' value='traditional' style='button'>Traditional Calendar</button>
-    <select id="selSunday" class="small-screen" style='margin:0'></select>
-    <select id="selSundayNovus" class="small-screen" style='margin:0;display:none'></select>
-    <select id="selSaint" class="small-screen" style='margin:0'></select>
-    <select id="selMass" class="small-screen" style='margin:0'></select>
-    <select id="selTempus" class="small-screen" style='display:none;margin:0'></select>
-    <select id="selYearNovus" class="small-screen" style='display:none;margin:0'></select>
-    <div class="right hide-ss">
+    <div class="right hide-ss" style="clear: both; margin-top: 6px">
       <div class="btn-group open-on-hover">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
           Include in PDF <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right">
@@ -281,20 +79,30 @@ div.chant-context {
         </ul>
       </div>
     </div>
+    <a style="float:right;margin-top: 6px" class="cordova-only btn btn-sm btn-primary" href="#" id="shareUrl"><span class='glyphicon glyphicon-share'></span> Share Current Settings</a>
   </div>
   <div class='hide-print'>
+    <label for="btnCalendar">Calendar:&nbsp;</label><button id='btnCalendar' class='btn btn-default active' value='traditional' style='button'>Traditional</button>
+    <div><select id="selSunday" class="small-screen"></select></div>
+    <div><select id="selSundayNovus" class="small-screen" style='display:none'></select></div>
+    <div><select id="selSaint" class="small-screen"></select></div>
+    <div><select id="selMass" class="small-screen"></select></div>
+    <div><select id="selTempus" class="small-screen" style='display:none;'></select></div>
+    <div><select id="selYearNovus" class="small-screen" style='display:none;'></select></div>
+  </div>
+  <div class='hide-print' style="margin-top: 14px">
     <div class="block">
-      <select id="selOrdinary" class='sel-mass small-screen'>
+      <select id="selOrdinary" class='sel-mass small-screen' style="margin: none!important">
       </select>
-      <div class='right'>
-        <select id="selStyle" class='sel-style small-screen'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed</option><option value='psalm-tone'>Psalm Toned</option></select>
-      </div>
     </div>
   </div>
   <hr class='hide-print block'>
+  <div class='right' style="margin-top: -16px; margin-bottom: 16px">
+    <select id="selStyle" class='sel-style small-screen'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed Propers</option><option value='psalm-tone'>Psalm Toned Propers</option></select>
+  </div>
   <div id='divAsperges' part='asperges' class='ordinary'>
     <div class='block hide-print'>
-      <label class="hide-ss" id="lblAsperges" for="txtAsperges"><a target="_blank">Asperges</a></label>
+      <label class="hide-ss" id="lblAsperges" for="txtAsperges"><a target="_blank"><span tempus='pasch'>Vidi aquam</span><span tempus='-pasch'>Asperges</span></a></label>
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <div class='right'>
         <select id='selAsperges'></select>
@@ -306,8 +114,8 @@ div.chant-context {
         <div id="asperges-preview-container" class='preview-container'>
           <div id="asperges-preview" class='chant-preview'></div>
             <div class="asperges-verses">
-              <div><span class='versiculum'>v</span> Osténde nobis, Dómine, misericórdiam tuam. (<span class='rubric'>P.T.</span> Allelúia.)</div>
-              <div><span class='versiculum'>r</span> Et salutáre tuum da nobis. (<span class='rubric'>P.T.</span> Allelúia.)</div>
+              <div><span class='versiculum'>v</span> Osténde nobis, Dómine, misericórdiam tuam<span tempus='-pasch'>.</span><span tempus='pasch'>, Allelúia.</span></div>
+              <div><span class='versiculum'>r</span> Et salutáre tuum da nobis<span tempus='-pasch'>.</span><span tempus='pasch'>, Allelúia.</span></div>
               <div><span class='versiculum'>v</span> Dómine exáudi oratiónem meam.</div>
               <div><span class='versiculum'>r</span> Et clamor meus ad te véniat.</div>
               <div><span class='versiculum'>v</span> Dóminus vobíscum.</div>
@@ -394,14 +202,14 @@ div.chant-context {
       <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
       <input id="txtCustomGraduale" placeholder="Graduale Search Text" class="sel-custom" style="display:none"/>
       <span class='novus-options graduale' id='gradualeOptions'>
-        <label for='selOptionsGraduale'>&mdash; Pick One: </label>
-        <select id='selOptionsGraduale'></select>
+        <label>&mdash; Pick One: 
+        <select id='selOptionsGraduale'></select></label>
       </span>
       <div class='flex right'>
         <span class='child-other'>
           <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
-          <label for="selToneGraduale" class='sel-label'>Mode</label>
-          <select id="selToneGraduale" class='sel-style tones'></select>
+          <label class='sel-label'>Mode
+          <select id="selToneGraduale" class='sel-style tones'></select></label>
           <select id="selToneEndingGraduale" class='sel-style endings graduale'></select>
           <input id='cbSolemnGraduale' type='checkbox' class='cbSolemn graduale' title='Check this box to use the solemn psalm tone.'>
         </span>
@@ -648,6 +456,7 @@ div.chant-context {
       </div>
     </div>
   </div>
+  <div id='mandatory-extra-chants'></div>
   <svg class="bg-blur">
   <defs>
     <filter id="text-glow" x="-100%" y="-100%" width="300%" height="300%">

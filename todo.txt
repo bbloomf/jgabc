@@ -1,17 +1,22 @@
+Playing chant
+Respect flatted notes
+Respect moræ over two notes that are only attached to the second note
+Don't lenthen the episema'd torculi a full double
+-------------
+
+Improve speed
+Move all the major selections (above the hr) to a landing page?
+Bold and Italic in psalm tone editor
+
+
+https://github.com/bramstein/fontfaceobserver/
+
 option to psalm tone only some verses of the tract
-clean up versification code, fix versification of Chair of Peter propers: Tract first verse, offertory should be split into two verses
-Tract of Quinquagesima wasn't getting a mediant
-...Only allow verse splitting at full bars, treat half bars and full bars equally and don't worry whether there is punctuation
+option to psalm tone only the verse of the gradual
 re-write psalmtoning algorithm to be clearer
 add links to gregorianbooks?
 
-add other chants outside of Mass: Holy Week, etc., anything that's in the liber brevior should be in the propers tool
-add link to gregoBase for extra chants
 
-
-better layout psalmtone tool for a phone
-
-totally remove jgabc.js dependency
 
 
 Introit Tone 6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.

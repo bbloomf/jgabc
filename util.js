@@ -11,6 +11,28 @@ function decode_utf8( s )
   return decodeURIComponent( escape( s ) );
 }
 
+HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
+  var text = this.value;
+  var txtBox = this;
+  setTimeout(function(){
+    if(text != txtBox.value) return;
+    var scrollTop = txtBox.scrollTop;
+    var extra = ''
+    if(onlyUp) {
+      var $txtBox = $(txtBox);
+      var lineHeight = parseFloat($txtBox.css('line-height'));
+      if(isNaN(lineHeight)) lineHeight = 1.2 * parseFloat($txtBox.css('font-size'));
+      var rows = Math.floor($txtBox.height() / lineHeight);
+      extra = '\n'.repeat(rows-1);
+    }
+    txtBox.value = text.slice(0,end) + extra;
+    txtBox.scrollTop = txtBox.scrollHeight;
+
+    txtBox.value = text;
+    txtBox.setSelectionRange(start,end);
+    if(((txtBox.scrollTop - scrollTop) * (onlyUp? -1 : 1)) < 0) txtBox.scrollTop = scrollTop;
+  })
+}
 var regexToneModifiers = /(')|(\.{1,2})|(_{1,4}0?)/g
 var regexTones = new RegExp("([/ ,;:`]+)|((?:[fF]|[cC][bB]?)[1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])|(\\+))?((?:" + regexToneModifiers.source.replace(/\((?!\?:)/g,"(?:") + ")*)(?:\\[([^\\]]*)(?:]|$))?|(z0))","g");
 //                          /([\/ ,;:`]+)|([cfCF][1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5]))?((?:(?:')|(?:\.{1,2})|(?:(?:_0?){1,4}))*)|(z0))|\[([^\]]*)(?:\]|$)                                )*)|(z0))|\[([^\]]*)(?:\]|$)
@@ -96,7 +118,7 @@ var rog = {
 var regexTag = /<(\/)?(\w+)>/i;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
-var regexHeaderLine = /^([\w-_]+):\s*([^;\r\n]*)(?:;|$)/i;
+var regexHeaderLine = /^([\w-_.]+):\s*([^;\r\n]*)(?:;|$)/i;
 var regexHeaderComment = /^%.*/;
 function GabcHeader(text){
   if(typeof(text)!='string') text='';
@@ -111,6 +133,7 @@ function GabcHeader(text){
       var line=lines[i],
           match = regexHeaderLine.exec(line);
       if(match){
+        var key = match[1].replace(/-([a-z])/g,function(a,letter) { return letter.toUpperCase(); });
         if(this[match[1]]) {
           var arrayName=match[1]+'Array';
           if(!this[arrayName]){
@@ -120,11 +143,14 @@ function GabcHeader(text){
         } else {
           this[match[1]]=match[2];
         }
+        if(key != match[1]) this[key] = this[match[1]];
       } else if((match = regexHeaderComment.exec(line))){
         if(line!='%%'){
           match = regexHeaderLine.exec(line.slice(1));
           if(match){
+            var key = match[1].replace(/-([a-z])/g,function(a,letter) { return letter.toUpperCase(); });
             this.cValues[match[1]]=match[2];
+            if(key != match[1]) this.cValues[key] = match[2];
           } else {
             this.comments[i]=line;
           }
@@ -137,6 +163,8 @@ GabcHeader.prototype.toString = function(){
   var result=[];
   for(key in this){
     if(key=='length' || key=='original' || key=='comments' || key=='cValues' || (typeof this[key])!="string")continue;
+    var alternateKey = key.replace(/[A-Z]/g,function(letter) { return '-'+letter.toLowerCase(); });
+    if(alternateKey != key && alternateKey in this) continue;
     var array = this[key+'Array'];
     if(array) {
       for(var i=0; i < array.length; ++i) {
@@ -180,6 +208,19 @@ function getTagsFrom(txt){
     else txt = txt.slice(0,tm.index) + txt.slice(lastIndex);
   }
   return r;
+}
+
+function transposeGabc(gabc,offset) {
+  var replaceLetter = function(letter, clef) {
+    if(clef) return letter;
+    var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
+    if(!newLetter.match(/[a-m]/i)) throw true;
+    return newLetter;
+  };
+  var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+  return gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
+    return '(' + gabc.replace(regex, replaceLetter) + ')';
+  });
 }
 
 function gabcEditorKeyDown(e) {
@@ -289,6 +330,48 @@ function gabcEditorKeyDown(e) {
       }
       break;
     }
+    case 38: // up
+    case 40: // down
+      if(e.altKey) {
+        var up = e.which === 38;
+        e.preventDefault();
+        var allGabc = this.value
+            header = getHeader(allGabc),
+            selectionStart = this.selectionStart,
+            selectionEnd = this.selectionEnd,
+            gabc = allGabc = allGabc.slice(header.original.length);
+        if(selectionStart != selectionEnd) {
+          var startIndex = Math.max(0,selectionStart - header.original.length),
+              endIndex = Math.max(0,selectionEnd - header.original.length),
+              lastOpenParen = allGabc.lastIndexOf('(',startIndex),
+              lastCloseParen = allGabc.lastIndexOf(')',startIndex),
+              firstOpenParen = allGabc.indexOf('(',endIndex),
+              firstCloseParen = allGabc.indexOf(')',endIndex);
+          if(firstOpenParen < 0) firstOpenParen = Infinity;
+          if(firstCloseParen < 0) firstCloseParen = Infinity;
+          gabc = gabc.slice(startIndex, endIndex);
+        }
+        var offset = up? 1 : -1;
+        try {
+          gabc = transposeGabc(gabc, offset)
+        } catch(e) {
+          return;
+        }
+        if(selectionStart == selectionEnd) {
+          this.value = header.original + gabc;
+        } else {
+          if(lastOpenParen > lastCloseParen && firstCloseParen < firstOpenParen && gabc.search(/[()]/) < 0) {
+            try {
+              gabc = gabc.replace(regex, replaceLetter);
+            } catch(e) {
+              return;
+            }
+          }
+          this.value = header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex);
+        }
+        this.setSelectionRange(selectionStart, selectionEnd);
+      }
+      break;
   }
 }
 
@@ -555,3 +638,180 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
   }
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
+
+(function(window) {
+  var baseFreq = 130, timeoutNextNote, transpose = 0;
+  window.tempo=200;
+  playPitch = function(pitch, options){
+    tones.play(pitch, options, transpose);
+  }
+  var _isPlaying=false;
+  setTempo = function(newTempo) { tempo = newTempo || 150; }
+  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
+  var noteElem, syllable;
+  window.playScore = function(score, firstPitch){
+    if(!firstPitch) firstPitch = 48;
+    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
+    window.clearTimeout(timeoutNextNote);
+    if(syllable) {
+      syllable.classList.remove('active');
+      syllable = null;
+    }
+    var originalSvg = score.svg;
+    var dropCap = $('text', originalSvg)[0];
+    if(dropCap)
+      dropCap.classList.add('active');
+    var noteId = 0;
+    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
+    transpose = firstPitch - notes[0].pitch.toInt();
+    _isPlaying = true;
+    function playNextNote(){
+      var note = notes[noteId];
+      if(noteElem) noteElem.classList.remove('active');
+      if(originalSvg != score.svg || note == null) {
+        if(syllable) syllable.classList.remove('active');
+        _isPlaying = false;
+      }
+      if(!_isPlaying) {
+        if(dropCap) dropCap.classList.remove('active');
+        return;
+      }
+      var duration = 1;
+      if(note.constructor != exsurge.Note) {
+        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+          if(!(note = notes[++noteId])) return;
+        }
+        if(note.isDivider) {
+          if(syllable) syllable.classList.remove('active');
+          if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+            duration = 2;
+          } // otherwise (for half bar) duration is default of 1.
+        }
+      }
+      noteElem = note.svgNode;
+      if(noteElem) {
+        if(noteElem.attributes.getNamedItem('href').value == '#None') {
+          noteElem = noteElem.previousSibling;
+        }
+        noteElem.classList.add('active');
+        var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
+        if(tmpSyllable && tmpSyllable != syllable) {
+          if(dropCap && syllable) dropCap.classList.remove('active');
+          if(syllable) syllable.classList.remove('active');
+          syllable = tmpSyllable;
+          if(syllable) syllable.classList.add('active');
+        }
+      }
+      if(note.constructor === exsurge.Note) {
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        if(note.morae.length) {
+          duration = 2;
+        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
+          duration = 1.8;
+        } else if(note.episemata.length) {
+          var episemataCount = 1;
+          if(prevNote && prevNote.episemata.length) ++ episemataCount;
+          if(nextNote && nextNote.episemata.length) ++ episemataCount;
+          duration += 0.9 / episemataCount;
+        }
+        var noteNeume = noteElem.parentNode.parentNode.source;
+        var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
+        var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
+        var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
+        var durationMS = duration * 60000 / tempo - tones.attack;
+        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS, release: tones.attack};
+        playPitch(note.pitch, options);
+      }
+      ++noteId;
+      if(noteId >= notes.length) _isPlaying = false;
+      timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
+    };
+    timeoutNextNote = window.setTimeout(playNextNote);
+  };
+  window.stopScore = function(){
+    _isPlaying=false;
+  }
+  window.removeChantContextMenus = function() {
+    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
+    $('.chant-context').remove();
+    $('.btn-group.open').removeClass('open');
+  }
+})(window);
+
+$(function($) {
+  var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
+  var stopTone;
+  var mouseUpTone = function() {
+    stopTone && stopTone();
+    stopTone = null;
+  };
+  $(document).on('click', function() {
+    removeChantContextMenus();
+    stopScore();
+    mouseUpTone();
+  }).on('click', 'svg text.dropCap', function(e) {
+    e.stopPropagation();
+    removeChantContextMenus();
+    var $this = $(this);
+    var $div = $this.parents('div').first();
+    var gregoBaseId = $div.attr('gregobase-id');
+    var score = $this.parents('svg').prop('source');
+    var lowPitch = 100000, highPitch = 0;
+    var startPitch = null;
+    score.notations.forEach(function(notation) {
+      if(notation.notes) notation.notes.forEach(function(note) {
+        var pitch = note.pitch.toInt()
+        if(startPitch == null) startPitch = pitch;
+        lowPitch = Math.min(lowPitch, pitch);
+        highPitch = Math.max(highPitch, pitch);
+      });
+    });
+    // default to putting the middle pitch at G above middle C
+    score.defaultStartPitch = score.defaultStartPitch || new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+    var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
+    if(gregoBaseId) {
+      $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
+    }
+    function changePitch(offset) {
+      score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+      $toolbar.find('.start-pitch').text(tones.noteName[score.defaultStartPitch.step]);
+    }
+    $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      playScore(score, score.defaultStartPitch);
+      $toolbar.remove();
+    }));
+    $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      changePitch(1);
+    }));
+    var mouseDownTone = function() {
+      if(!stopTone) stopTone = tones.play(score.defaultStartPitch, {start: true});
+    };
+    $toolbar.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch">' + tones.noteName[score.defaultStartPitch.step] + '</span>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+    }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
+    $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      changePitch(-1);
+    }));
+    $toolbar.appendTo(document.body);
+    var staffTop = $this.parent().offset().top,
+        toolbarWidth = $toolbar.outerWidth(),
+        left = $this.offset().left + ( $this.width() - toolbarWidth) / 2,
+        bodyWidth = $(document.body).outerWidth();
+    if(left < 8) left = 8;
+    if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
+    $toolbar.offset({
+      top: staffTop - $toolbar.outerHeight(),
+      left: left
+    });
+  });
+});

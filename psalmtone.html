@@ -204,5 +204,28 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
     </div>
   </div>
 </div>
+  <svg class="bg-blur">
+  <defs>
+    <filter id="text-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow"/>
+      <feFlood flood-color="#337ab7" result="COLOR" />
+      <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
+      <feMerge>
+        <feMergeNode in="glow-color"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="note-glow" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow"/>
+      <feFlood flood-color="#337ab7" result="COLOR" />
+      <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
+      <feMerge>
+        <feMergeNode in="glow-color"/>
+        <feMergeNode in="glow-color"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  </svg>
 </body>
 </html>

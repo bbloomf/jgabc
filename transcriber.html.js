@@ -341,6 +341,41 @@ function updateGabcSide() {
   updateGSyl();
   updateEditor();
 }
+function shiftGabc(e) {
+  var up = e.which === 38;
+  if(e.altKey && (up || e.which == 40)) {
+    e.preventDefault();
+    var $this = $(this),
+        allGabc = $this.val(),
+        header = getHeader(allGabc),
+        selectionStart = this.selectionStart,
+        selectionEnd = this.selectionEnd,
+        gabc = allGabc = allGabc.slice(header.original.length);
+    if(selectionStart != selectionEnd) {
+      var startIndex = Math.max(0,selectionStart - header.original.length),
+          endIndex = Math.max(0,selectionEnd - header.original.length);
+      gabc = gabc.slice(startIndex, endIndex);
+    }
+    var addendum = up? 1 : -1;
+    var replaceLetter = function(letter, clef) {
+      if(clef) return letter;
+      if((!up && letter.match(/a/i)) || (up && letter.match(/m/i))) throw true;
+      return String.fromCharCode(addendum + letter.charCodeAt(0));
+    };
+    var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+    try {
+      gabc = gabc.replace(regex, replaceLetter);
+    } catch(e) {
+      return;
+    }
+    if(selectionStart == selectionEnd) {
+      $this.val(header.original + gabc);
+    } else {
+      $this.val(header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex));
+    }
+    this.setSelectionRange(selectionStart, selectionEnd);
+  }
+}
 
 function updateSyl(txt) {
   var tmp=(txt||$("#hymntext").val()).split(regexDashedLine);
@@ -501,22 +536,34 @@ function updateGabcStar(newStar){
   updateEditor(true);
 }
 function saveAsPng(name, dpi) {
-  saveSvgAsPng($('#chant-preview').find('svg')[0], name, {scale: dpi / 96});
+  saveSvgAsPng(exportChant(), name, {scale: dpi / 96});
 }
-function getName() {
+function saveAsPngs(name, dpi) {
+  var lines = exportChant(true);
+  for(var i = 0; i < lines.length; ++i) {
+    saveSvgAsPng(lines[i], name.replace(/\.png$/,'-' + (i+1) + '.png'), {scale: dpi / 96});
+  }
+}
+function currentHeader() {
   var gabc = $('#editor').val(),
     header = getHeader(gabc);
-  return header.name || 'Untitled';
+  header.name = header.name || 'Untitled';
+  return header;
 }
 function savePng(e) {
   if(e && e.preventDefault) e.preventDefault();
-  name = getName() + '.png';
-  saveAsPng(name, 300);
+  var header = currentHeader();
+  name = header.name + '.png';
+  var dpi = parseInt(header.dpi || header.cValues.dpi) || 300;
+  console.info(e);
+  if(e.metaKey || e.ctrlKey) saveAsPngs(name, dpi);
+    else saveAsPng(name, dpi);
 }
 function saveAsSvg(e) {
   if(e && e.preventDefault) e.preventDefault();
-  name = getName() + '.svg';
-  saveSvg($('#chant-preview').find('svg')[0], name);
+  var header = currentHeader();
+  name = header.name + '.svg';
+  saveSvg(exportChant(), name);
 }
 $(function() {
   if(localStorage.gabcStar) {
@@ -531,7 +578,7 @@ $(function() {
   $("#chant-parent2").resizable({handles:"e"});
   $("#lnkToggleMode").click(toggleMode);
   $(window).resize(windowResized);
-  $("#hymngabc").keyup(updateGabcSide);
+  $("#hymngabc").keyup(updateGabcSide).keydown(shiftGabc);
   $("#hymntext").keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
@@ -572,11 +619,15 @@ $(function() {
   ctxt.lyricTextSize *= 1.2;
   ctxt.dropCapTextFont = ctxt.lyricTextFont;
   ctxt.annotationTextFont = ctxt.lyricTextFont;
+  var exportContext = new exsurge.ChantContext();
+  exportContext.lyricTextFont = "'Crimson Text', serif";
+  exportContext.lyricTextSize *= 1.2;
+  exportContext.dropCapTextFont = exportContext.lyricTextFont;
+  exportContext.annotationTextFont = exportContext.lyricTextFont;
   var chantContainer = $('#chant-preview')[0];
   var score;
-  $('#editor').keyup(function(){
-    updateLinks(this.value);
-    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+  function gabcToExsurge(gabc) {
+    return gabc.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
@@ -587,7 +638,27 @@ $(function() {
       .replace(/<\/?i>/g,'_')
         .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
         .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
+  }
+  function addHeaderKeyToContext(header, key) {
+    var match = /^exsurge\.(.+)/.exec(key);
+    if(match) {
+      var value = header[key];
+      if(!value) return;
+      key = match[1];
+      exportContext[key] = ctxt[key] = value;
+    }
+  }
+  $('#editor').keyup(function(){
+    updateLinks(this.value);
+    var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
+    exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
+    for(var key in header) {
+      addHeaderKeyToContext(header, key);
+    }
+    for(key in header.cValues) {
+      addHeaderKeyToContext(header.cValues, key);
+    }
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
     score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
@@ -595,13 +666,116 @@ $(function() {
     }
     layoutChant();
   });
+  function getWidthInPixels(header) {
+    var width = header.width || header.cValues.width;
+    var match = width && width.match(/(\d+(?:\.\d+)?)(in|(([mc]?)m))?/);
+    if(match) {
+      width = parseFloat(match[1]);
+      if(match[3]) {
+        var divisor = 0.0254;
+        if(match[4]) divisor *= match[4]=='c'? 100 : 1000;
+        width /= divisor;
+      }
+      // width is now in inches!
+    } else {
+      return null;
+    }
+    width *= 96;
+    return width;
+  }
+  function setupFontFromHeader(header) {
+    var customFont = '';
+    var fontFamilies = {};
+    ['','lyric','al','dropCap','annotation'].forEach(function(fontType){
+      var prefix = fontType + (fontType? 'Font':'font');
+      var key = prefix + 'Family';
+      var font = header[key] || header.cValues[key];
+      // text color:
+      if(fontType) {
+        var colorKey = fontType+'TextColor';
+        var textColor = header[colorKey] || header.cValues[colorKey];
+        if(textColor) exportContext[colorKey] = ctxt[colorKey] = textColor;
+      }
+    
+      ['','Bold','Italic','BoldItalic'].forEach(function(style) {
+        var key = prefix + style + 'Src';
+        var val = header[key] || header.cValues[key];
+        var match = val && val.match(/\.([ot]tf|woff2?)/);
+        var format = header.fontFormat || header.cValues.fontFormat;
+        if(format && !format.match(/^([ot]f|woff2?)$/)) format = '';
+        if(val && (match || format)) {
+          format = format || match[1];
+          font = font || "'Custom Exsurge Font'";
+          customFont += "\
+@font-face {\
+  font-family: '" + (font) + "';\
+  src: url('" + (val) + "') format('" + (format) + "');\
+  " + (style.match(/Bold/)? 'font-weight: bold;' : '') + "\
+  font-style: " + (style.match(/Italic/)? 'italic': 'normal') + ";\
+}";
+        }
+        if(fontType) {
+          if(font) fontFamilies[fontType] = font;
+        } else {
+          font = font || "'Crimson Text'";
+          fontFamilies.lyric = fontFamilies.al = fontFamilies.dropCap = fontFamilies.annotation = font;
+        }
+      });
+    });
+    if(customFont) {
+      var fontStyle = document.querySelector('#customFontStyle');
+      if(fontStyle) {
+        fontStyle.removeChild(fontStyle.firstChild);
+      } else {
+        fontStyle = document.createElement('style');
+        fontStyle.id = 'customFontStyle';
+      }
+      fontStyle.appendChild(document.createTextNode(customFont));
+      document.head.appendChild(fontStyle);
+    }
+    exportContext.lyricTextFont = ctxt.lyricTextFont = fontFamilies.lyric + ", serif";
+    exportContext.dropCapTextFont = ctxt.dropCapTextFont = fontFamilies.dropCap + ", serif";
+    exportContext.annotationTextFont = ctxt.annotationTextFont = fontFamilies.annotation + ", serif";
+    exportContext.alTextFont = ctxt.alTextFont = fontFamilies.al + ", serif";
+    ctxt.setGlyphScaling(ctxt.glyphScaling);
+    exportContext.setGlyphScaling(exportContext.glyphScaling);
+  }
+  window.exportChant = function(eachLine) {
+    var gabc = $('#editor').val(),
+        code = gabcToExsurge(gabc),
+        header = getHeader(gabc),
+        mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
+        score = new exsurge.ChantScore(exportContext, mappings, header['intital-style']!=='0');
+    if(header['initial-style']!=='0' && header.annotation) {
+      score.annotation = new exsurge.Annotation(exportContext, header.annotation);
+    }
+    var width = getWidthInPixels(header) || 6 * 96;
+    score.performLayout(exportContext);
+    score.layoutChantLines(exportContext, width);
+    if(eachLine) {
+      return score.createSvgNodeForEachLine(exportContext);
+    } else {
+      return score.createSvgNode(exportContext);
+    }
+  }
   function layoutChant() {
     if(!score) return;
+    setupFontFromHeader(currentHeader());
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+      var width = getWidthInPixels(currentHeader());
+      var responsiveSVG = !!width;
+      if(!width) width = chantContainer.clientWidth;
+      score.layoutChantLines(ctxt, width, function() {
         // render the score to svg code
-        chantContainer.innerHTML = score.createSvg(ctxt);
+        var svg = score.createSvgNode(ctxt);
+        if(responsiveSVG) {
+          svg.removeAttribute('width');
+          svg.removeAttribute('height');
+        } else {
+          svg.removeAttribute('viewBox');
+        }
+        $(chantContainer).empty().append(svg);
       });
     });
   }

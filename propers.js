@@ -31,11 +31,36 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   novusOption={},
   yearArray = ['A','B','C'];
 $(function(){
+  var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
+  var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
+  var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
+  var reFullBars = /\s*\*\s*/g;
+  var reFullBarsOrFullStops = /(?:[:;.?!]?\s*\*|[:;.?!]\s)\s*/g;
+  var reHalfBars = /\s*\|\s*/g;
+  var reFullOrHalfBars = /\s*[*|]\s*/g;
+  var reFullOrHalfBarsOrFullStops = /(?:([:;.?!]?)\s*[*|]|([:;.?!])\s)\s*/g;
+  var reCommaWords = /[,]\s/g;
+  var reFullStops = /[.:;!?]\s/g;
+  var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
+  function reduceStringArrayBy(array,period) {
+    if(array.length < period) return array;
+    return array.reduce(function(result,o,i) {
+      if(!result) result = '';
+      if(!o) o = '';
+      if(typeof(result) == 'string') result = [result];
+      if(i % period === 0) {
+        result.push(o);
+      } else {
+        result[result.length - 1] += o;
+      }
+      return result;
+    });
+  }
   var LocationHash = function(hash) {
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
     }
     return this;
   };
@@ -163,10 +188,13 @@ $(function(){
         break;
       case "ChristusRex":
         return dates.ChristusRex;
+      default:
+        m = moment();
     }
     return m;
   }
   var partAbbrev = {
+    verse:'V/.',
     tractus:'Tract.',
     offertorium:'Offert.',
     introitus:'Intr.',
@@ -175,7 +203,8 @@ $(function(){
     sequentia: 'Seq.',
     hymnus: 'Hymn.',
     antiphona: "Ant.",
-    responsorium: "Resp."
+    responsorium: "Resp.",
+    canticum: "Cant."
   };
   var defaultTermination={
     '1':'f',
@@ -184,7 +213,9 @@ $(function(){
     '7':'a',
     '8':'G'
   }
-  var regexGabcGloriaPatri = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\).*\(::\)/i;
+  var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -244,6 +275,19 @@ $(function(){
     }
     return result;
   }
+  function runGabcReplaces(gabc) {
+    return gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
+          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
+          .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
+          .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
+          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
+          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
+          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
+          .replace(/(\w)(\s+)([^()\w†*]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+          .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
+          .replace(/\s*\n\s*/g,'\n')
+          .replace(/\s{2,}/g,' ')
+  }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries);
@@ -260,6 +304,11 @@ $(function(){
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
     var isOrdinaryPart = $div.is('.ordinary');
+    if(selPropers && (selPropers[part] === false || (selPropers.ordinary === false && isOrdinaryPart))) {
+      $div.hide();
+      return; 
+    }
+    $div.show();
     if(isNovus && !isOrdinaryPart) {
       var optionID = novusOption[partType]||0;
       var year = $('#selYearNovus').val();
@@ -303,36 +352,39 @@ $(function(){
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
         if(selValue != $sel.val()) return;
-        gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
-          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
-          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
-          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-          .replace(/(\w)(\s+)([^(\w]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-          .replace(/(\s[^(\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
-          .replace(/\s*\n\s*/g,'\n')
-          .replace(/\s{2,}/g,' ')
+        var replaces = selPO[part + 'Replace'];
+        var i = 0;
+        while(replaces && i < replaces.length) {
+          gabc = gabc.replace(replaces[i++],replaces[i++]);
+        }
+        gabc = runGabcReplaces(gabc);
     
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text,
             truePart = partType;
         if(!isOrdinaryPart) {
-          var plaintext = decompile(gabc,true);
-          if(isAlleluia(part,plaintext)) truePart = 'alleluia';
+          var plaintext = decompile(gabc,true,sel[part]);
+          if(isAlleluia(part,plaintext)) {
+            truePart = 'alleluia';
+            if(part=='graduale') {
+              // add ij. if not present:
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)/i,'$1 <i>ij.</i>');
+            } else if(part=='alleluia' && isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) {
+              // remove ij. if present
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
+            }
+            plaintext = decompile(gabc,true,sel[part]);
+          }
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
-            return line.split(/\s*[|*]\s*/);
+            return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });
           if(!sel[part].pattern) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
-          if(sel[part].pattern && sel[part].pattern.length && sel[part].pattern[0] && sel[part].pattern[0].length) {
-            text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
-          } else {
-            text = sel[part].text = versify(plaintext, !truePart.match(/alleluia|graduale|tractus/));
-          }
+          text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
         }
-        if(part.match(/^graduale/)) {
+        if(/^(graduale|tractus)/.test(part)) {
           var $style = $('#selStyle'+capPart),
               styleVal = $style.val();
           $style.empty();
@@ -340,17 +392,32 @@ $(function(){
             $style.append($alleluiaOptions.clone());
           } else {
             $style.append($gradualeOptions.clone());
-            if(header['office-part']=='Hymnus') {
-              truePart = 'hymnus';
-              partIndex = null;
+            var temp = (header['office-part']||'').toLowerCase();
+            if(temp === 'alleluia' && truePart != 'alleluia') temp = 'verse';
+            if(temp in partAbbrev) {
+              truePart = temp;
+              if(truePart != 'graduale') partIndex = null;
             }
-            if(styleVal.match(/^psalm-tone/)) {
+            // if it's a gradual or tract, we'll handle it below, as we add the extra option.
+            if(!/^(graduale|tractus)/.test(truePart) && /^psalm-tone/.test(styleVal)) {
               styleVal = 'psalm-tone';
             }
+            $style.val(styleVal);
+          }
+        } else if(part == 'asperges') {
+          truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
+        }
+        if(/^(graduale|tractus)/.test(truePart)) {
+          $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
+          styleVal = $style.val();
+          if(/^psalm-tone[^1]/.test(styleVal)) {
+            styleVal = 'psalm-tone';
           }
           $style.val(styleVal);
         }
-        var capTruePart = truePart[0].toUpperCase() + truePart.slice(1);
+        var capTruePart = truePart.replace(/(^|\s)([a-z])/g, function(all,space,letter) {
+          return space + letter.toUpperCase();
+        });
         if(capTruePart) {
           $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
@@ -367,6 +434,9 @@ $(function(){
         sel[part].mode = sel[part].originalMode = header.mode;
         if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
           sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
+        }
+        if(part==='asperges' && selPropers && selPropers.gloriaPatri === false) {
+          sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
         if(!$selTone.length) {
@@ -406,40 +476,90 @@ $(function(){
     }
   };
   var setGradualeId = function(id) {
+    var appendId = function(i,val) {
+      if(!val) return val;
+      if(val.slice(-8).toLowerCase()=='graduale') return val + id;
+      return val.replace(/graduale\b/,'graduale'+id);
+    }
     return function() {
-      $(this).children().each(setGradualeId(id));
+      $(this).children().each(setGradualeId(id)).attr('id', appendId).attr('for', appendId);
       for(var i=0; i < this.attributes.length; ++i) {
         if(this.attributes[i].name != 'placeholder') this.attributes[i].value = this.attributes[i].value.replace(/(graduale)(?!\d|s)/gi,'$1'+id);
       }
     }
   };
-  var addMultipleGraduales = function(count) {
-    var i = 0;
-    var $multipleGradualesTemplate = $('.multiple-graduales-0');
-    var $lastGraduale = $multipleGradualesTemplate;
-    while(i < count) {
-      var $newGraduale = $multipleGradualesTemplate.clone(true);
-      ++i;
+  var gradualeTemplate = '\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span></a></li>\
+<div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
+  <div class="block hide-print">\
+    <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
+    <a class="toggleShowGabc hide-ss">(<span class="showHide">Show</span> Text Editor)</a>\
+    <div class="flex right">\
+      <span class="child-other">\
+        <button class="btn btn-xs btn-default remove-modifications">Remove Modifications</button>\
+        <label class="sel-label">Mode\
+        <select id="selToneGraduale$num" class="sel-style tones" disabled="disabled"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label>\
+        <select id="selToneEndingGraduale$num" class="sel-style endings graduale$num" style="display: none;"></select>\
+        <input id="cbSolemnGraduale$num" type="checkbox" class="cbSolemn graduale$num" title="Check this box to use the solemn psalm tone." style="display: none;">\
+      </span>\
+      <span class="child-main">\
+        <select id="selStyleGraduale$num" class="sel-style">\
+          <option value="full">Full Gradual</option>\
+          <option value="psalm-tone">Psalm Toned</option>\
+        </select>\
+      </span>\
+    </div>\
+    <textarea id="txtGraduale$num" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>\
+  </div>\
+  <div class="block right">\
+    <div class="chant-parent">\
+      <div id="graduale$num-preview-container" class="preview-container">\
+        <div id="graduale$num-preview" class="chant-preview"></div>\
+      </div>\
+    </div>\
+  </div>\
+</div>'
+  var addMultipleGraduales = function(count, startIndex) {
+    var i = startIndex || 1;
+    count += i - 1;
+    var $lastGraduale = $('.multiple-graduales-0');
+    while(i <= count) {
+      var $newGraduale = $(gradualeTemplate.replace(/\$num\b/g,i));
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
-      $newGraduale.removeClass('multiple-graduales-0').addClass('multiple-graduales-'+i);
-      $newGraduale.each(setGradualeId(i));
-      $newGraduale.find('textarea[id^=txt]').autosize();
+      $newGraduale.find('select[id^=selStyle]').change(selStyleChanged);
+      $newGraduale.find('select.endings').change(selEndingsChanged);
+      $newGraduale.find('input.cbSolemn').change(cbSolemnChanged);
+      $newGraduale.find('select.tones').change(selTonesChanged);
+      $newGraduale.find('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
+      
       $lastGraduale.each(function(i){
         $(this).after($newGraduale[i]);
       });
       $newGraduale.find('.sel-style').change();
       $lastGraduale = $newGraduale;
+      ++i;
     }
     includePropers = [];
     $('a[id^=include]').each(function(){
       includePropers.push(this.id.slice(7).toLowerCase());
     });
+    return $newGraduale;
   }
   var updateDay = function() {
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    selPropers = proprium[ref + selTempus];
+    selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
+    $("#extra-chants").empty();
+    sel.extraChants = extraChants[selDay];
+    if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
+      $("#divExtraChants").show();
+      showHideExtraChants(false);
+    } else {
+      $("#divExtraChants").hide();
+    }
+
+    $('.ordinary').toggle(!selPropers || (selPropers.ordinary !== false));
     if(selPropers || selDay=='custom') {
       removeMultipleGraduales();
       if(selPropers) {
@@ -453,7 +573,7 @@ $(function(){
     }
   }
   var updateDayNovus = function() {
-    selPropers = propriumNoviOrdinis[selDay + selTempus];
+    selPropers = propriumNoviOrdinis[selDay + selTempus] || propriumNoviOrdinis[selDay];
     if(selPropers) {
       selPropers.isNovus = true;
       novusOption = {};
@@ -465,6 +585,29 @@ $(function(){
     $('div[part]').each(function(){
       updatePart($(this).attr('part'));
     });
+    var $extraChants = $('#mandatory-extra-chants').empty();
+    $('.mandatory-extra-chant').remove();
+    if(selPropers && selPropers.extraChants === true && sel.extraChants) {
+      if(sel.extraChants.constructor === Array) {
+        renderExtraChants($extraChants, sel.extraChants);
+      } else {
+        var i = 0;
+        $.each(sel.extraChants, function(part, extraChants) {
+          var $part = $('[part="'+part+'"]');
+          if($part.length == 0) {
+            console.warn('Part not found:', part, 'placing extra chants at end of page');
+            $part = $(document.body).children().last();
+          } else if(!(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
+            $part.hide();
+          }
+          var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
+          i = renderExtraChants($extraChants, extraChants, i);
+        });
+        $('div[part^=graduale]').each(function(){
+          updatePart($(this).attr('part'));
+        })
+      }
+    }
   };
   var selectedDayNovus = function(e){
     selDay = $(this).val();
@@ -472,7 +615,7 @@ $(function(){
       isNovus = true;
       $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
-      $('#btnCalendar').text('Novus Ordo Calendar');
+      $('#btnCalendar').text('Novus Ordo');
     }
     clearHash({ sundayNovus: selDay }, selDay);
     updateDayNovus();
@@ -496,40 +639,122 @@ $(function(){
     $container.toggle(showHide);
     if(showHide && $container.is(':empty')) {
       // set up the chants for first time rendering:
-      sel.extraChants.forEach(function(chant, i) {
-        if(chant.title) {
-          $container.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+      renderExtraChants($container, sel.extraChants);
+    }
+  }
+  // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
+  function renderExtraChants($container, extraChants, addI) {
+    var $stickyParent, $curContainer = $container;
+    if(!addI) addI = 0;
+    
+    extraChants.forEach(function(chant, i) {
+      if(chant.title) {
+        $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
+      }
+      if(chant.rubric) {
+        $curContainer.append($('<div>').addClass('rubric').html(
+          chant.rubric.replace(/>/g,'</span>').
+            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
+            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")));
+      }
+      if(chant.id && chant.psalmtone) {
+        if(!selPropers.gradualeID) selPropers.gradualeID = [0];
+        addMultipleGraduales(1,selPropers.gradualeID.length);
+        $curContainer.append($('div.multiple-graduales-'+selPropers.gradualeID.length).show())
+        selPropers.gradualeID.push(chant.id);
+      } else if(chant.gabc || chant.id) {
+        if(chant.sticky === 0) {
+          $curContainer = $stickyParent = $('<div>').appendTo($container);
         }
-        if(chant.rubric) {
-          $container.append($('<div>').addClass('rubric').html(chant.rubric.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+        var part = 'extra-' + (i + addI);
+        var options = (typeof chant.id == 'object')? chant.id : null;
+        sel[part] = {
+          gabc: chant.gabc,
+          activeGabc: chant.gabc,
+          id: chant.id,
+          style: 'full',
+          noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/)),
+          scale: 1
+        };
+        if(chant.chantScaleIf && window.matchMedia) {
+          sel[part].chantScaleIf = [window.matchMedia(chant.chantScaleIf[0]), chant.chantScaleIf[1]];
         }
-        if(chant.gabc || chant.id) {
-          var part = 'extra-' + i;
-          sel[part] = {
-            gabc: chant.gabc,
-            activeGabc: chant.gabc,
-            id: chant.id,
-            style: 'full',
-            noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/))
-          };
-          $container.append($('<div>').attr('id',part+'-preview'));
-          makeChantContextForSel(sel[part]);
-          if(chant.id) {
-            $.get('gabc/'+chant.id+'.gabc',function(gabc) {
-              sel[part].gabc = sel[part].activeGabc = gabc.replace(/\(::\)([^()]+\(\))+$/,'(::)');
-              updateExsurge(part, chant.id);
+        var $curElement;
+        $curElement = $('<div>').attr('id',part+'-preview')
+        makeChantContextForSel(sel[part]);
+        var downloadThisChant = function() {
+          if(sel[part].id) {
+            $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
+              if(chant.gabcReplace) {
+                for (var i=0; i < chant.gabcReplace.length; i += 2)
+                  gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
+              }
+              gabc = runGabcReplaces(gabc);
+              sel[part].gabc = sel[part].activeGabc = gabc;
+              updateExsurge(part, sel[part].id);
             });
           }
-          if(chant.gabc) updateExsurge(part);
+        };
+        if(options) {
+          // in case its sticky, we want the option to be sticky too:
+          $curElement = $('<div>').append($curElement);
+          var optionID = 0;
+          var optionKeys = Object.keys(options);
+          sel[part].id = null;
+          var nextOptionID = 0;
+          var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
+            optionID = nextOptionID;
+            nextOptionID = (optionID + 1) % optionKeys.length;
+            $(this).find('.quote').text(optionKeys[nextOptionID]);
+            sel[part].id = options[optionKeys[optionID]];
+            sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            downloadThisChant();
+          }).appendTo($curElement).click();
         }
-        if(chant.rubricAfter) {
-          $container.append($('<div>').addClass('rubric').addClass('after').html(chant.rubricAfter.replace(/</g,'<span class="quote">').replace(/>/g,'</span>')));
+        if(chant.sticky === 0) {
+          $curElement.addClass('sticky');
         }
-        if(chant.html) {
-          $container.append($('<div>').html(chant.html));
+        $curContainer.append($curElement);
+
+        downloadThisChant();
+        if(chant.gabc) {
+          updateExsurge(part);
         }
-      });
-    }
+      }
+      if(chant.rubricAfter) {
+        $curContainer.append($('<div>').addClass('rubric after').html(
+          chant.rubricAfter.replace(/>/g,'</span>').
+            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
+            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")));
+      }
+      if(chant.html) {
+        $curContainer.append($('<div>').html(chant.html
+          .replace(/[†*]/g,'<span class="red">$&</span>')
+          .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/w+>[a-z]/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables
+          .replace(/(\s|<\/?\w+>)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]{3,})(?=\s|&nbsp;|[,.;:?!]|<\/?\w+>)/gi,function(all,preword,word){
+            if(Hypher && Hypher.languages && Hypher.languages.la) return preword + Hypher.languages.la.hyphenateText(word);
+            return all;
+          })
+        ));
+      }
+      if(chant.sticky === 1) {
+        $curContainer = $container;
+      }
+    });
+    return extraChants.length + addI;
+  }
+
+  var updateTempus = function() {
+    $('[tempus]').each(function() {
+      var $this = $(this),
+          tempus = $this.attr('tempus'),
+          negated = tempus[0] === '-';
+      if(negated) tempus = tempus.slice(1);
+      var match = tempus.toLowerCase() == selTempus.toLowerCase();
+      $this.toggle(match? !negated : negated);
+    });
   }
   var selectedDay = function(e){
     selDay = $(this).val();
@@ -545,17 +770,19 @@ $(function(){
       }
     });
     clearHash(hash, selDay);
-    loadStoredDataForKey(selDay);
-    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium) {
-      $selTempus.show();
-      var m = moment(selDay,'MMMD');
-      if(m.isValid()) {
-        if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
-        $selTempus.val(selTempus = getSeasonForMoment(m));
-      }
+    var m = moment(selDay,'MMMD');
+    if(m.isValid()) {
+      if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
     } else {
-      selTempus = '';
+      m = dateForSundayKey(selDay);
+    }
+    selTempus = getSeasonForMoment(m);
+    updateTempus();
+    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
+    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
+      $selTempus.show();
+      $selTempus.val(selTempus);
+    } else {
       $selTempus.prop('selectedIndex',0).hide();
       addToHash('tempus', false, true);
     }
@@ -564,18 +791,11 @@ $(function(){
     } else {
       $('.sel-custom').hide();
     }
-    $("#extra-chants").empty();
-    sel.extraChants = extraChants[selDay];
-    if(sel.extraChants) {
-      $("#divExtraChants").show();
-      showHideExtraChants(false);
-    } else {
-      $("#divExtraChants").hide();
-    }
     updateDay();
   };
   var selectedTempus = function(e){
     selTempus = $(this).val();
+    updateTempus();
     addToHash('tempus', selTempus);
     updateDay();
   };
@@ -583,7 +803,7 @@ $(function(){
   var selectedOrdinary = function(e){
     selOrdinary = $(this).val();
     addToHash('ordinary', selOrdinary);
-    massName = $(this.selectedOptions[0]).text();
+    massName = $(this.options[this.selectedIndex]).text();
     massName = massName.slice(0, massName.indexOf(' -'));
     var ordinary = massOrdinary[selOrdinary - 1] || {};
     ordinaryParts.forEach(function(part){
@@ -659,19 +879,31 @@ $(function(){
         });
         $optGroup.appendTo($select);
       });
-      if(part == 'asperges') {
+      if(part == 'asperges' || part == 'preface' || part == 'credo') {
         $select.val(selectVal);
       }
       $select.change();
     });
   };
   
+  function Dictionary(original) {
+    this.original = original;
+    this.wordMap = [];
+  }
+  Dictionary.prototype.push = function(index) {
+    this.wordMap.push(index);
+  }
+  Dictionary.prototype.slice = function(start, end) {
+    return this.original.slice(this.wordMap[start], this.wordMap[end]);
+  }
   
-  var decompile = function(mixed,ignoreSyllablesOnDivisiones) {
+  var decompile = function(mixed,ignoreSyllablesOnDivisiones,storeMap) {
     regexOuter.exec('');
-    mixed = mixed.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
-      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
-      .replace(/<v>\\greheightstar<\/v>/g,'*');
+    var match = mixed.match(regexHeaderEnd);
+    if(match) mixed = mixed.slice(match.index + match[0].length);
+    mixed = mixed.replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
+    var dictionary = new Dictionary(mixed);
+    if(storeMap) storeMap.originalWords = dictionary;
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
@@ -685,10 +917,16 @@ $(function(){
     var lastClef='';
     var verseHasClef=false;
     var lastVerse=function(){return verses[verses.length-1]||null;}
-    var match=regexOuter.exec(mixed);
+    match=regexOuter.exec(mixed);
     var verseReps=0;
+    var newWord = true;
     while(match) {
+      if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
+        dictionary.wordMap.push(match.index);
+        newWord = false
+      }
       ws=match[rog.whitespace]||'';
+      newWord = newWord || !!ws;
       var m=undefined;
       var syl=match[rog.syl];
       if(gabc.length==0) {
@@ -746,166 +984,77 @@ $(function(){
     return s;
   };
   
-  var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
-  var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
-  var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
-  var reFullBars = /\*/g;
-  var reHalfBars = /\|/g;
-  var reCommaWords = /[,]\s/g;
-  var reFullStops = /[.:;!?]\s/g;
-  var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
-  var splitIntoVerses = function(line){
-    var fullbars = line.match(reFullBars);
-    var halfbars = line.match(reHalfBars);
-    if(!fullbars && !halfbars) {
-      // if there weren't any bars, we have to consider the punctuation that didn't coincide with a bar
-      // TODO: find out which chants this happens on.
-      line = line.replace(reCommaWords,'$&| ')
-                 .replace(reFullStops,'$&* ');
-      fullbars = line.match(reFullBars);
-      halfbars = line.match(reHalfBars);
+  var addPatternFromSplitLine = function(pattern, sLine) {
+    for(var i = 0; i < sLine.length; ++i) {
+      for(var j = sLine[i].split(/ \| /g).length; j > 1; --j) {
+        pattern.push('');
+      }
+      if(i < sLine.length - 1) pattern.push('*');
     }
-    var split;
-    if(fullbars) {
-      verses = [];
-      split = line.split(reFullBars);
-      var i=0;
-      for(var j=1; j<=split.length; ++j) {
-        // go through all the possible full bar splits and see if verses can be made out of them:
-        var left = split.slice(i,j).join('*');
-        var normalizedLeft = normalizeMediant(left).split('*');
-        var segmentsRemaining = split.length - j;
-        if(normalizedLeft.length == 2 && Math.min.apply(null,normalizedLeft.mapSyllableCounts())>=7) {
-          // if the current verse (split from before j to j) can be split in two, with each segment having more than 7 syllables,
-          // and there is only one segment remaining, we need to make sure that segment can be a verse on its own
-          if (segmentsRemaining == 1) {
-            //Check to make sure the one remaining segment can also be split.
-            var right = split[j];
-            var normalizedRight = normalizeMediant(right).split('*');
-            if(normalizedRight.length != 2 || Math.min.apply(null,normalizedRight.mapSyllableCounts())<7) {
-              // if this segment couldn't be split in two or at least one of its segments would have a syllable count less than 7,
-              // we will need to group it in with the previously considered verse.
-              j++;
+  }
+  var makePattern = function(line) {
+    var result = [];
+    var sLine = splitLine(line.split(reFullBarsOrFullStops), 2, ' | ', 20);
+    if(sLine.length < 2 || Math.max.apply(null,sLine.mapSyllableCounts()) > 20) {
+      sLine = splitLine(reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3), 2, ' | ', 20);
+    }
+    addPatternFromSplitLine(result, sLine);
+    return result;
+  }
+  var splitIntoVerses = window.splitIntoVerses = function(line) {
+    var fullbars = line.match(reFullBars);
+    var numSyllables = line.countSyllables();
+    if(numSyllables > 30 && fullbars) {
+      var split = line.split(reFullBars);
+      var satisfied = false;
+      var result;
+      for(var count = 2; !satisfied && count < 5; ++count) {
+        result = [];
+        var test = splitLine(split, count, ' * '),
+            sylCounts = test.mapSyllableCounts();
+        satisfied = Math.max.apply(null,sylCounts) < 50;
+        for(var i=0; satisfied && i < count; ++i) {
+          // check whether we can make a satisfactory mediant for each verse:
+          var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
+          sylCounts = mediantTest.mapSyllableCounts();
+          satisfied = Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          if(satisfied) {
+            addPatternFromSplitLine(result, mediantTest);
+            if(i < count - 1) {
+              result.push('℣');
             }
           }
-          verses.push(split.slice(i,j).join('*'));
-          i = j;
-        }
-        if(j == split.length && j>i) {
-          // if we have a verse left over, add it:
-          verses.push(split.slice(i,j).join('*'));
         }
       }
-      return verses;
-    } else {
-      // don't make multiple verses out of it if there were no full bars / full stops
-      return [line];
+      if(satisfied) return result;
     }
+    return makePattern(line);
   }
-  var makeVerse = function(arrayVerse) {
-    var syls = arrayVerse.mapSyllableCounts();
-    for(var i=1;i<arrayVerse.length; ++i) {
-      var left = syls.slice(0,i).sum();
-      var right = syls.slice(i).sum();
-      if(left >= right || i==(arrayVerse.length-1)) {
-        // if there are more syllables on the left now than on the right, or this is our last pass:
-        var leftText;
-        if(left >= 20) {
-          // if the left side has 20 or more syllables, let's try to add a flex:
-          leftText = normalizeMediant(arrayVerse.slice(0,i).join('*'));
-          var leftArray = leftText.split('*');
-          var leftSyls = leftArray.mapSyllableCounts();
-          if(leftSyls.length==2 && Math.min.apply(null,leftSyls)>=10) {
-            leftText = leftText.replace('*','†') + ' ';
-          } else {
-            leftText = null;
-          }
-        }
-        if(!leftText) leftText = arrayVerse.slice(0,i).join('');
-        var result = (leftText + '*' + arrayVerse.slice(i).join('')).replace(/\s*\|\s*|\s+/g,' ').replace(/^\s+|\s+$/g,'');
-        return result[0].toUpperCase() + result.slice(1);
-      }
-    }
-    return "";
-  }
-  var normalizeMediant = function(verse){
-    var fullBars = verse.match(reFullBars);
-    if(fullBars && fullBars.length >= 1) {
-      return makeVerse(verse.split(reFullBars));
-    }
-    var halfBars = verse.match(reHalfBars);
-    if(halfBars && halfBars.length >= 1) {
-      return makeVerse(verse.split(reHalfBars));
-    }
-    return verse;
-  }
-  var versify = function(text, allowSplittingLines){
-    var lines = text.split('\n');
-    var result = '';
-    for(var i=0; i<lines.length; ++i) {
-      // Don't consider the bars that weren't coincident with punctuation:
-      var line = lines[i].replace(reBarsWithNoPunctuation,function(a,b){return b;});
-      // Each line is already considered a verse, but sometimes we have to split a line further into verses.
-      // We don't allow this on alleluias, graduals, or tracts though, because they already have the verses marked.
-      var verses = allowSplittingLines? splitIntoVerses(line) : [line];
-      if(verses.length == 1 && !line.match(reFullBars) && !line.match(reHalfBars)) {
-        // if there aren't any full or half bars left to split at, we will need to bring back in the bars that weren't coincident with punctuation:
-        verses[0] = lines[i];
-      }
-      for(var j=0; j<verses.length; ++j) {
-        result += normalizeMediant(verses[j]) + '\n';
-      }
-    }
-    return result.trim();
+  var versify = function(line, allowSplitting){
+    if(allowSplitting) return splitIntoVerses(line);
+    return makePattern(line);
   }
 
   function deducePattern(text, lines, allowSplittingLines) {
-    var versified = text.split('\n').map(function(text) {
+    return text.split('\n').map(function(text) {
       return versify(text, allowSplittingLines);
     });
-    var pattern = lines.map(function(segments, i) {
-      var regex = /\s*([†*\n])/g,
-          pat = [],
-          verse = versified[i].toLowerCase(),
-          text = '',
-          match = regex.exec(verse),
-          nextVerseChar = (match||{}).index;
-      segments.forEach(function(seg, segNum) {
-        if(!match) return;
-        text += seg.toLowerCase();
-        if(verse.slice(text.length, text.length + match[0].length) == match[0]) {
-          text += match[0];
-          pat.push(match[1].replace('†','*').replace('\n','℣'));
-          match = regex.exec(verse),
-          nextVerseChar = (match||{}).index;
-        } else {
-          pat.push('');
-        }
-        if(segNum != seg.length - 1 && text.slice(-1) != '\n') text += ' ';
-      });
-      if(text != verse.slice(0,text.length)) {
-        console.warn('error deducing pattern in verse: ', verse, text, segments);
-        return null;
-      }
-      return pat;
-    });
-    return pattern;
   }
 
+  // lines is an array of verses, each verse being an array of segments of the verse, e.g., [["Allelúia"],["Non vos relínquam órphanos:", "vado,", "et vénio ad vos,", "et gaudébit", "cor vestrum."]]
+  // pattern is an array of arrays as well, indicating the code to be used for each segment, [[], ["*", "", "", ""]]
   function versifyByPattern(lines, pattern) {
     return lines.map(function(segments, lineNum) {
       var text = '',
           pat = pattern[lineNum],
           capitalize = true;
+      if(segments.length > pat.length) pat = [''].concat(pat);
       segments.forEach(function(seg, segNum) {
-        if(capitalize && seg[0]) {
-          text += seg[0].toUpperCase() + seg.slice(1);
-          capitalize = false;
-        } else {
-          text += seg;
-        }
-        var code = pat && pat[segNum];
-        switch(code) {
+        switch(pat && pat[segNum]) {
+          case '@':
+            if(text) text += '\n';
+            text += '@ ';
+            break;
           case '*':
           case '†':
             text += ' * ';
@@ -918,6 +1067,12 @@ $(function(){
             text += ' ';
             break;
         }
+        if(capitalize && seg[0]) {
+          text += seg[0].toUpperCase() + seg.slice(1);
+          capitalize = false;
+        } else {
+          text += seg;
+        }
       });
       return text;
     }).join('\n');
@@ -929,33 +1084,33 @@ $(function(){
         part = $part.attr('part'),
         lines = sel[part].lines,
         text = '',
-        btnText = $this.text();
-    switch(btnText) {
-      case '*':
-      case '†':
-        btnText = '℣';
+        btnState = $this.attr('state');
+    switch(btnState) {
+      case 'mediant':
+      case 'flex':
+        btnState = 'new-verse';
         break;
-      case '℣':
-        btnText = NBSP;
+      case 'new-verse':
+        btnState = '';
         break;
       default:
-        btnText = '*';
+        btnState = 'flex';
         break;
     }
-    $this.text(btnText);
+    $this.attr('state',btnState);
     var versePattern = sel[part].pattern = lines.map(function(segments, lineNum) {
       var pattern = [],
           $lastBtn = $();
       segments.forEach(function(seg, segNum) {
         var $btn = $part.find('button[line=' + lineNum + '][seg=' + segNum + ']');
         if($btn.length) {
-          btnText = $btn.text();
-          pattern.push(btnText.replace('†','*').replace(NBSP,''))
-          if(btnText.match(/[*†]/)) {
-            if($lastBtn.text() == '*') $lastBtn.text('†');
-            $btn.text('*');
+          btnState = $btn.attr('state');
+          pattern.push(btnState.replace(/flex|mediant/,'*').replace('new-verse','℣'))
+          if(btnState.match(/flex|mediant/)) {
+            if($lastBtn.attr('state') == 'mediant') $lastBtn.attr('state','flex');
+            $btn.attr('state','mediant');
             $lastBtn = $btn;
-          } else if(btnText == '℣') {
+          } else if(btnState == 'new-verse') {
             $lastBtn = $();
           }
         }
@@ -1020,22 +1175,58 @@ $(function(){
           var pat = pattern[lineNum] || [];
           segments.forEach(function(segment, segNum) {
             var $span = $('<span>'),
-                code = (pat[segNum] || NBSP).replace('†','*');
-            $span.html(replaceGabcTags(segment));
+                code = (pat[segNum] || '');
+            switch(code) {
+              case '*':
+              case '†':
+                code = 'mediant';
+                break;
+              case '℣':
+                code = 'new-verse';
+                break;
+              default:
+                code = '';
+                break;
+            }
+            $span.html(replaceGabcTags(segment).replace(/<([a-z]+)>(.*<\/\1>)|[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/gi, function(word,tag,afterOpen) {
+              if(tag) {
+                if(tag=='i') return '<i class="red">' + afterOpen;
+                return word;
+              }
+              return Hypher.languages.la.hyphenate(word).map(function(syl, i, syls){
+                var result = '<syl';
+                if(i==0 && syls.length==2 || syl.match(/[áéíóúý]/i)) result += ' accent';
+                result += '>';
+                if(i) result += '&shy;';
+                result += syl + '</syl>';
+                return result;
+              }).join('');
+            }));
+            var syls = $span.find('syl');
+            for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
+              var $syl = $(syls[i]);
+              if($syl.is('[accent]')) {
+                lastAccent = i;
+                continue;
+              }
+              if(lastAccent - i == 3) {
+                $(syls[ (lastAccent = i+1) ]).attr('accent','');
+              }
+            }
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
               var $button = $('<button>');
               $button.addClass('toggle-mediant btn btn-xs btn-default');
               $button.attr('line', lineNum).attr('seg', segNum);
               $button.click(toggleMediant);
-              $button.text(code);
-              if(code == '*') {
-                $lastBtn.text('†');
+              $button.attr('state',code);
+              if(code == 'mediant') {
+                $lastBtn.attr('state','flex');
                 $lastBtn = $button;
-              } else if(code == '℣') {
+              } else if(code == 'new-verse') {
                 $lastBtn = $();
               }
-              $psalmEditor.append($button);
+              $psalmEditor.append(' ').append($button).append(' ');
             }
           });
           if(lineNum != lines.length - 1) {
@@ -1048,6 +1239,22 @@ $(function(){
       $psalmEditor.hide();
     }
   }
+
+  function resetPartStyle(part) {
+    var capPart = part[0].toUpperCase() + part.slice(1),
+        $selToneEnding = $('#selToneEnding' + capPart),
+        $selTone = $('#selTone' + capPart),
+        $cbSolemn = $('#cbSolemn' + capPart),
+        $right = $selTone.parent(),
+        $toggleEditMarkings = $right.find('.toggleEditMarkings'),
+        $part = $('[part='+part+']');
+    $part.removeClass('psalm-toned').addClass('full');
+    if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
+    $toggleEditMarkings.hide();
+    $selToneEnding.hide();
+    $cbSolemn.hide();
+    $selTone.attr('disabled',true);
+  }
   
   var updateStyle = function(part,style){
     addToHash('style'+part[0].toUpperCase()+part.slice(1), style == 'full' ? '' : style);
@@ -1055,8 +1262,8 @@ $(function(){
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
-    var capPart = part[0].toUpperCase() + part.slice(1);
-    var $selToneEnding = $('#selToneEnding' + capPart),
+    var capPart = part[0].toUpperCase() + part.slice(1),
+        $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
         $cbSolemn = $('#cbSolemn' + capPart),
         $right = $selTone.parent(),
@@ -1096,12 +1303,7 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
-      $part.removeClass('psalm-toned').addClass('full');
-      if($toggleEditMarkings.length) toggleEditMarkings.call($toggleEditMarkings[0],false);
-      $toggleEditMarkings.hide();
-      $selToneEnding.hide();
-      $cbSolemn.hide();
-      $selTone.attr('disabled',true);
+      resetPartStyle(part);
       if(gabc) {
         $selTone.val(getHeader(gabc).mode);
       }
@@ -1110,6 +1312,7 @@ $(function(){
   }
   
   var capitalizeForBigInitial = function(text) {
+    var result = '';
     m = text.match(regexLatin);
     m = m && m[0].match(/^[a-z]+/i);
     if(m) {
@@ -1184,12 +1387,18 @@ $(function(){
       flexEqualsTenor: true
     });
     if(gAmenTones){
-      for(var i=2,index=temp.length; i>0; --i) {
+      var originalGabc = gAmenTones.input || '',
+          originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
+      originalClef = originalClef? originalClef[1] : clef;
+      for(var i=3,index=temp.length; i>1; --i) {
         index = 1 + temp.lastIndexOf('(',index-2);
         if(index>0) {
           var index2 = temp.indexOf(')',index);
           if(index2>=0) {
-            temp = temp.slice(0,index) + gAmenTones[i] + temp.slice(index2);
+            // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
+            var shift = parseInt(gAmenTones[1],23) - parseInt(gMediant[0],23);
+            if(isNaN(shift)) shift = 0;
+            temp = temp.slice(0,index) + shiftGabc(gAmenTones[i],shift) + temp.slice(index2);
           }
         }
       }
@@ -1210,7 +1419,7 @@ $(function(){
     if(!termination) {
       termination = mediant;
     }
-    var clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
+    var clef = gabc.slice(getHeaderLen(gabc)).match(regexGabcClef);
     if(clef) {
       clef = clef[1];
       if(clef != tone.clef) {
@@ -1248,13 +1457,26 @@ $(function(){
     }) + ' (::)' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,null,tone.clef));
   }
 
+  var removeGloriaPatriGabc = function(part) {
+    return part.gabc.replace(regexGabcGloriaPatriEtFilio,'');
+  }
+
   var getFullGloriaPatriGabc = function(part) {
     var gabc = part.gabc;
     var tone = getIntroitTone(part);
     if(!tone) return;
-    var amenTones;
-    amenTones = regexGabcGloriaPatri.exec(gabc);
-    if(!amenTones) amenTones = {index: gabc.length};
+    var amenTones = regexGabcGloriaPatri.exec(gabc);
+    if(amenTones) {
+      // amenTones[1] is the first group of regexGabcGloriaPatri, which is the first note of the Gló- syllable.
+      // we need to check if the tone has been shifted to match the introit better:
+      var shift = parseInt(amenTones[1],23) - parseInt(tone.mediant[0],23);
+      if(!isNaN(shift) && shift != 0) { 
+        tone.mediant = shiftGabc(tone.mediant,shift);
+        tone.termination = shiftGabc(tone.termination,shift);
+      }
+    } else {
+      amenTones = {index: gabc.length};
+    }
     return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
@@ -1283,9 +1505,13 @@ $(function(){
         for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
       }
     }
-    var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     var gabc;
     var lines;
+    var useOriginalClef = text.indexOf('@') >= 0;
+    var fullGabc = sel[part].gabc.slice(getHeaderLen(sel[part].gabc));
+    var originalClef = fullGabc.match(regexGabcClef);
+    if(originalClef) originalClef = originalClef[1];
+      
     if(isAl) {
       if(sel[part].style=='psalm-tone1') {
         lines = text.split('\n');
@@ -1340,25 +1566,73 @@ $(function(){
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
-        clef = gabc.slice(getHeaderLen(gabc)).match(/\([^)]*([cf]b?[1234])/);
-        if(clef) {
-          clef = clef[1];
-          if(clef != tone.clef) {
-            gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
-            gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
-          }
-        } else clef = tone.clef;
+        useOriginalClef = true
         lines = sel[part].text.split('\n');
       }
       lines.splice(0,1);
     } else {
-      gabc = header + '(' + tone.clef + ') ';
+      // not alleluia
       lines = capitalizeForBigInitial(sel[part].text).split('\n');
+      gabc = header;
+      if(sel[part].style == 'psalm-tone1') {
+        // the first verse is to be full tone.
+        var firstVerse = /^(.*?\S*)(\([^)]*::[^)]*\))/g.exec(fullGabc);
+        if(firstVerse) {
+          firstVerse = firstVerse[1] + '(::) ';
+          gabc += firstVerse;
+          useOriginalClef = true;
+          lines.shift();  // shift away the first verse, since we are using the full tone for it.
+          var firstVersePattern = sel[part].pattern[0];
+          for(var i=0; i < firstVersePattern.length; ++i) {
+            if(firstVersePattern[i]=='℣') lines.shift(); // shift away any artificial verses so that the psalm toned part starts at the actual verse.
+          }
+        } else {
+          gabc += '(' + tone.clef + ') ';
+        }
+      } else {
+        gabc += '(' + (useOriginalClef? originalClef : tone.clef) + ') ';
+      }
     }
+    if(useOriginalClef && originalClef && originalClef != tone.clef) {
+      clef = originalClef;
+      gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
+      gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+    }
+    var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     
+
     var firstVerse = true;
     var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
+    var wordsInLine = function(line) {
+      return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
+    }
+    var newClef = null;
+    var countWordsBefore = 0;
     for(var i=0; i<lines.length; ++i) {
+      var countWordsInVerse = wordsInLine(lines[i]);
+      var fullVerseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+      var nextNewClef = regexGabcClef.exec(fullVerseGabc);
+      nextNewClef = nextNewClef && nextNewClef[1];
+      countWordsBefore += countWordsInVerse;
+      if(lines[i][0] == '@') {
+        if(newClef && newClef != clef) {
+          gabc = gabc.replace(/\(::\)(\s*)$/,'(z0::' + newClef + ')$1');
+          clef = newClef;
+        }
+        gabc += fullVerseGabc;
+        // check for clef changes within this verse GABC:
+        newClef = nextNewClef;
+        if(newClef && newClef != clef) {
+          gMediant = shiftGabcForClefChange(gMediant,newClef,clef);
+          gTermination = shiftGabcForClefChange(gTermination,newClef,clef);
+          clef = newClef;
+        }
+        newClef = null;
+        continue;
+      } else {
+        newClef = newClef || nextNewClef;
+      }
+
       var line = splitLine(lines[i], introitTone? 3 : 2);
       var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
       if(italicNote) {
@@ -1373,6 +1647,8 @@ $(function(){
         var header;
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
+          var originalClef = regexGabcClef.exec(originalGabc);
+          var psalmToneClef;
         }
         gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;
@@ -1606,17 +1882,41 @@ $(function(){
   var updateExsurge = function(part, id, updateFromOldScore) {
     var prop = sel[part];
     var ctxt = prop.ctxt;
-    var gabc = prop.activeGabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+    var gabc = prop.activeGabc;
+    var TP = selTempus == 'Pasch';
+    if(gabc.match(/\+[^)]*\(/)) {
+      // if it has a + (†) that marks T.P or extra T.P
+      if((TP && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>/i)) || ((!TP && gabc.match(/<i>.*?extra\s+T\.\s+P\./i)))) {
+        // remove the part that is not marked second (the part before _T. P._ or _Extra T. P._)
+        gabc = gabc.replace(/\+(\([^)]+\)\s?)?[^+]+?(\+|<\/i>\W+)+\s*/,'$1');
+      } else {
+        // remove the + marker and the second part [the part after the (::)]:
+        gabc = gabc.replace(/\+(?:\(\))?\s*([^+]+?)(?:<i>.*?<\/i>)?(\(::\)).*/,'$1$2');
+      }
+    }
+    if(TP) {
+      gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
+    } else {
+      gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
+        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'');
+    }
+    gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
       }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
+      .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\()/g, function(match, whitespace, main) {
+        return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
+      })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
-      .replace(/([^)]\s+)([*†])\(/g,'$1^$2^(')
-      .replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
+      .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
+      .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
+      .replace(/(\s+)(<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/(<b>[^<]+)œ́/g,'$1œ</b>\u0301<b>') // œ́ character doesn't work in the bold version of this font.
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
@@ -1631,6 +1931,7 @@ $(function(){
     }
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
+    prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
@@ -1649,8 +1950,9 @@ $(function(){
     }
     prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
     if(gabcHeader.original) {
-      if(gabcHeader.annotationArray) {
-        score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotationArray[0]+'%', '%'+gabcHeader.annotationArray[1]+'%');
+      var annotationArray = sel[part].annotationArray || gabcHeader.annotationArray;
+      if(annotationArray) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
       } else if(gabcHeader.annotation) {
         score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
       } else if(!prop.noDropCap && (gabcHeader.mode || gabcHeader['office-part'])) {
@@ -1679,7 +1981,15 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var newWidth = chantContainer.width() - 4;
+    var scale = 1;
+    if(sel[part].chantScaleIf) {
+      if(sel[part].chantScaleIf[0].matches) {
+        scale = sel[part].chantScaleIf[1];
+      }
+    } else if(sel[part].chantScale) {
+      scale = sel[part].chantScale;
+    }
+    var newWidth = Math.floor(chantContainer.width() / scale);
     if(!score) return;
     ctxt.width = newWidth;
     // perform layout on the chant
@@ -1693,7 +2003,14 @@ $(function(){
       score.performLayoutAsync(ctxt, function() {
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
-          chantContainer.empty().append(score.createSvgNode(ctxt));
+          var svg = score.createSvgNode(ctxt);
+          if(scale == 1) {
+            svg.removeAttribute('viewBox');
+          } else {
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+          }
+          chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
           };
@@ -1867,8 +2184,8 @@ $(function(){
   });
   ordinaryKeys.unshift({
     key: '',
-    title: 'Ordinaria Ad Libitum',
-    en: 'Mass Ordinaries...'
+    title: 'Ordinaria Missæ in cantu gregoriano',
+    en: 'Chant Mass Ordinaries...'
   })
   populate(ordinaryKeys,$selOrdinary)
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
@@ -1890,8 +2207,8 @@ $(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     selOrdinaries[part + 'ID'] = this.value;
-    addToHash(part, $(this.selectedOptions[0]).attr('default')? false : this.value);
-    updatePart(part, this.selectedOptions[0].innerText);
+    addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
+    updatePart(part, this.options[this.selectedIndex].innerText);
   })
   $('#btnCalendar').click(function(e){
     var $this = $(this);
@@ -1899,16 +2216,16 @@ $(function(){
     if(isNovus) {
       $('#selSunday,#selSaint,#selMass,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
-      $this.text('Novus Ordo Calendar');
+      $this.text('Novus Ordo');
       $('#selSundayNovus').prop('selectedIndex',0).change();
     } else {
       $('#selSunday,#selSaint,#selMass,#selTempus').show();
       $('#selSundayNovus,#selYearNovus').hide();
-      $this.text('Traditional Calendar');
+      $this.text('Traditional');
       $('#selSunday').prop('selectedIndex',0).change();
     }
   });
-  $('select[id^=selStyle]').change(function(e){
+  function selStyleChanged(e){
     var style=this.value;
     if(this.id=='selStyle') {
       if(style!='mixed') {
@@ -1922,9 +2239,8 @@ $(function(){
       $('select[id^=selStyle]:not(#selStyle)').each(function(i,o){if(baseStyle!=o.value.slice(0,baseStyle.length)){baseStyle='mixed';return false;}});
       $('#selStyle').val(baseStyle);
     }
-  });
-  $('#selStyle').change();
-  $('select.tones').change(function(e){
+  }
+  function selTonesChanged(e){
     //update endings for this tone.
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
@@ -1944,8 +2260,8 @@ $(function(){
       if(sel[part].style == 'psalm-tone') $selEnding.show();
     }
     updateTextAndChantForPart(part, true);
-  });
-  $('select.endings').change(function(e){
+  }
+  function selEndingsChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/)) {
@@ -1953,18 +2269,14 @@ $(function(){
     }
     sel[part].termination = this.value;
     updateTextAndChantForPart(part, true);
-  });
-  $('input.cbSolemn').change(function(e){
+  }
+  function cbSolemnChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     sel[part].solemn = this.checked;
     updateTextAndChantForPart(part, true);
-  });
-  var $selTones = $('select.tones');
-  for(var i=1; i<=8; ++i) {
-    $selTones.append('<option>'+i+'</option>');
   }
-  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(function(e){
+  function editorKeyUp(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
@@ -1974,7 +2286,16 @@ $(function(){
       sel[part].gabc = this.value;
       updateTextAndChantForPart(part, true);
     }
-  });
+  }
+  $('select[id^=selStyle]').change(selStyleChanged);
+  $('#selStyle').change();
+  $('select.endings').change(selEndingsChanged);
+  $('input.cbSolemn').change(cbSolemnChanged);
+  var $selTones = $('select.tones').change(selTonesChanged);
+  for(var i=1; i<=8; ++i) {
+    $selTones.append('<option>'+i+'</option>');
+  }
+  $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
     var result=[];
     $('[part]').each(function(){
@@ -2119,7 +2440,9 @@ console.info(JSON.stringify(selPropers));
     Object.keys(sel).forEach(function(key) {
       if(sel[key] && 'style' in sel[key]) {
         sel[key].style = 'full';
+        delete sel[key].pattern;
         $('#selStyle' + key[0].toUpperCase() + key.slice(1)).val('full');
+        resetPartStyle(key);
       }
     });
     addToHash(obj,undefined,true);
@@ -2153,6 +2476,7 @@ console.info(JSON.stringify(selPropers));
     if(key && !dontStore) {
       var realKey = hash[key];
       delete hash[key];
+      delete hash.tempus;
       var hashString = hash.toString();
       console.info(realKey, hashString);
       localStorage[realKey] = hashString;
@@ -2266,7 +2590,7 @@ console.info(JSON.stringify(selPropers));
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
   function removeChantContextMenus() {
-    $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active'); });
+    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }
@@ -2498,10 +2822,7 @@ console.info(JSON.stringify(selPropers));
     proper.activeExsurge = gabc;
     updateFromActiveExsurge(e.data.part, null, true);
   }
-  $(document).on('click', removeChantContextMenus).on('click', 'div[gregobase-id] text.dropCap', function() {
-    var id = $(this).parents('[gregobase-id]').attr('gregobase-id');
-    window.open(gregobaseUrlPrefix + id, '_blank');
-  }).on('click', '[data-toggle="dropdown"]', function(e) {
+  $(document).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
   }).on('click', '[part] button.remove-modifications', function(e) {
@@ -2586,13 +2907,20 @@ console.info(JSON.stringify(selPropers));
         $toolbar.appendTo(document.body);
         var $neume = (noteProperties.$neume || $neume.parent()),
             staffTop = $neume.parent().offset().top,
-            neumeTop = $neume.offset().top - 4;
+            neumeTop = $neume.offset().top - 4,
+            toolbarWidth = $toolbar.outerWidth(),
+            left = $this.offset().left + ( $this.width() - toolbarWidth) / 2,
+            bodyWidth = $(document.body).outerWidth();
+        if(left < 8) left = 8;
+        if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
         $toolbar.offset({
           top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
-          left: $this.offset().left + ( $this.width() - $toolbar.outerWidth()) / 2
+          left: left
         });
       }
     }
   });
+  selTempus = getSeasonForMoment(new moment());
+  updateTempus();
   hashChanged();
 });

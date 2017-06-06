@@ -353,7 +353,7 @@ var Syl = (function(){
                 vowelCount = vowelCount? vowelCount.length : 0;
                 if(vowelCount == 0) {
                   // merge into the next syllable if there is one:
-                  if(si < d.length) {
+                  if(si < d.length - 1) {
                     d[si] += d[si + 1] || (w.length - d.reduce(function(a,b){return a+b;}));
                     d.splice(si + 1, 1);
                     --si;
@@ -421,7 +421,7 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[7] = m[8] + ((m[9]||'').match(/†/)? ' †':'');
+        tmp[7] = m[8] + (m[9]||'').replace(/\s+(†|\*)/, ' $1');
         tmp[8]=" ";
         tmp[9]=m[10];
         if(ai.length) tmp[6]='*';
@@ -535,7 +535,7 @@ function syllable(match,index,bi) {
             cTags: cTags,
             elision: elision,
             flex: match[7] && match[7].match(/†$/),
-            mediant: match[8] && match[8].match(/\*$/)
+            mediant: match[7] && match[7].match(/\*$/)
     };
   }
 }
@@ -1334,14 +1334,27 @@ function splitPosition(sylCounts) {
   return i;
 }
 
-function splitLine(oLine, segments) {
+function splitLine(oLine, segments, joinString, maxSyllablesPerSegment) {
+  if(typeof joinString !== 'string') joinString = ' ' + sym_flex + ' ';
+  if(!maxSyllablesPerSegment) maxSyllablesPerSegment = Infinity;
   if(!segments) segments = 2;
-  var line = oLine.split(' * ');
+  var line = typeof oLine == 'string'? oLine.split(' * ') : oLine;
   if(line.length > segments) {
     // Split the line so that the two segments have as close to the same number of syllables possible, favoring the length of the first segment
     var sylCounts = line.mapSyllableCounts();
+    if(sylCounts.sum() > maxSyllablesPerSegment * segments) {
+      segments = Math.ceil(sylCounts.sum() / maxSyllablesPerSegment);
+    }
+    if(segments == 4) {
+      var firstSplit = splitLine(line, 2, ' * ', maxSyllablesPerSegment * 2, false);
+      var result = splitLine(firstSplit[0], 2, joinString, maxSyllablesPerSegment);
+      return result.concat(splitLine(firstSplit[1], 2, joinString, maxSyllablesPerSegment))
+    }
     // if there are 3 segments right now, but we're only asking for two, always put the flex in the first segment
-    var i = line.length == 3? 2 : splitPosition(sylCounts);
+    var i = (line.length == 3 && (joinString == ' ' + sym_flex + ' '))? 2 : splitPosition(sylCounts, maxSyllablesPerSegment);
+    if(segments === 2 && Math.max(sylCounts.slice(i).sum(), sylCounts.slice(0,i).sum()) > maxSyllablesPerSegment) {
+      segments = 3;
+    }
     if(segments === 3) {
       var maxI = sylCounts.length - 2, difference, lastDifference = Infinity, j, lastJ;
       i = 1;
@@ -1354,9 +1367,9 @@ function splitLine(oLine, segments) {
         ++i;
       }
       --i;
-      return [line.slice(0,i).join(' ' + sym_flex + ' '), line.slice(i,lastJ).join(' ' + sym_flex + ' '), line.slice(lastJ).join(' ' + sym_flex + ' ')];
+      return [line.slice(0,i).join(joinString), line.slice(i,lastJ).join(joinString), line.slice(lastJ).join(joinString)];
     }
-    return [line.slice(0,i).join(' ' + sym_flex + ' '), line.slice(i).join(' ' + sym_flex + ' ')];
+    return [line.slice(0,i).join(joinString), line.slice(i).join(joinString)];
   }
   return line;
 }
