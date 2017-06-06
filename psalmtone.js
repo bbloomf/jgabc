@@ -123,6 +123,11 @@ var o_g_tones =
                   solemn:"e fe eh hr hg hi i 'hi hr h.",
                   termination:"hr g 'e fr f."
                  },
+             '2. monasticum':{clef:"f3",
+                  mediant:"e f hr 'i hr h.",
+                  solemn:"e fe eh hr hg hi i 'hi hr h.",
+                  termination:"hr g er 'ef f."
+                 },
              '3.':{clef:"c4",
                   mediant:"g hj jr 'k jr jr 'ih j.",
                   solemn:"g hj jr 'jk jr jr 'ih hj..",
