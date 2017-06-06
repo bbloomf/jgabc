@@ -91,6 +91,13 @@ tspan.selectable{
   font-family: 'Crimson Text';
   font-size: 15px;
 }
+label {
+  font-weight: normal;
+  margin-bottom: 0;
+}
+textarea {
+  font: auto;
+}
 select.small-screen {
   margin-top: 6px;
   margin-bottom: 6px;
