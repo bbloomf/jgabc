@@ -287,6 +287,7 @@ $(function(){
           .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
           .replace(/\s*\n\s*/g,'\n')
           .replace(/\s{2,}/g,' ')
+          .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
