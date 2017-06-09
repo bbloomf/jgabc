@@ -287,6 +287,7 @@ $(function(){
           .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
           .replace(/\s*\n\s*/g,'\n')
           .replace(/\s{2,}/g,' ')
+          .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
@@ -2599,11 +2600,13 @@ console.info(JSON.stringify(selPropers));
     var notations = neume.mapping.notations;
     var notes = notations.reduce(function(result, notation) {
       if(notation.notes) return result.concat(notation.notes);
-      return result;
+      return result.concat(null);
     }, []);
     var noteIndex = notes.indexOf(note);
     var previousNote = notes[noteIndex-1];
     var nextNote = notes[noteIndex+1];
+    var hasPreviousNote = !!previousNote;
+    var hasNextNote = !!nextNote;
     if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
     if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
     var result = {note: note, notes: notes, noteIndex: noteIndex};
@@ -2614,8 +2617,8 @@ console.info(JSON.stringify(selPropers));
     if(result.isTorculus) {
       result.torculusNotes = neume.notes;
     }
-    result.acceptsBarBefore = noteIndex == 0;
-    result.acceptsBarAfter = noteIndex === notes.length - 1;
+    result.acceptsBarBefore = !hasPreviousNote;
+    result.acceptsBarAfter = !hasNextNote;
     result.acceptsMora = result.acceptsBarAfter && !result.hasMorae;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
       let score = neume.score;
@@ -2909,7 +2912,7 @@ console.info(JSON.stringify(selPropers));
             staffTop = $neume.parent().offset().top,
             neumeTop = $neume.offset().top - 4,
             toolbarWidth = $toolbar.outerWidth(),
-            left = $this.offset().left + ( $this.width() - toolbarWidth) / 2,
+            left = $neume.offset().left + ( $neume.width() - toolbarWidth) / 2,
             bodyWidth = $(document.body).outerWidth();
         if(left < 8) left = 8;
         if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
