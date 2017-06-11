@@ -365,7 +365,8 @@ $(function(){
         var text,
             truePart = partType;
         if(!isOrdinaryPart) {
-          var plaintext = decompile(gabc,true,sel[part]);
+          var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
+          var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if(isAlleluia(part,plaintext)) {
             truePart = 'alleluia';
             if(part=='graduale') {
@@ -1880,10 +1881,8 @@ $(function(){
     }
   }
 
-  var updateExsurge = function(part, id, updateFromOldScore) {
-    var prop = sel[part];
-    var ctxt = prop.ctxt;
-    var gabc = prop.activeGabc;
+  // this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
+  function removeNotApplicableFromGabc(gabc) {
     var TP = selTempus == 'Pasch';
     if(gabc.match(/\+[^)]*\(/)) {
       // if it has a + (†) that marks T.P or extra T.P
@@ -1901,6 +1900,14 @@ $(function(){
       gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
         .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'');
     }
+    return gabc;
+  }
+
+  var updateExsurge = function(part, id, updateFromOldScore) {
+    var prop = sel[part];
+    var ctxt = prop.ctxt;
+    var gabc = prop.activeGabc;
+    gabc = removeNotApplicableFromGabc(gabc);
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
