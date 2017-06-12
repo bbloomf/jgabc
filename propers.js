@@ -1398,7 +1398,7 @@ $(function(){
           var index2 = temp.indexOf(')',index);
           if(index2>=0) {
             // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
-            var shift = parseInt(gAmenTones[1],23) - parseInt(gMediant[0],23);
+            var shift = parseInt(gMediant[0],23) - parseInt(gAmenTones[1],23);
             if(isNaN(shift)) shift = 0;
             temp = temp.slice(0,index) + shiftGabc(gAmenTones[i],shift) + temp.slice(index2);
           }
@@ -1649,8 +1649,6 @@ $(function(){
         var header;
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
-          var originalClef = regexGabcClef.exec(originalGabc);
-          var psalmToneClef;
         }
         gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;
