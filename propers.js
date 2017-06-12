@@ -1918,7 +1918,7 @@ $(function(){
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
-      .replace(/(\s+)(<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make any italicized ij. syllables red
+      .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
