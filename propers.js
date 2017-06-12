@@ -15,7 +15,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   agnus:{},
   ite:{}
 },includePropers=[],
-// Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
+// Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
     "(c4)Al(c)le(d)lu(ixed/hi)ia.(hvhvGE//fd.) (::)",
