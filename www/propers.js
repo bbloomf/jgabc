@@ -15,7 +15,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   agnus:{},
   ite:{}
 },includePropers=[],
-// Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found:
+// Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
     "(c4)Al(c)le(d)lu(ixed/hi)ia.(hvhvGE//fd.) (::)",
@@ -365,7 +365,8 @@ $(function(){
         var text,
             truePart = partType;
         if(!isOrdinaryPart) {
-          var plaintext = decompile(gabc,true,sel[part]);
+          var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
+          var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if(isAlleluia(part,plaintext)) {
             truePart = 'alleluia';
             if(part=='graduale') {
@@ -1397,7 +1398,7 @@ $(function(){
           var index2 = temp.indexOf(')',index);
           if(index2>=0) {
             // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
-            var shift = parseInt(gAmenTones[1],23) - parseInt(gMediant[0],23);
+            var shift = parseInt(gMediant[0],23) - parseInt(gAmenTones[1],23);
             if(isNaN(shift)) shift = 0;
             temp = temp.slice(0,index) + shiftGabc(gAmenTones[i],shift) + temp.slice(index2);
           }
@@ -1648,8 +1649,6 @@ $(function(){
         var header;
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
-          var originalClef = regexGabcClef.exec(originalGabc);
-          var psalmToneClef;
         }
         gabc += psalmToneIntroitGloriaPatri(gMediant,gTermination,gAmenTones,clef);
         ++i;
@@ -1880,10 +1879,8 @@ $(function(){
     }
   }
 
-  var updateExsurge = function(part, id, updateFromOldScore) {
-    var prop = sel[part];
-    var ctxt = prop.ctxt;
-    var gabc = prop.activeGabc;
+  // this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
+  function removeNotApplicableFromGabc(gabc) {
     var TP = selTempus == 'Pasch';
     if(gabc.match(/\+[^)]*\(/)) {
       // if it has a + (†) that marks T.P or extra T.P
@@ -1901,6 +1898,14 @@ $(function(){
       gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
         .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'');
     }
+    return gabc;
+  }
+
+  var updateExsurge = function(part, id, updateFromOldScore) {
+    var prop = sel[part];
+    var ctxt = prop.ctxt;
+    var gabc = prop.activeGabc;
+    gabc = removeNotApplicableFromGabc(gabc);
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
@@ -1913,7 +1918,7 @@ $(function(){
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
-      .replace(/(\s+)(<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make any italicized ij. syllables red
+      .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')

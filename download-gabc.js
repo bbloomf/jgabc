@@ -46,7 +46,9 @@ var latin = window.Hypher.languages.la_VA;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
-                        syls.push(match[1].replace(/[{}]/g,'').replace(/ae/,'æ').replace(/aé/,'ǽ').replace(/A[Ee]/,'Æ').replace(/o[eé]/,'œ'));
+                        var braces = match[1].match(/[{}]/g) || [];
+                        if(braces.length % 2 === 0) match[1] = match[1].replace(/[{}]/g,'');
+                        syls.push(match[1].replace(/ae/,'æ').replace(/aé/,'ǽ').replace(/A[Ee]/,'Æ').replace(/o[eé]/,'œ'));
                       }
                       var otherSyls = latin.hyphenate(syls.join(''));
                       if(otherSyls.length != syls.length) {
