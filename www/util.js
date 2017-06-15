@@ -748,6 +748,30 @@ $(function($) {
     stopTone && stopTone();
     stopTone = null;
   };
+  var pitchRange = [
+    'P1',
+    'm2',
+    'M2',
+    'm3',
+    'M3',
+    'P4',
+    'A4',
+    'P5',
+    'm6',
+    'M6',
+    'm7',
+    'M7',
+    'P8'
+  ];
+  function getPitchRange(semitones) {
+    semitones = Math.abs(semitones);
+    var octaves = Math.floor(semitones / 12);
+    semitones %= 12;
+    var result = pitchRange[semitones];
+    if(!octaves) return result;
+    var number = parseInt(result[1]) + 8*octaves;
+    return result[0] + number;
+  }
   $(document).on('click', function() {
     removeChantContextMenus();
     stopScore();
@@ -778,6 +802,9 @@ $(function($) {
     function changePitch(offset) {
       score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
       $toolbar.find('.start-pitch').text(tones.noteName[score.defaultStartPitch.step]);
+      $toolbar.find('.lowest-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + lowPitch + 120) % 12].slice(0,2));
+      $toolbar.find('.highest-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + highPitch + 120) % 12].slice(0,2));
+      $toolbar.find('.do-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + 120) % 12]);
     }
     $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {
       e.stopPropagation();
@@ -785,7 +812,8 @@ $(function($) {
       playScore(score, score.defaultStartPitch);
       $toolbar.remove();
     }));
-    $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
+    var pitchButtonGroup = $('<div>').addClass('btn-group');
+    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
       e.stopPropagation();
       mouseUpTone();
       changePitch(1);
@@ -793,15 +821,19 @@ $(function($) {
     var mouseDownTone = function() {
       if(!stopTone) stopTone = tones.play(score.defaultStartPitch, {start: true});
     };
-    $toolbar.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch">' + tones.noteName[score.defaultStartPitch.step] + '</span>').click(function(e) {
+    pitchButtonGroup.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch"></span>').click(function(e) {
       e.stopPropagation();
       mouseUpTone();
     }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
-    $toolbar.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
+    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
       e.stopPropagation();
       mouseUpTone();
       changePitch(-1);
     }));
+    $toolbar.append(pitchButtonGroup);
+    $toolbar.append($('<button>').addClass('btn btn-default disabled').html('Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')<br>Do = <span class="do-pitch"></span>'));
+    // update the spans with pitch info:
+    changePitch(0);
     $toolbar.appendTo(document.body);
     var staffTop = $this.parent().offset().top,
         toolbarWidth = $toolbar.outerWidth(),

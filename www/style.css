@@ -32,6 +32,9 @@
   font-weight: normal;
   src: url(data:application/font-woff;charset=utf-8;base64,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) format('woff');
 }
+.lyric-font {
+  font-family: 'Crimson Text', serif;
+}
 body {
   color: #000;
 }
@@ -67,6 +70,7 @@ tspan.selectable{
   cursor:initial;
 }
 .b{font-weight:700}
+.sb{font-weight:600}
 .i{font-style:italic}
 .sc{font-variant:small-caps}
 .trans {font-size:15px;}
@@ -130,6 +134,22 @@ text[source-index][style*="fill:#f00;"].active,
 text[source-index].active tspan[style="font-style:italic;"],
 text[source-index].active [style*="fill:#f00;"] {
   fill: #337ab7!important;
+}
+
+.btn-group-vertical>.btn-group {
+  display: -webkit-flex;
+  display: flex;
+}
+.btn-group-vertical>.btn-group:last-child:not(:first-child)>.btn {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.chant-context .btn.disabled {
+  opacity: 1;
+}
+span.start-pitch {
+  display: inline-block;
+  width: 65px;
 }
 
 @media screen and (max-width: 768px) {
