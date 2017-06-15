@@ -760,8 +760,7 @@ $(function($) {
     'm6',
     'M6',
     'm7',
-    'M7',
-    'P8'
+    'M7'
   ];
   function getPitchRange(semitones) {
     semitones = Math.abs(semitones);
@@ -769,7 +768,7 @@ $(function($) {
     semitones %= 12;
     var result = pitchRange[semitones];
     if(!octaves) return result;
-    var number = parseInt(result[1]) + 8*octaves;
+    var number = parseInt(result[1]) + 8*octaves - 1;
     return result[0] + number;
   }
   $(document).on('click', function() {
