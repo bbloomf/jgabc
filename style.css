@@ -132,6 +132,22 @@ text[source-index].active [style*="fill:#f00;"] {
   fill: #337ab7!important;
 }
 
+.btn-group-vertical>.btn-group {
+  display: -webkit-flex;
+  display: flex;
+}
+.btn-group-vertical>.btn-group:last-child:not(:first-child)>.btn {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.chant-context .btn.disabled {
+  opacity: 1;
+}
+span.start-pitch {
+  display: inline-block;
+  width: 65px;
+}
+
 @media screen and (max-width: 768px) {
   .ss-border-bottom {
     border-bottom: 1px solid #ddd;
