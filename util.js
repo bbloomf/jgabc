@@ -662,7 +662,7 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     if(dropCap)
       dropCap.classList.add('active');
     var noteId = 0;
-    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
+    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
     function playNextNote(){
@@ -748,7 +748,7 @@ $(function($) {
     stopTone && stopTone();
     stopTone = null;
   };
-  var pitchRange = [
+  var pitchInterval = [
     'P1',
     'm2',
     'M2',
@@ -766,7 +766,7 @@ $(function($) {
     semitones = Math.abs(semitones);
     var octaves = Math.floor(semitones / 12);
     semitones %= 12;
-    var result = pitchRange[semitones];
+    var result = pitchInterval[semitones];
     if(!octaves) return result;
     var number = parseInt(result[1]) + 8*octaves - 1;
     return result[0] + number;
@@ -794,15 +794,18 @@ $(function($) {
     });
     // default to putting the middle pitch at G above middle C
     score.defaultStartPitch = score.defaultStartPitch || new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {
       $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
     }
     function changePitch(offset) {
-      score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
-      $toolbar.find('.start-pitch').text(tones.noteName[score.defaultStartPitch.step]);
-      $toolbar.find('.lowest-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + lowPitch + 120) % 12].slice(0,2));
-      $toolbar.find('.highest-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + highPitch + 120) % 12].slice(0,2));
+      if(offset) score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+      var lowestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + lowPitch);
+      var highestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + highPitch);
+      $toolbar.find('.start-pitch').html(tones.noteName[score.defaultStartPitch.step] + '<sub>' + score.defaultStartPitch.octave + '</sub>');
+      $toolbar.find('.lowest-pitch').html(tones.noteName[lowestPitch.step].slice(0,2) + '<sub>' + lowestPitch.octave + '</sub>');
+      $toolbar.find('.highest-pitch').html(tones.noteName[highestPitch.step].slice(0,2) + '<sub>' + highestPitch.octave + '</sub>');
       $toolbar.find('.do-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + 120) % 12]);
     }
     $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {
