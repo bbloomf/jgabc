@@ -667,7 +667,7 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     _isPlaying = true;
     function playNextNote(){
       var note = notes[noteId];
-      if(noteElem) noteElem.classList.remove('active');
+      if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
       if(originalSvg != score.svg || note == null) {
         if(syllable) syllable.classList.remove('active');
         _isPlaying = false;
@@ -690,8 +690,13 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
       }
       noteElem = note.svgNode;
       if(noteElem) {
-        if(noteElem.attributes.getNamedItem('href').value == '#None') {
+        var href = noteElem.attributes.getNamedItem('href').value;
+        if(href == '#None') {
           noteElem = noteElem.previousSibling;
+          noteElem.classList.remove('porrectus-left');
+          noteElem.classList.add('porrectus-right');
+        } else if(/^#Porrectus/.test(href)) {
+          noteElem.classList.add('porrectus-left');
         }
         noteElem.classList.add('active');
         var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
@@ -735,7 +740,7 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     _isPlaying=false;
   }
   window.removeChantContextMenus = function() {
-    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
+    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }

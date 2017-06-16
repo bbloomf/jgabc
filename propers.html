@@ -479,9 +479,17 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+    <linearGradient id="porrectus-left" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#0061b5"/>
+      <stop offset="150%" stop-color="rgba(0,0,0,0.4)"/>
+    </linearGradient>
+    <linearGradient id="porrectus-right" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="-50%" stop-color="rgba(0,0,0,0.4)"/>
+      <stop offset="100%"   stop-color="#0061b5"/>
+    </linearGradient>
     <!-- <filter id="porrectus-glow-left" x="-150%" y="-150%" width="400%" height="400%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow" width="10%" x="-8%"/>
-      <feFlood flood-color="#f00" result="COLOR" />
+      <feFlood flood-color="#337ab7" result="COLOR" x="0" y="0" width="50%" height="100%"/>
       <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
       <feMerge>
         <feMergeNode in="glow-color"/>
@@ -491,7 +499,7 @@
     </filter>
     <filter id="porrectus-glow-right" x="-150%" y="-150%" width="400%" height="400%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="5 5" result="glow" width="10%" x="2%"/>
-      <feFlood flood-color="#f00" result="COLOR" />
+      <feFlood flood-color="#337ab7" result="COLOR" x="0" y="0" width="50%" height="100%"/>
       <feComposite in="COLOR" in2="glow" operator="in" result="glow-color" />
       <feMerge>
         <feMergeNode in="glow-color"/>
