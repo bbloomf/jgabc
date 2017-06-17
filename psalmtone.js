@@ -156,6 +156,13 @@ var o_g_tones =
                                 'E':"hr g h ih gr 'gf e."
                                }
                  },
+             '4. antiquo':{clef:"c4",
+                  mediant:"e gh hr g h 'i hr h.",
+                  solemn:"h gh hr hg gi i 'hi hr h.",
+                  terminations:{'g':"hr 'h gr g.",
+                                'E':"hr g h ih gr 'gf e."
+                               }
+                 },
              '4 alt':{clef:"c3",
                       mediant:"i hi ir h i 'j ir i.",
                       solemn:"i hi ir ih hj j 'ij ir i.",
