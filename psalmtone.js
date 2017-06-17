@@ -164,14 +164,23 @@ var o_g_tones =
                                }
                  },
              '4 alt':{clef:"c3",
-                      mediant:"i hi ir h i 'j ir i.",
-                      solemn:"i hi ir ih hj j 'ij ir i.",
-                      terminations:{'c':"ir 'i hr h.",
-                                    'A':"ir h i j 'h fr f.",
-                                    'A*':"ir h i j 'h fr fg..",
-                                    'd':"ir h i j 'h ir i."
-                                   }
-                     },
+                  mediant:"i hi ir h i 'j ir i.",
+                  solemn:"i hi ir ih hj j 'ij ir i.",
+                  terminations:{'c':"ir 'i hr h.",
+                                'A':"ir h i j 'h fr f.",
+                                'A*':"ir h i j 'h fr fg..",
+                                'd':"ir h i j 'h ir i."
+                               }
+                 },
+             '4 antiquo alt':{clef:"c3",
+                  mediant:"f hi ir h i 'j ir i.",
+                  solemn:"i hi ir ih hj j 'ij ir i.",
+                  terminations:{'c':"ir 'i hr h.",
+                                'A':"ir h i j 'h fr f.",
+                                'A*':"ir h i j 'h fr fg..",
+                                'd':"ir h i j 'h ir i."
+                               }
+                 },
              '5.':{clef:"c3",
                   mediant:"d f hr 'i hr h.",
                   solemn:"d f hr i 'i hr h.",
