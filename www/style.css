@@ -122,6 +122,12 @@ use[source-index].active {
   fill: #337ab7;
   filter: url(#note-glow);
 }
+use.active.porrectus-left {
+  fill: url(#porrectus-left);
+}
+use.active.porrectus-right {
+  fill: url(#porrectus-right);
+}
 [part].show-gabc text[source-index]:hover,
 text[source-index].active {
   fill: #337ab7;

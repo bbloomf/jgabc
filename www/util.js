@@ -662,12 +662,12 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     if(dropCap)
       dropCap.classList.add('active');
     var noteId = 0;
-    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; }));
+    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
     function playNextNote(){
       var note = notes[noteId];
-      if(noteElem) noteElem.classList.remove('active');
+      if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
       if(originalSvg != score.svg || note == null) {
         if(syllable) syllable.classList.remove('active');
         _isPlaying = false;
@@ -690,8 +690,13 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
       }
       noteElem = note.svgNode;
       if(noteElem) {
-        if(noteElem.attributes.getNamedItem('href').value == '#None') {
+        var href = noteElem.attributes.getNamedItem('href').value;
+        if(href == '#None') {
           noteElem = noteElem.previousSibling;
+          noteElem.classList.remove('porrectus-left');
+          noteElem.classList.add('porrectus-right');
+        } else if(/^#Porrectus/.test(href)) {
+          noteElem.classList.add('porrectus-left');
         }
         noteElem.classList.add('active');
         var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
@@ -735,20 +740,101 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     _isPlaying=false;
   }
   window.removeChantContextMenus = function() {
-    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
+    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }
 })(window);
 
 $(function($) {
+  window.setActiveChantElement = function(elem) {
+    var href = elem.href && elem.href.baseVal;
+    if(href === '#None') {
+      var previous = elem.previousSibling;
+      if(/^#Porrectus/.test(previous.href.baseVal)) {
+        previous.classList.add('active','porrectus-right');
+      }
+    } else if(/^#Porrectus/.test(href)) {
+      elem.classList.add('active','porrectus-left');
+    } else {
+      elem.classList.add('active');
+    }
+  }
+  window.unsetActiveChantElement = function(elem) {
+    var href = elem.href && elem.href.baseVal;
+    if(href === '#None') {
+      var previous = elem.previousSibling;
+      if(/^#Porrectus/.test(previous.href.baseVal)) {
+        elem = previous;
+      }
+    }
+    elem.classList.remove('active','porrectus-left','porrectus-right');
+  }
+  window.findChantElementNear = function(svg,pageX,pageY) {
+    var $svg = $(svg),
+        x = pageX - $svg.offset().left,
+        $lines = $svg.find('g.chantLine'),
+        score = svg.source,
+        lines = score.lines;
+    for(var i=$lines.length - 1; i >= 0; --i) {
+      var top = $($lines[i]).offset().top;
+      if(top < pageY) {
+        var line = lines[i];
+        var y = pageY - top + line.notationBounds.y;
+        break;
+      }
+    }
+    if(!line) return null;
+    for(i = line.notationsStartIndex + line.numNotationsOnLine - 1; i >= line.notationsStartIndex; --i) {
+      var notation = score.notations[i];
+      if(notation.bounds.x < x) {
+        x -= notation.bounds.x;
+        break;
+      }
+    }
+    if(notation.notes) {
+      for(i = notation.notes.length - 1; i >= 0; --i) {
+        var note = notation.notes[i];
+        if(note.bounds.x < x) {
+          var href = note.svgNode.href.baseVal;
+          var match;
+          if((match = href.match(/^#(?:Podatus(Upper|Lower)|Terminating(Asc|Des)Liquescent|)$/))) {
+            // if the note is podatus upper or lower, we need to consider the vertical coordinate
+            var notes = [note];
+            if(match[1]=='Lower') {
+              // PodatusLower
+              notes.push(notation.notes[i + 1]);
+            } else if(match[2]=='Des') {
+              // DesLiquescent
+              notes.push(notation.notes[i - 1]);
+            } else {
+              // PodatusUpper or AscLiquescent
+              notes.unshift(notation.notes[i - 1]);
+            }
+            // find y midpoint between bottom of top and top of bottom, and pick bottom if y is below that and top otherwise.
+            var midY = (notes[1].bounds.bottom() + notes[0].bounds.y) / 2;
+            note = (y > midY)? notes[0] : notes[1];
+          } else if(/^#Porrectus/.test(href)) {
+            // find x midpoint, and pick note based on that
+            var notes = [note, notation.notes[i + 1]];
+            var midX = note.bounds.x + (note.bounds.width / 2);
+            note = (x <= midX)? notes[0] : notes[1];
+          }
+          return note.svgNode;
+        }
+      }
+    } else if(notation.hasLyrics()) {
+      return $svg.find('[source-index=' + notation.lyrics[0].sourceIndex + ']')[0];
+    }
+    return null;
+  }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var stopTone;
   var mouseUpTone = function() {
     stopTone && stopTone();
     stopTone = null;
   };
-  var pitchRange = [
+  var pitchInterval = [
     'P1',
     'm2',
     'M2',
@@ -766,7 +852,7 @@ $(function($) {
     semitones = Math.abs(semitones);
     var octaves = Math.floor(semitones / 12);
     semitones %= 12;
-    var result = pitchRange[semitones];
+    var result = pitchInterval[semitones];
     if(!octaves) return result;
     var number = parseInt(result[1]) + 8*octaves - 1;
     return result[0] + number;
@@ -794,15 +880,18 @@ $(function($) {
     });
     // default to putting the middle pitch at G above middle C
     score.defaultStartPitch = score.defaultStartPitch || new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {
       $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
     }
     function changePitch(offset) {
-      score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
-      $toolbar.find('.start-pitch').text(tones.noteName[score.defaultStartPitch.step]);
-      $toolbar.find('.lowest-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + lowPitch + 120) % 12].slice(0,2));
-      $toolbar.find('.highest-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + highPitch + 120) % 12].slice(0,2));
+      if(offset) score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+      var lowestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + lowPitch);
+      var highestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + highPitch);
+      $toolbar.find('.start-pitch').html(tones.noteName[score.defaultStartPitch.step] + '<sub>' + score.defaultStartPitch.octave + '</sub>');
+      $toolbar.find('.lowest-pitch').html(tones.noteName[lowestPitch.step].slice(0,2) + '<sub>' + lowestPitch.octave + '</sub>');
+      $toolbar.find('.highest-pitch').html(tones.noteName[highestPitch.step].slice(0,2) + '<sub>' + highestPitch.octave + '</sub>');
       $toolbar.find('.do-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + 120) % 12]);
     }
     $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {

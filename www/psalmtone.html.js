@@ -574,7 +574,7 @@ function cancelZip(e){
   $("#lnkCancelZip").hide();
 }
 function annotationTextFormat(text,psalmNum,tone,ending){
-  var tone = tone.replace(/Introit /g,'');
+  var tone = tone.replace(/Introit /g,'').match(/^\S+/)[0];
   tone = tone + (ending ? ending : '');
   if(psalmNum.match(/\d+/)){
     psalmNum='Psalm ' + psalmNum;
