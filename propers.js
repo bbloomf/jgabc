@@ -2830,6 +2830,8 @@ console.info(JSON.stringify(selPropers));
     proper.activeExsurge = gabc;
     updateFromActiveExsurge(e.data.part, null, true);
   }
+  var touchedElement = null;
+  var originalTouch = null;
   $(document).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
@@ -2837,6 +2839,29 @@ console.info(JSON.stringify(selPropers));
     var $part = $(this).parents('[part]'),
         part = $part.attr('part');
     removeSplicesForPart(part);
+  }).on('touchstart touchmove', 'div.chant-preview', function(e) {
+    if(touchedElement) unsetActiveChantElement(touchedElement);
+    if(e.originalEvent.targetTouches.length !== 1) return;
+    var svg = $(this).children('svg')[0];
+    if(!svg) return;
+    var touch = e.originalEvent.targetTouches[0];
+    if(e.type == 'touchstart') {
+      removeChantContextMenus();
+      originalTouch = touch;
+    } else {
+      // if the touch was to scroll the page, we don't want to click on the element or keep it highlighted.
+      if(Math.abs(originalTouch.clientY - touch.clientY) > 25) {
+        touchedElement = null;
+        return;
+      }
+    }
+    touchedElement = findChantElementNear(svg, touch.pageX, touch.pageY);
+    if(touchedElement) setActiveChantElement(touchedElement);
+  }).on('touchend', 'div.chant-preview', function(e) {
+    if(touchedElement) {
+      e.preventDefault();
+      $(touchedElement).click();
+    }
   }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap)', function(e) {
     var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();

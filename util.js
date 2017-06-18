@@ -747,6 +747,87 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 })(window);
 
 $(function($) {
+  window.setActiveChantElement = function(elem) {
+    var href = elem.href && elem.href.baseVal;
+    if(href === '#None') {
+      var previous = elem.previousSibling;
+      if(/^#Porrectus/.test(previous.href.baseVal)) {
+        previous.classList.add('active','porrectus-right');
+      }
+    } else if(/^#Porrectus/.test(href)) {
+      elem.classList.add('active','porrectus-left');
+    } else {
+      elem.classList.add('active');
+    }
+  }
+  window.unsetActiveChantElement = function(elem) {
+    var href = elem.href && elem.href.baseVal;
+    if(href === '#None') {
+      var previous = elem.previousSibling;
+      if(/^#Porrectus/.test(previous.href.baseVal)) {
+        elem = previous;
+      }
+    }
+    elem.classList.remove('active','porrectus-left','porrectus-right');
+  }
+  window.findChantElementNear = function(svg,pageX,pageY) {
+    var $svg = $(svg),
+        x = pageX - $svg.offset().left,
+        $lines = $svg.find('g.chantLine'),
+        score = svg.source,
+        lines = score.lines;
+    for(var i=$lines.length - 1; i >= 0; --i) {
+      var top = $($lines[i]).offset().top;
+      if(top < pageY) {
+        var line = lines[i];
+        var y = pageY - top + line.notationBounds.y;
+        break;
+      }
+    }
+    if(!line) return null;
+    for(i = line.notationsStartIndex + line.numNotationsOnLine - 1; i >= line.notationsStartIndex; --i) {
+      var notation = score.notations[i];
+      if(notation.bounds.x < x) {
+        x -= notation.bounds.x;
+        break;
+      }
+    }
+    if(notation.notes) {
+      for(i = notation.notes.length - 1; i >= 0; --i) {
+        var note = notation.notes[i];
+        if(note.bounds.x < x) {
+          var href = note.svgNode.href.baseVal;
+          var match;
+          if((match = href.match(/^#(?:Podatus(Upper|Lower)|Terminating(Asc|Des)Liquescent|)$/))) {
+            // if the note is podatus upper or lower, we need to consider the vertical coordinate
+            var notes = [note];
+            if(match[1]=='Lower') {
+              // PodatusLower
+              notes.push(notation.notes[i + 1]);
+            } else if(match[2]=='Des') {
+              // DesLiquescent
+              notes.push(notation.notes[i - 1]);
+            } else {
+              // PodatusUpper or AscLiquescent
+              notes.unshift(notation.notes[i - 1]);
+            }
+            // find y midpoint between bottom of top and top of bottom, and pick bottom if y is below that and top otherwise.
+            var midY = (notes[1].bounds.bottom() + notes[0].bounds.y) / 2;
+            note = (y > midY)? notes[0] : notes[1];
+          } else if(/^#Porrectus/.test(href)) {
+            // find x midpoint, and pick note based on that
+            var notes = [note, notation.notes[i + 1]];
+            var midX = note.bounds.x + (note.bounds.width / 2);
+            note = (x <= midX)? notes[0] : notes[1];
+          }
+          return note.svgNode;
+        }
+      }
+    } else if(notation.hasLyrics()) {
+      return $svg.find('[source-index=' + notation.lyrics[0].sourceIndex + ']')[0];
+    }
+    return null;
+  }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var stopTone;
   var mouseUpTone = function() {
