@@ -787,7 +787,11 @@ $(function($) {
     if(!line) return null;
     for(i = line.notationsStartIndex + line.numNotationsOnLine - 1; i >= line.notationsStartIndex; --i) {
       var notation = score.notations[i];
-      if(notation.bounds.x < x) {
+      var prevNotation = score.notations[i-1];
+      var notationX = notation.bounds.x;
+      if(notation.hasLyrics()) notationX += notation.lyrics[0].bounds.x;
+      if(prevNotation) notationX = Math.max(prevNotation.bounds.right(), notationX);
+      if(notationX < x) {
         x -= notation.bounds.x;
         break;
       }
@@ -795,7 +799,7 @@ $(function($) {
     if(notation.notes) {
       for(i = notation.notes.length - 1; i >= 0; --i) {
         var note = notation.notes[i];
-        if(note.bounds.x < x) {
+        if(i == 0 || note.bounds.x < x) {
           var href = note.svgNode.href.baseVal;
           var match;
           if((match = href.match(/^#(?:Podatus(Upper|Lower)|Terminating(Asc|Des)Liquescent|)$/))) {
