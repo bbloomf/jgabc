@@ -740,7 +740,7 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     _isPlaying=false;
   }
   window.removeChantContextMenus = function() {
-    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
+    $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }
@@ -785,6 +785,9 @@ $(function($) {
       }
     }
     if(!line) return null;
+    if(i == 0 && score.dropCap && x < line.notationBounds.x) {
+      return $svg.find('.dropCap')[0];
+    }
     for(i = line.notationsStartIndex + line.numNotationsOnLine - 1; i >= line.notationsStartIndex; --i) {
       var notation = score.notations[i];
       var prevNotation = score.notations[i-1];
