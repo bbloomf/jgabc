@@ -1,6 +1,6 @@
 {
     "name": "io.github.bbloomf.jgabc",
-    "version": "1.7.6",
+    "version": "1.7.7",
     "displayName": "Chant Tools",
     "cordova": {
         "platforms": [
