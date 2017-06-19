@@ -2868,6 +2868,7 @@ console.info(JSON.stringify(selPropers));
     e.stopPropagation();
     var $this = $(this),
         $neume = $this.parent(),
+        $svg = $this.parents('svg'),
         $part = $this.parents('[part]'),
         showingGabc = $part.hasClass('show-gabc'),
         part = $part.attr('part'),
@@ -2913,44 +2914,47 @@ console.info(JSON.stringify(selPropers));
           }
           break;
       }
-      if(noteProperties.acceptsBarBefore || noteProperties.acceptsBarAfter || noteProperties.isRepeatedNote || noteProperties.hasEpisemata || noteProperties.hasMorae) {
-        var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
-        if(noteProperties.acceptsBarBefore) {
-          $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
-          if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
-        }
-        if(noteProperties.acceptsBarAfter) {
-          $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
-          if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
-        }
-        if(noteProperties.isRepeatedNote)
-          $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange));
-        if(noteProperties.hasEpisemata) {
-          $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange));
-          if(noteProperties.isTorculus) {
-            $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange));
-            $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange));
-            $toolbar.append($('<button>').addClass('btn btn-primary').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange));
-            $toolbar.append($('<button>').addClass('btn btn-primary').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange));
-          }
-        }
-        if(noteProperties.hasMorae)
-          $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
-        this.classList.add('active');
-        $toolbar.appendTo(document.body);
-        var $neume = (noteProperties.$neume || $neume.parent()),
-            staffTop = $neume.parent().offset().top,
-            neumeTop = $neume.offset().top - 4,
-            toolbarWidth = $toolbar.outerWidth(),
-            left = $neume.offset().left + ( $neume.width() - toolbarWidth) / 2,
-            bodyWidth = $(document.body).outerWidth();
-        if(left < 8) left = 8;
-        if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
-        $toolbar.offset({
-          top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
-          left: left
-        });
+      var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
+      if(noteProperties.acceptsBarBefore) {
+        $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
+        if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
       }
+      if(noteProperties.acceptsBarAfter) {
+        $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
+        if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
+      }
+      if(noteProperties.isRepeatedNote)
+        $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange));
+      if(noteProperties.hasEpisemata) {
+        $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange));
+        if(noteProperties.isTorculus) {
+          $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-primary').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange));
+          $toolbar.append($('<button>').addClass('btn btn-primary').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange));
+        }
+      }
+      if(noteProperties.hasMorae)
+        $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
+      $toolbar.append($('<button>').addClass('btn btn-info').text('Play Chant from here').click(function(e) {
+        e.stopPropagation();
+        playScore($svg[0].source, null, noteProperties.note);
+        removeChantContextMenus();
+      }))
+      this.classList.add('active');
+      $toolbar.appendTo(document.body);
+      var $neume = (noteProperties.$neume || $neume.parent()),
+          staffTop = $neume.parent().offset().top,
+          neumeTop = $neume.offset().top - 4,
+          toolbarWidth = $toolbar.outerWidth(),
+          left = $neume.offset().left + ( $neume.width() - toolbarWidth) / 2,
+          bodyWidth = $(document.body).outerWidth();
+      if(left < 8) left = 8;
+      if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
+      $toolbar.offset({
+        top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
+        left: left
+      });
     }
   });
   selTempus = getSeasonForMoment(new moment());

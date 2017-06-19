@@ -638,6 +638,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
   }
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
+function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
+  return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+}
 
 (function(window) {
   var baseFreq = 130, timeoutNextNote, transpose = 0;
@@ -649,20 +652,28 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
   setTempo = function(newTempo) { tempo = newTempo || 150; }
   setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
   var noteElem, syllable;
-  window.playScore = function(score, firstPitch){
-    if(!firstPitch) firstPitch = 48;
-    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
+  window.playScore = function(score, firstPitch, startNote){
     window.clearTimeout(timeoutNextNote);
     if(syllable) {
       syllable.classList.remove('active');
       syllable = null;
     }
     var originalSvg = score.svg;
-    var dropCap = $('text', originalSvg)[0];
+    var dropCap = !startNote && $('text', originalSvg)[0];
     if(dropCap)
       dropCap.classList.add('active');
     var noteId = 0;
     var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
+    if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
+    if(!firstPitch) firstPitch = score.defaultStartPitch;
+    if(!firstPitch) {
+      var startPitch = notes[0].pitch.toInt(),
+          pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
+          lowPitch = Math.min.apply(null, pitches),
+          highPitch = Math.max.apply(null, pitches);
+      firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
+    }
+    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
     function playNextNote(){
@@ -740,7 +751,7 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
     _isPlaying=false;
   }
   window.removeChantContextMenus = function() {
-    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
+    $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }
@@ -785,9 +796,16 @@ $(function($) {
       }
     }
     if(!line) return null;
+    if(i == 0 && score.dropCap && x < line.notationBounds.x) {
+      return $svg.find('.dropCap')[0];
+    }
     for(i = line.notationsStartIndex + line.numNotationsOnLine - 1; i >= line.notationsStartIndex; --i) {
       var notation = score.notations[i];
-      if(notation.bounds.x < x) {
+      var prevNotation = score.notations[i-1];
+      var notationX = notation.bounds.x;
+      if(notation.hasLyrics()) notationX += notation.lyrics[0].bounds.x;
+      if(prevNotation) notationX = Math.max(prevNotation.bounds.right(), notationX);
+      if(notationX < x) {
         x -= notation.bounds.x;
         break;
       }
@@ -795,7 +813,7 @@ $(function($) {
     if(notation.notes) {
       for(i = notation.notes.length - 1; i >= 0; --i) {
         var note = notation.notes[i];
-        if(note.bounds.x < x) {
+        if(i == 0 || note.bounds.x < x) {
           var href = note.svgNode.href.baseVal;
           var match;
           if((match = href.match(/^#(?:Podatus(Upper|Lower)|Terminating(Asc|Des)Liquescent|)$/))) {
@@ -879,7 +897,7 @@ $(function($) {
       });
     });
     // default to putting the middle pitch at G above middle C
-    score.defaultStartPitch = score.defaultStartPitch || new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+    score.defaultStartPitch = score.defaultStartPitch || calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
 
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {

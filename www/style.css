@@ -35,6 +35,12 @@
 .lyric-font {
   font-family: 'Crimson Text', serif;
 }
+text.lyric,
+text.dropCap,
+text.annotation {
+  -webkit-user-select: none;
+  user-select: none;
+}
 body {
   color: #000;
 }
