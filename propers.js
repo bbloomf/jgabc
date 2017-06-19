@@ -2936,11 +2936,18 @@ console.info(JSON.stringify(selPropers));
       }
       if(noteProperties.hasMorae)
         $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
-      $toolbar.append($('<button>').addClass('btn btn-info').text('Play Chant from here').click(function(e) {
+      $toolbar.append($('<button>').addClass('btn btn-info').html('<span class="glyphicon glyphicon-play"></span> Play Chant from here').click(function(e) {
         e.stopPropagation();
         playScore($svg[0].source, null, noteProperties.note);
         removeChantContextMenus();
-      }))
+      }));
+      if(isPlayingChant && isPlayingChant()) {
+        $toolbar.append($('<button>').addClass('btn btn-danger').html('<span class="glyphicon glyphicon-stop"></span> Stop').click(function(e) {
+          e.stopPropagation();
+          stopScore();
+          removeChantContextMenus();
+        }));        
+      }
       this.classList.add('active');
       $toolbar.appendTo(document.body);
       var $neume = (noteProperties.$neume || $neume.parent()),

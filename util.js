@@ -652,6 +652,9 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   setTempo = function(newTempo) { tempo = newTempo || 150; }
   setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
   var noteElem, syllable;
+  window.isPlayingChant = function() {
+    return _isPlaying;
+  }
   window.playScore = function(score, firstPitch, startNote){
     window.clearTimeout(timeoutNextNote);
     if(syllable) {
@@ -937,7 +940,7 @@ $(function($) {
       changePitch(-1);
     }));
     $toolbar.append(pitchButtonGroup);
-    $toolbar.append($('<button>').addClass('btn btn-default disabled').html('Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')<br>Do = <span class="do-pitch"></span>'));
+    $toolbar.append($('<button>').addClass('btn btn-default active disabled').html('<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')</div><div>Do = <span class="do-pitch"></span></div>'));
     // update the spans with pitch info:
     changePitch(0);
     $toolbar.appendTo(document.body);
