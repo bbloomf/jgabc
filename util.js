@@ -638,6 +638,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
   }
 };
 var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
+function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
+  return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+}
 
 (function(window) {
   var baseFreq = 130, timeoutNextNote, transpose = 0;
@@ -649,20 +652,28 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
   setTempo = function(newTempo) { tempo = newTempo || 150; }
   setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
   var noteElem, syllable;
-  window.playScore = function(score, firstPitch){
-    if(!firstPitch) firstPitch = 48;
-    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
+  window.playScore = function(score, firstPitch, startNote){
     window.clearTimeout(timeoutNextNote);
     if(syllable) {
       syllable.classList.remove('active');
       syllable = null;
     }
     var originalSvg = score.svg;
-    var dropCap = $('text', originalSvg)[0];
+    var dropCap = !startNote && $('text', originalSvg)[0];
     if(dropCap)
       dropCap.classList.add('active');
     var noteId = 0;
     var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
+    if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
+    if(!firstPitch) firstPitch = score.defaultStartPitch;
+    if(!firstPitch) {
+      var startPitch = notes[0].pitch.toInt(),
+          pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
+          lowPitch = Math.min.apply(null, pitches),
+          highPitch = Math.max.apply(null, pitches);
+      firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
+    }
+    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
     function playNextNote(){
@@ -886,7 +897,7 @@ $(function($) {
       });
     });
     // default to putting the middle pitch at G above middle C
-    score.defaultStartPitch = score.defaultStartPitch || new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
+    score.defaultStartPitch = score.defaultStartPitch || calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
 
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {
