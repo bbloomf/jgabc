@@ -805,17 +805,21 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     );
   }
 
+  window.mapString = function(map, index) {
+    // maps a[index] to index of b
+    for(var i=0; i<map.length; ++i) {
+      if(index >= map[i][0] && (i === map.length - 1 || index < map[i+1][0])) {
+        return map[i][1] + index - map[i][0];
+      }
+    }
+  }
+
   // returns a function that will map indices in string a to indices in string b
   window.makeExsurgeToGabcMapper = function(a,b) {
     var map;
     return function(index) {
       if(!map) map = mapStrings(a, b);
-      // maps a[index] to index of b
-      for(var i=0; i<map.length; ++i) {
-        if(index >= map[i][0] && (i === map.length - 1 || index < map[i+1][0])) {
-          return map[i][1] + index - map[i][0];
-        }
-      }
+      return mapString(map, index);
     }
   }
 })(window);
