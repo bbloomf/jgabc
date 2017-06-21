@@ -586,6 +586,33 @@ $(function() {
   $("#selLanguage").change(selLanguageChanged);
   $("#lnkDownloadPng").click(savePng);
   $("#lnkDownloadSvg").click(saveAsSvg);
+  function selectSourceIndex(index, $svgContainer, e) {
+    if(score.mapExsurgeToGabc) index = score.mapExsurgeToGabc(index);
+    var textarea;
+    if($('#oneBox').is(':visible')) {
+      textarea = $('#editor')[0];
+    } else {
+      if(e.currentTarget.tagName == 'use') {
+        textarea = $('#hymngabc');
+        index = mapGabcToHymnGabc(index);
+      } else {
+        textarea = $('#hymntext');
+        index = mapGabcToHymnText(index);
+      }
+    }
+    var length = 0;
+    if(e.currentTarget.tagName == 'use') {
+      length = 1;
+    } else {
+      try {
+        length = e.currentTarget.source.text.length;
+      } catch(e) { }
+    }
+    textarea.setSelectionRange(index, index + length);
+    textarea.focus();
+    return index;
+  }
+  registerChantClicks && registerChantClicks($('#chant-preview'), selectSourceIndex );
   var getGabc = function(){
     var gabc = $('#editor').val(),
         header = getHeader(gabc);
@@ -664,8 +691,10 @@ $(function() {
     if(header['initial-style']!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(ctxt, header.annotation);
     }
+    score.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, this.value);
     layoutChant();
   });
+
   function getWidthInPixels(header) {
     var width = header.width || header.cValues.width;
     var match = width && width.match(/(\d+(?:\.\d+)?)(in|(([mc]?)m))?/);
