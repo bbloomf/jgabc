@@ -652,6 +652,9 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   setTempo = function(newTempo) { tempo = newTempo || 150; }
   setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
   var noteElem, syllable;
+  window.isPlayingChant = function() {
+    return _isPlaying;
+  }
   window.playScore = function(score, firstPitch, startNote){
     window.clearTimeout(timeoutNextNote);
     if(syllable) {
@@ -755,9 +758,79 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
   }
+  var mapStrings = window.mapStrings = function(before, after, beforeStart, afterStart) {
+    beforeStart = beforeStart || 0;
+    afterStart = afterStart || 0;
+    var oldIndexMap = {}, i;
+    for (i = 0; i < before.length; i++) {
+        oldIndexMap[before[i]] = oldIndexMap[before[i]] || [];
+        oldIndexMap[before[i]].push(i);
+    }
+    var overlap = [], startOld, startNew, subLength, inew;
+    startOld = startNew = subLength = 0;
+
+    for (inew = 0; inew < after.length; inew++) {
+        var _overlap                = [];
+        oldIndexMap[after[inew]]    = oldIndexMap[after[inew]] || [];
+        for (i = 0; i < oldIndexMap[after[inew]].length; i++) {
+            var iold        = oldIndexMap[after[inew]][i];
+            // now we are considering all values of val such that
+            // `before[iold] == after[inew]`
+            _overlap[iold]  = ((iold && overlap[iold-1]) || 0) + 1;
+            if (_overlap[iold] > subLength) {
+                // this is the largest substring seen so far, so store its
+                // indices
+                subLength   = _overlap[iold];
+                startOld    = iold - subLength + 1;
+                startNew    = inew - subLength + 1;
+            }
+        }
+        overlap = _overlap;
+    }
+
+    if (subLength === 0) {
+        // If no common substring is found, we return an insert and delete...
+        var result = [];
+        before.length && result.push(['-', before]);
+        after.length  && result.push(['+', after]);
+        return [];
+    }
+
+    // ...otherwise, the common substring is unchanged and we recursively
+    // diff the text before and after that substring
+    return [].concat(
+        mapStrings(before.slice(0, startOld), after.slice(0, startNew), beforeStart, afterStart),
+        [[beforeStart + startOld, afterStart + startNew, subLength]],
+        mapStrings(before.slice(startOld + subLength), after.slice(startNew + subLength), beforeStart+startOld+subLength, afterStart+startNew+subLength)
+    );
+  }
+
+  window.mapString = function(map, index) {
+    // maps a[index] to index of b
+    for(var i=0; i<map.length; ++i) {
+      if(index >= map[i][0] && (i === map.length - 1 || index < map[i+1][0])) {
+        return map[i][1] + index - map[i][0];
+      }
+    }
+  }
+
+  // returns a function that will map indices in string a to indices in string b
+  window.makeExsurgeToGabcMapper = function(a,b) {
+    var map;
+    return function(index) {
+      if(!map) map = mapStrings(a, b);
+      return mapString(map, index);
+    }
+  }
 })(window);
 
 $(function($) {
+  window.registerChantClicks = function($svgContainer, selectSourceIndex) {
+    $svgContainer.on('click', 'use[source-index],text[source-index]:not(.dropCap)', function(e) {
+      selectSourceIndex(this.source.sourceIndex, $svgContainer, e);
+    });
+  }
+
   window.setActiveChantElement = function(elem) {
     var href = elem.href && elem.href.baseVal;
     if(href === '#None') {
@@ -937,7 +1010,7 @@ $(function($) {
       changePitch(-1);
     }));
     $toolbar.append(pitchButtonGroup);
-    $toolbar.append($('<button>').addClass('btn btn-default disabled').html('Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')<br>Do = <span class="do-pitch"></span>'));
+    $toolbar.append($('<button>').addClass('btn btn-default active disabled').html('<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')</div><div>Do = <span class="do-pitch"></span></div>'));
     // update the spans with pitch info:
     changePitch(0);
     $toolbar.appendTo(document.body);

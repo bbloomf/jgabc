@@ -5,7 +5,8 @@ var hy_options = {
   var regexGabc = /(((?:([`,;:]\d*z?)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.|$))/ig;
 var emptyGabc={gabc:'()',hasSyllable:true};
 var emptySylElision={syl:'',punctuation:'',elision:1};
-var _hymnGabcMap=[];
+var _hymnGabcMap=[],
+    _textGabcMap=[];
 var gabcStar;
 function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
   var result = "",
@@ -80,7 +81,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
     cSyl = syl[i];
     if(!elisionOn) cGabc = gSyl[iG++]||emptyGabc;
     if(cGabc.isClef && (iG==1||i>0)){
-      _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
+      _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
       result+=cGabc.gabc;
       cGabc = gSyl[iG++]||emptyGabc;
     }
@@ -90,6 +91,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
       if(j > 0) {
         result+='|';
       }
+      _textGabcMap.push([result.length+mapOffset - 1, curSyl.index - ((curSyl.syl.match(/^\s*/)[0]).length) + (syl.offset || 0)]);
       result+=curSyl.syl;
       if(curSyl.punctuation.length > 0) {
         if(curSyl.space && curSyl.punctuation.match(/(^|[^\\])\\$/)) {
@@ -107,12 +109,12 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
       if(cSyl.elision) {
         if(useElisionGabc) {
           if(!cGabc.tones || cGabc.tones.length<=1) {
-            _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
+            _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
             result+=cGabc.gabc.replace(/'/g,"");
             elisionOn=true;
           } else {
             if(!elisionGabc)elisionGabc=cGabc;
-            _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
+            _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
             result+='('+elisionGabc.tones[elisionOn]+')';
             ++elisionOn;
             if(elisionOn >= elisionGabc.tones.length) elisionOn = elisionGabc.tones.length-1;
@@ -124,7 +126,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
           --iG;
         }
       } else {
-        _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
+        _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
         result+=cGabc.gabc;
         elisionGabc=null;
         elisionOn=0;
@@ -151,7 +153,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
           } else {
             result+=" ";
           }
-          _hymnGabcMap[result.length+mapOffset] = cGabc.index + indexOffset;
+          _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
           result+=cGabc.gabc;
         }
         //newLines = 1;
@@ -205,6 +207,7 @@ function updateEditor() {
   }
   var result = headerString;
   _hymnGabcMap = [];
+  _textGabcMap = [];
   for(var i=0; i<count; ++i) {
     result += applyGabc(syl[i],gSyl[i],i<maxCount-1,result.length,headerString.length) + '\n';
   }
@@ -380,9 +383,13 @@ function shiftGabc(e) {
 function updateSyl(txt) {
   var tmp=(txt||$("#hymntext").val()).split(regexDashedLine);
   syl=[];
+  var offset = 0;
   tmp.forEach(
     function(a,b){
-      syl.push(splitText(a));
+      var o = splitText(a);
+      o.offset = offset;
+      syl.push(o);
+      offset += a.length + 4;
     });
 }
 
@@ -586,6 +593,33 @@ $(function() {
   $("#selLanguage").change(selLanguageChanged);
   $("#lnkDownloadPng").click(savePng);
   $("#lnkDownloadSvg").click(saveAsSvg);
+  function selectSourceIndex(index, $svgContainer, e) {
+    if(score.mapExsurgeToGabc) index = score.mapExsurgeToGabc(index);
+    var textarea;
+    if($('#oneBox').is(':visible')) {
+      textarea = $('#editor')[0];
+    } else {
+      if(e.currentTarget.tagName == 'use') {
+        textarea = $('#hymngabc')[0];
+        index = mapString(_hymnGabcMap,index);
+      } else {
+        textarea = $('#hymntext')[0];
+        index = mapString(_textGabcMap,index);
+      }
+    }
+    var length = 0;
+    if(e.currentTarget.tagName == 'use') {
+      length = 1;
+    } else {
+      try {
+        length = e.currentTarget.source.text.length;
+      } catch(e) { }
+    }
+    textarea.setSelectionRange(index, index + length);
+    textarea.focus();
+    return index;
+  }
+  registerChantClicks && registerChantClicks($('#chant-preview'), selectSourceIndex );
   var getGabc = function(){
     var gabc = $('#editor').val(),
         header = getHeader(gabc);
@@ -664,8 +698,10 @@ $(function() {
     if(header['initial-style']!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(ctxt, header.annotation);
     }
+    score.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, this.value);
     layoutChant();
   });
+
   function getWidthInPixels(header) {
     var width = header.width || header.cValues.width;
     var match = width && width.match(/(\d+(?:\.\d+)?)(in|(([mc]?)m))?/);
