@@ -643,14 +643,11 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
 }
 
 (function(window) {
-  var baseFreq = 130, timeoutNextNote, transpose = 0;
-  window.tempo=200;
-  playPitch = function(pitch, options){
-    tones.play(pitch, options, transpose);
-  }
+  var timeoutNextNote, transpose = 0;
+  window.tempo=165;
   var _isPlaying=false;
-  setTempo = function(newTempo) { tempo = newTempo || 150; }
-  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 150; }
+  setTempo = function(newTempo) { tempo = newTempo || 165; }
+  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 165; }
   var noteElem, syllable;
   window.isPlayingChant = function() {
     return _isPlaying;
@@ -742,7 +739,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
         var durationMS = duration * 60000 / tempo - tones.attack;
         var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS - tones.attack / 2, release: tones.attack};
-        playPitch(note.pitch, options);
+        tones.play(note.pitch, options, transpose);
       }
       ++noteId;
       if(noteId >= notes.length) _isPlaying = false;
