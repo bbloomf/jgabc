@@ -1809,6 +1809,8 @@ $(function(){
   }
   function makeChantContextForSel(sel) {
     var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
+    ctxt.condenseLineAmount = 2;
+    ctxt.setGlyphScaling(1/16);
     ctxt.lyricTextFont = "'Crimson Text', serif";
     ctxt.lyricTextSize *= 1.2;
     ctxt.dropCapTextFont = ctxt.lyricTextFont;
