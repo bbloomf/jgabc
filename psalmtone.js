@@ -1081,6 +1081,19 @@ var _getSyllables = function(text,bi) {
     lastI = index + match[0].length;
   }
   getWords(syl);
+  // add any implicit accents:
+  var lastAccentI = syl.length;
+  for(var i=syl.length - 1; i >= 0; --i) {
+    var s = syl[i];
+    // if it's gone through all syllables, or it is on an accented syllable:
+    if(i < 0 || s.accent) {
+      // go two syllables back from the last accent seen, and add an accent as long as it is more than one syllable ahead of the current accent.
+      while((lastAccentI -= 2) > i + 1) {
+        syl[lastAccentI].accent = true;
+      }
+      lastAccentI = i;
+    }
+  }
   return syl;
 }
 var getSyllables = _getSyllables;
