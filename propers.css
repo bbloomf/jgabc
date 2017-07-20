@@ -157,6 +157,7 @@ div[part].show-gabc {
 }
 .show-gabc .chant-parent {
   border:1px solid #aaa;
+  padding: 0 4px;
   min-height:119px;
 }
 div[part] {
@@ -219,14 +220,17 @@ button.toggle-mediant[state="flex"]::before {
 @media(min-width: 500px) {
   .verses,
   .asperges-verses {
-    font-size: 3.84vw; /* 19.2 / (500 * 0.01) */
+    font-size: 3.96vw; /* 19.2 / ((500 - 16) * 0.01) */
   }
   .show-gabc .verses,
   .show-gabc .asperges-verses {
-    font-size: 1.92vw;
+    font-size: 1.98vw;
   }
 }
-@media(min-width: 1302px) { /* 100 * (50 / 3.84) */
+@media(min-width: 1262px) { /* (100 * (50 / 3.96)) */
+  body {
+    max-width: 1258px;
+  }
   .verses,
   .asperges-verses {
     font-size: 50px;
