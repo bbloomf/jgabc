@@ -216,9 +216,19 @@ button.toggle-mediant[state="flex"]::before {
   display: none;
 }
 
-@media(min-width: 480px) {
+@media(min-width: 500px) {
   .verses,
   .asperges-verses {
-    font-size: 4vw;
+    font-size: 3.84vw; /* 19.2 / (500 * 0.01) */
+  }
+  .show-gabc .verses,
+  .show-gabc .asperges-verses {
+    font-size: 1.92vw;
+  }
+}
+@media(min-width: 1302px) { /* 100 * (50 / 3.84) */
+  .verses,
+  .asperges-verses {
+    font-size: 50px;
   }
 }

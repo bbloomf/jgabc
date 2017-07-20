@@ -1935,7 +1935,7 @@ $(function(){
     if(availableWidth == 0) {
       availableWidth = $(document.body).width() - 16;
     }
-    var newWidth = Math.min(464, availableWidth);
+    var newWidth = Math.min(484, availableWidth);
     if(sel[part].chantScaleIf && sel[part].chantScaleIf[0].matches) {
       newWidth = Math.floor(newWidth / sel[part].chantScaleIf[1]);
     }
