@@ -1,3 +1,4 @@
+window.matchMedia = window.matchMedia || function() { return { matches: false }};
 var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   tractus:{},
   offertorium:{},
@@ -679,7 +680,7 @@ $(function(){
           noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/)),
           scale: 1
         };
-        if(chant.chantScaleIf && window.matchMedia) {
+        if(chant.chantScaleIf) {
           sel[part].chantScaleIf = [window.matchMedia(chant.chantScaleIf[0]), chant.chantScaleIf[1]];
         }
         var $curElement;
@@ -1929,16 +1930,30 @@ $(function(){
     if(!chantContainer.length) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
-    var scale = 1;
-    if(sel[part].chantScaleIf) {
-      if(sel[part].chantScaleIf[0].matches) {
-        scale = sel[part].chantScaleIf[1];
-      }
-    } else if(sel[part].chantScale) {
-      scale = sel[part].chantScale;
-    }
-    var newWidth = Math.floor(chantContainer.width() / scale);
     if(!score) return;
+    var availableWidth = chantContainer.width();
+    if(availableWidth == 0) {
+      availableWidth = $(document.body).width() - 16;
+    }
+    var newWidth = Math.min(484, availableWidth);
+    if(sel[part].chantScaleIf && sel[part].chantScaleIf[0].matches) {
+      newWidth = Math.floor(newWidth / sel[part].chantScaleIf[1]);
+    }
+
+    if(ctxt.width == newWidth) {
+      var svg = chantContainer.find('svg')[0];
+      if(newWidth == availableWidth && svg && svg.hasAttribute('viewBox')) {
+        var match = svg.getAttribute('viewBox').match(/0 0 ([0-9.]+) ([0-9.]+)/);
+        svg.setAttribute('width',match[1]);
+        svg.setAttribute('height',match[2]);
+        svg.removeAttribute('viewBox');
+      } else if(newWidth != availableWidth && svg && svg.hasAttribute('width')) {
+        svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
+        svg.removeAttribute('width');
+        svg.removeAttribute('height');
+      }
+      return;
+    }
     ctxt.width = newWidth;
     // perform layout on the chant
     if(synchronous) {
@@ -1952,7 +1967,7 @@ $(function(){
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
-          if(scale == 1) {
+          if(newWidth == availableWidth) {
             svg.removeAttribute('viewBox');
           } else {
             svg.removeAttribute('width');
