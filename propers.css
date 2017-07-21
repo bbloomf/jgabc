@@ -230,6 +230,7 @@ button.toggle-mediant[state="flex"]::before {
 @media(min-width: 1262px) { /* (100 * (50 / 3.96)) */
   body {
     max-width: 1258px;
+    margin: auto;
   }
   .verses,
   .asperges-verses {
