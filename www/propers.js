@@ -1897,6 +1897,7 @@ $(function(){
       var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
       score = prop.score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
     }
+    ctxt.width = 0;
     prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
     if(gabcHeader.original) {
       var annotationArray = sel[part].annotationArray || gabcHeader.annotationArray;
