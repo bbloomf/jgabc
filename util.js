@@ -647,13 +647,14 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   window.tempo=165;
   var _isPlaying=false;
   setTempo = function(newTempo) { tempo = newTempo || 165; }
-  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 165; }
+  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 165; return tempo; }
   var noteElem, syllable;
   window.isPlayingChant = function() {
     return _isPlaying;
   }
   window.playScore = function(score, firstPitch, startNote){
     window.clearTimeout(timeoutNextNote);
+    $('#mediaControls').removeClass('offscreen');
     if(syllable) {
       syllable.classList.remove('active');
       syllable = null;
@@ -676,7 +677,9 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     if(firstPitch.toInt) firstPitch = firstPitch.toInt();
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
-    function playNextNote(){
+    function playNextNote(supressTimeout){
+      window.clearTimeout(timeoutNextNote);
+      if(supressTimeout) timeoutNextNote = null;
       var note = notes[noteId];
       if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
       if(originalSvg != score.svg || note == null) {
@@ -685,11 +688,12 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
       }
       if(!_isPlaying) {
         if(dropCap) dropCap.classList.remove('active');
+        $('#mediaControls').addClass('offscreen');
         return;
       }
       var duration = 1;
       if(note.constructor != exsurge.Note) {
-        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar || supressTimeout)) {
           if(!(note = notes[++noteId])) return;
         }
         if(note.isDivider) {
@@ -743,12 +747,23 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
       }
       ++noteId;
       if(noteId >= notes.length) _isPlaying = false;
-      timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
+      if(!supressTimeout) timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
     };
     timeoutNextNote = window.setTimeout(playNextNote);
+    window.playNextNote = playNextNote;
+    window.playPauseScore = function() {
+      if(timeoutNextNote) {
+        window.clearTimeout(timeoutNextNote);
+        timeoutNextNote = null;
+      } else {
+        playNextNote();
+        return true;
+      }
+    }
   };
   window.stopScore = function(){
     _isPlaying=false;
+    $('#mediaControls').addClass('offscreen');
   }
   window.removeChantContextMenus = function() {
     $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
@@ -947,8 +962,21 @@ $(function($) {
   }
   $(document).on('click', function() {
     removeChantContextMenus();
-    stopScore();
     mouseUpTone();
+  }).on('click', '#mediaControls .btn.play-pause', function(e) {
+    e.stopPropagation();
+    var playing = playPauseScore();
+    $(this).find('.glyphicon').removeClass('glyphicon-play glyphicon-pause').addClass('glyphicon-' + (playing? 'pause' : 'play'));
+  }).on('click', '#mediaControls .btn.step-forward', function(e) {
+    e.stopPropagation();
+    playNextNote(true);
+    $('#mediaControls .btn.play-pause .glyphicon').removeClass('glyphicon-play glyphicon-pause').addClass('glyphicon-play');
+  }).on('click', '#mediaControls .btn.tempo-minus, #mediaControls .btn.tempo-plus', function(e) {
+    e.stopPropagation();
+    var tempo = setRelativeTempo(5 * ($(this).hasClass('tempo-plus')? 1 : -1));
+    $('#tempo-number').text(tempo);
+  }).on('click', '#mediaControls .btn.stop', function(e) {
+    stopScore();
   }).on('click', 'svg text.dropCap', function(e) {
     e.stopPropagation();
     removeChantContextMenus();

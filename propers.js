@@ -2899,13 +2899,6 @@ console.info(JSON.stringify(selPropers));
         playScore($svg[0].source, null, noteProperties.note);
         removeChantContextMenus();
       }));
-      if(isPlayingChant && isPlayingChant()) {
-        $toolbar.append($('<button>').addClass('btn btn-danger').html('<span class="glyphicon glyphicon-stop"></span> Stop').click(function(e) {
-          e.stopPropagation();
-          stopScore();
-          removeChantContextMenus();
-        }));        
-      }
       this.classList.add('active');
       $toolbar.appendTo(document.body);
       var $neume = (noteProperties.$neume || $neume.parent()),
