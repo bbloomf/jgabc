@@ -760,6 +760,14 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         return true;
       }
     }
+    window.highlightCurrentlyPlayingNote = function() {
+      if(noteElem) {
+        noteElem.classList.add('active');
+      }
+      if(syllable) {
+        syllable.classList.add('active');
+      }
+    }
   };
   window.stopScore = function(){
     _isPlaying=false;
@@ -769,6 +777,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     $('[part] use[source-index].active,[part] text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
+    if(_isPlaying) window.highlightCurrentlyPlayingNote && window.highlightCurrentlyPlayingNote();
   }
   var mapStrings = window.mapStrings = function(before, after, beforeStart, afterStart) {
     beforeStart = beforeStart || 0;
