@@ -678,11 +678,8 @@ $(function(){
           id: chant.id,
           style: 'full',
           noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/)),
-          scale: 1
+          sticky: chant.sticky === 0
         };
-        if(chant.chantScaleIf) {
-          sel[part].chantScaleIf = [window.matchMedia(chant.chantScaleIf[0]), chant.chantScaleIf[1]];
-        }
         var $curElement;
         $curElement = $('<div>').attr('id',part+'-preview')
         makeChantContextForSel(sel[part]);
@@ -700,7 +697,7 @@ $(function(){
           }
         };
         if(options) {
-          // in case its sticky, we want the option to be sticky too:
+          // in case it's sticky, we want the option to be sticky too:
           $curElement = $('<div>').append($curElement);
           var optionID = 0;
           var optionKeys = Object.keys(options);
@@ -1925,6 +1922,25 @@ $(function(){
     }
   }
 
+  function makeSvgNoMoreThanHalfWindowHeight(svg,parent) {
+    var height, width;
+    if(svg.hasAttribute('width') && svg.hasAttribute('height')) {
+      width = parseFloat(svg.getAttribute('width'));
+      height = parseFloat(svg.getAttribute('height'));
+    } else if(svg.hasAttribute('viewBox')) {
+      var match = svg.getAttribute('viewBox').match(/0 0 ([0-9.]+) ([0-9.]+)/);
+      width = parseFloat(match[1]);
+      height = parseFloat(match[2]);
+    }
+    if(width && height) {
+      var availableWidth = (parent || svg.parentElement).clientWidth;
+      var scale = Math.max(0.8, (window.innerHeight * 0.4) / height);
+      scale = Math.min(scale, availableWidth / width);
+      svg.style.width = width * scale;
+      svg.style.marginLeft = (availableWidth - (width * scale)) / 2;
+    }
+  }
+
   var layoutChant = function(part, synchronous, id) {
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
@@ -1937,8 +1953,13 @@ $(function(){
       availableWidth = $(document.body).width() - 16;
     }
     var newWidth = Math.min(484, availableWidth);
-    if(sel[part].chantScaleIf && sel[part].chantScaleIf[0].matches) {
-      newWidth = Math.floor(newWidth / sel[part].chantScaleIf[1]);
+    var useNoMoreThanHalfHeight = false;
+    if(sel[part].sticky) {
+      if(newWidth == availableWidth) {
+        newWidth = Math.floor(newWidth / 0.8);
+      } else {
+        useNoMoreThanHalfHeight = true;
+      }
     }
 
     if(ctxt.width == newWidth) {
@@ -1952,6 +1973,11 @@ $(function(){
         svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
         svg.removeAttribute('width');
         svg.removeAttribute('height');
+      }
+      svg.style.width = '';
+      svg.style.marginLeft = '';
+      if(useNoMoreThanHalfHeight) {
+        makeSvgNoMoreThanHalfWindowHeight(svg);
       }
       return;
     }
@@ -1968,6 +1994,9 @@ $(function(){
         score.layoutChantLines(ctxt, ctxt.width, function() {
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
+          if(useNoMoreThanHalfHeight) {
+            makeSvgNoMoreThanHalfWindowHeight(svg,chantContainer[0]);
+          }
           if(newWidth == availableWidth) {
             svg.removeAttribute('viewBox');
           } else {

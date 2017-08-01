@@ -80,6 +80,12 @@ textarea {
   margin: 0.75em 0 -0.5em;
   line-height: 1;
 }
+div[part] > div.block:first-child {
+  background: white;
+  position: sticky;
+  top: -1px;
+  padding: 1px 0 0;
+}
 text.aboveLinesText {
   fill: #d00!important;
 }
