@@ -183,6 +183,12 @@ function updateEditor() {
   var maxCount = Math.max(gsCount,sCount);
   var header = getHeader(localStorage.transcribeHeader||'');
   header["initial-style"] = (syl[0] && syl[0][0] && !syl[0][0].all.match(/^[A-Z]/))? '0' : '1';
+  if(localStorage.selLanguage == 'en' && !("centering-scheme" in header)) {
+    header["centering-scheme"] = 'english';
+  } else if(("centering-scheme" in header) && header['centering-scheme'] != 'latin' && /^la/.exec(localStorage.selLanguage)) {
+    delete header["centering-scheme"];
+    delete header.centeringScheme;
+  }
   var headerString = header.toString();
   var $gabc = $("#hymngabc");
   if($gabc.is(":visible")){
@@ -400,6 +406,7 @@ function updateText() {
 
 function selLanguageChanged() {
   localStorage.selLanguage = $(this).val();
+  updateEditor();
 }
 
 function decompile(mixed) {
@@ -666,7 +673,6 @@ $(function() {
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
       .replace(/<v>\\greheightstar<\/v>/g,'*')
-      .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
       .replace(/<\/?i>/g,'_')
@@ -698,6 +704,9 @@ $(function() {
     if(header['initial-style']!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(ctxt, header.annotation);
     }
+    var language = header['centering-scheme'] == 'english'? exsurgeEnglish : new exsurge.Latin();
+    exportContext.defaultLanguage = language;
+    ctxt.defaultLanguage = language;
     score.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, this.value);
     layoutChant();
   });

@@ -846,6 +846,23 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
 })(window);
 
 $(function($) {
+  /**
+   * @param {String} s the string to search
+   * @param {Number} startIndex The index at which to start searching for a vowel in the string
+   * @retuns a custom class with three properties: {found: (true/false) startIndex: (start index in s of vowel segment) length ()}
+   */
+  function findEnglishVowelSegment(s, startIndex) {
+
+    var i, end, index;
+    var regexLetter = /[a-zäëïöüÿáéíóúýàèìòùỳāēīōūȳăĕĭŏŭæœ]+/i;
+    var match = regexLetter.exec(s.slice(startIndex));
+    if(match)
+      return { found: true, startIndex: startIndex + match.index, length: match[0].length };
+
+    // no vowels sets found after startIndex!
+    return { found: false, startIndex: -1, length: -1 };
+  }
+  window.exsurgeEnglish = {findVowelSegment: findEnglishVowelSegment};
   window.registerChantClicks = function($svgContainer, selectSourceIndex) {
     $svgContainer.on('click', 'use[source-index],text[source-index]:not(.dropCap)', function(e) {
       selectSourceIndex(this.source.sourceIndex, $svgContainer, e);
