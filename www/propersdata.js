@@ -396,8 +396,7 @@ var extraChants = {
       rubric: "After the prayers, the Priest puts incense into the thurible. Whilst he distributes the candles, the choir sings:",
       id: 2897,
       gabcReplace: [/\s*\(Z\)[^#]*/,''], // remove everything after the first (Z)
-      sticky: 0,
-      chantScaleIf: ["(max-width: 450px)", 0.8]
+      sticky: 0
     }, {
       id: 2897,
       gabcReplace: [/(\n%%\r?\n\s*\([cf][1-4]\)\s*)[^#]*?\(Z\)/,'\ninitial-style: 0;$1'], // remove the first verse (up to the first (Z))
@@ -441,8 +440,7 @@ var extraChants = {
     }, {
       rubric: "After the Blessing, the Celebrant distributes the Palms, whilst the Choir sings the following Antiphons:",
       id: 1215,
-      sticky: 0,
-      chantScaleIf: ["(max-width: 450px)", 0.8]
+      sticky: 0
     }, {
       rubric: "<Psalm 23, 1–2 and 7–10>",
       gabc: "initial-style: 0;\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
@@ -459,8 +457,7 @@ var extraChants = {
       sticky: 1
     }, {
       id: 1155,
-      sticky: 0,
-      chantScaleIf: ["(max-width: 450px)", 0.8]
+      sticky: 0
     }, {
       rubric: "<Psalm 46>",
       gabc: "initial-style: 0;\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) 2.(::) Quó(h)ni(h)am...(h)",
@@ -493,8 +490,7 @@ var extraChants = {
     }, {
       rubric: "In the course of the procession the following hymn is sung. If possible, the whole congregation should sing each time the refrain <Glória laus> as shown below.",
       id: 259,
-      sticky: 0,
-      chantScaleIf: ["(max-width: 450px)", 0.8]
+      sticky: 0
     }, {
       rubric: "All: <Glória, laus.> The choir:",
       id: "259-2"
@@ -517,8 +513,7 @@ var extraChants = {
         "VIII G*": 532,
         "VIII G": 1092
       },
-      sticky: 0,
-      chantScaleIf: ["(max-width: 450px)", 0.8]
+      sticky: 0
     }, {
       rubric: "<Psalm 147>",
       gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) 2.(::) Quó(j)ni(j)am...(j)",
@@ -596,7 +591,6 @@ var extraChants = {
             id: 157,
         }, {
             sticky: 0,
-            chantScaleIf: ["(max-width: 450px)", 0.8],
             gabc: "initial-style: 1;\n\
 annotation: <sp>V/</sp>.;\n\
 %%\n\
@@ -628,8 +622,7 @@ et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::
         }, {
             rubric: "Both choirs repeat: <Pópule meus> as far as the v/.&nbsp;<Quia>",
             id: 157,
-            sticky: 0,
-            chantScaleIf: ["(max-width: 450px)", 0.8]
+            sticky: 0
         }, {
             sticky: 1,
             gabc: "initial-style: 0;\n\
@@ -665,7 +658,6 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
         }, {
             rubric: "<Crux fidélis> is then sung and the hymn <Pange, lingua, gloriósi>  After the first stanza of the hymn, v/.&nbsp;<Crux fidélis> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum> is repeated. This alternate repetition takes place after each stanza of the hymn.",
             sticky: 0,
-            chantScaleIf: ["(max-width: 450px)", 0.8],
             id: 1128
         }, {
             id: 2209,
