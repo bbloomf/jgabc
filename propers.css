@@ -89,16 +89,6 @@ div[part] > div.block:first-child {
 text.aboveLinesText {
   fill: #d00!important;
 }
-[style*="fill:#f00;"] {
-  fill: #d00!important;
-}
-tspan[style*="font-family:'Exsurge Characters';fill:#f00;"] {
-  font-family: 'Versiculum'!important;
-  font-variant: normal!important;
-  font-size: 106%;
-  text-transform: lowercase!important;
-  font-weight: 400!important;
-}
 .rubric {
   font-family: 'Crimson Text';
   font-size: 120%;

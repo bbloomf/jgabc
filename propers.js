@@ -1813,6 +1813,14 @@ $(function(){
     ctxt.lyricTextSize *= 1.2;
     ctxt.dropCapTextFont = ctxt.lyricTextFont;
     ctxt.annotationTextFont = ctxt.lyricTextFont;
+    
+    ctxt.specialCharProperties['font-family'] = "'Versiculum'";
+    ctxt.specialCharProperties['font-variant'] = 'normal';
+    ctxt.specialCharProperties['font-size'] = (1.2 * ctxt.lyricTextSize) + 'px';
+    ctxt.specialCharProperties['font-weight'] = '400';
+    ctxt.specialCharText = char => char.toLowerCase();
+    ctxt.setRubricColor('#d00');
+    
     sel.ctxt = ctxt;
   };
   $.each(sel,function(){
