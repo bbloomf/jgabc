@@ -1813,6 +1813,14 @@ $(function(){
     ctxt.lyricTextSize *= 1.2;
     ctxt.dropCapTextFont = ctxt.lyricTextFont;
     ctxt.annotationTextFont = ctxt.lyricTextFont;
+    
+    ctxt.specialCharProperties['font-family'] = "'Versiculum'";
+    ctxt.specialCharProperties['font-variant'] = 'normal';
+    ctxt.specialCharProperties['font-size'] = (1.2 * ctxt.lyricTextSize) + 'px';
+    ctxt.specialCharProperties['font-weight'] = '400';
+    ctxt.specialCharText = char => char.toLowerCase();
+    ctxt.setRubricColor('#d00');
+    
     sel.ctxt = ctxt;
   };
   $.each(sel,function(){
@@ -1979,6 +1987,7 @@ $(function(){
       if(useNoMoreThanHalfHeight) {
         makeSvgNoMoreThanHalfWindowHeight(svg);
       }
+      updateTextSize(part);
       return;
     }
     ctxt.width = newWidth;
@@ -2028,9 +2037,14 @@ $(function(){
   
   var updateTextSize = function(part){
     var capPart = part[0].toUpperCase()+part.slice(1),
-        $txt = $('#txt'+capPart),
-        $preview = $('#'+part+'-preview');
-    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
+        $part = $('#div'+capPart),
+        isShowing = $part.hasClass('show-gabc');
+    if(isShowing) {
+      var $txt = $('#txt'+capPart),
+          $preview = $('#'+part+'-preview');
+          
+      $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
+    }
   }
   
   var splitGabc = function(gabc){
