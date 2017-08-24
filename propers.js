@@ -1988,6 +1988,7 @@ $(function(){
       // if(useNoMoreThanHalfHeight) {
       //   makeSvgNoMoreThanHalfWindowHeight(svg);
       // }
+      updateTextSize(part);
       return;
     }
     ctxt.width = newWidth;
@@ -2039,9 +2040,14 @@ $(function(){
   
   var updateTextSize = function(part){
     var capPart = part[0].toUpperCase()+part.slice(1),
-        $txt = $('#txt'+capPart),
-        $preview = $('#'+part+'-preview');
-    $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
+        $part = $('#div'+capPart),
+        isShowing = $part.hasClass('show-gabc');
+    if(isShowing) {
+      var $txt = $('#txt'+capPart),
+          $preview = $('#'+part+'-preview');
+          
+      $txt.css('min-height',$preview.parents('.chant-parent').height() - $($txt.prop('labels')).height()).trigger('autosize');
+    }
   }
   
   var splitGabc = function(gabc){
