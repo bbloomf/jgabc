@@ -303,6 +303,7 @@ function getCantica() {
   r.push("Canticum Jeremiae");
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");
+  r.push("Philippians Canticle");
   return r;
 }
 
