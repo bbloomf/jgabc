@@ -1279,7 +1279,14 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
     psalmNum  = psalmNum.slice(0, dotIdx);
   }
   if(useNovaVulgata){
-    if(_novaVulgata==null){
+    if(!/^\d+$/.test(psalmNum)) {
+      // Canticle...
+      $.get("psalms/NovaVulgata/" + psalmNum).done(function(data){
+        success(normalizePsalm(data, psalmNum, psalmPart, includeGloriaPatri));
+      }).fail(function(jqXHR, textStatus){
+        success("ERROR retrieving Canticum '" + psalmNum + "': " + textStatus);
+      });
+    } else if(_novaVulgata==null){
       $.get("psalms/NovaVulgata.txt", function(data){
         _novaVulgata=data;
         getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success);
