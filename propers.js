@@ -183,9 +183,13 @@ $(function(){
         return dates.corpusChristi;
       case "SCJ":
         return dates.sacredHeart;
+      case "EmbWedSept":
+      case "EmbFriSept":
       case "EmbSatSept":
+        var tmp = key[3];
+        tmp = "sMTWRFS".indexOf(tmp);
         m = moment('09-21','MM-DD');
-        m = m.subtract(m.day(), 'days').add(6, 'days');
+        m = m.subtract(m.day(), 'days').add(tmp, 'days');
         break;
       case "ChristusRex":
         return dates.ChristusRex;
@@ -2124,6 +2128,8 @@ $(function(){
 
   i = 1;
   var outoforder = {
+    EmbWedSept: null,
+    EmbFriSept: null,
     EmbSatSept: null,
     ChristusRex: null
   };
