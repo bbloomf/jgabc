@@ -1021,7 +1021,7 @@ $(function(){
           // check whether we can make a satisfactory mediant for each verse:
           var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
           sylCounts = mediantTest.mapSyllableCounts();
-          satisfied = Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          satisfied = mediantTest.length >= 2 && Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
           if(satisfied) {
             addPatternFromSplitLine(result, mediantTest);
             if(i < count - 1) {
