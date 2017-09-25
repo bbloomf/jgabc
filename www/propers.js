@@ -1021,7 +1021,7 @@ $(function(){
           // check whether we can make a satisfactory mediant for each verse:
           var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
           sylCounts = mediantTest.mapSyllableCounts();
-          satisfied = Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          satisfied = mediantTest.length >= 2 && Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
           if(satisfied) {
             addPatternFromSplitLine(result, mediantTest);
             if(i < count - 1) {
@@ -1491,6 +1491,7 @@ $(function(){
     var header = getHeader(sel[part].gabc||'');
     var termination = sel[part].termination;
     var mode = sel[part].mode;
+    var altTone = sel[part].altTone;
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
     var introitTone = false;
@@ -1498,7 +1499,7 @@ $(function(){
       tone = g_tones['Introit ' + mode];
       introitTone = true;
     } else {
-      tone = g_tones[mode + '.'];
+      tone = g_tones[mode + '.' + (altTone? ' alt' : '')];
     }
     if(!tone) return;
     var clef = tone.clef;
@@ -2260,9 +2261,11 @@ $(function(){
     if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + (this.value == sel[part].originalMode? '' : ';' + this.value + (defaultTermination[this.value]||'')));
     }
-    sel[part].mode = this.value;
+    var match = this.value.match(/^(\d+)((?: alt)?)$/);
+    sel[part].mode = match[1];
+    sel[part].altTone = match[2];
     $selEnding = $('#selToneEnding' + capPart);
-    var tone = this.value + '.',
+    var tone = match[1] + '.' + match[2],
         endings = getEndings(tone);
     if(endings.length==0 || (isAlleluia(part,sel[part].text) && sel[part].style != 'psalm-tone2')) {
       $selEnding.hide();
@@ -2278,7 +2281,7 @@ $(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     if((sel[part].style||'').match(/^psalm-tone/)) {
-      addToHash('style'+capPart, sel[part].style + ((sel[part].mode == sel[part].originalMode && this.value==defaultTermination[sel[part].mode])? '' : ';' + sel[part].mode + this.value));
+      addToHash('style'+capPart, sel[part].style + ((sel[part].mode == sel[part].originalMode && this.value==defaultTermination[sel[part].mode])? '' : ';' + sel[part].mode + (sel[part].altTone? ' alt ' : '') + this.value));
     }
     sel[part].termination = this.value;
     updateTextAndChantForPart(part, true);
@@ -2307,6 +2310,9 @@ $(function(){
   var $selTones = $('select.tones').change(selTonesChanged);
   for(var i=1; i<=8; ++i) {
     $selTones.append('<option>'+i+'</option>');
+    if(i == 4 || i == 6) {
+      $selTones.append('<option>'+i+' alt</option>');
+    }
   }
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
@@ -2554,14 +2560,15 @@ console.info(JSON.stringify(selPropers));
           if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
           if(styleParts[1]) {
             var termination = styleParts[1],
-                tone = termination[0],
-                ending = termination.slice(1),
+                match = termination.match(/^(\d+(?: alt)?)\s*([a-gA-G]\*?)?/),
+                tone = match[1],
+                ending = match[2],
                 $selToneEnding = $('#selToneEnding' + capPart),
                 $selTone = $('#selTone' + capPart);
             sel[part].overrideTone = tone;
             sel[part].overrideToneEnding = ending;
             if($selTone.val() != tone) $selTone.val(tone).change();
-            if($selToneEnding.val() != ending) $selToneEnding.val(ending).change();
+            if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
           }
         }
       });

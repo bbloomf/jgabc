@@ -163,7 +163,7 @@ var o_g_tones =
                                 'E':"hr g h ih gr 'gf e."
                                }
                  },
-             '4 alt':{clef:"c3",
+             '4. alt':{clef:"c3",
                   mediant:"i hi ir h i 'j ir i.",
                   solemn:"i hi ir ih hj j 'ij ir i.",
                   terminations:{'c':"ir 'i hr h.",
@@ -172,7 +172,7 @@ var o_g_tones =
                                 'd':"ir h i j 'h ir i."
                                }
                  },
-             '4 antiquo alt':{clef:"c3",
+             '4. antiquo alt':{clef:"c3",
                   mediant:"f hi ir h i 'j ir i.",
                   solemn:"i hi ir ih hj j 'ij ir i.",
                   terminations:{'c':"ir 'i hr h.",
@@ -191,7 +191,7 @@ var o_g_tones =
                   solemn:"f gh hr hg ixgi h hr 'hg gh..",
                   termination:"hr f gh 'g fr f."
                  },
-             '6 alt':{clef:"c4",
+             '6. alt':{clef:"c4",
                       mediant:"f gh hr g 'h fr f.",
                       termination:"hr f gh 'g fr f."
                      },
