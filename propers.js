@@ -1,3 +1,32 @@
+if (typeof Object.assign != 'function') {
+  // Must be writable: true, enumerable: false, configurable: true
+  Object.defineProperty(Object, "assign", {
+    value: function assign(target, varArgs) { // .length of function is 2
+      'use strict';
+      if (target == null) { // TypeError if undefined or null
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+
+      var to = Object(target);
+
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
+
+        if (nextSource != null) { // Skip over if undefined or null
+          for (var nextKey in nextSource) {
+            // Avoid bugs when hasOwnProperty is shadowed
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    },
+    writable: true,
+    configurable: true
+  });
+}
 window.matchMedia = window.matchMedia || function() { return { matches: false }};
 var selDay,selTempus='',selPropers,selOrdinaries={},sel={
   tractus:{},
@@ -1823,7 +1852,7 @@ $(function(){
     ctxt.specialCharProperties['font-variant'] = 'normal';
     ctxt.specialCharProperties['font-size'] = (1.2 * ctxt.lyricTextSize) + 'px';
     ctxt.specialCharProperties['font-weight'] = '400';
-    ctxt.specialCharText = char => char.toLowerCase();
+    ctxt.specialCharText = function(char) { return char.toLowerCase() };
     ctxt.setRubricColor('#d00');
     
     sel.ctxt = ctxt;
@@ -2433,7 +2462,7 @@ console.info(JSON.stringify(selPropers));
   });
   if (window.matchMedia) {
     var mediaQueryList = window.matchMedia('print');
-    mediaQueryList.addListener(function(mql) {
+    mediaQueryList.addListener && mediaQueryList.addListener(function(mql) {
       if (mql.matches) {
         relayoutAllChantSync();
       } else {
@@ -2640,7 +2669,7 @@ console.info(JSON.stringify(selPropers));
     result.acceptsBarAfter = !hasNextNote;
     result.acceptsMora = result.acceptsBarAfter && !result.hasMorae;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
-      let score = neume.score;
+      var score = neume.score;
       notations = score.notations;
       noteIndex = notations.indexOf(neume);
       result.prevNotation = notations[noteIndex-1];
@@ -2665,7 +2694,7 @@ console.info(JSON.stringify(selPropers));
         $current;
     // check to make sure $selected is from the same syllable:
     if($selected && $selected.length) {
-      let selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
+      var selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
           notations = selectedNotation.score.notations,
           index = notations.indexOf(selectedNotation);
       while(index > 0 && !selectedNotation.hasLyrics()) {
@@ -2717,7 +2746,7 @@ console.info(JSON.stringify(selPropers));
     switch(e.data.action) {
       case 'toggleBarBefore':
         if(e.data.barBefore) {
-          let mapping = e.data.barBefore.mapping;
+          var mapping = e.data.barBefore.mapping;
           splice.index = mapping.sourceIndex;
           splice.removeLen = mapping.source.length;
         } else {
@@ -2727,7 +2756,7 @@ console.info(JSON.stringify(selPropers));
         break;
       case 'toggleBarAfter':
         if(e.data.barAfter) {
-          let mapping = e.data.barAfter.mapping;
+          var mapping = e.data.barAfter.mapping;
           splice.index = mapping.sourceIndex;
           splice.removeLen = mapping.source.length;
         } else {
@@ -2740,7 +2769,7 @@ console.info(JSON.stringify(selPropers));
       case 'addCarryOverAfter':
         var bar = e.data.barBefore || e.data.barAfter;
         if(bar) {
-          let mapping = bar.mapping,
+          var mapping = bar.mapping,
               mappings = bar.score.mappings,
               index = mappings.indexOf(mapping),
               beforeBar = mappings[index - 1];
@@ -2750,7 +2779,7 @@ console.info(JSON.stringify(selPropers));
         break;
       case 'removePunctum':
         splice.index = note.sourceIndex;
-        let match = gabc.slice(splice.index).match(regexGabcNote);
+        var match = gabc.slice(splice.index).match(regexGabcNote);
         if(match) {
           splice.removeLen = match[0].length;
           if(match[1].length > 1) {
@@ -2763,11 +2792,11 @@ console.info(JSON.stringify(selPropers));
         break;
       case 'removeEpisema':
         if(noteProperties.isTorculus) {
-          let index = noteProperties.torculusNotes[0].sourceIndex,
+          var index = noteProperties.torculusNotes[0].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
               match = gabc.slice(index2).match(regexGabcNote);
           if(match) {
-            let sub = gabc.slice(index,index2+match[0].length),
+            var sub = gabc.slice(index,index2+match[0].length),
                 regex = /_+/g;
             splice = [];
             while(match = regex.exec(sub)) {
@@ -2788,11 +2817,11 @@ console.info(JSON.stringify(selPropers));
       case 'torculus3':
       case 'torculus12':
         if(noteProperties.torculusNotes) {
-          let index1 = noteProperties.torculusNotes[1].sourceIndex,
+          var index1 = noteProperties.torculusNotes[1].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
               match = gabc.slice(index2).match(regexGabcNote);
           if(match) {
-            let sub = gabc.slice(index2,index2+match[0].length),
+            var sub = gabc.slice(index2,index2+match[0].length),
                 regex = /_+/;
             splice = [];
             if(match = regex.exec(sub)) {
@@ -2893,7 +2922,7 @@ console.info(JSON.stringify(selPropers));
       textarea.focus();
     } else {
       if($part.hasClass('ordinary')) return;
-      let source = this.source,
+      var source = this.source,
           isText = false,
           note,
           notes,
