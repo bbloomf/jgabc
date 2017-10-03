@@ -16,14 +16,17 @@ var latin = window.Hypher.languages.la_VA;
     sylReplacements = {},
     errors = [],
     timeA = new Date(),
+    gabcUrls = '',
     callback = function(startedWorker) {
         if(active > 0 && startedWorker) --active;
         while(i < ids.length && active < max) {
             ++active;
+            gabcUrls += `<a href='gabc/${(ids[i]+'').replace('&elem=','-')}.gabc'>${ids[i]}</a>
+`;
             https.get(url + ids[i],(function(i) {
                 return function(result){
                   var file = path + ids[i] + '.gabc';
-                  file = file.replace('&elem=','-')
+                  file = file.replace('&elem=','-');
                   result.setEncoding('utf8');
                   var fileData = '';
                   result.on('data',function(data){
@@ -92,6 +95,7 @@ var latin = window.Hypher.languages.la_VA;
         }
         if(active === 0 && i == ids.length) {
           var time = (new Date() - timeA) / 1000;
+          fs.writeFileSync('gabc-files.html', gabcUrls);
           console.info('Finished in ' + time + ' seconds!');
           // console.info(replacements.join('\n\n'));
           console.info(errors.join('\n'));
