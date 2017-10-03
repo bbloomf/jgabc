@@ -292,7 +292,7 @@ var saintKeys = [
     {key:"Sep29",title:"Sep 29: St Michael the Archangel",en:"Sep 29: St Michael the Archangel"},
     {key:"Sep30",title:"Sep 30: St Jerome",en:"Sep 30: St Jerome"},
     {key:"Oct2",title:"Oct 2: The Holy Guardian Angels",en:"Oct 2: The Holy Guardian Angels"},
-    {key:"Oct3",title:"Oct 3: St Theresa of the Child Jesus",en:"Oct 3: St Theresa of the Child Jesus"},
+    {key:"Oct3",title:"Oct 3: St Thérèse of the Child Jesus",en:"Oct 3: St Thérèse of the Child Jesus"},
     {key:"Oct4",title:"Oct 4: St Francis of Assisi",en:"Oct 4: St Francis of Assisi"},
     {key:"Oct5",title:"Oct 5: St Placid and Companions",en:"Oct 5: St Placid and Companions"},
     {key:"Oct6",title:"Oct 6: St Bruno",en:"Oct 6: St Bruno"},
