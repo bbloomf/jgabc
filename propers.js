@@ -1175,6 +1175,9 @@ $(function(){
         var lines = sel[part].lines || [[]];
         var pattern = sel[part].pattern || [];
         lines.forEach(function(segments, lineNum) {
+          if(lineNum == 0 && segments.length == 2 && segments[0].match(/^allel[úu][ij]a\.?$/i) && segments[1].match(/<i>i[ij]\.?<\/i>/i)) {
+            segments = ['Allelúia * <i>ij.</i>'];
+          }
           var $lastBtn = $();
           var pat = pattern[lineNum] || [];
           segments.forEach(function(segment, segNum) {
@@ -1205,7 +1208,7 @@ $(function(){
                 result += syl + '</syl>';
                 return result;
               }).join('');
-            }));
+            }).replace(/\*/,'<span class="red">*</span>'));
             var syls = $span.find('syl');
             for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
               var $syl = $(syls[i]);
