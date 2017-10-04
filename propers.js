@@ -953,7 +953,7 @@ $(function(){
         else if(match[rog.gabc].indexOf(':')>=0) text += ' % ';
         else if(match[rog.gabc].indexOf(';')>=0) text += ' | ';
       }
-      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*)<\/i>/))){
+      if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*|i+j?\.?)<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
         hasElisions = hasElisions||(syl!=sylR);
         if(sylR[0]=='e' && text.slice(-1)=='a') {
