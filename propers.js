@@ -2261,7 +2261,7 @@ $(function(){
     if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + (this.value == sel[part].originalMode? '' : ';' + this.value + (defaultTermination[this.value]||'')));
     }
-    var match = this.value.match(/^(\d+)((?: alt)?)$/);
+    var match = this.value.match(/^(\d+|per)((?: alt)?)$/);
     sel[part].mode = match[1];
     sel[part].altTone = match[2];
     $selEnding = $('#selToneEnding' + capPart);
@@ -2314,6 +2314,7 @@ $(function(){
       $selTones.append('<option>'+i+' alt</option>');
     }
   }
+  $selTones.append('<option>per</option>');
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
     var result=[];
@@ -2560,7 +2561,7 @@ console.info(JSON.stringify(selPropers));
           if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
           if(styleParts[1]) {
             var termination = styleParts[1],
-                match = termination.match(/^(\d+(?: alt)?)\s*([a-gA-G]\*?)?/),
+                match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G]\*?)?/),
                 tone = match[1],
                 ending = match[2],
                 $selToneEnding = $('#selToneEnding' + capPart),
