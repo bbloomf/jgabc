@@ -984,7 +984,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\|\s*)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
+    s = s.replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   
@@ -2613,11 +2613,6 @@ console.info(JSON.stringify(selPropers));
   }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
-  function removeChantContextMenus() {
-    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active'); });
-    $('.chant-context').remove();
-    $('.btn-group.open').removeClass('open');
-  }
   function getNoteProperties(note) {
     var neume = note.neume;
     var notations = neume.mapping.notations;

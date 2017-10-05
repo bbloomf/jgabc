@@ -400,6 +400,7 @@ function updateSyl(txt) {
 }
 
 function updateText() {
+  if(!$("#oneBox").is(':hidden')) return;
   updateSyl();
   updateEditor();
 }
