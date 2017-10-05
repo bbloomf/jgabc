@@ -2789,7 +2789,6 @@ console.info(JSON.stringify(selPropers));
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
-        $svg = $this.parents('svg'),
         $part = $this.parents('[part]'),
         showingGabc = $part.hasClass('show-gabc'),
         part = $part.attr('part'),
