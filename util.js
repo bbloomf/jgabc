@@ -779,6 +779,182 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     $('.btn-group.open').removeClass('open');
     if(_isPlaying) window.highlightCurrentlyPlayingNote && window.highlightCurrentlyPlayingNote();
   }
+  var _getNoteProperties = function(note) {
+    var neume = note.neume;
+    var notations = neume.mapping.notations;
+    var notes = notations.reduce(function(result, notation) {
+      if(notation.notes) return result.concat(notation.notes);
+      return result.concat(null);
+    }, []);
+    var noteIndex = notes.indexOf(note);
+    var previousNote = notes[noteIndex-1];
+    var nextNote = notes[noteIndex+1];
+    var hasPreviousNote = !!previousNote;
+    var hasNextNote = !!nextNote;
+    if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
+    if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
+    var result = {note: note, notes: notes, noteIndex: noteIndex};
+    result.isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
+    result.hasMorae = note.morae.length > 0;
+    result.hasEpisemata = note.episemata.length > 0;
+    result.isTorculus = neume.constructor === exsurge.Torculus;
+    if(result.isTorculus) {
+      result.torculusNotes = neume.notes;
+    }
+    result.acceptsBarBefore = !hasPreviousNote;
+    result.acceptsBarAfter = !hasNextNote;
+    result.acceptsMora = result.acceptsBarAfter && !result.hasMorae;
+    if(result.acceptsBarBefore || result.acceptsBarAfter) {
+      let score = neume.score;
+      notations = score.notations;
+      noteIndex = notations.indexOf(neume);
+      result.prevNotation = notations[noteIndex-1];
+      if(result.prevNotation && result.prevNotation.accidentalType) result.prevNotation = notations[noteIndex-2];
+      result.nextNotation = notations[noteIndex+1];
+      if(!result.prevNotation) result.acceptsBarBefore = false;
+      if(result.prevNotation && result.prevNotation.isDivider) {
+        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula) result.hasBarBefore = true;
+        else result.acceptsBarBefore = false;
+      }
+      if(result.nextNotation && result.nextNotation.isDivider) {
+        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula) result.hasBarAfter = true;
+        else result.acceptsBarAfter = result.acceptsBarAfter = false;
+      }
+    }
+    return result;
+  }
+  // go through <use>s in $notation, and move on to siblings of $notation if they do not have lyrics.
+  // start at the selected <use> if any
+  var findNextInterestingNote = function($notation, $selected) {
+    var $originalNotation = $notation,
+        $current;
+    // check to make sure $selected is from the same syllable:
+    if($selected && $selected.length) {
+      let selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
+          notations = selectedNotation.score.notations,
+          index = notations.indexOf(selectedNotation);
+      while(index > 0 && !selectedNotation.hasLyrics()) {
+        selectedNotation = notations[--index];
+      }
+      if(!selectedNotation || selectedNotation.lyrics[0] != $notation[0].source.lyrics[0]) $selected = null;
+    }
+    if($selected && $selected.length) {
+      $current = $selected.nextAll('use').first();
+      $notation = $selected.parent().parent();
+    }
+    var startingNotation = $notation[0];
+    while($notation[0]===startingNotation || !$notation[0].source.hasLyrics()) {
+      var $current = $current? $current : $notation.find('use').first();
+      while($current.length) {
+        var note = $current[0].source;
+        if(note && note.neume) {
+          var properties = _getNoteProperties(note);
+          if(properties.isRepeatedNote || properties.hasEpisemata || properties.hasMorae || properties.acceptsBarBefore || properties.acceptsBarAfter) {
+            $current[0].classList.add('active');
+            properties.$note = $current;
+            properties.$neume = $notation;
+            return properties;
+          }
+        }
+        $current = $current.nextAll('use').first();
+      }
+      $current = null;
+      var temp = $notation.next();
+      if(temp.length === 0) {
+        temp = $notation.parent().next().find('g').first();
+      }
+      $notation = temp;
+      if($notation.length == 0) break;
+    }
+    if($selected && $selected.length) return findNextInterestingNote($originalNotation);
+    return null;
+  }
+  window.showToolbarForNote = function(element, editorialChange, base) {
+    var $elem = $(element),
+        $neume = $elem.parent(),
+        $svg = $elem.parents('svg'),
+        $selected = $svg.find('use[source-index].active'),
+        source = element.source,
+        isText = false,
+        note,
+        noteIndex,
+        neume,
+        notations,
+        noteProperties;
+        
+    switch(element.nodeName) {
+      case 'use':
+        note = source.neume && source;
+        neume = note? note.neume : source;
+        notations = neume.mapping.notations;
+        if(note) {
+          noteProperties = _getNoteProperties(note);
+        } else {
+          noteIndex = notations.indexOf(neume);
+          noteProperties = { acceptsBarAfter: noteIndex === notations.length - 1 };
+        }
+        acceptsBarBefore = noteIndex === 0;
+        break;
+      case 'text':
+        isText = true;
+        $neume = $elem;
+        noteProperties = findNextInterestingNote($neume.parent(), $selected) || {};
+        if(noteProperties.acceptsBarAfter) {
+          neume = noteProperties.note.neume;
+        } else {
+          neume = $neume.parent().find('use').prop('source');
+          if(!noteProperties.note) noteProperties.note = neume;
+          neume = neume && neume.neume;
+        }
+        break;
+    }
+    var $toolbar = noteProperties.toolbar = $('<div>').addClass('chant-context btn-group-vertical');
+    $toolbar.append($('<button>').addClass('btn btn-info').html('<span class="glyphicon glyphicon-play"></span> Play Chant from here').click(function(e) {
+      e.stopPropagation();
+      playScore($svg[0].source, null, noteProperties.note);
+      removeChantContextMenus();
+    }));
+    
+    if(editorialChange && base) {
+      base.noteProperties = noteProperties;
+      if(noteProperties.hasMorae)
+        $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Mora').click($.extend({action:'removeMora'}, base), editorialChange));
+      if(noteProperties.acceptsBarBefore) {
+        if(noteProperties.hasBarBefore) $toolbar.prepend($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click($.extend({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
+        $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click($.extend({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
+      }
+      if(noteProperties.acceptsBarAfter) {
+        if(noteProperties.hasBarAfter) $toolbar.prepend($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
+        $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
+      }
+      if(noteProperties.isRepeatedNote)
+        $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Punctum').click($.extend({action:'removePunctum'}, base), editorialChange));
+      if(noteProperties.hasEpisemata) {
+        if(noteProperties.isTorculus) {
+          $toolbar.prepend($('<button>').addClass('btn btn-primary').html('12<span class="ol">3</span>').click($.extend({action:'torculus3'}, base), editorialChange));
+          $toolbar.prepend($('<button>').addClass('btn btn-primary').html('1<span class="ol">2</span>3').click($.extend({action:'torculus2'}, base), editorialChange));
+          $toolbar.prepend($('<button>').addClass('btn btn-primary').html('<span class="ol">1</span>23').click($.extend({action:'torculus1'}, base), editorialChange));
+          $toolbar.prepend($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click($.extend({action:'torculus12'}, base), editorialChange));
+        }
+        $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Episema').click($.extend({action:'removeEpisema'}, base), editorialChange));
+      }
+    }
+      
+    element.classList.add('active');
+    $toolbar.appendTo(document.body);
+    var $neume = (noteProperties.$neume || $neume.parent()),
+        staffTop = $neume.parent().offset().top,
+        neumeTop = $neume.offset().top - 4,
+        toolbarWidth = $toolbar.outerWidth(),
+        left = $neume.offset().left + ( $neume.width() - toolbarWidth) / 2,
+        bodyWidth = $(document.body).outerWidth();
+    if(left < 8) left = 8;
+    if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
+    $toolbar.offset({
+      top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
+      left: left
+    });
+  }
   var mapStrings = window.mapStrings = function(before, after, beforeStart, afterStart) {
     beforeStart = beforeStart || 0;
     afterStart = afterStart || 0;

@@ -2613,96 +2613,6 @@ console.info(JSON.stringify(selPropers));
   }
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
-  function getNoteProperties(note) {
-    var neume = note.neume;
-    var notations = neume.mapping.notations;
-    var notes = notations.reduce(function(result, notation) {
-      if(notation.notes) return result.concat(notation.notes);
-      return result.concat(null);
-    }, []);
-    var noteIndex = notes.indexOf(note);
-    var previousNote = notes[noteIndex-1];
-    var nextNote = notes[noteIndex+1];
-    var hasPreviousNote = !!previousNote;
-    var hasNextNote = !!nextNote;
-    if(previousNote && neume.hasLyrics() && previousNote.neume.lyrics[0] !== neume.lyrics[0]) previousNote = null;
-    if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
-    var result = {note: note, notes: notes, noteIndex: noteIndex};
-    result.isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
-    result.hasMorae = note.morae.length > 0;
-    result.hasEpisemata = note.episemata.length > 0;
-    result.isTorculus = neume.constructor === exsurge.Torculus;
-    if(result.isTorculus) {
-      result.torculusNotes = neume.notes;
-    }
-    result.acceptsBarBefore = !hasPreviousNote;
-    result.acceptsBarAfter = !hasNextNote;
-    result.acceptsMora = result.acceptsBarAfter && !result.hasMorae;
-    if(result.acceptsBarBefore || result.acceptsBarAfter) {
-      let score = neume.score;
-      notations = score.notations;
-      noteIndex = notations.indexOf(neume);
-      result.prevNotation = notations[noteIndex-1];
-      if(result.prevNotation && result.prevNotation.accidentalType) result.prevNotation = notations[noteIndex-2];
-      result.nextNotation = notations[noteIndex+1];
-      if(!result.prevNotation) result.acceptsBarBefore = false;
-      if(result.prevNotation && result.prevNotation.isDivider) {
-        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula) result.hasBarBefore = true;
-        else result.acceptsBarBefore = false;
-      }
-      if(result.nextNotation && result.nextNotation.isDivider) {
-        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula) result.hasBarAfter = true;
-        else result.acceptsBarAfter = result.acceptsBarAfter = false;
-      }
-    }
-    return result;
-  }
-  // go through <use>s in $notation, and move on to siblings of $notation if they do not have lyrics.
-  // start at the selected <use> if any
-  function findNextInterestingNote($notation, $selected) {
-    var $originalNotation = $notation,
-        $current;
-    // check to make sure $selected is from the same syllable:
-    if($selected && $selected.length) {
-      let selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
-          notations = selectedNotation.score.notations,
-          index = notations.indexOf(selectedNotation);
-      while(index > 0 && !selectedNotation.hasLyrics()) {
-        selectedNotation = notations[--index];
-      }
-      if(!selectedNotation || selectedNotation.lyrics[0] != $notation[0].source.lyrics[0]) $selected = null;
-    }
-    if($selected && $selected.length) {
-      $current = $selected.nextAll('use').first();
-      $notation = $selected.parent().parent();
-    }
-    var startingNotation = $notation[0];
-    while($notation[0]===startingNotation || !$notation[0].source.hasLyrics()) {
-      var $current = $current? $current : $notation.find('use').first();
-      while($current.length) {
-        var note = $current[0].source;
-        if(note && note.neume) {
-          var properties = getNoteProperties(note);
-          if(properties.isRepeatedNote || properties.hasEpisemata || properties.hasMorae || properties.acceptsBarBefore || properties.acceptsBarAfter) {
-            $current[0].classList.add('active');
-            properties.$note = $current;
-            properties.$neume = $notation;
-            return properties;
-          }
-        }
-        $current = $current.nextAll('use').first();
-      }
-      $current = null;
-      var temp = $notation.next();
-      if(temp.length === 0) {
-        temp = $notation.parent().next().find('g').first();
-      }
-      $notation = temp;
-      if($notation.length == 0) break;
-    }
-    if($selected && $selected.length) return findNextInterestingNote($originalNotation);
-    return null;
-  }
   function editorialChange(e) {
     var regexGabcNote = /-?[a-mA-M]([oOwWvVrRsS]*)[xy#~\+><_\.'012345]*(?:\[[^\]]*\]?)*/,
         proper = sel[e.data.part],
@@ -2876,11 +2786,9 @@ console.info(JSON.stringify(selPropers));
       $(touchedElement).click();
     }
   }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap)', function(e) {
-    var $selected = $('[part] use[source-index].active');
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
-        $neume = $this.parent(),
         $svg = $this.parents('svg'),
         $part = $this.parents('[part]'),
         showingGabc = $part.hasClass('show-gabc'),
@@ -2891,83 +2799,7 @@ console.info(JSON.stringify(selPropers));
       textarea.setSelectionRange(gabcIndex, gabcIndex);
       textarea.focus();
     } else {
-      if($part.hasClass('ordinary')) return;
-      let source = this.source,
-          isText = false,
-          note,
-          notes,
-          noteIndex,
-          neume,
-          notations,
-          noteProperties;
-          
-      switch(this.nodeName) {
-        case 'use':
-          note = source.neume && source;
-          neume = note? note.neume : source;
-          notations = neume.mapping.notations;
-          if(note) {
-            noteProperties = getNoteProperties(note);
-          } else {
-            noteIndex = notations.indexOf(neume);
-            noteProperties = { acceptsBarAfter: noteIndex === notations.length - 1 };
-          }
-          acceptsBarBefore = noteIndex === 0;
-          break;
-        case 'text':
-          isText = true;
-          $neume = $this;
-          noteProperties = findNextInterestingNote($this.parent(), $selected) || {};
-          if(noteProperties.acceptsBarAfter) {
-            neume = noteProperties.note.neume;
-          } else {
-            neume = $this.parent().find('use').prop('source');
-            if(!noteProperties.note) noteProperties.note = neume;
-            neume = neume && neume.neume;
-          }
-          break;
-      }
-      var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
-      if(noteProperties.acceptsBarBefore) {
-        $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
-        if(noteProperties.hasBarBefore) $toolbar.append($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation, part: part, noteProperties: noteProperties}, editorialChange));
-      }
-      if(noteProperties.acceptsBarAfter) {
-        $toolbar.append($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
-        if(noteProperties.hasBarAfter) $toolbar.append($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation, part: part, noteProperties: noteProperties}, editorialChange));
-      }
-      if(noteProperties.isRepeatedNote)
-        $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Punctum').click({action:'removePunctum', part: part, noteProperties: noteProperties}, editorialChange));
-      if(noteProperties.hasEpisemata) {
-        $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Episema').click({action:'removeEpisema', part: part, noteProperties: noteProperties}, editorialChange));
-        if(noteProperties.isTorculus) {
-          $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click({action:'torculus12', part: part, noteProperties: noteProperties}, editorialChange));
-          $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="ol">1</span>23').click({action:'torculus1', part: part, noteProperties: noteProperties}, editorialChange));
-          $toolbar.append($('<button>').addClass('btn btn-primary').html('1<span class="ol">2</span>3').click({action:'torculus2', part: part, noteProperties: noteProperties}, editorialChange));
-          $toolbar.append($('<button>').addClass('btn btn-primary').html('12<span class="ol">3</span>').click({action:'torculus3', part: part, noteProperties: noteProperties}, editorialChange));
-        }
-      }
-      if(noteProperties.hasMorae)
-        $toolbar.append($('<button>').addClass('btn btn-danger').text('Remove Mora').click({action:'removeMora', part: part, noteProperties: noteProperties}, editorialChange));
-      $toolbar.append($('<button>').addClass('btn btn-info').html('<span class="glyphicon glyphicon-play"></span> Play Chant from here').click(function(e) {
-        e.stopPropagation();
-        playScore($svg[0].source, null, noteProperties.note);
-        removeChantContextMenus();
-      }));
-      this.classList.add('active');
-      $toolbar.appendTo(document.body);
-      var $neume = (noteProperties.$neume || $neume.parent()),
-          staffTop = $neume.parent().offset().top,
-          neumeTop = $neume.offset().top - 4,
-          toolbarWidth = $toolbar.outerWidth(),
-          left = $neume.offset().left + ( $neume.width() - toolbarWidth) / 2,
-          bodyWidth = $(document.body).outerWidth();
-      if(left < 8) left = 8;
-      if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
-      $toolbar.offset({
-        top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
-        left: left
-      });
+      showToolbarForNote(this, editorialChange, {part: part});
     }
   });
   selTempus = getSeasonForMoment(new moment());
