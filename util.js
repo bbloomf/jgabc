@@ -653,6 +653,9 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     return _isPlaying;
   }
   window.playScore = function(score, firstPitch, startNote){
+    if($('#mediaControls').length == 0) {
+      $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
+    }
     window.clearTimeout(timeoutNextNote);
     $('#mediaControls').removeClass('offscreen');
     if(syllable) {
@@ -774,7 +777,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     $('#mediaControls').addClass('offscreen');
   }
   window.removeChantContextMenus = function() {
-    $('[part] use[source-index].active,[part] text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
+    $('svg.ChantScore use[source-index].active,svg.ChantScore text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
     if(_isPlaying) window.highlightCurrentlyPlayingNote && window.highlightCurrentlyPlayingNote();
