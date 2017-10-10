@@ -912,11 +912,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         break;
     }
     var $toolbar = noteProperties.toolbar = $('<div>').addClass('chant-context btn-group-vertical');
-    $toolbar.append($('<button>').addClass('btn btn-info').html('<span class="glyphicon glyphicon-play"></span> Play Chant from here').click(function(e) {
-      e.stopPropagation();
-      playScore($svg[0].source, null, noteProperties.note);
-      removeChantContextMenus();
-    }));
+    addPitchButtonsToToolbar($toolbar, noteProperties, $svg.prop('source'));
     
     if(editorialChange && base) {
       base.noteProperties = noteProperties;
@@ -1156,6 +1152,67 @@ $(function($) {
     'm7',
     'M7'
   ];
+  window.addPitchButtonsToToolbar = function($toolbar, noteProperties, score) {
+    var isFirstPitch = !noteProperties;
+    var lowPitch = 100000, highPitch = 0;
+    var startPitch = null;
+    var thisPitch = null;
+    score.notations.forEach(function(notation) {
+      if(notation.notes) notation.notes.forEach(function(note) {
+        var pitch = note.pitch.toInt()
+        if(startPitch == null) {
+          startPitch = pitch;
+          if(!isFirstPitch && noteProperties.note === note) isFirstPitch = true;
+          if(isFirstPitch) thisPitch = startPitch;
+        } else if(noteProperties && noteProperties.note === note) {
+          thisPitch = note.pitch.toInt();
+        }
+        lowPitch = Math.min(lowPitch, pitch);
+        highPitch = Math.max(highPitch, pitch);
+      });
+    });
+    // default to putting the middle pitch at G above middle C
+    score.defaultStartPitch = score.defaultStartPitch || calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
+
+    function changePitch(offset) {
+      if(offset) score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+      var lowestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + lowPitch);
+      var highestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + highPitch);
+      var pitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch);
+      $toolbar.find('.this-pitch').html(tones.noteName[pitch.step] + '<sub>' + pitch.octave + '</sub>');
+      $toolbar.find('.lowest-pitch').html(tones.noteName[lowestPitch.step].slice(0,2) + '<sub>' + lowestPitch.octave + '</sub>');
+      $toolbar.find('.highest-pitch').html(tones.noteName[highestPitch.step].slice(0,2) + '<sub>' + highestPitch.octave + '</sub>');
+      $toolbar.find('.do-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + 120) % 12]);
+    }
+    $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play' + (isFirstPitch? '' : ' Chant from here')).click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      playScore(score, score.defaultStartPitch, noteProperties && noteProperties.note);
+      removeChantContextMenus();
+    }));
+    var pitchButtonGroup = $('<div>').addClass('btn-group');
+    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      changePitch(1);
+    }));
+    var mouseDownTone = function() {
+      if(!stopTone) stopTone = tones.play(new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch), {start: true});
+    };
+    pitchButtonGroup.append($('<button>').addClass('btn btn-info').html((isFirstPitch? 'Starting ' : '') + 'Pitch: <span class="this-pitch"></span>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+    }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
+    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
+      e.stopPropagation();
+      mouseUpTone();
+      changePitch(-1);
+    }));
+    $toolbar.append(pitchButtonGroup);
+    $toolbar.append($('<button>').addClass('btn btn-default active disabled').html('<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')</div><div>Do = <span class="do-pitch"></span></div>'));
+    // update the spans with pitch info:
+    changePitch(0);
+  }
   function getPitchRange(semitones) {
     semitones = Math.abs(semitones);
     var octaves = Math.floor(semitones / 12);
@@ -1188,61 +1245,12 @@ $(function($) {
     var $this = $(this);
     var $div = $this.parents('div').first();
     var gregoBaseId = $div.attr('gregobase-id');
-    var score = $this.parents('svg').prop('source');
-    var lowPitch = 100000, highPitch = 0;
-    var startPitch = null;
-    score.notations.forEach(function(notation) {
-      if(notation.notes) notation.notes.forEach(function(note) {
-        var pitch = note.pitch.toInt()
-        if(startPitch == null) startPitch = pitch;
-        lowPitch = Math.min(lowPitch, pitch);
-        highPitch = Math.max(highPitch, pitch);
-      });
-    });
-    // default to putting the middle pitch at G above middle C
-    score.defaultStartPitch = score.defaultStartPitch || calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
-
+    
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {
       $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
     }
-    function changePitch(offset) {
-      if(offset) score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
-      var lowestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + lowPitch);
-      var highestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + highPitch);
-      $toolbar.find('.start-pitch').html(tones.noteName[score.defaultStartPitch.step] + '<sub>' + score.defaultStartPitch.octave + '</sub>');
-      $toolbar.find('.lowest-pitch').html(tones.noteName[lowestPitch.step].slice(0,2) + '<sub>' + lowestPitch.octave + '</sub>');
-      $toolbar.find('.highest-pitch').html(tones.noteName[highestPitch.step].slice(0,2) + '<sub>' + highestPitch.octave + '</sub>');
-      $toolbar.find('.do-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + 120) % 12]);
-    }
-    $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play').click(function(e) {
-      e.stopPropagation();
-      mouseUpTone();
-      playScore(score, score.defaultStartPitch);
-      $toolbar.remove();
-    }));
-    var pitchButtonGroup = $('<div>').addClass('btn-group');
-    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
-      e.stopPropagation();
-      mouseUpTone();
-      changePitch(1);
-    }));
-    var mouseDownTone = function() {
-      if(!stopTone) stopTone = tones.play(score.defaultStartPitch, {start: true});
-    };
-    pitchButtonGroup.append($('<button>').addClass('btn btn-info').html('Starting Pitch: <span class="start-pitch"></span>').click(function(e) {
-      e.stopPropagation();
-      mouseUpTone();
-    }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
-    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
-      e.stopPropagation();
-      mouseUpTone();
-      changePitch(-1);
-    }));
-    $toolbar.append(pitchButtonGroup);
-    $toolbar.append($('<button>').addClass('btn btn-default active disabled').html('<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span> (' + getPitchRange(highPitch - lowPitch) + ')</div><div>Do = <span class="do-pitch"></span></div>'));
-    // update the spans with pitch info:
-    changePitch(0);
+    addPitchButtonsToToolbar($toolbar, null, $this.parents('svg').prop('source'));
     $toolbar.appendTo(document.body);
     var staffTop = $this.parent().offset().top,
         toolbarWidth = $toolbar.outerWidth(),
