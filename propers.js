@@ -1048,11 +1048,11 @@ $(function(){
   // lines is an array of verses, each verse being an array of segments of the verse, e.g., [["Allelúia"],["Non vos relínquam órphanos:", "vado,", "et vénio ad vos,", "et gaudébit", "cor vestrum."]]
   // pattern is an array of arrays as well, indicating the code to be used for each segment, [[], ["*", "", "", ""]]
   function versifyByPattern(lines, pattern) {
-    return lines.map(function(segments, lineNum) {
+    return lines.reduce(function(result, segments, lineNum) {
       var text = '',
           pat = pattern[lineNum],
           capitalize = true;
-      if(segments.length > pat.length) pat = [''].concat(pat);
+      pat = [''].concat(pat);
       segments.forEach(function(seg, segNum) {
         switch(pat && pat[segNum]) {
           case '@':
@@ -1078,14 +1078,16 @@ $(function(){
           text += seg;
         }
       });
-      return text;
-    }).join('\n');
+      var ending = lineNum == (lines.length - 1)? '' : pat[segments.length] == '*'? ' * ' : '\n';
+      return result + text + ending;
+    }, '');
   }
 
   var toggleMediant = function(event) {
     var $this = $(this),
         $part = $this.parents('div[part]'),
         part = $part.attr('part'),
+        newLine = $this.attr('new-line'),
         lines = sel[part].lines,
         text = '',
         btnState = $this.attr('state');
@@ -1095,7 +1097,7 @@ $(function(){
         btnState = 'new-verse';
         break;
       case 'new-verse':
-        btnState = '';
+        btnState = newLine == '1'? 'mediant' : '';
         break;
       default:
         btnState = 'flex';
@@ -1119,6 +1121,10 @@ $(function(){
           }
         }
       });
+      var $btn = $part.find('button[line=' + lineNum + '][seg=' + segments.length + ']');
+      if($btn.length && $btn.attr('state') == 'mediant') {
+        pattern.push('*');
+      }
       return pattern;
     });
     sel[part].text = versifyByPattern(lines, versePattern);
@@ -1157,6 +1163,14 @@ $(function(){
     });
     return text;
   }
+  var makeButton = function(lineNum, segNum, code, $lastBtn) {
+    var $button = $('<button>');
+    $button.addClass('toggle-mediant btn btn-xs btn-default');
+    $button.attr('line', lineNum).attr('seg', segNum);
+    $button.click(toggleMediant);
+    $button.attr('state',code);
+    return $button;
+  }
   var toggleEditMarkings = function(event) {
     event && event.preventDefault && event.preventDefault();
     var $this = $(this),
@@ -1179,6 +1193,11 @@ $(function(){
             segments = ['Allelúia * <i>ij.</i>'];
           }
           var $lastBtn = $();
+          if(lineNum > 0 && segments.length > 1 && !segments[0].match(/^<i>/)) {
+            var segCount = lines[lineNum-1].length;
+            var code = pattern[lineNum-1][segCount-1] == '*'? 'mediant' : 'new-verse';
+            $psalmEditor.append(makeButton(lineNum - 1, segCount, code).attr('new-line','1')).append(' ');
+          }
           var pat = pattern[lineNum] || [];
           segments.forEach(function(segment, segNum) {
             var $span = $('<span>'),
@@ -1222,18 +1241,13 @@ $(function(){
             }
             $psalmEditor.append($span);
             if(segNum != segments.length - 1) {
-              var $button = $('<button>');
-              $button.addClass('toggle-mediant btn btn-xs btn-default');
-              $button.attr('line', lineNum).attr('seg', segNum);
-              $button.click(toggleMediant);
-              $button.attr('state',code);
+              $psalmEditor.append(' ').append($button = makeButton(lineNum, segNum, code)).append(' ');
               if(code == 'mediant') {
                 $lastBtn.attr('state','flex');
                 $lastBtn = $button;
               } else if(code == 'new-verse') {
                 $lastBtn = $();
               }
-              $psalmEditor.append(' ').append($button).append(' ');
             }
           });
           if(lineNum != lines.length - 1) {
