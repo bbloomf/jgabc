@@ -801,8 +801,12 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     result.hasMorae = note.morae.length > 0;
     result.hasEpisemata = note.episemata.length > 0;
     result.isTorculus = neume.constructor === exsurge.Torculus;
+    result.isPesSubpunctis = neume.constructor === exsurge.PesSubpunctis && neume.notes.indexOf(note) < 3;
+    result.isQuilisma = note.shape === exsurge.NoteShape.Quilisma;
     if(result.isTorculus) {
       result.torculusNotes = neume.notes;
+    } else if(result.isPesSubpunctis) {
+      result.torculusNotes = neume.notes.slice(0,3);
     }
     result.acceptsBarBefore = !hasPreviousNote;
     result.acceptsBarAfter = !hasNextNote;
@@ -926,14 +930,19 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         if(noteProperties.hasBarAfter) $toolbar.prepend($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
         $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
       }
+      if(noteProperties.isQuilisma) {
+        $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Quilisma').click($.extend({action:'removeQuilisma'}, base), editorialChange));
+      }
       if(noteProperties.isRepeatedNote)
         $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Punctum').click($.extend({action:'removePunctum'}, base), editorialChange));
       if(noteProperties.hasEpisemata) {
-        if(noteProperties.isTorculus) {
+        if(noteProperties.isTorculus || noteProperties.isPesSubpunctis) {
           $toolbar.prepend($('<button>').addClass('btn btn-primary').html('12<span class="ol">3</span>').click($.extend({action:'torculus3'}, base), editorialChange));
           $toolbar.prepend($('<button>').addClass('btn btn-primary').html('1<span class="ol">2</span>3').click($.extend({action:'torculus2'}, base), editorialChange));
           $toolbar.prepend($('<button>').addClass('btn btn-primary').html('<span class="ol">1</span>23').click($.extend({action:'torculus1'}, base), editorialChange));
-          $toolbar.prepend($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click($.extend({action:'torculus12'}, base), editorialChange));
+          if(noteProperties.isTorculus) {
+            $toolbar.prepend($('<button>').addClass('btn btn-primary').html('<span class="ol">12</span>3').click($.extend({action:'torculus12'}, base), editorialChange));
+          }
         }
         $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Episema').click($.extend({action:'removeEpisema'}, base), editorialChange));
       }
