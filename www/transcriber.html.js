@@ -400,6 +400,7 @@ function updateSyl(txt) {
 }
 
 function updateText() {
+  if(!$("#oneBox").is(':hidden')) return;
   updateSyl();
   updateEditor();
 }
@@ -600,7 +601,7 @@ $(function() {
   $("#selLanguage").change(selLanguageChanged);
   $("#lnkDownloadPng").click(savePng);
   $("#lnkDownloadSvg").click(saveAsSvg);
-  function selectSourceIndex(index, $svgContainer, e) {
+  function selectSourceIndex(index, e) {
     if(score.mapExsurgeToGabc) index = score.mapExsurgeToGabc(index);
     var textarea;
     if($('#oneBox').is(':visible')) {
@@ -625,8 +626,17 @@ $(function() {
     textarea.setSelectionRange(index, index + length);
     textarea.focus();
     return index;
-  }
-  registerChantClicks && registerChantClicks($('#chant-preview'), selectSourceIndex );
+  };
+  $('#chant-preview').on('click', 'use[source-index],text[source-index]:not(.dropCap)', function(e) {
+    removeChantContextMenus();
+    e.stopPropagation();
+    console.info(e);
+    if(e.shiftKey || e.ctrlKey || e.altKey || e.metaKey) {
+      selectSourceIndex(this.source.sourceIndex, e);
+    } else {
+      showToolbarForNote(this);
+    }
+  });
   var getGabc = function(){
     var gabc = $('#editor').val(),
         header = getHeader(gabc);

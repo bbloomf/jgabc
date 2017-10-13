@@ -213,59 +213,6 @@ button.toggle-mediant[state="flex"]::before {
   display: none;
 }*/
 
-#mediaControls.offscreen {
-  transform: translateY(30px);
-  opacity: 0;
-}
-#mediaControls {
-  position: fixed;
-  display: -webkit-flex;
-  display: flex;
-  height: 30px;
-  bottom: 0;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  max-width: 100%!important;
-  width: 100%;
-  min-width: 100%;
-  transform: translateY(0);
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-#mediaControls > * {
-  margin: auto;
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-}
-#mediaControls > * > *:first-child {
-  margin-left: 0;
-}
-#mediaControls > * > *:last-child {
-  margin-right: 0;
-}
-#mediaControls .volume {
-  display: -webkit-flex;
-  display: flex;
-  align-items: center;
-  padding: 4px 10px;
-}
-#mediaControls .volume>.progress {
-  width: 100px;
-  margin: 0 0 0 5px;
-}
-#mediaControls .btn.with-next {
-  border-right: none;
-  padding-right: 5px;
-}
-#mediaControls .btn.with-next+.btn {
-  border-left: none;
-  padding-left: 0;
-}
-
 @media(min-width: 500px) {
   .verses,
   .asperges-verses {
