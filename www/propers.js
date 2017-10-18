@@ -2606,7 +2606,13 @@ console.info(JSON.stringify(selPropers));
   }
   function getSpliceForPart(part) {
     if((sel[part].style||'').match(/^psalm-tone/)) return [];
-    var currentSplice = parseHash()[part+'Splice'];
+    var ordinaryId = selOrdinaries[part + 'ID'];
+    var currentSplice;
+    if(ordinaryId) {
+      currentSplice = localStorage[part+ordinaryId+'Splice'];
+    } else {
+      currentSplice = parseHash()[part+'Splice'];
+    }
     currentSplice = (currentSplice && currentSplice.split)? currentSplice.replace(/&/g,' ').split('|') : [];
     return currentSplice.map(function(s){
       var a = s.split('/');
@@ -2619,10 +2625,20 @@ console.info(JSON.stringify(selPropers));
     splices = splices.map(function(t){
       return [t.index, t.removeLen, t.addString||''].join('/');
     }).join('|').replace(/ /g,'&');
-    addToHash(part+'Splice',splices);
+    var ordinaryId = selOrdinaries[part + 'ID'];
+    if(ordinaryId) {
+      localStorage[part+ordinaryId+'Splice'] = splices;
+    } else {
+      addToHash(part+'Splice',splices);
+    }
   }
   function removeSplicesForPart(part) {
-    addToHash(part+'Splice',false);
+    var ordinaryId = selOrdinaries[part + 'ID'];
+    if(ordinaryId) {
+      delete localStorage[part+ordinaryId+'Splice'];
+    } else {
+      addToHash(part+'Splice',false);
+    }
     updateExsurge(part, null, true);
   }
   $('#divExtraChants a').click(showHideExtraChants);
@@ -2813,7 +2829,7 @@ console.info(JSON.stringify(selPropers));
       e.preventDefault();
       $(touchedElement).click();
     }
-  }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap),[part].ordinary use[source-index],[part].ordinary text[source-index]:not(.dropCap)', function(e) {
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
