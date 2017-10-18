@@ -30,7 +30,8 @@ a:not([href]):hover {
 button.remove-modifications {
   display: none;
 }
-[part].full.modified button.remove-modifications {
+[part].full.modified button.remove-modifications,
+[part].ordinary.modified button.remove-modifications {
   display: inline;
 }
 textarea {
@@ -183,10 +184,6 @@ div.chant-context {
 [part] use[source-index],
 [part] text[source-index] {
   cursor: pointer;
-}
-[part].ordinary:not(.show-gabc) use[source-index],
-[part].ordinary:not(.show-gabc) text[source-index] {
-  cursor: default;
 }
 button.toggle-mediant {
   color: #d00!important;
