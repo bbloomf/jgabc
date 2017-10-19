@@ -810,7 +810,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     }
     result.acceptsBarBefore = !hasPreviousNote;
     result.acceptsBarAfter = !hasNextNote;
-    result.acceptsMora = result.acceptsBarAfter && !result.hasMorae;
+    result.acceptsMora = !result.hasMorae && !result.isQuilisma;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
       let score = neume.score;
       notations = score.notations;
@@ -921,7 +921,9 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     if(editorialChange && base) {
       base.noteProperties = noteProperties;
       if(noteProperties.hasMorae)
-        $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Mora').click($.extend({action:'removeMora'}, base), editorialChange));
+        $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove •').click($.extend({action:'removeMora'}, base), editorialChange));
+      else if(noteProperties.acceptsMora)
+        $toolbar.prepend($('<button>').addClass('btn btn-success').text('Add •').click($.extend({action:'addMora'}, base), editorialChange));
       if(noteProperties.acceptsBarBefore) {
         if(noteProperties.hasBarBefore) $toolbar.prepend($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click($.extend({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
         $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click($.extend({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
