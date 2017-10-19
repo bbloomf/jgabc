@@ -810,7 +810,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     }
     result.acceptsBarBefore = !hasPreviousNote;
     result.acceptsBarAfter = !hasNextNote;
-    result.acceptsMora = !result.hasMorae && !result.isQuilisma && neume.notes.slice(-1)[0] == note;
+    result.acceptsMora = !result.hasMorae && !result.isQuilisma && !result.isRepeatedNote && neume.notes.slice(-1)[0] == note;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
       let score = neume.score;
       notations = score.notations;
@@ -916,7 +916,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         break;
     }
     var $toolbar = noteProperties.toolbar = $('<div>').addClass('chant-context btn-group-vertical');
-    addPitchButtonsToToolbar($toolbar, noteProperties, $svg.prop('source'));
+    addPitchButtonsToToolbar($toolbar, noteProperties, $svg.prop('source'), [editorialChange, base]);
     
     if(editorialChange && base) {
       base.noteProperties = noteProperties;
@@ -1163,7 +1163,7 @@ $(function($) {
     'm7',
     'M7'
   ];
-  window.addPitchButtonsToToolbar = function($toolbar, noteProperties, score) {
+  window.addPitchButtonsToToolbar = function($toolbar, noteProperties, score, showToolbarForNoteArgs) {
     var isFirstPitch = !noteProperties;
     var lowPitch = 100000, highPitch = 0;
     var startPitch = null;
@@ -1195,14 +1195,31 @@ $(function($) {
       $toolbar.find('.highest-pitch').html(tones.noteName[highestPitch.step].slice(0,2) + '<sub>' + highestPitch.octave + '</sub>');
       $toolbar.find('.do-pitch').text(tones.noteName[(score.defaultStartPitch.step - startPitch + 120) % 12]);
     }
-    $toolbar.append($('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play' + (isFirstPitch? '' : ' Chant from here')).click(function(e) {
+    function moveToNote(offset) {
+      var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || null; })).filter(function(notation) { return notation && !notation.isAccidental; });
+      var note = notes[notes.indexOf(noteProperties.note) + offset];
+      removeChantContextMenus();
+      showToolbarForNote(note.svgNode, ...showToolbarForNoteArgs);
+    }
+    var playButtonGroup = $('<div>').addClass('btn-group');
+    playButtonGroup.append($('<button class="btn btn-default active flex-0"><span class="glyphicon glyphicon-step-backward"></span></button>').click(function(e) {
+      e.stopPropagation();
+      moveToNote(-1);
+    }));
+    var playButton = $('<button>').addClass('btn btn-primary').html('<span class="glyphicon glyphicon-play"></span> Play' + (isFirstPitch? '' : ' Chant from here')).click(function(e) {
       e.stopPropagation();
       mouseUpTone();
       playScore(score, score.defaultStartPitch, noteProperties && noteProperties.note);
       removeChantContextMenus();
+    });
+    playButtonGroup.append(playButton);
+    playButtonGroup.append($('<button class="btn btn-default active flex-0"><span class="glyphicon glyphicon-step-forward"></span></button>').click(function(e) {
+      e.stopPropagation();
+      moveToNote(1);
     }));
+    $toolbar.append(showToolbarForNoteArgs? playButtonGroup : playButton);
     var pitchButtonGroup = $('<div>').addClass('btn-group');
-    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
+    pitchButtonGroup.append($('<button class="btn btn-success flex-0"><span class="glyphicon glyphicon-arrow-up"></span></button>').click(function(e) {
       e.stopPropagation();
       mouseUpTone();
       changePitch(1);
@@ -1214,7 +1231,7 @@ $(function($) {
       e.stopPropagation();
       mouseUpTone();
     }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
-    pitchButtonGroup.append($('<button class="btn btn-success"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
+    pitchButtonGroup.append($('<button class="btn btn-success flex-0"><span class="glyphicon glyphicon-arrow-down"></span></button>').click(function(e) {
       e.stopPropagation();
       mouseUpTone();
       changePitch(-1);
