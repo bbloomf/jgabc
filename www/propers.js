@@ -2656,7 +2656,7 @@ console.info(JSON.stringify(selPropers));
     switch(e.data.action) {
       case 'toggleBarBefore':
         if(e.data.barBefore) {
-          let mapping = e.data.barBefore.mapping;
+          var mapping = e.data.barBefore.mapping;
           splice.index = mapping.sourceIndex;
           splice.removeLen = mapping.source.length;
         } else {
@@ -2666,7 +2666,7 @@ console.info(JSON.stringify(selPropers));
         break;
       case 'toggleBarAfter':
         if(e.data.barAfter) {
-          let mapping = e.data.barAfter.mapping;
+          var mapping = e.data.barAfter.mapping;
           splice.index = mapping.sourceIndex;
           splice.removeLen = mapping.source.length;
         } else {
@@ -2679,7 +2679,7 @@ console.info(JSON.stringify(selPropers));
       case 'addCarryOverAfter':
         var bar = e.data.barBefore || e.data.barAfter;
         if(bar) {
-          let mapping = bar.mapping,
+          var mapping = bar.mapping,
               mappings = bar.score.mappings,
               index = mappings.indexOf(mapping),
               beforeBar = mappings[index - 1];
@@ -2689,7 +2689,7 @@ console.info(JSON.stringify(selPropers));
         break;
       case 'removePunctum':
         splice.index = note.sourceIndex;
-        let match = gabc.slice(splice.index).match(regexGabcNote);
+        var match = gabc.slice(splice.index).match(regexGabcNote);
         if(match) {
           splice.removeLen = match[0].length;
           if(match[1].length > 1) {
@@ -2702,11 +2702,11 @@ console.info(JSON.stringify(selPropers));
         break;
       case 'removeEpisema':
         if(noteProperties.torculusNotes && noteProperties.torculusNotes.length) {
-          let index = noteProperties.torculusNotes[0].sourceIndex,
+          var index = noteProperties.torculusNotes[0].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
               match = gabc.slice(index2).match(regexGabcNote);
           if(match) {
-            let sub = gabc.slice(index,index2+match[0].length),
+            var sub = gabc.slice(index,index2+match[0].length),
                 regex = /_+/g;
             splice = [];
             while(match = regex.exec(sub)) {
@@ -2727,14 +2727,14 @@ console.info(JSON.stringify(selPropers));
       case 'torculus3':
       case 'torculus12':
         if(noteProperties.torculusNotes) {
-          let index1 = noteProperties.torculusNotes[1].sourceIndex,
+          var index1 = noteProperties.torculusNotes[1].sourceIndex,
               index2 = noteProperties.torculusNotes[2].sourceIndex,
               match = [
                 gabc.slice(index1).match(regexGabcNote),
                 gabc.slice(index2).match(regexGabcNote)
               ];
           if(match[0] || match[1]) {
-            let sub = [
+            var sub = [
                   match[0] && gabc.slice(index1,index1+match[0][0].length),
                   match[1] && gabc.slice(index2,index2+match[1][0].length)
                 ],
@@ -2778,6 +2778,16 @@ console.info(JSON.stringify(selPropers));
             }
           }
         }
+        break;
+      case 'addMora':
+        splice.index = note.sourceIndex;
+        var match = gabc.slice(splice.index).match(regexGabcNote);
+        if(match) {
+          splice.index += match[0].length;
+        } else {
+          return;
+        }
+        splice.addString = '.';
         break;
       case 'removeMora':
         splice.index = gabc.indexOf('.', note.sourceIndex);
