@@ -810,7 +810,7 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     }
     result.acceptsBarBefore = !hasPreviousNote;
     result.acceptsBarAfter = !hasNextNote;
-    result.acceptsMora = !result.hasMorae && !result.isQuilisma;
+    result.acceptsMora = !result.hasMorae && !result.isQuilisma && neume.notes.slice(-1)[0] == note;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
       let score = neume.score;
       notations = score.notations;
