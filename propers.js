@@ -409,8 +409,8 @@ $(function(){
             if(!/^(graduale|tractus)/.test(truePart) && /^psalm-tone/.test(styleVal)) {
               styleVal = 'psalm-tone';
             }
-            $style.val(styleVal);
           }
+          $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         }
@@ -1292,7 +1292,7 @@ $(function(){
         $part = $('[part='+part+']'),
         gabc = sel[part].gabc;
     if(style.match(/^psalm-tone/)) {
-      $part.addClass('psalm-toned').removeClass('full full-alleluia');
+      $part.addClass('psalm-toned').removeClass('full');
       if($toggleEditMarkings.length == 0) {
         $toggleEditMarkings = $("<a href='' class='toggleEditMarkings'>(<span class='showHide'>Show</span> Editor)</a>")
         $toggleEditMarkings.click(toggleEditMarkings);
@@ -1302,9 +1302,6 @@ $(function(){
       }
       // if it is an alleluia:
       if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
-        if(style.match(/^psalm-tone2?$/)) {
-          $part.addClass('full-alleluia');
-        }
         if(style=='psalm-tone2') {
           // if it uses the simple psalm tone, then we still want to show these:
           $selToneEnding.show();
@@ -1588,6 +1585,7 @@ $(function(){
             gabc = gabc.replace(')ia.(',')ia. <i>ij.</i>(');
           }
         } else {
+          $('[part='+part+']').addClass('full-alleluia');
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
@@ -1817,10 +1815,11 @@ $(function(){
       case 'full-gloria':
         $txt.val((gabc = getFullGloriaPatriGabc(sel[part])));
         break;
-      case 'psalm-tone':
       case 'psalm-tone1':
-      case 'psalm-tone2':
       case 'psalm-tone-sal':
+        $div.removeClass('full-alleluia');
+      case 'psalm-tone':
+      case 'psalm-tone2':
         $txt.val(sel[part].text);
         gabc = getPsalmToneForPart(part);
         break;
@@ -2578,7 +2577,15 @@ console.info(JSON.stringify(selPropers));
             sel[part].pattern = pattern;
           }
           styleParts = style.split(';');
-          if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
+          if($this.val() != styleParts[0]) {
+            $this.val(styleParts[0]);
+            if(part == 'graduale' && $this.val() != styleParts[0]) {
+              $this.empty();
+              $this.append($alleluiaOptions.clone());
+              $this.val(styleParts[0]);
+            }
+            $this.change();
+          }
           if(styleParts[1]) {
             var termination = styleParts[1],
                 match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G]\*?)?/),
