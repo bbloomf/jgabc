@@ -372,7 +372,7 @@ $(function(){
         if(!isOrdinaryPart) {
           var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
-          if(isAlleluia(part,plaintext)) {
+          if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
             if(part=='graduale') {
               // add ij. if not present:
@@ -1292,7 +1292,7 @@ $(function(){
         $part = $('[part='+part+']'),
         gabc = sel[part].gabc;
     if(style.match(/^psalm-tone/)) {
-      $part.addClass('psalm-toned').removeClass('full');
+      $part.addClass('psalm-toned').removeClass('full full-alleluia');
       if($toggleEditMarkings.length == 0) {
         $toggleEditMarkings = $("<a href='' class='toggleEditMarkings'>(<span class='showHide'>Show</span> Editor)</a>")
         $toggleEditMarkings.click(toggleEditMarkings);
@@ -1302,6 +1302,9 @@ $(function(){
       }
       // if it is an alleluia:
       if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
+        if(style.match(/^psalm-tone2?$/)) {
+          $part.addClass('full-alleluia');
+        }
         if(style=='psalm-tone2') {
           // if it uses the simple psalm tone, then we still want to show these:
           $selToneEnding.show();
@@ -2605,7 +2608,11 @@ console.info(JSON.stringify(selPropers));
     return gabc;
   }
   function getSpliceForPart(part) {
-    if((sel[part].style||'').match(/^psalm-tone/)) return [];
+    var style = (sel[part].style||'');
+    if((sel[part].isAlleluia && style.match(/^psalm-tone(1|-sal)$/)) ||
+      (!sel[part].isAlleluia && style.match(/^psalm-tone/))) {
+        return [];
+    }
     var ordinaryId = selOrdinaries[part + 'ID'];
     var currentSplice;
     if(ordinaryId) {
@@ -2839,7 +2846,12 @@ console.info(JSON.stringify(selPropers));
       e.preventDefault();
       $(touchedElement).click();
     }
-  }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap),[part].ordinary use[source-index],[part].ordinary text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part].full use[source-index],\
+[part].full text[source-index]:not(.dropCap),\
+[part].full-alleluia use[source-index],\
+[part].full-alleluia text[source-index]:not(.dropCap),\
+[part].ordinary use[source-index],\
+[part].ordinary text[source-index]:not(.dropCap)', function(e) {
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
