@@ -2,7 +2,7 @@ var hy_options = {
   minLength:2
 };
 //var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
-  var regexGabc = /(((?:([`,;:]\d*z?)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.|$))/ig;
+  var regexGabc = /(((?:([`,;:][\d'_]*z?)|([cf]b?[1-4]))+)|([^\s\\]+|(?=\\)))(?:\s+|$|\\(.|$))/ig;
 var emptyGabc={gabc:'()',hasSyllable:true};
 var emptySylElision={syl:'',punctuation:'',elision:1};
 var _hymnGabcMap=[],

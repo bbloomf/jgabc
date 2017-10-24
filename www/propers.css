@@ -30,8 +30,7 @@ a:not([href]):hover {
 button.remove-modifications {
   display: none;
 }
-[part].full.modified button.remove-modifications,
-[part].ordinary.modified button.remove-modifications {
+[part].modified button.remove-modifications {
   display: inline;
 }
 textarea {

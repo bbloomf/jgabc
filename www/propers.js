@@ -372,7 +372,7 @@ $(function(){
         if(!isOrdinaryPart) {
           var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
-          if(isAlleluia(part,plaintext)) {
+          if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
             if(part=='graduale') {
               // add ij. if not present:
@@ -409,8 +409,8 @@ $(function(){
             if(!/^(graduale|tractus)/.test(truePart) && /^psalm-tone/.test(styleVal)) {
               styleVal = 'psalm-tone';
             }
-            $style.val(styleVal);
           }
+          $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         }
@@ -1585,6 +1585,7 @@ $(function(){
             gabc = gabc.replace(')ia.(',')ia. <i>ij.</i>(');
           }
         } else {
+          $('[part='+part+']').addClass('full-alleluia');
           var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
@@ -1814,10 +1815,11 @@ $(function(){
       case 'full-gloria':
         $txt.val((gabc = getFullGloriaPatriGabc(sel[part])));
         break;
-      case 'psalm-tone':
       case 'psalm-tone1':
-      case 'psalm-tone2':
       case 'psalm-tone-sal':
+        $div.removeClass('full-alleluia');
+      case 'psalm-tone':
+      case 'psalm-tone2':
         $txt.val(sel[part].text);
         gabc = getPsalmToneForPart(part);
         break;
@@ -2575,7 +2577,15 @@ console.info(JSON.stringify(selPropers));
             sel[part].pattern = pattern;
           }
           styleParts = style.split(';');
-          if($this.val() != styleParts[0]) $this.val(styleParts[0]).change();
+          if($this.val() != styleParts[0]) {
+            $this.val(styleParts[0]);
+            if(part == 'graduale' && $this.val() != styleParts[0]) {
+              $this.empty();
+              $this.append($alleluiaOptions.clone());
+              $this.val(styleParts[0]);
+            }
+            $this.change();
+          }
           if(styleParts[1]) {
             var termination = styleParts[1],
                 match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G]\*?)?/),
@@ -2605,7 +2615,11 @@ console.info(JSON.stringify(selPropers));
     return gabc;
   }
   function getSpliceForPart(part) {
-    if((sel[part].style||'').match(/^psalm-tone/)) return [];
+    var style = (sel[part].style||'');
+    if((sel[part].isAlleluia && style.match(/^psalm-tone(1|-sal)$/)) ||
+      (!sel[part].isAlleluia && style.match(/^psalm-tone/))) {
+        return [];
+    }
     var ordinaryId = selOrdinaries[part + 'ID'];
     var currentSplice;
     if(ordinaryId) {
@@ -2839,7 +2853,12 @@ console.info(JSON.stringify(selPropers));
       e.preventDefault();
       $(touchedElement).click();
     }
-  }).on('click', '[part].full use[source-index],[part].full text[source-index]:not(.dropCap),[part].ordinary use[source-index],[part].ordinary text[source-index]:not(.dropCap)', function(e) {
+  }).on('click', '[part].full use[source-index],\
+[part].full text[source-index]:not(.dropCap),\
+[part].full-alleluia use[source-index],\
+[part].full-alleluia text[source-index]:not(.dropCap),\
+[part].ordinary use[source-index],\
+[part].ordinary text[source-index]:not(.dropCap)', function(e) {
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
