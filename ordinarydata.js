@@ -140,6 +140,12 @@ var massOrdinary = [{
   benedicamus:[{id: 612,name: "Benedicamus II"},
     {id: 2227,name: "Benedicamus (ad lib.)"}],
   ite:{id: 620,name: "Ite XV"}
+},{season:"Missa Sancti Hildegardis",
+  kyrie:{id: 7957,name: "Kyrie XIX"},
+  gloria:{id: 7958,name: "Gloria XIX"},
+  sanctus:{id: 7959,name: "Sanctus XIX"},
+  agnus:{id: 7960,name: "Agnus XIX"},
+  ite:{id: 7961,name: "Ite XIX"}
 },{season:"pro defunctis",
   kyrie:{id: 541,name: "Kyrie eleison (in Miss. def.)"},
   sanctus:{id: 298,name: "Sanctus XVIII"},
