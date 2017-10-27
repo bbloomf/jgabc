@@ -210,7 +210,7 @@ function getTagsFrom(txt){
   return r;
 }
 
-function transposeGabc(gabc,offset) {
+function transposeGabc(gabc,offset,noParens) {
   var replaceLetter = function(letter, clef) {
     if(clef) return letter;
     var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
@@ -218,6 +218,7 @@ function transposeGabc(gabc,offset) {
     return newLetter;
   };
   var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+  if(noParens) return gabc.replace(regex, replaceLetter);
   return gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
     return '(' + gabc.replace(regex, replaceLetter) + ')';
   });
@@ -362,7 +363,7 @@ function gabcEditorKeyDown(e) {
         } else {
           if(lastOpenParen > lastCloseParen && firstCloseParen < firstOpenParen && gabc.search(/[()]/) < 0) {
             try {
-              gabc = gabc.replace(regex, replaceLetter);
+              gabc = transposeGabc(gabc, offset, true);
             } catch(e) {
               return;
             }

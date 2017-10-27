@@ -101,7 +101,10 @@ var otherKeys = [
     {key:"votiveST",title:"Missa votiva de Sanctissima Trinitate",en:"Votive Mass of the Most Holy Trinity"},
     {key:"votiveA",title:"Missa votiva de Angelis",en:"Votive Mass of the Holy Angels"},
     {key:"votiveSS",title:"Missa votiva de Spiritu Sancto",en:"Votive Mass of the Holy Ghost"},
-    {key:"votiveSES",title:"Missa votiva de Sanctissimo Sacramento",en:"Votive Mass of the Most Holy Sacrament"}
+    {key:"votiveSES",title:"Missa votiva de Sanctissimo Sacramento",en:"Votive Mass of the Most Holy Sacrament"},
+    {key:"votiveJCSES",title:"Missa votiva de Jesu Christo Summo & Æterno Sacerdote",en:"Votive Mass of Christ the Eternal High Priest"},
+    {key:"votiveSC",title:"Missa votiva de Sancta Cruce",en:"Votive Mass of the Holy Cross"},
+    {key:"votivePJC",title:"Missa votiva de Possione D.N. Jesu Christo",en:"Votive Mass of the Passion of Our Lord Jesus Christ"}
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -890,6 +893,7 @@ var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"
 //{key:"",title:"",en:""}
 /*TODO: sequences. All Souls, seven sorrows. anything else? */
 var gabcReplaceRemoveAlleluiaSacerdotesDomini = [/e\([^)]+\)[ij]us,(?:\([^)]+\)\s*)+al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\(/i, 'e(fgf)jus.(ff/'];
+var gabcRemoveLastAlleluia = [/\(:\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)/i, ''];
 var proprium = {
   ChristusRex: {introitusID:128,gradualeID:583,alleluiaID:746,offertoriumID:390,communioID:1229},
   votiveSCJQuad: {introitusID:1320,gradualeID:1035,tractusID:1244,offertoriumID:628,communioID:1356},
@@ -908,6 +912,15 @@ var proprium = {
   votiveSES: {introitusID:62,gradualeID:1230,alleluiaID:774,offertoriumID:645,communioID:577,offertoriumReplace: gabcReplaceRemoveAlleluiaSacerdotesDomini},
   votiveSESQuad: {introitusID:62,gradualeID:1230,tractusID:644,offertoriumID:645,communioID:577,offertoriumReplace: gabcReplaceRemoveAlleluiaSacerdotesDomini},
   votiveSESPasch: {introitusID:715,gradualeID:912,alleluiaID:774,offertoriumID:645,communioID:577},
+  votiveJCSES: {introitusID:684,gradualeID:1016,alleluiaID:1096,offertoriumID:1364,communioID:726},
+  votiveJCSESQuad: {introitusID:684,gradualeID:1016,tractusID:1370,offertoriumID:1364,communioID:726},
+  votiveJCSESPasch: {introitusID:684,gradualeID:1096,alleluiaID:611,offertoriumID:1364,communioID:726},
+  votiveSC: {introitusID:359,gradualeID:873,alleluiaID:859,offertoriumID:195,communioID:346},
+  votiveSCQuad: {introitusID:359,gradualeID:873,tractusID:114,offertoriumID:195,communioID:346, offertoriumReplace: gabcRemoveLastAlleluia},
+  votiveSCPasch: {introitusID:359,gradualeID:859,alleluiaID:627,offertoriumID:195,communioID:346},
+  votivePJC: {introitusID:523,gradualeID:780,alleluiaID:199,offertoriumID:426,communioID:84},
+  votivePJCQuad: {introitusID:523,gradualeID:780,tractusID:978,offertoriumID:426,communioID:84},
+  votivePJCPasch: {introitusID:523,gradualeID:199,alleluiaID:1376,offertoriumID:426,communioID:84},
   nuptialis: {introitusID:551,gradualeID:311,alleluiaID:191,offertoriumID:967,communioID:490},
   nuptialisQuad: {introitusID:551,gradualeID:311,tractusID:144,offertoriumID:967,communioID:490},
   nuptialisPasch: {introitusID:551,gradualeID:191,alleluiaID:505,offertoriumID:967,communioID:490},
