@@ -2115,6 +2115,7 @@ $(function(){
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
   if(location.search.match(/\bla\b/)) key = 'title';
   var populate = function(keys,$sel) {
+    var $optGroup;
     $.each(keys,function(i,o){
       if(typeof(o) == 'string') {
         var title = o.length==1? 'Year ' + o : o;
@@ -2122,7 +2123,12 @@ $(function(){
             {en: o, title: title}
           : {key: o, en: title, title: title};
       }
-      var $temp = $('<option>'+ o[key] +'</option>');
+      if(o.group) {
+        $optGroup = $('<optgroup></optgroup>').attr('label',o[key]);
+        $sel.append($optGroup);
+        return;
+      }
+      var $temp = $('<option></option>').text(o[key]);
       if(typeof(o.key)=='string') {
         $temp.val(o.key);
       } else {
@@ -2131,7 +2137,7 @@ $(function(){
           $temp.attr('selected',true);
         }
       }
-      $sel.append($temp);
+      ($optGroup||$sel).append($temp);
     });
   };
   var i = 1;
