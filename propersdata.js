@@ -1244,7 +1244,7 @@ var proprium = {
   Oct20: {communioID:1003,gradualeID:971,alleluiaID:792,introitusID:970,offertoriumID:515},
   Oct23: {communioID:1154,gradualeID:415,alleluiaID:1187,introitusID:48,offertoriumID:630},
   Oct24: {communioID:1127,gradualeID:581,alleluiaID:814,introitusID:985,offertoriumID:302},
-  Oct28: {communioID:1028,gradualeID:307,alleluiaID:442,introitusID:475,offertoriumID:570},
+  Oct28: {communioID:1028,gradualeID:307,alleluiaID:130,introitusID:475,offertoriumID:570},
   Oct3: {communioID:162,gradualeID:1034,alleluiaID:1257,introitusID:59,offertoriumID:362},
   Oct7: {communioID:104,gradualeID:807,alleluiaID:420,introitusID:246,offertoriumID:494},
   Oct9: {communioID:991,gradualeID:1186,alleluiaID:664,introitusID:41,offertoriumID:1098},
