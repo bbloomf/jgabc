@@ -783,7 +783,7 @@ $(function(){
     selTempus = getSeasonForMoment(m);
     updateTempus();
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
+    if(selDay == "custom" || (ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       $selTempus.val(selTempus);
     } else {
