@@ -1366,6 +1366,7 @@ $(function(){
     });
   }
   
+  // return a psalm tone that begins with the incipit of the termination but ends with the mediant.
   var getTertiumQuid = function(gMediant,gTermination) {
     var match = gTermination.match(/([^r]+)\s+[a-m]r\s/);
     var gTertium = match[1];
@@ -1374,8 +1375,8 @@ $(function(){
     if(match) {
       gTertium = match[0] + gMediant.match(/\s([a-m])r\s/)[1];
     }
-    match = gMediant.match(/\s[a-m]r\s+.+$/);
-    gTertium += match[0];
+    match = gMediant.match(/(?:^|\s)([a-m]r\s+.+)$/);
+    gTertium += ' ' + match[1];
     return gTertium;
   }
   
@@ -1527,6 +1528,7 @@ $(function(){
         for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
       }
     }
+    var noMediant = getTertiumQuid(gTermination,gMediant);
     var gabc;
     var lines;
     var useOriginalClef = text.indexOf('@') >= 0;
@@ -1713,7 +1715,7 @@ $(function(){
         } else {
           gabc += (italicNote||'') + applyPsalmTone({
             text: line[0].trim(),
-            gabc: line.length==1? gTermination : gMediant,
+            gabc: line.length==1? noMediant : gMediant,
             clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
