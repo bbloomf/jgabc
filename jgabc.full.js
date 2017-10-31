@@ -218,6 +218,7 @@ var verticalSpace = staffheight/4;
 var fontsize = spaceheight*3/2;
 var spaceWidth = spaceheight * 3/4;
 var staffoffset = Math.ceil(staffheight - spaceheight/2);
+var staffColor = "#e22"; // if not set (is undefined), staff is black
 var svgns = "http://www.w3.org/2000/svg";
 var xlinkns="http://www.w3.org/1999/xlink";
 var staffInFont = false;
@@ -2636,15 +2637,18 @@ $(function() {
     line.setAttribute("d","M0 " + spaceheight + stringLine);
     ledger.appendChild(line);
     ledger.setAttribute("id","ledgerb");
+    if(staffColor) { ledger.setAttribute("fill", staffColor);
     _defs.appendChild(ledger);
     ledger = document.createElementNS(svgns, "g");
     line = document.createElementNS(svgns, "path");
     line.setAttribute("d","M0 " + (-spaceheight*4) + stringLine);
     ledger.appendChild(line);
     ledger.setAttribute("id","ledgera");
+    if(staffColor) { ledger.setAttribute("fill", staffColor);
     _defs.appendChild(ledger);
   }
   gStaff.setAttribute("id", "staff");
+  if(staffColor) { gStaff.setAttribute("fill", staffColor);
   _defs.appendChild(gStaff);
   
   
