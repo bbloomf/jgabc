@@ -913,7 +913,7 @@ var proprium = {
   votiveSTPasch: {introitusID:349,gradualeID:1289,alleluiaID:744,offertoriumID:1303,communioID:391},
   votiveA: {introitusID:985,gradualeID:348,alleluiaID:550,offertoriumID:302,communioID:599},
   votiveAQuad: {introitusID:985,gradualeID:348,tractusID:949,offertoriumID:302,communioID:599},
-  votiveAPasch: {introitusID:985,gradualeID:550,alleluiaID:377,offertoriumID:302,communioID:599,tractusID:949},
+  votiveAPasch: {introitusID:985,gradualeID:550,alleluiaID:377,offertoriumID:302,communioID:599},
   votiveSS: {introitusID:636,gradualeID:1044,alleluiaID:181,offertoriumID:83,communioID:972},
   votiveSSQuad: {introitusID:636,gradualeID:1044,tractusID:925,offertoriumID:83,communioID:972},
   votiveSSPasch: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181},
