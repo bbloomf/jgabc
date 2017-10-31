@@ -210,7 +210,7 @@ function getTagsFrom(txt){
   return r;
 }
 
-function transposeGabc(gabc,offset) {
+function transposeGabc(gabc,offset,noParens) {
   var replaceLetter = function(letter, clef) {
     if(clef) return letter;
     var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
@@ -218,6 +218,7 @@ function transposeGabc(gabc,offset) {
     return newLetter;
   };
   var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+  if(noParens) return gabc.replace(regex, replaceLetter);
   return gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
     return '(' + gabc.replace(regex, replaceLetter) + ')';
   });
@@ -350,6 +351,8 @@ function gabcEditorKeyDown(e) {
           if(firstOpenParen < 0) firstOpenParen = Infinity;
           if(firstCloseParen < 0) firstCloseParen = Infinity;
           gabc = gabc.slice(startIndex, endIndex);
+          if(lastOpenParen > lastCloseParen) gabc = '(' + gabc;
+          if(firstCloseParen < firstOpenParen) gabc += ')';
         }
         var offset = up? 1 : -1;
         try {
@@ -360,13 +363,8 @@ function gabcEditorKeyDown(e) {
         if(selectionStart == selectionEnd) {
           this.value = header.original + gabc;
         } else {
-          if(lastOpenParen > lastCloseParen && firstCloseParen < firstOpenParen && gabc.search(/[()]/) < 0) {
-            try {
-              gabc = gabc.replace(regex, replaceLetter);
-            } catch(e) {
-              return;
-            }
-          }
+          if(lastOpenParen > lastCloseParen) gabc = gabc.slice(1);
+          if(firstCloseParen < firstOpenParen) gabc = gabc.slice(0,-1);
           this.value = header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex);
         }
         this.setSelectionRange(selectionStart, selectionEnd);

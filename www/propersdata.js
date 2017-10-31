@@ -97,11 +97,22 @@ var otherKeys = [
     {key:"nuptialis",title:"Missa nuptialis",en:"Wedding Mass"},
     {key:"defunctorum",title:"Missa pro Defunctis",en:"Mass for the Dead"},
     {key:"dedicatio",title:"Missa Dedicationis Ecclesiæ",en:"Mass of the dedication of a church"},
-    {key:"votiveSCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"},
+    {group:true, title:"Missa votiva de Feria II",en:"Votive Mass on Mondays"},
     {key:"votiveST",title:"Missa votiva de Sanctissima Trinitate",en:"Votive Mass of the Most Holy Trinity"},
+    {group:true, title:"Missa votiva de Feria III",en:"Votive Mass on Tuesdays"},
     {key:"votiveA",title:"Missa votiva de Angelis",en:"Votive Mass of the Holy Angels"},
+    {group:true, title:"Missæ votivæ de Feria IV",en:"Votive Masses on Wednesdays"},
+    {key:"votiveJ",title:"Missa votiva de Sancto Joseph",en:"Votive Mass of Saint Joseph"},
+    {key:"votivePP",title:"Missa votiva de SS. Apostolis Petro & Paulo",en:"Votive Mass of Saints Peter and Paul"},
+    {key:"votiveOA",title:"Missa votiva de omnibus SS. Apostolis",en:"Votive Mass of the Apostles"},
+    {group:true, title:"Missæ votivæ de Feria V",en:"Votive Masses on Thursdays"},
     {key:"votiveSS",title:"Missa votiva de Spiritu Sancto",en:"Votive Mass of the Holy Ghost"},
-    {key:"votiveSES",title:"Missa votiva de Sanctissimo Sacramento",en:"Votive Mass of the Most Holy Sacrament"}
+    {key:"votiveSES",title:"Missa votiva de Sanctissimo Sacramento",en:"Votive Mass of the Most Holy Sacrament"},
+    {key:"votiveJCSES",title:"Missa votiva de Jesu Christo Summo & Æterno Sacerdote",en:"Votive Mass of Christ the Eternal High Priest"},
+    {group:true, title:"Missæ votivæ de Feria VI",en:"Votive Masses on Fridays"},
+    {key:"votiveSC",title:"Missa votiva de Sancta Cruce",en:"Votive Mass of the Holy Cross"},
+    {key:"votivePJC",title:"Missa votiva de Possione D.N. Jesu Christo",en:"Votive Mass of the Passion of Our Lord Jesus Christ"},
+    {key:"votiveSCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"}
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -890,6 +901,7 @@ var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"
 //{key:"",title:"",en:""}
 /*TODO: sequences. All Souls, seven sorrows. anything else? */
 var gabcReplaceRemoveAlleluiaSacerdotesDomini = [/e\([^)]+\)[ij]us,(?:\([^)]+\)\s*)+al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\(/i, 'e(fgf)jus.(ff/'];
+var gabcRemoveLastAlleluia = [/\(:\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)/i, ''];
 var proprium = {
   ChristusRex: {introitusID:128,gradualeID:583,alleluiaID:746,offertoriumID:390,communioID:1229},
   votiveSCJQuad: {introitusID:1320,gradualeID:1035,tractusID:1244,offertoriumID:628,communioID:1356},
@@ -908,6 +920,24 @@ var proprium = {
   votiveSES: {introitusID:62,gradualeID:1230,alleluiaID:774,offertoriumID:645,communioID:577,offertoriumReplace: gabcReplaceRemoveAlleluiaSacerdotesDomini},
   votiveSESQuad: {introitusID:62,gradualeID:1230,tractusID:644,offertoriumID:645,communioID:577,offertoriumReplace: gabcReplaceRemoveAlleluiaSacerdotesDomini},
   votiveSESPasch: {introitusID:715,gradualeID:912,alleluiaID:774,offertoriumID:645,communioID:577},
+  votiveJCSES: {introitusID:684,gradualeID:1016,alleluiaID:1096,offertoriumID:1364,communioID:726},
+  votiveJCSESQuad: {introitusID:684,gradualeID:1016,tractusID:1370,offertoriumID:1364,communioID:726},
+  votiveJCSESPasch: {introitusID:684,gradualeID:1096,alleluiaID:611,offertoriumID:1364,communioID:726},
+  votiveSC: {introitusID:359,gradualeID:873,alleluiaID:859,offertoriumID:195,communioID:346},
+  votiveSCQuad: {introitusID:359,gradualeID:873,tractusID:114,offertoriumID:195,communioID:346, offertoriumReplace: gabcRemoveLastAlleluia},
+  votiveSCPasch: {introitusID:359,gradualeID:859,alleluiaID:627,offertoriumID:195,communioID:346},
+  votivePJC: {introitusID:523,gradualeID:780,alleluiaID:199,offertoriumID:426,communioID:84},
+  votivePJCQuad: {introitusID:523,gradualeID:780,tractusID:978,offertoriumID:426,communioID:84},
+  votivePJCPasch: {introitusID:523,gradualeID:199,alleluiaID:1376,offertoriumID:426,communioID:84},
+  votiveJ: {introitusID:385,gradualeID:600,alleluiaID:213,offertoriumID:845,communioID:534},
+  votiveJQuad: {introitusID:385,gradualeID:600,tractusID:444,offertoriumID:845,communioID:534},
+  votiveJPasch: {introitusID:385,gradualeID:1324,alleluiaID:213,offertoriumID:845,communioID:534},
+  votivePP: {introitusID:475,gradualeID:307,alleluiaID:130,offertoriumID:570,communioID:1028},
+  votivePPQuad: {introitusID:475,gradualeID:307,tractusID:305,offertoriumID:570,communioID:1028},
+  votivePPPasch: {introitusID:340,gradualeID:762,alleluiaID:1249,offertoriumID:1382,communioID:617},
+  votiveOA: {ref: "votivePP"},
+  votiveOAQuad: {ref: "votivePPQuad"},
+  votiveOAPasch: {introitusID:340,gradualeID:762,alleluiaID:1030,offertoriumID:1319,communioID:212},
   nuptialis: {introitusID:551,gradualeID:311,alleluiaID:191,offertoriumID:967,communioID:490},
   nuptialisQuad: {introitusID:551,gradualeID:311,tractusID:144,offertoriumID:967,communioID:490},
   nuptialisPasch: {introitusID:551,gradualeID:191,alleluiaID:505,offertoriumID:967,communioID:490},
@@ -1214,7 +1244,7 @@ var proprium = {
   Oct20: {communioID:1003,gradualeID:971,alleluiaID:792,introitusID:970,offertoriumID:515},
   Oct23: {communioID:1154,gradualeID:415,alleluiaID:1187,introitusID:48,offertoriumID:630},
   Oct24: {communioID:1127,gradualeID:581,alleluiaID:814,introitusID:985,offertoriumID:302},
-  Oct28: {communioID:1028,gradualeID:307,alleluiaID:442,introitusID:475,offertoriumID:570},
+  Oct28: {communioID:1028,gradualeID:307,alleluiaID:130,introitusID:475,offertoriumID:570},
   Oct3: {communioID:162,gradualeID:1034,alleluiaID:1257,introitusID:59,offertoriumID:362},
   Oct7: {communioID:104,gradualeID:807,alleluiaID:420,introitusID:246,offertoriumID:494},
   Oct9: {communioID:991,gradualeID:1186,alleluiaID:664,introitusID:41,offertoriumID:1098},

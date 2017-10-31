@@ -783,7 +783,7 @@ $(function(){
     selTempus = getSeasonForMoment(m);
     updateTempus();
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    if((ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
+    if(selDay == "custom" || (ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       $selTempus.val(selTempus);
     } else {
@@ -1366,6 +1366,7 @@ $(function(){
     });
   }
   
+  // return a psalm tone that begins with the incipit of the termination but ends with the mediant.
   var getTertiumQuid = function(gMediant,gTermination) {
     var match = gTermination.match(/([^r]+)\s+[a-m]r\s/);
     var gTertium = match[1];
@@ -1374,8 +1375,8 @@ $(function(){
     if(match) {
       gTertium = match[0] + gMediant.match(/\s([a-m])r\s/)[1];
     }
-    match = gMediant.match(/\s[a-m]r\s+.+$/);
-    gTertium += match[0];
+    match = gMediant.match(/(?:^|\s)([a-m]r\s+.+)$/);
+    gTertium += ' ' + match[1];
     return gTertium;
   }
   
@@ -1527,6 +1528,7 @@ $(function(){
         for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
       }
     }
+    var noMediant = getTertiumQuid(gTermination,gMediant);
     var gabc;
     var lines;
     var useOriginalClef = text.indexOf('@') >= 0;
@@ -1713,7 +1715,7 @@ $(function(){
         } else {
           gabc += (italicNote||'') + applyPsalmTone({
             text: line[0].trim(),
-            gabc: line.length==1? gTermination : gMediant,
+            gabc: line.length==1? noMediant : gMediant,
             clef: clef,
             useOpenNotes: false,
             useBoldItalic: false,
@@ -2115,6 +2117,7 @@ $(function(){
   var key = (navigator.language || navigator.browserLanguage || 'en').match(/en/)?'en':'title';
   if(location.search.match(/\bla\b/)) key = 'title';
   var populate = function(keys,$sel) {
+    var $optGroup;
     $.each(keys,function(i,o){
       if(typeof(o) == 'string') {
         var title = o.length==1? 'Year ' + o : o;
@@ -2122,7 +2125,12 @@ $(function(){
             {en: o, title: title}
           : {key: o, en: title, title: title};
       }
-      var $temp = $('<option>'+ o[key] +'</option>');
+      if(o.group) {
+        $optGroup = $('<optgroup></optgroup>').attr('label',o[key]);
+        $sel.append($optGroup);
+        return;
+      }
+      var $temp = $('<option></option>').text(o[key]);
       if(typeof(o.key)=='string') {
         $temp.val(o.key);
       } else {
@@ -2131,7 +2139,7 @@ $(function(){
           $temp.attr('selected',true);
         }
       }
-      $sel.append($temp);
+      ($optGroup||$sel).append($temp);
     });
   };
   var i = 1;
