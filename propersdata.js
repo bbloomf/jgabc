@@ -111,8 +111,14 @@ var otherKeys = [
     {key:"votiveJCSES",title:"Missa votiva de Jesu Christo Summo & Æterno Sacerdote",en:"Votive Mass of Christ the Eternal High Priest"},
     {group:true, title:"Missæ votivæ de Feria VI",en:"Votive Masses on Fridays"},
     {key:"votiveSC",title:"Missa votiva de Sancta Cruce",en:"Votive Mass of the Holy Cross"},
-    {key:"votivePJC",title:"Missa votiva de Possione D.N. Jesu Christo",en:"Votive Mass of the Passion of Our Lord Jesus Christ"},
-    {key:"votiveSCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"}
+    {key:"votivePJC",title:"Missa votiva de Passione D.N. Jesu Christo",en:"Votive Mass of the Passion of Our Lord Jesus Christ"},
+    {key:"votiveSCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"},
+    {group:true, title:"Missæ de Sancta Maria in Sabbato",en:"Masses of Our Lady on Saturday"},
+    {key:"SMadvent",title:"Ab Adventu usque ad Nativitatem",en:"From Advent to Christmas"},
+    {key:"SMchristmas",title:"A Nativitate usque ad Purificationem",en:"From Christmas to Candlemas"},
+    {key:"SMlent",title:"A Purificatione usque ad Pascha",en:"From Candlemas to Easter"},
+    {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
+    {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -903,6 +909,13 @@ var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"
 var gabcReplaceRemoveAlleluiaSacerdotesDomini = [/e\([^)]+\)[ij]us,(?:\([^)]+\)\s*)+al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\(/i, 'e(fgf)jus.(ff/'];
 var gabcRemoveLastAlleluia = [/\(:\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)/i, ''];
 var proprium = {
+  SMadvent: {introitusID:161,gradualeID:756,alleluiaID:1209,offertoriumID:843,communioID:1144},
+  SMchristmas: {introitusID:124,gradualeID:1308,alleluiaID:127,offertoriumID:280,communioID:160},
+  SMchristmasQuad: {introitusID:124,gradualeID:1308,tractusID:18,offertoriumID:280,communioID:160},
+  SMlent: {introitusID:1140,gradualeID:392,alleluiaID:281,offertoriumID:280,communioID:160},
+  SMlentQuad: {introitusID:1140,gradualeID:392,tractusID:18,offertoriumID:280,communioID:160},
+  SMeaster: {introitusID:1140,gradualeID:281,alleluiaID:1209,offertoriumID:567,communioID:160},
+  SMpentecost: {introitusID:1140,gradualeID:392,alleluiaID:127,offertoriumID:843,communioID:160},
   ChristusRex: {introitusID:128,gradualeID:583,alleluiaID:746,offertoriumID:390,communioID:1229},
   votiveSCJQuad: {introitusID:1320,gradualeID:1035,tractusID:1244,offertoriumID:628,communioID:1356},
   votiveSCJPasch: {introitusID:1320,gradualeID:907,alleluiaID:1237,offertoriumID:319,communioID:154},
@@ -925,7 +938,7 @@ var proprium = {
   votiveJCSESPasch: {introitusID:684,gradualeID:1096,alleluiaID:611,offertoriumID:1364,communioID:726},
   votiveSC: {introitusID:359,gradualeID:873,alleluiaID:859,offertoriumID:195,communioID:346},
   votiveSCQuad: {introitusID:359,gradualeID:873,tractusID:114,offertoriumID:195,communioID:346, offertoriumReplace: gabcRemoveLastAlleluia},
-  votiveSCPasch: {introitusID:359,gradualeID:859,alleluiaID:627,offertoriumID:195,communioID:346},
+  votiveSCPasch: {introitusID:359,gradualeID:627,alleluiaID:859,offertoriumID:195,communioID:346},
   votivePJC: {introitusID:523,gradualeID:780,alleluiaID:199,offertoriumID:426,communioID:84},
   votivePJCQuad: {introitusID:523,gradualeID:780,tractusID:978,offertoriumID:426,communioID:84},
   votivePJCPasch: {introitusID:523,gradualeID:199,alleluiaID:1376,offertoriumID:426,communioID:84},
