@@ -416,6 +416,43 @@ var versesPsalm21 = '<div class="verses">\
 <p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.<br></p>\
 </div>';
 var extraChants = {
+  "defunctorum": {
+    ite: [{
+        id: 823
+    }, {
+        title: "Absolution after Mass",
+        rubric: "After Mass, if there is to be Absolution, the Celebrant goes to the catafalque, and the cantor intones:",
+        id: 376,
+        rubricAfter: "Repeat <Libera me Domine> as far as the <℣. Tremens.>"
+    }, {
+        rubric: "When the Responsory is ended, the Cantor and the first Choir sing:",
+        gabc: "initial-style: 0;\n%%\n(c4)Ký(f)ri(f)e(f') e(f)lé(gh)i(g)son.(gf..) (::)"
+    }, {
+        rubric: "The second choir responds:",
+        gabc: "initial-style: 0;\n%%\n(c4)Chris(f)te(f') e(f)lé(gh)i(g)son.(gf..) (::)"
+    }, {
+        rubric: "Both choirs together:",
+        gabc: "initial-style: 0;\n%%\n(c4)Ký(h)ri(g)e(f.) e(hjg)lé(h')i(g)son.(fe..) (::)"
+    }, {
+        rubric: "The priest intones:",
+        gabc: "initial-style: 0;\n%%\n(c4)Pa(f)ter(f) nos(f)ter.(d.) <i>...</i>(::) \
+V/. Et(f) ne(f) nos(f) in(f)dú(f)cas(f) in(f) ten(f)ta(f)ti(f)ó(f)nem.(d.) (::) \
+R/. Sed(f) lí(f)be(f)ra(f) nos(f) a(f) ma(f)lo.(d.) (::) \
+V/. A(f) por(f)ta(f) ín(f)fe(d)ri.(d.) (::) \
+R/. E(f)ru(f)e(f) Dó(f)mi(f)ne (f) á|[á(f)ni|ni(f)mam|mas (f) e|e-{ó}(f)jus|rum] (d.) (::) \
+V/. Re|[Re(f)qui|qui(f)és|és(f)cat|cant] (f) in(f) pa(f)ce(d.) (::) \
+R/. A(f)men.(f.) (::) \
+V/. Dó(f)mi(f)ne(f) ex(f)áu(f)di(f) o(f)ra(f)ti(f)ó(f)nem(f) me(f)am.(d.) (::) \
+R/. Et(f) cla(f)mor(f) me(f)us(f) ad(f) te(f) vé(f)ni(d)at.(d.) (::)"
+    }, {
+        gabc: "initial-style: 0;\n%%\n(c4)V/. Ré(f)qui(f)em(f) æ(f)tér(f)nam(f) do(f)na (f) e|[e(f)i|is] (f) Dó(f)mi(d)ne.(d.) (::) \
+R/. Et(f) lux(f) pe(f)pé(f)tu(f)a(f) lú(f)ce(f)at (f) e|[e(f)i.|is.] (d.) (::) \
+V/. Re|[Re(g)qui|qui(h)és|és(h)cat|cant] (g') in(h) pa(hg)ce.(g.) (::) \
+R/. A(g)men.(gh..) (::) \
+V/. A|[A(e)ni|ni(e)ma|mæ (e) e|e-{ó}(e)jus|rum] (e) et(e) á(e)ni(e)mæ(e) óm(e)ni(e)um(e) fi(e)dé(e)li(e)um(e) de(e)func(e)tó(e)rum,(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)qui(e)és(e)cant(e) in(e) pa(e)ce.(e.) (::) \
+R/. A(e.)men.(e.) (::)"
+    }]
+  },
   "Feb2": [
     {
       rubric: "After the prayers, the Priest puts incense into the thurible. Whilst he distributes the candles, the choir sings:",
@@ -954,7 +991,7 @@ var proprium = {
   nuptialis: {introitusID:551,gradualeID:311,alleluiaID:191,offertoriumID:967,communioID:490},
   nuptialisQuad: {introitusID:551,gradualeID:311,tractusID:144,offertoriumID:967,communioID:490},
   nuptialisPasch: {introitusID:551,gradualeID:191,alleluiaID:505,offertoriumID:967,communioID:490},
-  defunctorum: {introitusID:766,gradualeID:1261,tractusID:338,sequentiaID:1198,offertoriumID:1199,communioID:241},
+  defunctorum: {introitusID:766,gradualeID:1261,tractusID:338,sequentiaID:1198,offertoriumID:1199,communioID:241,ite:false, extraChants: true},
   dedicatio: {introitusID:923,gradualeID:651,alleluiaID:242,offertoriumID:200,communioID:43},
   dedicatioQuad: {introitusID:923,gradualeID:651,tractusID:1377,offertoriumID:200,communioID:43},
   dedicatioPasch: {introitusID:923,gradualeID:242,alleluiaID:1343,offertoriumID:200,communioID:43},
@@ -1240,7 +1277,7 @@ var proprium = {
   Nov1: {communioID:345,gradualeID:371,alleluiaID:1237,introitusID:752,offertoriumID:835},
   Nov11: {communioID:1154,gradualeID:235,alleluiaID:988,introitusID:456,offertoriumID:630},
   Nov14: {communioID:556,gradualeID:827,alleluiaID:1118,introitusID:417,offertoriumID:401},
-  Nov2: {tractusID:338,communioID:241,gradualeID:1261,introitusID:766,offertoriumID:1199},
+  Nov2: {ref: 'defunctorum'},
   Nov21: {communioID:160,gradualeID:392,alleluiaID:127,introitusID:1140,offertoriumID:210},
   Nov22: {communioID:1032,gradualeID:840,alleluiaID:301,introitusID:510,offertoriumID:1107},
   Nov23: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:409,offertoriumID:358},
