@@ -1248,7 +1248,7 @@ $(function($) {
       if(!stopTone) stopTone = tones.play(new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch), {start: true});
     };
     pitchButtonGroup.append($('<button>').addClass('btn btn-info').html('<div>' + (isFirstPitch? 'Starting ' : '') + 'Pitch: <span class="this-pitch"></span></div>' +
-        '<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span></div>').click(function(e) {
+        (isFirstPitch? '<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span></div>' : '')).click(function(e) {
       e.stopPropagation();
       mouseUpTone();
     }).on('mousedown touchstart',mouseDownTone).on('mouseup touchcancel touchend',mouseUpTone));
@@ -1258,7 +1258,9 @@ $(function($) {
       changePitch(-1);
     }));
     $toolbar.append(pitchButtonGroup);
-    $toolbar.append($('<button>').addClass('btn btn-default active disabled').html('<div>Do = <span class="do-pitch"></span></div>'));
+    if(isFirstPitch) {
+      $toolbar.append($('<button>').addClass('btn btn-default active disabled').html('<div>Do = <span class="do-pitch"></span></div>'));
+    }
 
     // update the spans with pitch info:
     changePitch(0);
