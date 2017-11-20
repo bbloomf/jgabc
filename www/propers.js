@@ -283,6 +283,7 @@ $(function(){
   function runGabcReplaces(gabc) {
     return gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
+          .replace(/\+(?=[^()]*\()/g,'†')
           .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
           .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
@@ -1856,14 +1857,14 @@ $(function(){
   // this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
   function removeNotApplicableFromGabc(gabc) {
     var TP = selTempus == 'Pasch';
-    if(gabc.match(/\+[^)]*\(/)) {
+    if(gabc.match(/[+†][^)]*\(/) && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>|<i>.*?extra\s+T\.\s+P\./i)) {
       // if it has a + (†) that marks T.P or extra T.P
       if((TP && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>/i)) || ((!TP && gabc.match(/<i>.*?extra\s+T\.\s+P\./i)))) {
         // remove the part that is not marked second (the part before _T. P._ or _Extra T. P._)
-        gabc = gabc.replace(/\+(\([^)]+\)\s?)?[^+]+?(\+|<\/i>\W+)+\s*/,'$1');
+        gabc = gabc.replace(/[+†](\([^)]+\)\s?)?[^+†]+?(([+†]|<\/i>)+[^\w()]*(\(:*\)\s*)*)+\s*/,'$1');
       } else {
         // remove the + marker and the second part [the part after the (::)]:
-        gabc = gabc.replace(/\+(?:\(\))?\s*([^+]+?)(?:<i>.*?<\/i>)?(\(::\)).*/,'$1$2');
+        gabc = gabc.replace(/[+†](?:\(\))?\s*([^+†]+?)(?:<i>.*?<\/i>)?(\(::\)).*/,'$1$2');
       }
     }
     if(TP) {
@@ -2211,7 +2212,7 @@ $(function(){
   var ordinaryKeys = massOrdinary.map(function(e,i){
     var name = '';
     ++i;
-    if(i<=19) name = i + ' - ';
+    if(i<=20) name = i + ' - ';
     if(e.name) {
       name += e.name + ' (' + e.season + ')';
     } else {
