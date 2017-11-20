@@ -146,6 +146,13 @@ var massOrdinary = [{
   sanctus:{id: 7959,name: "Sanctus XIX"},
   agnus:{id: 7960,name: "Agnus XIX"},
   ite:{id: 7961,name: "Ite XIX"}
+},{season:"Missa Regalis",
+  kyrie:{id: 7995,name: "Kyrie M.R."},
+  gloria:{id: 7996,name: "Gloria M.R."},
+  credo:{id: 7997,name: "Credo M.R."},
+  sanctus:{id: 7998,name: "Sanctus M.R."},
+  agnus:{id: 7999,name: "Agnus M.R."},
+  ite:{id: 8000,name: "Ite M.R."}
 },{season:"pro defunctis",
   kyrie:{id: 541,name: "Kyrie eleison (in Miss. def.)"},
   sanctus:{id: 298,name: "Sanctus XVIII"},
@@ -179,7 +186,8 @@ credo:[{id: 344,name: "Credo I"},
   {id: 678,name: "Credo IV"},
   {id: 955,name: "Credo V"},
   {id: 2934,name: "Credo VI"},
-  {id: 7915,name: "Credo VII"}],
+  {id: 7915,name: "Credo VII"},
+  {id: 7997,name: "Credo M.R."}],
 preface:[{id: 7674,name: "Solemn Tone"},
   {id: 7675,name: "Ferial Tone"},
   {id: 7676,name: "Most Solemn Tone"}
