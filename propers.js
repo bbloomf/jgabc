@@ -2803,6 +2803,7 @@ console.info(JSON.stringify(selPropers));
         }
         break;
       case 'addMora':
+      case 'addEpisema':
         splice.index = note.sourceIndex;
         var match = gabc.slice(splice.index).match(regexGabcNote);
         if(match) {
@@ -2810,7 +2811,7 @@ console.info(JSON.stringify(selPropers));
         } else {
           return;
         }
-        splice.addString = '.';
+        splice.addString = (e.data.action == 'addMora')? '.' : '_';
         break;
       case 'removeMora':
         splice.index = gabc.indexOf('.', note.sourceIndex);

@@ -808,7 +808,8 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     }
     result.acceptsBarBefore = !hasPreviousNote;
     result.acceptsBarAfter = !hasNextNote;
-    result.acceptsMora = !result.hasMorae && !result.isQuilisma && !result.isRepeatedNote && neume.notes.slice(-1)[0] == note;
+    result.acceptsMora = !result.hasMorae && !result.hasEpisemata && !result.isQuilisma && !result.isRepeatedNote && neume.notes.slice(-1)[0] == note;
+    result.acceptsEpisema = !result.hasMorae && !result.hasEpisemata && !result.isQuilisma && !result.isRepeatedNote;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
       let score = neume.score;
       notations = score.notations;
@@ -826,6 +827,8 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         else result.acceptsBarAfter = result.acceptsBarAfter = false;
       }
     }
+    // TODO: allow adding bar after any dotted note:
+    // if(!result.acceptsBarAfter && result.hasMorae) result.acceptsBarAfter;
     return result;
   }
   // go through <use>s in $notation, and move on to siblings of $notation if they do not have lyrics.
@@ -920,8 +923,12 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
       base.noteProperties = noteProperties;
       if(noteProperties.hasMorae)
         $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove •').click($.extend({action:'removeMora'}, base), editorialChange));
-      else if(noteProperties.acceptsMora)
+      else if(noteProperties.acceptsMora) {
         $toolbar.prepend($('<button>').addClass('btn btn-success').text('Add •').click($.extend({action:'addMora'}, base), editorialChange));
+      }
+      if(noteProperties.acceptsEpisema) {
+        $toolbar.prepend($('<button>').addClass('btn btn-success').text('Add Episema').click($.extend({action:'addEpisema'}, base), editorialChange));
+      }
       if(noteProperties.acceptsBarBefore) {
         if(noteProperties.hasBarBefore) $toolbar.prepend($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click($.extend({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
         $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click($.extend({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
