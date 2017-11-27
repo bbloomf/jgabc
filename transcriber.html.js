@@ -800,8 +800,8 @@ $(function() {
         code = gabcToExsurge(gabc),
         header = getHeader(gabc),
         mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
-        score = new exsurge.ChantScore(exportContext, mappings, header['intital-style']!=='0');
-    if(header['initial-style']!=='0' && header.annotation) {
+        score = new exsurge.ChantScore(exportContext, mappings, header.initialStyle!=='0');
+    if(header.initialStyle!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(exportContext, header.annotation);
     }
     var width = getWidthInPixels(header) || 6 * 96;
