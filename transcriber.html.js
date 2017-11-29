@@ -679,6 +679,8 @@ $(function() {
   var score;
   function gabcToExsurge(gabc) {
     return gabc.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<v>\\([VRAvra])bar<\/v>/g,'$1/.')
+      .replace(/<sp>([VRAvra])\/<\/sp>\.?/g,'$1/.')
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
