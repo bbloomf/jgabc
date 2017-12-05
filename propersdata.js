@@ -1006,7 +1006,7 @@ var proprium = {
   Adv1: {introitusID:132,offertoriumID:962,communioID:1036,alleluiaID:1115,gradualeID:1169},
   Adv2: {introitusID:356,offertoriumID:631,communioID:966,alleluiaID:292,gradualeID:1268},
   Adv3: {introitusID:1225,offertoriumID:113,communioID:218,alleluiaID:855,gradualeID:1007},
-  Adv3Wed: {introitusID:79, gradualeID: [756,284], offertoriumID:290, communioID:284},
+  Adv3Wed: {introitusID:79, gradualeID: [756,284], offertoriumID:290, communioID:1144},
   Adv3Fri: {introitusID:86, gradualeID: 1055, offertoriumID:631, communioID:439},
   Adv3Sat: {introitusID:169, gradualeID: [698,203,38,506,2166], tractusID:1157, offertoriumID:929, communioID:88},
   Adv4: {introitusID:79,offertoriumID:210,communioID:1144,alleluiaID:224,gradualeID:284},
