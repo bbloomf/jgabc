@@ -679,6 +679,8 @@ $(function() {
   var score;
   function gabcToExsurge(gabc) {
     return gabc.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+      .replace(/<v>\\([VRAvra])bar<\/v>/g,'$1/.')
+      .replace(/<sp>([VRAvra])\/<\/sp>\.?/g,'$1/.')
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
@@ -800,8 +802,8 @@ $(function() {
         code = gabcToExsurge(gabc),
         header = getHeader(gabc),
         mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
-        score = new exsurge.ChantScore(exportContext, mappings, header['intital-style']!=='0');
-    if(header['initial-style']!=='0' && header.annotation) {
+        score = new exsurge.ChantScore(exportContext, mappings, header.initialStyle!=='0');
+    if(header.initialStyle!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(exportContext, header.annotation);
     }
     var width = getWidthInPixels(header) || 6 * 96;
