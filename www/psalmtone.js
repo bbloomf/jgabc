@@ -31,8 +31,6 @@ Array.prototype.mapSyllableCounts = function() {
 }
 var o_bi_formats = 
     bi_formats = (function(){
-                    var _syl_subRegex= /ǽ/g;
-                    var _syl_substitutions= {'ǽ':"{<sp>'ae</sp>}"};
                     return {
                       html: {
                         bold: ["<b>", "</b>"],
@@ -58,9 +56,9 @@ var o_bi_formats =
                         nbsp: " ",
                         verse: ["($c. )",""],
                         versesName: "$psalm-$tone.gabc",
-                        makeSylSubstitutions: function(o){
-                          return o? o.replace(_syl_subRegex,function(e){return _syl_substitutions[e]||e}) : o;
-                        },
+                        // makeSylSubstitutions: function(o){
+                        //   return o? o.replace(_syl_subRegex,function(e){return _syl_substitutions[e]||e}) : o;
+                        // },
                         annotation: "$tone",
                         userNotes: "$psalm"
                       },
