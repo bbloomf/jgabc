@@ -125,10 +125,10 @@ $(function(){
     }
     var dates = Dates(moment().year());
     var match;
-    if(match = key.match(/Adv(\d)(Sat)?/)) {
+    if(match = key.match(/Adv(\d)(Wed|Fri|Sat)?/)) {
       m = moment(dates.advent1);
       m.add(parseInt(match[1])-1, 'weeks');
-      if(match[2]) m.add(6, 'days');
+      if(match[2]) m.add("sMTWRFS".indexOf(match[2][0]), 'days');
     } else if(match = key.match(/Epi(\d)/)) {
       if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
       m = moment(dates.epiphany);
@@ -1845,7 +1845,7 @@ $(function(){
     ctxt.specialCharProperties['font-variant'] = 'normal';
     ctxt.specialCharProperties['font-size'] = (1.2 * ctxt.lyricTextSize) + 'px';
     ctxt.specialCharProperties['font-weight'] = '400';
-    ctxt.specialCharText = char => char.toLowerCase();
+    ctxt.specialCharText = function(char) { return char.toLowerCase(); };
     ctxt.setRubricColor('#d00');
     
     sel.ctxt = ctxt;
@@ -1977,6 +1977,7 @@ $(function(){
   }
 
   var layoutChant = function(part, synchronous, id) {
+    var isIE11 = navigator.userAgent.match(/Trident\/7\.0/);
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
     if(!chantContainer.length) return;
@@ -2006,8 +2007,10 @@ $(function(){
         svg.removeAttribute('viewBox');
       } else if(newWidth != availableWidth && svg && svg.hasAttribute('width')) {
         svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
-        svg.removeAttribute('width');
-        svg.removeAttribute('height');
+        if(!isIE11) {
+          svg.removeAttribute('width');
+          svg.removeAttribute('height');
+        }
       }
       svg.style.width = '';
       svg.style.marginLeft = '';
@@ -2036,8 +2039,10 @@ $(function(){
           if(newWidth == availableWidth) {
             svg.removeAttribute('viewBox');
           } else {
-            svg.removeAttribute('width');
-            svg.removeAttribute('height');
+            if(!isIE11) {
+              svg.removeAttribute('width');
+              svg.removeAttribute('height');
+            }
           }
           chantContainer.empty().append(svg);
           var callback = function() {
