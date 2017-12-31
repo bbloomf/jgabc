@@ -53,17 +53,19 @@ var latin = window.Hypher.languages.la_VA;
                       // 1. build word
                       // 2. syllabify
                       // 3. verify same number of syllables
+                      // 4. verify that each syllable has at least one vowel.
                       // replace...
-                      var regex = /([A-Za-záéíóúýë{}]+)(\([^)]*\)|[,.;:!?]$|$)/g;
+                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[A-Za-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]*\)|[,.;:!?]$|$)/g;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
                         var braces = match[1].match(/[{}]/g) || [];
                         if(braces.length % 2 === 0) match[1] = match[1].replace(/[{}]/g,'');
-                        syls.push(match[1].replace(/ae/,'æ').replace(/aé/,'ǽ').replace(/A[Ee]/,'Æ').replace(/o[eé]/,'œ'));
+                        syls.push(match[1].replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ'));
                       }
                       var otherSyls = latin.hyphenate(syls.join(''));
-                      if(otherSyls.length != syls.length) {
+                      if(otherSyls.length != syls.length ||
+                         (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽaeiouyáéíóúýäëïöüÿ]/i)))) {
                         console.error(file, syls, otherSyls);
                         errors.push(file + ': ' + JSON.stringify(syls) + '::' + JSON.stringify(otherSyls));
                         return whole;
