@@ -11,6 +11,36 @@ function decode_utf8( s )
   return decodeURIComponent( escape( s ) );
 }
 
+if (typeof Object.assign != 'function') {
+  // Must be writable: true, enumerable: false, configurable: true
+  Object.defineProperty(Object, "assign", {
+    value: function assign(target, varArgs) { // .length of function is 2
+      'use strict';
+      if (target == null) { // TypeError if undefined or null
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+
+      var to = Object(target);
+
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
+
+        if (nextSource != null) { // Skip over if undefined or null
+          for (var nextKey in nextSource) {
+            // Avoid bugs when hasOwnProperty is shadowed
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    },
+    writable: true,
+    configurable: true
+  });
+}
+
 HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
   var text = this.value;
   var txtBox = this;
@@ -1221,7 +1251,7 @@ $(function($) {
       var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || null; })).filter(function(notation) { return notation && !notation.isAccidental; });
       var note = notes[notes.indexOf(noteProperties.note) + offset];
       removeChantContextMenus();
-      showToolbarForNote(note.svgNode, ...showToolbarForNoteArgs);
+      showToolbarForNote.apply(undefined, [note.svgNode].concat(showToolbarForNoteArgs));
     }
     var playButtonGroup = $('<div>').addClass('btn-group');
     playButtonGroup.append($('<button class="btn btn-default active flex-0"><span class="glyphicon glyphicon-step-backward"></span></button>').click(function(e) {
