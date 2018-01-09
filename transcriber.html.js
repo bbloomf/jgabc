@@ -122,7 +122,7 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
             cGabc={tones:elisionGabc.tones,gabc:'('+temp+')',index:cGabc.index+elisionGabc.tones.join('').length-temp.length};
           }
         } else {
-          result+='()';
+          //result+='()';
           --iG;
         }
       } else {
