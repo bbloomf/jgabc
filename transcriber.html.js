@@ -714,7 +714,12 @@ $(function() {
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
     score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
-      score.annotation = new exsurge.Annotation(ctxt, header.annotation);
+      var annotationArray = header.annotationArray;
+      if(annotationArray) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
+      } else if(header.annotation) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+header.annotation+'%');
+      }
     }
     var language = header['centering-scheme'] == 'english'? exsurgeEnglish : new exsurge.Latin();
     exportContext.defaultLanguage = language;

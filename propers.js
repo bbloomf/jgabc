@@ -1833,22 +1833,7 @@ $(function(){
     if(gabc) updateExsurge(part, null, updateFromOldScore);
   }
   function makeChantContextForSel(sel) {
-    var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
-    ctxt.condenseLineAmount = 1;
-    ctxt.setGlyphScaling(1/16);
-    ctxt.lyricTextFont = "'Crimson Text', serif";
-    ctxt.lyricTextSize *= 1.2;
-    ctxt.dropCapTextFont = ctxt.lyricTextFont;
-    ctxt.annotationTextFont = ctxt.lyricTextFont;
-    
-    ctxt.specialCharProperties['font-family'] = "'Versiculum'";
-    ctxt.specialCharProperties['font-variant'] = 'normal';
-    ctxt.specialCharProperties['font-size'] = (1.2 * ctxt.lyricTextSize) + 'px';
-    ctxt.specialCharProperties['font-weight'] = '400';
-    ctxt.specialCharText = function(char) { return char.toLowerCase(); };
-    ctxt.setRubricColor('#d00');
-    
-    sel.ctxt = ctxt;
+    sel.ctxt = makeExsurgeChantContext();
   };
   $.each(sel,function(){
     makeChantContextForSel(this);
