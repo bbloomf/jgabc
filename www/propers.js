@@ -2683,35 +2683,43 @@ console.info(JSON.stringify(selPropers));
         };
     switch(e.data.action) {
       case 'toggleBarBefore':
-        if(e.data.barBefore) {
-          var mapping = e.data.barBefore.mapping;
-          splice.index = mapping.sourceIndex;
-          splice.removeLen = mapping.source.length;
-        } else {
+      case 'toggleBarAfter':
+        var bar = e.data.barBefore || e.data.barAfter;
+        if(bar) {
+          var mapping = bar.mapping,
+              barIndex = mapping.notations.indexOf(bar);
+          if(barIndex === 0) {
+            splice.index = mapping.sourceIndex;
+            splice.removeLen = mapping.source.length;
+          } else {
+            splice.index = bar.sourceIndex;
+            splice.removeLen = 1;
+          }
+        } else if(e.data.action === 'toggleBarBefore') {
           splice.index = (note.neume || note).mapping.sourceIndex;
           splice.addString = '(,) ';
-        }
-        break;
-      case 'toggleBarAfter':
-        if(e.data.barAfter) {
-          var mapping = e.data.barAfter.mapping;
-          splice.index = mapping.sourceIndex;
-          splice.removeLen = mapping.source.length;
         } else {
           splice.index = (note.neume || note).mapping.sourceIndex + (note.neume || note).mapping.source.length;
           splice.addString = ' (,) ';
         }
         break;
-
       case 'addCarryOverBefore':
       case 'addCarryOverAfter':
         var bar = e.data.barBefore || e.data.barAfter;
         if(bar) {
           var mapping = bar.mapping,
-              mappings = bar.score.mappings,
-              index = mappings.indexOf(mapping),
-              beforeBar = mappings[index - 1];
-          splice.index = beforeBar.sourceIndex + beforeBar.source.length - 1;
+              barIndex = mapping.notations.indexOf(bar);
+          if(barIndex === 0) {
+            var mappings = bar.score.mappings,
+                index = mappings.indexOf(mapping),
+                beforeBar = mappings[index - 1];
+            splice.index = beforeBar.sourceIndex + beforeBar.source.length - 1;
+          } else {
+            var prevIndex = mapping.notations[barIndex - 1].notes.slice(-1)[0].sourceIndex,
+                substring = mapping.source.slice(prevIndex - mapping.sourceIndex),
+                offset = Math.min(bar.sourceIndex - prevIndex, substring.match(/\s|$/).index)
+            splice.index = prevIndex + offset;
+          }
           splice.addString = '[ob:0;6mm]';
         }
         break;
