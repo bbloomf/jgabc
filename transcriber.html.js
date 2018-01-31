@@ -809,8 +809,14 @@ $(function() {
         mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
         score = new exsurge.ChantScore(exportContext, mappings, header.initialStyle!=='0');
     if(header.initialStyle!=='0' && header.annotation) {
-      score.annotation = new exsurge.Annotation(exportContext, header.annotation);
+      var annotationArray = header.annotationArray;
+      if(annotationArray) {
+        score.annotation = new exsurge.Annotations(exportContext, annotationArray[0], annotationArray[1]);
+      } else if(header.annotation) {
+        score.annotation = new exsurge.Annotations(exportContext, header.annotation);
+      }
     }
+    
     var width = getWidthInPixels(header) || 6 * 96;
     score.performLayout(exportContext);
     score.layoutChantLines(exportContext, width);
