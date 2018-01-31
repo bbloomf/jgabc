@@ -697,7 +697,15 @@ $(function() {
       var value = header[key];
       if(!value) return;
       key = match[1];
-      exportContext[key] = ctxt[key] = value;
+      if(key == 'glyphScaling') {
+        value = parseFloat(value) / exsurge.Glyphs.PunctumQuadratum.bounds.height;
+        if(value && (value !== ctxt.glyphScaling || value != exportContext.glyphScaling)) {
+          exportContext.setGlyphScaling(value);
+          ctxt.setGlyphScaling(value);
+        }
+      } else {
+        exportContext[key] = ctxt[key] = value;
+      }
     }
   }
   $('#editor').keyup(function(){
