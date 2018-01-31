@@ -694,8 +694,10 @@ $(function() {
   function addHeaderKeyToContext(header, key) {
     var match = /^exsurge\.(.+)/.exec(key);
     if(match) {
-      var value = header[key];
+      var value = header[key],
+          floatVal = parseFloat(value);
       if(!value) return;
+      if(floatVal == value) value = floatVal;
       key = match[1];
       if(key == 'glyphScaling') {
         value = parseFloat(value) / exsurge.Glyphs.PunctumQuadratum.bounds.height;
