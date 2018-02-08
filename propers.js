@@ -686,7 +686,35 @@ $(function(){
           sticky: chant.sticky === 0
         };
         var $curElement;
-        $curElement = $('<div>').attr('id',part+'-preview')
+        $curElement = $('<div>').attr('part',part).addClass('full showing-chant').
+          append("<div class='block hide-print'>\
+  <!-- <label class='hide-ss' id='lbl"+part+"' for='txt"+part+"'><a target='_blank' class='office-part-name'>Chant</a></label>\
+  <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>\
+  -->\
+  <div class='flex right'>\
+    <span class='child-other'>\
+      <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>\
+      <!-- <label for='selTone"+part+"' class='sel-label'>Mode</label>\
+          <select id='selTone"+part+"' class='sel-style tones'></select>\
+          <select id='selToneEnding"+part+"' class='sel-style endings "+part+"'></select>\
+          <input id='cbSolemn"+part+"' type='checkbox' class='cbSolemn "+part+"' title='Check this box to use the solemn psalm tone.'>\
+      -->\
+    </span>\
+    <!-- <span class='child-main'>\
+          <select id='selStyle"+part+"' class='sel-style'><option value='full'>Full Tone</option><option value='psalm-tone'>Psalm Toned</option></select>\
+        </span>\
+    -->\
+  </div>\
+  <textarea id='txt"+part+"' autocomplete='off' autocorrect='off' autocapitalize='off' spellcheck='false'></textarea>\
+</div>\
+<div class='block right'>\
+  <div class='chant-parent'>\
+    <div id='"+part+"-preview-container' class='preview-container'>\
+      <div id='"+part+"-preview' class='chant-preview'></div>\
+    </div>\
+  </div>\
+</div>");
+
         makeChantContextForSel(sel[part]);
         var downloadThisChant = function() {
           if(sel[part].id) {
@@ -696,6 +724,10 @@ $(function(){
                   gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
               }
               gabc = runGabcReplaces(gabc);
+              var header = getHeader(gabc);
+              if(header.officePart) {
+                $curElement.find('.office-part-name').text(header.officePart);
+              }
               sel[part].gabc = sel[part].activeGabc = gabc;
               updateExsurge(part, sel[part].id);
             });
@@ -2505,7 +2537,7 @@ console.info(JSON.stringify(selPropers));
     if(hash.mass != 'custom') {
       $('input.sel-custom').each(function(){
         var $this=$(this),
-            capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+            capPart = this.id.match(/[A-Z][a-z-]+\d*$/)[0],
             part = capPart.toLowerCase();
         delete hash[part];
       });
