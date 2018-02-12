@@ -694,10 +694,20 @@ $(function() {
   function addHeaderKeyToContext(header, key) {
     var match = /^exsurge\.(.+)/.exec(key);
     if(match) {
-      var value = header[key];
+      var value = header[key],
+          floatVal = parseFloat(value);
       if(!value) return;
+      if(floatVal == value) value = floatVal;
       key = match[1];
-      exportContext[key] = ctxt[key] = value;
+      if(key == 'glyphScaling') {
+        value = parseFloat(value) / exsurge.Glyphs.PunctumQuadratum.bounds.height;
+        if(value && (value !== ctxt.glyphScaling || value != exportContext.glyphScaling)) {
+          exportContext.setGlyphScaling(value);
+          ctxt.setGlyphScaling(value);
+        }
+      } else {
+        exportContext[key] = ctxt[key] = value;
+      }
     }
   }
   $('#editor').keyup(function(){
@@ -714,7 +724,12 @@ $(function() {
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
     score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
-      score.annotation = new exsurge.Annotation(ctxt, header.annotation);
+      var annotationArray = header.annotationArray;
+      if(annotationArray) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
+      } else if(header.annotation) {
+        score.annotation = new exsurge.Annotations(ctxt, '%'+header.annotation+'%');
+      }
     }
     var language = header['centering-scheme'] == 'english'? exsurgeEnglish : new exsurge.Latin();
     exportContext.defaultLanguage = language;
@@ -804,8 +819,14 @@ $(function() {
         mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
         score = new exsurge.ChantScore(exportContext, mappings, header.initialStyle!=='0');
     if(header.initialStyle!=='0' && header.annotation) {
-      score.annotation = new exsurge.Annotation(exportContext, header.annotation);
+      var annotationArray = header.annotationArray;
+      if(annotationArray) {
+        score.annotation = new exsurge.Annotations(exportContext, annotationArray[0], annotationArray[1]);
+      } else if(header.annotation) {
+        score.annotation = new exsurge.Annotations(exportContext, header.annotation);
+      }
     }
+    
     var width = getWidthInPixels(header) || 6 * 96;
     score.performLayout(exportContext);
     score.layoutChantLines(exportContext, width);
