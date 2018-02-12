@@ -154,6 +154,13 @@ $(function(){
         var day = 1 + weekdayKeys.indexOf(match[2]);
         m = m.add(day, 'day');
       }
+    } else if(match = key.match(/([765])a([mtwhfs])?/)) {
+      var weeksAfter = 7 - match[1];
+      m = moment(dates.septuagesima).add(weeksAfter, 'weeks');
+      if(match[2]) {
+        var day = 1 + weekdayKeys.indexOf(match[2]);
+        m = m.add(day, 'day');
+      }
     }
     if(m && m.isValid()) return m;
     switch(key) {
@@ -169,14 +176,6 @@ $(function(){
         break;
       case "Epi":
         return dates.epiphany;
-      case "Septua":
-        return moment(dates.septuagesima);
-      case "Sexa":
-        return moment(dates.septuagesima).add(1, 'week');
-      case "Quinqua":
-        return moment(dates.septuagesima).add(2, 'weeks');
-      case "AshWed":
-        return moment(dates.septuagesima).add(17, 'days');
       case "Asc":
         return dates.ascension;
       case "CorpusChristi":
@@ -935,17 +934,19 @@ $(function(){
   }
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones,storeMap) {
+    // TODO: determine if it is a responsory style (as in "office-part: responsorium;" or in the offertory of the requiem Mass)
+    // making use of this or a similar regular expression:
+    // /([*+†])(?:\([:;,]+\))?\s+((?:[\w;,.?! -]+\([^)]*\))+).*?(\1(?:\([:;,]+\))?\s+)\2/
+    // or maybe just watching every time we hit an asterisk that coincides with a whole or double bar.
     regexOuter.exec('');
-    var match = mixed.match(regexHeaderEnd);
-    if(match) mixed = mixed.slice(match.index + match[0].length);
-    mixed = mixed.replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
+    var header = getHeader(mixed);
+    mixed = mixed.slice(header.original.length).replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
     var dictionary = new Dictionary(mixed);
     if(storeMap) storeMap.originalWords = dictionary;
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
     var gabc='';
-    var match;
     var ws;
     var tws='';
     var verses=[];
@@ -954,9 +955,10 @@ $(function(){
     var lastClef='';
     var verseHasClef=false;
     var lastVerse=function(){return verses[verses.length-1]||null;}
-    match=regexOuter.exec(mixed);
+    var match=regexOuter.exec(mixed);
     var verseReps=0;
     var newWord = true;
+    var gabcAfterAsterisks = {};
     while(match) {
       if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
         dictionary.wordMap.push(match.index);
@@ -988,6 +990,17 @@ $(function(){
         if(barMatch=='::') text += '~';
         else if(barMatch==':') text += ' % ';
         else if(barMatch==';') text += ' | ';
+      }
+      if(syl === '*' || syl === '+' || syl === sym_flex) {
+        var slice = mixed.slice(match.index + match[0].length),
+            regexSymbol = syl === '*'? /\*/ : /[+†]/,
+            matchSymbol = slice.match(regexSymbol),
+            indexDoubleBar = slice.indexOf('(::)');
+        if(indexDoubleBar >= 0 && (!matchSymbol || indexDoubleBar < matchSymbol.index)) {
+          slice = slice.slice(0, indexDoubleBar + 4);
+          var firstWord = slice.match(/[^(]+\([^)]+\)[^(]+.*?\)(?=\s)/);
+          if(firstWord) gabcAfterAsterisks[firstWord[0]] = slice;
+        }
       }
       if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*|i+j?\.?)<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
