@@ -10,10 +10,13 @@ function updateEditor(forceGabcUpdate,_syl) {
   _syl = _syl || syl;
   var sameSyl = (_syl == last_syl);
   var lines = sameSyl? last_lines : splitSentences(_syl);
-  var gReciting,gMediant,gFullStop,gQuestion,gTermination;
+  var gReciting,gFlex,gMediant,gFullStop,gQuestion,gTermination;
   gReciting = $("#txtRecitingTone").val();
+  var flexTone = $("#txtFlexTone").val();
   var prefix = gReciting+"r ";
-  var gPause = prefix + gReciting.replace(/^.+\s(\S+)$/,'$1') + ".";
+  var recitingTone = gReciting.replace(/^.+\s(\S+)$/,'$1');
+  var gPause = prefix + recitingTone + ".";
+  gFlex = prefix + "'" + recitingTone + " " + flexTone + "r " + flexTone;
   
   var question = $("#txtQuestion").val();
   var conclusion = $("#txtConclusion").val();
@@ -131,6 +134,11 @@ function updateEditor(forceGabcUpdate,_syl) {
           gabc = ' (:) ' + gabc;
           break;
         case '+':
+          if(flexTone) {
+            psalmTone = gFlex;
+            gabc = ' †(,) ' + gabc;
+            break;
+          } // otherwise, fall through to next case...
         case '^':
           psalmTone = gPause;
           gabc = ' (,) ' + gabc;
@@ -277,6 +285,7 @@ function updateCustomTone(name){
   var customTone = {
     clef: $("#txtClef").val(),
     recitingTone: $("#txtRecitingTone").val(),
+    flexTone: $("#txtFlexTone").val(),
     mediant: $("#txtMediant").val(),
     fullStop: $("#txtFullStop").val(),
     question: $("#txtQuestion").val(),
@@ -404,6 +413,7 @@ var updateTone = function(){
   _clef = tone.clef;
   $("#txtClef").val(tone.clef);
   $("#txtRecitingTone").val(tone.recitingTone);
+  $("#txtFlexTone").val(tone.flexTone||'');
   $("#txtMediant").val(tone.mediant);
   $("#txtFullStop").val(tone.fullStop);
   $("#txtQuestion").val(tone.question);
@@ -521,6 +531,26 @@ $(function() {
         'fullStop': "'f er ef..",
         'question': "h. , gr f g gh..",
         'conclusion': "'f er ef.."
+      },
+      'Old Testament and Acts': {
+        simple: {
+          'clef':'c3',
+          'recitingTone':'h',
+          'flexTone':'f',
+          'mediant': "'hr fr f.",
+          'fullStop': "'hr dr d.",
+          'question': "h. , gr f g gh",
+          'conclusion': "'hr dr d."
+        },
+        solemn: {
+          'clef':'c4',
+          'recitingTone':'h',
+          'flexTone':'f',
+          'mediant': "g f 'h hr h.",
+          'fullStop': "f 'g dr d.",
+          'question': "h. , gr f g gh",
+          'conclusion': "g f 'h hr h. , hr f 'g dr d."
+        }
       }
     }
   };
@@ -548,7 +578,7 @@ $(function() {
   $("#chant-parent2").resizable({handles:"e"});
   $(window).resize(windowResized);
   $("#selFormat").append('<option>' + Object.keys(bi_formats).join('</option><option>') + '</option>');
-  $("#txtRecitingTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
+  $("#txtRecitingTone,#txtFlexTone,#txtMediant,#txtFullStop,#txtQuestion,#txtConclusion").keyup(keyupTxtGabc);
   $("#versetext").keyup(updateText).keydown(makeInternationalTextBoxKeyDown(false));
   if(localStorage.text) $("#versetext").val(localStorage.text);
   var cbEnglishChanged = function(){
