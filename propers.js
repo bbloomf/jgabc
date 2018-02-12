@@ -2622,7 +2622,7 @@ console.info(JSON.stringify(selPropers));
           }
           if(styleParts[1]) {
             var termination = styleParts[1],
-                match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G]\*?)?/),
+                match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G][-\*\d]?)?/),
                 tone = match[1],
                 ending = match[2],
                 $selToneEnding = $('#selToneEnding' + capPart),
