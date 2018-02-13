@@ -442,7 +442,7 @@ $(function(){
         if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
           sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
         }
-        if(part==='asperges' && selPropers && selPropers.gloriaPatri === false) {
+        if(part.match(/^(asperges|introitus)$/) && selPropers && selPropers.gloriaPatri === false) {
           sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
