@@ -934,10 +934,6 @@ $(function(){
   }
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones,storeMap) {
-    // TODO: determine if it is a responsory style (as in "office-part: responsorium;" or in the offertory of the requiem Mass)
-    // making use of this or a similar regular expression:
-    // /([*+†])(?:\([:;,]+\))?\s+((?:[\w;,.?! -]+\([^)]*\))+).*?(\1(?:\([:;,]+\))?\s+)\2/
-    // or maybe just watching every time we hit an asterisk that coincides with a whole or double bar.
     regexOuter.exec('');
     var header = getHeader(mixed);
     mixed = mixed.slice(header.original.length).replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
@@ -959,6 +955,7 @@ $(function(){
     var verseReps=0;
     var newWord = true;
     var gabcAfterAsterisks = {};
+    var justAppliedAsteriskCallback = false;
     while(match) {
       if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
         dictionary.wordMap.push(match.index);
@@ -983,6 +980,42 @@ $(function(){
       } else {
         text += tws;
       }
+      if(justAppliedAsteriskCallback) {
+        justAppliedAsteriskCallback = false;
+      } else if(syl === '*' || syl === '+' || syl === sym_flex) {
+        // These symbols may indicate returning to an earlier part of the chant, so we must determine if this is the case, and use the entire text if so.
+        var slice = mixed.slice(match.index),
+            regexSymbol = syl === '*'? /\*/ : /[+†]/,
+            indexFirstSymbol = slice.search(regexSymbol),
+            indexSymbol = slice.slice(indexFirstSymbol+1).search(regexSymbol),
+            indexDoubleBar = slice.slice(indexFirstSymbol+2).indexOf('(::)');
+        if(indexDoubleBar >= 0 && (indexSymbol < 0 || indexDoubleBar < (indexFirstSymbol + 1 + indexSymbol))) {
+          slice = slice.slice(0, indexFirstSymbol + 2 + indexDoubleBar + 4);
+          var firstWord = slice.match(/[*+†](?:\([^)]+\))?\s+([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
+          if(firstWord) {
+            firstWord = firstWord[1].replace(/\s?[,;:.!?]\(/g,'(');
+            if(firstWord in gabcAfterAsterisks) {
+              // if it's in our dictionary, let's replace it with the whole thing:
+              var lastIndex = regexOuter.lastIndex,
+                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones),
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones);
+              if(sliceText != replaceText) {
+                console.info('replacing responsory text: "' + sliceText + '" with "' + replaceText + '"');
+                mixed = mixed.slice(0,match.index) + gabcAfterAsterisks[firstWord] + mixed.slice(match.index + slice.length);
+                regexOuter.lastIndex = match.index;
+                match = regexOuter.exec(mixed);
+                justAppliedAsteriskCallback = true;
+                continue;
+              } else {
+                regexOuter.lastIndex = lastIndex;
+              }
+            } else {
+              // otherwise, let's add it to the dictionary:
+              gabcAfterAsterisks[firstWord] = slice;
+            }
+          }
+        }
+      }
       if(ignoreSyllablesOnDivisiones) {
         // for matching the bars, we have to make sure they are not between square brackets, as in the notation for a brace above the system.
         barMatch = match[rog.gabc].match(/(?:^|])[^[\]:;]*(:+|;)/)
@@ -990,17 +1023,6 @@ $(function(){
         if(barMatch=='::') text += '~';
         else if(barMatch==':') text += ' % ';
         else if(barMatch==';') text += ' | ';
-      }
-      if(syl === '*' || syl === '+' || syl === sym_flex) {
-        var slice = mixed.slice(match.index + match[0].length),
-            regexSymbol = syl === '*'? /\*/ : /[+†]/,
-            matchSymbol = slice.match(regexSymbol),
-            indexDoubleBar = slice.indexOf('(::)');
-        if(indexDoubleBar >= 0 && (!matchSymbol || indexDoubleBar < matchSymbol.index)) {
-          slice = slice.slice(0, indexDoubleBar + 4);
-          var firstWord = slice.match(/[^(]+\([^)]+\)[^(]+.*?\)(?=\s)/);
-          if(firstWord) gabcAfterAsterisks[firstWord[0]] = slice;
-        }
       }
       if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*|i+j?\.?)<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
@@ -1070,7 +1092,7 @@ $(function(){
           // check whether we can make a satisfactory mediant for each verse:
           var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
           sylCounts = mediantTest.mapSyllableCounts();
-          satisfied = mediantTest.length >= 2 && Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          satisfied = mediantTest.length >= 2 && Math.max.apply(null,sylCounts) <= 20 && Math.min.apply(null,sylCounts) >= 7;
           if(satisfied) {
             addPatternFromSplitLine(result, mediantTest);
             if(i < count - 1) {
@@ -1244,7 +1266,7 @@ $(function(){
           var $lastBtn = $();
           if(lineNum > 0 && segments.length > 1 && !segments[0].match(/^<i>/)) {
             var segCount = lines[lineNum-1].length;
-            var code = pattern[lineNum-1][segCount-1] == '*'? 'mediant' : 'new-verse';
+            var code = (!pattern[lineNum-1] || pattern[lineNum-1][segCount-1] == '*')? 'mediant' : 'new-verse';
             $psalmEditor.append(makeButton(lineNum - 1, segCount, code).attr('new-line','1')).append(' ');
           }
           var pat = pattern[lineNum] || [];

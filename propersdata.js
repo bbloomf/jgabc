@@ -514,7 +514,7 @@ R/. A(e.)men.(e.) (::)"
       rubric: "The Choir first sings the following Antiphon:",
       id: 1081
     }, {
-      rubric: "During the imposition of the ashes, the Chior sings:",
+      rubric: "During the imposition of the ashes, the Choir sings:",
       id: 313
     }, {
       id: 1208
