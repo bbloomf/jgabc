@@ -161,7 +161,7 @@ div[part] {
   clear: both;
 }
 .hide-chant .chant-preview {
-  display: none;
+  display: none!important;
 }
 .centered-heading {
   font-weight: 600;

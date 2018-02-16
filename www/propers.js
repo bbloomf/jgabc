@@ -154,6 +154,13 @@ $(function(){
         var day = 1 + weekdayKeys.indexOf(match[2]);
         m = m.add(day, 'day');
       }
+    } else if(match = key.match(/([765])a([mtwhfs])?/)) {
+      var weeksAfter = 7 - match[1];
+      m = moment(dates.septuagesima).add(weeksAfter, 'weeks');
+      if(match[2]) {
+        var day = 1 + weekdayKeys.indexOf(match[2]);
+        m = m.add(day, 'day');
+      }
     }
     if(m && m.isValid()) return m;
     switch(key) {
@@ -169,14 +176,6 @@ $(function(){
         break;
       case "Epi":
         return dates.epiphany;
-      case "Septua":
-        return moment(dates.septuagesima);
-      case "Sexa":
-        return moment(dates.septuagesima).add(1, 'week');
-      case "Quinqua":
-        return moment(dates.septuagesima).add(2, 'weeks');
-      case "AshWed":
-        return moment(dates.septuagesima).add(17, 'days');
       case "Asc":
         return dates.ascension;
       case "CorpusChristi":
@@ -443,7 +442,7 @@ $(function(){
         if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
           sel[part].gabc = gabc = getAspergesVerseAndGloriaPatriGabc(sel[part]);
         }
-        if(part==='asperges' && selPropers && selPropers.gloriaPatri === false) {
+        if(part.match(/^(asperges|introitus)$/) && selPropers && selPropers.gloriaPatri === false) {
           sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
         var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
@@ -936,16 +935,14 @@ $(function(){
   
   var decompile = function(mixed,ignoreSyllablesOnDivisiones,storeMap) {
     regexOuter.exec('');
-    var match = mixed.match(regexHeaderEnd);
-    if(match) mixed = mixed.slice(match.index + match[0].length);
-    mixed = mixed.replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
+    var header = getHeader(mixed);
+    mixed = mixed.slice(header.original.length).replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
     var dictionary = new Dictionary(mixed);
     if(storeMap) storeMap.originalWords = dictionary;
     var curClef;
     var regRep=/^[cf]b?[1-4]\s*|(\s+)[`,;:]+\s*/gi;
     var text='';
     var gabc='';
-    var match;
     var ws;
     var tws='';
     var verses=[];
@@ -954,9 +951,11 @@ $(function(){
     var lastClef='';
     var verseHasClef=false;
     var lastVerse=function(){return verses[verses.length-1]||null;}
-    match=regexOuter.exec(mixed);
+    var match=regexOuter.exec(mixed);
     var verseReps=0;
     var newWord = true;
+    var gabcAfterAsterisks = {};
+    var justAppliedAsteriskCallback = false;
     while(match) {
       if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
         dictionary.wordMap.push(match.index);
@@ -980,6 +979,42 @@ $(function(){
         if(!m||m[4])text += tws;
       } else {
         text += tws;
+      }
+      if(justAppliedAsteriskCallback) {
+        justAppliedAsteriskCallback = false;
+      } else if(syl === '*' || syl === '+' || syl === sym_flex) {
+        // These symbols may indicate returning to an earlier part of the chant, so we must determine if this is the case, and use the entire text if so.
+        var slice = mixed.slice(match.index),
+            regexSymbol = syl === '*'? /\*/ : /[+†]/,
+            indexFirstSymbol = slice.search(regexSymbol),
+            indexSymbol = slice.slice(indexFirstSymbol+1).search(regexSymbol),
+            indexDoubleBar = slice.slice(indexFirstSymbol+2).indexOf('(::)');
+        if(indexDoubleBar >= 0 && (indexSymbol < 0 || indexDoubleBar < (indexFirstSymbol + 1 + indexSymbol))) {
+          slice = slice.slice(0, indexFirstSymbol + 2 + indexDoubleBar + 4);
+          var firstWord = slice.match(/[*+†](?:\([^)]+\))?\s+([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
+          if(firstWord) {
+            firstWord = firstWord[1].replace(/\s?[,;:.!?]\(/g,'(');
+            if(firstWord in gabcAfterAsterisks) {
+              // if it's in our dictionary, let's replace it with the whole thing:
+              var lastIndex = regexOuter.lastIndex,
+                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones),
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones);
+              if(sliceText != replaceText) {
+                console.info('replacing responsory text: "' + sliceText + '" with "' + replaceText + '"');
+                mixed = mixed.slice(0,match.index) + gabcAfterAsterisks[firstWord] + mixed.slice(match.index + slice.length);
+                regexOuter.lastIndex = match.index;
+                match = regexOuter.exec(mixed);
+                justAppliedAsteriskCallback = true;
+                continue;
+              } else {
+                regexOuter.lastIndex = lastIndex;
+              }
+            } else {
+              // otherwise, let's add it to the dictionary:
+              gabcAfterAsterisks[firstWord] = slice;
+            }
+          }
+        }
       }
       if(ignoreSyllablesOnDivisiones) {
         // for matching the bars, we have to make sure they are not between square brackets, as in the notation for a brace above the system.
@@ -1057,7 +1092,7 @@ $(function(){
           // check whether we can make a satisfactory mediant for each verse:
           var mediantTest = splitLine(test[i].split(reFullOrHalfBars), 2, ' | ', 20);
           sylCounts = mediantTest.mapSyllableCounts();
-          satisfied = mediantTest.length >= 2 && Math.max.apply(null,sylCounts) < 20 && Math.min.apply(null,sylCounts) >= 7;
+          satisfied = mediantTest.length >= 2 && Math.max.apply(null,sylCounts) <= 20 && Math.min.apply(null,sylCounts) >= 7;
           if(satisfied) {
             addPatternFromSplitLine(result, mediantTest);
             if(i < count - 1) {
@@ -1231,7 +1266,7 @@ $(function(){
           var $lastBtn = $();
           if(lineNum > 0 && segments.length > 1 && !segments[0].match(/^<i>/)) {
             var segCount = lines[lineNum-1].length;
-            var code = pattern[lineNum-1][segCount-1] == '*'? 'mediant' : 'new-verse';
+            var code = (!pattern[lineNum-1] || pattern[lineNum-1][segCount-1] == '*')? 'mediant' : 'new-verse';
             $psalmEditor.append(makeButton(lineNum - 1, segCount, code).attr('new-line','1')).append(' ');
           }
           var pat = pattern[lineNum] || [];
