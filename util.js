@@ -1010,11 +1010,18 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         neumeTop = $neume.offset().top - 4,
         toolbarWidth = $toolbar.outerWidth(),
         left = $neume.offset().left + ( $neume.width() - toolbarWidth) / 2,
-        bodyWidth = $(document.body).outerWidth();
+        bodyWidth = $(document.body).outerWidth(),
+        top = Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
+        scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     if(left < 8) left = 8;
     if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
+    if(scrollTop > top) {
+      var staffBottom = staffTop + $neume.parent()[0].getBoundingClientRect().height,
+          neumeBottom = neumeTop + 8 + $neume[0].getBoundingClientRect().height;
+      top = Math.max(staffBottom, neumeBottom);
+    }
     $toolbar.offset({
-      top: Math.min(staffTop, neumeTop) - $toolbar.outerHeight(),
+      top: top,
       left: left
     });
   }
@@ -1362,11 +1369,14 @@ $(function($) {
     var staffTop = $this.parent().offset().top,
         toolbarWidth = $toolbar.outerWidth(),
         left = $this.offset().left + ( $this.width() - toolbarWidth) / 2,
-        bodyWidth = $(document.body).outerWidth();
+        top = staffTop - $toolbar.outerHeight(),
+        bodyWidth = $(document.body).outerWidth(),
+        scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     if(left < 8) left = 8;
     if(left + toolbarWidth > bodyWidth - 8) left = bodyWidth - 8 - toolbarWidth;
+    if(scrollTop > top) top = staffTop + $this.parent()[0].getBoundingClientRect().height;
     $toolbar.offset({
-      top: staffTop - $toolbar.outerHeight(),
+      top: top,
       left: left
     });
   });
