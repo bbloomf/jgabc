@@ -189,7 +189,6 @@ button.toggle-mediant {
 }
 button.toggle-mediant::before {
   content: '\a0';
-  position: relative;
 }
 button.toggle-mediant[state="new-verse"]::before {
   content: 'v';
