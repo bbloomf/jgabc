@@ -46,16 +46,18 @@ var latin = window.Hypher.languages.la_VA;
                     var content = fileData.slice(header.length);
                     content = content.replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
                       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+                      .replace(/<sp>ae<\/sp>/g,'æ')
+                      .replace(/<sp>oe<\/sp>/g,'œ')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
                       .replace(/[/ ]+\)/g,')');
-                    content = content.replace(/([A-Za-záéíóúýë{}]+\([^)]*\))+([A-Za-záéíóúýë]+(?=[,.;:!?]))?/g, function(whole){
-                      // figure out syllabifcation...
+                    content = content.replace(/([A-Za-zæœǽáéíóúýäëïöüÿ{}]+\([^)]*\))+([A-Za-zæœǽáéíóúýäëïöüÿ{}]+(?=[,.;:!?]))?/g, function(whole){
+                      // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
                       // 3. verify same number of syllables
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
-                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[A-Za-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]*\)|[,.;:!?]$|$)/g;
+                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[A-Za-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/g;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
@@ -66,8 +68,10 @@ var latin = window.Hypher.languages.la_VA;
                       var otherSyls = latin.hyphenate(syls.join(''));
                       if(otherSyls.length != syls.length ||
                          (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽaeiouyáéíóúýäëïöüÿ]/i)))) {
-                        console.error(file, syls, otherSyls);
-                        errors.push(file + ': ' + JSON.stringify(syls) + '::' + JSON.stringify(otherSyls));
+                        if(syls.length && (syls.length > 1 || syls[0] != '}')) {
+                          console.error(file, syls, otherSyls);
+                          errors.push(file + ': ' + JSON.stringify(syls) + '::' + JSON.stringify(otherSyls));
+                        }
                         return whole;
                       } else {
                         var key = syls.join('-').toLowerCase(),
