@@ -9,6 +9,7 @@ svg.bg-blur {
   padding-top: 4px;
   background: white;
   border-bottom: 1px solid #ddd;
+  z-index: 1;
 }
 .link {
   cursor: pointer;

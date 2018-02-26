@@ -280,7 +280,7 @@ $(function(){
     return result;
   }
   function runGabcReplaces(gabc) {
-    return gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
+    gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
           .replace(/\+(?=[^()]*\()/g,'†')
           .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
@@ -293,6 +293,12 @@ $(function(){
           .replace(/\s*\n\s*/g,'\n')
           .replace(/\s{2,}/g,' ')
           .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
+    var match = gabc.match(/<sp>V\/<\/sp>(?! \d)/g);
+    if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\./)) {
+      var count = 2;
+      gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
+    }
+    return gabc;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
