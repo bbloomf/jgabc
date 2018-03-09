@@ -1678,7 +1678,7 @@ $(function(){
       gabc = header;
       if(sel[part].style == 'psalm-tone1') {
         // the first verse is to be full tone.
-        var firstVerse = /^(.*?\S*)(\([^)]*::[^)]*\))/g.exec(fullGabc);
+        var firstVerse = /^([\s\S]*?\S*)(\([^)]*::[^)]*\))/g.exec(fullGabc);
         if(firstVerse) {
           firstVerse = firstVerse[1] + '(::) ';
           gabc += firstVerse;
