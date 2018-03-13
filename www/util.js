@@ -59,6 +59,7 @@ function makeExsurgeChantContext() {
   return ctxt;
 }
 
+if(typeof HTMLTextAreaElement=='function') {
 HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
   var text = this.value;
   var txtBox = this;
@@ -80,6 +81,7 @@ HTMLTextAreaElement.prototype.selectAndScroll = function(start,end,onlyUp) {
     txtBox.setSelectionRange(start,end);
     if(((txtBox.scrollTop - scrollTop) * (onlyUp? -1 : 1)) < 0) txtBox.scrollTop = scrollTop;
   })
+};
 }
 var regexToneModifiers = /(')|(\.{1,2})|(_{1,4}0?)/g
 var regexTones = new RegExp("([/ ,;:`]+)|((?:[fF]|[cC][bB]?)[1-4])|(?:(-)?(([A-M])|([a-m]))(([Vv]{1,3})|(s{1,3})|((<)|(>)|(~))|(w)|(o)|(O)|((x)|(y))|(q)|((R)|(r0)|(r(?![1-5])))|(r[1-5])|(\\+))?((?:" + regexToneModifiers.source.replace(/\((?!\?:)/g,"(?:") + ")*)(?:\\[([^\\]]*)(?:]|$))?|(z0))","g");
@@ -688,12 +690,12 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
 }
 
-(function(window) {
+if(typeof window=='object') (function(window) {
   var timeoutNextNote, transpose = 0;
   window.tempo=165;
   var _isPlaying=false;
-  setTempo = function(newTempo) { tempo = newTempo || 165; }
-  setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 165; return tempo; }
+  window.setTempo = function(newTempo) { tempo = newTempo || 165; }
+  window.setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 165; return tempo; }
   var noteElem, syllable;
   window.isPlayingChant = function() {
     return _isPlaying;
@@ -936,7 +938,8 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
         noteIndex,
         neume,
         notations,
-        noteProperties;
+        noteProperties,
+        acceptsBarBefore;
         
     switch(element.nodeName) {
       case 'use':
@@ -1090,8 +1093,11 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
     }
   }
 })(window);
-
-$(function($) {
+if(typeof exports=='object') {
+  exports.Header = GabcHeader;
+  exports.getHeader = getHeader;
+}
+if(typeof $=='function') $(function($) {
   /**
    * @param {String} s the string to search
    * @param {Number} startIndex The index at which to start searching for a vowel in the string
