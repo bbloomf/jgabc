@@ -62,14 +62,17 @@ function updateEditor(forceGabcUpdate,_syl) {
             psalmTone = ':';
             break;
           case ':':
+            if(psalmTone.match(/^[;:,]$/)) break;
             psalmTone = (line.slice(-2,-1) == ':')? ':' : ';';
             break;
           case '+':
           case '^':
           case ',':
+            if(psalmTone.match(/^[;:,]$/)) break;
             psalmTone = ',';
             break;
           default:
+            if(psalmTone.match(/^[;:,]$/)) break;
             if(line.match(/[a-z]$/i)) {
               psalmTone = ',';
             } else {
@@ -476,7 +479,7 @@ $(function() {
           "mediant": "'hr gr g.",
           "fullStop": "g g 'h hr h.",
           "question": "h. , gr f g gh",
-          "conclusion": "t[0].accent?g h hg..:g h hg g."
+          "conclusion": "g g 'h hr h. ; hr g h hg g."
         }
       }
     },
