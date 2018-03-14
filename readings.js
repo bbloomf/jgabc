@@ -476,7 +476,7 @@ $(function() {
           "mediant": "'hr gr g.",
           "fullStop": "g g 'h hr h.",
           "question": "h. , gr f g gh",
-          "conclusion": "g h 'hg g."
+          "conclusion": "t[0].accent?g h hg..:g h hg g."
         }
       }
     },
