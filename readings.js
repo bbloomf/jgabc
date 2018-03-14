@@ -459,7 +459,7 @@ $(function() {
         'question': "h. , gr f g 'gh hr h.",
         'conclusion': "f 'fh hr h. , gr 'gh hr h."
       },
-      'Presidential Tone': {
+      'Presidential Prayer': {
         simple: {
           "clef": "c3",
           "recitingTone": "h",
