@@ -17,6 +17,7 @@ function updateEditor(forceGabcUpdate,_syl) {
   var recitingTone = gReciting.replace(/^.+\s(\S+)$/,'$1');
   var gPause = prefix + recitingTone + ".";
   gFlex = prefix + "'" + recitingTone + " " + flexTone + "r " + flexTone;
+  gFlex = "t[0].accent?" + prefix + flexTone + ":" + gFlex;
   
   var question = $("#txtQuestion").val();
   var conclusion = $("#txtConclusion").val();
@@ -457,6 +458,26 @@ $(function() {
         'fullStop': "t[0].accent?'hig fr g 'g.:'hig gr 'f gr g.",
         'question': "h. , gr f g 'gh hr h.",
         'conclusion': "f 'fh hr h. , gr 'gh hr h."
+      },
+      'Presidential Tone': {
+        simple: {
+          "clef": "c3",
+          "recitingTone": "h",
+          "flexTone": "f",
+          "mediant": "g f 'h hr h.",
+          "fullStop": "t[0].accent?d.:'hr dr d.",
+          "question": "h. , gr f g gh",
+          "conclusion": "t[0].accent?f.:'hr fr f."
+        },
+        solemn: {
+          "clef": "c4",
+          "recitingTone": "g h",
+          "flexTone": "g",
+          "mediant": "'hr gr g.",
+          "fullStop": "g g 'h hr h.",
+          "question": "h. , gr f g gh",
+          "conclusion": "g h 'hg g."
+        }
       }
     },
     'latin': {
