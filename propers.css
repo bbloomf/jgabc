@@ -180,6 +180,7 @@ text.annotation {
 }
 div.chant-context {
   display: inline-block;
+  z-index: 1;
 }
 [part] use[source-index],
 [part] text[source-index] {
