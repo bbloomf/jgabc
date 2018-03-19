@@ -590,7 +590,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         var syl = syllables[which];
         phrase = phrase.slice(0,syl.index) + syl.sylnospace + '*' + phrase.slice(phrase.indexOf(syl.sylnospace,syl.index) + syl.sylnospace.length);
         this.value = this.value.slice(0, wordStart) + phrase + this.value.slice(end);
-        this.selectAndScroll(start, start + phrase.length, e.shiftKey);
+        this.selectAndScroll(start, wordStart + phrase.length, e.shiftKey);
         e.preventDefault();
         return;
       } else {
