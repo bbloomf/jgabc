@@ -537,7 +537,7 @@ R/. A(e.)men.(e.) (::)"
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">7.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
-<p><span class="versenum">8.&nbsp;</span>Quis est <b>i</b>ste Rex <b>gló</b>riæ?&nbsp;* Dóminus fortis et potens: Dóminus po<i>tens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">8.&nbsp;</span>Quis est iste Rex glóriæ?&nbsp;† Dóminus <b>for</b>tis et <b>po</b>tens:&nbsp;* Dóminus po<i>tens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">9.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
 <p><span class="versenum">10.&nbsp;</span>Quis est <b>i</b>ste Rex <b>gló</b>riæ?&nbsp;* Dóminus virtútum ipse <i>est</i> <i>Rex</i> <b>gló</b>riæ. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">11.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
