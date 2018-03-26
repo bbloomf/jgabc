@@ -198,10 +198,10 @@ var saintKeys = [
     {key:"Mar12",title:"Mar 12: St Gregory the Great",en:"Mar 12: St Gregory the Great"},
     {key:"Mar17",title:"Mar 17: St Patrick",en:"Mar 17: St Patrick"},
     {key:"Mar18",title:"Mar 18: St Cyril of Jerusalem",en:"Mar 18: St Cyril of Jerusalem"},
-    {key:"Mar19",title:"Mar 19: St Joseph",en:"Mar 19: St Joseph"},
+    {key:"Mar19",title:"Mar 19: St Joseph",en:"Mar 19: St Joseph",class:1},
     {key:"Mar21",title:"Mar 21: St Benedict",en:"Mar 21: St Benedict"},
     {key:"Mar24",title:"Mar 24: St Gabriel the Archangel",en:"Mar 24: St Gabriel the Archangel"},
-    {key:"Mar25",title:"Mar 25: Annunciation of Our Lady",en:"Mar 25: Annunciation of Our Lady"},
+    {key:"Mar25",title:"Mar 25: Annunciation of Our Lady",en:"Mar 25: Annunciation of Our Lady",class:1},
     {key:"Mar27",title:"Mar 27: St John Damascene",en:"Mar 27: St John Damascene"},
     {key:"Mar28",title:"Mar 28: St John Capistran",en:"Mar 28: St John Capistran"},
     {key:"Apr2",title:"Apr 2: St Francis of Paula",en:"Apr 2: St Francis of Paula"},
@@ -221,7 +221,7 @@ var saintKeys = [
     {key:"Apr28",title:"Apr 28: St Paul of the Cross",en:"Apr 28: St Paul of the Cross"},
     {key:"Apr29",title:"Apr 29: St Peter of Verona",en:"Apr 29: St Peter of Verona"},
     {key:"Apr30",title:"Apr 30: St Catherine of Sienna",en:"Apr 30: St Catherine of Sienna"},
-    {key:"May1",title:"May 1: St Joseph the Worker",en:"May 1: St Joseph the Worker"},
+    {key:"May1",title:"May 1: St Joseph the Worker",en:"May 1: St Joseph the Worker",class:1},
     {key:"May2",title:"May 2: St Athanasius",en:"May 2: St Athanasius"},
     {key:"May4",title:"May 4: St Monica",en:"May 4: St Monica"},
     {key:"May5",title:"May 5: St Pius V",en:"May 5: St Pius V"},
@@ -750,7 +750,7 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
             id: 1128
         }, {
             id: 2209,
-            gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{|}/g,'_',/\(z\)/g,'(Z)'],
+            gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{([^(}]+)\}/g,'_$1_',/\(z\)/g,'(Z)'],
             sticky: 1
         }, /*{
             rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis> is sung:",
