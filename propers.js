@@ -117,7 +117,7 @@ $(function(){
     dateCache[Y] = result;
     return result;
   };
-  var coincidesWithFirstClassPropriumTemporum = function(mo) {
+  var coincidesWithFirstClassPropriumTemporum = function(mo, transferIfSunday) {
     var dates = Dates(mo.year());
     mo = moment(mo).startOf('day');
     var daysAfterLent1 = mo.diff(dateForSundayKey('Quad1',dates),'day');
@@ -129,13 +129,14 @@ $(function(){
       if(mo.isBetween(start,end,'day','[]')) {
         return end;
       }
-    }
+    } else if(transferIfSunday && mo.day()==0) return mo;
   }
   // gets special date for a first class feast that falls on Ash Wednesday, or a Sunday of Lent, or between Palm Sunday and Low Sunday
   var getSpecialDateForFeast = function(m) {
     var key = m.format('MMMD'),
-        mo;
-    if(key in firstClassSaints && (mo = coincidesWithFirstClassPropriumTemporum(m))) {
+        feast = firstClassSaints[key],
+        mo = feast && coincidesWithFirstClassPropriumTemporum(m, feast.transferIfSunday);
+    if(mo) {
       var dates = Dates(m.year());
       if(key in dates) return dates[key];
       mo.add(1,'day');
@@ -2208,7 +2209,7 @@ $(function(){
   var $selYearNovus = $('#selYearNovus');
   var $selOrdinary = $('#selOrdinary');
   var firstClassSaints = saintKeys.filter(function(saint) { return saint.class == 1; }).reduce(function(result, saint) {
-    result[saint.key] = saint.title;
+    result[saint.key] = saint;
     return result;
   }, {});
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
@@ -2258,7 +2259,7 @@ $(function(){
       data = saintKeys[i];
       m = data.moment;
     }
-    if(data.class == 1 && coincidesWithFirstClassPropriumTemporum(m)) {
+    if(data.class == 1 && coincidesWithFirstClassPropriumTemporum(m,data.transferIfSunday)) {
       m = getSpecialDateForFeast(m);
       data.title += " (" + m.format("YYYY: MMM D") + ")";
       data.en += " (" + m.format("YYYY: MMM D") + ")";
