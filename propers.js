@@ -110,40 +110,53 @@ $(function(){
     result.ChristusRex = moment([Y,9,31]);
     result.ChristusRex.subtract(result.ChristusRex.day(),'days');
     result.epiphany = moment([Y,0,6]);
-    result.firstClassFeastBetweenPalmSundayAndLowSunday = moment(result.pascha).add(8,'days');
+    result.transferredFeasts = {};
     // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
     // in which case The Holy Family will be on the Saturday following.
     result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
     dateCache[Y] = result;
     return result;
   };
-  var isBetweenPalmSundayAndLowSunday = function(mo) {
+  var coincidesWithFirstClassPropriumTemporum = function(mo) {
     var dates = Dates(mo.year());
-    return mo.isSameOrAfter(moment(dates.pascha).add(-1,'week')) && mo.isSameOrBefore(moment(dates.pascha).add(1,'week'));
-  }
-  var getDateForFeastBetweenPalmSundayAndLowSunday = function(m) {
-    var key = m.format('MMMD');
-    if(key in firstClassSaints && isBetweenPalmSundayAndLowSunday(m)) {
-      var dates = Dates(moment().year());
-      if(key in dates) return dates[key];
-      m = dates.firstClassFeastBetweenPalmSundayAndLowSunday;
-      while(m.format('MMMD') in firstClassSaints) {
-        m.add(1,'day');
+    mo = moment(mo).startOf('day');
+    var daysAfterLent1 = mo.diff(dateForSundayKey('Quad1',dates),'day');
+    if(mo.isSame(dateForSundayKey('5aw',dates)) || (daysAfterLent1 % 7 == 0 && daysAfterLent1 >= 0 && daysAfterLent1 <= 28)) {
+      return mo;
+    } else {
+      var start = moment(dates.pascha).add(-1,'week'),
+          end = moment(dates.pascha).add(1,'week');
+      if(mo.isBetween(start,end,'day','[]')) {
+        return end;
       }
-      dates[key] = moment(m);
-      m.add(1,'day');
+    }
+  }
+  // gets special date for a first class feast that falls on Ash Wednesday, or a Sunday of Lent, or between Palm Sunday and Low Sunday
+  var getSpecialDateForFeast = function(m) {
+    var key = m.format('MMMD'),
+        mo;
+    if(key in firstClassSaints && (mo = coincidesWithFirstClassPropriumTemporum(m))) {
+      var dates = Dates(m.year());
+      if(key in dates) return dates[key];
+      mo.add(1,'day');
+      var newKey;
+      while((newKey = mo.format('MMMD')) in firstClassSaints || newKey in dates.transferredFeasts) {
+        mo.add(1,'day');
+      }
+      dates[key] = mo;
+      dates.transferredFeasts[newKey] = firstClassSaints[key];
       return dates[key];
     }
     return m;
   }
-  var dateForSundayKey = function(key) {
+  var dateForSundayKey = function(key, dates) {
     var weekdayKeys = ['m','t','w','h','f','s'];
     var m;
     if(key.match(/^[A-Z][a-z]{2}\d{1,2}/)) {
       m = moment(key.replace(/_.+$/,''),'MMMD');
       if(m.isValid()) return m;
     }
-    var dates = Dates(moment().year());
+    dates = dates || Dates(moment().year());
     var match;
     if(match = key.match(/Adv(\d)(Wed|Fri|Sat)?/)) {
       m = moment(dates.advent1);
@@ -835,7 +848,7 @@ $(function(){
     clearHash(hash, selDay);
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
-      m = getDateForFeastBetweenPalmSundayAndLowSunday(m);
+      m = getSpecialDateForFeast(m);
       if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
     } else {
       m = dateForSundayKey(selDay);
@@ -2245,8 +2258,8 @@ $(function(){
       data = saintKeys[i];
       m = data.moment;
     }
-    if(data.class == 1 && isBetweenPalmSundayAndLowSunday(m)) {
-      m = getDateForFeastBetweenPalmSundayAndLowSunday(m);
+    if(data.class == 1 && coincidesWithFirstClassPropriumTemporum(m)) {
+      m = getSpecialDateForFeast(m);
       data.title += " (" + m.format("YYYY: MMM D") + ")";
       data.en += " (" + m.format("YYYY: MMM D") + ")";
       data.moment = m;
