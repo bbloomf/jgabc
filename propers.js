@@ -129,7 +129,8 @@ $(function(){
       if(mo.isBetween(start,end,'day','[]')) {
         return end;
       }
-    } else if(transferIfSunday && mo.day()==0) return mo;
+    }
+    if(transferIfSunday && mo.day()==0) return mo;
   }
   // gets special date for a first class feast that falls on Ash Wednesday, or a Sunday of Lent, or between Palm Sunday and Low Sunday
   var getSpecialDateForFeast = function(m) {
