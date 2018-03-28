@@ -68,31 +68,31 @@ var sundayKeys = [
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
     {key:"Pasc0",title:"Dominica Resurrectionis",en:"Easter Sunday"},
-    {key:"Pasc0m",title:"Feria II Infra Oct Paschæ",en:"Easter Monday"},
-    {key:"Pasc0t",title:"Feria III Infra Oct Paschæ",en:"Easter Tuesday"},
-    {key:"Pasc0w",title:"Feria IV Infra Oct Paschæ",en:"Easter Wednesday"},
-    {key:"Pasc0h",title:"Feria V Infra Oct Paschæ",en:"Easter Thursday"},
-    {key:"Pasc0f",title:"Feria VI Infra Oct Paschæ",en:"Easter Friday"},
-    {key:"Pasc0s",title:"Sabbato Infra Oct Paschæ",en:"Easter Saturday"},
-    {key:"Pasc1",title:"I post Oct Pasche",en:"Low Sunday (The Octave of Easter)"},
-    {key:"Pasc2",title:"II post Oct Pasche",en:"2nd Sunday after Easter"},
-    {key:"Pasc3",title:"III post Oct Pasche",en:"3rd Sunday after Easter"},
-    {key:"Pasc4",title:"IV post Oct Pasche",en:"4th Sunday after Easter"},
-    {key:"Pasc5",title:"V post Oct Pasche",en:"5th Sunday after Easter"},
+    {key:"Pasc0m",title:"Feria II in Oct Paschæ",en:"Easter Monday"},
+    {key:"Pasc0t",title:"Feria III in Oct Paschæ",en:"Easter Tuesday"},
+    {key:"Pasc0w",title:"Feria IV in Oct Paschæ",en:"Easter Wednesday"},
+    {key:"Pasc0h",title:"Feria V in Oct Paschæ",en:"Easter Thursday"},
+    {key:"Pasc0f",title:"Feria VI in Oct Paschæ",en:"Easter Friday"},
+    {key:"Pasc0s",title:"Sabbato in Oct Paschæ",en:"Easter Saturday"},
+    {key:"Pasc1",title:"Dominica in Albis (in Oct Paschæ)",en:"Low Sunday (The Octave of Easter)"},
+    {key:"Pasc2",title:"II post Pascha",en:"2nd Sunday after Easter"},
+    {key:"Pasc3",title:"III post Pascha",en:"3rd Sunday after Easter"},
+    {key:"Pasc4",title:"IV post Pascha",en:"4th Sunday after Easter"},
+    {key:"Pasc5",title:"V post Pascha",en:"5th Sunday after Easter"},
     {key:"Asc",title:"Ascensio",en:"Ascension Thursday"},
     {key:"Pasc6",title:"in Octavam Ascensione Domini",en:"Sunday within the octave of the Ascension"},
     {key:"Pent0",title:"Dominica Pentecostes",en:"Pentecost (Whitsunday)"},
-    {key:"Pent0m",title:"Feria II Infra Oct Pentecostes",en:"Pentecost Monday"},
-    {key:"Pent0t",title:"Feria III Infra Oct Pentecostes",en:"Pentecost Tuesday"},
-    {key:"Pent0w",title:"Feria IV Infra Oct Pentecostes",en:"Pentecost Wednesday"},
-    {key:"Pent0h",title:"Feria V Infra Oct Pentecostes",en:"Pentecost Thursday"},
-    {key:"Pent0f",title:"Feria VI Infra Oct Pentecostes",en:"Pentecost Friday"},
-    {key:"Pent0s",title:"Sabbato Infra Oct Pentecostes",en:"Pentecost Saturday"},    
+    {key:"Pent0m",title:"Feria II in Oct Pentecostes",en:"Pentecost Monday"},
+    {key:"Pent0t",title:"Feria III in Oct Pentecostes",en:"Pentecost Tuesday"},
+    {key:"Pent0w",title:"Feria IV in Oct Pentecostes",en:"Pentecost Wednesday"},
+    {key:"Pent0h",title:"Feria V in Oct Pentecostes",en:"Pentecost Thursday"},
+    {key:"Pent0f",title:"Feria VI in Oct Pentecostes",en:"Pentecost Friday"},
+    {key:"Pent0s",title:"Sabbato in Oct Pentecostes",en:"Pentecost Saturday"},    
     {key:"Pent1",title:"Sanctissimæ Trinitatis",en:"Trinity Sunday"},
     {key:"CorpusChristi",title:"Corpus Christi",en:"Corpus Christi"},
-    {key:"Pent2",title:"infra Octavam Sme Corporis Christi",en:"Sunday within the octave of Corpus Christi (2nd after Pentecost)"},
+    {key:"Pent2",title:"Dominica in Octavam Sme Corporis Christi",en:"Sunday within the octave of Corpus Christi (2nd after Pentecost)"},
     {key:"SCJ",title:"Sacratissimum Cor Jesu",en:"Most Sacred Heart of Jesus"},
-    {key:"Pent3",title:"infra Octavam Sme Cordis Jesu",en:"3rd Sunday after Pentecost"},
+    {key:"Pent3",title:"Dominica in Octavam Sme Cordis Jesu",en:"3rd Sunday after Pentecost"},
     {key:"Pent4",title:"4 post Pentecosten",en:"4th Sunday after Pentecost"},
     {key:"Pent5",title:"5 post Pentecosten",en:"5th Sunday after Pentecost"},
     {key:"Pent6",title:"6 post Pentecosten",en:"6th Sunday after Pentecost"},
@@ -198,10 +198,10 @@ var saintKeys = [
     {key:"Mar12",title:"Mar 12: St Gregory the Great",en:"Mar 12: St Gregory the Great"},
     {key:"Mar17",title:"Mar 17: St Patrick",en:"Mar 17: St Patrick"},
     {key:"Mar18",title:"Mar 18: St Cyril of Jerusalem",en:"Mar 18: St Cyril of Jerusalem"},
-    {key:"Mar19",title:"Mar 19: St Joseph",en:"Mar 19: St Joseph"},
+    {key:"Mar19",title:"Mar 19: St Joseph",en:"Mar 19: St Joseph",class:1,transferIfSunday:true},
     {key:"Mar21",title:"Mar 21: St Benedict",en:"Mar 21: St Benedict"},
     {key:"Mar24",title:"Mar 24: St Gabriel the Archangel",en:"Mar 24: St Gabriel the Archangel"},
-    {key:"Mar25",title:"Mar 25: Annunciation of Our Lady",en:"Mar 25: Annunciation of Our Lady"},
+    {key:"Mar25",title:"Mar 25: Annunciation of Our Lady",en:"Mar 25: Annunciation of Our Lady",class:1,transferIfSunday:true},
     {key:"Mar27",title:"Mar 27: St John Damascene",en:"Mar 27: St John Damascene"},
     {key:"Mar28",title:"Mar 28: St John Capistran",en:"Mar 28: St John Capistran"},
     {key:"Apr2",title:"Apr 2: St Francis of Paula",en:"Apr 2: St Francis of Paula"},
@@ -221,7 +221,7 @@ var saintKeys = [
     {key:"Apr28",title:"Apr 28: St Paul of the Cross",en:"Apr 28: St Paul of the Cross"},
     {key:"Apr29",title:"Apr 29: St Peter of Verona",en:"Apr 29: St Peter of Verona"},
     {key:"Apr30",title:"Apr 30: St Catherine of Sienna",en:"Apr 30: St Catherine of Sienna"},
-    {key:"May1",title:"May 1: St Joseph the Worker",en:"May 1: St Joseph the Worker"},
+    {key:"May1",title:"May 1: St Joseph the Worker",en:"May 1: St Joseph the Worker",class:1},
     {key:"May2",title:"May 2: St Athanasius",en:"May 2: St Athanasius"},
     {key:"May4",title:"May 4: St Monica",en:"May 4: St Monica"},
     {key:"May5",title:"May 5: St Pius V",en:"May 5: St Pius V"},
@@ -361,7 +361,7 @@ var saintKeys = [
     {key:"Oct24",title:"Oct 24: St Raphael",en:"Oct 24: St Raphael"},
     {key:"Oct28",title:"Oct 28: Ss Simon and Jude",en:"Oct 28: Ss Simon and Jude"},
     {key:"Nov1",title:"Nov 1: The Feast of All Saints",en:"Nov 1: The Feast of All Saints"},
-    {key:"Nov2",title:"Nov 2: All Souls' Day",en:"Nov 2: All Souls' Day"},
+    {key:"Nov2",title:"Nov 2: All Souls' Day",en:"Nov 2: All Souls' Day",class:1,transferIfSunday:true},
     {key:"Nov4",title:"Nov 4: St Charles Borromeo",en:"Nov 4: St Charles Borromeo"},
     {key:"Nov8",title:"Nov 8: Four Holy Crowned Martyrs",en:"Nov 8: Four Holy Crowned Martyrs"},
     {key:"Nov9",title:"Nov 9: The Dedication of the Lateran Basilica",en:"Nov 9: The Dedication of the Lateran Basilica"},
@@ -537,7 +537,7 @@ R/. A(e.)men.(e.) (::)"
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">7.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
-<p><span class="versenum">8.&nbsp;</span>Quis est <b>i</b>ste Rex <b>gló</b>riæ?&nbsp;* Dóminus fortis et potens: Dóminus po<i>tens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">8.&nbsp;</span>Quis est iste Rex glóriæ?&nbsp;† Dóminus <b>for</b>tis et <b>po</b>tens:&nbsp;* Dóminus po<i>tens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">9.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
 <p><span class="versenum">10.&nbsp;</span>Quis est <b>i</b>ste Rex <b>gló</b>riæ?&nbsp;* Dóminus virtútum ipse <i>est</i> <i>Rex</i> <b>gló</b>riæ. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">11.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
@@ -685,9 +685,9 @@ annotation: <sp>V/</sp>.;\n\
 %%\n\
 (c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)\n\
 <sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)\n\
-<sp>V/</sp>. Ha(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)\n\
+<sp>V/</sp>. Há(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)\n\
 <sp>R/</sp>. Sanc(g)tus(fgf/fe) For(cd)tis.(fg!hv/hg.) (::)\n\
-<sp>V/</sp>. Ha(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)\n\
+<sp>V/</sp>. Há(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)\n\
 <sp>R/</sp>. Sanc(gh)tus(ixhg/hiHG'g) Im(f)mor(g)tá(h)lis,(hiwjvIHiih.) (;) mi(g)se(hj/jvIH')ré(g)re(hg/h_g) no(fd)bis.(fghv/hg.) (::)\n"
         }, {
             rubric: "Two cantors of the second choir sing:",
@@ -750,7 +750,7 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
             id: 1128
         }, {
             id: 2209,
-            gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{|}/g,'_',/\(z\)/g,'(Z)'],
+            gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{([^(}]+)\}/g,'_$1_',/\(z\)/g,'(Z)'],
             sticky: 1
         }, /*{
             rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis> is sung:",

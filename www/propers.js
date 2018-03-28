@@ -110,20 +110,55 @@ $(function(){
     result.ChristusRex = moment([Y,9,31]);
     result.ChristusRex.subtract(result.ChristusRex.day(),'days');
     result.epiphany = moment([Y,0,6]);
+    result.transferredFeasts = {};
     // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
     // in which case The Holy Family will be on the Saturday following.
     result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
     dateCache[Y] = result;
     return result;
   };
-  var dateForSundayKey = function(key) {
+  var coincidesWithFirstClassPropriumTemporum = function(mo, transferIfSunday) {
+    var dates = Dates(mo.year());
+    mo = moment(mo).startOf('day');
+    var daysAfterLent1 = mo.diff(dateForSundayKey('Quad1',dates),'day');
+    if(mo.isSame(dateForSundayKey('5aw',dates)) || (daysAfterLent1 % 7 == 0 && daysAfterLent1 >= 0 && daysAfterLent1 <= 28)) {
+      return mo;
+    } else {
+      var start = moment(dates.pascha).add(-1,'week'),
+          end = moment(dates.pascha).add(1,'week');
+      if(mo.isBetween(start,end,'day','[]')) {
+        return end;
+      }
+    }
+    if(transferIfSunday && mo.day()==0) return mo;
+  }
+  // gets special date for a first class feast that falls on Ash Wednesday, or a Sunday of Lent, or between Palm Sunday and Low Sunday
+  var getSpecialDateForFeast = function(m) {
+    var key = m.format('MMMD'),
+        feast = firstClassSaints[key],
+        mo = feast && coincidesWithFirstClassPropriumTemporum(m, feast.transferIfSunday);
+    if(mo) {
+      var dates = Dates(m.year());
+      if(key in dates) return dates[key];
+      mo.add(1,'day');
+      var newKey;
+      while((newKey = mo.format('MMMD')) in firstClassSaints || newKey in dates.transferredFeasts) {
+        mo.add(1,'day');
+      }
+      dates[key] = mo;
+      dates.transferredFeasts[newKey] = firstClassSaints[key];
+      return dates[key];
+    }
+    return m;
+  }
+  var dateForSundayKey = function(key, dates) {
     var weekdayKeys = ['m','t','w','h','f','s'];
     var m;
     if(key.match(/^[A-Z][a-z]{2}\d{1,2}/)) {
       m = moment(key.replace(/_.+$/,''),'MMMD');
       if(m.isValid()) return m;
     }
-    var dates = Dates(moment().year());
+    dates = dates || Dates(moment().year());
     var match;
     if(match = key.match(/Adv(\d)(Wed|Fri|Sat)?/)) {
       m = moment(dates.advent1);
@@ -380,10 +415,11 @@ $(function(){
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
-            if(part=='graduale') {
+            var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
+            if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
               // add ij. if not present:
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)/i,'$1 <i>ij.</i>');
-            } else if(part=='alleluia' && isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) {
+            } else if(part=='alleluia' && gradualeIsFirstAlleluia) {
               // remove ij. if present
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
             }
@@ -814,6 +850,7 @@ $(function(){
     clearHash(hash, selDay);
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
+      m = getSpecialDateForFeast(m);
       if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
     } else {
       m = dateForSundayKey(selDay);
@@ -1803,7 +1840,7 @@ $(function(){
             suffix: false,
             italicizeIntonation: false,
             result: result,
-            favor: 'intonation',
+            favor: i == 0? 'intonation' : '',
             flexEqualsTenor: introitTone
           });
         }
@@ -2172,6 +2209,10 @@ $(function(){
   var $selSundayNovus = $('#selSundayNovus');
   var $selYearNovus = $('#selYearNovus');
   var $selOrdinary = $('#selOrdinary');
+  var firstClassSaints = saintKeys.filter(function(saint) { return saint.class == 1; }).reduce(function(result, saint) {
+    result[saint.key] = saint;
+    return result;
+  }, {});
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
   $selSundayNovus.change(selectedDayNovus);
   $selYearNovus.change(function(){
@@ -2209,13 +2250,29 @@ $(function(){
       ($optGroup||$sel).append($temp);
     });
   };
-  var i = 1;
+  var i = 1, j = null, toSplice = [];
   var now = moment().startOf('day');
   while(i < saintKeys.length) {
-    var m = moment(saintKeys[i].key,'MMMD');
-    if(m.isSameOrAfter(now)) break;
+    var data = saintKeys[i];
+    var m = moment(data.key,'MMMD');
+    if(toSplice.length && m.isSameOrAfter(toSplice[0].moment)) {
+      saintKeys.splice(i,0,toSplice.shift());
+      data = saintKeys[i];
+      m = data.moment;
+    }
+    if(data.class == 1 && coincidesWithFirstClassPropriumTemporum(m,data.transferIfSunday)) {
+      m = getSpecialDateForFeast(m);
+      data.title += " (" + m.format("YYYY: MMM D") + ")";
+      data.en += " (" + m.format("YYYY: MMM D") + ")";
+      data.moment = m;
+      toSplice.push(data);
+      saintKeys.splice(i,1);
+      continue;
+    }
+    if(!j && m.isSameOrAfter(now)) j = i;
     ++i;
   }
+  i = j
   var beginningOfYearEntry = {title:"(Principium Annis)",en:"(Beginning of the Year)"}
   var moveToEnd = saintKeys.splice(1,i - 1);
   if(i < saintKeys.length && i >= 1) saintKeys.push(beginningOfYearEntry);
