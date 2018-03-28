@@ -689,7 +689,12 @@ function applyPsalmTone(options) {
       tones = acceptableAccentIndices[accentI].concat(tones);
       toneList.variableIntonationLength = accentI;
     }
+    var intonationLength = (typeof intonationLength=='number')? intonationLength : toneList.intonation + (toneList.variableIntonationLength||0);
     for(var ti = tones.length - 1; (ti >= 0 || lastOpen) && si >= 0; --ti,--si) {
+      if(!result.shortened && ti == intonationLength && si < ti) {
+        // we need to break out of the loop: there aren't enough syllables to give us the entire intonation as well as at least one tone that is not part of the intonation
+        break;
+      }
       var tone = tones[ti];
       var s = syl[si];
       if(ti == tones.length - 1 && si == syl.length - 1 && toneList.accents > 0 && s.accent){
@@ -765,9 +770,7 @@ function applyPsalmTone(options) {
           }
           var countToNext = lastAccentI - si;
           if(countToNext > 3 || si < 0) {
-            if(countToNext > 3) {
-              si = lastAccentI - 2;
-            }
+            si = lastAccentI - 2;
             s = syl[si];
             if(s)s.accent = true;
           }
@@ -886,7 +889,6 @@ function applyPsalmTone(options) {
       lastTone = tone;
     }
     if(!result.shortened && ti>=0){
-      var intonationLength = toneList.intonation + (toneList.variableIntonationLength||0)
       if(ti==0 && tones[ti].open) {
         finished = true;
       } else {
@@ -895,12 +897,13 @@ function applyPsalmTone(options) {
         } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
           tones = tones.slice(toneList.variableIntonationLength);
           toneList.variableIntonationLength = 0;
-        } else if(!favor.intonation && !favor.termination) {
+        } else if((ti - 1) <= intonationLength && !favor.intonation && !favor.termination) {
+          // if we made it at least to the first reciting tone and we aren't favoring the intonation, then we'll have to get rid of the intonation:
           tones = tones.slice(intonationLength);
           regexToneGabc.exec('');
           tones.splice(0,0,toneGabc(regexToneGabc.exec(tones[0].gabcClosed.slice(1,-1))));
           toneList.variableIntonationLength = 0;
-          toneList.intonationLength = 1;
+          intonationLength = 0;
         } else if(!favor.termination && intonationLength > 0){
           var punctumMorum=(tones[tones.length-1].all.slice(-1)=='.');
           tones = tonesShort || tones.slice(0);

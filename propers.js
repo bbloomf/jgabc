@@ -1840,7 +1840,7 @@ $(function(){
             suffix: false,
             italicizeIntonation: false,
             result: result,
-            favor: 'intonation',
+            favor: i == 0? 'intonation' : '',
             flexEqualsTenor: introitTone
           });
         }

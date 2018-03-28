@@ -88,7 +88,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
           italicizeIntonation: italicizeIntonation,
           result: result,
           gabcShort: _gShortMediant,
-          favor: 'intonation'
+          favor: i == 0? 'intonation' : ''
         }) + (line.length == 1? "" : ((gabcFormat||bi_formats.gabc).nbsp) + gabcStar + "(:) " +
           applyPsalmTone({
             text: line[1].trim(),
