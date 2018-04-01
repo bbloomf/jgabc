@@ -911,7 +911,7 @@ Chris(i)te,(h) ex(i)au(gxg)di(h) nos.(i.) (::)\n"
 office-part:Antiphona;\n\
 mode:6;\n\
 %%\n\
-(c4)Al(f)le(g')lú(h)ia,(f.) *(,) al(gh)le(g')lú(f)ia,(d_c) (,) al(f)le(gh)lú(gf~)ia.(f.) (::)",
+(c4)AL(f)le(g')lú(h)ia,(f.) *(,) al(gh)le(g')lú(f)ia,(d_c) (,) al(f)le(gh)lú(gf~)ia.(f.) (::)",
             sticky: 0
         }, {
             rubric: "<Psalm 150>",
