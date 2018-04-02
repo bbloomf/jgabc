@@ -631,6 +631,13 @@ R/. A(e.)men.(e.) (::)"
       id: 606
     }
   ],
+  "Quad6h-lotio": {
+    "asperges": [
+        {
+            options: [279, 649, 291, 736, 504, 1242, 1252, 1013]
+        }
+    ]
+  },
   "Quad6h": {
     "introitus": [
         {
