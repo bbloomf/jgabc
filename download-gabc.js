@@ -59,14 +59,14 @@ var path = 'gabc/',
                       .replace(/<sp>oe<\/sp>/g,'œ')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
                       .replace(/[/ ]+\)/g,')');
-                    content = content.replace(/([A-Za-zæœǽáéíóúýäëïöüÿ{}]+\([^)]*\))+([A-Za-zæœǽáéíóúýäëïöüÿ{}]+(?=[,.;:!?]))?/g, function(whole){
+                    content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ{}*]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ{}]+(?=[,.;:!?]))?/gi, function(whole){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
                       // 3. verify same number of syllables
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
-                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[A-Za-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/g;
+                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/gi;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
@@ -74,7 +74,16 @@ var path = 'gabc/',
                         if(braces.length % 2 === 0) match[1] = match[1].replace(/[{}]/g,'');
                         syls.push(match[1].replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ'));
                       }
-                      var otherSyls = latin.hyphenate(syls.join(''));
+                      var word = syls.join('');
+                      if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
+                        syls = syls.map(s => s.replace(/(?:(I)|i)(?=[AEIOUYÆŒǼÁÉÍÓÚÝÄËÏÖÜŸaeiouyæœǽáéíóúýäëïöüÿ])/, (all,i) => (i? 'J' : 'j')));
+                        if(word != syls.join('')) {
+                          console.info(word, file);
+                          errors.push(file + ': ' + word + '; replaced with ' + JSON.stringify(syls));
+                        }
+                        word = syls.join('');
+                      }
+                      var otherSyls = latin.hyphenate(word);
                       if(otherSyls.length != syls.length ||
                          (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽaeiouyáéíóúýäëïöüÿ]/i)))) {
                         if(syls.length && (syls.length > 1 || syls[0] != '}')) {
