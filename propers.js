@@ -2803,6 +2803,7 @@ console.info(JSON.stringify(selPropers));
       case 'toggleBarBefore':
       case 'toggleBarAfter':
         var bar = e.data.barBefore || e.data.barAfter;
+        var neumeIndex = note.neume && note.neume.score.notations.indexOf(note.neume);
         if(bar) {
           var mapping = bar.mapping,
               barIndex = mapping.notations.indexOf(bar);
@@ -2814,9 +2815,25 @@ console.info(JSON.stringify(selPropers));
             splice.removeLen = 1;
           }
         } else if(e.data.action === 'toggleBarBefore') {
+          if(neumeIndex) {
+            var previousNeume = note.neume.score.notations[neumeIndex - 1];
+            if(previousNeume.constructor == exsurge.TextOnly) {
+              splice.addString = ',';
+              splice.index = previousNeume.mapping.sourceIndex + previousNeume.mapping.source.length - 1;
+              break;
+            }
+          }
           splice.index = (note.neume || note).mapping.sourceIndex;
           splice.addString = '(,) ';
         } else {
+          if(neumeIndex) {
+            var nextNeume = note.neume.score.notations[neumeIndex + 1];
+            if(nextNeume.constructor == exsurge.TextOnly) {
+              splice.addString = ',';
+              splice.index = nextNeume.mapping.sourceIndex + nextNeume.mapping.source.length - 1;
+              break;
+            }
+          }
           splice.index = (note.neume || note).mapping.sourceIndex + (note.neume || note).mapping.source.length;
           splice.addString = ' (,) ';
         }
@@ -2829,8 +2846,11 @@ console.info(JSON.stringify(selPropers));
               barIndex = mapping.notations.indexOf(bar);
           if(barIndex === 0) {
             var mappings = bar.score.mappings,
-                index = mappings.indexOf(mapping),
-                beforeBar = mappings[index - 1];
+                index = mappings.indexOf(mapping) - 1,
+                beforeBar = mappings[index];
+            while(index >= 0 && beforeBar.notations.length == 1 && beforeBar.notations[0].constructor == exsurge.TextOnly) {
+              beforeBar = mappings[--index] || mappings[0];
+            }
             splice.index = beforeBar.sourceIndex + beforeBar.source.length - 1;
           } else {
             var prevIndex = mapping.notations[barIndex - 1].notes.slice(-1)[0].sourceIndex,
