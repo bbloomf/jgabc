@@ -691,6 +691,15 @@ $(function(){
       renderExtraChants($container, sel.extraChants);
     }
   }
+  function makeRubric(rubric,extraClass) {
+    var classes = 'rubric ' + (extraClass || '');
+    if(typeof(rubric) == 'string') rubric = [rubric];
+    return rubric.reduce((jq,rubric) => (jq.add($('<div>').addClass(classes).html(
+          rubric.replace(/>/g,'</span>').
+            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
+            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))), $());
+  }
   // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
   function renderExtraChants($container, extraChants, addI) {
     var $stickyParent, $curContainer = $container;
@@ -701,11 +710,7 @@ $(function(){
         $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
       }
       if(chant.rubric) {
-        $curContainer.append($('<div>').addClass('rubric').html(
-          chant.rubric.replace(/>/g,'</span>').
-            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
-            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
-            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")));
+        $curContainer.append(makeRubric(chant.rubric));
       }
       if(chant.id && chant.psalmtone) {
         if(!selPropers.gradualeID) selPropers.gradualeID = [0];
@@ -801,11 +806,7 @@ $(function(){
         }
       }
       if(chant.rubricAfter) {
-        $curContainer.append($('<div>').addClass('rubric after').html(
-          chant.rubricAfter.replace(/>/g,'</span>').
-            replace(/<(?!\/?\w+>)/g,'<span class="quote">').
-            replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
-            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")));
+        $curContainer.append(makeRubric(chant.rubricAfter,'after'));
       }
       if(chant.html) {
         $curContainer.append($('<div>').html(chant.html

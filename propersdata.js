@@ -784,6 +784,29 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
     "Quad6s": {
       "asperges": [
         {
+            title: "The Procession of the Paschal Candle",
+            rubric: "When the deacon [or priest] has entered the church, he stands and sings alone:",
+            gabc: "initial-style: 0;\n%%\n(f3)<sp>V/</sp> Lu(h)men(h) Chris(h.)ti.(f.) (::)"
+        },
+        {
+            rubric: "All others, except the subdeacon [or cross bearer] and thurifer kneel toward the paschal candle and answer:",
+            gabc: "initial-style: 0;\n%%\n(f3)<sp>R/</sp> De(h)o(h) grá(h')ti(f)as.(f.) (::)",
+            rubricAfter: ["All rise, and the celebrant lights his own candle from the paschal candle.  The deacon [or priest] goes to the middle of the church, and sings in the same way, but in a higher key: <Lumen Christi.> All kneel and answer as before: <Deo grátias.>",
+"The candles of the clergy [or servers] are then lit from the paschal candle.",
+"The third time, he goes in front of the high altar, in the middle of the choir, and again sings in a still higher key: <Lumen Christi.> All kneel a third time, and answer as before: <Deo grátias.>",
+"The candles of the faithful and the lamps of the church are then lit from the paschal candle."]
+        },
+        {
+            title: "The Paschal Praise",
+            rubric: "Within the <Exsultet,> the following responses are sung to the ferial tone of the Preface:",
+            id: 7675,
+        },
+        {
+            rubric: "The conclusion is sung:",
+            gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
+<sp>R/</sp> A(e)men.(ef..) (::)"
+        },
+        {
             id: 2060,
             psalmtone: 'tractus'
         },
@@ -843,11 +866,15 @@ Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sa
 <p>Sancta <b>A</b>gatha,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
 <p>Sancta Ana<b>stá</b>sia,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
 <p>Omnes sanctæ Vírgines et <b>Ví</b>duæ,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Omnes Sancti et Sanctæ <b>De</b>i,&nbsp;<span style="float:right">intercédi<i>te</i> <i>pro</i> <b>no</b>bis.</span></p>\
+<p>Omnes Sancti et Sanctæ <b>De</b>i,&nbsp;*&nbsp;<span style="float:right">intercédi<i>te</i> <i>pro</i> <b>no</b>bis.</span></p>\
 </div>'
         }, {
-            title: "The Blessing of Water for Baptism",
             rubric: "After the invocation <Omnes Sancti et Sanctæ Dei,> all rise.  If cantors sang the Litany, they return to their places."
+        }, {
+            title: "The Blessing of Water for Baptism",
+            rubric: "Within the blessing, the following responses are sung to the ferial tone of the Preface:",
+            id: 7675,
+
         }, {
             rubric: "When the Blessing (and Baptism) is finished, the baptismal water is carried to the font, in procession, while the following is sung:",
             id: 943,
@@ -1053,7 +1080,7 @@ var proprium = {
   Epi6: {introitusID:1123,offertoriumID:47,communioID:1148,alleluiaID:1001,gradualeID:1173},
   Nat1: {introitusID:564,offertoriumID:979,communioID:1282,gradualeID:1308,alleluiaID:714},
   Nat2: {introitusID:1033,offertoriumID:980,communioID:8,alleluiaID:1,gradualeID:670},
-  Pasc0: {introitusID:1043,gradualeID:1075,alleluiaID:761,sequentiaID:1086,offertoriumID:725,communioID:952},
+  Pasc0: {introitusID:1043,gradualeID:1075,alleluiaID:761,sequentiaID:1086,offertoriumID:725,communioID:952, ite:2988},
   Pasc0m:{introitusID:1315, gradualeID:1150, alleluiaID:377, sequentiaID:1086, offertoriumID:789, communioID:121},
   Pasc0t:{introitusID:1135,gradualeID:1188,alleluiaID:438,sequentiaID:1086,offertoriumID:869,communioID:243},
   Pasc0w:{introitusID:997,gradualeID:416,alleluiaID:1217,sequentiaID:1086,offertoriumID:1361,communioID:593},
@@ -1153,7 +1180,7 @@ var proprium = {
   Quad6h: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140, credo: false, gloriaPatri:false, ite: 'benedicamus',
     agnusReplace: [/d[oó](\([^)]+\))na(\([^)]+\))\s+n[oó](\([^)]+\))bis(\([^)]+\))\s+p[aá](\([^)]+\))cem\.?(\([^)]+\))/gi, 'mi$1se$2ré$3re$4 no$5bis.$6']},
   Quad6f: {extraChants: true, ordinary: false},
-  Quad6s: {extraChants: true, credo: false, agnus: false, ite: false},
+  Quad6s: {extraChants: true, credo: false, agnus: false, ite: false, asperges: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:666,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},
