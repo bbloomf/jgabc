@@ -1,5 +1,5 @@
 window.matchMedia = window.matchMedia || function() { return { matches: false }};
-var selDay,selTempus='',selPropers,selOrdinaries={},sel={
+var selDay,selTempus='',selPropers,selOrdinaries={},selCustom={},sel={
   tractus:{},
   offertorium:{},
   introitus:{},
@@ -337,7 +337,7 @@ $(function(){
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
-    var selPO = $.extend({},selPropers,selOrdinaries);
+    var selPO = $.extend({},selPropers,selOrdinaries,selCustom);
     var id;
     var incipit;
     var match = part.match(/^([a-z]+)(\d+)$/i);
@@ -350,7 +350,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
-    var isOrdinaryPart = $div.is('.ordinary');
+    var isOrdinaryPart = $div.is('.ordinary') || $div.is('[custom]');
     if(selPropers && (selPropers[part] === false || (selPropers.ordinary === false && isOrdinaryPart))) {
       $div.hide();
       return; 
@@ -2353,7 +2353,14 @@ $(function(){
     title: 'Ordinaria Missæ in cantu gregoriano',
     en: 'Chant Mass Ordinaries...'
   })
-  populate(ordinaryKeys,$selOrdinary)
+  populate(ordinaryKeys,$selOrdinary);
+  populate([{name:"Select a chant", id: ""}].concat(miscChants).map(function(e) {
+    return {
+      key: e.id.toString(),
+      title: e.name,
+      en: e.name
+    }
+  }), $('#selCustom'));
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
   //When the year number is found, Take year = yearArray[year%3];
   var date = new Date(),
@@ -2376,6 +2383,17 @@ $(function(){
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   })
+  $('[part^=custom] select').change(function(){
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+        part = capPart.toLowerCase();
+    selCustom[part + 'ID'] = this.value;
+    if(!sel[part]) {
+      sel[part] = {};
+      makeChantContextForSel(sel[part]);
+    }
+    addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
+    updatePart(part, this.options[this.selectedIndex].innerText);
+  });
   $('#btnCalendar').click(function(e){
     var $this = $(this);
     isNovus = !isNovus;

@@ -21,6 +21,7 @@
   <script src="moment.easter.js"></script>
   <script src="propersdata.js"></script>
   <script src="ordinarydata.js"></script>
+  <script src="miscChants.js"></script>
   <script src="propersdatanovus.js"></script>
   <script src="propers.js"></script>
 <!--   <script src="../exsurge/dist/exsurge.js"></script> -->
@@ -120,8 +121,8 @@
         <div id="asperges-preview-container" class='preview-container'>
           <div id="asperges-preview" class='chant-preview'></div>
             <div class="asperges-verses">
-              <div><span class='versiculum'>v</span> Osténde nobis, Dómine, misericórdiam tuam<span tempus='-pasch'>.</span><span tempus='pasch'>, Allelúia.</span></div>
-              <div><span class='versiculum'>r</span> Et salutáre tuum da nobis<span tempus='-pasch'>.</span><span tempus='pasch'>, Allelúia.</span></div>
+              <div><span class='versiculum'>v</span> Osténde nobis, Dómine, misericórdiam tuam<span tempus='pasch'>, Allelúia</span>.</div>
+              <div><span class='versiculum'>r</span> Et salutáre tuum da nobis<span tempus='pasch'>, Allelúia</span>.</div>
               <div><span class='versiculum'>v</span> Dómine exáudi oratiónem meam.</div>
               <div><span class='versiculum'>r</span> Et clamor meus ad te véniat.</div>
               <div><span class='versiculum'>v</span> Dóminus vobíscum.</div>
@@ -131,7 +132,7 @@
       </div>
     </div>
   </div>
-  <div id='divExtraChants'>
+  <div id='divExtraChants' style="display: none;">
     <div><a href='' class='showHide'><span class='showHide'>Show</span> Extra Chants</a></div>
     <div id='extra-chants'></div>
   </div>
@@ -493,6 +494,28 @@
       <div class='chant-parent'>
         <div id="ite-preview-container" class='preview-container'>
           <div id="ite-preview" class='chant-preview'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id='divCustom' part='custom' custom>
+    <div class='block hide-print'>
+      <label class="hide-ss" id="lblCustom" for="chantCustom"><a target="_blank">Ad libitum</a></label>
+      <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
+      <div class='flex right'>
+        <span class='child-other'>
+          <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
+        </span>
+        <span class='child-main'>
+          <select id='selCustom'></select>
+        </span>
+      </div>
+      <textarea id="chantCustom" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+    </div>
+    <div class='block right'>
+      <div class='chant-parent'>
+        <div id="custom-preview-container" class='preview-container'>
+          <div id="custom-preview" class='chant-preview'></div>
         </div>
       </div>
     </div>

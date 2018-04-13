@@ -129,7 +129,7 @@ var path = 'gabc/',
         if(active === 0 && i == ids.length) {
           var time = (new Date() - timeA) / 1000;
           fs.writeFileSync('gabc-files.html', gabcUrls);
-          fs.writeFileSync('miscChants.js', JSON.stringify(miscChants.sort((a,b) => (a.name||'').localeCompare(b.name))));
+          fs.writeFileSync('miscChants.js', 'miscChants=' + JSON.stringify(miscChants.sort((a,b) => (a.name||'').localeCompare(b.name))));
           console.info('Finished in ' + time + ' seconds!');
           // console.info(replacements.join('\n\n'));
           console.info(errors.join('\n'));
