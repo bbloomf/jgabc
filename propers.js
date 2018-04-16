@@ -455,6 +455,8 @@ $(function(){
           $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
+        } else if(part == 'custom') {
+          truePart = ordinaryName;
         }
         if(/^(graduale|tractus)/.test(truePart)) {
           $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
