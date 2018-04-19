@@ -487,7 +487,8 @@ $(function(){
         if(part.match(/^(asperges|introitus)$/) && selPropers && selPropers.gloriaPatri === false) {
           sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
-        var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
+        var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode);
+        $('#selStyle' + capPart).change();
         if(!$selTone.length) {
           sel[part].style = 'full';
           updateTextAndChantForPart(part);
@@ -1439,7 +1440,7 @@ $(function(){
           } else {
             $selTone.attr('disabled',true);
           }
-          $selTone.val(gabcHeader.mode);
+          $selTone.val(sel[part].overrideTone || gabcHeader.mode);
         }
       } else {
         $selToneEnding.show();
