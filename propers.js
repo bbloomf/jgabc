@@ -1475,15 +1475,46 @@ $(function(){
     }
     return result + text.slice(result.length);
   }
+
+  var swapDoFaClef = function(gabc, clef) {
+    var c1 = parseInt(clef[1]),
+        c = c1 * 2 + 1,
+        faTi = c + 3 + 7,
+        gabcFaTi = "x",
+        charCodeForA = 'a'.charCodeAt(0);
+    while(faTi >= 0) {
+      if(faTi < 13) gabcFaTi += String.fromCharCode(charCodeForA + faTi);
+      faTi -= 7;
+    }
+    var regex = new RegExp("[" + gabcFaTi + "]",'i');
+    if(regex.test(gabc)) {
+      // the clefs are not equivalent...
+      if(clef[0] == 'f') {
+        c = c1 - 1.5;
+      } else {
+        c = c1 + 1.5;
+      }
+      if(c < 1) c += 3.5;
+      if(c >= 4.5) c-= 3.5;
+      return clef[0] + c;
+    }
+    return clef;
+  }
   
-  var shiftGabcForClefChange = function(gabc,oldClef,newClef) {
-    if(newClef.length < 2)return;
-    var baseClefI = parseInt(oldClef[1],10);
-    //if(oldClef[0]=='f') baseClefI += 2;
-    var clefI = parseInt(newClef[1],10);
-    //if(newClef[0]=='f') clefI += 2;
+  var shiftGabcForClefChange = function(gabc,newClef,clef) {
+    if(clef.length < 2)return;
+    if(newClef[0] != clef[0]) {
+      clef = swapDoFaClef(gabc.join(' '), clef);
+    }
+    var baseClefI = parseInt(newClef[1],10);
+    //if(newClef[0]=='f') baseClefI += 2;
+    var clefI = parseFloat(clef.slice(1),10);
+    //if(clef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
-    return shiftGabc(gabc,diff);
+    // minimize Difference: 
+    if(diff < -3.5) diff += 7;
+    if(diff > 3.5) diff -= 7;
+    return gabc.map(function(gabc) { return shiftGabc(gabc,diff) });
   }
   
   var applyLiquescents = function(gabc){
@@ -1572,8 +1603,9 @@ $(function(){
     if(clef) {
       clef = clef[1];
       if(clef != tone.clef) {
-        mediant = shiftGabcForClefChange(mediant,clef,tone.clef);
-        termination = shiftGabcForClefChange(termination,clef,tone.clef);
+        var result = shiftGabcForClefChange([mediant, termination],clef,tone.clef);
+        mediant = result[0];
+        termination = result[1];
       }
     } else clef = tone.clef;
     return {
@@ -1747,8 +1779,9 @@ $(function(){
     }
     if(useOriginalClef && originalClef && originalClef != tone.clef) {
       clef = originalClef;
-      gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
-      gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+      var result = shiftGabcForClefChange([gMediant, gTermination],clef,tone.clef);
+      gMediant = result[0];
+      gTermination = result[1];
     }
     var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     
@@ -1775,8 +1808,9 @@ $(function(){
         // check for clef changes within this verse GABC:
         newClef = nextNewClef;
         if(newClef && newClef != clef) {
-          gMediant = shiftGabcForClefChange(gMediant,newClef,clef);
-          gTermination = shiftGabcForClefChange(gTermination,newClef,clef);
+          var result = shiftGabcForClefChange([gMediant, gTermination],newClef,clef);
+          gMediant = result[0];
+          gTermination = result[1];
           clef = newClef;
         }
         newClef = null;
