@@ -1417,20 +1417,28 @@ $(function(){
       }
       // if it is an alleluia:
       if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
+        var gabcHeader = gabc && getHeader(gabc) || {};
         if(style=='psalm-tone2') {
-          // if it uses the simple psalm tone, then we still want to show these:
+          // if it uses the simple psalm tone, then we still want to show the endings and allow peregrinus and alts:
+          populateSelectWithTones($selTone,true,gabcHeader.mode || true);
           $selToneEnding.show();
           $cbSolemn.show();
         } else {
+          // otherwise, we are using the introit tones, so we don't have endings, alts or peregrinus available:
+          populateSelectWithTones($selTone,false,true);
           $selToneEnding.hide();
           $cbSolemn.hide();
         }
-        var gabcHeader = gabc && getHeader(gabc);
         if(style=='psalm-tone1' || !(gabcHeader && gabcHeader.mode)) {
           // for alleluias, we can't allow changing the tone unless it is "fully psalm toned"
+          // however, this is complicated a bit if the tone is 4 or 6, which have alternate options available
           $selTone.attr('disabled',false);
         } else {
-          $selTone.attr('disabled',true);
+          if(style=='psalm-tone2' && (gabcHeader.mode == 4 || gabcHeader.mode == 6)) {
+            $selTone.attr('disabled',false);
+          } else {
+            $selTone.attr('disabled',true);
+          }
           $selTone.val(gabcHeader.mode);
         }
       } else {
@@ -1439,6 +1447,10 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
+      if(part.match(/^graduale/)) {
+        // it may have been an alleluia before, so we have to reset it just in case.
+        populateSelectWithTones($selTone,true,true);
+      }
       resetPartStyle(part);
       if(gabc) {
         $selTone.val(getHeader(gabc).mode);
@@ -2460,13 +2472,28 @@ $(function(){
   $('select.endings').change(selEndingsChanged);
   $('input.cbSolemn').change(cbSolemnChanged);
   var $selTones = $('select.tones').change(selTonesChanged);
-  for(var i=1; i<=8; ++i) {
-    $selTones.append('<option>'+i+'</option>');
-    if(i == 4 || i == 6) {
-      $selTones.append('<option>'+i+' alt</option>');
+  function populateSelectWithTones($selTones, withAltsAndPeregrinus, doReplace) {
+    if(doReplace) {
+      $selTones.empty();
+    } else {
+      $selTones = $selTones.filter(':empty');
+      if(!$selTones.length) {
+        return;
+      }
     }
+    var single = (doReplace == 4 || doReplace == 6)? doReplace : null;
+    for(var i=1; i<=8; ++i) {
+      if(single) i = single;
+      $selTones.append('<option>'+i+'</option>');
+      if(withAltsAndPeregrinus && (i == 4 || i == 6)) {
+        $selTones.append('<option>'+i+' alt</option>');
+      }
+      if(single) return;
+    }
+    if(withAltsAndPeregrinus) $selTones.append('<option>per</option>');
   }
-  $selTones.append('<option>per</option>');
+  populateSelectWithTones($('[part=introitus] select.tones'));
+  populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
     var result=[];
