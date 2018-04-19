@@ -489,7 +489,8 @@ $(function(){
         if(part.match(/^(asperges|introitus)$/) && selPropers && selPropers.gloriaPatri === false) {
           sel[part].gabc = gabc = removeGloriaPatriGabc(sel[part]);
         }
-        var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode).change();
+        var $selTone = $('#selTone' + capPart).val(sel[part].overrideTone || header.mode);
+        $('#selStyle' + capPart).change();
         if(!$selTone.length) {
           sel[part].style = 'full';
           updateTextAndChantForPart(part);
@@ -1419,21 +1420,29 @@ $(function(){
       }
       // if it is an alleluia:
       if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
+        var gabcHeader = gabc && getHeader(gabc) || {};
         if(style=='psalm-tone2') {
-          // if it uses the simple psalm tone, then we still want to show these:
+          // if it uses the simple psalm tone, then we still want to show the endings and allow peregrinus and alts:
+          populateSelectWithTones($selTone,true,gabcHeader.mode || true);
           $selToneEnding.show();
           $cbSolemn.show();
         } else {
+          // otherwise, we are using the introit tones, so we don't have endings, alts or peregrinus available:
+          populateSelectWithTones($selTone,false,true);
           $selToneEnding.hide();
           $cbSolemn.hide();
         }
-        var gabcHeader = gabc && getHeader(gabc);
         if(style=='psalm-tone1' || !(gabcHeader && gabcHeader.mode)) {
           // for alleluias, we can't allow changing the tone unless it is "fully psalm toned"
+          // however, this is complicated a bit if the tone is 4 or 6, which have alternate options available
           $selTone.attr('disabled',false);
         } else {
-          $selTone.attr('disabled',true);
-          $selTone.val(gabcHeader.mode);
+          if(style=='psalm-tone2' && (gabcHeader.mode == 4 || gabcHeader.mode == 6)) {
+            $selTone.attr('disabled',false);
+          } else {
+            $selTone.attr('disabled',true);
+          }
+          $selTone.val(sel[part].overrideTone || gabcHeader.mode);
         }
       } else {
         $selToneEnding.show();
@@ -1441,6 +1450,10 @@ $(function(){
         $selTone.attr('disabled',false);
       }
     } else {
+      if(part.match(/^graduale/)) {
+        // it may have been an alleluia before, so we have to reset it just in case.
+        populateSelectWithTones($selTone,true,true);
+      }
       resetPartStyle(part);
       if(gabc) {
         $selTone.val(getHeader(gabc).mode);
@@ -1465,15 +1478,46 @@ $(function(){
     }
     return result + text.slice(result.length);
   }
+
+  var swapDoFaClef = function(gabc, clef) {
+    var c1 = parseInt(clef[1]),
+        c = c1 * 2 + 1,
+        faTi = c + 3 + 7,
+        gabcFaTi = "x",
+        charCodeForA = 'a'.charCodeAt(0);
+    while(faTi >= 0) {
+      if(faTi < 13) gabcFaTi += String.fromCharCode(charCodeForA + faTi);
+      faTi -= 7;
+    }
+    var regex = new RegExp("[" + gabcFaTi + "]",'i');
+    if(regex.test(gabc)) {
+      // the clefs are not equivalent...
+      if(clef[0] == 'f') {
+        c = c1 - 1.5;
+      } else {
+        c = c1 + 1.5;
+      }
+      if(c < 1) c += 3.5;
+      if(c >= 4.5) c-= 3.5;
+      return clef[0] + c;
+    }
+    return clef;
+  }
   
-  var shiftGabcForClefChange = function(gabc,oldClef,newClef) {
-    if(newClef.length < 2)return;
-    var baseClefI = parseInt(oldClef[1],10);
-    //if(oldClef[0]=='f') baseClefI += 2;
-    var clefI = parseInt(newClef[1],10);
-    //if(newClef[0]=='f') clefI += 2;
+  var shiftGabcForClefChange = function(gabc,newClef,clef) {
+    if(clef.length < 2)return;
+    if(newClef[0] != clef[0]) {
+      clef = swapDoFaClef(gabc.join(' '), clef);
+    }
+    var baseClefI = parseInt(newClef[1],10);
+    //if(newClef[0]=='f') baseClefI += 2;
+    var clefI = parseFloat(clef.slice(1),10);
+    //if(clef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
-    return shiftGabc(gabc,diff);
+    // minimize Difference: 
+    if(diff < -3.5) diff += 7;
+    if(diff > 3.5) diff -= 7;
+    return gabc.map(function(gabc) { return shiftGabc(gabc,diff) });
   }
   
   var applyLiquescents = function(gabc){
@@ -1562,8 +1606,9 @@ $(function(){
     if(clef) {
       clef = clef[1];
       if(clef != tone.clef) {
-        mediant = shiftGabcForClefChange(mediant,clef,tone.clef);
-        termination = shiftGabcForClefChange(termination,clef,tone.clef);
+        var result = shiftGabcForClefChange([mediant, termination],clef,tone.clef);
+        mediant = result[0];
+        termination = result[1];
       }
     } else clef = tone.clef;
     return {
@@ -1737,8 +1782,9 @@ $(function(){
     }
     if(useOriginalClef && originalClef && originalClef != tone.clef) {
       clef = originalClef;
-      gMediant = shiftGabcForClefChange(gMediant,clef,tone.clef);
-      gTermination = shiftGabcForClefChange(gTermination,clef,tone.clef);
+      var result = shiftGabcForClefChange([gMediant, gTermination],clef,tone.clef);
+      gMediant = result[0];
+      gTermination = result[1];
     }
     var gTertium = introitTone && getTertiumQuid(gMediant,gTermination);
     
@@ -1765,8 +1811,9 @@ $(function(){
         // check for clef changes within this verse GABC:
         newClef = nextNewClef;
         if(newClef && newClef != clef) {
-          gMediant = shiftGabcForClefChange(gMediant,newClef,clef);
-          gTermination = shiftGabcForClefChange(gTermination,newClef,clef);
+          var result = shiftGabcForClefChange([gMediant, gTermination],newClef,clef);
+          gMediant = result[0];
+          gTermination = result[1];
           clef = newClef;
         }
         newClef = null;
@@ -2480,13 +2527,28 @@ $(function(){
   $('select.endings').change(selEndingsChanged);
   $('input.cbSolemn').change(cbSolemnChanged);
   var $selTones = $('select.tones').change(selTonesChanged);
-  for(var i=1; i<=8; ++i) {
-    $selTones.append('<option>'+i+'</option>');
-    if(i == 4 || i == 6) {
-      $selTones.append('<option>'+i+' alt</option>');
+  function populateSelectWithTones($selTones, withAltsAndPeregrinus, doReplace) {
+    if(doReplace) {
+      $selTones.empty();
+    } else {
+      $selTones = $selTones.filter(':empty');
+      if(!$selTones.length) {
+        return;
+      }
     }
+    var single = (doReplace == 4 || doReplace == 6)? doReplace : null;
+    for(var i=1; i<=8; ++i) {
+      if(single) i = single;
+      $selTones.append('<option>'+i+'</option>');
+      if(withAltsAndPeregrinus && (i == 4 || i == 6)) {
+        $selTones.append('<option>'+i+' alt</option>');
+      }
+      if(single) return;
+    }
+    if(withAltsAndPeregrinus) $selTones.append('<option>per</option>');
   }
-  $selTones.append('<option>per</option>');
+  populateSelectWithTones($('[part=introitus] select.tones'));
+  populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
     var result=[];
