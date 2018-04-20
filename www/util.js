@@ -559,6 +559,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         return word;
       }
   return function(e){
+    if(e.altKey || e.metaKey || e.ctrlKey) return;
     if(typeof(getHeaderLen)=='function' && getHeaderLen(this.value)>0) {
       // Only process as international textbox if the cursor is not within parentheses:
       var lastOpenParen = this.value.lastIndexOf('(',this.selectionStart-1);
@@ -590,7 +591,30 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         var syl = syllables[which];
         phrase = phrase.slice(0,syl.index) + syl.sylnospace + '*' + phrase.slice(phrase.indexOf(syl.sylnospace,syl.index) + syl.sylnospace.length);
         this.value = this.value.slice(0, wordStart) + phrase + this.value.slice(end);
-        this.selectAndScroll(start, wordStart + phrase.length, e.shiftKey);
+        // check if this phrase has multiple accents:
+        var lines = splitSentences(this.value.slice(wordStart));
+        if(lines && lines[0] && lines[0].accents > 1 && lines[0][1].length - phrase.length < 4) {
+          line = lines[0];
+          which = syllables.length - 1 - which;
+          phrase = this.value.slice(0,end);
+          syllables = Syl.syllabify(phrase);
+          syllables = syllables.slice(0, syllables.length - 1 - which);
+          var lastSyl = syllables.slice(-1)[0];
+          var last3syl = syllables.slice(-3);
+          end = last3syl[0].index;
+          phrase = this.value.slice(end, lastSyl.index + lastSyl.sylnospace.length);
+          if(phrase.indexOf('*')<0) {
+            var accentSyl = lastSyl.word.length==1? lastSyl : last3syl[1];
+            accentSyl.separator = '*';
+            var index = accentSyl.index - end + accentSyl.sylnospace.length;
+            phrase = phrase.slice(0,index) + '*' + phrase.slice(index);
+            this.value = this.value.slice(0, end) + phrase + this.value.slice(end + phrase.length - 1);
+          }
+          this.selectAndScroll(last3syl[0].index, end + phrase.indexOf(lastSyl.sylnospace,lastSyl.index-end) + lastSyl.sylnospace.length + (lastSyl.separator && lastSyl.separator.length || 0), e.shiftKey);
+          
+        } else {
+          this.selectAndScroll(start, wordStart + phrase.length, e.shiftKey);
+        }
         e.preventDefault();
         return;
       } else {
@@ -609,6 +633,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
     if(e.which==9 || (!isEnglish && (e.which == 49 || e.which == 50))) {
       if(isEnglish) {
         var selectionEnd = this.selectionEnd;
+        while(/\s/.test(this.value[selectionEnd])) {
+          ++selectionEnd;
+        }
         if(this.selectionEnd == this.selectionStart) {
           selectionEnd = 0;
           this.scrollTop = 0;
@@ -619,15 +646,28 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
           lines = splitSentences(part);
           if(lines.length<2) return;
           line = lines.slice(-2)[0];
-          if(line) selectionEnd = part.lastIndexOf(line); 
+          if(line) selectionEnd = part.lastIndexOf(line[1]); 
         } else {
           part = this.value.slice(selectionEnd);
           lines = splitSentences(part);
           line = lines[0];
-          if(line && line.length < 4) line = lines[1];
-          if(line) selectionEnd += part.indexOf(line);
+          var convertedWhitespace = this.value.slice(0,selectionEnd).replace(/\s/g,' ');
+          while(line && (line[1].length < 4 || Syl.syllabify(line[1]).length < 3)) {
+            if(selectionEnd > 0) {
+              selectionEnd = Math.max(0, convertedWhitespace.lastIndexOf(' '));
+              convertedWhitespace = convertedWhitespace.slice(0, selectionEnd);
+              part = this.value.slice(selectionEnd);
+              lines = splitSentences(part);
+              line = lines[0];
+            } else {
+              line = lines[1];
+              break;
+            }
+          }
+          if(line) selectionEnd += part.indexOf(line[1]);
         }
         if(!line) return;
+        line = line[1];
         var syllables = Syl.syllabify(line);
         if(syllables.length<3) return;
         var lastSyl = syllables.slice(-1)[0];

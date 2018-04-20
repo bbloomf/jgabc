@@ -34,7 +34,7 @@ function updateEditor(forceGabcUpdate,_syl) {
     return result;
   }
   gQuestion = splitTone(question);
-  gConclusion = splitTone(conclusion);
+  gConclusion = splitTone(conclusion || fullStop);
   gFullStop = splitTone(fullStop);
 
   gMediant = getGabcTones(mediant,prefix);
@@ -47,9 +47,8 @@ function updateEditor(forceGabcUpdate,_syl) {
   gabc = ' (::)';
   var psalmToneStack = gConclusion;
   for(var i = lines.length - 1; i>=0; --i){
-    var line = lines[i];
-    var punctuation = line.slice(-1);
-    if(punctuation.match(/['"‘“’”]/)) punctuation = line.slice(-2,-1);
+    var line = lines[i][1];
+    var punctuation = lines[i][2][0];
     var loop = false;
     do{
       psalmTone = psalmToneStack.pop();
@@ -394,12 +393,38 @@ function windowResized(){
   if(exsurge.layoutMyChant) exsurge.layoutMyChant();
 }
 var splitSentences = (function(){
-  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+(?:$|,(?=[,\r\n])|[+\^~.?!;:](?:\s*[:+])?["'“”‘’]?)),?\s*/gi;
+  var countAccents = function(gabc) {
+    gabc = (gabc||"").replace(/^([,;:])/,' $1').split(/\s*(?=[,;:])/).slice(-1)[0];
+    return (gabc.match(/'[a-m]/g) || ['']).length;
+  }
+
+  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+($|,(?=[,\r\n])|[+^~.?!;:](?:\s*[:+])?["'“”‘’]*)),?\s*/gi;
   return function(text){
+    var question = countAccents($("#txtQuestion").val());
+    var mediant = countAccents($("#txtMediant").val());
+    var fullStop = countAccents($("#txtFullStop").val());
+    var flex = countAccents($("#txtFlexTone").val());
     var result = [];
     var m;
     while((m=sentenceRegex.exec(text))){
-      result.push(m[1]);
+      switch(m[2]) {
+        case '.':
+        case '!':
+          m.accents = fullStop;
+          break;
+        case '?':
+          m.accents = question;
+          break;
+        case '+':
+          m.accents = flex;
+        case ',':
+        case ':':
+          m.accents = mediant;
+          break;
+        default:
+          m.accents = 1;
+      }
+      result.push(m);
     }
     return result;
   };

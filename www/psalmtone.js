@@ -426,6 +426,7 @@ var Syl = (function(){
           if(wi + tmp[2].length >= ai[0]){
             ai.shift();
             tmp[6] = '*';
+            ++index;
           }
           var tmpSyllable = syllable(tmp,prefix,{nbsp:""});
           prefix = null;
