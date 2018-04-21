@@ -2421,7 +2421,7 @@ $(function(){
     }
     ++i;
     var appendI = function(x,s) { return s.replace(/custom/i,'$&'+i) };
-    $custom.attr('id',appendI);
+    $custom.attr('id',appendI).attr('part',appendI);
     $custom.find('[id^=custom],[id$=Custom]').attr('id',appendI);
     $custom.find('[for*=Custom]').attr('for',appendI);
   });
