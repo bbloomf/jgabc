@@ -2830,6 +2830,18 @@ console.info(JSON.stringify(selPropers));
           }
         }
       });
+      $('select[id^=selCustom]').each(function(){
+        var part = this.id.slice(3).toLowerCase();
+        if(hash[part]) {
+          selCustom[part+'ID'] = hash[part];
+          if(!sel[part]) {
+            sel[part] = {};
+            makeChantContextForSel(sel[part]);
+          }
+          $(this).val(hash[part]);
+          updatePart(part, this.options[this.selectedIndex].innerText);
+        }
+      });
     }
     allowAddToHash = true;
   }
