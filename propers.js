@@ -380,7 +380,7 @@ $(function(){
       incipit = id && id.incipit;
       id = id && id.id;
     } else {
-      id = selPO[partType+'ID'];
+      id = selPO[partType+(partIndex||'')+'ID'];
       if(id == 'no') id = '';
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
@@ -455,7 +455,7 @@ $(function(){
           $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
-        } else if(part == 'custom') {
+        } else if(partType == 'custom') {
           truePart = ordinaryName;
         }
         if(/^(graduale|tractus)/.test(truePart)) {
@@ -470,7 +470,7 @@ $(function(){
           return space + letter.toUpperCase();
         });
         if(capTruePart) {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + ((partIndex && partType!='custom')? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         }
         var romanMode = romanNumeral[header.mode];
@@ -511,6 +511,9 @@ $(function(){
     } else {
       if(isOrdinaryPart) {
         $div.find('.chant-preview').empty();
+        if(partType == 'custom') {
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text('Ad Libitum');
+        }
       } else {
         $div.hide();
       }
@@ -2410,6 +2413,18 @@ $(function(){
       en: e.name
     }
   }), $('#selCustom'));
+  var $customTemplate = $('#divCustom');
+  $.each(['offertorium','communio',''], function(i,key) {
+    var $custom = $customTemplate;
+    if(key) {
+      $custom = $customTemplate.clone().insertAfter('div[part=' + key + ']');
+    }
+    ++i;
+    var appendI = function(x,s) { return s.replace(/custom/i,'$&'+i) };
+    $custom.attr('id',appendI);
+    $custom.find('[id^=custom],[id$=Custom]').attr('id',appendI);
+    $custom.find('[for*=Custom]').attr('for',appendI);
+  });
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
   //When the year number is found, Take year = yearArray[year%3];
   var date = new Date(),
