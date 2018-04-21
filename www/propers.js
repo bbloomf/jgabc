@@ -1,5 +1,5 @@
 window.matchMedia = window.matchMedia || function() { return { matches: false }};
-var selDay,selTempus='',selPropers,selOrdinaries={},sel={
+var selDay,selTempus='',selPropers,selOrdinaries={},selCustom={},sel={
   tractus:{},
   offertorium:{},
   introitus:{},
@@ -337,7 +337,7 @@ $(function(){
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
   var updatePart = function(part, ordinaryName) {
-    var selPO = $.extend({},selPropers,selOrdinaries);
+    var selPO = $.extend({},selPropers,selOrdinaries,selCustom);
     var id;
     var incipit;
     var match = part.match(/^([a-z]+)(\d+)$/i);
@@ -350,7 +350,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
-    var isOrdinaryPart = $div.is('.ordinary');
+    var isOrdinaryPart = $div.is('.ordinary') || $div.is('[custom]');
     if(selPropers && (selPropers[part] === false || (selPropers.ordinary === false && isOrdinaryPart))) {
       $div.hide();
       return; 
@@ -380,7 +380,7 @@ $(function(){
       incipit = id && id.incipit;
       id = id && id.id;
     } else {
-      id = selPO[partType+'ID'];
+      id = selPO[partType+(partIndex||'')+'ID'];
       if(id == 'no') id = '';
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
@@ -455,6 +455,8 @@ $(function(){
           $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
+        } else if(partType == 'custom') {
+          truePart = ordinaryName;
         }
         if(/^(graduale|tractus)/.test(truePart)) {
           $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
@@ -468,7 +470,7 @@ $(function(){
           return space + letter.toUpperCase();
         });
         if(capTruePart) {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + ((partIndex && partType!='custom')? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         }
         var romanMode = romanNumeral[header.mode];
@@ -509,6 +511,9 @@ $(function(){
     } else {
       if(isOrdinaryPart) {
         $div.find('.chant-preview').empty();
+        if(partType == 'custom') {
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text('Ad Libitum');
+        }
       } else {
         $div.hide();
       }
@@ -2400,7 +2405,26 @@ $(function(){
     title: 'Ordinaria Missæ in cantu gregoriano',
     en: 'Chant Mass Ordinaries...'
   })
-  populate(ordinaryKeys,$selOrdinary)
+  populate(ordinaryKeys,$selOrdinary);
+  populate([{name:"Select a chant", id: ""}].concat(miscChants).map(function(e) {
+    return {
+      key: e.id.toString(),
+      title: e.name,
+      en: e.name
+    }
+  }), $('#selCustom'));
+  var $customTemplate = $('#divCustom');
+  $.each(['offertorium','communio',''], function(i,key) {
+    var $custom = $customTemplate;
+    if(key) {
+      $custom = $customTemplate.clone().insertAfter('div[part=' + key + ']');
+    }
+    ++i;
+    var appendI = function(x,s) { return s.replace(/custom/i,'$&'+i) };
+    $custom.attr('id',appendI).attr('part',appendI);
+    $custom.find('[id^=custom],[id$=Custom]').attr('id',appendI);
+    $custom.find('[for*=Custom]').attr('for',appendI);
+  });
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
   //When the year number is found, Take year = yearArray[year%3];
   var date = new Date(),
@@ -2423,6 +2447,17 @@ $(function(){
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   })
+  $('[part^=custom] select').change(function(){
+    var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
+        part = capPart.toLowerCase();
+    selCustom[part + 'ID'] = this.value;
+    if(!sel[part]) {
+      sel[part] = {};
+      makeChantContextForSel(sel[part]);
+    }
+    addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
+    updatePart(part, this.options[this.selectedIndex].innerText);
+  });
   $('#btnCalendar').click(function(e){
     var $this = $(this);
     isNovus = !isNovus;
@@ -2793,6 +2828,18 @@ console.info(JSON.stringify(selPropers));
             if($selTone.val() != tone) $selTone.val(tone).change();
             if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
           }
+        }
+      });
+      $('select[id^=selCustom]').each(function(){
+        var part = this.id.slice(3).toLowerCase();
+        if(hash[part]) {
+          selCustom[part+'ID'] = hash[part];
+          if(!sel[part]) {
+            sel[part] = {};
+            makeChantContextForSel(sel[part]);
+          }
+          $(this).val(hash[part]);
+          updatePart(part, this.options[this.selectedIndex].innerText);
         }
       });
     }
