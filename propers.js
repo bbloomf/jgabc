@@ -350,7 +350,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
-    var isOrdinaryPart = $div.is('.ordinary') || $div.is('[custom]');
+    var isOrdinaryPart = $div.is('.ordinary') || $div.is('[custom-chant]');
     if(selPropers && (selPropers[part] === false || (selPropers.ordinary === false && isOrdinaryPart))) {
       $div.hide();
       return; 
@@ -456,7 +456,7 @@ $(function(){
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         } else if(partType == 'custom') {
-          truePart = ordinaryName;
+          truePart = ordinaryName || header.name || 'Ad libitum';
         }
         if(/^(graduale|tractus)/.test(truePart)) {
           $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
@@ -512,7 +512,7 @@ $(function(){
       if(isOrdinaryPart) {
         $div.find('.chant-preview').empty();
         if(partType == 'custom') {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text('Ad Libitum');
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text('Ad libitum');
         }
       } else {
         $div.hide();
@@ -2406,7 +2406,7 @@ $(function(){
     en: 'Chant Mass Ordinaries...'
   })
   populate(ordinaryKeys,$selOrdinary);
-  populate([{name:"Select a chant", id: ""}].concat(miscChants).map(function(e) {
+  populate([{name:"Select ad lib. chant", id: ""}].concat(miscChants).map(function(e) {
     return {
       key: e.id.toString(),
       title: e.name,
@@ -2414,15 +2414,17 @@ $(function(){
     }
   }), $('#selCustom'));
   var $customTemplate = $('#divCustom');
-  $.each(['offertorium','communio',''], function(i,key) {
+  $.each(['','offertorium','communio','ite'], function(i,key) {
     var $custom = $customTemplate;
     if(key) {
       $custom = $customTemplate.clone().insertAfter('div[part=' + key + ']');
     }
     ++i;
-    var appendI = function(x,s) { return s.replace(/custom/i,'$&'+i) };
+    var appendI = function(x,s) { 
+      return s.replace(/(custom)\d*/i,'$1'+i)
+    };
     $custom.attr('id',appendI).attr('part',appendI);
-    $custom.find('[id^=custom],[id$=Custom]').attr('id',appendI);
+    $custom.find('[id^=custom],[id*=Custom]').attr('id',appendI);
     $custom.find('[for*=Custom]').attr('for',appendI);
   });
   //Determine which year...Check when Advent begins this year, and if it is before today, use last year as the year number
@@ -2772,7 +2774,7 @@ console.info(JSON.stringify(selPropers));
       var hash = parseHash();
       ['sunday', 'sundayNovus', 'saint', 'mass',
        'tempus', 'yearNovus',
-       'ordinary'].concat(ordinaryParts).reduce(function(result, key) {
+       'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).reduce(function(result, key) {
         if(key in hash) {
           var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
           if($elem.val() != hash[key]) $elem.val(hash[key]).change();
@@ -2828,18 +2830,6 @@ console.info(JSON.stringify(selPropers));
             if($selTone.val() != tone) $selTone.val(tone).change();
             if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
           }
-        }
-      });
-      $('select[id^=selCustom]').each(function(){
-        var part = this.id.slice(3).toLowerCase();
-        if(hash[part]) {
-          selCustom[part+'ID'] = hash[part];
-          if(!sel[part]) {
-            sel[part] = {};
-            makeChantContextForSel(sel[part]);
-          }
-          $(this).val(hash[part]);
-          updatePart(part, this.options[this.selectedIndex].innerText);
         }
       });
     }
