@@ -2573,7 +2573,7 @@ $(function(){
           capPart = part[0].toUpperCase() + part.slice(1),
           $includePart = $('#include' + capPart),
           proper = sel[part],
-          gabc = proper.activeGabc || proper.gabc,
+          gabc = proper && (proper.activeGabc || proper.gabc),
           header = getHeader(gabc);
       if($includePart.parent('li').hasClass('disabled') ||
         includePropers.indexOf(part)<0 ||
