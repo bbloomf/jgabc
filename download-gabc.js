@@ -62,8 +62,13 @@ var path = 'gabc/',
                       .replace(/<sp>ae<\/sp>/g,'æ')
                       .replace(/<sp>oe<\/sp>/g,'œ')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
+                      .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)\(\)\s*/gi,' $1 ')
+                      .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)(\(::\))\s*/gi,' $2\n$1 ')
+                      .replace(/\s*(<sp>v\/<\/sp>\.?\s*)\(\)\s*/gi,' $1 ')
+                      .replace(/\s*(<sp>v\/<\/sp>\.?\s*)(\(::\))\s*/gi,' $2\n$1 ')
                       .replace(/(\w)(\([^)]+\)\s+):/g,'$1:$2')
-                      .replace(/[/ ]+\)/g,')');
+                      .replace(/[/ ]+\)/g,')')
+                      .replace(/(\(:+\))\s+/g,'$1\n');
                     content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ{}*]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ{}]+(?=[,.;:!?]))?/gi, function(whole){
                       // figure out syllabification...
                       // 1. build word
