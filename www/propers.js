@@ -457,6 +457,7 @@ $(function(){
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
         } else if(partType == 'custom') {
           truePart = ordinaryName || header.name || 'Ad libitum';
+          partIndex = null;
         }
         if(/^(graduale|tractus)/.test(truePart)) {
           $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
@@ -470,12 +471,13 @@ $(function(){
           return space + letter.toUpperCase();
         });
         if(capTruePart) {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + ((partIndex && partType!='custom')? ' '+partIndex : ''));
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         }
         var romanMode = romanNumeral[header.mode];
-        if(partAbbrev[truePart]) {
-          header.annotation = (partIndex? partIndex + '. ' : '') + partAbbrev[truePart];
+        var annotation = partAbbrev[truePart] || partAbbrev[(header.officePart||'').toLowerCase()];
+        if(annotation) {
+          header.annotation = (partIndex? partIndex + '. ' : '') + annotation;
           header.annotationArray = [header.annotation, romanMode];
         } else {
           header.annotation = romanMode;

@@ -4,16 +4,6 @@ mode: 1;
 book: The Liber Usualis, 1961, p. 1866 & Chants of the Church, 1956, p. 123 & Cantus selecti, 1957, p. 230*;
 transcriber: Andrew Hinkley;
 %%
-name: Oremus pro Pontifice;
-office-part: Varia;
-mode: 1;
-book: Chants of the Church, 1956, p. 123 & Cantus selecti, 1957, p. 230*;
-transcriber: Andrew Hinkley;
-%width: 4;
-%height: 7;
-%spacing: vichi;
-%font: 12;
-%%
 (c4)O(g)ré(hg)mus(g.j.) pro(i') Pon(j)tí(k')fi(j)ce(ij) nós(hg)tro(gh) Fran(g)cis(g)co.(ef/geed.) (::)
 <sp>R/</sp>. Dó(h)mi(g)nus(h') con(j)sér(ji)vet(hg) é(ij)um,(h.) (;)
 et(i) vi(j)ví(k')fi(j)cet(ij) é(hg)um,(g.h.) (;)
