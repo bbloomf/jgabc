@@ -70,7 +70,7 @@ var path = 'gabc/',
                       .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
                       .replace(/(\w)(\([^)]+\)\s+):/g,'$1:$2')
                       .replace(/[/ ]+\)/g,')')
-                      .replace(/(\(:+z?\))\s+/gi,'$1\n');
+                      .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n');
                     content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ{}*]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ{}]+(?=[,.;:!?]))?/gi, function(whole){
                       // figure out syllabification...
                       // 1. build word
