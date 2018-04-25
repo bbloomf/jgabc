@@ -108,6 +108,28 @@
   <div class='right' style="margin-top: -16px; margin-bottom: 16px">
     <select id="selStyle" class='sel-style small-screen'><option value='full'>Full Propers</option><option disabled value='mixed'>Mixed Propers</option><option value='psalm-tone'>Psalm Toned Propers</option></select>
   </div>
+  <div id='divCustom' part='custom' custom-chant>
+    <div class='block hide-print'>
+      <label class="hide-ss" id="lblCustom" for="txtCustom"><a target="_blank">Ad libitum</a></label>
+      <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
+      <div class='flex right'>
+        <span class='child-other'>
+          <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
+        </span>
+        <span class='child-main'>
+          <select id='selCustom'></select>
+        </span>
+      </div>
+      <textarea id="txtCustom" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+    </div>
+    <div class='block right'>
+      <div class='chant-parent'>
+        <div id="custom-preview-container" class='preview-container'>
+          <div id="custom-preview" class='chant-preview'></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id='divAsperges' part='asperges' class='ordinary'>
     <div class='block hide-print'>
       <label class="hide-ss" id="lblAsperges" for="txtAsperges"><a target="_blank"><span tempus='pasch'>Vidi aquam</span><span tempus='-pasch'>Asperges</span></a></label>
@@ -500,28 +522,6 @@
       <div class='chant-parent'>
         <div id="ite-preview-container" class='preview-container'>
           <div id="ite-preview" class='chant-preview'></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id='divCustom' part='custom' custom>
-    <div class='block hide-print'>
-      <label class="hide-ss" id="lblCustom" for="txtCustom"><a target="_blank">Ad libitum</a></label>
-      <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
-      <div class='flex right'>
-        <span class='child-other'>
-          <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
-        </span>
-        <span class='child-main'>
-          <select id='selCustom'></select>
-        </span>
-      </div>
-      <textarea id="txtCustom" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-    </div>
-    <div class='block right'>
-      <div class='chant-parent'>
-        <div id="custom-preview-container" class='preview-container'>
-          <div id="custom-preview" class='chant-preview'></div>
         </div>
       </div>
     </div>

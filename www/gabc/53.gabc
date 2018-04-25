@@ -1,12 +1,19 @@
-name:Verbum supernum;
-office-part:Hymnus;
-mode:8;
-book:Graduale Romanum, 1961, p. 154* & The Liber Usualis, 1961, p. 940;
-transcriber:Andrew Hinkley;
+name: Verbum supernum;
+office-part: Hymnus;
+mode: 8;
+book: Graduale Romanum, 1961, p. 154* & The Liber Usualis, 1961, p. 940;
+transcriber: Andrew Hinkley;
 %%
-(c4) VEr(g)bum(gh!jvIH) su(gf)pér(hg)num(hih) pród(g')i(f)ens,(g.) (;) Nec(g) Pa(i')tris(j) lín(k)quens(ji) déx(hg)te(h)ram,(j.) (:) Ad(j) o(h')pus(j) su(g)um(gh) éx(hg)i(f)ens,(g.) (;) Ve(f)nit(hg) ad(hj) vi(ji)tæ(hg) vés(e')pe(f)ram.(g.) (::)
-2.() In(g) mor(gh!jvIH)tem(gf) a(hg) di(hih)scí(g')pu(f)lo(g.) (;) Su(g)is(i') tra(j)dén(k)dus(ji) ǽ(hg)mu(h)lis,(j.) (:) Pri(j)us(h') in(j) vi(g)tæ(gh) fér(hg)cu(f)lo(g.) (;) Se(f) trá(hg)di(hj)dit(ji) di(hg)scí(e')pu(f)lis.(g.) (::) 
-3.() Qui(g)bus(gh!jvIH) sub(gf) bi(hg)na(hih) spé(g')ci(f)e(g.) (;) Car(g)nem(i') de(j)dit(k) et(ji) sán(hg)gui(h)nem:(j.) (:) Ut(j) dú(h')pli(j)cis(g) sub(gh)stán(hg)ti(f)æ(g.) (;) To(f)tum(hg) ci(hj)bá(ji)ret(hg) hó(e')mi(f)nem.(g.) (::) 
-4.() Se(g) ne(gh!jvIH)scens(gf) de(hg)dit(hih) só(g')ci(f)um,(g.) (;) Con(g)vé(i')scens(j) in(k) e(ji)dú(hg)li(h)um,(j.) (:) Se(j) mó(h')ri(j)ens(g) in(gh) pré(hg)ti(f)um,(g.) (;) Se(f) re(hg)gnans(hj) dat(ji) in(hg) prǽ(e')mi(f)um.(g.) (::) 
-+ 5.() O(g) SA(gh!jvIH)LU(gf)TÁ(hg)RIS(hih) HÓS(g')TI(f)A,(g.) (;) Quæ(g) cæ(i')li(j) pan(k)dis(ji) ós(hg)ti(h)um,(j.) (:) Bel(j)la(h') pre(j)munt(g) hos(gh)tí(hg)li(f)a,(g.) (;) Da(f) ro(hg)bur,(hj) fer(ji) au(hg)xí(e')li(f)um.(g.) (::) 
-6.() U(g)ni(gh!jvIH) tri(gf)nó(hg)que(hih) Dó(g')mi(f)no(g.) (;) Sit(g) sem(i')pi(j)tér(k)na(ji) gló(hg)ri(h)a,(j.) (:) Qui(j) vi(h')tam(j) si(g)ne(gh) tér(hg)mi(f)no(g.) (;) No(f)bis(hg) do(hj)net(ji) in(hg) pá(e')tri(f)a.(g.) (::) A(ghg)men.(fg..) (::)
+(c4) VEr(g)bum(gh!jvIH) su(gf)pér(hg)num(hih) pród(g')i(f)ens,(g.) (;) Nec(g) Pa(i')tris(j) lín(k)quens(ji) déx(hg)te(h)ram,(j.) (:)
+Ad(j) o(h')pus(j) su(g)um(gh) éx(hg)i(f)ens,(g.) (;) Ve(f)nit(hg) ad(hj) vi(ji)tæ(hg) vés(e')pe(f)ram.(g.) (::)
+2. In(g) mor(gh!jvIH)tem(gf) a(hg) di(hih)scí(g')pu(f)lo(g.) (;) Su(g)is(i') tra(j)dén(k)dus(ji) ǽ(hg)mu(h)lis,(j.) (:)
+Pri(j)us(h') in(j) vi(g)tæ(gh) fér(hg)cu(f)lo(g.) (;) Se(f) trá(hg)di(hj)dit(ji) di(hg)scí(e')pu(f)lis.(g.) (::)
+3. Qui(g)bus(gh!jvIH) sub(gf) bi(hg)na(hih) spé(g')ci(f)e(g.) (;) Car(g)nem(i') de(j)dit(k) et(ji) sán(hg)gui(h)nem:(j.) (:)
+Ut(j) dú(h')pli(j)cis(g) sub(gh)stán(hg)ti(f)æ(g.) (;) To(f)tum(hg) ci(hj)bá(ji)ret(hg) hó(e')mi(f)nem.(g.) (::)
+4. Se(g) ne(gh!jvIH)scens(gf) de(hg)dit(hih) só(g')ci(f)um,(g.) (;) Con(g)vé(i')scens(j) in(k) e(ji)dú(hg)li(h)um,(j.) (:)
+Se(j) mó(h')ri(j)ens(g) in(gh) pré(hg)ti(f)um,(g.) (;) Se(f) re(hg)gnans(hj) dat(ji) in(hg) prǽ(e')mi(f)um.(g.) (::)
++ 5. O(g) SA(gh!jvIH)LU(gf)TÁ(hg)RIS(hih) HÓS(g')TI(f)A,(g.) (;) Quæ(g) cæ(i')li(j) pan(k)dis(ji) ós(hg)ti(h)um,(j.) (:)
+Bel(j)la(h') pre(j)munt(g) hos(gh)tí(hg)li(f)a,(g.) (;) Da(f) ro(hg)bur,(hj) fer(ji) au(hg)xí(e')li(f)um.(g.) (::)
+6. U(g)ni(gh!jvIH) tri(gf)nó(hg)que(hih) Dó(g')mi(f)no(g.) (;) Sit(g) sem(i')pi(j)tér(k)na(ji) gló(hg)ri(h)a,(j.) (:)
+Qui(j) vi(h')tam(j) si(g)ne(gh) tér(hg)mi(f)no(g.) (;) No(f)bis(hg) do(hj)net(ji) in(hg) pá(e')tri(f)a.(g.) (::)
+A(ghg)men.(fg..) (::)
