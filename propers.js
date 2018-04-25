@@ -2774,12 +2774,13 @@ console.info(JSON.stringify(selPropers));
       var hash = parseHash();
       ['sunday', 'sundayNovus', 'saint', 'mass',
        'tempus', 'yearNovus',
-       'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).reduce(function(result, key) {
-        if(key in hash) {
-          var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1));
-          if($elem.val() != hash[key]) $elem.val(hash[key]).change();
+       'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).forEach(function(key, i) {
+        if(key in hash || i > 5) {
+          var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1)),
+              val = hash[key] || '';
+          if($elem.val() != val) $elem.val(val).change();
         }
-      }, null);
+      });
       if(hash.mass == 'custom') {
         $('input.sel-custom').each(function(){
           var $this=$(this),
