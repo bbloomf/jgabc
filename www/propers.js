@@ -2570,6 +2570,20 @@ $(function(){
   populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
   var getAllGabc = function() {
+    var hash = parseHash();
+    var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
+      return result || ((id in hash) && id);
+    }, null);
+    if(name) {
+      var $id = $('#sel'+name[0].toUpperCase()+name.slice(1));
+      var val = $id.val();
+      if(val == 'custom') {
+        name = '';
+      } else {
+        name = $id[0].selectedOptions[0].innerText;
+        name = name.replace(/^\w{3}\s+\d+\:\s+(.+)$/,'$1');
+      }
+    }
     var result=[];
     $('[part]').each(function(){
       var $this = $(this),
@@ -2582,7 +2596,11 @@ $(function(){
       if($includePart.parent('li').hasClass('disabled') ||
         includePropers.indexOf(part)<0 ||
         !gabc) return;
-      header.name = '';
+      header.name = name || '';
+      if(name) {
+        header.commentary = ' ';
+        name = '';
+      }
       header['%font'] = 'GaramondPremierPro';
       header['%width'] = '7.5';
       gabc = header + gabc.slice(header.original.length);
