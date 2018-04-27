@@ -2796,6 +2796,7 @@ console.info(JSON.stringify(selPropers));
        'tempus', 'yearNovus',
        'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).forEach(function(key, i) {
         if(key in hash || i > 5) {
+          if(i > 10 && 'ordinary' in hash) return;
           var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1)),
               val = hash[key] || '';
           if($elem.val() != val) $elem.val(val).change();
