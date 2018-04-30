@@ -471,7 +471,7 @@ $(function(){
           return space + letter.toUpperCase();
         });
         if(capTruePart) {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text(capTruePart + (partIndex? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         }
         var romanMode = romanNumeral[header.mode];
@@ -514,7 +514,7 @@ $(function(){
       if(isOrdinaryPart) {
         $div.find('.chant-preview').empty();
         if(partType == 'custom') {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text('Ad libitum');
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text('Ad libitum');
         }
       } else {
         $div.hide();
