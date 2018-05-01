@@ -405,6 +405,9 @@ $(function(){
           gabc = gabc.replace(replaces[i++],replaces[i++]);
         }
         gabc = runGabcReplaces(gabc);
+        if(isNovus && part == 'kyrie') {
+          gabc = gabc.replace(/(\)[^(]*)ii[ij]\.?/gi,'$1bis.').replace(/(\)[^(]*?)(<i>)?i[ij]\.?(<\/i>)?/gi,'$1')
+        }
     
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
@@ -2476,6 +2479,7 @@ $(function(){
       $this.text('Traditional');
       $('#selSunday').prop('selectedIndex',0).change();
     }
+    $('#selKyrie').change();
   });
   function selStyleChanged(e){
     var style=this.value;
