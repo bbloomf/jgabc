@@ -973,6 +973,15 @@ $(function(){
       if(part == 'asperges' || part == 'preface' || part == 'credo') {
         $select.val(selectVal);
       }
+      if(selPropers) {
+        for(var i=0; i<selectedPart.length; ++i) {
+          var p = selectedPart[i];
+          if(p.feast && p.feast.test(selDay)) {
+            $select.val(p.id);
+            break;
+          }
+        }
+      }
       $select.change();
     });
   };

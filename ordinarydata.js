@@ -5,8 +5,8 @@ var massOrdinary = [{
   gloria:{id: 2980,name: "Gloria I"},
   sanctus:{id: 300,name: "Sanctus I"},
   agnus:{id: 2977,name: "Agnus I"},
-  ite:[{id: 2988,name: "Ite I (within octave of Easter)", "dates":"easter-1:easter+6"},
-    {id: 2987,name: "Ite I"}]
+  ite:[{id: 2987,name: "Ite I"},
+       {id: 2988,name: "Ite I (within octave of Easter)", "feast":/^(Quad6s|Pasc0\w?)$/}]
 },{season:"For 1st class feasts - 1.",
   name:"Kyrie fons bonitatis",
   kyrie:{id: 309,name: "Kyrie II"},
