@@ -554,7 +554,7 @@ $(function(){
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
-    <a class="toggleShowGabc hide-ss">(<span class="showHide">Show</span> Text Editor)</a>\
+    <a class="toggleShowGabc hide-ss" href>(<span class="showHide">Show</span> Text Editor)</a>\
     <div class="flex right">\
       <span class="child-other">\
         <button class="btn btn-xs btn-default remove-modifications">Remove Modifications</button>\
@@ -2663,7 +2663,8 @@ $(function(){
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   });
-  $('a.toggleShowGabc').attr('href','').click(function(e){
+  $('a.toggleShowGabc').attr('href','');
+  $('body').on('click','a.toggleShowGabc',function(e){
     e.preventDefault();
     var $this = $(this),
         $part = $this.parents().filter('[part]'),
