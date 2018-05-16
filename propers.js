@@ -422,7 +422,7 @@ $(function(){
             var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
             if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
               // add ij. if not present:
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)/i,'$1 <i>ij.</i>');
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
             } else if(part=='alleluia' && gradualeIsFirstAlleluia) {
               // remove ij. if present
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
@@ -2058,6 +2058,7 @@ $(function(){
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
+      .replace(/\^?(<i>.*? .*?<\/i>)\^?([^(]*)/g,'^{}$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
@@ -2067,7 +2068,7 @@ $(function(){
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
-        .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
+        .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
