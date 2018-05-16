@@ -381,6 +381,7 @@ $(function(){
       id = id && id.id;
     } else {
       id = selPO[partType+(partIndex||'')+'ID'];
+      if(partIndex && (id == undefined)) id = selPO[partType+'ID'];
       if(id == 'no') id = '';
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
@@ -405,6 +406,9 @@ $(function(){
           gabc = gabc.replace(replaces[i++],replaces[i++]);
         }
         gabc = runGabcReplaces(gabc);
+        if(isNovus && part == 'kyrie') {
+          gabc = gabc.replace(/(\)[^(]*)ii[ij]\.?/gi,'$1bis.').replace(/(\)[^(]*?)(<i>)?i[ij]\.?(<\/i>)?/gi,'$1')
+        }
     
         var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
@@ -418,8 +422,8 @@ $(function(){
             var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
             if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
               // add ij. if not present:
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)/i,'$1 <i>ij.</i>');
-            } else if(part=='alleluia' && gradualeIsFirstAlleluia) {
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+            } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
               // remove ij. if present
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
             }
@@ -471,7 +475,7 @@ $(function(){
           return space + letter.toUpperCase();
         });
         if(capTruePart) {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text(capTruePart + (partIndex? ' '+partIndex : ''));
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text(capTruePart + (partIndex? ' '+partIndex : ''));
           $('#selStyle'+capPart+' option[value=full]').text('Full ' + capTruePart);
         }
         var romanMode = romanNumeral[header.mode];
@@ -514,7 +518,7 @@ $(function(){
       if(isOrdinaryPart) {
         $div.find('.chant-preview').empty();
         if(partType == 'custom') {
-          $('#lbl'+capPart+'>a,#include'+capPart+'>span.label').text('Ad libitum');
+          $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text('Ad libitum');
         }
       } else {
         $div.hide();
@@ -550,7 +554,7 @@ $(function(){
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
-    <a class="toggleShowGabc hide-ss">(<span class="showHide">Show</span> Text Editor)</a>\
+    <a class="toggleShowGabc hide-ss" href>(<span class="showHide">Show</span> Text Editor)</a>\
     <div class="flex right">\
       <span class="child-other">\
         <button class="btn btn-xs btn-default remove-modifications">Remove Modifications</button>\
@@ -969,6 +973,15 @@ $(function(){
       });
       if(part == 'asperges' || part == 'preface' || part == 'credo') {
         $select.val(selectVal);
+      }
+      if(selPropers) {
+        for(var i=0; i<selectedPart.length; ++i) {
+          var p = selectedPart[i];
+          if(p.feast && p.feast.test(selDay)) {
+            $select.val(p.id);
+            break;
+          }
+        }
       }
       $select.change();
     });
@@ -2045,6 +2058,7 @@ $(function(){
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
+      .replace(/\^?(<i>.*? .*?<\/i>)\^?([^(]*)/g,'^{}$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
@@ -2054,7 +2068,7 @@ $(function(){
       .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
-        .replace(/<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
+        .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
@@ -2476,6 +2490,7 @@ $(function(){
       $this.text('Traditional');
       $('#selSunday').prop('selectedIndex',0).change();
     }
+    $('#selKyrie').change();
   });
   function selStyleChanged(e){
     var style=this.value;
@@ -2649,7 +2664,8 @@ $(function(){
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   });
-  $('a.toggleShowGabc').attr('href','').click(function(e){
+  $('a.toggleShowGabc').attr('href','');
+  $('body').on('click','a.toggleShowGabc',function(e){
     e.preventDefault();
     var $this = $(this),
         $part = $this.parents().filter('[part]'),
