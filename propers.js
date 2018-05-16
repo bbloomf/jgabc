@@ -381,6 +381,7 @@ $(function(){
       id = id && id.id;
     } else {
       id = selPO[partType+(partIndex||'')+'ID'];
+      if(partIndex && (id == undefined)) id = selPO[partType+'ID'];
       if(id == 'no') id = '';
       if(id && id.constructor == [].constructor) {
         id = id[partIndex];
