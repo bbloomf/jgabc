@@ -1390,7 +1390,7 @@ var proprium = {
   Oct9: {communioID:991,gradualeID:1186,alleluiaID:664,introitusID:41,offertoriumID:1098},
   Sep12: {communioID:160,gradualeID:392,alleluiaID:127,introitusID:124,offertoriumID:843},
   Sep14: {communioID:346,gradualeID:873,alleluiaID:859,introitusID:359,offertoriumID:195},
-  Sep15: {communioID:1180,gradualeID:1383,alleluiaID:853,introitusID:149,offertoriumID:787,sequentia:681},
+  Sep15: {communioID:1180,gradualeID:1383,alleluiaID:853,introitusID:149,offertoriumID:787,sequentiaID:681},
   Sep17: {communioID:1008,gradualeID:511,alleluiaID:1200,introitusID:849,offertoriumID:630},
   Sep18: {communioID:976,gradualeID:600,alleluiaID:473,introitusID:258,offertoriumID:607},
   Sep21: {communioID:365,gradualeID:153,alleluiaID:442,introitusID:1374,offertoriumID:487},
