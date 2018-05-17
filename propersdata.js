@@ -88,6 +88,7 @@ var sundayKeys = [
     {key:"Pent0h",title:"Feria V in Oct Pentecostes",en:"Pentecost Thursday"},
     {key:"Pent0f",title:"Feria VI in Oct Pentecostes",en:"Pentecost Friday"},
     {key:"Pent0s",title:"Sabbato in Oct Pentecostes",en:"Pentecost Saturday"},    
+    {key:"Pent0ss",title:"Sabbato (forma brevior)",en:"Pentecost Saturday (short form)"},    
     {key:"Pent1",title:"Sanctissimæ Trinitatis",en:"Trinity Sunday"},
     {key:"CorpusChristi",title:"Corpus Christi",en:"Corpus Christi"},
     {key:"Pent2",title:"Dominica in Octavam Sme Corporis Christi",en:"Sunday within the octave of Corpus Christi (2nd after Pentecost)"},
@@ -1099,6 +1100,7 @@ var proprium = {
   Pent0h: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181,sequentiaID:68}, //AS on Pentecost
   Pent0f: {introitusID:557,gradualeID:119,alleluiaID:181,sequentiaID:68,offertoriumID:668,communioID:981},
   Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190,sequentiaReplace:gabcRemoveLastAlleluia,gloria:'before#divTractus'},
+  Pent0ss:{introitusID:1228,gradualeID:1236,alleluiaID:181,sequentiaID:68,offertoriumID:987,communioID:190,gloria:'before#divTractus'},
   Pent1: {introitusID:349,offertoriumID:1303,communioID:391,alleluiaID:1289,gradualeID:965},
   Pent2: {introitusID:1111,offertoriumID:848,communioID:794,alleluiaID:801,gradualeID:697},
   Pent3: {introitusID:1235,offertoriumID:1328,communioID:1058,alleluiaID:1264,gradualeID:423},
