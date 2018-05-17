@@ -1004,7 +1004,6 @@ mode:6;\n\
 }
 var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"",title:"Inter Annum",en:"During the Year"},{key:"Quad",title:"Septuagesima usque ad Finem Quadragesimæ",en:"Septuagesima through Lent"},{key:"Pasch",title:"Tempus Paschale",en:"Paschal Time"}];
 //{key:"",title:"",en:""}
-/*TODO: sequences. All Souls, seven sorrows. anything else? */
 var gabcReplaceRemoveAlleluiaSacerdotesDomini = [/e\([^)]+\)[ij]us,(?:\([^)]+\)\s*)+al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\(/i, 'e(fgf)jus.(ff/'];
 var gabcRemoveLastAlleluia = [/\([:;,]\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)(?=\s+\(::\)\s*$)/i, ''];
 var proprium = {
@@ -1096,10 +1095,10 @@ var proprium = {
   Pent0: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181,sequentiaID:68},
   Pent0m: {introitusID:715,gradualeID:101,alleluiaID:181,sequentiaID:68,offertoriumID:869,communioID:1151},
   Pent0t:{introitusID:1278,gradualeID:1197,alleluiaID:181,sequentiaID:68,offertoriumID:1361,communioID:333},
-  Pent0w:{introitusID:822,gradualeID:635,alleluiaID:181,sequentiaID:68,offertoriumID:1218,communioID:91},
+  Pent0w:{introitusID:822,gradualeID:635,alleluiaID:181,sequentiaID:68,offertoriumID:1218,communioID:91,gloria:'before#divTractus'},
   Pent0h: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181,sequentiaID:68}, //AS on Pentecost
   Pent0f: {introitusID:557,gradualeID:119,alleluiaID:181,sequentiaID:68,offertoriumID:668,communioID:981},
-  Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190,sequentiaReplace:gabcRemoveLastAlleluia},
+  Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190,sequentiaReplace:gabcRemoveLastAlleluia,gloria:'before#divTractus'},
   Pent1: {introitusID:349,offertoriumID:1303,communioID:391,alleluiaID:1289,gradualeID:965},
   Pent2: {introitusID:1111,offertoriumID:848,communioID:794,alleluiaID:801,gradualeID:697},
   Pent3: {introitusID:1235,offertoriumID:1328,communioID:1058,alleluiaID:1264,gradualeID:423},
