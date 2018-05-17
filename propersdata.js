@@ -1006,7 +1006,7 @@ var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"
 //{key:"",title:"",en:""}
 /*TODO: sequences. All Souls, seven sorrows. anything else? */
 var gabcReplaceRemoveAlleluiaSacerdotesDomini = [/e\([^)]+\)[ij]us,(?:\([^)]+\)\s*)+al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\(/i, 'e(fgf)jus.(ff/'];
-var gabcRemoveLastAlleluia = [/\(:\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)/i, ''];
+var gabcRemoveLastAlleluia = [/\([:;,]\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)(?=\s+\(::\)\s*$)/i, ''];
 var proprium = {
   SMadvent: {introitusID:161,gradualeID:756,alleluiaID:1209,offertoriumID:843,communioID:1144},
   SMchristmas: {introitusID:124,gradualeID:1308,alleluiaID:127,offertoriumID:280,communioID:160},
@@ -1099,7 +1099,7 @@ var proprium = {
   Pent0w:{introitusID:822,gradualeID:635,alleluiaID:181,sequentiaID:68,offertoriumID:1218,communioID:91},
   Pent0h: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181,sequentiaID:68}, //AS on Pentecost
   Pent0f: {introitusID:557,gradualeID:119,alleluiaID:181,sequentiaID:68,offertoriumID:668,communioID:981},
-  Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190},
+  Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190,sequentiaReplace:gabcRemoveLastAlleluia},
   Pent1: {introitusID:349,offertoriumID:1303,communioID:391,alleluiaID:1289,gradualeID:965},
   Pent2: {introitusID:1111,offertoriumID:848,communioID:794,alleluiaID:801,gradualeID:697},
   Pent3: {introitusID:1235,offertoriumID:1328,communioID:1058,alleluiaID:1264,gradualeID:423},
