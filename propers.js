@@ -220,10 +220,12 @@ $(function(){
       case "EmbWedSept":
       case "EmbFriSept":
       case "EmbSatSept":
+      case "EmbSatSeptS":
         var tmp = key[3];
         tmp = "sMTWRFS".indexOf(tmp);
         m = moment('09-21','MM-DD');
         m = m.subtract(m.day(), 'days').add(tmp, 'days');
+        if(key=="EmbSatSeptS") m.add(1,'minute'); // put the shorter form below in the list...
         break;
       case "ChristusRex":
         return dates.ChristusRex;
@@ -2358,6 +2360,7 @@ $(function(){
     EmbWedSept: null,
     EmbFriSept: null,
     EmbSatSept: null,
+    EmbSatSeptS: null,
     ChristusRex: null
   };
   while(i < sundayKeys.length) {
