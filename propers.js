@@ -611,6 +611,9 @@ $(function(){
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
+    if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
+      selPropers.gloria = false;
+    }
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay];
     if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
