@@ -36,10 +36,10 @@ $(function(){
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
   var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
   var reFullBars = /\s*\*\s*/g;
-  var reFullBarsOrFullStops = /(?:[:;.?!]?\s*\*|[:;.?!]\s)\s*/g;
+  var reFullBarsOrFullStops = /(?:([^\d\s])[:;.?!]?\s*\*|([^\d\s])[:;.?!]\s(?!\s*Amen))\s*/g;
   var reHalfBars = /\s*\|\s*/g;
   var reFullOrHalfBars = /\s*[*|]\s*/g;
-  var reFullOrHalfBarsOrFullStops = /(?:([:;.?!]?)\s*[*|]|([:;.?!])\s)\s*/g;
+  var reFullOrHalfBarsOrFullStops = /(?:([^\d\s][:;.?!]?)\s*[*|]|([^\d\s][:;.?!])\s(?!\s*Amen))\s*/g;
   var reCommaWords = /[,]\s/g;
   var reFullStops = /[.:;!?]\s/g;
   var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
@@ -1142,7 +1142,7 @@ $(function(){
   }
   var makePattern = function(line) {
     var result = [];
-    var sLine = splitLine(line.split(reFullBarsOrFullStops), 2, ' | ', 20);
+    var sLine = splitLine(reduceStringArrayBy(line.split(reFullBarsOrFullStops),3), 2, ' | ', 20);
     if(sLine.length < 2 || Math.max.apply(null,sLine.mapSyllableCounts()) > 20) {
       sLine = splitLine(reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3), 2, ' | ', 20);
     }
@@ -1444,9 +1444,9 @@ $(function(){
       } else {
         $toggleEditMarkings.show();
       }
+      var gabcHeader = gabc && getHeader(gabc) || {};
       // if it is an alleluia:
       if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
-        var gabcHeader = gabc && getHeader(gabc) || {};
         if(style=='psalm-tone2') {
           // if it uses the simple psalm tone, then we still want to show the endings and allow peregrinus and alts:
           populateSelectWithTones($selTone,true,gabcHeader.mode || true);
@@ -1471,8 +1471,19 @@ $(function(){
           $selTone.val(sel[part].overrideTone || gabcHeader.mode);
         }
       } else {
-        $selToneEnding.show();
-        $cbSolemn.show();
+        if(part.match(/^graduale/) && gabcHeader.officePart == 'Hymnus') {
+          // again, Introit tones
+          populateSelectWithTones($selTone,false,true);
+          $selToneEnding.hide();
+          $cbSolemn.hide();
+        } else {
+          populateSelectWithTones($selTone,true,true);
+          $selToneEnding.show();
+          $cbSolemn.show();
+        }
+        if(gabc) {
+          $selTone.val(gabcHeader.mode);
+        }
         $selTone.attr('disabled',false);
       }
     } else {
@@ -1701,7 +1712,7 @@ $(function(){
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
     var introitTone = false;
-    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2')) {
+    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = g_tones['Introit ' + mode];
       introitTone = true;
     } else {
