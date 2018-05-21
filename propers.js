@@ -335,6 +335,11 @@ $(function(){
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
+    gabcHeader = getHeader(gabc);
+    if(gabcHeader.officePart == 'Sequentia') {
+      var count = 2;
+      gabc = gabc.replace(/\(::\)\s+(?!\d|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
+    }
     return gabc;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
@@ -421,13 +426,20 @@ $(function(){
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
-            var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
-            if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
-              // add ij. if not present:
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
-            } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
+            if(isNovus) {
+              // in novus ordo, neither ij. nor asterisks are marked.
               // remove ij. if present
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1').
+                replace(/\*(\(\))?/g,''); // remove asterisks
+            } else {
+              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
+              if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
+                // add ij. if not present:
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+              } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
+                // remove ij. if present
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
+              }
             }
             plaintext = decompile(gabc,true,sel[part]);
           }
