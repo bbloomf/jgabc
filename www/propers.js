@@ -36,10 +36,10 @@ $(function(){
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
   var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
   var reFullBars = /\s*\*\s*/g;
-  var reFullBarsOrFullStops = /(?:[:;.?!]?\s*\*|[:;.?!]\s)\s*/g;
+  var reFullBarsOrFullStops = /(?:([^\d\s])[:;.?!]?\s*\*|([^\d\s])[:;.?!]\s(?!\s*Amen))\s*/g;
   var reHalfBars = /\s*\|\s*/g;
   var reFullOrHalfBars = /\s*[*|]\s*/g;
-  var reFullOrHalfBarsOrFullStops = /(?:([:;.?!]?)\s*[*|]|([:;.?!])\s)\s*/g;
+  var reFullOrHalfBarsOrFullStops = /(?:([^\d\s][:;.?!]?)\s*[*|]|([^\d\s][:;.?!])\s(?!\s*Amen))\s*/g;
   var reCommaWords = /[,]\s/g;
   var reFullStops = /[.:;!?]\s/g;
   var reVowels = /[aeiouyáéíóúýæǽœ]/ig;
@@ -220,10 +220,12 @@ $(function(){
       case "EmbWedSept":
       case "EmbFriSept":
       case "EmbSatSept":
+      case "EmbSatSeptS":
         var tmp = key[3];
         tmp = "sMTWRFS".indexOf(tmp);
         m = moment('09-21','MM-DD');
         m = m.subtract(m.day(), 'days').add(tmp, 'days');
+        if(key=="EmbSatSeptS") m.add(1,'minute'); // put the shorter form below in the list...
         break;
       case "ChristusRex":
         return dates.ChristusRex;
@@ -333,6 +335,11 @@ $(function(){
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
+    gabcHeader = getHeader(gabc);
+    if(gabcHeader.officePart == 'Sequentia') {
+      var count = 2;
+      gabc = gabc.replace(/\(::\)\s+(?!\d|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
+    }
     return gabc;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
@@ -419,13 +426,20 @@ $(function(){
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
-            var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
-            if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
-              // add ij. if not present:
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
-            } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
+            if(isNovus) {
+              // in novus ordo, neither ij. nor asterisks are marked.
               // remove ij. if present
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1').
+                replace(/\*(\(\))?/g,''); // remove asterisks
+            } else {
+              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
+              if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
+                // add ij. if not present:
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+              } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
+                // remove ij. if present
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(<i>)?ij\.?(<\/i>)?/i,'$1');
+              }
             }
             plaintext = decompile(gabc,true,sel[part]);
           }
@@ -611,6 +625,9 @@ $(function(){
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
+    if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
+      selPropers.gloria = false;
+    }
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay];
     if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
@@ -646,6 +663,9 @@ $(function(){
     $('div[part]').each(function(){
       updatePart($(this).attr('part'));
     });
+    var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
+    gloriaComesBefore = gloriaComesBefore? gloriaComesBefore[1] : '#divGraduale';
+    $('#divGloria').insertBefore(gloriaComesBefore);
     var $extraChants = $('#mandatory-extra-chants').empty();
     $('.mandatory-extra-chant').remove();
     if(selPropers && selPropers.extraChants === true && sel.extraChants) {
@@ -1134,7 +1154,7 @@ $(function(){
   }
   var makePattern = function(line) {
     var result = [];
-    var sLine = splitLine(line.split(reFullBarsOrFullStops), 2, ' | ', 20);
+    var sLine = splitLine(reduceStringArrayBy(line.split(reFullBarsOrFullStops),3), 2, ' | ', 20);
     if(sLine.length < 2 || Math.max.apply(null,sLine.mapSyllableCounts()) > 20) {
       sLine = splitLine(reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3), 2, ' | ', 20);
     }
@@ -1436,9 +1456,9 @@ $(function(){
       } else {
         $toggleEditMarkings.show();
       }
+      var gabcHeader = gabc && getHeader(gabc) || {};
       // if it is an alleluia:
       if(part.match(/^(?:graduale|allelu[ij]a)/) && isAlleluia(part,sel[part].text)) {
-        var gabcHeader = gabc && getHeader(gabc) || {};
         if(style=='psalm-tone2') {
           // if it uses the simple psalm tone, then we still want to show the endings and allow peregrinus and alts:
           populateSelectWithTones($selTone,true,gabcHeader.mode || true);
@@ -1463,8 +1483,19 @@ $(function(){
           $selTone.val(sel[part].overrideTone || gabcHeader.mode);
         }
       } else {
-        $selToneEnding.show();
-        $cbSolemn.show();
+        if(part.match(/^graduale/) && gabcHeader.officePart == 'Hymnus') {
+          // again, Introit tones
+          populateSelectWithTones($selTone,false,true);
+          $selToneEnding.hide();
+          $cbSolemn.hide();
+        } else {
+          populateSelectWithTones($selTone,true,true);
+          $selToneEnding.show();
+          $cbSolemn.show();
+        }
+        if(gabc) {
+          $selTone.val(gabcHeader.mode);
+        }
         $selTone.attr('disabled',false);
       }
     } else {
@@ -1693,7 +1724,7 @@ $(function(){
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
     var introitTone = false;
-    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2')) {
+    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -2352,6 +2383,7 @@ $(function(){
     EmbWedSept: null,
     EmbFriSept: null,
     EmbSatSept: null,
+    EmbSatSeptS: null,
     ChristusRex: null
   };
   while(i < sundayKeys.length) {
