@@ -426,7 +426,7 @@ function gabcEditorKeyDown(e) {
 function makeInternationalTextBoxKeyDown(convertFlexa){
   var lastKey = 0;
   var dictionaries=
-      {222://apostrophe
+      {"'":
         {"false":
           {'a':'á',
            'e':'é',
@@ -463,7 +463,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'Œ':"Oë"
           }
         },
-        69://e
+        "e":
         {"false":
           {'a':'æ',
            'o':'œ',
@@ -477,7 +477,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'O':'Œ'
           }
         },
-        8://backspace
+        "Backspace":
         {"false":
           {
             '†':"+",
@@ -548,7 +548,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
                   vowel = vowel[1];
                 }
               }
-              return first + (dictionaries[222]['false'][vowel] || vowel);
+              return first + (dictionaries["'"]['false'][vowel] || vowel);
             }) + word;
           } else {
             word = syllables[i].replace(/((?:[gq]u|i|[^aeiouyáéíóúýæœ])*)(ae|au|oe|[aeiouyáéíóúýǽæœ])(?=[^aeiouyáéëíóúýǽæœ]|$)/, function(match,first,vowel){
@@ -710,7 +710,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         break;
       }
     }
-    var dictionary=dictionaries[e.which];
+    var dictionary=dictionaries[e.key];
     if(dictionary && this.selectionStart==this.selectionEnd && this.selectionStart>0){
       var previousChar=this.value[this.selectionStart-1];
       var r=dictionary[e.shiftKey][previousChar];
