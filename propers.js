@@ -884,7 +884,7 @@ $(function(){
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
       m = getSpecialDateForFeast(m);
-      if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
+      if(m.isBefore(moment().startOf('day').add(-2,'week'))) m.add(1, 'year');
     } else {
       m = dateForSundayKey(selDay);
     }
