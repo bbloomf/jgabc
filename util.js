@@ -909,11 +909,11 @@ if(typeof window=='object') (function(window) {
       result.nextNotation = notations[noteIndex+1];
       if(!result.prevNotation) result.acceptsBarBefore = false;
       if(result.prevNotation && result.prevNotation.isDivider) {
-        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula) result.hasBarBefore = true;
+        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula || result.prevNotation.constructor == exsurge.HalfBar) result.hasBarBefore = true;
         else result.acceptsBarBefore = false;
       }
       if(result.nextNotation && result.nextNotation.isDivider) {
-        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula) result.hasBarAfter = true;
+        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula || result.nextNotation.constructor == exsurge.HalfBar) result.hasBarAfter = true;
         else result.acceptsBarAfter = result.acceptsBarAfter = false;
       }
     }
