@@ -2998,6 +2998,15 @@ console.info(JSON.stringify(selPropers));
           splice.index = (note.neume || note).mapping.sourceIndex;
           splice.addString = '(,) ';
         } else {
+          if(e.data.after == 'note') {
+            var notes = note.neume.mapping.notations.reduce((a,b) => (a.concat(b.notes)), []);
+            var noteIndex = notes.indexOf(note);
+            if(noteIndex && notes[++noteIndex]) {
+              splice.index = notes[noteIndex].sourceIndex;
+              splice.addString = ',';
+            }
+            break;
+          }
           if(neumeIndex) {
             var nextNeume = note.neume.score.notations[neumeIndex + 1];
             if(nextNeume.constructor == exsurge.TextOnly) {

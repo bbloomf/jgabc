@@ -891,6 +891,7 @@ if(typeof window=='object') (function(window) {
     result.isTorculus = neume.constructor === exsurge.Torculus;
     result.isPesSubpunctis = neume.constructor === exsurge.PesSubpunctis && neume.notes.indexOf(note) < 3;
     result.isQuilisma = note.shape === exsurge.NoteShape.Quilisma;
+    result.isLastOfNeume = neume.notes.slice(-1)[0] == note;
     if(result.isTorculus) {
       result.torculusNotes = neume.notes;
     } else if(result.isPesSubpunctis) {
@@ -1024,9 +1025,9 @@ if(typeof window=='object') (function(window) {
         if(noteProperties.hasBarBefore) $toolbar.prepend($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click($.extend({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
         $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click($.extend({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
       }
-      if(noteProperties.acceptsBarAfter) {
+      if(noteProperties.acceptsBarAfter || (noteProperties.hasMorae && noteProperties.isLastOfNeume)) {
         if(noteProperties.hasBarAfter) $toolbar.prepend($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
-        $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
+        $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'toggleBarAfter', after: noteProperties.acceptsBarAfter? 'neume' : 'note', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
       }
       if(noteProperties.isQuilisma) {
         $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Quilisma').click($.extend({action:'removeQuilisma'}, base), editorialChange));
