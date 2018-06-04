@@ -884,7 +884,7 @@ $(function(){
     var m = moment(selDay,'MMMD');
     if(m.isValid()) {
       m = getSpecialDateForFeast(m);
-      if(m.isBefore(moment().startOf('day'))) m.add(1, 'year');
+      if(m.isBefore(moment().startOf('day').add(-2,'week'))) m.add(1, 'year');
     } else {
       m = dateForSundayKey(selDay);
     }
@@ -2186,7 +2186,7 @@ $(function(){
     if(availableWidth == 0) {
       availableWidth = $(document.body).width() - 16;
     }
-    var newWidth = Math.min(484, availableWidth);
+    var newWidth = Math.min(624, availableWidth);
     var useNoMoreThanHalfHeight = false;
     if(sel[part].sticky) {
       if(newWidth == availableWidth) {
@@ -2196,8 +2196,9 @@ $(function(){
       }
     }
 
-    if(ctxt.width == newWidth) {
-      var svg = chantContainer.find('svg')[0];
+    var allSvg = chantContainer.find('svg'),
+        svg = allSvg[0];
+    if(!synchronous && allSvg.length == 1 && ctxt.width == newWidth) {
       if(newWidth == availableWidth && svg && svg.hasAttribute('viewBox')) {
         var match = svg.getAttribute('viewBox').match(/0 0 ([0-9.]+) ([0-9.]+)/);
         svg.setAttribute('width',match[1]);
@@ -2221,8 +2222,10 @@ $(function(){
     ctxt.width = newWidth;
     // perform layout on the chant
     if(synchronous) {
-      score.performLayout(ctxt);
-      score.layoutChantLines(ctxt, ctxt.width);
+      if(ctxt.width != newWidth) {
+        score.performLayout(ctxt);
+        score.layoutChantLines(ctxt, ctxt.width);
+      }
       // render the score to svg code
       chantContainer.empty().append(score.createSvgNodeForEachLine(ctxt));
       updateTextSize(part);
@@ -2757,12 +2760,12 @@ console.info(JSON.stringify(selPropers));
       if (mql.matches) {
         relayoutAllChantSync();
       } else {
-        relayoutAllChantSync();
+        relayoutAllChantAsync();
       }
     });
   }
   window.onbeforeprint = relayoutAllChantSync;
-  window.onafterprint = relayoutAllChantSync;
+  window.onafterprint = relayoutAllChantAsync;
   function removeSelIfPresent(s) {
     if(typeof(s) != 'string') return s;
     if(s.match(/^sel[A-Z]/)) {
@@ -2995,6 +2998,15 @@ console.info(JSON.stringify(selPropers));
           splice.index = (note.neume || note).mapping.sourceIndex;
           splice.addString = '(,) ';
         } else {
+          if(e.data.after == 'note') {
+            var notes = note.neume.mapping.notations.reduce((a,b) => (a.concat(b.notes)), []);
+            var noteIndex = notes.indexOf(note);
+            if(noteIndex && notes[++noteIndex]) {
+              splice.index = notes[noteIndex].sourceIndex;
+              splice.addString = ',';
+            }
+            break;
+          }
           if(neumeIndex) {
             var nextNeume = note.neume.score.notations[neumeIndex + 1];
             if(nextNeume.constructor == exsurge.TextOnly) {

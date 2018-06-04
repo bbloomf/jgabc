@@ -426,7 +426,7 @@ function gabcEditorKeyDown(e) {
 function makeInternationalTextBoxKeyDown(convertFlexa){
   var lastKey = 0;
   var dictionaries=
-      {222://apostrophe
+      {"'":
         {"false":
           {'a':'á',
            'e':'é',
@@ -463,7 +463,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'Œ':"Oë"
           }
         },
-        69://e
+        "e":
         {"false":
           {'a':'æ',
            'o':'œ',
@@ -477,7 +477,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'O':'Œ'
           }
         },
-        8://backspace
+        "Backspace":
         {"false":
           {
             '†':"+",
@@ -548,7 +548,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
                   vowel = vowel[1];
                 }
               }
-              return first + (dictionaries[222]['false'][vowel] || vowel);
+              return first + (dictionaries["'"]['false'][vowel] || vowel);
             }) + word;
           } else {
             word = syllables[i].replace(/((?:[gq]u|i|[^aeiouyáéíóúýæœ])*)(ae|au|oe|[aeiouyáéíóúýǽæœ])(?=[^aeiouyáéëíóúýǽæœ]|$)/, function(match,first,vowel){
@@ -710,7 +710,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         break;
       }
     }
-    var dictionary=dictionaries[e.which];
+    var dictionary=dictionaries[e.key];
     if(dictionary && this.selectionStart==this.selectionEnd && this.selectionStart>0){
       var previousChar=this.value[this.selectionStart-1];
       var r=dictionary[e.shiftKey][previousChar];
@@ -891,6 +891,7 @@ if(typeof window=='object') (function(window) {
     result.isTorculus = neume.constructor === exsurge.Torculus;
     result.isPesSubpunctis = neume.constructor === exsurge.PesSubpunctis && neume.notes.indexOf(note) < 3;
     result.isQuilisma = note.shape === exsurge.NoteShape.Quilisma;
+    result.isLastOfNeume = neume.trailingSpace && neume.notes.slice(-1)[0] == note;
     if(result.isTorculus) {
       result.torculusNotes = neume.notes;
     } else if(result.isPesSubpunctis) {
@@ -909,11 +910,11 @@ if(typeof window=='object') (function(window) {
       result.nextNotation = notations[noteIndex+1];
       if(!result.prevNotation) result.acceptsBarBefore = false;
       if(result.prevNotation && result.prevNotation.isDivider) {
-        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula) result.hasBarBefore = true;
+        if(result.prevNotation.constructor == exsurge.QuarterBar || result.prevNotation.constructor == exsurge.Virgula || result.prevNotation.constructor == exsurge.HalfBar) result.hasBarBefore = true;
         else result.acceptsBarBefore = false;
       }
       if(result.nextNotation && result.nextNotation.isDivider) {
-        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula) result.hasBarAfter = true;
+        if(result.nextNotation.constructor == exsurge.QuarterBar || result.nextNotation.constructor == exsurge.Virgula || result.nextNotation.constructor == exsurge.HalfBar) result.hasBarAfter = true;
         else result.acceptsBarAfter = result.acceptsBarAfter = false;
       }
     }
@@ -1024,9 +1025,9 @@ if(typeof window=='object') (function(window) {
         if(noteProperties.hasBarBefore) $toolbar.prepend($('<button>').addClass('btn btn-success').html('<span class="glyphicon glyphicon-arrow-left"></span> Add carryover').click($.extend({action:'addCarryOverBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
         $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarBefore?'danger':'success')).html('<span class="glyphicon glyphicon-arrow-left"></span> ' + (noteProperties.hasBarBefore? 'Remove' : ' Add') + ' Bar').click($.extend({action:'toggleBarBefore', barBefore: noteProperties.hasBarBefore && noteProperties.prevNotation}, base), editorialChange));
       }
-      if(noteProperties.acceptsBarAfter) {
+      if(noteProperties.acceptsBarAfter || (noteProperties.hasMorae && noteProperties.isLastOfNeume)) {
         if(noteProperties.hasBarAfter) $toolbar.prepend($('<button>').addClass('btn btn-success').html('Add carryover <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'addCarryOverAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
-        $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'toggleBarAfter', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
+        $toolbar.prepend($('<button>').addClass('btn btn-'+(noteProperties.hasBarAfter?'danger':'success')).html((noteProperties.hasBarAfter? 'Remove' : ' Add') + ' Bar <span class="glyphicon glyphicon-arrow-right"></span>').click($.extend({action:'toggleBarAfter', after: noteProperties.acceptsBarAfter? 'neume' : 'note', barAfter: noteProperties.hasBarAfter && noteProperties.nextNotation}, base), editorialChange));
       }
       if(noteProperties.isQuilisma) {
         $toolbar.prepend($('<button>').addClass('btn btn-danger').text('Remove Quilisma').click($.extend({action:'removeQuilisma'}, base), editorialChange));
