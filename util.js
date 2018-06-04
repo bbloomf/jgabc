@@ -891,7 +891,7 @@ if(typeof window=='object') (function(window) {
     result.isTorculus = neume.constructor === exsurge.Torculus;
     result.isPesSubpunctis = neume.constructor === exsurge.PesSubpunctis && neume.notes.indexOf(note) < 3;
     result.isQuilisma = note.shape === exsurge.NoteShape.Quilisma;
-    result.isLastOfNeume = neume.notes.slice(-1)[0] == note;
+    result.isLastOfNeume = neume.trailingSpace && neume.notes.slice(-1)[0] == note;
     if(result.isTorculus) {
       result.torculusNotes = neume.notes;
     } else if(result.isPesSubpunctis) {
