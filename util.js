@@ -886,7 +886,7 @@ if(typeof window=='object') (function(window) {
     if(nextNote && nextNote.neume.hasLyrics() && nextNote.neume.lyrics[0] !== neume.lyrics[0]) nextNote = null;
     var result = {note: note, notes: notes, noteIndex: noteIndex};
     result.isRepeatedNote = (nextNote && nextNote.staffPosition === note.staffPosition) || (previousNote && previousNote.staffPosition === note.staffPosition);
-    result.hasMorae = note.morae.length > 0;
+    result.hasMorae = note.morae.length > 0 || (nextNote && nextNote.morae.length > 1);
     result.hasEpisemata = note.episemata.length > 0;
     result.isTorculus = neume.constructor === exsurge.Torculus;
     result.isPesSubpunctis = neume.constructor === exsurge.PesSubpunctis && neume.notes.indexOf(note) < 3;
