@@ -831,46 +831,46 @@ Ký(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(gh) au(f)di(g) nos.(h.) <i>ij.</i>(::)\n\
 Chris(h)te,(g) ex(h)au(f)di(g) nos.(h.) <i>ij.</i>(::Z)\n\
 Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sanc|i-t{a}s, (h)lis,|m{u}ndi, |te, |{u}nus (h) <b>De</b>|<b>De</b>|<b>De</b>|<b>De</b>(i)us,|us, |us, |us, (g.) (,) mi|mi|mi|mi(g)se|se|se|se(g)<i>ré</i>|<i>ré</i>|<i>ré</i>|<i>ré</i>(f)<i>re</i>|<i>re</i> |<i>re</i> |<i>re</i> (g) no|no|no|no(h)bis.|bis. |bis. |bis. (h.) (::)\n",
-            html: '<div class="verses" style="display:inline-block">\
-<p>Sancta Ma<b>rí</b>a,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancta Dei <b>Gé</b>netrix,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancta Virgo <b>vír</b>ginum,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte <b>Mí</b>chaël,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte <b>Gá</b>briel,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte <b>Rá</b>phaël,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sancti Angeli et ar<b>chán</b>geli,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Omnes sancti beatórum Spirítuum <b>ór</b>dines,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Sancte Joánnes Bap<b>tí</b>sta,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte <b>Jo</b>seph,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sancti Patriárchæ et Pro<b>phé</b>tæ,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Sancte <b>Pe</b>tre,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte <b>Pau</b>le,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte An<b>dré</b>a,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Jo<b>án</b>nes,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sancti Apóstoli et Evange<b>lí</b>stæ,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Omnes sancti Discípuli <b>Dó</b>mini,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Sancte <b>Sté</b>phane,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Lau<b>rén</b>ti,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Vin<b>cén</b>ti,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sancti <b>Már</b>tyres,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Sancte Sil<b>ve</b>ster,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Gre<b>gó</b>ri,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Augu<b>stí</b>ne,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sancti Pontífices et Confes<b>só</b>res,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Omnes sancti Do<b>ctó</b>res,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Sancte An<b>tó</b>ni,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Bene<b>dí</b>cte,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Do<b>mí</b>nice,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancte Fran<b>cí</b>sce,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sancti Sacerdótes et Le<b>ví</b>tæ,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Omnes sancti Mónachi et Ere<b>mí</b>tæ,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Sancta María Magda<b>lé</b>na,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancta <b>A</b>gnes,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancta Cæ<b>cí</b>lia,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancta <b>A</b>gatha,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Sancta Ana<b>stá</b>sia,&nbsp;<span style="float:right">o<i>ra</i>.</span></p>\
-<p>Omnes sanctæ Vírgines et <b>Ví</b>duæ,&nbsp;<span style="float:right">ora<i>te</i>.</span></p>\
-<p>Omnes Sancti et Sanctæ <b>De</b>i,&nbsp;*&nbsp;<span style="float:right">intercédi<i>te</i> <i>pro</i> <b>no</b>bis.</span></p>\
+            html: '<div class="verses litany">\
+<p>Sancta Ma<b>rí</b>a,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancta Dei <b>Gé</b>netrix,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancta Virgo <b>vír</b>ginum,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte <b>Mí</b>chaël,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte <b>Gá</b>briel,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte <b>Rá</b>phaël,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sancti Angeli et ar<b>chán</b>geli,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Omnes sancti beatórum Spirítuum <b>ór</b>dines,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Sancte Joánnes Bap<b>tí</b>sta,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte <b>Jo</b>seph,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sancti Patriárchæ et Pro<b>phé</b>tæ,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Sancte <b>Pe</b>tre,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte <b>Pau</b>le,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte An<b>dré</b>a,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Jo<b>án</b>nes,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sancti Apóstoli et Evange<b>lí</b>stæ,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Omnes sancti Discípuli <b>Dó</b>mini,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Sancte <b>Sté</b>phane,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Lau<b>rén</b>ti,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Vin<b>cén</b>ti,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sancti <b>Már</b>tyres,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Sancte Sil<b>ve</b>ster,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Gre<b>gó</b>ri,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Augu<b>stí</b>ne,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sancti Pontífices et Confes<b>só</b>res,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Omnes sancti Do<b>ctó</b>res,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Sancte An<b>tó</b>ni,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Bene<b>dí</b>cte,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Do<b>mí</b>nice,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancte Fran<b>cí</b>sce,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sancti Sacerdótes et Le<b>ví</b>tæ,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Omnes sancti Mónachi et Ere<b>mí</b>tæ,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Sancta María Magda<b>lé</b>na,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancta <b>A</b>gnes,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancta Cæ<b>cí</b>lia,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancta <b>A</b>gatha,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Sancta Ana<b>stá</b>sia,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
+<p>Omnes sanctæ Vírgines et <b>Ví</b>duæ,&nbsp;<span class="response">ora<i>te</i>.</span></p>\
+<p>Omnes Sancti et Sanctæ <b>De</b>i,&nbsp;*&nbsp;<span class="response">intercédi<i>te</i> <i>pro</i> <b>no</b>bis.</span></p>\
 </div>'
         }, {
             rubric: "After the invocation <Omnes Sancti et Sanctæ Dei,> all rise.  If cantors sang the Litany, they return to their places."
@@ -887,33 +887,33 @@ Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sa
             title: "The Second Part of the Litany",
             rubric: " ",
             gabc: "initial-style: 0;\n%%\n(c3)Pro|Pro|Ab (h)pí|pí|(h)<i>ti</i>|<i>ti</i>|<i>om</i>(g)<i>us</i>|<i>us</i> |<i>ni</i> (f) <b>es</b>|<b>es</b>|<b>ma</b>(h ir)to,|to, |lo, (i.) (,) par|ex|lí(g)ce|áu|be(h) no|di |ra (f)bis,|nos, |nos, (e) Dó|Dó|Dó(f)mi|mi|mi(e)ne.|ne. |ne. (d.) (::)",
-            html: '<div class="verses" style="display:inline-block">\
-<p>Ab o<i>mni</i> <i>pec</i><b>cá</b>to,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>A mor<i>te</i> <i>per</i><b>pé</b>tua,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per mystérium sanctæ incarnati<i>ó</i><i>nis</i> <b>tu</b>æ,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per ad<i>vén</i><i>tum</i> <b>tu</b>um,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per nativi<i>tá</i><i>tem</i> <b>tu</b>am,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per baptísmum et sanctum jejú<i>ni</i><i>um</i> <b>tu</b>um,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per crucem et passi<i>ó</i><i>nem</i> <b>tu</b>am,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per mortem et sepul<i>tú</i><i>ram</i> <b>tu</b>am,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per sanctam resurrecti<i>ó</i><i>nem</i> <b>tu</b>am,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per admirábilem ascensi<i>ó</i><i>nem</i> <b>tu</b>am,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>Per adventum Spíritus San<i>cti</i> <i>Pa</i><b>rá</b>cliti,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
-<p>In di<i>e</i> <i>ju</i><b>dí</b>cii,&nbsp;<span style="float:right">líbera nos, Dómine.</span></p>\
+            html: '<div class="verses litany">\
+<p>Ab o<i>mni</i> <i>pec</i><b>cá</b>to,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>A mor<i>te</i> <i>per</i><b>pé</b>tua,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per mystérium sanctæ incarnati<i>ó</i><i>nis</i> <b>tu</b>æ,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per ad<i>vén</i><i>tum</i> <b>tu</b>um,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per nativi<i>tá</i><i>tem</i> <b>tu</b>am,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per baptísmum et sanctum jejú<i>ni</i><i>um</i> <b>tu</b>um,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per crucem et passi<i>ó</i><i>nem</i> <b>tu</b>am,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per mortem et sepul<i>tú</i><i>ram</i> <b>tu</b>am,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per sanctam resurrecti<i>ó</i><i>nem</i> <b>tu</b>am,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per admirábilem ascensi<i>ó</i><i>nem</i> <b>tu</b>am,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>Per adventum Spíritus San<i>cti</i> <i>Pa</i><b>rá</b>cliti,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
+<p>In di<i>e</i> <i>ju</i><b>dí</b>cii,&nbsp;<span class="response">líbera nos, Dómine.</span></p>\
 </div>'
         }, {
             gabc: "initial-style: 0;\n%%\n(c3)Pec(h)<i>ca</i>(g)<b>tó</b>(i//jr)res,(j.) (,) te(h) ro(g)gá(f)mus,(e) au(f)di(g) nos.(h.) (::)",
-            html: '<div class="verses" style="display:inline-block">\
-<p>Ut no<i>bis</i> <b>par</b>cas,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut Ecclésiam tuam sanctam&nbsp;’ régere et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut domnum apostólicum et omnes ecclesiásticos órdines&nbsp;’ in sancta religióne conserváre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut inimícos sanctæ Ecclésiæ&nbsp;’ humiliáre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut régibus et princípibus christiánis&nbsp;’ pacem et veram concórdiam donáre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut nosmetípsos in tuo sancto servítio&nbsp;’ confortáre et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut ómnibus benefactóribus nostris&nbsp;’ sempitérna bona <i>re</i><b>trí</b>buas,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut fructus terræ&nbsp;’ dare et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut ómnibus fidélibus defúnctis&nbsp;’ réquiem ætérnam donáre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
-<p>Ut nos exaudíre <i>di</i><b>gné</b>ris,&nbsp;<span style="float:right">te rogámus, audi nos.</span></p>\
+            html: '<div class="verses litany">\
+<p>Ut no<i>bis</i> <b>par</b>cas,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut Ecclésiam tuam sanctam&nbsp;’ régere et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut domnum apostólicum et omnes ecclesiásticos órdines&nbsp;’ in sancta religióne conserváre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut inimícos sanctæ Ecclésiæ&nbsp;’ humiliáre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut régibus et princípibus christiánis&nbsp;’ pacem et veram concórdiam donáre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut nosmetípsos in tuo sancto servítio&nbsp;’ confortáre et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut ómnibus benefactóribus nostris&nbsp;’ sempitérna bona <i>re</i><b>trí</b>buas,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut fructus terræ&nbsp;’ dare et conserváre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut ómnibus fidélibus defúnctis&nbsp;’ réquiem ætérnam donáre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
+<p>Ut nos exaudíre <i>di</i><b>gné</b>ris,&nbsp;<span class="response">te rogámus, audi nos.</span></p>\
 </div>'
         },
         {
