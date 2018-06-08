@@ -216,23 +216,23 @@ button.toggle-mediant[state="flex"]::before {
   display: none;
 }
 
-@media(min-width: 500px) {
+@media(min-width: 624px) {
   .verses,
   .asperges-verses {
-    font-size: 3.96vw; /* 19.2 / ((500 - 16) * 0.01) */
+    font-size: 3.16vw; /* 19.2 / ((624 - 16) * 0.01) */
   }
   .show-gabc .verses,
   .show-gabc .asperges-verses {
-    font-size: 1.98vw;
+    font-size: 1.58vw; /* 3.16 / 2 */
   }
 }
-@media(min-width: 1262px) { /* (100 * (50 / 3.96)) */
+@media(min-width: 1262px) {
   body {
     max-width: 1258px;
     margin: auto;
   }
   .verses,
   .asperges-verses {
-    font-size: 50px;
+    font-size: 39.9px; /* (1262 * 3.16 / 100) */
   }
 }
