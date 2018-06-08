@@ -49,6 +49,12 @@ textarea {
 [part].showing-chant .chant-preview{
   display: block;
 }
+.verses.litany {
+  display: inline-block;
+}
+.verses.litany .response {
+  float: right;
+}
 .verses,
 .asperges-verses {
   font-size: 120%;

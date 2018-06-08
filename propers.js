@@ -357,6 +357,7 @@ $(function(){
     var capPart = part[0].toUpperCase()+part.slice(1);
     var $div = $('#div'+capPart)
     $div.find('.block.right .psalm-editor').remove();
+    var $extraChantsPlaceholder = $div.next('.extra-chants');
     var isOrdinaryPart = $div.is('.ordinary') || $div.is('[custom-chant]');
     if(selPropers && (selPropers[part] === false || (selPropers.ordinary === false && isOrdinaryPart))) {
       $div.hide();
@@ -394,9 +395,16 @@ $(function(){
         id = id[partIndex];
         partIndex++;  // for human readable 1-based index.
       }
+      var match = /^litany\/([\w-_ ]+)/.exec(id);
+      if(match) {
+        id = litanyMap[match[1]].map(function(l){return 'litanies/'+l});
+        if(!$extraChantsPlaceholder.length) {
+          $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
+        }
+      }
     }
     var $includePart = $('#include'+capPart);
-    $('#lbl'+capPart).find('a').attr('href',id? gregobaseUrlPrefix+id : null);
+    $('#lbl'+capPart).find('a').attr('href',(id && typeof(id)!='object')? gregobaseUrlPrefix+id : null);
     $div.toggleClass('showing-chant', !!(id && id != 'no'));
     if(id || (selDay=='custom' && !isOrdinaryPart)) {
       $includePart.parent('li').removeClass('disabled');
@@ -524,7 +532,13 @@ $(function(){
         if(!(sel[part].style||'').match(/^psalm-tone/)) $toggleEditMarkings.hide();
       };
       if(id) {
-        $.get('gabc/'+id+'.gabc',updateGabc);
+        if(typeof(id) == 'object') {
+          renderExtraChants($extraChantsPlaceholder, id, '-'+part);
+          updateGabc('');
+        } else {
+          $extraChantsPlaceholder.remove();
+          $.get('gabc/'+id+'.gabc',updateGabc);
+        }
       } else {
         updateGabc('');
       }
@@ -738,6 +752,15 @@ $(function(){
     if(!addI) addI = 0;
     
     extraChants.forEach(function(chant, i) {
+      if(typeof chant == 'string') {
+        var match = /^(.+)\.(gabc|html)$/.exec(chant);
+        chant = {};
+        if(match[2]=='gabc') {
+          chant.id = match[1];
+        } else if(match[2]=='html') {
+          chant.url = match[0];
+        }
+      }
       if(chant.title) {
         $curContainer.append($('<div>').addClass('chant-title').html(chant.title.replace(/</g,'<span class="rubric">').replace(/>/g,'</span>')));
       }
@@ -840,15 +863,24 @@ $(function(){
       if(chant.rubricAfter) {
         $curContainer.append(makeRubric(chant.rubricAfter,'after'));
       }
-      if(chant.html) {
-        $curContainer.append($('<div>').html(chant.html
-          .replace(/[†*]/g,'<span class="red">$&</span>')
-          .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/w+>[a-z]/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables
-          .replace(/(\s|<\/?\w+>)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]{3,})(?=\s|&nbsp;|[,.;:?!]|<\/?\w+>)/gi,function(all,preword,word){
-            if(Hypher && Hypher.languages && Hypher.languages.la) return preword + Hypher.languages.la.hyphenateText(word);
-            return all;
-          })
-        ));
+      if(chant.html || chant.url) {
+        var $div = $('<div>');
+        $curContainer.append($div);
+        setHtml = function(html) {
+          $div.html(html
+            .replace(/[†*]/g,'<span class="red">$&</span>')
+            .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/\w+>(?=[a-z])/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables
+            .replace(/(\s|<\/?\w+>)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]{3,})(?=\s|&nbsp;|[,.;:?!]|<\/?\w+>)/gi,function(all,preword,word){
+              if(Hypher && Hypher.languages && Hypher.languages.la) return preword + Hypher.languages.la.hyphenateText(word);
+              return all;
+            })
+          );
+        };
+        if(chant.html) {
+          setHtml(chant.html)
+        } else {
+          $.get('gabc/'+chant.url,setHtml);
+        }
       }
       if(chant.sticky === 1) {
         $curContainer = $container;
@@ -2089,7 +2121,7 @@ $(function(){
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
-      .replace(/\^?(<i>.*? .*?<\/i>)\^?([^(]*)/g,'^{}$1$2^') // make any italic text containing a space red
+      .replace(/\^?(<i>[^(]*? [^(]*?<\/i>)\^?([^(]*)/g,'^{}$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
