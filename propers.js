@@ -535,15 +535,18 @@ $(function(){
         if(typeof(id) == 'object') {
           renderExtraChants($extraChantsPlaceholder, id, '-'+part);
           updateGabc('');
+          $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
           $.get('gabc/'+id+'.gabc',updateGabc);
         }
       } else {
+        $extraChantsPlaceholder.remove();
         updateGabc('');
       }
     } else {
       if(isOrdinaryPart) {
+        $extraChantsPlaceholder.remove();
         $div.find('.chant-preview').empty();
         if(partType == 'custom') {
           $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text('Ad libitum');
