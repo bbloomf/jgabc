@@ -825,12 +825,12 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
         {
             title: "The First Part of the Litany",
             rubric: "When the Collect after the fourth Lesson is finished, all kneel. The Litany of the Saints is sung without doubling the invocations, until <Propítius esto> exclusive.",
-            gabc: "initial-style: 0;\n%%\n(c3)Ky(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
+            gabc: "initial-style: 1;\n%%\n(c3)Ky(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Ký(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(gh) au(f)di(g) nos.(h.) <i>ij.</i>(::)\n\
 Chris(h)te,(g) ex(h)au(f)di(g) nos.(h.) <i>ij.</i>(::Z)\n\
-Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sanc|i-t{a}s, (h)lis,|m{u}ndi, |te, |{u}nus (h) <b>De</b>|<b>De</b>|<b>De</b>|<b>De</b>(i)us,|us, |us, |us, (g.) (,) mi|mi|mi|mi(g)se|se|se|se(g)<i>ré</i>|<i>ré</i>|<i>ré</i>|<i>ré</i>(f)<i>re</i>|<i>re</i> |<i>re</i> |<i>re</i> (g) no|no|no|no(h)bis.|bis. |bis. |bis. (h.) (::)\n",
+Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sanc|i-t{a}s, (h)lis,|m{u}ndi, |te, |{u}nus (h) <b>De</b>|<b>De</b>|<b>De</b>|<b>De</b>(i)us,|us, |us, |us, (g.) (,) mi|mi|mi|mi(g)se|se|se|se(g)<i>ré</i>|<i>ré</i>|<i>ré</i>|<i>ré</i>(f)<i>re</i>|<i>re</i> |<i>re</i> |<i>re</i> (g) <b>no</b>|<b>no</b>|<b>no</b>|<b>no</b>(h)bis.|bis. |bis. |bis. (h.) (::)\n",
             html: '<div class="verses litany">\
 <p>Sancta Ma<b>rí</b>a,&nbsp;<span class="response">o<i>ra</i>.</span></p>\
 <p>Sancta Dei <b>Gé</b>netrix,&nbsp;<span class="response">o<i>ra</i>.</span></p>\

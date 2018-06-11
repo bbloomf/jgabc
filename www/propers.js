@@ -325,7 +325,7 @@ $(function(){
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
           .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
           .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-          .replace(/(\w)(\s+)([^()\w†*]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+          .replace(/(\w)(\s+)([^()|\w†*]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
           .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
           .replace(/\s*\n\s*/g,'\n')
           .replace(/\s{2,}/g,' ')
@@ -398,7 +398,9 @@ $(function(){
       var match = /^litany\/([\w-_ ]+)/.exec(id);
       if(match) {
         id = litanyMap[match[1]].map(function(l){return 'litanies/'+l});
-        if(!$extraChantsPlaceholder.length) {
+        if($extraChantsPlaceholder.length) {
+          $extraChantsPlaceholder.empty();
+        } else {
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
         }
       }
@@ -2124,7 +2126,7 @@ $(function(){
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
-      .replace(/\^?(<i>[^(]*? [^(]*?<\/i>)\^?([^(]*)/g,'^{}$1$2^') // make any italic text containing a space red
+      .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(| ]*)/g,'^{}$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
