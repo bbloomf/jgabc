@@ -398,7 +398,9 @@ $(function(){
       var match = /^litany\/([\w-_ ]+)/.exec(id);
       if(match) {
         id = litanyMap[match[1]].map(function(l){return 'litanies/'+l});
-        if(!$extraChantsPlaceholder.length) {
+        if($extraChantsPlaceholder.length) {
+          $extraChantsPlaceholder.empty();
+        } else {
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
         }
       }

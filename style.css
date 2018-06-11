@@ -57,6 +57,12 @@ body {
 .verses > p > span.versenum {
   color: #d00;
   margin-bottom: 0;
+  float: left;
+  width: 1.5em;
+  text-align: right;
+}
+.verses .versiculum {
+  color: #d00;
 }
 .open-on-hover>.dropdown-menu {
   margin: 0;
