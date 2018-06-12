@@ -445,7 +445,7 @@ $(function(){
               var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
               if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
                 // add ij. if not present:
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(<i>)?ij\.?(<\/i>)?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
               } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
                 // remove ij. if present
                 gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
@@ -1421,18 +1421,22 @@ $(function(){
                 return result;
               }).join('');
             }).replace(/\*/,'<span class="red">*</span>'));
-            var syls = $span.find('syl');
-            for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
-              var $syl = $(syls[i]);
-              if($syl.is('[accent]')) {
-                lastAccent = i;
-                continue;
-              }
-              if(lastAccent - i == 3) {
-                $(syls[ (lastAccent = i+1) ]).attr('accent','');
+            if(/^allel[uú][ij]a\s*(\*|\*?\s*(<i>)?ij\.(<\/i>)?)/i.test(segment)) {
+              $span.find('syl[accent]').attr('accent',null);
+            } else {
+              var syls = $span.find('syl');
+              for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
+                var $syl = $(syls[i]);
+                if($syl.is('[accent]')) {
+                  lastAccent = i;
+                  continue;
+                }
+                if(lastAccent - i == 3) {
+                  $(syls[ (lastAccent = i+1) ]).attr('accent','');
+                }
               }
             }
-            $psalmEditor.append($span);
+            $psalmEditor.append($span.contents());
             if(segNum != segments.length - 1) {
               $psalmEditor.append(' ').append($button = makeButton(lineNum, segNum, code)).append(' ');
               if(code == 'mediant') {
@@ -1448,6 +1452,7 @@ $(function(){
           }
         });
         $blockRight.prepend($psalmEditor);
+        getPsalmToneForPart(part);
       }
     } else {
       $psalmEditor.hide();
@@ -1761,6 +1766,8 @@ $(function(){
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
     var introitTone = false;
+    var $psalmEditor = $('[part='+part+'] .psalm-editor');
+    $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
     if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = g_tones['Introit ' + mode];
       introitTone = true;
@@ -1774,6 +1781,26 @@ $(function(){
     if(!gTermination) {
       if(!(gTermination = tone.terminations[termination])) {
         for(i in tone.terminations) { gTermination = tone.terminations[i]; break; }
+      }
+    }
+    if(!introitTone && $psalmEditor.length) {
+      var tones = getGabcTones(gMediant,undefined,false,clef);
+      if(tones) {
+        var $mediants = $psalmEditor.find('button[state=mediant]');
+        $mediants.each(function() {
+          $accents = $(this).prevAll('syl[accent]').slice(0,tones.accents).addClass('bold');
+          $accents.first().nextAll('syl').slice(0,tones.afterLastAccent).addClass('bold');
+          $accents.last().prevAll('syl').slice(0,tones.preparatory).addClass('prep');
+        })
+      }
+      var tones = getGabcTones(gTermination,undefined,false,clef);
+      if(tones) {
+        var $terminations = $psalmEditor.find('button[state=new-verse]').add($psalmEditor.find('syl').last());
+        $terminations.each(function() {
+          $accents = $(this).prevAll('syl[accent]').slice(0,tones.accents).addClass('bold');
+          $accents.first().nextAll('syl').slice(0,tones.afterLastAccent).addClass('bold');
+          $accents.last().prevAll('syl').slice(0,tones.preparatory).addClass('prep');
+        })
       }
     }
     var noMediant = getTertiumQuid(gTermination,gMediant);

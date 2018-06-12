@@ -215,7 +215,12 @@ button.toggle-mediant[state="flex"]::before {
 /*.cordova-only {
   display: none;
 }*/
-
+syl.prep {
+  font-style: italic;
+}
+syl.bold {
+  font-weight: bold;
+}
 @media(min-width: 624px) {
   .verses,
   .asperges-verses {
