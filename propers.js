@@ -3245,19 +3245,20 @@ console.info(JSON.stringify(selPropers));
     if(e.type == 'touchstart') {
       removeChantContextMenus();
       originalTouch = touch;
+      touchedElement = findChantElementNear(svg, touch.pageX, touch.pageY);
     } else {
       // if the touch was to scroll the page, we don't want to click on the element or keep it highlighted.
-      if(Math.abs(originalTouch.clientY - touch.clientY) > 25) {
+      if(Math.abs(originalTouch.clientY - touch.clientY) > 10) {
         touchedElement = null;
         return;
       }
     }
-    touchedElement = findChantElementNear(svg, touch.pageX, touch.pageY);
     if(touchedElement) setActiveChantElement(touchedElement);
   }).on('touchend', 'div.chant-preview', function(e) {
     if(touchedElement) {
       e.preventDefault();
       $(touchedElement).click();
+      touchedElement = null;
     }
   }).on('click', '[part].full use[source-index],\
 [part].full text[source-index]:not(.dropCap),\
