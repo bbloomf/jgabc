@@ -49,7 +49,7 @@ function makeExsurgeChantContext() {
   ctxt.lyricTextSize *= 1.2;
   ctxt.dropCapTextFont = ctxt.lyricTextFont;
   ctxt.annotationTextFont = ctxt.lyricTextFont;
-  ctxt.minLyricWordSpacing *= 0.75;
+  ctxt.minLyricWordSpacing *= 0.7;
   
   ctxt.specialCharProperties['font-family'] = "'Versiculum'";
   ctxt.specialCharProperties['font-variant'] = 'normal';
