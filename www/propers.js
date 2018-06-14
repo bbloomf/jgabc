@@ -1425,7 +1425,7 @@ $(function(){
               $span.find('syl[accent]').attr('accent',null);
             } else {
               var syls = $span.find('syl');
-              for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
+              for(var lastAccent=syls.length, i=lastAccent - 1; i >= -1; --i) {
                 var $syl = $(syls[i]);
                 if($syl.is('[accent]')) {
                   lastAccent = i;
@@ -3245,19 +3245,20 @@ console.info(JSON.stringify(selPropers));
     if(e.type == 'touchstart') {
       removeChantContextMenus();
       originalTouch = touch;
+      touchedElement = findChantElementNear(svg, touch.pageX, touch.pageY);
     } else {
       // if the touch was to scroll the page, we don't want to click on the element or keep it highlighted.
-      if(Math.abs(originalTouch.clientY - touch.clientY) > 25) {
+      if(Math.abs(originalTouch.clientY - touch.clientY) > 10) {
         touchedElement = null;
         return;
       }
     }
-    touchedElement = findChantElementNear(svg, touch.pageX, touch.pageY);
     if(touchedElement) setActiveChantElement(touchedElement);
   }).on('touchend', 'div.chant-preview', function(e) {
     if(touchedElement) {
       e.preventDefault();
       $(touchedElement).click();
+      touchedElement = null;
     }
   }).on('click', '[part].full use[source-index],\
 [part].full text[source-index]:not(.dropCap),\
