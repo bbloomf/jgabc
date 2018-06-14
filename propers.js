@@ -1425,7 +1425,7 @@ $(function(){
               $span.find('syl[accent]').attr('accent',null);
             } else {
               var syls = $span.find('syl');
-              for(var lastAccent=syls.length, i=lastAccent - 1; i >= 0; --i) {
+              for(var lastAccent=syls.length, i=lastAccent - 1; i >= -1; --i) {
                 var $syl = $(syls[i]);
                 if($syl.is('[accent]')) {
                   lastAccent = i;
