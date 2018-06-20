@@ -104,11 +104,11 @@ function updateEditor(forceGabcUpdate,_syl) {
           psalmToneStack = gQuestion.slice(0);
           psalmTone = psalmToneStack.pop();
           var match;
-          if(i==0 || lines[i-1].match(/\?['"‘“’”]?$/)) {
+          if(i==0 || lines[i-1][1].match(/\?['"‘“’”]?$/)) {
             // try to find an earlier place in this sentence to put the pause.
-            var indexComma = 1 + lines[i].lastIndexOf(', ');
+            var indexComma = 1 + lines[i][1].lastIndexOf(', ');
             if(indexComma == 0) {
-              indexComma = lines[i].indexOf(' ');
+              indexComma = lines[i][1].indexOf(' ');
             }
             if(indexComma < 0) {
               psalmToneStack = [];
