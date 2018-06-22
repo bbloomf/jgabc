@@ -325,7 +325,7 @@ $(function(){
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
           .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
           .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-          .replace(/(\w)(\s+)([^()|\w†*]+\([^)]+\))/g,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
+          .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
           .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
           .replace(/\s*\n\s*/g,'\n')
           .replace(/\s{2,}/g,' ')
@@ -745,11 +745,11 @@ $(function(){
   function makeRubric(rubric,extraClass) {
     var classes = 'rubric ' + (extraClass || '');
     if(typeof(rubric) == 'string') rubric = [rubric];
-    return rubric.reduce((jq,rubric) => (jq.add($('<div>').addClass(classes).html(
+    return rubric.reduce(function(jq,rubric) { return (jq.add($('<div>').addClass(classes).html(
           rubric.replace(/>/g,'</span>').
             replace(/<(?!\/?\w+>)/g,'<span class="quote">').
             replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
-            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))), $());
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))) }, $());
   }
   // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
   function renderExtraChants($container, extraChants, addI) {
@@ -3063,7 +3063,7 @@ console.info(JSON.stringify(selPropers));
           splice.addString = '(,) ';
         } else {
           if(e.data.after == 'note') {
-            var notes = note.neume.mapping.notations.reduce((a,b) => (a.concat(b.notes)), []);
+            var notes = note.neume.mapping.notations.reduce(function(a,b) { return (a.concat(b.notes)) }, []);
             var noteIndex = notes.indexOf(note);
             if(noteIndex && notes[++noteIndex]) {
               splice.index = notes[noteIndex].sourceIndex;
