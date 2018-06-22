@@ -22,6 +22,12 @@ add links to gregorianbooks?
 
 
 
+regex to find GABC that has a top part that should be sticky:
+\([cf][1-4]\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\([^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\([^)]*\)([^`]*?\1[aeiouyáéíóúäëïöü]\2\s*\3[aeiouyáéíóúäëïöü]\4\s*[a-zaeiouyáéíóúäëïöü,;\s]*\.?\(\)\s*(\(z\))?)[^`]*\1[aeiouyáéíóúäëïöü]\2\s*\3[aeiouyáéíóúäëïöü]\4\s*[a-zaeiouyáéíóúäëïöü,;\s]*\.?\(\)
+
+
+
+
 Introit Tone 6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.
 The intonation of the termination of tone 6 changes based on the accentuation:
   If the 2nd syllable is accented, it begins h hj (see 1012, 1200, 1924 of liber.pdf)
