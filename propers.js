@@ -745,11 +745,11 @@ $(function(){
   function makeRubric(rubric,extraClass) {
     var classes = 'rubric ' + (extraClass || '');
     if(typeof(rubric) == 'string') rubric = [rubric];
-    return rubric.reduce((jq,rubric) => (jq.add($('<div>').addClass(classes).html(
+    return rubric.reduce(function(jq,rubric) { return (jq.add($('<div>').addClass(classes).html(
           rubric.replace(/>/g,'</span>').
             replace(/<(?!\/?\w+>)/g,'<span class="quote">').
             replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
-            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))), $());
+            replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))) }, $());
   }
   // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
   function renderExtraChants($container, extraChants, addI) {
@@ -3063,7 +3063,7 @@ console.info(JSON.stringify(selPropers));
           splice.addString = '(,) ';
         } else {
           if(e.data.after == 'note') {
-            var notes = note.neume.mapping.notations.reduce((a,b) => (a.concat(b.notes)), []);
+            var notes = note.neume.mapping.notations.reduce(function(a,b) { return (a.concat(b.notes)) }, []);
             var noteIndex = notes.indexOf(note);
             if(noteIndex && notes[++noteIndex]) {
               splice.index = notes[noteIndex].sourceIndex;
