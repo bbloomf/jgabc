@@ -2150,8 +2150,8 @@ $(function(){
       .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\([^)])/g, function(match, whitespace, main) {
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
+      .replace(/(\)\s+)((?:\s*[^(^](?!<\/?i>[^(]))+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
-      .replace(/(?<=\)\s+)((?:\s*[^(^](?!<\/?i>[^(]))+)\(\)/g,'^$1^()') // make all text with empty parentheses red
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(| ]*)/g,'^{}$1$2^') // make any italic text containing a space red
