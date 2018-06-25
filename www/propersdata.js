@@ -763,7 +763,7 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
             id: 1128
         }, {
             id: 2209,
-            gabcReplace: [/\\hspace{-2em}/g,'',/\\emph{([^(}]+)\}/g,'_$1_',/\(z\)/g,'(Z)'],
+            gabcReplace: [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi,'^_$1_^() (Z)\n',/\\emph{([^(}]+)\}/g,'_$1_'],
             sticky: 1
         }, /*{
             rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis> is sung:",

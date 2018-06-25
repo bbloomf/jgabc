@@ -2146,13 +2146,14 @@ $(function(){
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
-      }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\()/g, function(match, whitespace, main) {
+      }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^') // make any versical symbols followed by numerals red
+      .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\([^)])/g, function(match, whitespace, main) {
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
+      .replace(/(?<=\)\s+)((?:\s*[^(^](?!<\/?i>[^(]))+)\(\)/g,'^$1^()') // make all text with empty parentheses red
+      // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
-      .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(| ]*)/g,'^{}$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
