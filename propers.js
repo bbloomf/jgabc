@@ -416,6 +416,34 @@ $(function(){
       var selValue = $sel.val();
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
+        var refrainMatch = /(\s%%\s+(\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
+        if(refrainMatch) {
+          console.info(id,'has repeated refrain',refrainMatch[1],'\n',refrainMatch[9]);
+          reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
+          var index = refrainMatch.index + refrainMatch[1].length;
+          var runReplaces = function(gabc) {
+            return runGabcReplaces(gabc.replace(reReplace, function(match,mainPart,doubleBar,hasZ) {
+              console.info(match, '=>', match.replace(/\([^)]+\)/g,'').trim().replace(/(?!\(\)$)..$/g,'$&()') + ' ' + (hasZ? '(Z)' : ''));
+              return match.replace(/\([^)]+\)/g,'').trim().replace(/(?!\(\)$)..$/g,'$&()') + ' ' + (hasZ? '(Z)' : '');
+            }));
+          }
+          var firstPart = runReplaces(gabc.slice(0,index));
+          var secondPart = "initial-style: 0;\n%%\n" + refrainMatch[2] + ' ' + runReplaces(gabc.slice(index));
+          gabc = [
+            {
+              sticky: 0,
+              gabc: firstPart
+            }, {
+              sticky: 1,
+              gabc: secondPart
+            }
+          ];
+          $extraChantsPlaceholder.remove();
+          $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
+          renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
+          $div.find('.chant-preview').empty();
+          return;
+        }
         if(selValue != $sel.val()) return;
         var replaces = selPO[part + 'Replace'];
         var i = 0;
@@ -2146,13 +2174,14 @@ $(function(){
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
-      }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^')
-      .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\()/g, function(match, whitespace, main) {
+      }).replace(/(\)\s+)([^()]*V\/\.\s*\d+\.?)(?=[ (])/g,'$1^$2^') // make any versical symbols followed by numerals red
+      .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\([^)])/g, function(match, whitespace, main) {
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
+      .replace(/(\)\s+)((?:\s*[^(^](?!<\/?i>[^(]))+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
+      // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
-      .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(| ]*)/g,'^{}$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
