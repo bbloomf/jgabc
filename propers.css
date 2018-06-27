@@ -116,6 +116,12 @@ text.aboveLinesText {
 .preview-container {
   padding: 4px 0;
 }
+.sticky .preview-container {
+  padding-bottom: 0;
+}
+svg.ChantScore {
+  display: block;
+}
 .chant-parent{
   width:100%;
 }

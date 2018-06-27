@@ -416,6 +416,7 @@ $(function(){
       var selValue = $sel.val();
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
+        var header = getHeader(gabc);
         var refrainMatch = /(\s%%\s+(\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
         if(refrainMatch) {
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
@@ -440,8 +441,7 @@ $(function(){
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
           $div.find('.chant-preview').empty();
-          delete sel[part].score;
-          return;
+          gabc = '';
         }
         if(selValue != $sel.val()) return;
         var replaces = selPO[part + 'Replace'];
@@ -454,7 +454,6 @@ $(function(){
           gabc = gabc.replace(/(\)[^(]*)ii[ij]\.?/gi,'$1bis.').replace(/(\)[^(]*?)(<i>)?i[ij]\.?(<\/i>)?/gi,'$1')
         }
     
-        var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text,
             truePart = partType;
@@ -564,7 +563,6 @@ $(function(){
         if(typeof(id) == 'object') {
           renderExtraChants($extraChantsPlaceholder, id, '-'+part);
           updateGabc('');
-          delete sel[part].score;
           $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
@@ -2134,7 +2132,11 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    if(gabc) updateExsurge(part, null, updateFromOldScore);
+    if(gabc) {
+      updateExsurge(part, null, updateFromOldScore);
+    } else {
+      delete sel[part].score;
+    }
   }
   function makeChantContextForSel(sel) {
     sel.ctxt = makeExsurgeChantContext();
