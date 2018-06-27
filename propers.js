@@ -2271,7 +2271,7 @@ $(function(){
     var isIE11 = navigator.userAgent.match(/Trident\/7\.0/);
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
-    if(!chantContainer.length) return;
+    if(!chantContainer.length || !chantContainer.is(':visible')) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
     if(!score) return;
