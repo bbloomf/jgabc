@@ -440,6 +440,7 @@ $(function(){
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
           $div.find('.chant-preview').empty();
+          delete sel[part].score;
           return;
         }
         if(selValue != $sel.val()) return;
@@ -563,6 +564,7 @@ $(function(){
         if(typeof(id) == 'object') {
           renderExtraChants($extraChantsPlaceholder, id, '-'+part);
           updateGabc('');
+          delete sel[part].score;
           $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
