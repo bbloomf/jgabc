@@ -1,8 +1,8 @@
+Get rid of autosize, at least in certain circumstances, to save time when resizing
+Get rid of forced relayout caused by checking element.width() from within layoutChant.  I think checking document.width should be better (I can't use window.innerWidth because of the case when laying out chant for printing...)
+
 Litanies:
-Loreto (BVM)
-St. Joseph
 Holy Name
-Sacred Heart
 Saints
 
 Add rubrics for graduals on Ember Saturdays
@@ -22,12 +22,6 @@ add links to gregorianbooks?
 
 
 possibly provide links to http://www.gregorianbooks.com/propers.html#... from the propers tool
-
-regex to find GABC that has a top part that should be sticky:
-\([cf][1-4]\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\([^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\([^)]*\)([^`]*?\1[aeiouyáéíóúäëïöü]\2\s*\3[aeiouyáéíóúäëïöü]\4\s*[a-zaeiouyáéíóúäëïöü,;\s]*\.?\(\)\s*(\(z\))?)[^`]*\1[aeiouyáéíóúäëïöü]\2\s*\3[aeiouyáéíóúäëïöü]\4\s*[a-zaeiouyáéíóúäëïöü,;\s]*\.?\(\)
-
-
-
 
 Introit Tone 6 is the most strange, because it has a 3 syllable intonation for the termination, and this needs to be cut if the termination isn't long enough.
 The intonation of the termination of tone 6 changes based on the accentuation:

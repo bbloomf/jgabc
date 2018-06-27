@@ -418,12 +418,10 @@ $(function(){
       var updateGabc = function(gabc){
         var refrainMatch = /(\s%%\s+(\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
         if(refrainMatch) {
-          console.info(id,'has repeated refrain',refrainMatch[1],'\n',refrainMatch[9]);
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
           var index = refrainMatch.index + refrainMatch[1].length;
           var runReplaces = function(gabc) {
             return runGabcReplaces(gabc.replace(reReplace, function(match,mainPart,doubleBar,hasZ) {
-              console.info(match, '=>', match.replace(/\([^)]+\)/g,'').trim().replace(/(?!\(\)$)..$/g,'$&()') + ' ' + (hasZ? '(Z)' : ''));
               return match.replace(/\([^)]+\)/g,'').trim().replace(/(?!\(\)$)..$/g,'$&()') + ' ' + (hasZ? '(Z)' : '');
             }));
           }
@@ -442,6 +440,7 @@ $(function(){
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
           $div.find('.chant-preview').empty();
+          delete sel[part].score;
           return;
         }
         if(selValue != $sel.val()) return;
@@ -565,6 +564,7 @@ $(function(){
         if(typeof(id) == 'object') {
           renderExtraChants($extraChantsPlaceholder, id, '-'+part);
           updateGabc('');
+          delete sel[part].score;
           $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
@@ -2178,7 +2178,7 @@ $(function(){
       .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\([^)])/g, function(match, whitespace, main) {
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
-      .replace(/(\)\s+)((?:\s*[^(^](?!<\/?i>[^(]))+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
+      .replace(/(\)\s+)((?:\s*[^(^|](?!<\/?i>[^(]))+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
@@ -2271,7 +2271,7 @@ $(function(){
     var isIE11 = navigator.userAgent.match(/Trident\/7\.0/);
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
-    if(!chantContainer.length) return;
+    if(!chantContainer.length || !chantContainer.is(':visible')) return;
     var ctxt = sel[part].ctxt;
     var score = sel[part].score;
     if(!score) return;
