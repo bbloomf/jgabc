@@ -663,11 +663,11 @@ function applyPsalmTone(options) {
   while(!finished){
     r = '';
     var si = syl.length - 1;
-    var lastOpen;
-    var vow;
+    var lastOpen = null;
+    var vow=null;
     var italic=false;
     var lastAccentI = si + 1;
-    var lastTone;
+    var lastTone=null;
     var finished=false;
     if(toneList.variableIntonation && !result.shortened) {
       //find first accented syllable
@@ -691,8 +691,9 @@ function applyPsalmTone(options) {
       toneList.variableIntonationLength = accentI;
     }
     var intonationLength = (typeof intonationLength=='number')? intonationLength : toneList.intonation + (toneList.variableIntonationLength||0);
+    var intonationEndsWithTenor = (!intonationLength || tones[intonationLength - 1].all.slice(-1) == toneList.toneTenor)? 1 : 0;
     for(var ti = tones.length - 1; (ti >= 0 || lastOpen) && si >= 0; --ti,--si) {
-      if(!result.shortened && ti == intonationLength && si < ti - 1) {
+      if(!result.shortened && ti == intonationLength && si < ti - intonationEndsWithTenor) {
         // we need to break out of the loop: there aren't enough syllables to give us the entire intonation as well as at least one tone that is not part of the intonation
         break;
       }
@@ -893,12 +894,10 @@ function applyPsalmTone(options) {
       if(ti==0 && tones[ti].open) {
         finished = true;
       } else {
-        if(++ti < toneList.preparatory) {
-          tones = tones.slice(0,intonationLength+1).concat(tones.slice(intonationLength+1 + ti));
-        } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
+        if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength > ti && syl[0].accent) {
           tones = tones.slice(toneList.variableIntonationLength);
           toneList.variableIntonationLength = 0;
-        } else if((ti - 1) <= intonationLength && !favor.intonation && !favor.termination) {
+        } else if(ti <= intonationLength && (!favor.intonation || si == 0) && !favor.termination) {
           // if we made it at least to the first reciting tone and we aren't favoring the intonation, then we'll have to get rid of the intonation:
           tones = tones.slice(intonationLength);
           regexToneGabc.exec('');
