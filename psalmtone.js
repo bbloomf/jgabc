@@ -692,7 +692,7 @@ function applyPsalmTone(options) {
     }
     var intonationLength = (typeof intonationLength=='number')? intonationLength : toneList.intonation + (toneList.variableIntonationLength||0);
     for(var ti = tones.length - 1; (ti >= 0 || lastOpen) && si >= 0; --ti,--si) {
-      if(!result.shortened && ti == intonationLength && si < ti) {
+      if(!result.shortened && ti == intonationLength && si < ti - 1) {
         // we need to break out of the loop: there aren't enough syllables to give us the entire intonation as well as at least one tone that is not part of the intonation
         break;
       }
