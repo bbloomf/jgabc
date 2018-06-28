@@ -416,6 +416,7 @@ $(function(){
       var selValue = $sel.val();
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
+        var header = getHeader(gabc);
         var refrainMatch = /(\s%%\s+(\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
         if(refrainMatch) {
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
@@ -426,7 +427,9 @@ $(function(){
             }));
           }
           var firstPart = runReplaces(gabc.slice(0,index));
-          var secondPart = "initial-style: 0;\n%%\n" + refrainMatch[2] + ' ' + runReplaces(gabc.slice(index));
+          var secondPart = runReplaces(gabc.slice(index));
+          sel[part].effectiveGabc = firstPart + secondPart;
+          secondPart = "initial-style: 0;\n%%\n" + refrainMatch[2] + ' ' + secondPart;
           gabc = [
             {
               sticky: 0,
@@ -440,8 +443,7 @@ $(function(){
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
           $div.find('.chant-preview').empty();
-          delete sel[part].score;
-          return;
+          gabc = '';
         }
         if(selValue != $sel.val()) return;
         var replaces = selPO[part + 'Replace'];
@@ -454,7 +456,6 @@ $(function(){
           gabc = gabc.replace(/(\)[^(]*)ii[ij]\.?/gi,'$1bis.').replace(/(\)[^(]*?)(<i>)?i[ij]\.?(<\/i>)?/gi,'$1')
         }
     
-        var header = getHeader(gabc);
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
         var text,
             truePart = partType;
@@ -564,7 +565,6 @@ $(function(){
         if(typeof(id) == 'object') {
           renderExtraChants($extraChantsPlaceholder, id, '-'+part);
           updateGabc('');
-          delete sel[part].score;
           $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
@@ -2134,7 +2134,11 @@ $(function(){
         return;
     }
     sel[part].activeGabc = gabc;
-    if(gabc) updateExsurge(part, null, updateFromOldScore);
+    if(gabc) {
+      updateExsurge(part, null, updateFromOldScore);
+    } else {
+      delete sel[part].score;
+    }
   }
   function makeChantContextForSel(sel) {
     sel.ctxt = makeExsurgeChantContext();
@@ -2178,7 +2182,6 @@ $(function(){
       .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\([^)])/g, function(match, whitespace, main) {
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
-      .replace(/(\)\s+)((?:\s*[^(^|](?!<\/?i>[^(]))+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
@@ -2194,6 +2197,7 @@ $(function(){
       .replace(/<\/?b>/g,'*')
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
+      .replace(/(\)\s+)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
@@ -2712,7 +2716,7 @@ $(function(){
   populateSelectWithTones($('[part=introitus] select.tones'));
   populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
-  var getAllGabc = function() {
+  var getAllGabc = window.getAllGabc = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
       return result || ((id in hash) && id);
@@ -2734,7 +2738,7 @@ $(function(){
           capPart = part[0].toUpperCase() + part.slice(1),
           $includePart = $('#include' + capPart),
           proper = sel[part],
-          gabc = proper && (proper.activeGabc || proper.gabc),
+          gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
           header = getHeader(gabc);
       if($includePart.parent('li').hasClass('disabled') ||
         includePropers.indexOf(part)<0 ||
