@@ -897,7 +897,7 @@ function applyPsalmTone(options) {
         if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength > ti && syl[0].accent) {
           tones = tones.slice(toneList.variableIntonationLength);
           toneList.variableIntonationLength = 0;
-        } else if(ti <= intonationLength && (!favor.intonation || si == 0) && !favor.termination) {
+        } else if(ti <= intonationLength && (!favor.intonation || si <= 0) && !favor.termination) {
           // if we made it at least to the first reciting tone and we aren't favoring the intonation, then we'll have to get rid of the intonation:
           tones = tones.slice(intonationLength);
           regexToneGabc.exec('');
