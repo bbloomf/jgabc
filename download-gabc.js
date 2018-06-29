@@ -16,6 +16,22 @@ miscChantIDs.forEach(id => {
   if(ids.indexOf(id) >= 0) throw `${id} found in both lists at index ${ids.indexOf(id)}.`;
 });
 ids = ids.concat(miscChantIDs);
+var removeAcuteAccents = (word) => (word.replace(/[ǽáéíóúý]/gi, (v => ({
+  "Ǽ": "Æ",
+  "Á": "A",
+  "É": "E",
+  "Í": "I",
+  "Ó": "O",
+  "Ú": "U",
+  "Ý": "Y",
+  "ǽ": "æ",
+  "á": "a",
+  "é": "e",
+  "í": "i",
+  "ó": "o",
+  "ú": "u",
+  "ý": "y"
+})[v])));
 var path = 'gabc/',
     active = 0,
     max = 15,
@@ -85,21 +101,23 @@ var path = 'gabc/',
                       .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
                       .replace(/(\w)(\([^)]+\)\s+):/g,'$1:$2')
                       .replace(/[/ ]+\)/g,')')
+                      .replace(/!\//g,'/')
                       .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n');
-                    content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ{}*]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ{}]+(?=[,.;:!?]))?/gi, function(whole){
+                    content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ{}*<>\/]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ{}<>\/]+(?=[,.;:!?\s»"'‘’“”]))?/gi, function(whole, first, second, index, content){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
                       // 3. verify same number of syllables
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
+                      if(whole.match(/<i>/)) return whole;
                       var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/gi;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
                         var braces = match[1].match(/[{}]/g) || [];
                         if(braces.length % 2 === 0) match[1] = match[1].replace(/[{}]/g,'');
-                        syls.push(match[1].replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ'));
+                        syls.push(match[1].replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ').replace(/O[Ee]/,'Œ'));
                       }
                       var word = syls.join('');
                       if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
@@ -109,6 +127,19 @@ var path = 'gabc/',
                           errors.push(file + ': ' + word + '; replaced with ' + JSON.stringify(syls));
                         }
                         word = syls.join('');
+                      }
+                      var accentCount = (word.match(/[ǽáéíóúý]/gi)||[]).length;
+                      var vowelCount = (word.match(/[aá]u|(qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
+                      var vowelCountIJ  = (word.match(/[aá]u|(i|qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
+                      if(vowelCount !== syls.length && vowelCountIJ !== syls.length) {
+                        console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
+                      }
+                      if(syls.length && syls.slice(-1)[0].match(/[ǽáéíóúý](?![aeiouyæœǽáéíóúýäëïöüÿ])/)) {
+                        console.error(word, 'accent on final syllable', file, content.slice(index, index + 100));
+                        throw 1;
+                      }
+                      if(accentCount && vowelCount === 2) {
+                        word = removeAcuteAccents(word);
                       }
                       var otherSyls = latin.hyphenate(word);
                       if(otherSyls.length != syls.length ||
