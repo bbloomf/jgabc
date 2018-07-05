@@ -417,7 +417,8 @@ $(function(){
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
       var updateGabc = function(gabc){
         var header = getHeader(gabc);
-        var refrainMatch = /(\s%%\s+(\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
+        gabc = gabc.slice(header.original.length);
+        var refrainMatch = /((\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
         if(refrainMatch) {
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
           var index = refrainMatch.index + refrainMatch[1].length;
@@ -426,7 +427,7 @@ $(function(){
               return match.replace(/\([^)]+\)/g,'').trim().replace(/(?!\(\)$)..$/g,'$&()') + ' ' + (hasZ? '(Z)' : '');
             }));
           }
-          var firstPart = runReplaces(gabc.slice(0,index));
+          var firstPart = header + runReplaces(gabc.slice(0,index));
           var secondPart = runReplaces(gabc.slice(index));
           sel[part].effectiveGabc = firstPart + secondPart;
           secondPart = "initial-style: 0;\n%%\n" + refrainMatch[2] + ' ' + secondPart;
@@ -447,9 +448,14 @@ $(function(){
         }
         if(selValue != $sel.val()) return;
         var replaces = selPO[part + 'Replace'];
-        var i = 0;
-        while(replaces && i < replaces.length) {
-          gabc = gabc.replace(replaces[i++],replaces[i++]);
+        if(replaces) {
+          gabc = header + gabc;
+          var i = 0;
+          while(i < replaces.length) {
+            gabc = gabc.replace(replaces[i++],replaces[i++]);
+          }
+          header = getHeader(gabc);
+          gabc = gabc.slice(header.original.length);
         }
         gabc = runGabcReplaces(gabc);
         if(isNovus && part == 'kyrie') {
@@ -538,7 +544,7 @@ $(function(){
         } else {
           header.annotation = romanMode;
         }
-        gabc = gabc? (header + gabc.slice(header.original.length)) : '';
+        gabc = gabc? (header + gabc) : '';
         sel[part].gabc = gabc;
         sel[part].mode = sel[part].originalMode = header.mode;
         if(part==='asperges' && gabc.match(/\(::\)/g).length === 1) {
@@ -2197,7 +2203,7 @@ $(function(){
       .replace(/<\/?b>/g,'*')
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
-      .replace(/(\)\s+)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
+      .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
         .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
