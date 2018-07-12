@@ -16,6 +16,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},selCustom={},sel={
   agnus:{},
   ite:{}
 },includePropers=[],
+paperSize=localStorage.paperSize || 'letter',
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
@@ -2756,7 +2757,12 @@ $(function(){
         name = '';
       }
       header['%font'] = 'GaramondPremierPro';
-      header['%width'] = '7.5';
+      if(paperSize === 'a4') {
+        header['%width'] = '7.27';
+        header['%height'] = '11.69';
+      } else {
+        header['%width'] = '7.5';
+      }
       gabc = header + gabc.slice(header.original.length);
       result.push(gabc);
     });
@@ -2778,6 +2784,8 @@ $(function(){
     for(var i=0;i<gabcs.length;++i){
       $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
     }
+    $('#pdff_width').val(paperSize == 'a4'? 7.27 : 7.5);
+    $('#pdff_height').val(paperSize == 'a4'? 11.69 : 11);
     $("#pdfFormDirect").submit();
   });
   $('[id$=-preview]').on('relayout',function(){
@@ -2803,6 +2811,18 @@ $(function(){
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   });
+  $('.dropdown-paper-size').on('click','li>a', function(e) {
+    e.preventDefault();
+    var $this = $(this),
+        $icon = $this.find('span.glyphicon'),
+        lbl = $this.find('.lbl').text();
+    $('.dropdown-paper-size li>a').removeClass('b').find('span.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-blank');
+    paperSize = localStorage.paperSize = lbl.toLowerCase();
+    $('span.lbl-paper-size').text(lbl);
+    $this.addClass('b');
+    $icon.addClass('glyphicon-ok').removeClass('glyphicon-blank');
+  });
+  $('.dropdown-paper-size li>a[paper='+paperSize+']').click();
   $('a.toggleShowGabc').attr('href','');
   $('body').on('click','a.toggleShowGabc',function(e){
     e.preventDefault();

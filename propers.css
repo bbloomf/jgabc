@@ -227,6 +227,9 @@ syl.prep {
 syl.bold {
   font-weight: bold;
 }
+.glyphicon.glyphicon-blank {
+  width: 1em;
+}
 
 @media(min-width: 624px) {
   .verses,
