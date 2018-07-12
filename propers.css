@@ -241,6 +241,9 @@ syl.bold {
 #toggle-all-page-break {
   cursor: pointer;
 }
+.glyphicon.glyphicon-blank {
+  width: 1em;
+}
 
 @media(min-width: 624px) {
   .verses,
