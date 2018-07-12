@@ -227,11 +227,16 @@ syl.prep {
 syl.bold {
   font-weight: bold;
 }
-.toggle-page-break.glyphicon-download {
-  color: #999;
+.toggle-page-break,
+#toggle-all-page-break {
+  color: #B6B6B6;
+}
+.toggle-page-break.has-page-break-before,
+#toggle-all-page-break.has-page-break-before {
+  color: #333;
 }
 #toggle-all-page-break.mixed {
-  color: #999;
+  color: #777;
 }
 #toggle-all-page-break {
   cursor: pointer;

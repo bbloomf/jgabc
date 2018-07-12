@@ -617,7 +617,7 @@ $(function(){
     }
   };
   var gradualeTemplate = '\
-  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-download"></span></a></li>\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
@@ -2807,15 +2807,15 @@ $(function(){
     e.preventDefault();
     e.stopPropagation();
     var $span = $(this);
-    $span.toggleClass('glyphicon-download glyphicon-circle-arrow-up');
+    $span.toggleClass('has-page-break-before');
     // the next line should really check whether it is mixed, and then toggle based on that
     $('#toggle-all-page-break').toggleClass('mixed', true);
   }).on('click','#toggle-all-page-break', function(e) {
     e.preventDefault();
     e.stopPropagation();
     var $span = $(this);
-    $span.toggleClass('glyphicon-download glyphicon-circle-arrow-up').removeClass('mixed');
-    ['glyphicon-download','glyphicon-circle-arrow-up'].reduce(function($spans,c) {
+    $span.toggleClass('has-page-break-before').removeClass('mixed');
+    ['has-page-break-before'].reduce(function($spans,c) {
       return $spans.toggleClass(c, $span.hasClass(c));
     }, $('ul.dropdown-menu .toggle-page-break'));
   });
