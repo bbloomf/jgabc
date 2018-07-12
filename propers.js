@@ -617,7 +617,7 @@ $(function(){
     }
   };
   var gradualeTemplate = '\
-  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span></a></li>\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-download"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
@@ -2786,13 +2786,14 @@ $(function(){
   });
   $('a[id^=include]').each(function(){
     includePropers.push(this.id.slice(7).toLowerCase());
-  }).click(function(e){
+  });
+  $('ul.dropdown-menu').on('click','a[id^=include]',function(e){
     e.preventDefault();
     e.stopPropagation();
     var capPart = this.id.slice(7),
         part = capPart.toLowerCase(),
         i = includePropers.indexOf(part),
-        $span = $(this).find('span.glyphicon');
+        $span = $(this).find('span.glyphicon').first();
     if(i<0) {
       // wasn't included, now it will be:
       includePropers.push(part);
@@ -2802,6 +2803,21 @@ $(function(){
       includePropers.splice(i,1);
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
+  }).on('click','.toggle-page-break', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var $span = $(this);
+    $span.toggleClass('glyphicon-download glyphicon-circle-arrow-up');
+    // the next line should really check whether it is mixed, and then toggle based on that
+    $('#toggle-all-page-break').toggleClass('mixed', true);
+  }).on('click','#toggle-all-page-break', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var $span = $(this);
+    $span.toggleClass('glyphicon-download glyphicon-circle-arrow-up').removeClass('mixed');
+    ['glyphicon-download','glyphicon-circle-arrow-up'].reduce(function($spans,c) {
+      return $spans.toggleClass(c, $span.hasClass(c));
+    }, $('ul.dropdown-menu .toggle-page-break'));
   });
   $('a.toggleShowGabc').attr('href','');
   $('body').on('click','a.toggleShowGabc',function(e){

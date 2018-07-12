@@ -227,6 +227,15 @@ syl.prep {
 syl.bold {
   font-weight: bold;
 }
+.toggle-page-break.glyphicon-download {
+  color: #999;
+}
+#toggle-all-page-break.mixed {
+  color: #999;
+}
+#toggle-all-page-break {
+  cursor: pointer;
+}
 
 @media(min-width: 624px) {
   .verses,
