@@ -16,6 +16,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},selCustom={},sel={
   agnus:{},
   ite:{}
 },includePropers=[],
+paperSize=localStorage.paperSize || 'letter',
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
@@ -316,7 +317,7 @@ $(function(){
     }
     return result;
   }
-  function runGabcReplaces(gabc) {
+  function runGabcReplaces(gabc, gabcHeader) {
     gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
           .replace(/\+(?=[^()]*\()/g,'†')
@@ -335,8 +336,7 @@ $(function(){
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
-    gabcHeader = getHeader(gabc);
-    if(gabcHeader.officePart == 'Sequentia') {
+    if(gabcHeader && gabcHeader.officePart == 'Sequentia') {
       var count = 2;
       gabc = gabc.replace(/\(::\)\s+(?!\d|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
     }
@@ -423,9 +423,10 @@ $(function(){
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
           var index = refrainMatch.index + refrainMatch[1].length;
           var runReplaces = function(gabc) {
-            return runGabcReplaces(gabc.replace(reReplace, function(match,mainPart,doubleBar,hasZ) {
+            gabc = gabc.replace(reReplace, function(match,mainPart,doubleBar,hasZ) {
               return match.replace(/\([^)]+\)/g,'').trim().replace(/(?!\(\)$)..$/g,'$&()') + ' ' + (hasZ? '(Z)' : '');
-            }));
+            });
+            return runGabcReplaces(gabc, header);
           }
           var firstPart = header + runReplaces(gabc.slice(0,index));
           var secondPart = runReplaces(gabc.slice(index));
@@ -457,7 +458,7 @@ $(function(){
           header = getHeader(gabc);
           gabc = gabc.slice(header.original.length);
         }
-        gabc = runGabcReplaces(gabc);
+        gabc = runGabcReplaces(gabc, header);
         if(isNovus && part == 'kyrie') {
           gabc = gabc.replace(/(\)[^(]*)ii[ij]\.?/gi,'$1bis.').replace(/(\)[^(]*?)(<i>)?i[ij]\.?(<\/i>)?/gi,'$1')
         }
@@ -863,8 +864,9 @@ $(function(){
                 for (var i=0; i < chant.gabcReplace.length; i += 2)
                   gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
               }
-              gabc = runGabcReplaces(gabc);
               var header = getHeader(gabc);
+              gabc = gabc.slice(header.original.length);
+              gabc = header + runGabcReplaces(gabc, header);
               if(header.officePart) {
                 $curElement.find('.office-part-name').text(header.officePart);
               }
@@ -2755,7 +2757,12 @@ $(function(){
         name = '';
       }
       header['%font'] = 'GaramondPremierPro';
-      header['%width'] = '7.5';
+      if(paperSize === 'a4') {
+        header['%width'] = '7.27';
+        header['%height'] = '11.69';
+      } else {
+        header['%width'] = '7.5';
+      }
       gabc = header + gabc.slice(header.original.length);
       result.push(gabc);
     });
@@ -2777,6 +2784,8 @@ $(function(){
     for(var i=0;i<gabcs.length;++i){
       $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
     }
+    $('#pdff_width').val(paperSize == 'a4'? 7.27 : 7.5);
+    $('#pdff_height').val(paperSize == 'a4'? 11.69 : 11);
     $("#pdfFormDirect").submit();
   });
   $('[id$=-preview]').on('relayout',function(){
@@ -2802,6 +2811,18 @@ $(function(){
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   });
+  $('.dropdown-paper-size').on('click','li>a', function(e) {
+    e.preventDefault();
+    var $this = $(this),
+        $icon = $this.find('span.glyphicon'),
+        lbl = $this.find('.lbl').text();
+    $('.dropdown-paper-size li>a').removeClass('b').find('span.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-blank');
+    paperSize = localStorage.paperSize = lbl.toLowerCase();
+    $('span.lbl-paper-size').text(lbl);
+    $this.addClass('b');
+    $icon.addClass('glyphicon-ok').removeClass('glyphicon-blank');
+  });
+  $('.dropdown-paper-size li>a[paper='+paperSize+']').click();
   $('a.toggleShowGabc').attr('href','');
   $('body').on('click','a.toggleShowGabc',function(e){
     e.preventDefault();
