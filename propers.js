@@ -17,6 +17,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},selCustom={},sel={
   ite:{}
 },includePropers=[],
 paperSize=localStorage.paperSize || 'letter',
+pageBreaks=(localStorage.pageBreaks || "").split(','),
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
@@ -2745,6 +2746,7 @@ $(function(){
           part = $this.attr('part'),
           capPart = part[0].toUpperCase() + part.slice(1),
           $includePart = $('#include' + capPart),
+          hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
           header = getHeader(gabc);
@@ -2816,8 +2818,11 @@ $(function(){
     e.stopPropagation();
     var $span = $(this);
     $span.toggleClass('has-page-break-before');
-    // the next line should really check whether it is mixed, and then toggle based on that
-    $('#toggle-all-page-break').toggleClass('mixed', true);
+    var hasPageBreakBefore = $('#dropdown-menu-include .toggle-page-break').map(function() { return $(this).hasClass('has-page-break-before'); }).toArray();
+    var allPageBreaks = hasPageBreakBefore.reduce(function(a,b) { return a === b? b : 0; });
+    var isMixed = 0 === allPageBreaks;
+    $('#toggle-all-page-break').toggleClass('mixed', isMixed).toggleClass('has-page-break-before',isMixed || allPageBreaks);
+    updateStoredPageBreaks();
   }).on('click','#toggle-all-page-break', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -2826,7 +2831,19 @@ $(function(){
     ['has-page-break-before'].reduce(function($spans,c) {
       return $spans.toggleClass(c, $span.hasClass(c));
     }, $('ul.dropdown-menu .toggle-page-break'));
+    updateStoredPageBreaks();
   });
+  pageBreaks.forEach(function(part) {
+    var $part = $('#include'+part);
+    $part.find('.toggle-page-break');
+    $part.click();
+  });
+  function updateStoredPageBreaks() {
+    pageBreaks = $('#dropdown-menu-include .toggle-page-break.has-page-break-before').parent().map(function() {return this.id.slice(7);}).toArray();
+    localStorage.pageBreaks = pageBreaks.join(',');
+    $('div[part]').removeClass('page-break-before');
+    $(pageBreaks.map(function(part) { return 'div[part=' + part.toLowerCase() + ']'}).join(',')).addClass('page-break-before');
+  }
   $('.dropdown-paper-size').on('click','li>a', function(e) {
     e.preventDefault();
     var $this = $(this),
