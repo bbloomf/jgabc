@@ -2362,6 +2362,9 @@ $(function(){
     }
   }
   var relayoutAllChant = function(synchronous) {
+    $('.first-showing-chant').removeClass('first-showing-chant');
+    $('div[part].showing-chant').first().addClass('first-showing-chant');
+    updateStoredPageBreaks();
     $.each(sel, function(part) {
       layoutChant(part, synchronous);
     });
@@ -2834,9 +2837,7 @@ $(function(){
     updateStoredPageBreaks();
   });
   pageBreaks.forEach(function(part) {
-    var $part = $('#include'+part);
-    $part.find('.toggle-page-break');
-    $part.click();
+    $('#include'+part).find('.toggle-page-break').click();
   });
   function updateStoredPageBreaks() {
     pageBreaks = $('#dropdown-menu-include .toggle-page-break.has-page-break-before').parent().map(function() {return this.id.slice(7);}).toArray();
