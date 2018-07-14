@@ -2744,6 +2744,7 @@ $(function(){
       }
     }
     var result=[];
+    var isFirstChant = true;
     $('[part]').each(function(){
       var $this = $(this),
           part = $this.attr('part'),
@@ -2761,6 +2762,9 @@ $(function(){
         header.commentary = ' ';
         name = '';
       }
+      if(hasPageBreak && !isFirstChant) {
+        header['%pageBreak'] = 'true';
+      }
       header['%font'] = 'GaramondPremierPro';
       if(paperSize === 'a4') {
         header['%width'] = '7.27';
@@ -2770,6 +2774,7 @@ $(function(){
       }
       gabc = header + gabc.slice(header.original.length);
       result.push(gabc);
+      isFirstChant = false;
     });
     return result;
   };
