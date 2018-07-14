@@ -236,6 +236,10 @@ span.start-pitch {
   flex: 0 1 0;
 }
 
+.child-main {
+  max-width: 100%;
+}
+
 @media screen and (max-width: 768px) {
   .ss-border-bottom {
     border-bottom: 1px solid #ddd;
