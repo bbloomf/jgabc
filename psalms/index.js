@@ -26,8 +26,8 @@ $(function() {
               b = map[index + 1],
               c = map[index - 1];
           if(typeof a != 'number') a = Infinity;
-          if(c == a) ++a;
-          if(b == a) ++b;
+          if(c === a) ++a;
+          if(b === a) ++b;
           return `<div class='vulgate'>${index + 1}. ${verse}</div>
 ${liber.slice(a, b||undefined).map(verse => `<div class='liber'>${verse}</div>`).join('')}
 <br>`;
