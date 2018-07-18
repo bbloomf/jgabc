@@ -419,9 +419,11 @@ $(function(){
       var updateGabc = function(gabc){
         var header = getHeader(gabc);
         gabc = gabc.slice(header.original.length);
-        var refrainMatch = /((\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
+        var refrainMatch = /((\([cf]b?[1-4]\)|<sp>R\/<\/sp>\.)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^^]*?\(:+\)[^^]*?\([^)]*z\))[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
         if(refrainMatch) {
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
+          var numParts = refrainMatch[2] === '<sp>R/</sp>.'? 3 : 2;
+          var clef = numParts === 2? refrainMatch[2] : gabc.match(/\([cf]b?[1-4]\)/)[0];
           var index = refrainMatch.index + refrainMatch[1].length;
           var runReplaces = function(gabc) {
             gabc = gabc.replace(reReplace, function(match,mainPart,doubleBar,hasZ) {
@@ -429,10 +431,12 @@ $(function(){
             });
             return runGabcReplaces(gabc, header);
           }
-          var firstPart = header + runReplaces(gabc.slice(0,index));
+          var mockHeader = "initial-style: 0;\n%%\n" + clef + ' ';
+          var firstPart = (numParts === 3? mockHeader : header) + runReplaces(gabc.slice(numParts === 3? refrainMatch.index : 0,index));
           var secondPart = runReplaces(gabc.slice(index));
-          sel[part].effectiveGabc = firstPart + secondPart;
-          secondPart = "initial-style: 0;\n%%\n" + refrainMatch[2] + ' ' + secondPart;
+          var prePart = numParts === 3 && (header + runReplaces(gabc.slice(0, refrainMatch.index)));
+          sel[part].effectiveGabc = (prePart || '') + firstPart + secondPart;
+          secondPart = mockHeader + secondPart;
           gabc = [
             {
               sticky: 0,
@@ -442,6 +446,11 @@ $(function(){
               gabc: secondPart
             }
           ];
+          if(prePart) {
+            gabc.unshift({
+              gabc: prePart
+            });
+          }
           $extraChantsPlaceholder.remove();
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
