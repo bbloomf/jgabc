@@ -2443,7 +2443,7 @@ $(function(){
   $selYearNovus.change(function(){
     selYearNovus = $(this).val();
     addToHash('yearNovus', selYearNovus);
-    updateAllParts();
+    updateAllParts(true);
   });
   $selTempus.change(selectedTempus);
   $selOrdinary.change(selectedOrdinary).change();
