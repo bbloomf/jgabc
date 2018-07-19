@@ -65,6 +65,9 @@ $(function(){
     while(curMatch = regexKeyVal.exec(hash)) {
       this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
     }
+    if(Object.keys(this).length == 1 && ('hash' in this)) {
+      return new LocationHash(this.hash);
+    }
     return this;
   };
   LocationHash.prototype.toString = function() {
