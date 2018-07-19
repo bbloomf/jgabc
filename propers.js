@@ -714,7 +714,7 @@ $(function(){
       } else {
         selPropers = {};
       }
-      updateAllParts();
+      updateAllParts(true);
     }
   }
   var updateDayNovus = function() {
@@ -722,12 +722,13 @@ $(function(){
     if(selPropers) {
       selPropers.isNovus = true;
       novusOption = {};
-      updateAllParts();
+      updateAllParts(true);
     }
   }
-  var updateAllParts = function() {
+  var updateAllParts = function(justPropers) {
     $('.novus-options').hide();
     $('div[part]').each(function(){
+      if(!justPropers || ($(this).attr('part')+"ID") in selPropers)
       updatePart($(this).attr('part'));
     });
     var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
