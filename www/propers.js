@@ -17,6 +17,7 @@ var selDay,selTempus='',selPropers,selOrdinaries={},selCustom={},sel={
   ite:{}
 },includePropers=[],
 paperSize=localStorage.paperSize || 'letter',
+pageBreaks=(localStorage.pageBreaks || "").split(','),
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
@@ -63,6 +64,9 @@ $(function(){
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
       this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
+    }
+    if(Object.keys(this).length == 1 && ('hash' in this)) {
+      return new LocationHash(this.hash);
     }
     return this;
   };
@@ -418,9 +422,11 @@ $(function(){
       var updateGabc = function(gabc){
         var header = getHeader(gabc);
         gabc = gabc.slice(header.original.length);
-        var refrainMatch = /((\([cf][1-4]\))\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\))[^`]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
+        var refrainMatch = /((\([cf]b?[1-4]\)|<sp>R\/<\/sp>\.)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^^]*?\(:+\)[^^]*?\([^)]*z\))[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
         if(refrainMatch) {
           reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
+          var numParts = refrainMatch[2] === '<sp>R/</sp>.'? 3 : 2;
+          var clef = numParts === 2? refrainMatch[2] : gabc.match(/\([cf]b?[1-4]\)/)[0];
           var index = refrainMatch.index + refrainMatch[1].length;
           var runReplaces = function(gabc) {
             gabc = gabc.replace(reReplace, function(match,mainPart,doubleBar,hasZ) {
@@ -428,10 +434,12 @@ $(function(){
             });
             return runGabcReplaces(gabc, header);
           }
-          var firstPart = header + runReplaces(gabc.slice(0,index));
+          var mockHeader = "initial-style: 0;\n%%\n" + clef + ' ';
+          var firstPart = (numParts === 3? mockHeader : header) + runReplaces(gabc.slice(numParts === 3? refrainMatch.index : 0,index));
           var secondPart = runReplaces(gabc.slice(index));
-          sel[part].effectiveGabc = firstPart + secondPart;
-          secondPart = "initial-style: 0;\n%%\n" + refrainMatch[2] + ' ' + secondPart;
+          var prePart = numParts === 3 && (header + runReplaces(gabc.slice(0, refrainMatch.index)));
+          sel[part].effectiveGabc = (prePart || '') + firstPart + secondPart;
+          secondPart = mockHeader + secondPart;
           gabc = [
             {
               sticky: 0,
@@ -441,6 +449,11 @@ $(function(){
               gabc: secondPart
             }
           ];
+          if(prePart) {
+            gabc.unshift({
+              gabc: prePart
+            });
+          }
           $extraChantsPlaceholder.remove();
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
@@ -618,7 +631,7 @@ $(function(){
     }
   };
   var gradualeTemplate = '\
-  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span></a></li>\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
@@ -2361,6 +2374,9 @@ $(function(){
     }
   }
   var relayoutAllChant = function(synchronous) {
+    $('.first-showing-chant').removeClass('first-showing-chant');
+    $('div[part].showing-chant').first().addClass('first-showing-chant');
+    updateStoredPageBreaks();
     $.each(sel, function(part) {
       layoutChant(part, synchronous);
     });
@@ -2740,11 +2756,13 @@ $(function(){
       }
     }
     var result=[];
+    var isFirstChant = true;
     $('[part]').each(function(){
       var $this = $(this),
           part = $this.attr('part'),
           capPart = part[0].toUpperCase() + part.slice(1),
           $includePart = $('#include' + capPart),
+          hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
           header = getHeader(gabc);
@@ -2756,6 +2774,9 @@ $(function(){
         header.commentary = ' ';
         name = '';
       }
+      if(hasPageBreak && !isFirstChant) {
+        header['%pageBreak'] = 'true';
+      }
       header['%font'] = 'GaramondPremierPro';
       if(paperSize === 'a4') {
         header['%width'] = '7.27';
@@ -2765,6 +2786,7 @@ $(function(){
       }
       gabc = header + gabc.slice(header.original.length);
       result.push(gabc);
+      isFirstChant = false;
     });
     return result;
   };
@@ -2794,13 +2816,14 @@ $(function(){
   });
   $('a[id^=include]').each(function(){
     includePropers.push(this.id.slice(7).toLowerCase());
-  }).click(function(e){
+  });
+  $('ul.dropdown-menu').on('click','a[id^=include]',function(e){
     e.preventDefault();
     e.stopPropagation();
     var capPart = this.id.slice(7),
         part = capPart.toLowerCase(),
         i = includePropers.indexOf(part),
-        $span = $(this).find('span.glyphicon');
+        $span = $(this).find('span.glyphicon').first();
     if(i<0) {
       // wasn't included, now it will be:
       includePropers.push(part);
@@ -2810,7 +2833,35 @@ $(function(){
       includePropers.splice(i,1);
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
+  }).on('click','.toggle-page-break', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var $span = $(this);
+    $span.toggleClass('has-page-break-before');
+    var hasPageBreakBefore = $('#dropdown-menu-include .toggle-page-break').map(function() { return $(this).hasClass('has-page-break-before'); }).toArray();
+    var allPageBreaks = hasPageBreakBefore.reduce(function(a,b) { return a === b? b : 0; });
+    var isMixed = 0 === allPageBreaks;
+    $('#toggle-all-page-break').toggleClass('mixed', isMixed).toggleClass('has-page-break-before',isMixed || allPageBreaks);
+    updateStoredPageBreaks();
+  }).on('click','#toggle-all-page-break', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    var $span = $(this);
+    $span.toggleClass('has-page-break-before').removeClass('mixed');
+    ['has-page-break-before'].reduce(function($spans,c) {
+      return $spans.toggleClass(c, $span.hasClass(c));
+    }, $('ul.dropdown-menu .toggle-page-break'));
+    updateStoredPageBreaks();
   });
+  pageBreaks.forEach(function(part) {
+    $('#include'+part).find('.toggle-page-break').click();
+  });
+  function updateStoredPageBreaks() {
+    pageBreaks = $('#dropdown-menu-include .toggle-page-break.has-page-break-before').parent().map(function() {return this.id.slice(7);}).toArray();
+    localStorage.pageBreaks = pageBreaks.join(',');
+    $('div[part]').removeClass('page-break-before');
+    $(pageBreaks.map(function(part) { return 'div[part=' + part.toLowerCase() + ']'}).join(',')).addClass('page-break-before');
+  }
   $('.dropdown-paper-size').on('click','li>a', function(e) {
     e.preventDefault();
     var $this = $(this),

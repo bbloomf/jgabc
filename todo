@@ -1,18 +1,13 @@
+Add rubrics for graduals on Ember Saturdays
 Get rid of autosize, at least in certain circumstances, to save time when resizing
 Get rid of forced relayout caused by checking element.width() from within layoutChant.  I think checking document.width should be better (I can't use window.innerWidth because of the case when laying out chant for printing...)
 
 Litanies:
-Holy Name
-// http://www.institute-christ-king.org/uploads/music/benediction/LitanyHolyName1_CRS84.pdf
-http://www.institute-christ-king.org/uploads/music/benediction/LitanyHolyName2_WH342.pdf
 Saints
 
-Add rubrics for graduals on Ember Saturdays
 
 Improve speed
 Move all the major selections (above the hr) to a landing page?
-Bold and Italic in psalm tone editor
-
 
 https://github.com/bramstein/fontfaceobserver/
 

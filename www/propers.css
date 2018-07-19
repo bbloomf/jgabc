@@ -113,9 +113,6 @@ text.aboveLinesText {
 .rubric .bracket {
   font-style: normal;
 }
-.preview-container {
-  padding: 4px 0;
-}
 .sticky .preview-container {
   padding-bottom: 0;
 }
@@ -147,27 +144,32 @@ label.sel-label{
 .block.right {
   float: none;
 }
-.show-gabc div.block {
-  display: inline-block;
-  width: 50%;
-  box-sizing: border-box;
-  padding-right: 2px;
-}
-.show-gabc div.block.right {
-  padding-left: 2px;
-  padding-right: 0;
-  float: right;
-}
-.show-gabc textarea {
-  display: inline;
-}
-div[part].show-gabc {
-  border:0;
-}
-.show-gabc .chant-parent {
-  border:1px solid #aaa;
-  padding: 0 4px;
-  min-height:119px;
+@media screen {
+  div[part].show-gabc .preview-container {
+    padding: 4px 0;
+  }
+  .show-gabc div.block {
+    display: inline-block;
+    width: 50%;
+    box-sizing: border-box;
+    padding-right: 2px;
+  }
+  .show-gabc div.block.right {
+    padding-left: 2px;
+    padding-right: 0;
+    float: right;
+  }
+  .show-gabc textarea {
+    display: inline;
+  }
+  div[part].show-gabc {
+    border:0;
+  }
+  .show-gabc .chant-parent {
+    border:1px solid #aaa;
+    padding: 0 4px;
+    min-height:119px;
+  }
 }
 div[part] {
   margin-top: 4px;
@@ -227,6 +229,20 @@ syl.prep {
 syl.bold {
   font-weight: bold;
 }
+.toggle-page-break,
+#toggle-all-page-break {
+  color: #B6B6B6;
+}
+.toggle-page-break.has-page-break-before,
+#toggle-all-page-break.has-page-break-before {
+  color: #333;
+}
+#toggle-all-page-break.mixed {
+  color: #777;
+}
+#toggle-all-page-break {
+  cursor: pointer;
+}
 .glyphicon.glyphicon-blank {
   width: 1em;
 }
@@ -249,5 +265,16 @@ syl.bold {
   .verses,
   .asperges-verses {
     font-size: 39.9px; /* (1262 * 3.16 / 100) */
+  }
+}
+@media print {
+  div[part] {
+    margin-top: 0;
+  }
+  div[part].showing-chant {
+    margin-top: 4px;
+  }
+  div[part].showing-chant.page-break-before:not(.first-showing-chant) .chant-preview {
+    page-break-before: always;
   }
 }
