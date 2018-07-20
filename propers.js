@@ -340,7 +340,7 @@ $(function(){
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
-    if(gabcHeader && gabcHeader.officePart == 'Sequentia') {
+    if(gabcHeader && /Sequentia|Hymnus/.exec(gabcHeader.officePart)) {
       var count = 2;
       gabc = gabc.replace(/\(::\)\s+(?!\d|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
     }
