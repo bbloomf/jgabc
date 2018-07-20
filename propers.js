@@ -342,7 +342,7 @@ $(function(){
     }
     if(gabcHeader && /Sequentia|Hymnus/.exec(gabcHeader.officePart)) {
       var count = 2;
-      gabc = gabc.replace(/\(::\)\s+(?!\d|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
+      gabc = gabc.replace(/\(::\)\s+(?=.*\([a-m]\))(?!\d|<sp>|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
     }
     return gabc;
   }
