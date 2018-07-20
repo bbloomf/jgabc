@@ -96,7 +96,7 @@ var path = 'gabc/',
                       .replace(/<sp>oe<\/sp>/g,'œ')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
                       .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)\(\)\s*/gi,' $1 ')
-                      .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
+                      .replace(/\s*(<sp>v\/<\/sp>\.?|<i>Ps.<\/i>|(?:<sp>v\/<\/sp>\.?\s*)?\d+\.)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
                       .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)\(\)\s*/gi,' $1 ')
                       .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
                       .replace(/(\w)(\([^)]+\)\s+):/g,'$1:$2')
@@ -133,7 +133,7 @@ var path = 'gabc/',
                       }
                       var accentCount = (word.match(/[ǽáéíóúý]/gi)||[]).length;
                       var vowelCount = (word.match(/[aá]u|(qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
-                      var vowelCountIJ  = (word.match(/[aá]u|(i|qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
+                      var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       if(vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
                       }
