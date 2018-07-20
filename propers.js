@@ -718,7 +718,7 @@ $(function(){
       } else {
         selPropers = {};
       }
-      updateAllParts(true);
+      updateAllParts();
     }
   }
   var updateDayNovus = function() {
@@ -726,7 +726,7 @@ $(function(){
     if(selPropers) {
       selPropers.isNovus = true;
       novusOption = {};
-      updateAllParts(true);
+      updateAllParts();
     }
   }
   var addTemporaryRubrics = function(rubrics) {
@@ -740,10 +740,8 @@ $(function(){
   }
   var updateAllParts = function(justPropers) {
     $('.novus-options').hide();
-    $('div[part]').each(function(){
-      if(!justPropers || ($(this).attr('part').match(/[a-z]+/i)[0]+"ID") in selPropers) {
-        updatePart($(this).attr('part'));
-      }
+    $('div[part]:not(.ordinary):not([custom-chant])').each(function(){
+      updatePart($(this).attr('part'));
     });
     var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
     gloriaComesBefore = gloriaComesBefore? gloriaComesBefore[1] : '#divGraduale';
@@ -2457,7 +2455,7 @@ $(function(){
   $selYearNovus.change(function(){
     selYearNovus = $(this).val();
     addToHash('yearNovus', selYearNovus);
-    updateAllParts(true);
+    updateAllParts();
   });
   $selTempus.change(selectedTempus);
   $selOrdinary.change(selectedOrdinary).change();
