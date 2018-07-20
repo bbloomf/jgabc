@@ -340,9 +340,9 @@ $(function(){
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
-    if(gabcHeader && gabcHeader.officePart == 'Sequentia') {
+    if(gabcHeader && /Sequentia|Hymnus/.exec(gabcHeader.officePart)) {
       var count = 2;
-      gabc = gabc.replace(/\(::\)\s+(?!\d|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
+      gabc = gabc.replace(/\(::\)\s+(?=.*\([a-m]\))(?!\d|<sp>|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
     }
     return gabc;
   }
@@ -714,7 +714,7 @@ $(function(){
       } else {
         selPropers = {};
       }
-      updateAllParts();
+      updateAllParts(true);
     }
   }
   var updateDayNovus = function() {
@@ -722,12 +722,13 @@ $(function(){
     if(selPropers) {
       selPropers.isNovus = true;
       novusOption = {};
-      updateAllParts();
+      updateAllParts(true);
     }
   }
-  var updateAllParts = function() {
+  var updateAllParts = function(justPropers) {
     $('.novus-options').hide();
     $('div[part]').each(function(){
+      if(!justPropers || ($(this).attr('part')+"ID") in selPropers)
       updatePart($(this).attr('part'));
     });
     var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
@@ -2442,7 +2443,7 @@ $(function(){
   $selYearNovus.change(function(){
     selYearNovus = $(this).val();
     addToHash('yearNovus', selYearNovus);
-    updateAllParts();
+    updateAllParts(true);
   });
   $selTempus.change(selectedTempus);
   $selOrdinary.change(selectedOrdinary).change();
