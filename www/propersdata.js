@@ -1101,10 +1101,10 @@ var proprium = {
   Pent0: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181,sequentiaID:68},
   Pent0m: {introitusID:715,gradualeID:101,alleluiaID:181,sequentiaID:68,offertoriumID:869,communioID:1151},
   Pent0t:{introitusID:1278,gradualeID:1197,alleluiaID:181,sequentiaID:68,offertoriumID:1361,communioID:333},
-  Pent0w:{introitusID:822,gradualeID:635,alleluiaID:181,sequentiaID:68,offertoriumID:1218,communioID:91,gloria:'before#divTractus'},
+  Pent0w:{introitusID:822,gradualeID:635,alleluiaID:181,sequentiaID:68,offertoriumID:1218,communioID:91,gloria:'before#divTractus',rubrics:{"after#divGraduale": "<Allelúia.> is not repeated. The <Glória in excélsis.> is said here."}},
   Pent0h: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181,sequentiaID:68}, //AS on Pentecost
   Pent0f: {introitusID:557,gradualeID:119,alleluiaID:181,sequentiaID:68,offertoriumID:668,communioID:981},
-  Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190,sequentiaReplace:gabcRemoveLastAlleluia,gloria:'before#divTractus'},
+  Pent0s:{introitusID:1228,gradualeID:[1236,1138,657,181,1289],tractusID:1247,sequentiaID:68,offertoriumID:987,communioID:190,sequentiaReplace:gabcRemoveLastAlleluia,gloria:'before#divTractus',rubrics:{"before#divGraduale": "After each Lesson, the Cantor intones <Allelúia.>  The Choir continues the Chant, without repeating the intonation.  <Allelúia.> is not repeated at the end of the Verse."}},
   Pent0ss:{introitusID:1228,gradualeID:1236,alleluiaID:181,sequentiaID:68,offertoriumID:987,communioID:190,gloria:'before#divTractus'},
   Pent1: {introitusID:349,offertoriumID:1303,communioID:391,alleluiaID:1289,gradualeID:965},
   Pent2: {introitusID:1111,offertoriumID:848,communioID:794,alleluiaID:801,gradualeID:697},

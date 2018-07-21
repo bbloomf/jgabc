@@ -329,6 +329,7 @@ $(function(){
           .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
           .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
+          .replace(/<i>\((.*?)\)<\/i>/, '{}_^$1^_') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
           .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
           .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
           .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
@@ -490,10 +491,10 @@ $(function(){
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
                 replace(/\*(\(\))?/g,''); // remove asterisks
             } else {
-              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]);
+              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]) && !/non\srep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
               if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
                 // add ij. if not present:
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|\()*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
               } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
                 // remove ij. if present
                 gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
@@ -707,14 +708,17 @@ $(function(){
     $('.ordinary').toggle(!selPropers || (selPropers.ordinary !== false));
     if(selPropers || selDay=='custom') {
       removeMultipleGraduales();
+      // remove temporary rubrics
+      $('.rubric.temporary').remove();
       if(selPropers) {
         if(selPropers.gradualeID && selPropers.gradualeID.constructor === [].constructor) {
           addMultipleGraduales(selPropers.gradualeID.length - 1);
         }
+        if(selPropers.rubrics) addTemporaryRubrics(selPropers.rubrics);
       } else {
         selPropers = {};
       }
-      updateAllParts(true);
+      updateAllParts();
     }
   }
   var updateDayNovus = function() {
@@ -722,13 +726,21 @@ $(function(){
     if(selPropers) {
       selPropers.isNovus = true;
       novusOption = {};
-      updateAllParts(true);
+      updateAllParts();
     }
+  }
+  var addTemporaryRubrics = function(rubrics) {
+    Object.keys(rubrics).forEach(function(key) {
+      var rubric = makeRubric(rubrics[key],'temporary'),
+          match = /^(before|after)/.exec(key),
+      selector = key.slice(match[0].length),
+      fn = 'insert' + match[0][0].toUpperCase() + match[0].slice(1);
+      rubric[fn](selector);
+    });
   }
   var updateAllParts = function(justPropers) {
     $('.novus-options').hide();
-    $('div[part]').each(function(){
-      if(!justPropers || ($(this).attr('part')+"ID") in selPropers)
+    $('div[part]:not(.ordinary):not([custom-chant])').each(function(){
       updatePart($(this).attr('part'));
     });
     var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
@@ -2207,7 +2219,7 @@ $(function(){
       .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
-      .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(| ]*)/g,'^{}$1$2^') // make any italic text containing a space red
+      .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/<b><\/b>/g,'')
@@ -2443,7 +2455,7 @@ $(function(){
   $selYearNovus.change(function(){
     selYearNovus = $(this).val();
     addToHash('yearNovus', selYearNovus);
-    updateAllParts(true);
+    updateAllParts();
   });
   $selTempus.change(selectedTempus);
   $selOrdinary.change(selectedOrdinary).change();
