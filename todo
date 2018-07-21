@@ -1,4 +1,3 @@
-Add rubrics for graduals on Ember Saturdays
 Get rid of autosize, at least in certain circumstances, to save time when resizing
 Get rid of forced relayout caused by checking element.width() from within layoutChant.  I think checking document.width should be better (I can't use window.innerWidth because of the case when laying out chant for printing...)
 
