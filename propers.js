@@ -632,7 +632,7 @@ $(function(){
     }
   };
   var gradualeTemplate = '\
-  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span class="lbl">Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\
