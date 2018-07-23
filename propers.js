@@ -325,6 +325,7 @@ $(function(){
     gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
           .replace(/\+(?=[^()]*\()/g,'†')
+          .replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1')
           .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
           .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
@@ -436,10 +437,11 @@ $(function(){
             return runGabcReplaces(gabc, header);
           }
           var mockHeader = "initial-style: 0;\n%%\n" + clef + ' ';
-          var firstPart = (numParts === 3? mockHeader : header) + runReplaces(gabc.slice(numParts === 3? refrainMatch.index : 0,index));
+          var firstPart = runReplaces(gabc.slice(numParts === 3? refrainMatch.index : 0,index));
           var secondPart = runReplaces(gabc.slice(index));
           var prePart = numParts === 3 && (header + runReplaces(gabc.slice(0, refrainMatch.index)));
-          sel[part].effectiveGabc = (prePart || '') + firstPart + secondPart;
+          sel[part].effectiveGabc = (prePart || header) + firstPart + secondPart;
+          firstPart = (numParts === 3? mockHeader : header) + firstPart;
           secondPart = mockHeader + secondPart;
           gabc = [
             {
