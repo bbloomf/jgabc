@@ -1,19 +1,6 @@
 // https://github.com/bit101/tones
 (function(window) {
 
-var real = new Float32Array(3);
-var imag = new Float32Array(3);
-var ac = new AudioContext();
-var osc = ac.createOscillator();
-
-real[0] = 0;
-imag[0] = 0;
-real[1] = 0.4;
-imag[1] = 0;
-real[2] = 0.5;
-imag[2] = 0;
-
-var wave = ac.createPeriodicWave(real, imag, {disableNormalization: true});
     var tones = {
         context: new (window.AudioContext || window.webkitAudioContext)(),
         attack: 100,
@@ -149,6 +136,9 @@ var wave = ac.createPeriodicWave(real, imag, {disableNormalization: true});
 
     // need to create a node in order to kick off the timer in Chrome.
     tones.context.createGain();
+
+    var wave = tones.context.createPeriodicWave(new Float32Array([0,.3,0,.03]), new Float32Array([0,0,.03,0]), {disableNormalization: true});
+
 
     if (typeof define === "function" && define.amd) {
         define(tones);
