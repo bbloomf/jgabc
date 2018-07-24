@@ -1,11 +1,25 @@
 // https://github.com/bit101/tones
 (function(window) {
+
+var real = new Float32Array(3);
+var imag = new Float32Array(3);
+var ac = new AudioContext();
+var osc = ac.createOscillator();
+
+real[0] = 0;
+imag[0] = 0;
+real[1] = 0.4;
+imag[1] = 0;
+real[2] = 0.5;
+imag[2] = 0;
+
+var wave = ac.createPeriodicWave(real, imag, {disableNormalization: true});
     var tones = {
         context: new (window.AudioContext || window.webkitAudioContext)(),
         attack: 100,
         release: 200,
         volume: 1,
-        type: "sine",
+        type: "custom",
 
 
         playFrequency: function(freq, options) {
@@ -31,7 +45,11 @@
 
             var osc = this.context.createOscillator();
             osc.frequency.setValueAtTime(freq, this.context.currentTime);
-            osc.type = this.type;
+            if(this.type != 'custom') {
+                osc.type = this.type;
+            } else {
+                osc.setPeriodicWave(wave);
+            }
             osc.connect(envelope);
             osc.start(0);
 
