@@ -4,8 +4,8 @@
     var tones = {
         context: new (window.AudioContext || window.webkitAudioContext)(),
         attack: 100,
-        release: 200,
-        volume: 1,
+        release: 300,
+        volume: 0.33,
         type: "custom",
 
 
@@ -18,7 +18,7 @@
             envelope.connect(this.context.destination);
 
             envelope.gain.setValueAtTime(0, this.context.currentTime);
-            envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, attack / 1000);
+            envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, attack / 3000);
             var stopAndDisconnect = function() {
                 osc.stop(0);
                 osc.disconnect(envelope);
@@ -26,8 +26,8 @@
                 envelope.disconnect(tones.context.destination);
             };
             if(!options.start) {
-                envelope.gain.setTargetAtTime(0, this.context.currentTime + (length + attack) / 1000, release / 1000);
-                setTimeout(stopAndDisconnect, (attack + length + release) * 10);
+                envelope.gain.setTargetAtTime(0, this.context.currentTime + (length + attack) / 1000, release / 3000);
+                setTimeout(stopAndDisconnect, (attack + length + release * 2));
             }
 
             var osc = this.context.createOscillator();
@@ -43,8 +43,8 @@
             if(options.start) {
                 var context = this.context;
                 return function() {
-                    envelope.gain.setTargetAtTime(0, context.currentTime, release / 1000);
-                    setTimeout(stopAndDisconnect, release * 10);
+                    envelope.gain.setTargetAtTime(0, context.currentTime, release / 3000);
+                    setTimeout(stopAndDisconnect, release * 2);
                 }
             }
         },
@@ -137,7 +137,7 @@
     // need to create a node in order to kick off the timer in Chrome.
     tones.context.createGain();
 
-    var wave = tones.context.createPeriodicWave(new Float32Array([0,.3,0,.03]), new Float32Array([0,0,.03,0]), {disableNormalization: true});
+    var wave = tones.context.createPeriodicWave(new Float32Array([0,.3,.03,.05]), new Float32Array([0,0,0,0]));
 
 
     if (typeof define === "function" && define.amd) {

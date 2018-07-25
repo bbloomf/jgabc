@@ -818,6 +818,7 @@ if(typeof window=='object') (function(window) {
       if(note.constructor === exsurge.Note) {
         var nextNote = notes[noteId + 1];
         if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
         var prevNote = notes[noteId - 1];
         if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
         if(note.morae.length) {
@@ -834,8 +835,10 @@ if(typeof window=='object') (function(window) {
         var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
         var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
         var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
-        var durationMS = duration * 60000 / tempo - tones.attack;
-        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS - tones.attack / 2, release: tones.attack};
+        var release = nextNoteIsDivider? 500 : tones.attack*2;
+        var durationMS = Math.max(0, duration * 60000 / tempo - tones.attack - (nextNoteIsForSameSyllable? 0 : 150));
+        var options = { length: durationMS, release: release };
+        console.info(release);
         tones.play(note.pitch, options, transpose);
       }
       ++noteId;
@@ -1356,7 +1359,7 @@ if(typeof $=='function') $(function($) {
       changePitch(1);
     }));
     var mouseDownTone = function() {
-      if(!stopTone) stopTone = tones.play(new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch), {start: true});
+      if(!stopTone) stopTone = tones.play(new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch), {start: true, release: 300});
     };
     pitchButtonGroup.append($('<button>').addClass('btn btn-info').html('<div>' + (isFirstPitch? 'Starting ' : '') + 'Pitch: <span class="this-pitch"></span></div>' +
         (isFirstPitch? '<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span></div>' : '')).click(function(e) {
