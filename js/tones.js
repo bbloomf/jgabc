@@ -71,6 +71,13 @@
             }
         },
 
+        getNoteName: function(pitch, transpose) {
+            pitch = pitch.transpose(transpose);
+            return this.octave[pitch.step] + pitch.octave;
+        },
+
+        octave: ["c","c#","d","d#","e","f","f#","g","g#","a","a#","b"],
+
         octaveMap: {
             "c": 0,
             "c#": 1,
