@@ -694,7 +694,7 @@ R/. A(e.)men.(e.) (::)"
         }, {
             sticky: 0,
             gabc: "initial-style: 1;\n\
-annotation: <sp>V/</sp>.;\n\
+annotation: \\Vbar;\n\
 %%\n\
 (c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)\n\
 <sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)\n\
