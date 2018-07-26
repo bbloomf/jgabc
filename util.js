@@ -794,7 +794,6 @@ if(typeof window=='object') (function(window) {
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
     function playNextNote(time){
-      console.info(Tone.Transport.seconds, time, time - Tone.context.currentTime);
       var note = notes[noteId];
       if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
       if(originalSvg != score.svg || note == null) {
