@@ -733,20 +733,43 @@ function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
 }
 
 if(typeof window=='object') (function(window) {
+  var synth = new Tone.Synth({
+    "oscillator" : {
+        type: "custom",
+        partials: [0.3,0.03,0.05]
+      },
+      "envelope" : {
+        "attack" : 0.05,
+        "decay" : 0.3,
+        "sustain" : 0.4,
+        "release" : 0.8,
+      }
+  }).toMaster();
   var timeoutNextNote, transpose = 0;
-  window.tempo=165;
+  Tone.Transport.bpm.value = 165;
   var _isPlaying=false;
-  window.setTempo = function(newTempo) { tempo = newTempo || 165; }
-  window.setRelativeTempo = function(delta) { tempo += delta; if(tempo <= 0) tempo = 165; return tempo; }
+  window.setTempo = function(newTempo) { Tone.Transport.bpm.value = newTempo || 165; }
+  window.setRelativeTempo = function(delta) {
+    var state = Tone.Transport.state;
+    Tone.Transport.stop();
+    var val = Tone.Transport.bpm.value = Math.round(Math.max(0, Tone.Transport.bpm.value + delta)) || 165;
+    if(state === 'started') {
+      Tone.Transport.clear(timeoutNextNote);
+      Tone.Transport.start();
+      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+8n');
+    }
+    return val;
+  }
   var noteElem, syllable;
   window.isPlayingChant = function() {
     return _isPlaying;
   }
   window.playScore = function(score, firstPitch, startNote){
+    Tone.Transport.clear(timeoutNextNote);
+    Tone.Transport.start();
     if($('#mediaControls').length == 0) {
       $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
     }
-    window.clearTimeout(timeoutNextNote);
     $('#mediaControls').removeClass('offscreen');
     if(syllable) {
       syllable.classList.remove('active');
@@ -770,9 +793,7 @@ if(typeof window=='object') (function(window) {
     if(firstPitch.toInt) firstPitch = firstPitch.toInt();
     transpose = firstPitch - notes[0].pitch.toInt();
     _isPlaying = true;
-    function playNextNote(supressTimeout){
-      window.clearTimeout(timeoutNextNote);
-      if(supressTimeout) timeoutNextNote = null;
+    function playNextNote(time){
       var note = notes[noteId];
       if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
       if(originalSvg != score.svg || note == null) {
@@ -786,7 +807,7 @@ if(typeof window=='object') (function(window) {
       }
       var duration = 1;
       if(note.constructor != exsurge.Note) {
-        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar || supressTimeout)) {
+        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
           if(!(note = notes[++noteId])) return;
         }
         if(note.isDivider) {
@@ -818,6 +839,7 @@ if(typeof window=='object') (function(window) {
       if(note.constructor === exsurge.Note) {
         var nextNote = notes[noteId + 1];
         if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
         var prevNote = notes[noteId - 1];
         if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
         if(note.morae.length) {
@@ -834,21 +856,26 @@ if(typeof window=='object') (function(window) {
         var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
         var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
         var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
-        var durationMS = duration * 60000 / tempo - tones.attack;
-        var options = nextNoteIsSamePitchDifferentSyllable? {release: durationMS} : {length: durationMS - tones.attack / 2, release: tones.attack};
-        tones.play(note.pitch, options, transpose);
+        // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
+        // var options = { length: durationMS };
+        // tones.play(note.pitch, options, transpose);
+        var noteName = tones.getNoteName(note.pitch, transpose);
+        synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
       }
       ++noteId;
       if(noteId >= notes.length) _isPlaying = false;
-      if(!supressTimeout) timeoutNextNote = window.setTimeout(playNextNote, duration * 60000 / tempo);
+      if(Tone.Transport.state != 'started') return;
+      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+' + (new Tone.Time("4n").toSeconds()*duration));
     };
-    timeoutNextNote = window.setTimeout(playNextNote);
+    timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote);
     window.playNextNote = playNextNote;
     window.playPauseScore = function() {
       if(timeoutNextNote) {
-        window.clearTimeout(timeoutNextNote);
+        Tone.Transport.clear(timeoutNextNote);
+        Tone.Transport.pause();
         timeoutNextNote = null;
       } else {
+        Tone.Transport.start();
         playNextNote();
         return true;
       }
@@ -863,6 +890,7 @@ if(typeof window=='object') (function(window) {
     }
   };
   window.stopScore = function(){
+    Tone.Transport.stop();
     _isPlaying=false;
     $('#mediaControls').addClass('offscreen');
   }
@@ -1356,7 +1384,7 @@ if(typeof $=='function') $(function($) {
       changePitch(1);
     }));
     var mouseDownTone = function() {
-      if(!stopTone) stopTone = tones.play(new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch), {start: true});
+      if(!stopTone) stopTone = tones.play(new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch), {start: true, release: 300});
     };
     pitchButtonGroup.append($('<button>').addClass('btn btn-info').html('<div>' + (isFirstPitch? 'Starting ' : '') + 'Pitch: <span class="this-pitch"></span></div>' +
         (isFirstPitch? '<div>Range: <span class="lowest-pitch"></span> to <span class="highest-pitch"></span></div>' : '')).click(function(e) {
@@ -1394,7 +1422,8 @@ if(typeof $=='function') $(function($) {
     $(this).find('.glyphicon').removeClass('glyphicon-play glyphicon-pause').addClass('glyphicon-' + (playing? 'pause' : 'play'));
   }).on('click', '#mediaControls .btn.step-forward', function(e) {
     e.stopPropagation();
-    playNextNote(true);
+    Tone.Transport.pause();
+    playNextNote();
     $('#mediaControls .btn.play-pause .glyphicon').removeClass('glyphicon-play glyphicon-pause').addClass('glyphicon-play');
   }).on('click', '#mediaControls .btn.tempo-minus, #mediaControls .btn.tempo-plus', function(e) {
     e.stopPropagation();

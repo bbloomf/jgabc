@@ -325,11 +325,12 @@ $(function(){
     gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
           .replace(/\+(?=[^()]*\()/g,'†')
+          .replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1')
           .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
           .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
           .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
           .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
-          .replace(/<i>\((.*?)\)<\/i>/, '{}_^$1^_') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
+          .replace(/<i>\((.*?)\)<\/i>/, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
           .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
           .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
           .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
@@ -436,10 +437,11 @@ $(function(){
             return runGabcReplaces(gabc, header);
           }
           var mockHeader = "initial-style: 0;\n%%\n" + clef + ' ';
-          var firstPart = (numParts === 3? mockHeader : header) + runReplaces(gabc.slice(numParts === 3? refrainMatch.index : 0,index));
+          var firstPart = runReplaces(gabc.slice(numParts === 3? refrainMatch.index : 0,index));
           var secondPart = runReplaces(gabc.slice(index));
           var prePart = numParts === 3 && (header + runReplaces(gabc.slice(0, refrainMatch.index)));
-          sel[part].effectiveGabc = (prePart || '') + firstPart + secondPart;
+          sel[part].effectiveGabc = (prePart || header) + firstPart + secondPart;
+          firstPart = (numParts === 3? mockHeader : header) + firstPart;
           secondPart = mockHeader + secondPart;
           gabc = [
             {
@@ -632,7 +634,7 @@ $(function(){
     }
   };
   var gradualeTemplate = '\
-  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span>Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
+  <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span class="lbl">Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
   <div class="block hide-print">\
     <label class="hide-ss" id="lblGraduale$num" for="txtGraduale$num"><a target="_blank">Graduale</a></label>\

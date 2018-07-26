@@ -1,11 +1,12 @@
 // https://github.com/bit101/tones
 (function(window) {
+
     var tones = {
         context: new (window.AudioContext || window.webkitAudioContext)(),
         attack: 100,
-        release: 200,
-        volume: 1,
-        type: "sine",
+        release: 300,
+        volume: 0.33,
+        type: "custom",
 
 
         playFrequency: function(freq, options) {
@@ -17,7 +18,7 @@
             envelope.connect(this.context.destination);
 
             envelope.gain.setValueAtTime(0, this.context.currentTime);
-            envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, attack / 1000);
+            envelope.gain.setTargetAtTime(this.volume, this.context.currentTime, attack / 3000);
             var stopAndDisconnect = function() {
                 osc.stop(0);
                 osc.disconnect(envelope);
@@ -25,21 +26,25 @@
                 envelope.disconnect(tones.context.destination);
             };
             if(!options.start) {
-                envelope.gain.setTargetAtTime(0, this.context.currentTime + (length + attack) / 1000, release / 1000);
-                setTimeout(stopAndDisconnect, (attack + length + release) * 10);
+                envelope.gain.setTargetAtTime(0, this.context.currentTime + (length + attack) / 1000, release / 3000);
+                setTimeout(stopAndDisconnect, (attack + length + release * 2));
             }
 
             var osc = this.context.createOscillator();
             osc.frequency.setValueAtTime(freq, this.context.currentTime);
-            osc.type = this.type;
+            if(this.type != 'custom') {
+                osc.type = this.type;
+            } else {
+                osc.setPeriodicWave(wave);
+            }
             osc.connect(envelope);
             osc.start(0);
 
             if(options.start) {
                 var context = this.context;
                 return function() {
-                    envelope.gain.setTargetAtTime(0, context.currentTime, release / 1000);
-                    setTimeout(stopAndDisconnect, release * 10);
+                    envelope.gain.setTargetAtTime(0, context.currentTime, release / 3000);
+                    setTimeout(stopAndDisconnect, release * 2);
                 }
             }
         },
@@ -65,6 +70,13 @@
                 return this.playFrequency(this.map[freqOrNote.toInt() + (transpose || 0)], octave);
             }
         },
+
+        getNoteName: function(pitch, transpose) {
+            pitch = pitch.transpose(transpose);
+            return this.octave[pitch.step] + pitch.octave;
+        },
+
+        octave: ["c","c#","d","d#","e","f","f#","g","g#","a","a#","b"],
 
         octaveMap: {
             "c": 0,
@@ -131,6 +143,9 @@
 
     // need to create a node in order to kick off the timer in Chrome.
     tones.context.createGain();
+
+    var wave = tones.context.createPeriodicWave(new Float32Array([0,.3,.03,.05]), new Float32Array([0,0,0,0]));
+
 
     if (typeof define === "function" && define.amd) {
         define(tones);
