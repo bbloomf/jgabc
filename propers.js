@@ -322,6 +322,7 @@ $(function(){
     return result;
   }
   function runGabcReplaces(gabc, gabcHeader) {
+    // TODO: some of these should be run within download-gabc instead...
     gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
           // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
           .replace(/\+(?=[^()]*\()/g,'†')
@@ -342,7 +343,7 @@ $(function(){
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
-    if(gabcHeader && /Sequentia|Hymnus/.exec(gabcHeader.officePart)) {
+    if(gabcHeader && /Sequentia|Hymnus/.exec(gabcHeader.officePart) && !gabc.match(/\b\d+\. /)) {
       var count = 2;
       gabc = gabc.replace(/\(::\)\s+(?=.*\([a-m]\))(?!\d|<sp>|A\([^)]+\)men\.\([^)]+\))/g, function(match) { return match + (count++) + '. '});
     }
