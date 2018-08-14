@@ -2790,6 +2790,9 @@ $(function(){
         header.commentary = ' ';
         name = '';
       }
+      if(isFirstChant) {
+        header['%fontsize'] = '20';
+      }
       if(hasPageBreak && !isFirstChant) {
         header['%pageBreak'] = 'true';
       }
