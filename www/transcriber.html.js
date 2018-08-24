@@ -643,6 +643,7 @@ $(function() {
     if(!header.name) header.name = '';
     if(!header['%font']) header['%font'] = 'GaramondPremierPro';
     if(!header['%width']) header['%width'] = '7.5';
+    if(!header['%fontsize']) header['%fontsize'] = '20';
     return gabc = header + gabc.slice(header.original.length);
   }
   $('#lnkPdf').click(function(e){
