@@ -89,6 +89,7 @@ textarea {
 }
 div[part] > div.block:first-child {
   background: white;
+  position: -webkit-sticky;
   position: sticky;
   top: -1px;
   padding: 1px 0 0;

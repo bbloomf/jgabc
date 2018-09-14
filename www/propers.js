@@ -3156,7 +3156,7 @@ console.info(JSON.stringify(selPropers));
   $('#divExtraChants a').click(showHideExtraChants);
   $(window).on('hashchange',hashChanged);
   function editorialChange(e) {
-    var regexGabcNote = /-?[a-mA-M]([oOwWvVrRsS]*)[xy#~\+><_\.'012345]*(?:\[[^\]]*\]?)*/,
+    var regexGabcNote = /-?[a-mA-M]([oOwWvVrRsS]*)[xy#~\+><_\.'012345]*(?=(?:\[[^\]]*\]?)*)/,
         proper = sel[e.data.part],
         gabc = proper.activeExsurge,
         noteProperties = e.data.noteProperties,
@@ -3230,7 +3230,7 @@ console.info(JSON.stringify(selPropers));
           } else {
             var prevIndex = mapping.notations[barIndex - 1].notes.slice(-1)[0].sourceIndex,
                 substring = mapping.source.slice(prevIndex - mapping.sourceIndex),
-                offset = Math.min(bar.sourceIndex - prevIndex, substring.match(/\s|$/).index)
+                offset = Math.min(bar.sourceIndex - prevIndex, substring.match(/\s|\/|$/).index)
             splice.index = prevIndex + offset;
           }
           splice.addString = '[ob:0;6mm]';
