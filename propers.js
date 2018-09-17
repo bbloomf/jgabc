@@ -339,7 +339,7 @@ $(function(){
           .replace(/\s{2,}/g,' ')
           .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
     var match = gabc.match(/<sp>V\/<\/sp>(?! \d)/g);
-    if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\./)) {
+    if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\.?/)) {
       var count = 2;
       gabc = gabc.replace(/<sp>V\/<\/sp>(?! \d)/g, function(match) { return match + ' ' + (count++) + '.'});
     }
