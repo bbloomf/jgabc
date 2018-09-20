@@ -837,10 +837,11 @@ $(function(){
         $curContainer.append(makeRubric(chant.rubric));
       }
       if(chant.id && chant.psalmtone) {
-        if(!selPropers.gradualeID) selPropers.gradualeID = [0];
-        addMultipleGraduales(1,selPropers.gradualeID.length);
+        if(!(selPropers.gradualeID instanceof Array)) selPropers.gradualeID = [selPropers.gradualeID];
+        $divGraduale = addMultipleGraduales(1,selPropers.gradualeID.length);
         $curContainer.append($('div.multiple-graduales-'+selPropers.gradualeID.length).show())
         selPropers.gradualeID.push(chant.id);
+        updatePart('graduale'+(selPropers.gradualeID.length - 1));
       } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);

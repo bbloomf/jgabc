@@ -558,17 +558,23 @@ R/. A(e.)men.(e.) (::)"
       gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(f)men.(h.) (::) <i>or:</i> A(h)men.(f.) (::)"
     }, {
       rubric: "During the Procession, the following Antiphons are sung or as many of them as are required.",
-      id: 8110
+      id: 8110,
+      psalmtone: true
     }, {
-      id: 8109
+      id: 8109,
+      psalmtone: true
     }, {
-      id: 8177
+      id: 8177,
+      psalmtone: true
     }, {
-      id: 247
+      id: 247,
+      psalmtone: true
     }, {
-      id: 173
+      id: 173,
+      psalmtone: true
     }, {
-      id: 770
+      id: 770,
+      psalmtone: true
     }, {
       rubric: "On the return of the Procession, two or four Cantors enter the church, and, closing the door, stand with their faces towards the procession, singing the following:",
       id: 259,
@@ -641,13 +647,17 @@ R/. A(e.)men.(e.) (::)"
       gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "As the procession begins, all or some of the following antiphons may be sung:",
-      id: 247
+      id: 247,
+      psalmtone: true
     }, {
-      id: 173
+      id: 173,
+      psalmtone: true
     }, {
-      id: 770
+      id: 770,
+      psalmtone: true
     }, {
-      id: 901
+      id: 901,
+      psalmtone: true
     }, {
       rubric: "In the course of the procession the following hymn is sung. If possible, the whole congregation should sing each time the refrain <Glória laus> as shown below.",
       id: 259,
