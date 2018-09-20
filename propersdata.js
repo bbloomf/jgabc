@@ -576,16 +576,16 @@ R/. A(e.)men.(e.) (::)"
     }, {
       id: "259-2"
     }, {
-      rubric: "All: <Glória, laus.> The choir:",
+      rubric: "The Choir outside: <Glória, laus.> The Cantors inside:",
       id: "259-3"
     }, {
-      rubric: "All: <Glória, laus.> The choir:",
+      rubric: "The Choir outside: <Glória, laus.> The Cantors inside:",
       id: "259-4"
     }, {
-      rubric: "All: <Glória, laus.> The choir:",
+      rubric: "The Choir outside: <Glória, laus.> The Cantors inside:",
       id: "259-5"
     }, {
-      rubric: "All: <Glória, laus.> The choir:",
+      rubric: "The Choir outside: <Glória, laus.> The Cantors inside:",
       id: "259-6",
       sticky: 1
     }, {
