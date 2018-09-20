@@ -68,6 +68,7 @@ var sundayKeys = [
     {key:"Quad6t",title:"  Feria III Hebdomadæ Sanctæ",en:"  Tuesday in Holy Week"},
     {key:"Quad6w",title:"  Feria IV Hebdomadæ Sanctæ",en:"  Wednesday in Holy Week"},
     {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
+    {key:"Quad6h_v",title:"Feria V in Cena Domini (ante 1955)",en:"Maundy Thursday (pre 1955)"},
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
     {key:"Pasc0",title:"Dominica Resurrectionis",en:"Easter Sunday"},
@@ -741,6 +742,14 @@ R/. A(e.)men.(e.) (::)"
         }
     ]
   },
+  "Quad6h_v": {
+    "ite": [
+        {
+            rubric: "After Mass, the Celebrant carries the sacred Host to the altar of repose, where It will remain until the Mass of the Pre-sanctified the next day. During the Procession, the hymn <Pange lingua.> is sung.",
+            id: 1310
+        }
+    ]
+  },
   "Quad6f": {
       "graduale": [
         {
@@ -1253,6 +1262,7 @@ var proprium = {
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588,gloriaPatri:false},
   Quad6h: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140, credo: false, gloria: true, gloriaPatri:false, ite: 'benedicamus',
     agnusReplace: [/d[oó](\([^)]+\))na(\([^)]+\))\s+n[oó](\([^)]+\))bis(\([^)]+\))\s+p[aá](\([^)]+\))cem\.?(\([^)]+\))/gi, 'mi$1se$2ré$3re$4 no$5bis.$6']},
+  Quad6h_v: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140, gloria: true, gloriaPatri:false},
   Quad6f: {extraChants: true, ordinary: false},
   Quad6s: {extraChants: true, gloria: true, credo: false, agnus: false, ite: false, asperges: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
