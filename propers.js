@@ -910,15 +910,15 @@ $(function(){
           var optionID = 0;
           var optionKeys = Object.keys(options);
           sel[part].id = null;
-          var nextOptionID = 0;
-          var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
-            optionID = nextOptionID;
-            nextOptionID = (optionID + 1) % optionKeys.length;
-            $(this).find('.quote').text(optionKeys[nextOptionID]);
-            sel[part].id = options[optionKeys[optionID]];
-            sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+          var $option = $("<select>"+optionKeys.map(function(key) {
+            return "<option value='"+options[key]+"'>"+key+"</option>";
+          })+"</select>").change(function() {
+            sel[part].id = $(this).val();
+            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionKeys[optionID])) {
+              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            }
             downloadThisChant();
-          }).appendTo($curElement).click();
+          }).change().prependTo($curElement);
         }
         if(chant.sticky === 0) {
           $curElement.addClass('sticky');

@@ -63,6 +63,7 @@ var sundayKeys = [
     {key:"Quad5f",title:"  Feria VI post Dominicam I Passionis",en:"  Friday in Passion Week"},
     {key:"Quad5s",title:"  Sabbato post Dominicam I Passionis",en:"  Saturday in Passion Week"},
     {key:"Quad6",title:"Dominica in Palmis",en:"Palm Sunday"},
+    {key:"Quad6_v",title:"Dominica in Palmis (ante 1955)",en:"Palm Sunday (pre 1955)"},
     {key:"Quad6m",title:"  Feria II Hebdomadæ Sanctæ",en:"  Monday in Holy Week"},
     {key:"Quad6t",title:"  Feria III Hebdomadæ Sanctæ",en:"  Tuesday in Holy Week"},
     {key:"Quad6w",title:"  Feria IV Hebdomadæ Sanctæ",en:"  Wednesday in Holy Week"},
@@ -527,9 +528,73 @@ R/. A(e.)men.(e.) (::)"
       id: 743
     }
   ],
+  "Quad6_v": [
+    {
+      rubric: "After Terce and the Asperges given in the usual manner, the Priest blesses the palms or branches of olive or of other trees, which have been placed before the altar or at the Epistle side. The choir first sings the following Antiphon:",
+      id: 817,
+      rubricAfter: "The Lesson is in the tone of the Epistle."
+    }, {
+      rubric: "In place of the Gradual, the Choir sings one of the following responsories",
+      id: {
+        "Collegérunt pontífices": 8107,
+        "In monte Olivéti": 8108
+      }
+    }, {
+      rubric: "The Versicles and Responses before the Preface are sung in the ferial tone:",
+      id: 7675
+    }, {
+      rubric: "The <Sanctus.> is here sung by the Choir as on Ferias in Lent:",
+      id: 298
+    }, {
+      rubric: "After the Blessing, the Celebrant distributes the Palms, whilst the Choir sings the following Antiphons:",
+      id: 1215
+    }, {
+      id: 1155,
+      rubricAfter: "These Antiphons are repeated as often as is necessary until the end of the distribution of the Palms"
+    }, {
+      title: "The Procession with Blessed Palms",
+      rubric: "The Procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns towards the people and sings:",
+      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(f)men.(h.) (::) <i>or:</i> A(h)men.(f.) (::)"
+    }, {
+      rubric: "During the Procession, the following Antiphons are sung or as many of them as are required.",
+      id: 8110
+    }, {
+      id: 8109
+    }, {
+      id: 8177
+    }, {
+      id: 247
+    }, {
+      id: 173
+    }, {
+      id: 770
+    }, {
+      rubric: "On the return of the Procession, two or four Cantors enter the church, and, closing the door, stand with their faces towards the procession, singing the following:",
+      id: 259,
+      rubricAfter: "The Choir outside the Church repeats <Glória, laus.> etc. Then the Cantors inside sing all or some of the following stanzas as they think best, after each of which the Choir outside repeats the first stanra <Glória, Laus.>",
+      sticky: 0
+    }, {
+      id: "259-2"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-3"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-4"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-5"
+    }, {
+      rubric: "All: <Glória, laus.> The choir:",
+      id: "259-6",
+      sticky: 1
+    }, {
+      rubric: "The Sub-deacon knocks at the door with the foot of the Cross; the door is opened at once and the Procession enters the church singing the following Responsory:",
+      id: 606
+    }
+  ],
   "Quad6": [
     {
-      rubricOld: "After Terce and the Asperges given in the usual manner, the Priest blesses the palms or branches of olive or of other trees, which have been placed before the altar or at the Epistle side. The choir first sings the following Antiphon:",
       rubric: "After Terce, the Asperges omitted, the Priest blesses the palms or branches of olive or of other trees, which have been placed before the altar or at the Epistle side. The choir first sings the following Antiphon:",
       id: 817
     }, {
@@ -603,7 +668,7 @@ R/. A(e.)men.(e.) (::)"
       id: "259-6",
       sticky: 1
     }, {
-      rubric: "All: <Glória, laus.> Then the following antiphon is sung:",
+      rubric: "All: <Glória, laus.> Then one of the following antiphons is sung:",
       id: {
         "VIII G*": 532,
         "VIII G": 1092
@@ -1182,6 +1247,7 @@ var proprium = {
   Quad5f: {introitusID:267,gradualeID:819,tractusID:425,offertoriumID:408,communioID:1158,gloriaPatri:false},
   Quad5s: {introitusID:267,gradualeID:819,offertoriumID:408,communioID:1158,gloriaPatri:false},
   Quad6: {introitusID:1171,offertoriumID:486,communioID:650,tractusID:372,gradualeID:49,gloriaPatri:false},
+  Quad6_v: {introitusID:1171,offertoriumID:486,communioID:650,tractusID:372,gradualeID:49,gloriaPatri:false},
   Quad6m: {introitusID:226,gradualeID:783,tractusID:425,offertoriumID:411,communioID:196,gloriaPatri:false},
   Quad6t: {introitusID:374, gradualeID:903, offertoriumID:1322, communioID:397,gloriaPatri:false},
   Quad6w: {introitusID:236, gradualeID:1239, tractusID:824, offertoriumID:461, communioID:588,gloriaPatri:false},
