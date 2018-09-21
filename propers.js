@@ -841,7 +841,9 @@ $(function(){
         $divGraduale = addMultipleGraduales(1,selPropers.gradualeID.length);
         $curContainer.append($('div.multiple-graduales-'+selPropers.gradualeID.length).show())
         selPropers.gradualeID.push(chant.id);
-        updatePart('graduale'+(selPropers.gradualeID.length - 1));
+        var id = 'graduale'+(selPropers.gradualeID.length - 1);
+        selPropers[id+'Replace'] = chant.gabcReplace;
+        updatePart(id);
       } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);

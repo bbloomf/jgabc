@@ -70,6 +70,7 @@ var sundayKeys = [
     {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
     {key:"Quad6h_v",title:"Feria V in Cena Domini (ante 1955)",en:"Maundy Thursday (pre 1955)"},
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
+    {key:"Quad6f_v",title:"Feria VI in Passione et Morte Domini (ante 1955)",en:"Good Friday (pre 1955)"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
     {key:"Pasc0",title:"Dominica Resurrectionis",en:"Easter Sunday"},
     {key:"Pasc0m",title:"Feria II in Oct Paschæ",en:"Easter Monday"},
@@ -449,6 +450,61 @@ var versesPsalm21 = '<div class="verses">\
 <p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>i</b>psi.<br></p>\
 <p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.<br></p>\
 </div>';
+var gabcHagios = "initial-style: 1;\n\
+annotation: \\Vbar;\n\
+%%\n\
+(c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)\n\
+<sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)\n\
+<sp>V/</sp>. Há(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)\n\
+<sp>R/</sp>. Sanc(g)tus(fgf/fe) For(cd)tis.(fg!hv/hg.) (::)\n\
+<sp>V/</sp>. Há(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)\n\
+<sp>R/</sp>. Sanc(gh)tus(ixhg/hiHG'g) Im(f)mor(g)tá(h)lis,(hiwjvIHiih.) (;) mi(g)se(hj/jvIH')ré(g)re(hg/h_g) no(fd)bis.(fghv/hg.) (::)\n";
+var gabcReproachesV1 = "initial-style: 0;\n\
+%%\n\
+(c4)<sp>V/</sp>. {E}(c)go(de) prop(e)ter(e) te(e) fla(e)gel(e)lá(e)vi(e) Æ(e)gýp(d)tum(e.) (,)\n\
+cum(e) pri(e)mo(f)gé(g)ni(f)tis(f) su(evDC)is:(c.) (;)\n\
+et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::c+) ^P{}ópule^\n";
+var gabcReproachesOtherVerses = "initial-style: 0;\n\
+%%\n\
+(c4)^2.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) e(e)dú(e)xi(e) de(e) Æ(e)gýp(d)to,(e.) (,) \
+de(c)mér(de)so(e) Pha(e)ra(e)ó(e)ne(e) in(f) ma(g)re(f) Ru(evDC)brum:(c.) (;) \
+et(c) tu(d_e) me(e) tra(e)di(e)dís(e)ti(e.) (,) prin(e)cí(e)pi(e)bus(ed) sa(f)cer(d)dó(ef)tum.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^3.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) an(e)te(e) te(e) a(f)pé(g)ru(f)i(f) ma(evDC)re:(c.) (;) \
+et(c) tu(d_e) a(e)pe(e)ru(e)ís(e)ti(e) lán(e)ce(e)a(ed) la(f)tus(d) me(ef)um.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^4.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) an(e)te(e) te(e) præ(d)í(e)vi(e.) (,) in(e) co(f)lúm(g)na(f) nu(evDC)bis:(c.) (;) \
+et(c) tu(d_e) me(e) du(e)xís(e)ti(e.) (,) ad(e) præ(e)tó(e)ri(ed)um(f) Pi(d)lá(ef)ti.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^5.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) pa(e)vi(e) man(e)na(f) per(g) de(f)sér(evDC)tum:(c.) (;) \
+et(c) tu(d_e) me(e) ce(e)ci(e)dís(e)ti(e.) (,) á(e)la(e)pis(ed) et(f) fla(d)gél(ef)lis.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^6.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) po(e)tá(e)vi(e.) (,) a(e)qua(e) sa(f)lú(g)tis(f) de(f) pe(evDC)tra:(c.) (;) \
+et(c) tu(d_e) me(e) po(e)tás(e)ti(e.) (,) fel(e)le(ed) et(f) a(d)cé(ef)to.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^7.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) prop(e)ter(e) te(e.) (,) Cha(e)na(e)næ(e)ó(e)rum(f) re(g)ges(f) per(f)cús(evDC)si:(c.) (;) \
+et(c) tu(d_e) per(e)cus(e)sís(e)ti(e.) (,) a(e)rún(e)di(e)ne(ed) ca(f)put(d) me(ef)um.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^8.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) de(e)di(e) ti(e)bi(f) scep(g)trum(f) re(f)gá(evDC)le:(c.) (;) \
+et(c) tu(d_e) de(e)dís(e)ti(e) cá(e)pi(e)ti(e) me(e)o(e.) (,) spí(e)ne(ed)am(f) co(d)ró(ef)nam.(edeDC.) (::c+) ^P{}ópule^() (Z) \
+ \
+(c4)^9.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) ex(e)al(e)tá(e)vi(f) ma(g)gna(f) vir(f)tú(evDC)te:(c.) (;) \
+et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) cru(ef)cis.(edeDC.) (::c+) ^P{}ópule^\n";
+var rubricBeforeUnveilingCross = "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/.&nbsp;Venite adorémus.> The choir sings <Veníte adorémus.> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.";
+var rubricAdorationOfTheCross = "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross.";
+var rubricTwoCantorsInTheMiddle = "Two cantors sing the following in the middle of the Choir:";
+var rubricTwoCantorsOfTheSecondChoir = "Two cantors of the second choir sing:";
+var rubricTwoChoirsRespondHagios = "The two choirs respond in turn <Hagios o Theós, Sanctus Deus.> etc. It is always the first choir that sings <Hagios.>";
+var rubricThenTwoCantorsOfTheFirstChoir = "Then two cantors of the first choir sing:";
+var rubricTwoChoirsRespondHagiosAgain = "The two choirs again respond in turn <Hagios o Theós. Sanctus Deus.> etc.";
+var rubricFollowingReproachesSungInTurn = "The following Reproaches are sung in turn by the cantors. After each Reproach, the two choirs together respond <Pópule meus.> as above, as far as the <v/.&nbsp;Quia.>";
+var rubricBothChoirsRepeatPopule = "Both choirs repeat: <Pópule meus>:";
+var rubricBothChoirsThenSingAntiphon = "Both choirs then sing the following antiphon:";
+var rubricTheAntiphonCrucemIsRepeated = "The antiphon <Crucem tuam.> is repeated";
+var rubricCruxFidelis = "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/.&nbsp;Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn."
+var replaceQuiaVerse = [/(\(::\))\s+<sp>V\/<\/sp>\.?\s+Qu[ií]\([^)]+\)a\([^)]+\)\s.*/,'$1'];
+var replaceAltEtc = [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi,'^_$1_^() (Z)\n',/\\emph{([^(}]+)\}/g,'_$1_'];
+var replaceResponsoryToTract = [/((?:$|\n)office-part:)\s*Responsorium;/,'$1Tractus;']
 var extraChants = {
   "defunctorum": {
     ite: [{
@@ -457,7 +513,7 @@ var extraChants = {
         title: "Absolution after Mass",
         rubric: "After Mass, if there is to be Absolution, the Celebrant goes to the catafalque, and the cantor intones:",
         id: 376,
-        rubricAfter: "Repeat <Libera me Domine> as far as the <℣. Tremens.>"
+        rubricAfter: "Repeat <Libera me Domine.> as far as the <v/.&nbsp;Tremens.>"
     }, {
         rubric: "When the Responsory is ended, the Cantor and the first Choir sing:",
         gabc: "initial-style: 0;\n%%\n(c4)Ký(f)ri(f)e(f') e(f)lé(gh)i(g)son.(gf..) (::)"
@@ -500,7 +556,7 @@ R/. A(e.)men.(e.) (::)"
     }, {
       rubric: "When the distribution of candles is ended, the Choir sings:",
       id: 30,
-      rubricAfter: "Repeat: <Exsúrge Dómine>"
+      rubricAfter: "Repeat: <Exsúrge Dómine.>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
       gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
@@ -659,7 +715,7 @@ R/. A(e.)men.(e.) (::)"
       id: 901,
       psalmtone: true
     }, {
-      rubric: "In the course of the procession the following hymn is sung. If possible, the whole congregation should sing each time the refrain <Glória laus> as shown below.",
+      rubric: "In the course of the procession the following hymn is sung. If possible, the whole congregation should sing each time the refrain <Glória laus.> as shown below.",
       id: 259,
       sticky: 0
     }, {
@@ -702,12 +758,12 @@ R/. A(e.)men.(e.) (::)"
 </div>',
       sticky: 1
     }, {
-      rubric: "The antiphon <Omnes colláudant> is repeated, as above.",
+      rubric: "The antiphon <Omnes colláudant.> is repeated, as above.",
       id: 1312
     }, {
       id: 1051
     }, {
-      rubric: "The faithful may also sing the hymn <Christus vincit> or any other chant in honor of Christ the King."
+      rubric: "The faithful may also sing the hymn <Christus vincit.> or any other chant in honor of Christ the King."
     }, {
       rubric: "When the procession enters the church, that is, as the celebrant goes through the door, this last responsory is begun:",
       id: 606
@@ -723,7 +779,7 @@ R/. A(e.)men.(e.) (::)"
   "Quad6h": {
     "introitus": [
         {
-            rubric: "<Verses ad libitum>",
+            rubric: "<Verses ad libitum.>",
             gabc: "initial-style: 0;\n\
 %%\n\
 (c4)2. Ut(hg~) co(gh)gno(h)scá(h)mus(h) in(h) ter(h)ra(hg) vi(gi)am(i) tu(hi)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)tá(gf)re(gh) tu(g)um.(egff) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
@@ -734,7 +790,7 @@ R/. A(e.)men.(e.) (::)"
     "ite": [
         {
             title: "THE SOLEMN TRANSLATION AND RESERVATION OF THE BLESSED SACRAMENT",
-            rubric: "During the procession the hymn <Pange, lingua, gloriósi Córporis mystérium> is sung until the verse <Tantum ergo> exclusive; if necessary, the hymn is repeated from the second verse. If the procession is very long, other hymns, psalms or canticles may be sung.",
+            rubric: "During the procession the hymn <Pange, lingua, gloriósi Córporis mystérium.> is sung until the verse <Tantum ergo.> exclusive; if necessary, the hymn is repeated from the second verse. If the procession is very long, other hymns, psalms or canticles may be sung.",
             id: 1310
         }, {
             title: "THE STRIPPING OF THE ALTARS",
@@ -745,7 +801,7 @@ R/. A(e.)men.(e.) (::)"
         }, {
             rubric: "Adding the intonation of the same psalm:",
             gabc: gabcPsalm21,
-            rubricAfter: "The choir continue the recitation of this psalm from <longe a salúte mea> until the stripping of the altars is completed.",
+            rubricAfter: "The choir continue the recitation of this psalm from <longe a salúte mea.> until the stripping of the altars is completed.",
             html: versesPsalm21,
         }, {
             rubricAfter: "After stripping the altars they return to the high altar, and when the celebrant has repeated the antiphon <Divisérunt> they return to the sacristy."
@@ -769,90 +825,51 @@ R/. A(e.)men.(e.) (::)"
             id: 22,
             psalmtone: true
         }, {
-            rubric: "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/. Venite adorémus.> The choir sings <Veníte adorémus> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.",
+            rubric: rubricBeforeUnveilingCross,
             id: 2087,
-            rubricAfter: "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross."
+            rubricAfter: rubricAdorationOfTheCross
         }, {
-            rubric: "Two cantors sing the following in the middle of the Choir:",
+            rubric: rubricTwoCantorsInTheMiddle,
             id: 157,
         }, {
             sticky: 0,
-            gabc: "initial-style: 1;\n\
-annotation: \\Vbar;\n\
-%%\n\
-(c4)H{A}<alt>The first choir:</alt>(g)gi(fe)os(fgf/fe) o(c) The(d)ós.(fg!hv/hg.)\n\
-<sp>R/</sp>.(::) Sanc<alt>The second choir:</alt>(g)tus(fgf/fe) De(cd)us.(fg!hv/hg.) (::)\n\
-<sp>V/</sp>. Há(g)gi(fe)os(fgf/fe) Is(c)chy(d)rós.(fg!hv/hg.) (::)\n\
-<sp>R/</sp>. Sanc(g)tus(fgf/fe) For(cd)tis.(fg!hv/hg.) (::)\n\
-<sp>V/</sp>. Há(gh)gi(g)os(ixhg/hiHG'g) A(f)thá(g)na(h)tos,(hiwjvIHiih.) (;) e(g)lé(hj/jvIH')i(g)son(hg/h_g) hy(fd)más.(fghv/hg.) (::)\n\
-<sp>R/</sp>. Sanc(gh)tus(ixhg/hiHG'g) Im(f)mor(g)tá(h)lis,(hiwjvIHiih.) (;) mi(g)se(hj/jvIH')ré(g)re(hg/h_g) no(fd)bis.(fghv/hg.) (::)\n"
+            gabc: gabcHagios
         }, {
-            rubric: "Two cantors of the second choir sing:",
+            rubric: rubricTwoCantorsOfTheSecondChoir,
             id: 7808,
-            rubricAfter: "The two choirs respond in turn <Hagios o Theós, Sanctus Deus> etc. It is always the first choir that sings <Hagios>"
+            rubricAfter: rubricTwoChoirsRespondHagios
         }, {
         }, {
-            rubric: "Then two cantors of the first choir sing:",
+            rubric: rubricThenTwoCantorsOfTheFirstChoir,
             id: 7809,
-            rubricAfter: "The two choirs again respond in turn <Hagios o Theós. Sanctus Deus> etc.",
+            rubricAfter: rubricTwoChoirsRespondHagiosAgain,
             sticky: 1
         }, {
-            rubric: "The following Reproaches are sung in turn by the cantors. After each Reproach, the two choirs together respond <Pópule meus> as above, as far as the v/.&nbsp;<Quia>"
+            rubric: rubricFollowingReproachesSungInTurn
         }, {
-            rubric: "Two cantors of the second choir sing:",
-            gabc: "initial-style: 0;\n\
-%%\n\
-(c4)<sp>V/</sp>. {E}(c)go(de) prop(e)ter(e) te(e) fla(e)gel(e)lá(e)vi(e) Æ(e)gýp(d)tum(e.) (,)\n\
-cum(e) pri(e)mo(f)gé(g)ni(f)tis(f) su(evDC)is:(c.) (;)\n\
-et(c) tu(d_e) me(e) fla(e)gel(e)lá(e)tum(ed) tra(f)di(d)dís(ef)ti.(edeDC.) (::c+) ^P{}ópule^\n"
+            rubric: rubricTwoCantorsOfTheSecondChoir,
+            gabc: gabcReproachesV1
         }, {
-            rubric: "Both choirs repeat: <Pópule meus> as far as the v/.&nbsp;<Quia>",
+            rubric: rubricBothChoirsRepeatPopule,
             id: 157,
+            gabcReplace: replaceQuiaVerse,
             sticky: 0
         }, {
             sticky: 1,
-            gabc: "initial-style: 0;\n\
-%%\n\
-(c4)^2.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) e(e)dú(e)xi(e) de(e) Æ(e)gýp(d)to,(e.) (,) \
-de(c)mér(de)so(e) Pha(e)ra(e)ó(e)ne(e) in(f) ma(g)re(f) Ru(evDC)brum:(c.) (;) \
-et(c) tu(d_e) me(e) tra(e)di(e)dís(e)ti(e.) (,) prin(e)cí(e)pi(e)bus(ed) sa(f)cer(d)dó(ef)tum.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^3.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) an(e)te(e) te(e) a(f)pé(g)ru(f)i(f) ma(evDC)re:(c.) (;) \
-et(c) tu(d_e) a(e)pe(e)ru(e)ís(e)ti(e) lán(e)ce(e)a(ed) la(f)tus(d) me(ef)um.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^4.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) an(e)te(e) te(e) præ(d)í(e)vi(e.) (,) in(e) co(f)lúm(g)na(f) nu(evDC)bis:(c.) (;) \
-et(c) tu(d_e) me(e) du(e)xís(e)ti(e.) (,) ad(e) præ(e)tó(e)ri(ed)um(f) Pi(d)lá(ef)ti.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^5.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) pa(e)vi(e) man(e)na(f) per(g) de(f)sér(evDC)tum:(c.) (;) \
-et(c) tu(d_e) me(e) ce(e)ci(e)dís(e)ti(e.) (,) á(e)la(e)pis(ed) et(f) fla(d)gél(ef)lis.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^6.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) te(e) po(e)tá(e)vi(e.) (,) a(e)qua(e) sa(f)lú(g)tis(f) de(f) pe(evDC)tra:(c.) (;) \
-et(c) tu(d_e) me(e) po(e)tás(e)ti(e.) (,) fel(e)le(ed) et(f) a(d)cé(ef)to.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^7.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) prop(e)ter(e) te(e.) (,) Cha(e)na(e)næ(e)ó(e)rum(f) re(g)ges(f) per(f)cús(evDC)si:(c.) (;) \
-et(c) tu(d_e) per(e)cus(e)sís(e)ti(e.) (,) a(e)rún(e)di(e)ne(ed) ca(f)put(d) me(ef)um.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^8.^ E<alt>Two cantors of the first choir sing:</alt>(c)go(de) de(e)di(e) ti(e)bi(f) scep(g)trum(f) re(f)gá(evDC)le:(c.) (;) \
-et(c) tu(d_e) de(e)dís(e)ti(e) cá(e)pi(e)ti(e) me(e)o(e.) (,) spí(e)ne(ed)am(f) co(d)ró(ef)nam.(edeDC.) (::c+) ^P{}ópule^() (Z) \
- \
-(c4)^9.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) ex(e)al(e)tá(e)vi(f) ma(g)gna(f) vir(f)tú(evDC)te:(c.) (;) \
-et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) cru(ef)cis.(edeDC.) (::c+) ^P{}ópule^\n"
+            gabc: gabcReproachesOtherVerses
         }, {
-            rubric: "Both choirs then sing the following antiphon:",
+            rubric: rubricBothChoirsThenSingAntiphon,
             id: 428,
-            rubricAfter: "The antiphon <Crucem tuam> is repeated"
+            rubricAfter: rubricTheAntiphonCrucemIsRepeated
         }, {
-            rubric: "<Crux fidélis> is then sung and the hymn <Pange, lingua, gloriósi>  After the first stanza of the hymn, v/.&nbsp;<Crux fidélis> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum> is repeated. This alternate repetition takes place after each stanza of the hymn.",
+            rubric: rubricCruxFidelis,
             sticky: 0,
             id: 1128
         }, {
             id: 2209,
-            gabcReplace: [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi,'^_$1_^() (Z)\n',/\\emph{([^(}]+)\}/g,'_$1_'],
+            gabcReplace: replaceAltEtc,
             sticky: 1
-        }, /*{
-            rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis> is sung:",
-            id: 2120
-        }*/ {
+        }, {
             rubric: "After the adoration of the Cross, the priest and clergy go to the altar of repose, and the Blessed Sacrament is borne back to the high altar.  During the procession, the following antiphons are sung:",
             psalmtone: true,
             id: 1238
@@ -862,11 +879,74 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
         }, {
             psalmtone: true,
             id: 1335,
-            rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus> may be sung, or else one or other of the responsories from Matins of Good Friday."
+            rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus.> may be sung, or else one or other of the responsories from Matins of Good Friday."
         }, {
             rubric: "<Psalm 21>",
             gabc: gabcPsalm21,
             html: versesPsalm21
+        }
+      ]
+  },
+  "Quad6f_v": {
+      "graduale": [
+        {
+            id: 3177,
+            psalmtone: true,
+            gabcReplace: replaceResponsoryToTract
+        }, {
+            id: 22,
+            psalmtone: true,
+            gabcReplace: replaceResponsoryToTract
+        }, {
+            rubric: rubricBeforeUnveilingCross,
+            id: 2087,
+            gabcReplace: [/All:/,'Choir:'],
+            rubricAfter: rubricAdorationOfTheCross
+        }, {
+            rubric: rubricTwoCantorsInTheMiddle,
+            id: 157,
+            gabcReplace: [/office-part:\s*Antiphona;/,'annotation:\\Vbar 1.;']
+        }, {
+            sticky: 0,
+            gabc: gabcHagios
+        }, {
+            rubric: rubricTwoCantorsOfTheSecondChoir,
+            id: 7808,
+            rubricAfter: rubricTwoChoirsRespondHagios
+        }, {
+        }, {
+            rubric: rubricThenTwoCantorsOfTheFirstChoir,
+            id: 7809,
+            rubricAfter: rubricTwoChoirsRespondHagiosAgain,
+            sticky: 1
+        }, {
+            rubric: rubricFollowingReproachesSungInTurn
+        }, {
+            rubric: rubricTwoCantorsOfTheSecondChoir,
+            gabc: gabcReproachesV1
+        }, {
+            rubric: rubricBothChoirsRepeatPopule,
+            id: 157,
+            gabcReplace: replaceQuiaVerse,
+            sticky: 0
+        }, {
+            sticky: 1,
+            gabc: gabcReproachesOtherVerses
+        }, {
+            rubric: rubricBothChoirsThenSingAntiphon,
+            id: 428,
+            rubricAfter: rubricTheAntiphonCrucemIsRepeated
+        }, {
+            rubric: rubricCruxFidelis,
+            sticky: 0,
+            id: 1128
+        }, {
+            id: 2209,
+            gabcReplace: replaceAltEtc,
+            sticky: 1
+        }, {
+            rubric: "After the adoration of the Cross, the priest and clergy go in procession to the altar of repose. The Blessed Sacrament is incensed and then borne back to the high altar. During the procession, the hymn <Vexílla Regis.> is sung:",
+            id: 2120
         }
       ]
   },
@@ -909,7 +989,7 @@ et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) c
         },
         {
             title: "The First Part of the Litany",
-            rubric: "When the Collect after the fourth Lesson is finished, all kneel. The Litany of the Saints is sung without doubling the invocations, until <Propítius esto> exclusive.",
+            rubric: "When the Collect after the fourth Lesson is finished, all kneel. The Litany of the Saints is sung without doubling the invocations, until <Propítius esto.> exclusive.",
             gabc: "initial-style: 1;\n%%\n(c3)Ky(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Chris(h)te,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
 Ký(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
@@ -1054,7 +1134,7 @@ mode:6;\n\
             sticky: 1
         },
         {
-            rubric: "The antiphon <Allelúia, allelúia, allelúia> is repeated.",
+            rubric: "The antiphon <Allelúia, allelúia, allelúia.> is repeated.",
             rubricAfter: "There is no Little Chapter, hymn or v/.: the celebrant intones the Benedictus antiphon at once."
         }, {
             id: 1358,
@@ -1080,7 +1160,7 @@ mode:6;\n\
 <p><span class="versenum">14.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p>\
 </div>',
         }, {
-            rubric: "The antiphon <Et valde mane> is repeated.",
+            rubric: "The antiphon <Et valde mane.> is repeated.",
             sticky: 1
         }
     ],
@@ -1274,6 +1354,7 @@ var proprium = {
     agnusReplace: [/d[oó](\([^)]+\))na(\([^)]+\))\s+n[oó](\([^)]+\))bis(\([^)]+\))\s+p[aá](\([^)]+\))cem\.?(\([^)]+\))/gi, 'mi$1se$2ré$3re$4 no$5bis.$6']},
   Quad6h_v: {extraChants: true, introitusID:374, gradualeID:873, offertoriumID:47, communioID:140, gloria: true, gloriaPatri:false},
   Quad6f: {extraChants: true, ordinary: false},
+  Quad6f_v: {extraChants: true, ordinary: false},
   Quad6s: {extraChants: true, gloria: true, credo: false, agnus: false, ite: false, asperges: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
