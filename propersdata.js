@@ -72,6 +72,7 @@ var sundayKeys = [
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
     {key:"Quad6f_v",title:"Feria VI in Passione et Morte Domini (ante 1955)",en:"Good Friday (pre 1955)"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
+    {key:"Quad6s_v",title:"Vigilia Paschalis (ante 1955)",en:"Easter Vigil (pre 1955)"},
     {key:"Pasc0",title:"Dominica Resurrectionis",en:"Easter Sunday"},
     {key:"Pasc0m",title:"Feria II in Oct Paschæ",en:"Easter Monday"},
     {key:"Pasc0t",title:"Feria III in Oct Paschæ",en:"Easter Tuesday"},
@@ -504,7 +505,7 @@ var rubricTheAntiphonCrucemIsRepeated = "The antiphon <Crucem tuam.> is repeated
 var rubricCruxFidelis = "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/.&nbsp;Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn."
 var replaceQuiaVerse = [/(\(::\))\s+<sp>V\/<\/sp>\.?\s+Qu[ií]\([^)]+\)a\([^)]+\)\s.*/,'$1'];
 var replaceAltEtc = [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi,'^_$1_^() (Z)\n',/\\emph{([^(}]+)\}/g,'_$1_'];
-var replaceResponsoryToTract = [/((?:$|\n)office-part:)\s*Responsorium;/,'$1Tractus;']
+var replaceOfficePartToTract = [/((?:$|\n)office-part:)\s*[^;]+;/,'$1Tractus;']
 var extraChants = {
   "defunctorum": {
     ite: [{
@@ -892,11 +893,11 @@ R/. A(e.)men.(e.) (::)"
         {
             id: 3177,
             psalmtone: true,
-            gabcReplace: replaceResponsoryToTract
+            gabcReplace: replaceOfficePartToTract
         }, {
             id: 22,
             psalmtone: true,
-            gabcReplace: replaceResponsoryToTract
+            gabcReplace: replaceOfficePartToTract
         }, {
             rubric: rubricBeforeUnveilingCross,
             id: 2087,
