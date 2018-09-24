@@ -39,6 +39,7 @@ $(function(){
   var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
   var reFullBars = /\s*\*\s*/g;
   var reFullBarsOrFullStops = /(?:([^\d\s])[:;.?!]?\s*\*|([^\d\s])[:;.?!]\s(?!\s*Amen))\s*/g;
+  var reSplitFullBarsOrFullStops = /(?:(?:[:;.?!]\s*[*|]|\s*\*)|[:;.?!]\s*[*|]\s(?!\s*Amen))\s*/g;
   var reHalfBars = /\s*\|\s*/g;
   var reFullOrHalfBars = /\s*[*|]\s*/g;
   var reFullOrHalfBarsOrFullStops = /(?:([^\d\s][:;.?!]?)\s*[*|]|([^\d\s][:;.?!])\s(?!\s*Amen))\s*/g;
@@ -1267,10 +1268,10 @@ $(function(){
     return result;
   }
   var splitIntoVerses = window.splitIntoVerses = function(line) {
-    var fullbars = line.match(reFullBars);
+    var fullbars = line.match(reSplitFullBarsOrFullStops);
     var numSyllables = line.countSyllables();
     if(numSyllables > 30 && fullbars) {
-      var split = line.split(reFullBars);
+      var split = line.split(reSplitFullBarsOrFullStops);
       var satisfied = false;
       var result;
       for(var count = 2; !satisfied && count < 5; ++count) {
@@ -1864,7 +1865,7 @@ $(function(){
         var $mediants = $psalmEditor.find('button[state=mediant]');
         $mediants.each(function() {
           $accents = $(this).prevAll('syl[accent]').slice(0,tones.accents).addClass('bold');
-          $accents.first().nextAll('syl').slice(0,tones.afterLastAccent).addClass('bold');
+          if(tones.afterLastAccent) $(this).prev('syl').prev('syl').addClass('bold');
           $accents.last().prevAll('syl').slice(0,tones.preparatory).addClass('prep');
         })
       }
@@ -1873,7 +1874,7 @@ $(function(){
         var $terminations = $psalmEditor.find('button[state=new-verse]').add($psalmEditor.find('syl').last());
         $terminations.each(function() {
           $accents = $(this).prevAll('syl[accent]').slice(0,tones.accents).addClass('bold');
-          $accents.first().nextAll('syl').slice(0,tones.afterLastAccent).addClass('bold');
+          if(tones.afterLastAccent) $(this).prev('syl').prev('syl').addClass('bold');
           $accents.last().prevAll('syl').slice(0,tones.preparatory).addClass('prep');
         })
       }
