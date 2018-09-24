@@ -1480,9 +1480,16 @@ $(function(){
                 if(tag=='i') return '<i class="red">' + afterOpen;
                 return word;
               }
+              var accentedVowel = /[áéíóúýǽ]/i,
+                  unaccentableVowel = /[AEIOUYÆŒæœ]/;
               return Hypher.languages.la.hyphenate(word).map(function(syl, i, syls){
                 var result = '<syl';
-                if(i==0 && syls.length==2 || syl.match(/[áéíóúý]/i)) result += ' accent';
+                if((i==0 && syls.length==2) ||
+                  accentedVowel.test(syl) ||
+                  (syls.length > 2 && unaccentableVowel.test(syl) && !accentedVowel.test(syls.join('')))
+                ) {
+                  result += ' accent';
+                }
                 result += '>';
                 if(i) result += '&shy;';
                 result += syl + '</syl>';
