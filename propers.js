@@ -816,6 +816,11 @@ $(function(){
             replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
             replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))) }, $());
   }
+  function runRegexReplaces(string, replaces) {
+    for (var i=0; i < replaces.length; i += 2)
+      string = string.replace(replaces[i], replaces[i + 1]);
+    return string;
+  }
   // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
   function renderExtraChants($container, extraChants, addI) {
     var $stickyParent, $curContainer = $container;
@@ -894,8 +899,7 @@ $(function(){
           if(sel[part].id) {
             $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
               if(chant.gabcReplace) {
-                for (var i=0; i < chant.gabcReplace.length; i += 2)
-                  gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
+                gabc = runRegexReplaces(gabc, chant.gabcReplace);
               }
               var header = getHeader(gabc);
               gabc = gabc.slice(header.original.length);
@@ -941,6 +945,9 @@ $(function(){
         var $div = $('<div>');
         $curContainer.append($div);
         setHtml = function(html) {
+          if(chant.htmlReplace) {
+            html = runRegexReplaces(html, chant.htmlReplace);
+          }
           $div.html(html
             .replace(/[†*]/g,'<span class="red">$&</span>')
             .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/\w+>(?=[a-z])/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables

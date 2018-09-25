@@ -491,6 +491,11 @@ et(c) tu(d_e) de(e)dís(e)ti(e) cá(e)pi(e)ti(e) me(e)o(e.) (,) spí(e)ne(ed)am(
  \
 (c4)^9.^ E<alt>Two cantors of the second choir sing:</alt>(c)go(de) te(e) ex(e)al(e)tá(e)vi(f) ma(g)gna(f) vir(f)tú(evDC)te:(c.) (;) \
 et(c) tu(d_e) me(e) sus(e)pen(e)dís(e)ti(e.) (,) in(e) pa(ed)tí(f)bu(e)lo(d) cru(ef)cis.(edeDC.) (::c+) ^P{}ópule^\n";
+var gabcEasterAlleluia = "initial-style: 1;\n\
+office-part:Antiphona;\n\
+mode:6;\n\
+%%\n\
+(c4)AL(f)le(g')lú(h)ia,(f.) *(,) al(gh)le(g')lú(f)ia,(d_c) (,) al(f)le(gh)lú(gf~)ia.(f.) (::)";
 var rubricBeforeUnveilingCross = "At the end of the Prayers, the Priest, turned towards the people, unveils the Cross. He intones the Antiphon <Ecce lignum Crucis.> The assistant clergy joins with him in continuing the chant as far as the <r/.&nbsp;Venite adorémus.> The choir sings <Veníte adorémus.> whilst all kneel except the Celebrant. The same chant is sung three times, each time in a higher tone of voice.";
 var rubricAdorationOfTheCross = "The adoration of the Cross then takes place, during which all or some of the following Reproaches are sung, according to the number who are to venerate the Cross.";
 var rubricTwoCantorsInTheMiddle = "Two cantors sing the following in the middle of the Choir:";
@@ -505,7 +510,9 @@ var rubricTheAntiphonCrucemIsRepeated = "The antiphon <Crucem tuam.> is repeated
 var rubricCruxFidelis = "<Crux fidélis.> is then sung and the hymn <Pange, lingua, gloriósi.>  After the first stanza of the hymn, <v/.&nbsp;Crux fidélis.> is repeated as far as <Dulce lignum;> after the second stanza, <Dulce lignum.> is repeated. This alternate repetition takes place after each stanza of the hymn."
 var replaceQuiaVerse = [/(\(::\))\s+<sp>V\/<\/sp>\.?\s+Qu[ií]\([^)]+\)a\([^)]+\)\s.*/,'$1'];
 var replaceAltEtc = [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi,'^_$1_^() (Z)\n',/\\emph{([^(}]+)\}/g,'_$1_'];
-var replaceOfficePartToTract = [/((?:$|\n)office-part:)\s*[^;]+;/,'$1Tractus;']
+var replaceOfficePartToTract = [/((?:$|\n)office-part:)\s*[^;]+;/,'$1Tractus;'];
+var replaceRemoveAsterisks = [/(\*(\|\*)*|<i>ij\.<\/i>)\(/g,'('];
+var replaceRemoveHtmlAsterisks = [/\*\s+/g,''];
 var extraChants = {
   "defunctorum": {
     ite: [{
@@ -952,179 +959,99 @@ R/. A(e.)men.(e.) (::)"
       ]
   },
     "Quad6s": {
-      "asperges": [
-        {
-            title: "The Procession of the Paschal Candle",
-            rubric: "When the deacon [or priest] has entered the church, he stands and sings alone:",
-            gabc: "initial-style: 0;\n%%\n(f3)<sp>V/</sp> Lu(h)men(h) Chris(h.)ti.(f.) (::)"
-        },
-        {
-            rubric: "All others, except the subdeacon [or cross bearer] and thurifer kneel toward the paschal candle and answer:",
-            gabc: "initial-style: 0;\n%%\n(f3)<sp>R/</sp> De(h)o(h) grá(h')ti(f)as.(f.) (::)",
-            rubricAfter: ["All rise, and the celebrant lights his own candle from the paschal candle.  The deacon [or priest] goes to the middle of the church, and sings in the same way, but in a higher key: <Lumen Christi.> All kneel and answer as before: <Deo grátias.>",
+  "asperges": [
+    {
+        title: "The Procession of the Paschal Candle",
+        rubric: "When the deacon [or priest] has entered the church, he stands and sings alone:",
+        gabc: "initial-style: 0;\n%%\n(f3)<sp>V/</sp> Lu(h)men(h) Chris(h.)ti.(f.) (::)"
+    },
+    {
+        rubric: "All others, except the subdeacon [or cross bearer] and thurifer kneel toward the paschal candle and answer:",
+        gabc: "initial-style: 0;\n%%\n(f3)<sp>R/</sp> De(h)o(h) grá(h')ti(f)as.(f.) (::)",
+        rubricAfter: ["All rise, and the celebrant lights his own candle from the paschal candle.  The deacon [or priest] goes to the middle of the church, and sings in the same way, but in a higher key: <Lumen Christi.> All kneel and answer as before: <Deo grátias.>",
 "The candles of the clergy [or servers] are then lit from the paschal candle.",
 "The third time, he goes in front of the high altar, in the middle of the choir, and again sings in a still higher key: <Lumen Christi.> All kneel a third time, and answer as before: <Deo grátias.>",
 "The candles of the faithful and the lamps of the church are then lit from the paschal candle."]
-        },
-        {
-            title: "The Paschal Praise",
-            rubric: "Within the <Exsultet,> the following responses are sung to the ferial tone of the Preface:",
-            id: 7675,
-        },
-        {
-            rubric: "The conclusion is sung:",
-            gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
+    },
+    {
+        title: "The Paschal Praise",
+        rubric: "Within the <Exsultet,> the following responses are sung to the ferial tone of the Preface:",
+        id: 7675,
+    },
+    {
+        rubric: "The conclusion is sung:",
+        gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
 <sp>R/</sp> A(e)men.(ef..) (::)"
-        },
-        {
-            id: 2060,
-            psalmtone: 'tractus'
-        },
-        {
-            id: 2075,
-            psalmtone: 'tractus'
-        },
-        {
-            id: 2086,
-            psalmtone: 'tractus'
-        },
-        {
-            title: "The First Part of the Litany",
-            rubric: "When the Collect after the fourth Lesson is finished, all kneel. The Litany of the Saints is sung without doubling the invocations, until <Propítius esto.> exclusive.",
-            gabc: "initial-style: 1;\n%%\n(c3)Ky(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
-Chris(h)te,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
-Ký(h)ri(f)e,(f) e(f)lé(f)i(e)son.(f.) <i>ij.</i>(::)\n\
-Chris(h)te,(gh) au(f)di(g) nos.(h.) <i>ij.</i>(::)\n\
-Chris(h)te,(g) ex(h)au(f)di(g) nos.(h.) <i>ij.</i>(::Z)\n\
-Pa|Fi||S{a}ncta (h)ter|li ||(h) de|Red{é}mp|Spí-ri-t{u}s |Trín(h) cæ|tor |Sanc|i-t{a}s, (h)lis,|m{u}ndi, |te, |{u}nus (h) <b>De</b>|<b>De</b>|<b>De</b>|<b>De</b>(i)us,|us, |us, |us, (g.) *|*|*|*(,) mi|mi|mi|mi(g)se|se|se|se(g)<i>ré</i>|<i>ré</i>|<i>ré</i>|<i>ré</i>(f)<i>re</i>|<i>re</i> |<i>re</i> |<i>re</i> (g) <b>no</b>|<b>no</b>|<b>no</b>|<b>no</b>(h)bis.|bis. |bis. |bis. (h.) (::)\n",
-            html: '<div class="verses litany">\
-<p>Sancta Ma<b>rí</b>a,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancta Dei <b>Gé</b>netrix,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancta Virgo <b>vír</b>ginum,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte <b>Mí</b>chaël,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte <b>Gá</b>briel,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte <b>Rá</b>phaël,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sancti Angeli et ar<b>chán</b>geli,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Omnes sancti beatórum Spirítuum <b>ór</b>dines,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Sancte Joánnes Bap<b>tí</b>sta,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte <b>Jo</b>seph,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sancti Patriárchæ et Pro<b>phé</b>tæ,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Sancte <b>Pe</b>tre,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte <b>Pau</b>le,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte An<b>dré</b>a,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Jo<b>án</b>nes,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sancti Apóstoli et Evange<b>lí</b>stæ,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Omnes sancti Discípuli <b>Dó</b>mini,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Sancte <b>Sté</b>phane,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Lau<b>rén</b>ti,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Vin<b>cén</b>ti,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sancti <b>Már</b>tyres,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Sancte Sil<b>ve</b>ster,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Gre<b>gó</b>ri,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Augu<b>stí</b>ne,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sancti Pontífices et Confes<b>só</b>res,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Omnes sancti Do<b>ctó</b>res,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Sancte An<b>tó</b>ni,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Bene<b>dí</b>cte,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Do<b>mí</b>nice,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancte Fran<b>cí</b>sce,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sancti Sacerdótes et Le<b>ví</b>tæ,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Omnes sancti Mónachi et Ere<b>mí</b>tæ,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Sancta María Magda<b>lé</b>na,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancta <b>A</b>gnes,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancta Cæ<b>cí</b>lia,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancta <b>A</b>gatha,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Sancta Ana<b>stá</b>sia,<span class="response">&nbsp;* o<i>ra</i>.</span></p>\
-<p>Omnes sanctæ Vírgines et <b>Ví</b>duæ,<span class="response">&nbsp;* ora<i>te</i>.</span></p>\
-<p>Omnes Sancti et Sanctæ <b>De</b>i,<span class="response">&nbsp;* intercédi<i>te</i> <i>pro</i> <b>no</b>bis.</span></p>\
-</div>'
-        }, {
-            rubric: "After the invocation <Omnes Sancti et Sanctæ Dei,> all rise.  If cantors sang the Litany, they return to their places."
-        }, {
-            title: "The Blessing of Water for Baptism",
-            rubric: "Within the blessing, the following responses are sung to the ferial tone of the Preface:",
-            id: 7675,
+    },
+    {
+        id: 2060,
+        psalmtone: 'tractus'
+    },
+    {
+        id: 2075,
+        psalmtone: 'tractus'
+    },
+    {
+        id: 2086,
+        psalmtone: 'tractus'
+    },
+    {
+        title: "The First Part of the Litany",
+        rubric: "When the Collect after the fourth Lesson is finished, all kneel. The Litany of the Saints is sung without doubling the invocations, until <Propítius esto.> exclusive.",
+        id: 'litanies/saints-1',
+        url: 'litanies/saints-2.html'
+    }, {
+        rubric: "After the invocation <Omnes Sancti et Sanctæ Dei,> all rise.  If cantors sang the Litany, they return to their places."
+    }, {
+        title: "The Blessing of Water for Baptism",
+        rubric: "Within the blessing, the following responses are sung to the ferial tone of the Preface:",
+        id: 7675,
 
-        }, {
-            rubric: "When the Blessing (and Baptism) is finished, the baptismal water is carried to the font, in procession, while the following is sung:",
-            id: 943,
-            psalmtone: 'tractus' // todo...allow psalmtoning of this chant
-        }, {
-            title: "The Second Part of the Litany",
-            rubric: " ",
-            gabc: "initial-style: 0;\n%%\n(c3)Pro|Pro|Ab (h)pí|pí|(h)<i>ti</i>|<i>ti</i>|<i>om</i>(g)<i>us</i>|<i>us</i> |<i>ni</i> (f) <b>es</b>|<b>es</b>|<b>ma</b>(h ir)to,|to, |lo, (i.) *|*|*(,) par|ex|lí(g)ce|áu|be(h) no|di |ra (f)bis,|nos, |nos, (e) Dó|Dó|Dó(f)mi|mi|mi(e)ne.|ne. |ne. (d.) (::)",
-            html: '<div class="verses litany">\
-<p>Ab o<i>mni</i> <i>pec</i><b>cá</b>to,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>A mor<i>te</i> <i>per</i><b>pé</b>tua,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per mystérium sanctæ incarnati<i>ó</i><i>nis</i> <b>tu</b>æ,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per ad<i>vén</i><i>tum</i> <b>tu</b>um,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per nativi<i>tá</i><i>tem</i> <b>tu</b>am,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per baptísmum et sanctum jejú<i>ni</i><i>um</i> <b>tu</b>um,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per crucem et passi<i>ó</i><i>nem</i> <b>tu</b>am,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per mortem et sepul<i>tú</i><i>ram</i> <b>tu</b>am,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per sanctam resurrecti<i>ó</i><i>nem</i> <b>tu</b>am,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per admirábilem ascensi<i>ó</i><i>nem</i> <b>tu</b>am,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>Per adventum Spíritus San<i>cti</i> <i>Pa</i><b>rá</b>cliti,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-<p>In di<i>e</i> <i>ju</i><b>dí</b>cii,<span class="response">&nbsp;* líbera nos, Dómine.</span></p>\
-</div>'
-        }, {
-            gabc: "initial-style: 0;\n%%\n(c3)Pec(h)<i>ca</i>(g)<b>tó</b>(i//jr)res,(j.) *(,) te(h) ro(g)gá(f)mus,(e) au(f)di(g) nos.(h.) (::)",
-            html: '<div class="verses litany">\
-<p>Ut no<i>bis</i> <b>par</b>cas,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut Ecclésiam tuam sanctam&nbsp;’ régere et conserváre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut domnum apostólicum et omnes ecclesiásticos órdines&nbsp;’ in sancta religióne conserváre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut inimícos sanctæ Ecclésiæ&nbsp;’ humiliáre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut régibus et princípibus christiánis&nbsp;’ pacem et veram concórdiam donáre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut nosmetípsos in tuo sancto servítio&nbsp;’ confortáre et conserváre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut ómnibus benefactóribus nostris&nbsp;’ sempitérna bona <i>re</i><b>trí</b>buas,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut fructus terræ&nbsp;’ dare et conserváre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut ómnibus fidélibus defúnctis&nbsp;’ réquiem ætérnam donáre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-<p>Ut nos exaudíre <i>di</i><b>gné</b>ris,<span class="response">&nbsp;* te rogámus, audi nos.</span></p>\
-</div>'
-        },
-        {
-            gabc: "initial-style: 0;\n\
-%%\n\
-(c3)A(h)gnus(h) De(hi)i,(i.) (,) qui(i) tol(i)lis(i) pec(h)cá(i)ta(gxg) mun(h)di,(i.) (,) par(h)ce(i) no(j)bis,(h) Dó(i)mi(h)ne.(h.) (::)\n\
-A(h)gnus(h) De(hi)i,(i.) (,) qui(i) tol(i)lis(i) pec(h)cá(i)ta(gxg) mun(h)di,(i.) (,) ex(h)áu(i)di(j) nos,(h) Dó(i)mi(h)ne.(h.) (::)\n\
-A(h)gnus(h) De(hi)i,(i.) (,) qui(i) tol(i)lis(i) pec(h)cá(i)ta(gxg) mun(h)di,(i.) (,) mi(h)se(i)ré(j)re(h)\n\
-no(i)bis.(h.) (::)\n\
-Chris(i)te,(hi) au(gxg)di(h) nos.(i.) (::)\n\
-Chris(i)te,(h) ex(i)au(gxg)di(h) nos.(i.) (::)\n"
-        }
-    ],
-    "alleluia": [
-        {
-            rubric: "After the Epistle, the Celebrant intones:",
-            id: 507,
-            rubricAfter: "He sings this <Allelúia> three times, each time at a higher pitch.  The choir repeats it after him each time, in the same key."
-        }, {
-            rubric: "The choir then sings:",
-            psalmtone: true,
-            id: "507-2",
-            rubricAfter: "<Allelúia> is not repeated."
-        }, {
-            id: 1247,
-            psalmtone: "tractus"
-        }
-    ],
-    "agnus": [
-        {
-            title: "Lauds of Easter Sunday",
-            rubric: " ",
-            gabc: "initial-style: 1;\n\
-office-part:Antiphona;\n\
-mode:6;\n\
-%%\n\
-(c4)AL(f)le(g')lú(h)ia,(f.) *(,) al(gh)le(g')lú(f)ia,(d_c) (,) al(f)le(gh)lú(gf~)ia.(f.) (::)",
-            sticky: 0
-        }, {
-            rubric: "<Psalm 150>",
-            gabc: "initial-style: 0;\n\
+    }, {
+        rubric: "When the Blessing (and Baptism) is finished, the baptismal water is carried to the font, in procession, while the following is sung:",
+        id: 943,
+        psalmtone: 'tractus' // todo...allow psalmtoning of this chant
+    }, {
+        title: "The Second Part of the Litany",
+        rubric: " ",
+        id: 'litanies/saints-3',
+        url: 'litanies/saints-4.html'
+    }, {
+        id: "litanies/saints-5",
+        url: 'litanies/saints-6.html'
+    },
+    {
+        id: "litanies/saints-7"
+    }
+],
+"alleluia": [
+    {
+        rubric: "After the Epistle, the Celebrant intones:",
+        id: 507,
+        rubricAfter: "He sings this <Allelúia> three times, each time at a higher pitch.  The choir repeats it after him each time, in the same key."
+    }, {
+        rubric: "The choir then sings:",
+        psalmtone: true,
+        id: "507-2",
+        rubricAfter: "<Allelúia> is not repeated."
+    }, {
+        id: 1247,
+        psalmtone: "tractus"
+    }
+],
+"agnus": [
+    {
+        title: "Lauds of Easter Sunday",
+        rubric: " ",
+        gabc: gabcEasterAlleluia,
+        sticky: 0
+    }, {
+        rubric: "<Psalm 150>",
+        gabc: "initial-style: 0;\n\
 %%\n\
 (c4)Lau(f)dá(gh)te(h) Dó(h)mi(h)num(h) in(h) san(h)<i>ctis</i>(g) <b>e</b>(h fr)jus:(f.) *(:) lau(h)dá(h)te(h) e(h)um(h) in(h) fir(h)ma(h)mén(h)to(h) vir(h)<i>tú</i>(f)<i>tis</i>(gh) <b>e</b>(g fr)jus.(f.) (::)\n\
 <i>Flex:</i> b{e}(h)ne(h)so(h)nán(h)ti(g)bus: †(g. h h h  ::)",
-            html: '<div class="verses">\
+        html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Laudáte eum in virtúti<i>bus</i> <b>e</b>jus:&nbsp;* laudáte eum secúndum multitúdinem magnitú<i>di</i><i>nis</i> <b>e</b>jus.<br></p>\
 <p><span class="versenum">3.&nbsp;</span>Laudáte eum in so<i>no</i> <b>tu</b>bæ:&nbsp;* laudáte eum in psaltéri<i>o</i>, <i>et</i> <b>cí</b>thara.<br></p>\
 <p><span class="versenum">4.&nbsp;</span>Laudáte eum in týmpano, <i>et</i> <b>cho</b>ro:&nbsp;* laudáte eum in chor<i>dis</i>, <i>et</i> <b>ór</b>gano.<br></p>\
@@ -1132,20 +1059,20 @@ mode:6;\n\
 <p><span class="versenum">6.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
 <p><span class="versenum">7.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p>\
 </div>',
-            sticky: 1
-        },
-        {
-            rubric: "The antiphon <Allelúia, allelúia, allelúia.> is repeated.",
-            rubricAfter: "There is no Little Chapter, hymn or v/.: the celebrant intones the Benedictus antiphon at once."
-        }, {
-            id: 1358,
-            sticky: 0
-        }, {
-            rubric: " ",
-            gabc: "initial-style: 0;\n\
+        sticky: 1
+    },
+    {
+        rubric: "The antiphon <Allelúia, allelúia, allelúia.> is repeated.",
+        rubricAfter: "There is no Little Chapter, hymn or v/.: the celebrant intones the Benedictus antiphon at once."
+    }, {
+        id: 1358,
+        sticky: 0
+    }, {
+        rubric: " ",
+        gabc: "initial-style: 0;\n\
 %%\n\
 (c4)Be(g)ne(hg)dí(gj)ctus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) re(j)dem(j)pti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
-            html: '<div class="verses">\
+        html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Et eréxit cornu <i>sa</i><i>lú</i><i>tis</i> <b>no</b>bis:&nbsp;* in domo David, pú<i>e</i><i>ri</i> <b>su</b>i.<br></p>\
 <p><span class="versenum">3.&nbsp;</span>Sicut locútus est <i>per</i> <i>os</i> <i>san</i><b>ctó</b>rum,&nbsp;* qui a sǽculo sunt, prophe<i>tá</i><i>rum</i> <b>e</b>jus:<br></p>\
 <p><span class="versenum">4.&nbsp;</span>Salútem ex i<i>ni</i><i>mí</i><i>cis</i> <b>nos</b>tris,&nbsp;* et de manu ómnium, <i>qui</i> <i>o</i><b>dé</b>runt nos.<br></p>\
@@ -1160,17 +1087,152 @@ mode:6;\n\
 <p><span class="versenum">13.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
 <p><span class="versenum">14.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p>\
 </div>',
-        }, {
-            rubric: "The antiphon <Et valde mane.> is repeated.",
-            sticky: 1
-        }
-    ],
-    "ite": [
-        {
-            id: 2988
-        }
-    ]
-  }
+    }, {
+        rubric: "The antiphon <Et valde mane.> is repeated.",
+        sticky: 1
+    }
+],
+"ite": [
+    {
+        id: 2988
+    }
+]
+},
+    "Quad6s_v": {
+  "asperges": [
+    {
+        title: "The Procession of the Paschal Candle",
+        rubric: "When the deacon [or priest] has entered the church, he lights one of the three candles, genuflects, and sings alone:",
+        gabc: "initial-style: 0;\n%%\n(f3)<sp>V/</sp> Lu(h)men(h) Chris(h.)ti.(f.) (::)"
+    },
+    {
+        rubric: "All others, except the subdeacon [or cross bearer] kneel and answer:",
+        gabc: "initial-style: 0;\n%%\n(f3)<sp>R/</sp> De(h)o(h) grá(h')ti(f)as.(f.) (::)",
+        rubricAfter: ["Proceeding to the middle of the church, he lights the second candle, again genuflects as above, and sings in a higher key: <Lumen Christi.> All kneel and answer as before: <Deo grátias.>",
+"The third time, he goes in front of the high altar, where he lights the third candle, again genuflecting as before, and singing in a still higher key: <Lumen Christi.> All kneel a third time, and answer as before: <Deo grátias.>"]
+    },
+    {
+        title: "The Paschal Praise",
+        rubric: "Within the <Exsultet,> the following responses are sung to the ferial tone of the Preface:",
+        id: 7675,
+    },
+    {
+        rubric: "The conclusion is sung:",
+        gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
+<sp>R/</sp> A(e)men.(ef..) (::)"
+    },
+    {
+        id: 2060,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    },
+    {
+        id: 2075,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    },
+    {
+        id: 2086,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    }, {
+        rubric: "If the Church has a baptismal font, the Celebrant goes with his ministers and the clergy to bless the font at the end of the Prophecies; during the procession, the following Tract is sung:",
+        id: 943,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    },
+    {
+        title: "The Litany of the Saints",
+        rubric: [
+    "While the Celebrant and his ministers return to the altar, two Cantors sing the Litany, each invocation being repeated by the Choir.",
+    "In churches where there is no baptismal font, after the Prayer which follows the last Prophecy, all kneel, and two Cantors sing the Litany, each invocation being repeated by the Choir."
+        ],
+        id: 'litanies/saints-1',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints-2.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    }, {
+        id: 'litanies/saints-3',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints-4.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    }, {
+        id: "litanies/saints-5",
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints-6.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    },
+    {
+        id: "litanies/saints-7",
+        gabcReplace: replaceRemoveAsterisks
+    }
+],
+"alleluia": [
+    {
+        rubric: "After the Epistle, the Celebrant intones:",
+        id: 507,
+        rubricAfter: "He sings this <Allelúia> three times, each time at a higher pitch.  The choir repeats it after him each time, in the same key."
+    }, {
+        rubric: "The choir then sings:",
+        psalmtone: true,
+        id: "507-2",
+        rubricAfter: "<Allelúia> is not repeated."
+    }, {
+        id: 1247,
+        psalmtone: "tractus"
+    }
+],
+"agnus": [
+    {
+        title: "First Vespers of Easter Sunday",
+        rubric: " ",
+        gabc: gabcEasterAlleluia,
+        sticky: 0
+    }, {
+        rubric: "<Psalm 116>",
+        gabc: "initial-style: 0;\n\
+%%\n\
+(c4)1. Lau(f)dá(gh)te(h) Dó(h)mi(h)num,(h) om(h)<i>nes</i>(g) <b>Gen</b>(h fr)tes:(f.) *(:) lau(h)dá(h)te(h) e(h)um,(h) <i>om</i>(f)<i>nes</i>(gh) <b>pó</b>(g)pu(fr)li:(f.) (::)",
+        html: '<div class="verses">\
+<p><span class="versenum">2.&nbsp;</span>Quóniam confirmáta est super nos misericórdi<i>a</i> <b>e</b>jus:&nbsp;* et véritas Dómini manet <i>in</i> <i>æ</i><b>tér</b>num.<br></p>\
+<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
+<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p></div>',
+        sticky: 1
+    },
+    {
+        rubric: "The antiphon <Allelúia, allelúia, allelúia.> is repeated.",
+        rubricAfter: "The celebrant then at once intones the antiphon of the Magnificat, which is continued by the Choir:"
+    }, {
+        id: 8187,
+        sticky: 0
+    }, {
+        rubric: " ",
+        gabc: "initial-style: 0;\n\
+%%\n\
+(c4)1. Ma(g)gní(hg)fi(gj jr)cat(j.) *(:) á(j)ni(j)ma(j) <i>me</i>(i)<i>a</i>(j) <b>Dó</b>(h)mi(gr)num.(g.) (::) \
+2. Et(g) ex(hg)sul(gj)tá(j)vit(j) <i>spí</i>(ji)<i>ri</i>(jk)<i>tus</i>(k) <b>me</b>(jk jr)us(j.) *(:) in(j) De(j)o(j) sa(j)lu(j)<i>tá</i>(i)<i>ri</i>(j) <b>me</b>(h gr)o.(g.) (::)",
+        html: '<div class="verses">\
+<p><span class="versenum">3.&nbsp;</span>Quia respéxit humilitátem <i>an</i><i>cíl</i><i>læ</i> <b>su</b>æ:&nbsp;* ecce enim ex hoc beátam me dicent omnes gene<i>ra</i><i>ti</i><b>ó</b>nes.<br></p>\
+<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>po</b>tens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.<br></p>\
+<p><span class="versenum">5.&nbsp;</span>Et misericórdia ejus a progéni<i>e</i> <i>in</i> <i>pro</i><b>gé</b>nies&nbsp;* timén<i>ti</i><i>bus</i> <b>e</b>um.<br></p>\
+<p><span class="versenum">6.&nbsp;</span>Fecit poténtiam in <i>brá</i><i>chi</i><i>o</i> <b>su</b>o:&nbsp;* dispérsit supérbos mente <i>cor</i><i>dis</i> <b>su</b>i.<br></p>\
+<p><span class="versenum">7.&nbsp;</span>Depósuit po<i>tén</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.<br></p>\
+<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>i</i><b>ná</b>nes.<br></p>\
+<p><span class="versenum">9.&nbsp;</span>Suscépit Israël <i>pú</i><i>e</i><i>rum</i> <b>su</b>um,&nbsp;* recordátus misericór<i>di</i><i>æ</i> <b>su</b>æ.<br></p>\
+<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>no</b>stros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.<br></p>\
+<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
+<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p></div>',
+        sticky: 1
+    }, {
+        rubric: "The antiphon <Vespere autem.> is repeated."
+    }
+],
+"ite": [
+    {
+        id: 2988
+    }
+]
+}
 }
 var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"",title:"Inter Annum",en:"During the Year"},{key:"Quad",title:"Septuagesima usque ad Finem Quadragesimæ",en:"Septuagesima through Lent"},{key:"Pasch",title:"Tempus Paschale",en:"Paschal Time"}];
 //{key:"",title:"",en:""}
@@ -1357,6 +1419,7 @@ var proprium = {
   Quad6f: {extraChants: true, ordinary: false},
   Quad6f_v: {extraChants: true, ordinary: false},
   Quad6s: {extraChants: true, gloria: true, credo: false, agnus: false, ite: false, asperges: false},
+  Quad6s_v: {extraChants: true, gloria: true, credo: false, agnus: false, ite: false, asperges: false},
   Apr11: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:666,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:666,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},
