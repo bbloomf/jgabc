@@ -1281,7 +1281,8 @@ $(function(){
       var split = line.split(reSplitFullBarsOrFullStops);
       var satisfied = false;
       var result;
-      for(var count = 2; !satisfied && count < 5; ++count) {
+      var maxVerses = Math.ceil(numSyllables / 19);
+      for(var count = Math.ceil(numSyllables / 50); !satisfied && count < maxVerses; ++count) {
         result = [];
         var test = splitLine(split, count, ' * '),
             sylCounts = test.mapSyllableCounts();
