@@ -3226,6 +3226,10 @@ console.info(JSON.stringify(selPropers));
               splice.addString = ',';
               splice.index = nextNeume.mapping.sourceIndex + nextNeume.mapping.source.length - 1;
               break;
+            } else if(!nextNeume.hasLyrics()) {
+              splice.addString = ',';
+              splice.index = nextNeume.sourceIndex || nextNeume.notes[0].sourceIndex;
+              break;
             }
           }
           splice.index = (note.neume || note).mapping.sourceIndex + (note.neume || note).mapping.source.length;
