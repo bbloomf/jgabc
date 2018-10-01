@@ -39,6 +39,7 @@ $(function(){
   var reBarsWithNoPunctuation = /([^;:,.!?\s])\s*[|*]/g;
   var reFullBars = /\s*\*\s*/g;
   var reFullBarsOrFullStops = /(?:([^\d\s])[:;.?!]?\s*\*|([^\d\s])[:;.?!]\s(?!\s*Amen))\s*/g;
+  var reSplitFullBarsOrFullStops = /(?:(?:[:;.?!]\s*[*|]|\s*\*)|[:;.?!]\s*[*|]\s(?!\s*Amen))\s*/g;
   var reHalfBars = /\s*\|\s*/g;
   var reFullOrHalfBars = /\s*[*|]\s*/g;
   var reFullOrHalfBarsOrFullStops = /(?:([^\d\s][:;.?!]?)\s*[*|]|([^\d\s][:;.?!])\s(?!\s*Amen))\s*/g;
@@ -815,6 +816,11 @@ $(function(){
             replace(/([vr])\/./g,"<span class='versiculum'>$1</span>").
             replace(/[\[\]{}()]/g,"<span class='bracket'>$&</span>")))) }, $());
   }
+  function runRegexReplaces(string, replaces) {
+    for (var i=0; i < replaces.length; i += 2)
+      string = string.replace(replaces[i], replaces[i + 1]);
+    return string;
+  }
   // addI is how much to add to i based on other already rendered extra chants, so that each has a unique number
   function renderExtraChants($container, extraChants, addI) {
     var $stickyParent, $curContainer = $container;
@@ -837,10 +843,13 @@ $(function(){
         $curContainer.append(makeRubric(chant.rubric));
       }
       if(chant.id && chant.psalmtone) {
-        if(!selPropers.gradualeID) selPropers.gradualeID = [0];
-        addMultipleGraduales(1,selPropers.gradualeID.length);
+        if(!(selPropers.gradualeID instanceof Array)) selPropers.gradualeID = [selPropers.gradualeID];
+        $divGraduale = addMultipleGraduales(1,selPropers.gradualeID.length);
         $curContainer.append($('div.multiple-graduales-'+selPropers.gradualeID.length).show())
         selPropers.gradualeID.push(chant.id);
+        var id = 'graduale'+(selPropers.gradualeID.length - 1);
+        selPropers[id+'Replace'] = chant.gabcReplace;
+        updatePart(id);
       } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);
@@ -890,8 +899,7 @@ $(function(){
           if(sel[part].id) {
             $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
               if(chant.gabcReplace) {
-                for (var i=0; i < chant.gabcReplace.length; i += 2)
-                  gabc = gabc.replace(chant.gabcReplace[i], chant.gabcReplace[i + 1]);
+                gabc = runRegexReplaces(gabc, chant.gabcReplace);
               }
               var header = getHeader(gabc);
               gabc = gabc.slice(header.original.length);
@@ -910,15 +918,15 @@ $(function(){
           var optionID = 0;
           var optionKeys = Object.keys(options);
           sel[part].id = null;
-          var nextOptionID = 0;
-          var $option = $('<div class="link rubric after">Click here for alternative <span class="quote"></span> option.</div>').click(function(){
-            optionID = nextOptionID;
-            nextOptionID = (optionID + 1) % optionKeys.length;
-            $(this).find('.quote').text(optionKeys[nextOptionID]);
-            sel[part].id = options[optionKeys[optionID]];
-            sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+          var $option = $("<select>"+optionKeys.map(function(key) {
+            return "<option value='"+options[key]+"'>"+key+"</option>";
+          })+"</select>").change(function() {
+            sel[part].id = $(this).val();
+            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionKeys[optionID])) {
+              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            }
             downloadThisChant();
-          }).appendTo($curElement).click();
+          }).change().prependTo($curElement);
         }
         if(chant.sticky === 0) {
           $curElement.addClass('sticky');
@@ -937,6 +945,9 @@ $(function(){
         var $div = $('<div>');
         $curContainer.append($div);
         setHtml = function(html) {
+          if(chant.htmlReplace) {
+            html = runRegexReplaces(html, chant.htmlReplace);
+          }
           $div.html(html
             .replace(/[†*]/g,'<span class="red">$&</span>')
             .replace(/<\/\w+><\w+>|[a-z]<\w+>|<\/\w+>(?=[a-z])/gi,'$&&shy;') // add hyphenation points at marks between bold/italic syllables
@@ -1264,13 +1275,14 @@ $(function(){
     return result;
   }
   var splitIntoVerses = window.splitIntoVerses = function(line) {
-    var fullbars = line.match(reFullBars);
+    var fullbars = line.match(reSplitFullBarsOrFullStops);
     var numSyllables = line.countSyllables();
     if(numSyllables > 30 && fullbars) {
-      var split = line.split(reFullBars);
+      var split = line.split(reSplitFullBarsOrFullStops);
       var satisfied = false;
       var result;
-      for(var count = 2; !satisfied && count < 5; ++count) {
+      var maxVerses = Math.ceil(numSyllables / 19);
+      for(var count = Math.ceil(numSyllables / 50); !satisfied && count < maxVerses; ++count) {
         result = [];
         var test = splitLine(split, count, ' * '),
             sylCounts = test.mapSyllableCounts();
@@ -1477,9 +1489,16 @@ $(function(){
                 if(tag=='i') return '<i class="red">' + afterOpen;
                 return word;
               }
+              var accentedVowel = /[áéíóúýǽ]/i,
+                  unaccentableVowel = /[AEIOUYÆŒæœ]/;
               return Hypher.languages.la.hyphenate(word).map(function(syl, i, syls){
                 var result = '<syl';
-                if(i==0 && syls.length==2 || syl.match(/[áéíóúý]/i)) result += ' accent';
+                if((i==0 && syls.length==2) ||
+                  accentedVowel.test(syl) ||
+                  (syls.length > 2 && unaccentableVowel.test(syl) && !accentedVowel.test(syls.join('')))
+                ) {
+                  result += ' accent';
+                }
                 result += '>';
                 if(i) result += '&shy;';
                 result += syl + '</syl>';
@@ -1854,7 +1873,7 @@ $(function(){
         var $mediants = $psalmEditor.find('button[state=mediant]');
         $mediants.each(function() {
           $accents = $(this).prevAll('syl[accent]').slice(0,tones.accents).addClass('bold');
-          $accents.first().nextAll('syl').slice(0,tones.afterLastAccent).addClass('bold');
+          if(tones.afterLastAccent) $(this).prev('syl').prev('syl').addClass('bold');
           $accents.last().prevAll('syl').slice(0,tones.preparatory).addClass('prep');
         })
       }
@@ -1863,7 +1882,7 @@ $(function(){
         var $terminations = $psalmEditor.find('button[state=new-verse]').add($psalmEditor.find('syl').last());
         $terminations.each(function() {
           $accents = $(this).prevAll('syl[accent]').slice(0,tones.accents).addClass('bold');
-          $accents.first().nextAll('syl').slice(0,tones.afterLastAccent).addClass('bold');
+          if(tones.afterLastAccent) $(this).prev('syl').prev('syl').addClass('bold');
           $accents.last().prevAll('syl').slice(0,tones.preparatory).addClass('prep');
         })
       }
@@ -2219,7 +2238,7 @@ $(function(){
       .replace(/(\s*)((?:<(\w+)>[^()]*?<\/\3>)?(?:<(\w+)>[^()]*?<\/\4>|[^()<>])+)(?=\s+[^\s()]+\([^)])/g, function(match, whitespace, main) {
         return (main.match(/[|^]|^\s*$/) || (main.match(/[aeiouyáéíóúýæǽœë]/i) && !main.match(/<\w+>/)))? match : (whitespace + '^' + main + '^');
       })
-      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3')
+//      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3') // add empty parentheses after verse numbers, asterisks, and daggers
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red

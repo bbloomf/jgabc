@@ -1388,10 +1388,17 @@ function splitLine(oLine, segments, joinString, maxSyllablesPerSegment) {
     if(sylCounts.sum() > maxSyllablesPerSegment * segments) {
       segments = Math.ceil(sylCounts.sum() / maxSyllablesPerSegment);
     }
-    if(segments == 4) {
-      var firstSplit = splitLine(line, 2, ' * ', maxSyllablesPerSegment * 2, false);
-      var result = splitLine(firstSplit[0], 2, joinString, maxSyllablesPerSegment);
-      return result.concat(splitLine(firstSplit[1], 2, joinString, maxSyllablesPerSegment))
+    if(segments > 3) {
+      var subSegments = (segments % 3 == 0)? 3 : 2;
+      var maxSubSyllables = maxSyllablesPerSegment * Math.ceil(segments / subSegments);
+      var firstSplit = splitLine(line, subSegments, ' * ', maxSubSyllables, false);
+      var result = [];
+      for (var i = 0; i < subSegments; ++i) {
+        var segs = Math.ceil((segments - result.length) / (subSegments - i));
+        maxSubSyllables = maxSyllablesPerSegment * Math.ceil(segments / (subSegments * segs));
+        result = result.concat(splitLine(firstSplit[i], segs, segs <= 3? joinString : ' * ', maxSubSyllables))
+      }
+      return result;
     }
     // if there are 3 segments right now, but we're only asking for two, always put the flex in the first segment
     var i = (line.length == 3 && (joinString == ' ' + sym_flex + ' '))? 2 : splitPosition(sylCounts, maxSyllablesPerSegment);
