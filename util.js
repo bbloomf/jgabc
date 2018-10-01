@@ -932,7 +932,7 @@ if(typeof window=='object') (function(window) {
     result.acceptsMora = !result.hasMorae && !result.hasEpisemata && !result.isQuilisma && !result.isRepeatedNote && neume.notes.slice(-1)[0] == note;
     result.acceptsEpisema = !result.hasMorae && !result.hasEpisemata && !result.isQuilisma && !result.isRepeatedNote;
     if(result.acceptsBarBefore || result.acceptsBarAfter) {
-      let score = neume.score;
+      var score = neume.score;
       notations = score.notations;
       noteIndex = notations.indexOf(neume);
       result.prevNotation = notations[noteIndex-1];
@@ -959,7 +959,7 @@ if(typeof window=='object') (function(window) {
         $current;
     // check to make sure $selected is from the same syllable:
     if($selected && $selected.length) {
-      let selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
+      var selectedNotation = $selected[0].source && $selected[0].source.neume || $selected[0].source,
           notations = selectedNotation.score.notations,
           index = notations.indexOf(selectedNotation);
       while(index > 0 && !selectedNotation.hasLyrics()) {
