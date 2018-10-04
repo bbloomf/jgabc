@@ -141,11 +141,11 @@ var massOrdinary = [{
     {id: 2227,name: "Benedicamus (ad lib.)"}],
   ite:{id: 620,name: "Ite XV"}
 },{season:"Missa Sancti Hildegardis",
-  kyrie:{id: 7957,name: "Kyrie XIX"},
-  gloria:{id: 7958,name: "Gloria XIX"},
-  sanctus:{id: 7959,name: "Sanctus XIX"},
-  agnus:{id: 7960,name: "Agnus XIX"},
-  ite:{id: 7961,name: "Ite XIX"}
+  kyrie:{id: 7957,name: "Kyrie M. S.Hildegard."},
+  gloria:{id: 7958,name: "Gloria M. S.Hildegard."},
+  sanctus:{id: 7959,name: "Sanctus M. S.Hildegard."},
+  agnus:{id: 7960,name: "Agnus M. S.Hildegard."},
+  ite:{id: 7961,name: "Ite M. S.Hildegard."}
 },{season:"Missa Regia I",
   kyrie:{id: 7995,name: "Kyrie M.R. I"},
   gloria:{id: 7996,name: "Gloria M.R. I"},
