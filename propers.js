@@ -2594,17 +2594,25 @@ $(function(){
 
   var ordinaryKeys = massOrdinary.map(function(e,i){
     var name = '';
+    var isNumeric = !/^Missa\s/.test(e.season);
     ++i;
-    if(i<=20) name = i + ' - ';
+    if(isNumeric) name = i + ' - ';
     if(e.name) {
       name += e.name + ' (' + e.season + ')';
     } else {
       name += e.season;
     }
+    var title, en;
+    if(isNumeric) {
+      title = 'Missa ' + name;
+      en = 'Mass ' + name;
+    } else {
+      title = en = name;
+    }
     return {
       key: i.toString(),
-      title: 'Missa ' + name,
-      en: 'Mass ' + name
+      title: title,
+      en: en
     }
   });
   ordinaryKeys.unshift({

@@ -141,19 +141,19 @@ var massOrdinary = [{
     {id: 2227,name: "Benedicamus (ad lib.)"}],
   ite:{id: 620,name: "Ite XV"}
 },{season:"Missa Sancti Hildegardis",
-  kyrie:{id: 7957,name: "Kyrie M. S.Hildegard."},
-  gloria:{id: 7958,name: "Gloria M. S.Hildegard."},
-  sanctus:{id: 7959,name: "Sanctus M. S.Hildegard."},
-  agnus:{id: 7960,name: "Agnus M. S.Hildegard."},
-  ite:{id: 7961,name: "Ite M. S.Hildegard."}
+  kyrie:{id: 7957,name: "Kyrie M. S. Hildegard."},
+  gloria:{id: 7958,name: "Gloria M. S. Hildegard."},
+  sanctus:{id: 7959,name: "Sanctus M. S. Hildegard."},
+  agnus:{id: 7960,name: "Agnus M. S. Hildegard."},
+  ite:{id: 7961,name: "Ite M. S. Hildegard."}
 },{season:"Missa Regia I",
-  kyrie:{id: 7995,name: "Kyrie M.R. I"},
-  gloria:{id: 7996,name: "Gloria M.R. I"},
-  credo:{id: 7997,name: "Credo M.R. I"},
-  sanctus:{id: 7998,name: "Sanctus M.R. I"},
-  agnus:{id: 7999,name: "Agnus M.R. I"},
-  ite:{id: 8000,name: "Ite M.R. I"}
-},{season:"pro defunctis",
+  kyrie:{id: 7995,name: "Kyrie M. R. I"},
+  gloria:{id: 7996,name: "Gloria M. R. I"},
+  credo:{id: 7997,name: "Credo M. R. I"},
+  sanctus:{id: 7998,name: "Sanctus M. R. I"},
+  agnus:{id: 7999,name: "Agnus M. R. I"},
+  ite:{id: 8000,name: "Ite M. R. I"}
+},{season:"Missa pro defunctis",
   kyrie:{id: 541,name: "Kyrie eleison (in Miss. def.)"},
   sanctus:{id: 298,name: "Sanctus XVIII"},
   agnus:{id: 2118,name: "Agnus Dei (in Miss. def.)"},
