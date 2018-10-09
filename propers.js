@@ -3426,7 +3426,9 @@ console.info(JSON.stringify(selPropers));
 [part].full-alleluia use[source-index],\
 [part].full-alleluia text[source-index]:not(.dropCap),\
 [part].ordinary use[source-index],\
-[part].ordinary text[source-index]:not(.dropCap)', function(e) {
+[part].ordinary text[source-index]:not(.dropCap),\
+[part^=custom] use[source-index],\
+[part^=custom] text[source-index]:not(.dropCap)', function(e) {
     removeChantContextMenus();
     e.stopPropagation();
     var $this = $(this),
