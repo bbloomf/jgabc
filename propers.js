@@ -3128,6 +3128,9 @@ console.info(JSON.stringify(selPropers));
     }
     allowAddToHash = true;
   }
+  function isCustomPart(part) {
+    return /^custom\d+$/.test(part);
+  }
   function splicePartGabc(part, gabc) {
     var splices = getSpliceForPart(part);
     $('div[part='+part+']').toggleClass('modified', !!splices.length);
@@ -3149,6 +3152,9 @@ console.info(JSON.stringify(selPropers));
     var currentSplice;
     if(ordinaryId) {
       currentSplice = localStorage[part+ordinaryId+'Splice'];
+    } else if(isCustomPart(part)) {
+      var customId = selCustom[part + 'ID'];
+      currentSplice = localStorage[customId+'Splice'];
     } else {
       currentSplice = parseHash()[part+'Splice'];
     }
@@ -3167,6 +3173,9 @@ console.info(JSON.stringify(selPropers));
     var ordinaryId = selOrdinaries[part + 'ID'];
     if(ordinaryId) {
       localStorage[part+ordinaryId+'Splice'] = splices;
+    } else if(isCustomPart(part)) {
+      var customId = selCustom[part + 'ID'];
+      localStorage[customId+'Splice'] = splices;
     } else {
       addToHash(part+'Splice',splices);
     }
@@ -3175,6 +3184,9 @@ console.info(JSON.stringify(selPropers));
     var ordinaryId = selOrdinaries[part + 'ID'];
     if(ordinaryId) {
       delete localStorage[part+ordinaryId+'Splice'];
+    } else if(isCustomPart(part)) {
+      var customId = selCustom[part + 'ID'];
+      delete localStorage[customId+'Splice'];
     } else {
       addToHash(part+'Splice',false);
     }
