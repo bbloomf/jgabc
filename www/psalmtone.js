@@ -1383,6 +1383,9 @@ function splitLine(oLine, segments, joinString, maxSyllablesPerSegment) {
   if(!segments) segments = 2;
   var line = typeof oLine == 'string'? oLine.split(' * ') : oLine;
   if(line.length > segments) {
+    if(segments === 1) {
+      return [line.join(joinString)];
+    }
     // Split the line so that the two segments have as close to the same number of syllables possible, favoring the length of the first segment
     var sylCounts = line.mapSyllableCounts();
     if(sylCounts.sum() > maxSyllablesPerSegment * segments) {
