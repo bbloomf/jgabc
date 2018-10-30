@@ -11,6 +11,46 @@ function decode_utf8( s )
   return decodeURIComponent( escape( s ) );
 }
 
+var mapBooks = {
+  "Act": "Actus Apostolorum",
+  "Acts": "Actus Apostolorum",
+  "Col": "Ad Colossenses",
+  "Cor": "Ad Corinthios",
+  "Dan": "Daniel",
+  "Deut": "Deuteronomium",
+  "Eccli": "Sapientia",
+  "Ephes": "Ad Ephesios",
+  "Esth": "Esther",
+  "Exod": "Exodus",
+  "Ezech": "Ezechiel",
+  "Gal": "Ad Galatas",
+  "Gen": "Genesis",
+  "Hebr": "Ad Hebræos",
+  "Is": "Isaias",
+  "Isa": "Isaias",
+  "Jas": "Jacobi",
+  "Jer": "Jeremias",
+  "Joann": "Joannes",
+  "Joannes": "Joannes",
+  "Joel": "Joel",
+  "John": "Joannis",
+  "Jonæ": "Jonas",
+  "Judith": "Judith",
+  "Lev": "Leviticus",
+  "Luc": "Lucas",
+  "Mach": "Machabæorum",
+  "Marc": "Marcus",
+  "Matt": "Matthæus",
+  "Num": "Numeri",
+  "Pet": "Petri",
+  "Petri": "Petri",
+  "Phil": "Ad Philippenses",
+  "Philipp": "Ad Philippenses",
+  "Reg": "Regum",
+  "Rom": "Ad Romanos",
+  "Thess": "Ad Thessalonicenses"
+};
+
 if (typeof Object.assign != 'function') {
   // Must be writable: true, enumerable: false, configurable: true
   Object.defineProperty(Object, "assign", {
@@ -1459,3 +1499,49 @@ if(typeof $=='function') $(function($) {
     });
   });
 });
+
+
+function getReading(source) {
+  var match = /\s*(?:(\d)\s+)?([A-Z][a-zæœ]+)(.*)/.exec(source),
+      bookNumber = match[1],
+      book = match[2],
+      numbers = match[3];
+  book = mapBooks[book];
+  if(bookNumber) {
+    book += ' ' + bookNumber;
+  }
+  var result = $.Deferred();
+  $.get('vulgate/'+book).then(function(book) {
+    var match = /(\d+)\s*[,:]\s*(\d+)\s*(?:-(\d+))?\s*/.exec(numbers);
+    var chapter = match[1],
+        verse = match[2],
+        endVerse = match[3];
+    numbers = numbers.slice(match.index+match[0].length);
+    var match = null;
+    var regex = /,\s*(\d+)\s*(?:-(\d+))?\s*|;\s*(\d+)\s*[,:]\s*(\d+)\s*(?:-(\d+))?\s*/g;
+    var text = '';
+    do {
+      if(match) {
+        if(match[1]) {
+          verse = match[1];
+          endVerse = match[2];
+        } else {
+          chapter = match[3];
+          verse = match[4];
+          endVerse = match[5];
+        }
+      }
+      var beginning = (chapter == 1 && verse == 1)? '' : '\n';
+      beginIndex = book.indexOf(`${beginning}${chapter}\t${verse}\t`);
+      var temp = book.slice(beginIndex);
+      var endIndex = 0;
+      if(endVerse) {
+        endIndex = temp.indexOf(`\n${chapter}\t${endVerse}\t`) + 1;
+      }
+      endIndex = temp.indexOf('\n',endIndex);
+      text += temp.slice(0,endIndex) + '\n';
+    } while(match = regex.exec(numbers));
+    result.resolve(text);
+  });
+  return result;
+}
