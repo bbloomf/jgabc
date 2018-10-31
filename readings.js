@@ -113,7 +113,7 @@ function updateEditor(forceGabcUpdate,_syl) {
             if(indexComma < 0) {
               psalmToneStack = [];
             } else {
-              lines.splice(i++,0,line.slice(0,indexComma).trim());
+              lines.splice(i++,0,['',line.slice(0,indexComma).trim(),'']);
               line = line.slice(indexComma+1).trim();
             }
           } else if((match = line.match(/(['"‘“])[a-z].+?(\1|[”’])$/i))) {
@@ -130,7 +130,7 @@ function updateEditor(forceGabcUpdate,_syl) {
             search = " " + search;
             var indexComma = line.lastIndexOf(search,line.length-2);
             if(indexComma>=0) {
-              lines.splice(i++,0,line.slice(0,indexComma).trim());
+              lines.splice(i++,0,['',line.slice(0,indexComma).trim(),'']);
               line = line.slice(indexComma+1).trim();
             }
           }
@@ -738,6 +738,19 @@ $(function() {
     }
     layoutChant();
   }).keyup();
+  function loadVulgateReference() {
+    var book = $('#vulgateBook').val(),
+        chapterVerse = $('#vulgateChapterVerse').val();
+    if(chapterVerse) {
+      getReading(book + ' ' + chapterVerse, true).then(function(text) {
+        if(book == $('#vulgateBook').val() && chapterVerse == $('#vulgateChapterVerse').val()) {
+          $('#versetext').val(text);
+        }
+      });
+    }
+  }
+  $('#vulgateBook').change(loadVulgateReference);
+  $('#vulgateChapterVerse').change(loadVulgateReference);
   function layoutChant() {
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
