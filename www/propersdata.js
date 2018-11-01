@@ -1740,3 +1740,4 @@ tractus:{"ab ortu solis":{incipit:"Ab ortu solis",id:644},absolve:{incipit:"Abso
 for(key in chantID.alleluia) {
     chantID.graduale['alleluia ℣. ' + key] = chantID.alleluia[key];
 }
+if(module && module.exports) module.exports.proprium = proprium;
