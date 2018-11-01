@@ -760,7 +760,7 @@ $(function(){
       updatePart($(this).attr('part'));
     });
     var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
-    gloriaComesBefore = gloriaComesBefore? gloriaComesBefore[1] : '#divGraduale';
+    gloriaComesBefore = gloriaComesBefore? gloriaComesBefore[1] : '#divLectio';
     $('#divGloria').insertBefore(gloriaComesBefore);
     var $extraChants = $('#mandatory-extra-chants').empty();
     $('.mandatory-extra-chant').remove();
