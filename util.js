@@ -14,11 +14,14 @@ function decode_utf8( s )
 var mapBooks = {
   "Act": "Actus Apostolorum",
   "Acts": "Actus Apostolorum",
+  "Apoc": "Apocalypsis",
+  "Cant": "Sapientia",
   "Col": "Ad Colossenses",
   "Cor": "Ad Corinthios",
   "Dan": "Daniel",
   "Deut": "Deuteronomium",
   "Eccli": "Sapientia",
+  "Eph": "Ad Ephesios",
   "Ephes": "Ad Ephesios",
   "Esth": "Esther",
   "Exod": "Exodus",
@@ -28,6 +31,7 @@ var mapBooks = {
   "Hebr": "Ad Hebræos",
   "Is": "Isaias",
   "Isa": "Isaias",
+  "Jac": "Jacobi",
   "Jas": "Jacobi",
   "Jer": "Jeremias",
   "Joann": "Joannes",
@@ -35,10 +39,12 @@ var mapBooks = {
   "Joel": "Joel",
   "John": "Joannis",
   "Jonæ": "Jonas",
+  "Jud": "Judæ",
   "Judith": "Judith",
   "Lev": "Leviticus",
   "Luc": "Lucas",
   "Mach": "Machabæorum",
+  "Malach": 'Malachias',
   "Marc": "Marcus",
   "Matt": "Matthæus",
   "Num": "Numeri",
@@ -46,9 +52,14 @@ var mapBooks = {
   "Petri": "Petri",
   "Phil": "Ad Philippenses",
   "Philipp": "Ad Philippenses",
+  "Prov": "Sapientia",
   "Reg": "Regum",
   "Rom": "Ad Romanos",
-  "Thess": "Ad Thessalonicenses"
+  "Sap": "Sapientia",
+  "Thess": "Ad Thessalonicenses",
+  "Tim": "Ad Timotheum",
+  "Tit": 'Ad Titum',
+  "Tob": 'Tobiæ'
 };
 
 if (typeof Object.assign != 'function') {

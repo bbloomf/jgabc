@@ -107,6 +107,10 @@ tspan.selectable{
   font-family: 'Crimson Text';
   font-size: 15px;
 }
+.lectio-text {
+  font-family: 'Crimson Text';
+  font-size: 14pt;
+}
 label {
   font-weight: normal;
   margin-bottom: 0;

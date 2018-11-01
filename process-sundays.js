@@ -1,6 +1,7 @@
 "use strict";
 var fs = require("fs"),
-    dir = '../divinum-officium-website/web/www/missa/Latin/Tempora/',
+    dirTempora = '../divinum-officium-website/web/www/missa/Latin/Tempora/',
+    dirSancti = '../divinum-officium-website/web/www/missa/Latin/Sancti/',
     //vulgatePsalms = fs.readFileSync('psalms/vulgate','utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
     proprium = require("./propersdata.js").proprium,
     keys = Object.keys(proprium),
@@ -50,6 +51,7 @@ var fs = require("fs"),
     lex = {};
 
 keys.forEach(key => {
+  var dir = dirTempora;
   var k = key;
   var match = /^Pent(\d)(\D*)$/.exec(k);
   if(match && match[1]==='0') {
@@ -67,6 +69,15 @@ keys.forEach(key => {
     k = k.slice(0,-1);
     ending = daysOfWeek.indexOf(match[1]);
   }
+  // check if from Sancti:
+  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)/.exec(key);
+  if(match) {
+    dir = dirSancti;
+    k = 'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'.indexOf(match[1]) / 4;
+    k = ('0' + (1+k)).slice(-2);
+    ending = ('0' + match[2]).slice(-2);
+  }
+
   var fname = `${dir}${k}-${ending}.txt`;
   var exists = fs.existsSync(fname);
   if(!exists) {
@@ -80,17 +91,17 @@ keys.forEach(key => {
     return;
   }
   lex[key] = lectiones.map(lectio => {
-    var match = /\n\s*([^\n\r\.]+)[\s\.P]*\n\s*\!((?:(\d)\s+)?([A-Z][a-zæœáéíóúäëïöüÿ]+)\.?\s+([\dl:,; -]+))\.?\s*/.exec(lectio);
+    var match = /\n\s*([^\n\r\.]+)[\s\.P]*\n\s*\!((?:(\d)\s+)?((?:[\dIV]+\.?\s+)?([A-Z][a-zæœáéíóúýäëïöüÿ]+))\.?\s+([\dl:,; -]+))\.?\s*/.exec(lectio);
     if(!match) throw lectio;
     var bookNumber = match[3];
     bookNumber = bookNumber? (bookNumber + ' ') : '';
     var bookAbbreviation = match[4];
-    var numbers = match[5].replace(/l/g,'1');
+    var numbers = match[6].replace(/l/g,'1');
     var title = mapTitle[bookAbbreviation];
     if(title && title != match[1]) {
       // console.info(bookAbbreviation, '\n', title, '\n' , match[1]);
     } else {
-      mapTitle[bookAbbreviation] = match[1];
+      mapTitle[match[5]] = match[1];
     }
     console.info(`${bookAbbreviation} ${numbers}`);
     return `${bookNumber}${bookAbbreviation} ${numbers}`;
