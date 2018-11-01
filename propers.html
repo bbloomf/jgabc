@@ -21,6 +21,7 @@
   <script src="moment.min.js"></script>
   <script src="moment.easter.js"></script>
   <script src="propersdata.js"></script>
+  <script src="lectiones.js"></script>
   <script src="ordinarydata.js"></script>
   <script src="miscChants.js"></script>
   <script src="propersdatanovus.js"></script>
@@ -255,6 +256,10 @@
       </div>
     </div>
   </div>
+  <div id='divLectio' class='lectio multiple-graduales-0' style='display:none'>
+    <div><span class='lectio-reference'></span> <a href='#' class='toggleShowLectionem'>(<span class='showHide'>Hide</span>)</a></div>
+    <div class='lectio-text'></div>
+  </div>
   <div id='divGraduale' part='graduale' class='multiple-graduales-0' style='display:none;'>
     <div class='block hide-print'>
       <label class="hide-ss" id="lblGraduale" for="txtGraduale"><a target="_blank">Graduale</a></label>
@@ -368,6 +373,10 @@
         <div id="sequentia-preview" class='chant-preview'></div>
       </div>
     </div>
+  </div>
+  <div id='divEvangelium' class='lectio' style='display:none'>
+    <div><span class='lectio-reference'></span> <a href='#' class='toggleShowLectionem'>(<span class='showHide'>Hide</span>)</a></div>
+    <div class='lectio-text'></div>
   </div>
   <div id='divCredo' part='credo' class='ordinary'>
     <div class='block hide-print'>

@@ -11,6 +11,57 @@ function decode_utf8( s )
   return decodeURIComponent( escape( s ) );
 }
 
+var mapBooks = {
+  "Act": "Actus Apostolorum",
+  "Acts": "Actus Apostolorum",
+  "Apoc": "Apocalypsis",
+  "Cant": "Canticum Canticorum",
+  "Col": "Ad Colossenses",
+  "Cor": "Ad Corinthios",
+  "Dan": "Daniel",
+  "Deut": "Deuteronomium",
+  "Eccli": "Ecclesiasticus",
+  "Eph": "Ad Ephesios",
+  "Ephes": "Ad Ephesios",
+  "Esth": "Esther",
+  "Exod": "Exodus",
+  "Ezech": "Ezechiel",
+  "Gal": "Ad Galatas",
+  "Gen": "Genesis",
+  "Hebr": "Ad Hebræos",
+  "Is": "Isaias",
+  "Isa": "Isaias",
+  "Jac": "Jacobi",
+  "Jas": "Jacobi",
+  "Jer": "Jeremias",
+  "Joann": "Joannes",
+  "Joannes": "Joannes",
+  "Joel": "Joel",
+  "John": "Joannis",
+  "Jonæ": "Jonas",
+  "Jud": "Judæ",
+  "Judith": "Judith",
+  "Lev": "Leviticus",
+  "Luc": "Lucas",
+  "Mach": "Machabæorum",
+  "Malach": 'Malachias',
+  "Marc": "Marcus",
+  "Matt": "Matthæus",
+  "Num": "Numeri",
+  "Pet": "Petri",
+  "Petri": "Petri",
+  "Phil": "Ad Philippenses",
+  "Philipp": "Ad Philippenses",
+  "Prov": "Sapientia",
+  "Reg": "Regum",
+  "Rom": "Ad Romanos",
+  "Sap": "Sapientia",
+  "Thess": "Ad Thessalonicenses",
+  "Tim": "Ad Timotheum",
+  "Tit": 'Ad Titum',
+  "Tob": 'Tobiæ'
+};
+
 if (typeof Object.assign != 'function') {
   // Must be writable: true, enumerable: false, configurable: true
   Object.defineProperty(Object, "assign", {
@@ -1459,3 +1510,74 @@ if(typeof $=='function') $(function($) {
     });
   });
 });
+
+
+function getReading(source, returnText) {
+  var match = /\s*(?:(\d)\s+)?([A-Z][a-zæœ]+)(.*)/.exec(source),
+      bookNumber = match[1],
+      book = match[2],
+      numbers = match[3];
+  if(book in mapBooks) {
+    book = mapBooks[book];
+  }
+  if(bookNumber) {
+    book += ' ' + bookNumber;
+  }
+  var result = $.Deferred();
+  $.get('vulgate/'+book).then(function(book) {
+    var match = /(\d+)\s*(?:[,:]\s*(\d+)\s*(?:-(\d+))?\s*)?/.exec(numbers);
+    var chapter = match[1],
+        verse = match[2],
+        endVerse = match[3];
+    numbers = numbers.slice(match.index+match[0].length);
+    var match = null;
+    var regex = /,\s*(\d+)\s*(?:-(\d+))?\s*|;\s*(\d+)\s*[,:]\s*(\d+)\s*(?:-(\d+))?\s*/g;
+    var text = '';
+    do {
+      if(match) {
+        if(match[1]) {
+          verse = match[1];
+          endVerse = match[2];
+        } else {
+          chapter = match[3];
+          verse = match[4];
+          endVerse = match[5];
+        }
+      }
+      var wholeChapter = !verse;
+      if(wholeChapter) verse = 1;
+      var beginning = (chapter == 1 && verse == 1)? '' : '\n';
+      beginIndex = book.indexOf(`${beginning}${chapter}\t${verse}\t`);
+      if(beginIndex < 0) {
+        text += `Verse ${chapter}: ${verse} was not found.\n`;
+        continue;
+      }
+      if(beginning) beginIndex++;
+      var temp = book.slice(beginIndex);
+      var endIndex = 0;
+      if(wholeChapter) {
+        endIndex = temp.indexOf(`\n${chapter- -1}\t1\t`);
+        if(endIndex < 0) endIndex = temp.length-1;
+      } else if(endVerse) {
+        endIndex = temp.indexOf(`\n${chapter}\t${endVerse}\t`) + 1;
+      }
+      endIndex = temp.indexOf('\n',endIndex);
+      if(endIndex < 0) endIndex = temp.length;
+      text += temp.slice(0,endIndex) + '\n';
+    } while(match = regex.exec(numbers));
+    text = text.trim();
+    if(returnText) {
+      result.resolve(text.replace(/(^|\n)\d+\t\d+\t([^\n]+)/g,'$1$2'));
+      return;
+    }
+    text = text.split('\n').reduce(function(result, line) {
+      if(line) {
+        var match = line.match(/(\d+)\t(\d+)\t(.*)/);
+        return result.add($('<span>').attr('chapter',match[1]).attr('verse',match[2]).text(match[3]+'\n'));
+      }
+      return result;
+    }, $());
+    result.resolve(text);
+  });
+  return result;
+}

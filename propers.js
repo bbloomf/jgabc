@@ -694,6 +694,17 @@ $(function(){
     return $newGraduale;
   }
   var updateDay = function() {
+    var readings = lectiones[selDay];
+    if(readings) {
+      $('.lectio-reference').text(function(i) { return readings[i]; });
+      readings.forEach(function(reading,i) {
+        getReading(reading).then(function(reading) {
+          $($('.lectio-text')[i]).empty().append(reading);
+        });
+      });
+      $('.lectio-text').html(function(i) { return getReading(readings[i], 0); });
+      $('.lectio').show();
+    }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
@@ -726,6 +737,7 @@ $(function(){
     }
   }
   var updateDayNovus = function() {
+    $('.lectio').hide();
     selPropers = propriumNoviOrdinis[selDay + selTempus] || propriumNoviOrdinis[selDay];
     if(selPropers) {
       selPropers.isNovus = true;
@@ -748,7 +760,7 @@ $(function(){
       updatePart($(this).attr('part'));
     });
     var gloriaComesBefore = selPropers && /^before(#.*)/.exec(selPropers.gloria);
-    gloriaComesBefore = gloriaComesBefore? gloriaComesBefore[1] : '#divGraduale';
+    gloriaComesBefore = gloriaComesBefore? gloriaComesBefore[1] : '#divLectio';
     $('#divGloria').insertBefore(gloriaComesBefore);
     var $extraChants = $('#mandatory-extra-chants').empty();
     $('.mandatory-extra-chant').remove();
@@ -1016,6 +1028,7 @@ $(function(){
     } else {
       $('.sel-custom').hide();
     }
+    $('.lectio').hide();
     updateDay();
   };
   var selectedTempus = function(e){
@@ -3402,7 +3415,13 @@ console.info(JSON.stringify(selPropers));
   }
   var touchedElement = null;
   var originalTouch = null;
-  $(document).on('click', '[data-toggle="dropdown"]', function(e) {
+  $(document).on('click', '.toggleShowLectionem', function(e){
+    e.preventDefault();
+    var $showHide = $(this).find('.showHide'),
+        showHide = $showHide.text() == 'Show';
+    $(this).parents('.lectio').first().find('.lectio-text').toggle(showHide);
+    $showHide.text(showHide? 'Hide' : 'Show');
+  }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
   }).on('click', '[part] button.remove-modifications', function(e) {
