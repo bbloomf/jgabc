@@ -614,12 +614,12 @@ $(function(){
   }
   var removeMultipleGraduales = function() {
     var i = 1;
-    var $multipleGraduales = $('.multiple-graduales-'+i);
+    var $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     while($multipleGraduales.length) {
       $multipleGraduales.remove();
       delete sel['graduale'+i];
       ++i;
-      $multipleGraduales = $('.multiple-graduales-'+i);
+      $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     }
   };
   var setGradualeId = function(id) {
@@ -635,6 +635,11 @@ $(function(){
       }
     }
   };
+  var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
+  <div><span class="lectio-reference"></span> <a href="#" class="toggleShowLectionem">(<span class="showHide">Hide</span>)</a></div>\
+  <div class="lectio-text"></div>\
+</div>\
+'
   var gradualeTemplate = '\
   <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span class="lbl">Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
@@ -672,6 +677,7 @@ $(function(){
     var $lastGraduale = $('.multiple-graduales-0');
     while(i <= count) {
       var $newGraduale = $(gradualeTemplate.replace(/\$num\b/g,i));
+      var $newLectio = $(lectioTemplate.replace(/\$num\b/g,i));
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
       $newGraduale.find('select[id^=selStyle]').change(selStyleChanged);
@@ -682,6 +688,9 @@ $(function(){
       
       $lastGraduale.each(function(i){
         $(this).after($newGraduale[i]);
+        if(i == 1) {
+          $(this).after($newLectio);
+        }
       });
       $newGraduale.find('.sel-style').change();
       $lastGraduale = $newGraduale;
@@ -695,16 +704,6 @@ $(function(){
   }
   var updateDay = function() {
     var readings = lectiones[selDay];
-    if(readings) {
-      $('.lectio-reference').text(function(i) { return readings[i]; });
-      readings.forEach(function(reading,i) {
-        getReading(reading).then(function(reading) {
-          $($('.lectio-text')[i]).empty().append(reading);
-        });
-      });
-      $('.lectio-text').html(function(i) { return getReading(readings[i], 0); });
-      $('.lectio').show();
-    }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
@@ -730,6 +729,19 @@ $(function(){
           addMultipleGraduales(selPropers.gradualeID.length - 1);
         }
         if(selPropers.rubrics) addTemporaryRubrics(selPropers.rubrics);
+        if(readings) {
+          $lectiones = $('.lectio');
+          if($lectiones.length > readings.length) {
+            $lectiones = $lectiones.not('.lectio-before-tract');
+          }
+          $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+          readings.forEach(function(reading,i) {
+            getReading(reading).then(function(reading) {
+              $($lectiones[i]).find('.lectio-text').empty().append(reading);
+            });
+          });
+          $lectiones.show();
+        }
       } else {
         selPropers = {};
       }
