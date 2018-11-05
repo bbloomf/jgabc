@@ -545,9 +545,9 @@ R/. Et(f) cla(f)mor(f) me(f)us(f) ad(f) te(f) vé(f)ni(d)at.(d.) (::)"
     }, {
         gabc: "initial-style: 0;\n%%\n(c4)V/. Ré(f)qui(f)em(f) æ(f)tér(f)nam(f) do(f)na (f) e|[e(f)i|is] (f) Dó(f)mi(d)ne.(d.) (::) \
 R/. Et(f) lux(f) pe(f)pé(f)tu(f)a(f) lú(f)ce(f)at (f) e|[e(f)i.|is.] (d.) (::) \
-V/. Re|[Re(g)qui|qui(h)és|és(h)cat|cant] (g') in(h) pa(hg)ce.(g.) (::) \
+<alt>The Cantors:</alt>V/. Re|[Re(g)qui|qui(h)és|és(h)cat|cant] (g') in(h) pa(hg)ce.(g.) (::) \
 R/. A(g)men.(gh..) (::) \
-V/. A|[A(e)ni|ni(e)ma|mæ (e) e|e-{ó}(e)jus|rum] (e) et(e) á(e)ni(e)mæ(e) óm(e)ni(e)um(e) fi(e)dé(e)li(e)um(e) de(e)func(e)tó(e)rum,(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)qui(e)és(e)cant(e) in(e) pa(e)ce.(e.) (::) \
+<alt>The Celebrant:</alt>V/. A|[A(e)ni|ni(e)ma|mæ (e) e|e-{ó}(e)jus|rum] (e) et(e) á(e)ni(e)mæ(e) óm(e)ni(e)um(e) fi(e)dé(e)li(e)um(e) de(e)func(e)tó(e)rum,(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)qui(e)és(e)cant(e) in(e) pa(e)ce.(e.) (::) \
 R/. A(e.)men.(e.) (::)"
     }]
   },
