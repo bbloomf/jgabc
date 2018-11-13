@@ -37,7 +37,8 @@ vulgate.forEach(line => {
     if(regexIVowel.test(word)) {
       syls = latin.hyphenate(word);
       word = syls.map(syl => syl.replace(regexStartIVowel, match => (replaceIJ[match]) )).join('');
-      word = word.replace(/(c[uú])i(us)/g,'$1j$2');
+      word = word.replace(/([Cc][uú])i(us)/g,'$1j$2');
+      word = word.replace(/([Bb][eé]n)i(amin)/i, '$1j$2');
       if(/j/i.test(word)) {
         if(/^(allelúja|Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajunt|ajo|ajon|gajo|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
           word = word.replace(/j/g,'i').replace(/J/g,'I');

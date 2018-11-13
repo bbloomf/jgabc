@@ -157,7 +157,7 @@ var massOrdinary = [{
   kyrie:{id: 541,name: "Kyrie eleison (in Miss. def.)"},
   sanctus:{id: 298,name: "Sanctus XVIII"},
   agnus:{id: 2118,name: "Agnus Dei (in Miss. def.)"},
-  benedicamus:{id: 2227,name: "Benedicamus (ad lib.)"},
+  benedicamus:{id: 823,name: "Requiescant in pace"}
 }];
 
 var ordinaryAdLib = {
