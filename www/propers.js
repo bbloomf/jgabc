@@ -120,6 +120,8 @@ $(function(){
     // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
     // in which case The Holy Family will be on the Saturday following.
     result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
+    result.sundaysAfterPentecost = result.advent1.diff(result.pentecost,'weeks') - 1;
+    result.sundaysAfterEpiphany = result.septuagesima.diff(result.holyFamily,'weeks');
     dateCache[Y] = result;
     return result;
   };
@@ -170,8 +172,8 @@ $(function(){
       m = moment(dates.advent1);
       m.add(parseInt(match[1])-1, 'weeks');
       if(match[2]) m.add("sMTWRFS".indexOf(match[2][0]), 'days');
-    } else if(match = key.match(/Epi(\d)/)) {
-      if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
+    } else if(match = key.match(/^Epi(\d)/)) {
+      // if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
       m = moment(dates.epiphany);
       m = m.add(parseInt(match[1]), 'weeks').subtract(m.day()||(match[1]==1?1:0), 'days');
     } else if(match = key.match(/Quad(\d)([mtwhfs]|Sat)?/)) {
@@ -187,7 +189,7 @@ $(function(){
         m = m.add(day, 'day');
       }
     } else if(match = key.match(/Pent(\d+)([mtwhfs])?/)) {
-      if(match[1] == 23) {
+      if(match[1] == 24) {
         return moment(dates.advent1).subtract(1, 'week');
       }
       m = moment(dates.pentecost).add(parseInt(match[1]), 'weeks');
@@ -202,6 +204,10 @@ $(function(){
         var day = 1 + weekdayKeys.indexOf(match[2]);
         m = m.add(day, 'day');
       }
+    } else if(match = key.match(/PentEpi([3456])/)) {
+      var pentecost24 = 31 - dates.sundaysAfterPentecost,
+          sundaysAfterPentecost = 24 + (match[1] - pentecost24);
+      m = moment(dates.pentecost).add(sundaysAfterPentecost, 'weeks');
     }
     if(m && m.isValid()) return m;
     switch(key) {
@@ -614,12 +620,12 @@ $(function(){
   }
   var removeMultipleGraduales = function() {
     var i = 1;
-    var $multipleGraduales = $('.multiple-graduales-'+i);
+    var $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     while($multipleGraduales.length) {
       $multipleGraduales.remove();
       delete sel['graduale'+i];
       ++i;
-      $multipleGraduales = $('.multiple-graduales-'+i);
+      $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     }
   };
   var setGradualeId = function(id) {
@@ -635,6 +641,11 @@ $(function(){
       }
     }
   };
+  var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
+  <div><span class="lectio-reference"></span> <a href="#" class="toggleShowLectionem">(<span class="showHide">Hide</span>)</a></div>\
+  <div class="lectio-text"></div>\
+</div>\
+'
   var gradualeTemplate = '\
   <li class="disabled multiple-graduales-$num"><a href="#" id="includeGraduale$num"><span class="glyphicon glyphicon-check"></span> <span class="lbl">Graduale</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>\
 <div id="divGraduale$num" part="graduale$num" class="multiple-graduales-$num">\
@@ -672,6 +683,7 @@ $(function(){
     var $lastGraduale = $('.multiple-graduales-0');
     while(i <= count) {
       var $newGraduale = $(gradualeTemplate.replace(/\$num\b/g,i));
+      var $newLectio = $(lectioTemplate.replace(/\$num\b/g,i));
       sel['graduale'+i] = {};
       makeChantContextForSel(sel['graduale'+i]);
       $newGraduale.find('select[id^=selStyle]').change(selStyleChanged);
@@ -682,6 +694,9 @@ $(function(){
       
       $lastGraduale.each(function(i){
         $(this).after($newGraduale[i]);
+        if(i == 1) {
+          $(this).after($newLectio);
+        }
       });
       $newGraduale.find('.sel-style').change();
       $lastGraduale = $newGraduale;
@@ -694,17 +709,9 @@ $(function(){
     return $newGraduale;
   }
   var updateDay = function() {
-    var readings = lectiones[selDay];
-    if(readings) {
-      $('.lectio-reference').text(function(i) { return readings[i]; });
-      readings.forEach(function(reading,i) {
-        getReading(reading).then(function(reading) {
-          $($('.lectio-text')[i]).empty().append(reading);
-        });
-      });
-      $('.lectio-text').html(function(i) { return getReading(readings[i], 0); });
-      $('.lectio').show();
-    }
+    var match = /^Pent(Epi\d)$/.exec(selDay);
+    var lecDay = match? match[1] : selDay;
+    var readings = lectiones[lecDay];
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
@@ -712,7 +719,7 @@ $(function(){
       selPropers.gloria = false;
     }
     $("#extra-chants").empty();
-    sel.extraChants = extraChants[selDay];
+    sel.extraChants = extraChants[selDay] || extraChants[ref];
     if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
       $("#divExtraChants").show();
       showHideExtraChants(false);
@@ -730,6 +737,19 @@ $(function(){
           addMultipleGraduales(selPropers.gradualeID.length - 1);
         }
         if(selPropers.rubrics) addTemporaryRubrics(selPropers.rubrics);
+        if(readings) {
+          $lectiones = $('.lectio');
+          if($lectiones.length > readings.length) {
+            $lectiones = $lectiones.not('.lectio-before-tract');
+          }
+          $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+          readings.forEach(function(reading,i) {
+            getReading(reading).then(function(reading) {
+              $($lectiones[i]).find('.lectio-text').empty().append(reading);
+            });
+          });
+          $lectiones.show();
+        }
       } else {
         selPropers = {};
       }
@@ -2558,9 +2578,13 @@ $(function(){
     EmbSatSeptS: null,
     ChristusRex: null
   };
+  var d = Dates(moment().year());
+  var addCount = Math.max(1, d.sundaysAfterPentecost - 23);
+  if(d.sundaysAfterPentecost == 23) sundayKeys.splice(-1,1);
+  sundayKeys = sundayKeys.concat(ultimaeDominicaePostPentecosten.splice(-addCount));
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
-    var m = dateForSundayKey(sunday.key);
+    var m = dateForSundayKey(sunday.key, d);
     if(!m.isValid()) console.error(sunday);
     sunday.date = m;
     if(sunday.key in outoforder) {
@@ -2587,8 +2611,15 @@ $(function(){
   });
 
   var i = 1;
+  var regexExtraSundayAfterEpiphany = null;
+  if(moment() > d.septuagesima) d = Dates(moment().year()+1);
+  if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
+    if(regexExtraSundayAfterEpiphany.test(sunday.key)) {
+      sundayKeys.splice(i,1);
+      continue;
+    }
     var next = sundayKeys[++i];
     if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now))) {
       moveToEnd = sundayKeys.splice(1, i - 1);

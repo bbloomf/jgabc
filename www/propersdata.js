@@ -3,10 +3,10 @@ var sundayKeys = [
     {key:"Adv1",title:"I Adventus",en:"1st Sunday in Advent"},
     {key:"Adv2",title:"II Adventus",en:"2nd Sunday in Advent"},
     {key:"Adv3",title:"III Adventus",en:"3rd Sunday in Advent"},
-    {key:"Adv3Wed",title:"Feria Quarta IV Temporum in Adventu",en:"Ember Wednesday in Advent"},
-    {key:"Adv3Fri",title:"Feria Sexta IV Temporum in Adventu",en:"Ember Friday in Advent"},
-    {key:"Adv3Sat",title:"Sabbato IV Temporum in Adventu",en:"Ember Saturday in Advent"},
-    {key:"Adv3SatS",title:"Sabbato IV Temporum (forma brevior)",en:"Ember Saturday (shorter form)"},
+    {key:"Adv3w",title:"Feria Quarta IV Temporum in Adventu",en:"Ember Wednesday in Advent"},
+    {key:"Adv3f",title:"Feria Sexta IV Temporum in Adventu",en:"Ember Friday in Advent"},
+    {key:"Adv3s",title:"Sabbato IV Temporum in Adventu",en:"Ember Saturday in Advent"},
+    {key:"Adv3ss",title:"Sabbato IV Temporum (forma brevior)",en:"Ember Saturday (shorter form)"},
     {key:"Adv4",title:"IV Adventus",en:"4th Sunday in Advent"},
     {key:"Dec24",title:"pridie Nativitas",en:"Christmas Eve"},
     {key:"Dec25_1",title:"Nativitas Domini, Missa ad media noctem",en:"The Nativity of our Lord (Christmas), Mass at Midnight"},
@@ -14,11 +14,14 @@ var sundayKeys = [
     {key:"Dec25_3",title:"Nativitas Domini, Missa interdiu",en:"Christmas, Mass during the day"},
     {key:"Nat1",title:"Circumcisione Domini",en:"Sunday within the octave of Christmas"},
     {key:"Jan1",title:"Octava Nativitatis",en:"Octave day of Christmas (Jan 1.)"},
-    {key:"Nat2",title:"Octava St Stephani",en:"Sunday preceding the Epiphany (Holy Name of Jesus)"},
+    {key:"Nat2",title:"Sanctissimi Nominis Jesu",en:"Sunday preceding the Epiphany (Holy Name of Jesus)"},
     {key:"Epi",title:"Epiphania",en:"Epiphany"},
-    {key:"Epi1",title:"I post Epiphaniam",en:"1st Sunday after Epiphany (Holy Family)"},
+    {key:"Epi1",title:"I post Epiphaniam (Sanctæ Familiæ)",en:"1st Sunday after Epiphany (Holy Family)"},
     {key:"Epi2",title:"II post Epiphaniam",en:"2nd Sunday after Epiphany"},
-    {key:"Epi3",title:"III (IV, V, et VI quoque) post Epiphaniam",en:"3rd (also 4th, 5th, and 6th) Sunday after Epiphany"},
+    {key:"Epi3",title:"III post Epiphaniam",en:"3rd Sunday after Epiphany"},
+    {key:"Epi4",title:"IV post Epiphaniam",en:"4th Sunday after Epiphany"},
+    {key:"Epi5",title:"V post Epiphaniam",en:"5th Sunday after Epiphany"},
+    {key:"Epi6",title:"VI post Epiphaniam",en:"6th Sunday after Epiphany"},
     {key:"7a",title:"Septuagesima",en:"Septuagesima"},
     {key:"6a",title:"Sexagesima",en:"Sexagesima"},
     {key:"5a",title:"Quinquagesima",en:"Quinquagesima"},
@@ -123,8 +126,15 @@ var sundayKeys = [
     {key:"Pent20",title:"20 post Pentecosten",en:"20th Sunday after Pentecost"},
     {key:"Pent21",title:"21 post Pentecosten",en:"21st Sunday after Pentecost"},
     {key:"Pent22",title:"22 post Pentecosten",en:"22nd Sunday after Pentecost"},
-    {key:"Pent23",title:"23 (usque ad postrema) post Pentecosten",en:"23rd (through last) Sunday after Pentecost"},
-    {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"}
+    {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"},
+    {key:"Pent23",title:"23 post Pentecosten",en:"23rd Sunday after Pentecost"}
+];
+var ultimaeDominicaePostPentecosten = [
+    {key:"PentEpi3",title:"3. quæ superfuit post Epiphaniam",en:"3rd Sunday after Epiphany"},
+    {key:"PentEpi4",title:"4. quæ superfuit post Epiphaniam",en:"4th Sunday after Epiphany"},
+    {key:"PentEpi5",title:"5. quæ superfuit post Epiphaniam",en:"5th Sunday after Epiphany"},
+    {key:"PentEpi6",title:"6. quæ superfuit post Epiphaniam",en:"6th Sunday after Epiphany"},
+    {key:"Pent24",title:"Ultima post Pentecosten",en:"Last Sunday after Pentecost"}
 ];
 var otherKeys = [
     {title:"Votivæ et Aliæ Missæ...",en:"Votive/Other Masses..."},
@@ -537,7 +547,7 @@ var extraChants = {
 V/. Et(f) ne(f) nos(f) in(f)dú(f)cas(f) in(f) ten(f)ta(f)ti(f)ó(f)nem.(d.) (::) \
 R/. Sed(f) lí(f)be(f)ra(f) nos(f) a(f) ma(f)lo.(d.) (::) \
 V/. A(f) por(f)ta(f) ín(f)fe(d)ri.(d.) (::) \
-R/. E(f)ru(f)e(f) Dó(f)mi(f)ne (f) á|[á(f)ni|ni(f)mam|mas (f) e|e-{ó}(f)jus|rum] (d.) (::) \
+R/. E(f)ru(f)e(f) Dó(f)mi(f)ne (f) á|[á(f)ni|ni(f)mam|mas (f) e|e{ó}(f)jus|rum] (d.) (::) \
 V/. Re|[Re(f)qui|qui(f)és|és(f)cat|cant] (f) in(f) pa(f)ce(d.) (::) \
 R/. A(f)men.(f.) (::) \
 V/. Dó(f)mi(f)ne(f) ex(f)áu(f)di(f) o(f)ra(f)ti(f)ó(f)nem(f) me(f)am.(d.) (::) \
@@ -545,9 +555,9 @@ R/. Et(f) cla(f)mor(f) me(f)us(f) ad(f) te(f) vé(f)ni(d)at.(d.) (::)"
     }, {
         gabc: "initial-style: 0;\n%%\n(c4)V/. Ré(f)qui(f)em(f) æ(f)tér(f)nam(f) do(f)na (f) e|[e(f)i|is] (f) Dó(f)mi(d)ne.(d.) (::) \
 R/. Et(f) lux(f) pe(f)pé(f)tu(f)a(f) lú(f)ce(f)at (f) e|[e(f)i.|is.] (d.) (::) \
-V/. Re|[Re(g)qui|qui(h)és|és(h)cat|cant] (g') in(h) pa(hg)ce.(g.) (::) \
+<alt>The Cantors:</alt>V/. Re|[Re(g)qui|qui(h)és|és(h)cat|cant] (g') in(h) pa(hg)ce.(g.) (::) \
 R/. A(g)men.(gh..) (::) \
-V/. A|[A(e)ni|ni(e)ma|mæ (e) e|e-{ó}(e)jus|rum] (e) et(e) á(e)ni(e)mæ(e) óm(e)ni(e)um(e) fi(e)dé(e)li(e)um(e) de(e)func(e)tó(e)rum,(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)qui(e)és(e)cant(e) in(e) pa(e)ce.(e.) (::) \
+<alt>The Celebrant:</alt>V/. A|[A(e)ni|ni(e)ma|mæ (e) e|e(e)jus|{ó}rum] (e) et(e) á(e)ni(e)mæ(e) óm(e)ni(e)um(e) fi(e)dé(e)li(e)um(e) de(e)func(e)tó(e)rum,(e) per(e) mi(e)se(e)ri(e)cór(e)di(e)am(e) De(e)i(e) re(e)qui(e)és(e)cant(e) in(e) pa(e)ce.(e.) (::) \
 R/. A(e.)men.(e.) (::)"
     }]
   },
@@ -1299,10 +1309,10 @@ var proprium = {
   Adv1: {introitusID:132,offertoriumID:962,communioID:1036,alleluiaID:1115,gradualeID:1169},
   Adv2: {introitusID:356,offertoriumID:631,communioID:966,alleluiaID:292,gradualeID:1268},
   Adv3: {introitusID:1225,offertoriumID:113,communioID:218,alleluiaID:855,gradualeID:1007},
-  Adv3Wed: {introitusID:79, gradualeID: [756,284], offertoriumID:290, communioID:1144},
-  Adv3Fri: {introitusID:86, gradualeID: 1055, offertoriumID:631, communioID:439},
-  Adv3Sat: {introitusID:169, gradualeID: [698,203,38,506,2166], tractusID:1157, offertoriumID:929, communioID:88},
-  Adv3SatS: {introitusID:169, gradualeID: 698, tractusID:1157, offertoriumID:929, communioID:88},
+  Adv3w: {introitusID:79, gradualeID: [756,284], offertoriumID:290, communioID:1144},
+  Adv3f: {introitusID:86, gradualeID: 1055, offertoriumID:631, communioID:439},
+  Adv3s: {introitusID:169, gradualeID: [698,203,38,506,2166], tractusID:1157, offertoriumID:929, communioID:88},
+  Adv3ss: {introitusID:169, gradualeID: 698, tractusID:1157, offertoriumID:929, communioID:88},
   Adv4: {introitusID:79,offertoriumID:210,communioID:1144,alleluiaID:224,gradualeID:284},
   Epi1: {introitusID:336,offertoriumID:93,communioID:626,gradualeID:260,alleluiaID:816},
   Epi2: {introitusID:13,offertoriumID:937,communioID:230,alleluiaID:538,gradualeID:932},
@@ -1360,11 +1370,11 @@ var proprium = {
   Pent21: {introitusID:1047,offertoriumID:1363,communioID:1290,alleluiaID:1380,gradualeID:1108},
   Pent22: {introitusID:1271,offertoriumID:67,communioID:464,alleluiaID:933,gradualeID:614},
   Pent23: {introitusID:735,offertoriumID:986,communioID:592,alleluiaID:331,gradualeID:395},
-  Pent24: {introitusID:735,offertoriumID:986,communioID:592,alleluiaID:331,gradualeID:395},
-  PentEpi3: {introitusID:735},
-  PentEpi4: {introitusID:735},
-  PentEpi5: {introitusID:735},
-  PentEpi6: {introitusID:735},
+  Pent24: {ref: "Pent23"},
+  PentEpi3: {ref:"Pent23"},
+  PentEpi4: {ref:"Pent23"},
+  PentEpi5: {ref:"Pent23"},
+  PentEpi6: {ref:"Pent23"},
   "7a": {introitusID:1168,offertoriumID:1194,communioID:640,tractusID:926,gradualeID:222},
   "6a": {introitusID:529,offertoriumID:265,communioID:554,tractusID:1178,gradualeID:1265},
   "5a": {introitusID:1381,offertoriumID:1317,communioID:677,tractusID:1299,gradualeID:850},
