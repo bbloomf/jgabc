@@ -120,6 +120,7 @@ $(function(){
     // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
     // in which case The Holy Family will be on the Saturday following.
     result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
+    result.sundaysAfterPentecost = result.advent1.diff(result.pentecost,'weeks') - 1;
     dateCache[Y] = result;
     return result;
   };
@@ -170,7 +171,7 @@ $(function(){
       m = moment(dates.advent1);
       m.add(parseInt(match[1])-1, 'weeks');
       if(match[2]) m.add("sMTWRFS".indexOf(match[2][0]), 'days');
-    } else if(match = key.match(/Epi(\d)/)) {
+    } else if(match = key.match(/^Epi(\d)/)) {
       if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
       m = moment(dates.epiphany);
       m = m.add(parseInt(match[1]), 'weeks').subtract(m.day()||(match[1]==1?1:0), 'days');
@@ -187,7 +188,7 @@ $(function(){
         m = m.add(day, 'day');
       }
     } else if(match = key.match(/Pent(\d+)([mtwhfs])?/)) {
-      if(match[1] == 23) {
+      if(match[1] == 24) {
         return moment(dates.advent1).subtract(1, 'week');
       }
       m = moment(dates.pentecost).add(parseInt(match[1]), 'weeks');
@@ -202,6 +203,10 @@ $(function(){
         var day = 1 + weekdayKeys.indexOf(match[2]);
         m = m.add(day, 'day');
       }
+    } else if(match = key.match(/PentEpi([3456])/)) {
+      var pentecost24 = 31 - dates.sundaysAfterPentecost,
+          sundaysAfterPentecost = 24 + (match[1] - pentecost24);
+      m = moment(dates.pentecost).add(sundaysAfterPentecost, 'weeks');
     }
     if(m && m.isValid()) return m;
     switch(key) {
@@ -703,7 +708,9 @@ $(function(){
     return $newGraduale;
   }
   var updateDay = function() {
-    var readings = lectiones[selDay];
+    var match = /^Pent(Epi\d)$/.exec(selDay);
+    var lecDay = match? match[1] : selDay;
+    var readings = lectiones[lecDay];
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
@@ -711,7 +718,7 @@ $(function(){
       selPropers.gloria = false;
     }
     $("#extra-chants").empty();
-    sel.extraChants = extraChants[selDay];
+    sel.extraChants = extraChants[selDay] || extraChants[ref];
     if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
       $("#divExtraChants").show();
       showHideExtraChants(false);
@@ -2570,9 +2577,13 @@ $(function(){
     EmbSatSeptS: null,
     ChristusRex: null
   };
+  var d = Dates(moment().year());
+  var addCount = Math.max(1, d.sundaysAfterPentecost - 23);
+  if(d.sundaysAfterPentecost == 23) sundayKeys.splice(-1,1);
+  sundayKeys = sundayKeys.concat(ultimaeDominicaePostPentecosten.splice(-addCount));
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
-    var m = dateForSundayKey(sunday.key);
+    var m = dateForSundayKey(sunday.key, d);
     if(!m.isValid()) console.error(sunday);
     sunday.date = m;
     if(sunday.key in outoforder) {

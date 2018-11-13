@@ -123,8 +123,15 @@ var sundayKeys = [
     {key:"Pent20",title:"20 post Pentecosten",en:"20th Sunday after Pentecost"},
     {key:"Pent21",title:"21 post Pentecosten",en:"21st Sunday after Pentecost"},
     {key:"Pent22",title:"22 post Pentecosten",en:"22nd Sunday after Pentecost"},
-    {key:"Pent23",title:"23 (usque ad postrema) post Pentecosten",en:"23rd (through last) Sunday after Pentecost"},
-    {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"}
+    {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"},
+    {key:"Pent23",title:"23 post Pentecosten",en:"23rd Sunday after Pentecost"}
+];
+var ultimaeDominicaePostPentecosten = [
+    {key:"PentEpi3",title:"3. quæ superfuit post Epiphaniam",en:"3rd Sunday after Epiphany"},
+    {key:"PentEpi4",title:"4. quæ superfuit post Epiphaniam",en:"4th Sunday after Epiphany"},
+    {key:"PentEpi5",title:"5. quæ superfuit post Epiphaniam",en:"5th Sunday after Epiphany"},
+    {key:"PentEpi6",title:"6. quæ superfuit post Epiphaniam",en:"6th Sunday after Epiphany"},
+    {key:"Pent24",title:"Ultima post Pentecosten",en:"Last Sunday after Pentecost"}
 ];
 var otherKeys = [
     {title:"Votivæ et Aliæ Missæ...",en:"Votive/Other Masses..."},
@@ -1360,11 +1367,11 @@ var proprium = {
   Pent21: {introitusID:1047,offertoriumID:1363,communioID:1290,alleluiaID:1380,gradualeID:1108},
   Pent22: {introitusID:1271,offertoriumID:67,communioID:464,alleluiaID:933,gradualeID:614},
   Pent23: {introitusID:735,offertoriumID:986,communioID:592,alleluiaID:331,gradualeID:395},
-  Pent24: {introitusID:735,offertoriumID:986,communioID:592,alleluiaID:331,gradualeID:395},
-  PentEpi3: {introitusID:735},
-  PentEpi4: {introitusID:735},
-  PentEpi5: {introitusID:735},
-  PentEpi6: {introitusID:735},
+  Pent24: {ref: "Pent23"},
+  PentEpi3: {ref:"Pent23"},
+  PentEpi4: {ref:"Pent23"},
+  PentEpi5: {ref:"Pent23"},
+  PentEpi6: {ref:"Pent23"},
   "7a": {introitusID:1168,offertoriumID:1194,communioID:640,tractusID:926,gradualeID:222},
   "6a": {introitusID:529,offertoriumID:265,communioID:554,tractusID:1178,gradualeID:1265},
   "5a": {introitusID:1381,offertoriumID:1317,communioID:677,tractusID:1299,gradualeID:850},
