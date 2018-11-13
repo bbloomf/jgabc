@@ -121,6 +121,7 @@ $(function(){
     // in which case The Holy Family will be on the Saturday following.
     result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
     result.sundaysAfterPentecost = result.advent1.diff(result.pentecost,'weeks') - 1;
+    result.sundaysAfterEpiphany = result.septuagesima.diff(result.holyFamily,'weeks');
     dateCache[Y] = result;
     return result;
   };
@@ -172,7 +173,7 @@ $(function(){
       m.add(parseInt(match[1])-1, 'weeks');
       if(match[2]) m.add("sMTWRFS".indexOf(match[2][0]), 'days');
     } else if(match = key.match(/^Epi(\d)/)) {
-      if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
+      // if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
       m = moment(dates.epiphany);
       m = m.add(parseInt(match[1]), 'weeks').subtract(m.day()||(match[1]==1?1:0), 'days');
     } else if(match = key.match(/Quad(\d)([mtwhfs]|Sat)?/)) {
@@ -2610,8 +2611,15 @@ $(function(){
   });
 
   var i = 1;
+  var regexExtraSundayAfterEpiphany = null;
+  if(moment() > d.septuagesima) d = Dates(moment().year()+1);
+  if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
+    if(regexExtraSundayAfterEpiphany.test(sunday.key)) {
+      sundayKeys.splice(i,1);
+      continue;
+    }
     var next = sundayKeys[++i];
     if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now))) {
       moveToEnd = sundayKeys.splice(1, i - 1);
