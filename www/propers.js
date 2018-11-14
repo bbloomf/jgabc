@@ -642,8 +642,10 @@ $(function(){
     }
   };
   var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
-  <div><span class="lectio-reference"></span> <a href="#" class="toggleShowLectionem">(<span class="showHide">Hide</span>)</a></div>\
-  <div class="lectio-text"></div>\
+  <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">Both</option></select></div>\
+  <div class="lectio-text">\
+    <div class="lectio-latin"></div>\
+    <div class="lectio-english"></div></div>\
 </div>\
 '
   var gradualeTemplate = '\
@@ -744,11 +746,16 @@ $(function(){
           }
           $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
           readings.forEach(function(reading,i) {
-            getReading(reading).then(function(reading) {
-              $($lectiones[i]).find('.lectio-text').empty().append(reading);
+            [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+              var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
+              getReading({ref:reading,edition:edition.e}).then(function(reading) {
+                $lectio.append(reading);
+              });
             });
           });
           $lectiones.show();
+          var defaultVal = localStorage.showLectionem || ''
+          $('.selectShowLectionem').val(defaultVal).change();
         }
       } else {
         selPropers = {};
@@ -3446,12 +3453,14 @@ console.info(JSON.stringify(selPropers));
   }
   var touchedElement = null;
   var originalTouch = null;
-  $(document).on('click', '.toggleShowLectionem', function(e){
+  $(document).on('change', '.selectShowLectionem', function(e){
     e.preventDefault();
-    var $showHide = $(this).find('.showHide'),
-        showHide = $showHide.text() == 'Show';
-    $(this).parents('.lectio').first().find('.lectio-text').toggle(showHide);
-    $showHide.text(showHide? 'Hide' : 'Show');
+    var val = $(this).val();
+    localStorage.showLectionem = val;
+    val = val.split(',').map(function(val) { return '.lectio-'+val; }).join(',');
+    var $lectio = $(this).parents('.lectio').first();
+    $lectio.find('.lectio-text > *').hide();
+    $lectio.find(val).show();
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
