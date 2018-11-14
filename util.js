@@ -946,7 +946,7 @@ if(typeof window=='object') (function(window) {
     $('#mediaControls').addClass('offscreen');
   }
   window.removeChantContextMenus = function() {
-    $('svg.ChantScore use[source-index].active,svg.ChantScore text[source-index]:not(.dropCap).active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
+    $('svg.ChantScore use[source-index].active,svg.ChantScore text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
     $('.chant-context').remove();
     $('.btn-group.open').removeClass('open');
     if(_isPlaying) window.highlightCurrentlyPlayingNote && window.highlightCurrentlyPlayingNote();
@@ -1513,6 +1513,11 @@ if(typeof $=='function') $(function($) {
 
 
 function getReading(source, returnText) {
+  var edition = 'vulgate';
+  if(typeof(source) == 'object') {
+    edition = source.edition || edition;
+    source = source.ref;
+  }
   var match = /\s*(?:(\d)\s+)?([A-Z][a-zæœ]+)(.*)/.exec(source),
       bookNumber = match[1],
       book = match[2],
@@ -1524,7 +1529,7 @@ function getReading(source, returnText) {
     book += ' ' + bookNumber;
   }
   var result = $.Deferred();
-  $.get('vulgate/'+book).then(function(book) {
+  $.get(edition+'/'+book).then(function(book) {
     var match = /(\d+)\s*(?:[,:]\s*(\d+)\s*(?:-(\d+))?\s*)?/.exec(numbers);
     var chapter = match[1],
         verse = match[2],

@@ -248,6 +248,25 @@ syl.bold {
   width: 1em;
 }
 
+.lectio-text {
+  display: flex;
+  margin: 0 -9pt;
+}
+.lectio-text > * {
+  flex: 0 1 auto;
+  margin: 0 9pt;
+}
+
+@media(max-width: 524px) {
+  .lectio-text {
+    flex-wrap: wrap;
+    margin: -9pt 0;
+  }
+  .lectio-text > * {
+    margin: 9pt 0;
+  }
+}
+
 @media(min-width: 624px) {
   .verses,
   .asperges-verses {
