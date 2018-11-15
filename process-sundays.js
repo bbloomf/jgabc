@@ -53,6 +53,7 @@ var fs = require("fs"),
     lex = {};
 
 keys.forEach(key => {
+  if(/(Pasch|Quad)$/.test(key)) return;
   var dir = dirTempora;
   var k = key;
   var match = /^Pent(\d)(\D*)$/.exec(k);
@@ -132,6 +133,6 @@ keys.forEach(key => {
 fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex,0,' ')};
 var mapTitleLectionis = ${JSON.stringify(mapTitle)}`, 'utf8');
 //console.info(mapTitle);
-console.info(missing);
-console.info(missing.length);
-//console.info(notFound);
+//console.info(missing);
+//console.info(missing.length);
+console.info(notFound);
