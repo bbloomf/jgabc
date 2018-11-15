@@ -1525,8 +1525,10 @@ function getReading(source, returnText) {
   if(book in mapBooks) {
     book = mapBooks[book];
   }
+  var bookName = book;
   if(bookNumber) {
     book += ' ' + bookNumber;
+    bookName = bookNumber + ' ' + bookName;
   }
   var result = $.Deferred();
   $.get(edition+'/'+book).then(function(book) {

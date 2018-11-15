@@ -1,7 +1,9 @@
 "use strict";
 var fs = require("fs"),
-    dirTempora = '../divinum-officium-website/web/www/missa/Latin/Tempora/',
-    dirSancti = '../divinum-officium-website/web/www/missa/Latin/Sancti/',
+    dirMain = '../divinum-officium-website/web/www/missa/Latin/',
+    dirTempora = dirMain + 'Tempora/',
+    dirSancti = dirMain + 'Sancti/',
+    dirCommune = dirMain + 'Commune/',
     //vulgatePsalms = fs.readFileSync('psalms/vulgate','utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
     proprium = require("./propersdata.js").proprium,
     keys = Object.keys(proprium),
@@ -70,7 +72,7 @@ keys.forEach(key => {
     ending = daysOfWeek.indexOf(match[1]);
   }
   // check if from Sancti:
-  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)/.exec(key);
+  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)$/.exec(key);
   if(match) {
     dir = dirSancti;
     k = 'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'.indexOf(match[1]) / 4;
@@ -81,13 +83,33 @@ keys.forEach(key => {
   var fname = `${dir}${k}-${ending}.txt`;
   var exists = fs.existsSync(fname);
   if(!exists) {
-    notFound.push(key);
+    notFound.push(fname);
     return;
   }
   var info = fs.readFileSync(fname,'utf8');
   var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
+  while(!lectiones) {
+    var reference = info.match(/\[Rule\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
+    if(!reference) reference = info.match(/\[Rank1960\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
+    if(!reference) reference = info.match(/\[Rank\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
+    if(!reference) break;
+    fname = reference[3];
+    if(fname.indexOf('/') < 0) {
+      fname = dirCommune + fname;
+    } else {
+      fname = dirMain + fname;
+    }
+    fname += '.txt';
+    exists = fs.existsSync(fname);
+    if(!exists) {
+      throw 'Not found: ' + fname + ` (${k}-${ending}})`;
+      return;
+    }
+    info = fs.readFileSync(fname,'utf8');
+    lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
+  }
   if(!lectiones) {
-    missing.push(key);
+    missing.push(fname + ': ' + key);
     return;
   }
   lex[key] = lectiones.map(lectio => {
@@ -107,8 +129,9 @@ keys.forEach(key => {
     return `${bookNumber}${bookAbbreviation} ${numbers}`;
   });
 });
-fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex)};
+fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex,0,' ')};
 var mapTitleLectionis = ${JSON.stringify(mapTitle)}`, 'utf8');
-console.info(mapTitle);
-// console.info(missing);
-// console.info(missing.length);
+//console.info(mapTitle);
+console.info(missing);
+console.info(missing.length);
+//console.info(notFound);
