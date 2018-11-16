@@ -2295,7 +2295,6 @@ $(function(){
       .replace(/<\/?i>/g,'_')
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
-        .replace(/\[([^\]]+)\](?=\()/g,'\|$1')  // Translations are basically just additional lyrics
         .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {

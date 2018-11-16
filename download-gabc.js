@@ -124,18 +124,20 @@ var path = 'gabc/',
                       .replace(/(\w)(\([^)]+\)\s+):/g,'$1:$2')
                       .replace(/[/ ]+\)/g,')')
                       .replace(/!\//g,'/')
-                      .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n');
+                      .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n')
+                      .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
+                      .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1');
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
-                    content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ{}*<>\/]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ{}<>\/]+(?=[,.;:!?\s»"'‘’“”]))?/gi, function(whole, first, second, index, content){
+                    content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ|{}*<>\/]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ|{}<>\/]+(?=[,.;:!?\s»"'‘’“”]))?/gi, function(whole, first, second, index, content){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
                       // 3. verify same number of syllables
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
-                      if(whole.match(/<i>/)) return whole;
+                      if(whole.match(/<i>|\|/)) return whole;
                       var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/gi;
                       var match,
                           syls = [];
