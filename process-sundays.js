@@ -73,19 +73,24 @@ keys.forEach(key => {
     ending = daysOfWeek.indexOf(match[1]);
   }
   // check if from Sancti:
-  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)$/.exec(key);
+  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)(?:_(\d))?$/.exec(key);
   if(match) {
     dir = dirSancti;
     k = 'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'.indexOf(match[1]) / 4;
     k = ('0' + (1+k)).slice(-2);
     ending = ('0' + match[2]).slice(-2);
+    if(match[3]) ending += 'm' + match[3];
   }
 
   var fname = `${dir}${k}-${ending}.txt`;
   var exists = fs.existsSync(fname);
   if(!exists) {
-    notFound.push(fname);
-    return;
+    fname = `${dir}${k}-${ending}r.txt`;
+    exists = fs.existsSync(fname);
+    if(!exists) {
+      notFound.push(`${dir}${k}-${ending}.txt`);
+      return;
+    }
   }
   var info = fs.readFileSync(fname,'utf8');
   var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
@@ -136,3 +141,4 @@ var mapTitleLectionis = ${JSON.stringify(mapTitle)}`, 'utf8');
 //console.info(missing);
 //console.info(missing.length);
 console.info(notFound);
+console.info(notFound.length);
