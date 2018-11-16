@@ -1,13 +1,47 @@
 "use strict";
 var fs = require("fs"),
-    dirTempora = '../divinum-officium-website/web/www/missa/Latin/Tempora/',
-    dirSancti = '../divinum-officium-website/web/www/missa/Latin/Sancti/',
+    dirMain = '../divinum-officium-website/web/www/missa/Latin/',
+    dirTempora = dirMain + 'Tempora/',
+    dirSancti = dirMain + 'Sancti/',
+    dirCommune = dirMain + 'Commune/',
     //vulgatePsalms = fs.readFileSync('psalms/vulgate','utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
     proprium = require("./propersdata.js").proprium,
     keys = Object.keys(proprium),
     daysOfWeek = ' mtwhfs',
     notFound = [],
     missing = [],
+    mapSpecial = {
+      SMadvent: dirCommune+'C10a',
+      SMchristmas: dirCommune+'C10b',
+      SMlent: dirCommune+'C10c',
+      SMeaster: dirCommune+'C10Pasc',
+      SMpentecost: dirCommune+'C10',
+      ChristusRex: dirSancti+'10-DU',
+      votiveSCJ: dirTempora+'Pent02-5',
+      SCJ: dirTempora+'Pent02-5',
+      // votiveST: '',
+      // votiveA: '',
+      // votiveSS: '',
+      // votiveSES: '',
+      // votiveJCSES: '',
+      // votiveSC: '',
+      // votivePJC: '',
+      // votiveJ: '',
+      // votivePP: '',
+      // votiveOA: '',
+      // nuptialis: '',
+      defunctorum: dirCommune+'C9',
+      dedicatio: dirCommune+'C8',
+      Epi: dirSancti+'01-06',
+      Asc: dirTempora+'Pasc5-4',
+      CorpusChristi: dirTempora+'Pent01-4',
+      EmbWedSept: dirTempora+'093-3',
+      EmbFriSept: dirTempora+'093-5',
+      EmbSatSept: dirTempora+'093-6'
+      // EmbSatSeptS: '',
+      // Adv3ss: '',
+      // Pasc7ss: '',
+    },
     mapBooks = {
       "Act": "Actus Apostolorum",
       "Acts": "Actus Apostolorum",
@@ -51,6 +85,7 @@ var fs = require("fs"),
     lex = {};
 
 keys.forEach(key => {
+  if(/(Pasch|Quad)$/.test(key)) return;
   var dir = dirTempora;
   var k = key;
   var match = /^Pent(\d)(\D*)$/.exec(k);
@@ -70,24 +105,58 @@ keys.forEach(key => {
     ending = daysOfWeek.indexOf(match[1]);
   }
   // check if from Sancti:
-  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)/.exec(key);
+  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)(?:_(\d)|or\d+)?$/.exec(key);
   if(match) {
     dir = dirSancti;
     k = 'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'.indexOf(match[1]) / 4;
     k = ('0' + (1+k)).slice(-2);
     ending = ('0' + match[2]).slice(-2);
+    if(match[3]) ending += 'm' + match[3];
   }
 
   var fname = `${dir}${k}-${ending}.txt`;
+  if(key in mapSpecial) {
+    dir = '';
+    k = mapSpecial[key];
+    fname = k + '.txt';
+  }
+
   var exists = fs.existsSync(fname);
   if(!exists) {
-    notFound.push(key);
-    return;
+    if(key in mapSpecial) {
+      throw fname;
+    }
+    fname = `${dir}${k}-${ending}r.txt`;
+    exists = fs.existsSync(fname);
+    if(!exists) {
+      notFound.push(`${dir}${k}-${ending}.txt`);
+      return;
+    }
   }
   var info = fs.readFileSync(fname,'utf8');
   var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
+  while(!lectiones) {
+    var reference = info.match(/\[Rule\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
+    if(!reference) reference = info.match(/\[Rank1960\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
+    if(!reference) reference = info.match(/\[Rank\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
+    if(!reference) break;
+    fname = reference[3];
+    if(fname.indexOf('/') < 0) {
+      fname = dirCommune + fname;
+    } else {
+      fname = dirMain + fname;
+    }
+    fname += '.txt';
+    exists = fs.existsSync(fname);
+    if(!exists) {
+      throw 'Not found: ' + fname + ` (${k}-${ending}})`;
+      return;
+    }
+    info = fs.readFileSync(fname,'utf8');
+    lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
+  }
   if(!lectiones) {
-    missing.push(key);
+    missing.push(fname + ': ' + key);
     return;
   }
   lex[key] = lectiones.map(lectio => {
@@ -107,8 +176,10 @@ keys.forEach(key => {
     return `${bookNumber}${bookAbbreviation} ${numbers}`;
   });
 });
-fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex)};
+fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex,0,' ')};
 var mapTitleLectionis = ${JSON.stringify(mapTitle)}`, 'utf8');
-console.info(mapTitle);
-// console.info(missing);
-// console.info(missing.length);
+//console.info(mapTitle);
+//console.info(missing);
+//console.info(missing.length);
+console.info(notFound);
+console.info(notFound.length);
