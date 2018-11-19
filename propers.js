@@ -2253,7 +2253,7 @@ $(function(){
         gabc = gabc.replace(/[+†](\([^)]+\)\s?)?[^+†]+?(([+†]|<\/i>)+[^\w()]*(\(:*\)\s*)*)+\s*/,'$1');
       } else {
         // remove the + marker and the second part [the part after the (::)]:
-        gabc = gabc.replace(/[+†](?:\(\))?\s*([^+†]+?)(?:<i>.*?<\/i>)?(\(::\)).*/,'$1$2');
+        gabc = gabc.replace(/[+†](?:\(\))?\s*([^+†]+)(\(::\))[^+†]*[+†][^+†]*\(::\)/,'$1$2');
       }
     }
     if(TP) {
