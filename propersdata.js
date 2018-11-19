@@ -164,6 +164,8 @@ var otherKeys = [
     {key:"SMlent",title:"A Purificatione usque ad Pascha",en:"From Candlemas to Easter"},
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
+    {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
+    {key:"votiveECJ",title:"Missa votiva de Eucharistico Corde Jesu",en:"Votive Mass of the Eucharistic Heart of Jesus"}
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -1248,6 +1250,8 @@ var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"
 //{key:"",title:"",en:""}
 var gabcReplaceRemoveAlleluiaSacerdotesDomini = [/e\([^)]+\)[ij]us,(?:\([^)]+\)\s*)+al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\(/i, 'e(fgf)jus.(ff/'];
 var gabcRemoveLastAlleluia = [/\([:;,]\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a\.\([^)]+\)(?=\s+\(::\)\s*$)/i, ''];
+var gabcRemoveLastIntroitAlleluia = [/(\([:;,]\)\s*al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,]\([^)]+\)\s*)+(?=\s+\(::\)\s*)/i, ''];
+var rubricECJ = {"before#divIntroitus": "In voitve Masses outside of Paschal time, <Allelúia.> is omitted from the Introit."};
 var proprium = {
   SMadvent: {introitusID:161,gradualeID:756,alleluiaID:1209,offertoriumID:843,communioID:1144},
   SMchristmas: {introitusID:124,gradualeID:1308,alleluiaID:127,offertoriumID:280,communioID:160},
@@ -1261,6 +1265,10 @@ var proprium = {
   votiveSCJPasch: {introitusID:1320,gradualeID:907,alleluiaID:1237,offertoriumID:319,communioID:154},
   votiveSCJ: {ref:"SCJ"},
   SCJ: {introitusID:1320,gradualeID:1035,alleluiaID:907,offertoriumID:628,communioID:1356},
+  ECJ: {introitusID:676,gradualeID:492,alleluiaID:10,offertoriumID:683,communioID:730,rubrics:rubricECJ},
+  votiveECJ: {ref:"ECJ"},
+  votiveECJQuad: {introitusID:676,gradualeID:492,tractus:343,offertoriumID:683,communioID:730,introitusReplace: gabcRemoveLastIntroitAlleluia},
+  votiveECJPasch: {introitusID:676,gradualeID:10,alleluiaID:29,offertoriumID:683,communioID:730},
   votiveST: {introitusID:349,gradualeID:965,alleluiaID:1289,offertoriumID:1303,communioID:391},
   votiveSTQuad: {introitusID:349,gradualeID:965,tractusID:763,offertoriumID:1303,communioID:391},
   votiveSTPasch: {introitusID:349,gradualeID:1289,alleluiaID:744,offertoriumID:1303,communioID:391},
