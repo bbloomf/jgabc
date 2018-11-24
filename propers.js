@@ -3456,10 +3456,11 @@ console.info(JSON.stringify(selPropers));
     e.preventDefault();
     var val = $(this).val();
     localStorage.showLectionem = val;
-    val = val.split(',').map(function(val) { return '.lectio-'+val; }).join(',');
+    var selector = val.split(',').map(function(val) { return '.lectio-'+val; }).join(',');
     var $lectio = $(this).parents('.lectio').first();
+    $lectio.find('.lectio-text').toggle(!!val);
     $lectio.find('.lectio-text > *').hide();
-    $lectio.find(val).show();
+    $lectio.find(selector).show();
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
