@@ -2711,6 +2711,7 @@ $(function(){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
     selOrdinaries[part + 'ID'] = this.value;
+    $('div[part='+part+']').removeClass('modified');
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   })
