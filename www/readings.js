@@ -48,7 +48,8 @@ function updateEditor(forceGabcUpdate,_syl) {
   var psalmToneStack = gConclusion;
   for(var i = lines.length - 1; i>=0; --i){
     var line = lines[i][1];
-    var punctuation = lines[i][2][0];
+    var punctuation = lines[i][2];
+    punctuation = (punctuation.match(/[+^]/) || punctuation)[0]
     var loop = false;
     do{
       psalmTone = psalmToneStack.pop();
@@ -398,7 +399,7 @@ var splitSentences = (function(){
     return (gabc.match(/'[a-m]/g) || ['']).length;
   }
 
-  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+($|,(?=[,\r\n])|[+^~.?!;:](?:\s*[:+])?["'“”‘’]*)),?\s*/gi;
+  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+($|,(?=[,\r\n])|[+^~.?!;:](?:\s*[:+^])?["'“”‘’]*)),?\s*/gi;
   return function(text){
     var question = countAccents($("#txtQuestion").val());
     var mediant = countAccents($("#txtMediant").val());
