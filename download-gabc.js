@@ -40,6 +40,7 @@ https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages
 });
 var removeAcuteAccents = (word) => (word.replace(/[ǽáéíóúý]/gi, (v => ({
   "Ǽ": "Æ",
+  "Œ́": "Œ",
   "Á": "A",
   "É": "E",
   "Í": "I",
@@ -47,6 +48,7 @@ var removeAcuteAccents = (word) => (word.replace(/[ǽáéíóúý]/gi, (v => ({
   "Ú": "U",
   "Ý": "Y",
   "ǽ": "æ",
+  "œ́": "œ",
   "á": "a",
   "é": "e",
   "í": "i",
@@ -130,7 +132,7 @@ var path = 'gabc/',
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
-                    content = content.replace(/([a-zæœǽáéíóúýäëïöüÿ|{}*<>\/]*\([^)]*\))+([a-zæœǽáéíóúýäëïöüÿ|{}<>\/]+(?=[,.;:!?\s»"'‘’“”]))?/gi, function(whole, first, second, index, content){
+                    content = content.replace(/([a-zæœǽœ́áéíóúýäëïöüÿ|{}*<>\/]*\([^)]*\))+([a-zæœǽœ́áéíóúýäëïöüÿ|{}<>\/]+(?=[,.;:!?\s»"'‘’“”]))?/gi, function(whole, first, second, index, content){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
@@ -138,7 +140,7 @@ var path = 'gabc/',
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
                       if(whole.match(/<i>|\|/)) return whole;
-                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽáéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/gi;
+                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(\([^)]+\)|[,.;:!?]$|$)/gi;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
@@ -148,20 +150,20 @@ var path = 'gabc/',
                       }
                       var word = syls.join('');
                       if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
-                        syls = syls.map(s => s.replace(/(?:(I)|i)(?=[AEIOUYÆŒǼÁÉÍÓÚÝÄËÏÖÜŸaeiouyæœǽáéíóúýäëïöüÿ])/, (all,i) => (i? 'J' : 'j')));
+                        syls = syls.map(s => s.replace(/(?:(I)|i)(?=[AEIOUYÆŒǼÁÉÍÓÚÝÄËÏÖÜŸaeiouyæœǽœ́áéíóúýäëïöüÿ])/, (all,i) => (i? 'J' : 'j')));
                         if(word != syls.join('')) {
                           console.info(word, file);
                           errors.push(file + ': ' + word + '; replaced with ' + JSON.stringify(syls));
                         }
                         word = syls.join('');
                       }
-                      var accentCount = (word.match(/[ǽáéíóúý]/gi)||[]).length;
+                      var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
                       var vowelCount = (word.match(/[aá]u|(qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       if(vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
                       }
-                      if(syls.length && syls.slice(-1)[0].match(/[ǽáéíóúý](?![aeiouyæœǽáéíóúýäëïöüÿ])/)) {
+                      if(syls.length && syls.slice(-1)[0].match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
                         console.error(word, 'accent on final syllable', file, content.slice(index, index + 100));
                         throw 1;
                       }
@@ -170,7 +172,7 @@ var path = 'gabc/',
                       }
                       var otherSyls = latin.hyphenate(word);
                       if(otherSyls.length != syls.length ||
-                         (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽaeiouyáéíóúýäëïöüÿ]/i)))) {
+                         (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽœ́aeiouyáéíóúýäëïöüÿ]/i)))) {
                         if(syls.length && (syls.length > 1 || syls[0] != '}')) {
                           console.error(file, syls, otherSyls);
                           errors.push(file + ': ' + JSON.stringify(syls) + '::' + JSON.stringify(otherSyls));
