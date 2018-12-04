@@ -157,6 +157,8 @@ var path = 'gabc/',
                         syls.push(match[1].replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ').replace(/O[Ee]/,'Œ'));
                       }
                       var word = syls.join('');
+                      // ignore any words that have no syllables:
+                      if(/^[^a-zæœǽœ́áéíóúýäëïöüÿ]*$/i.test(word)) return whole;
                       if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
                         syls = syls.map(s => s.replace(/(?:(I)|i)(?=[AEIOUYÆŒǼÁÉÍÓÚÝÄËÏÖÜŸaeiouyæœǽœ́áéíóúýäëïöüÿ])/, (all,i) => (i? 'J' : 'j')));
                         if(word != syls.join('')) {
@@ -198,7 +200,7 @@ var path = 'gabc/',
                         });
                       }
                     });
-                    if(!isMiscChant) {
+                    if(!isMiscChant && h.officePart && h.officePart != 'Kyriale') {
                       texts[h.officePart] = texts[h.officePart] || {};
                       texts[h.officePart][ids[i]] = text.join(' ');
                     }
