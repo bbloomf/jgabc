@@ -52,7 +52,7 @@ var mapBooks = {
   "Petri": "Petri",
   "Phil": "Ad Philippenses",
   "Philipp": "Ad Philippenses",
-  "Prov": "Sapientia",
+  "Prov": "Proverbia",
   "Reg": "Regum",
   "Rom": "Ad Romanos",
   "Sap": "Sapientia",
