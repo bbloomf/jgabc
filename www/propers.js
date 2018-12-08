@@ -2531,18 +2531,22 @@ $(function(){
             {en: o, title: title}
           : {key: o, en: title, title: title};
       }
+      var $temp;
       if(o.group) {
         $optGroup = $('<optgroup></optgroup>').attr('label',o[key]);
         $sel.append($optGroup);
         return;
-      }
-      var $temp = $('<option></option>').text(o[key]);
-      if(typeof(o.key)=='string') {
-        $temp.val(o.key);
+      } else if(o.children) {
+        populate(o.children, $temp = $('<optgroup></optgroup>').attr('label',o[key]));
       } else {
-        $temp.attr('disabled',true);
-        if(i==0) {
-          $temp.attr('selected',true);
+        $temp = $('<option></option>').text(o[key]);
+        if(typeof(o.key)=='string') {
+          $temp.val(o.key);
+        } else {
+          $temp.attr('disabled',true);
+          if(i==0) {
+            $temp.attr('selected',true);
+          }
         }
       }
       ($optGroup||$sel).append($temp);
@@ -2671,13 +2675,15 @@ $(function(){
     en: 'Chant Mass Ordinaries...'
   })
   populate(ordinaryKeys,$selOrdinary);
-  populate([{name:"Select ad lib. chant", id: ""}].concat(miscChants).map(function(e) {
+  var mapNameToTitle = function(e) {
     return {
-      key: e.id.toString(),
+      key: (e.id || e.name).toString(),
       title: e.name,
-      en: e.name
+      en: e.name,
+      children: e.children && e.children.map(mapNameToTitle)
     }
-  }), $('#selCustom'));
+  };
+  populate([{name:"Select ad lib. chant", id: ""}].concat(miscChants).map(mapNameToTitle), $('#selCustom'));
   var $customTemplate = $('#divCustom');
   $.each(['','offertorium','communio','ite'], function(i,key) {
     var $custom = $customTemplate;
