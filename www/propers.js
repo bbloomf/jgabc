@@ -2677,7 +2677,7 @@ $(function(){
   populate(ordinaryKeys,$selOrdinary);
   var mapNameToTitle = function(e) {
     return {
-      key: (e.id || e.name).toString(),
+      key: (('id' in e)? e.id : e.name).toString(),
       title: e.name,
       en: e.name,
       children: e.children && e.children.map(mapNameToTitle)
