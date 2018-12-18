@@ -168,10 +168,10 @@ $(function(){
     }
     dates = dates || Dates(moment().year());
     var match;
-    if(match = key.match(/Adv(\d)(Wed|Fri|Sat)?/)) {
+    if(match = key.match(/Adv(\d)(w|f|s)?/)) {
       m = moment(dates.advent1);
       m.add(parseInt(match[1])-1, 'weeks');
-      if(match[2]) m.add("sMTWRFS".indexOf(match[2][0]), 'days');
+      if(match[2]) m.add(1+weekdayKeys.indexOf(match[2]), 'days');
     } else if(match = key.match(/^Epi(\d)/)) {
       // if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
       m = moment(dates.epiphany);
