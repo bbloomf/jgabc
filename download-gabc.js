@@ -204,6 +204,9 @@ var path = 'gabc/',
                       if(accentCount && vowelCount === 2) {
                         word = removeAcuteAccents(word);
                       }
+                      if(syls.length > 2 && (syls.slice(-3,-1).join('').match(/[ǽ́áéíóúýæœǼ́ÁÉÍÓÚÝÆŒAEIOUY]|œ́|Œ́/gi) || []).length == 0) {
+                        throw `strangely accented: ${word} (${syls.join('~')})`;
+                      }
                       var otherSyls = latin.hyphenate(word);
                       if(otherSyls.length != syls.length ||
                          (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽœ́aeiouyáéíóúýäëïöüÿ]/i)))) {
