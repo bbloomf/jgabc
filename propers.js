@@ -748,7 +748,7 @@ $(function(){
           readings.forEach(function(reading,i) {
             [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
               var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
-              getReading({ref:reading,edition:edition.e}).then(function(reading) {
+              getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
                 $lectio.append(reading);
               });
             });

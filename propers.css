@@ -250,11 +250,12 @@ syl.bold {
 
 .lectio-text {
   display: flex;
-  margin: 0 -9pt;
+  margin: 0 -12pt;
 }
 .lectio-text > * {
   flex: 0 1 auto;
-  margin: 0 9pt;
+  margin: 0 12pt;
+  text-align: justify;
 }
 
 @media(max-width: 524px) {

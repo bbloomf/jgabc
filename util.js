@@ -1514,8 +1514,10 @@ if(typeof $=='function') $(function($) {
 
 function getReading(source, returnText) {
   var edition = 'vulgate';
+  var language = 'la';
   if(typeof(source) == 'object') {
     edition = source.edition || edition;
+    language = source.language || language;
     source = source.ref;
   }
   var match = /\s*(?:(\d)\s+)?([A-Z][a-zæœ]+)(.*)/.exec(source),
@@ -1538,6 +1540,9 @@ function getReading(source, returnText) {
     var match = null;
     var regex = /,\s*(\d+)\s*(?:-(\d+))?\s*|;\s*(\d+)\s*[,:]\s*(\d+)\s*(?:-(\d+))?\s*/g;
     var text = '';
+    var h = Hypher.languages[language];
+    if(!h) h = {hyphenateText: function(t) { return t; } };
+
     do {
       if(match) {
         if(match[1]) {
@@ -1578,7 +1583,7 @@ function getReading(source, returnText) {
     text = text.split('\n').reduce(function(result, line) {
       if(line) {
         var match = line.match(/(\d+)\t(\d+)\t(.*)/);
-        return result.add($('<span>').attr('chapter',match[1]).attr('verse',match[2]).text(match[3]+'\n'));
+        return result.add($('<span>').attr('chapter',match[1]).attr('verse',match[2]).text(h.hyphenateText(match[3], 3)+'\n'));
       }
       return result;
     }, $());
