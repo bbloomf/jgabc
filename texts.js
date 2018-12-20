@@ -647,7 +647,10 @@ texts = {
 		"500": "alleluia hæc est virgo sapiens et una de numero prudentum",
 		"503": "alleluia potens in terra erit semen ejus generatio rectorum benedicetur",
 		"505": "alleluia benedicat vobis dominus ex sion qui fecit cælum et terram",
-		"507": "alleluia",
+		"507": [
+			"alleluia",
+			"confitemini domino quoniam bonus quoniam in sæculum misericordia ejus"
+		],
 		"524": "alleluia vidimus stellam ejus in oriente et venimus cum muneribus adorare dominum",
 		"525": "alleluia sicut abundant passiones christi in nobis ita et per christum abundat consolatio nostra",
 		"527": "alleluia quæ est ista quæ progreditur quasi aurora consurgens pulchra ut luna electa ut sol terribilis ut castrorum acies ordinata",
@@ -833,8 +836,7 @@ texts = {
 		"1380": "alleluia in exitu israel ex ægypto domus jacob de populo barbaro",
 		"1505": "alleluia angelus domini descendit de cœlo et accedens revolvit lapidem et sedebat super eum",
 		"1552": "alleluia video cœlos apertos et jesum stantem a dextris virtutis dei",
-		"3318": "alleluia lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero",
-		"507&elem=2": "confitemini domino quoniam bonus quoniam in sæculum misericordia ejus"
+		"3318": "alleluia lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero"
 	},
 	"Sequentia": {
 		"68": "veni sancte spiritus et emitte cælitus lucis tuæ radium veni pater pauperum veni dator munerum veni lumen cordium consolator optime dulcis hospes animæ dulce refrigerium in labore requies in æstu temperies in fletu solatium o lux beatissima reple cordis intima tuorum fidelium sine tuo numine nihil est in homine nihil est innoxium lava quod est sordidum riga quod est aridum sana quod est saucium flecte quod est rigidum fove quod est frigidum rege quod est devium da tuis fidelibus in te confidentibus sacrum septenarium da virtutis meritum da salutis exitum da perenne gaudium amen alleluia",
@@ -1346,14 +1348,16 @@ texts = {
 		"2086": "attende cælum et loquar et audiat terra verba ex ore meo exspectetur sicut pluvia eloquium meum et descendant sicut ros verba mea sicut imber super gramina et sicut nix super fenum quia nomen domini invocabo date magnitudinem deo nostro deus vera opera ejus et omnes viæ ejus judicia deus fidelis in quo non est iniquitas justus et sanctus dominus"
 	},
 	"Hymnus": {
-		"259": "gloria laus et honor tibi sit rex christe redemptor cui puerile decus prompsit hosanna pium",
+		"259": [
+			"gloria laus et honor tibi sit rex christe redemptor cui puerile decus prompsit hosanna pium",
+			"israel es tu rex davidis et inclita proles nomine qui in domini rex benedicte venis",
+			"cœtus in excelsis te laudat cælicus omnis et mortalis homo et cuncta creata simul",
+			"plebs hebræa tibi cum palmis obvia venit cum prece voto hymnis adsumus ecce tibi",
+			"hi tibi passuro solvebant munia laudis nos tibi regnanti pangimus ecce melos",
+			"hi placuere tibi placeat devotio nostra rex bone rex clemens cui bona cuncta placent"
+		],
 		"1128": "crux fidelis inter omnes arbor una nobilis nulla silva talem profert fronde flore germine dulce lignum dulces clavos dulce pondus sustinet",
-		"2209": "pange lingua gloriosi lauream certaminis et super crucis trophæo dic triumphum nobilem qualiter redemptor orbis immolatus vicerit de parentis protoplasti fraude factor condolens quando pomi noxialis in necem morsu ruit ipse lignum tunc notavit damna ut solveret hoc opus nostræ salutis ordo depoposcerat multiformis proditoris ars ut artem falleret et medelam ferret inde hostis unde læserat quando venit ergo sacri plenitudo temporis missus est ab arce patris natus orbis conditor atque ventre virginali amictus prodiit vagit infans inter arcta conditus præsepia membra pannis involuta virgo mater alligat et dei manus pedesque stricta cingit fascia lustra sex qui jam peregit tempus implens corporis sponte libera redemptor passioni deditus agnus in crucis levatur immolandus stipite felle potus ecce languet spina clavi lancea mite corpus perforarunt unda manat et cruor terra pontus astra mundus quo lavantur flumine flecte ramos arbor alta tensa laxa viscera et rigor lentescat ille quem dedit nativitas et superni membra regis tende miti stipite sola digna tu fuisti ferre mundi victimam atque portum præparare arca mundo naufrago quam sacer cruor perunxit fusus agni corpore sempiterna sit beatæ trinitati gloria æqua patri filioque par decus paraclito unius trinique nomen laudet universitas amen",
-		"259&elem=4": "plebs hebræa tibi cum palmis obvia venit cum prece voto hymnis adsumus ecce tibi",
-		"259&elem=6": "hi placuere tibi placeat devotio nostra rex bone rex clemens cui bona cuncta placent",
-		"259&elem=5": "hi tibi passuro solvebant munia laudis nos tibi regnanti pangimus ecce melos",
-		"259&elem=2": "israel es tu rex davidis et inclita proles nomine qui in domini rex benedicte venis",
-		"259&elem=3": "cœtus in excelsis te laudat cælicus omnis et mortalis homo et cuncta creata simul"
+		"2209": "pange lingua gloriosi lauream certaminis et super crucis trophæo dic triumphum nobilem qualiter redemptor orbis immolatus vicerit de parentis protoplasti fraude factor condolens quando pomi noxialis in necem morsu ruit ipse lignum tunc notavit damna ut solveret hoc opus nostræ salutis ordo depoposcerat multiformis proditoris ars ut artem falleret et medelam ferret inde hostis unde læserat quando venit ergo sacri plenitudo temporis missus est ab arce patris natus orbis conditor atque ventre virginali amictus prodiit vagit infans inter arcta conditus præsepia membra pannis involuta virgo mater alligat et dei manus pedesque stricta cingit fascia lustra sex qui jam peregit tempus implens corporis sponte libera redemptor passioni deditus agnus in crucis levatur immolandus stipite felle potus ecce languet spina clavi lancea mite corpus perforarunt unda manat et cruor terra pontus astra mundus quo lavantur flumine flecte ramos arbor alta tensa laxa viscera et rigor lentescat ille quem dedit nativitas et superni membra regis tende miti stipite sola digna tu fuisti ferre mundi victimam atque portum præparare arca mundo naufrago quam sacer cruor perunxit fusus agni corpore sempiterna sit beatæ trinitati gloria æqua patri filioque par decus paraclito unius trinique nomen laudet universitas amen"
 	},
 	"Responsorium": {
 		"22": "eripe me domine ab homine malo a viro iniquo libera me qui cogitaverunt malitias in corde tota die constituebant prælia acuerunt linguas suas sicut serpentes venenum aspidum sub labiis eorum custodi me domine de manu peccatoris et ab hominibus iniquis libera me qui cogitaverunt supplantare gressus meos absconderunt superbi laqueum mihi et funes extenderunt in laqueum pedibus meis juxta iter scandalum posuerunt mihi dixi domino deus meus es tu exaudi domine vocem orationis meæ domine domine virtus salutis meæ obumbra caput meum in die belli ne tradas me a desiderio meo peccatori cogitaverunt adversum me ne derelinquas me ne umquam exaltentur caput circuitus eorum labor labiorum ipsorum operiet eos verumtamen justi confitebuntur nomini tuo et habitabunt recti cum vultu tuo",

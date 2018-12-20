@@ -228,7 +228,22 @@ var path = 'gabc/',
                     });
                     if(!isMiscChant && h.officePart && !/^(Kyriale|Varia|Toni Communes|Improperia)$/.test(h.officePart)) {
                       texts[h.officePart] = texts[h.officePart] || {};
-                      texts[h.officePart][ids[i]] = text.join(' ');
+                      var id = ids[i];
+                      var match = id.match && id.match(/^(\d+)&elem=(\d+)$/);
+                      if(match) id = match[1];
+                      var current = texts[h.officePart][id];
+                      if(match || current) {
+                        debugger;
+                        match = match || [0, id, 1];
+                        if(!current) {
+                          texts[h.officePart][id] = current = [];
+                        } else if(current.constructor != [].constructor) {
+                          texts[h.officePart][id] = current = [current];
+                        }
+                        current[match[2]-1] = text.join(' ');
+                      } else {
+                        texts[h.officePart][ids[i]] = text.join(' ');
+                      }
                     }
                     //content = content.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/AE/,'Æ').replace(/OE/,'Œ');
                     content = content.replace(/^(\s*\([cf]b?[1-4]\)\s*([A-ZŒÆÁÉÍÓÚÝǼ]{3}[:,;!.]?\([^)]*\)\s+|[A-ZŒÆÁÉÍÓÚÝǼ]{2}(?:\([^)]*\))?|[A-ZŒÆÁÉÍÓÚÝǼ]\([^)]*\)))((?:[A-ZŒÆÁÉÍÓÚÝǼ]+[\.,;:]?\([^)]*\))*)/,
