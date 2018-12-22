@@ -159,7 +159,7 @@ var otherKeys = [
     {key:"votivePJC",title:"Missa votiva de Passione D.N. Jesu Christo",en:"Votive Mass of the Passion of Our Lord Jesus Christ"},
     {key:"votiveSCJ",title:"Missa votiva de Sacratissimo Corde Jesu",en:"Votive Mass of the Most Sacred Heart of Jesus"},
     {group:true, title:"Missæ de Sancta Maria in Sabbato",en:"Masses of Our Lady on Saturday"},
-    {key:"SMadvent",title:"Ab Adventu usque ad Nativitatem",en:"From Advent to Christmas"},
+    {key:"SMadvent",title:"Ab Adventu usque ad Nativitatem",en:"in Advent"},
     {key:"SMchristmas",title:"A Nativitate usque ad Purificationem",en:"From Christmas to Candlemas"},
     {key:"SMlent",title:"A Purificatione usque ad Pascha",en:"From Candlemas to Easter"},
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},

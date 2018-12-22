@@ -459,7 +459,7 @@ function decompile(mixed) {
         text[lastVerseI-1] = text[lastVerseI-1].replace(/^\s+|\s+$/,'');
         text[lastVerseI+1] = text[lastVerseI+1].replace(/^\s+|\s+$/,'');
       }
-      if(!hasElisions) {
+      if(!hasElisions || (!nextMatch && verses.length == 0)) {
         var tempVerse=gabc.replace(/^\s+|\s+$/,'');
         var temp2=tempVerse.replace(regRep,'$1');
         var lastV=lastVerse();
