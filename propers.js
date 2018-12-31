@@ -117,9 +117,8 @@ $(function(){
     result.ChristusRex.subtract(result.ChristusRex.day(),'days');
     result.epiphany = moment([Y,0,6]);
     result.transferredFeasts = {};
-    // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
-    // in which case The Holy Family will be on the Saturday following.
-    result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
+    // The Feast of the Holy Family is on the Sunday following Epiphany.
+    result.holyFamily = moment(result.epiphany).add(7 - result.epiphany.day(), 'days');
     result.sundaysAfterPentecost = result.advent1.diff(result.pentecost,'weeks') - 1;
     result.sundaysAfterEpiphany = result.septuagesima.diff(result.holyFamily,'weeks');
     dateCache[Y] = result;
