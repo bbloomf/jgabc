@@ -117,9 +117,8 @@ $(function(){
     result.ChristusRex.subtract(result.ChristusRex.day(),'days');
     result.epiphany = moment([Y,0,6]);
     result.transferredFeasts = {};
-    // The Feast of the Holy Family is on the Sunday following Epiphany, unless Epiphany falls on a Sunday,
-    // in which case The Holy Family will be on the Saturday following.
-    result.holyFamily = moment(result.epiphany).add(7 - (result.epiphany.day()||1), 'days');
+    // The Feast of the Holy Family is on the Sunday following Epiphany.
+    result.holyFamily = moment(result.epiphany).add(7 - result.epiphany.day(), 'days');
     result.sundaysAfterPentecost = result.advent1.diff(result.pentecost,'weeks') - 1;
     result.sundaysAfterEpiphany = result.septuagesima.diff(result.holyFamily,'weeks');
     dateCache[Y] = result;
@@ -162,11 +161,11 @@ $(function(){
   var dateForSundayKey = function(key, dates) {
     var weekdayKeys = ['m','t','w','h','f','s'];
     var m;
+    dates = dates || Dates(moment().year());
     if(key.match(/^[A-Z][a-z]{2}\d{1,2}/)) {
-      m = moment(key.replace(/_.+$/,''),'MMMD');
+      m = moment(key.replace(/_.+$/,''),'MMMD').year(dates.year);
       if(m.isValid()) return m;
     }
-    dates = dates || Dates(moment().year());
     var match;
     if(match = key.match(/Adv(\d)(w|f|s)?/)) {
       m = moment(dates.advent1);
@@ -212,14 +211,14 @@ $(function(){
     if(m && m.isValid()) return m;
     switch(key) {
       case "Nat1":
-        m = moment('12-25','MM-DD').add(1, 'week');
+        m = moment('12-25','MM-DD').year(dates.year).add(1, 'week');
         m = m.subtract(m.day(), 'days');
         break;
       case "Nat2":
         ///Sunday between 01/01 and 01/06, or, with this lacking, 2 January:: The most holy Name of Jesus, II class
-        m = moment('01-06','MM-DD');
+        m = moment('01-06','MM-DD').year(dates.year);
         m = m.subtract(m.day(), 'days');
-        if(m.isSameOrAfter(moment('01-06','MM-DD')) || m.isSameOrBefore(moment('01-01','MM-DD'))) m = moment('01-02','MM-DD');
+        if(m.isSameOrAfter(moment('01-06','MM-DD').year(dates.year)) || m.isSameOrBefore(moment('01-01','MM-DD').year(dates.year))) m = moment('01-02','MM-DD').year(dates.year);
         break;
       case "Epi":
         return dates.epiphany;
@@ -235,7 +234,7 @@ $(function(){
       case "EmbSatSeptS":
         var tmp = key[3];
         tmp = "sMTWRFS".indexOf(tmp);
-        m = moment('09-21','MM-DD');
+        m = moment('09-21','MM-DD').year(dates.year);
         m = m.subtract(m.day(), 'days').add(tmp, 'days');
         if(key=="EmbSatSeptS") m.add(1,'minute'); // put the shorter form below in the list...
         break;
@@ -2589,12 +2588,16 @@ $(function(){
     ChristusRex: null
   };
   var d = Dates(moment().year());
+  var dNextYear = Dates(moment().year()+1);
   var addCount = Math.max(1, d.sundaysAfterPentecost - 23);
   if(d.sundaysAfterPentecost == 23) sundayKeys.splice(-1,1);
   sundayKeys = sundayKeys.concat(ultimaeDominicaePostPentecosten.splice(-addCount));
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
     var m = dateForSundayKey(sunday.key, d);
+    if(m.isBefore(moment().add(-2,'weeks'))) {
+      m = dateForSundayKey(sunday.key, dNextYear);
+    }
     if(!m.isValid()) console.error(sunday);
     sunday.date = m;
     if(sunday.key in outoforder) {
