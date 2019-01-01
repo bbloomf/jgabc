@@ -1478,7 +1478,7 @@ var proprium = {
   Aug4: {communioID:1008,gradualeID:34,alleluiaID:1207,introitusID:1374,offertoriumID:630},
   Aug6: {communioID:885,gradualeID:1308,alleluiaID:1124,introitusID:326,offertoriumID:125},
   Dec12: {communioID:1133,gradualeID:468,alleluiaID:232,introitusID:1140,offertoriumID:7},
-  Dec13: {communioID:1292,gradualeID:394,alleluiaID:1076,introitusID:629,offertoriumID:768},
+  Dec13: {communioID:1292,gradualeID:394,alleluiaID:1076,introitusID:629,offertoriumID:1107},
   Dec16: {communioID:586,gradualeID:1206,alleluiaID:1118,introitusID:227,offertoriumID:779},
   Dec2: {communioID:844,gradualeID:1373,alleluiaID:500,introitusID:938,offertoriumID:177},
   Dec21: {communioID:589,gradualeID:148,alleluiaID:216,introitusID:475,offertoriumID:570},
