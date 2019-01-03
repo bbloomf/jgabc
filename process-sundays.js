@@ -1,5 +1,8 @@
 "use strict";
 var fs = require("fs"),
+    texts,
+    empty = require('./texts.js'),
+    stringSimilarity = require('string-similarity'),
     dirMain = '../divinum-officium-website/web/www/missa/Latin/',
     dirTempora = dirMain + 'Tempora/',
     dirSancti = dirMain + 'Sancti/',
@@ -134,6 +137,9 @@ keys.forEach(key => {
     }
   }
   var info = fs.readFileSync(fname,'utf8');
+
+  // TODO: check all propers texts
+
   var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
   while(!lectiones) {
     var reference = info.match(/\[Rule\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
