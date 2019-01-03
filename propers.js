@@ -167,18 +167,22 @@ $(function(){
       if(m.isValid()) return m;
     }
     var match;
-    if(match = key.match(/Adv(\d)(w|f|s)?/)) {
+    if(match = key.match(/Adv(\d)([wfs])?/)) {
       m = moment(dates.advent1);
       m.add(parseInt(match[1])-1, 'weeks');
       if(match[2]) m.add(1+weekdayKeys.indexOf(match[2]), 'days');
-    } else if(match = key.match(/^Epi(\d)/)) {
+    } else if(match = key.match(/^Epi(\d)([mtwhfs])?/)) {
       // if(match[1]==3) return moment(dates.septuagesima).subtract(1, 'week');
       m = moment(dates.epiphany);
-      m = m.add(parseInt(match[1]), 'weeks').subtract(m.day()||(match[1]==1?1:0), 'days');
-    } else if(match = key.match(/Quad(\d)([mtwhfs]|Sat)?/)) {
+      m = m.add(parseInt(match[1]), 'weeks').subtract(m.day(), 'days');
+      if(match[2]) {
+        var day = 1 + weekdayKeys.indexOf(match[2]);
+        m = m.add(day, 'day');
+      }
+    } else if(match = key.match(/Quad(\d)([mtwhfs])?/)) {
       m = moment(dates.septuagesima).add(2 + parseInt(match[1]), 'weeks');
       if(match[2]) {
-        var day = (match[2]=='Sat')? 6 : 1 + weekdayKeys.indexOf(match[2]);
+        var day = 1 + weekdayKeys.indexOf(match[2]);
         m = m.add(day, 'day');
       }
     } else if(match = key.match(/Pasc(\d)([mtwhfs])?/)) {

@@ -241,11 +241,6 @@ texts = {
 		"1372": "ecce virgo concipiet et pariet filium et vocabitur nomen ejus emmanuel cantate domino canticum novum quia mirabilia fecit gloria patri e u o u a e",
 		"1374": "os justi meditabitur sapientiam et lingua ejus loquetur judicium lex dei ejus in corde ipsius alleluia alleluia noli æmulari in malignantibus neque zelaveris facientes iniquitatem gloria patri e u o u a e",
 		"1381": "esto mihi in deum protectorem et in locum refugii ut salvum me facias quoniam firmamentum meum et refugium meum es tu et propter nomen tuum dux mihi eris et enutries me in te domine speravi non confundar in æternum in justitia tua libera me gloria patri e u o u a e",
-		"1407": "rorate cœli desuper et nubes pluant justum aperiatur terra et germinet salvatorem cœli enarrant gloriam dei et opera manuum ejus annuntiat firmamentum gloria patri e u o u a e",
-		"1597": "cibavit eos ex adipe frumenti alleluia et de petra melle saturavit eos alleluia alleluia alleluia exsultate deo adjutori nostro jubilate deo jacob gloria patri e u u o a e",
-		"1644": "spiritus domini replevit orbem terrarum alleluia et hoc quod continet omnia scientiam habet vocis alleluia alleluia alleluia exsurgat deus et dissipentur inimici ejus et fugiant qui oderunt eum a facie ejus gloria patri e u o u a e",
-		"1689": "exaudi domine vocem meam qua clamavi ad te alleluia tibi dixit cor meum quæsivi vultum tuum vultum tuum domine requiram ne avertas faciem tuam a me alleluia alleluia dominus illuminatio mea et salus mea quem timebo gloria patri e u o u a e",
-		"1769": "caritas dei diffusa est in cordibus nostris alleluia per inhabitantem spiritum ejus in nobis alleluia alleluia benedic anima mea domino et omnia quæ intra me sunt nomini sancto ejus gloria patri e u o u a e",
 		"3266": "sacerdotes ejus induant salutare et sancti ejus exsultatione exsultabunt alleluia alleluia memento domine david et omnis mansuetudinis ejus",
 		"3312": "gaudeamus omnes in domino diem festum celebrantes sub honore mariæ virginis de cujus assumptione gaudent angeli et collaudant filium dei eructavit cor meum verbum bonum dico ego opera mea regi"
 	},
@@ -437,8 +432,7 @@ texts = {
 		"1354": "speciosus forma præ filius hominum difusa est gratia in labiis tuis filiæ regum in honore tuo austitit regina a dextris tuis in vestitu deaurato circumdata varietate",
 		"1368": "ipse habet in vestimento et in femore suo scriptum rex regum et dominus dominantium regina adstat ad dexteram ejus ornata auro ex ophir",
 		"1373": "adjuvabit eam deus vultu suo deus in medio ejus non commovebitur fluminis impetus lætificat civitatem dei sanctificavit tabernaculum suum altissimus",
-		"1383": "dolorosa et lacrimabilis es virgo maria stans juxta crucem domini jesu filii tui redemptoris virgo dei genitrix quem totus non capit orbis hoc crucis fert supplicium auctor vitæ factus homo",
-		"1456": "unam petii a domino hanc requiram ut inhabitem in domo domini ut videam voluptatem domini et protegar a templo sancto ejus"
+		"1383": "dolorosa et lacrimabilis es virgo maria stans juxta crucem domini jesu filii tui redemptoris virgo dei genitrix quem totus non capit orbis hoc crucis fert supplicium auctor vitæ factus homo"
 	},
 	"Tractus": {
 		"18": "gaude maria virgo cunctas hæreses sola interemisti quæ gabrielis archangeli dictis credidisti dum virgo deum et hominem genuisti et post partum virgo inviolata permansisti dei genitrix intercede pro nobis",
@@ -834,8 +828,6 @@ texts = {
 		"1378": "alleluia quam pulchri super montes pedes annuntiantis et prædicantis pacem annuntiantis bonum prædicantis salutem",
 		"1379": "alleluia non derelinquet dominus sanctos suos in æternum conservabuntur",
 		"1380": "alleluia in exitu israel ex ægypto domus jacob de populo barbaro",
-		"1505": "alleluia angelus domini descendit de cœlo et accedens revolvit lapidem et sedebat super eum",
-		"1552": "alleluia video cœlos apertos et jesum stantem a dextris virtutis dei",
 		"3318": "alleluia lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero"
 	},
 	"Sequentia": {
@@ -1034,13 +1026,6 @@ texts = {
 		"1369": "domine fac mecum misericordiam tuam propter nomen tuum quia suavis est misericordia tua",
 		"1375": "gloriabuntur in te omnes qui diligunt nomen tuum quoniam tu domine benedices justo domine ut scuto bonæ voluntatis tuæ coronasti nos",
 		"1382": "confitebuntur cæli mirabilia tua domine et veritatem tuam in ecclesia sanctorum alleluia alleluia",
-		"1499": "confirma hoc deus quod operatus es in nobis a templo tuo quod est in jerusalem tibi offerent reges munera alleluia",
-		"1531": "improperium exspectavit cor meum et miseriam et sustinui qui simul contristaretur et non fuit consolantem me quæsivi et non inveni et dederunt in escam meam fel et in siti mea potaverunt me aceto",
-		"1624": "meditabor in mandatis tuis quædilexi valde et levabo manus meas ad mandata tua quæ dilexi",
-		"1648": "intonuit de cœlo dominus et altissimus dedit vocem suam et apparuerunt fontes aquarum alleluia",
-		"1763": "meditabor in mandatis tuis quæ dilexi valde et levabo manus meas ad mandata tua quæ dilexi alleluia",
-		"1815": "benedic anima mea domino et noli oblivisci omnes retributiones ejus et renovabitur sicut aquilæ juventus tua",
-		"1816": "portas cœli aperuit dominus et pluit illis manna ut ederent panem cœli dedit illis panem angelorum manducavit homo alleluia",
 		"3313": "ubi caritas est vera deus ibi est congregavit nos in unum christi amor exsultemus et in ipso jucundemur timeamus et amemus deum vivum et ex corde diligamus nos sincero ubi caritas est vera deus ibi est simul ergo cum in unum congregamur ne nos mente dividamur caveamus cessent jurgia maligna cessent lites et in medio nostri sit christus deus ubi caritas est vera deus ibi est simul quoque cum beatis videamus glorianter vultum tuum christe deus gaudium quod est immensum atque probum sæcula per infinita sæculorum",
 		"3315": "viri galilæi quid admiramini aspicientes in cælum hic jesus qui assumptus est a vobis in cælum sic veniet quemadmodum vidistis eum ascendentem in cælum alleluia",
 		"3317": "assumpta est maria in cælum gaudent angeli collaudantes benedicunt dominum alleluia"
@@ -1274,7 +1259,6 @@ texts = {
 		"1229": "sedebit dominus rex in æternum dominus benedicet populo suo in pace",
 		"1245": "de fructu operum tuorum domine satiabitur terra ut educas panem de terra et vinum lætificet cor hominis ut exhilaret faciem in oleo et panis cor hominis confirmet",
 		"1260": "data est mihi omnis potestas in cælo et in terra alleluia euntes docete omnes gentes baptizantes eos in nomine patris et filii et spiritus sancti alleluia alleluia",
-		"1267": "multitudo languentium et qui vexabantur a spiritibus immundis veniebant ad eum quia virtus de illo exibat et sanabat omnes",
 		"1282": "tolle puerum et matrem ejus et vade in terram israel defuncti sunt enim qui quærebant animam pueri",
 		"1290": "in salutari tuo anima mea et in verbum tuum speravi quando facies de persequentibus me judicium iniqui persecuti sunt me adjuva me domine deus meus",
 		"1292": "principes persecuti sunt me gratis et a verbis tuis formidavit cor meum lætabor ego super eloquia tua quasi qui invenit spolia multa alleluia",
@@ -1289,12 +1273,6 @@ texts = {
 		"1356": "unus militum lancea latus ejus aperuit et continuo exivit sanguis et aqua",
 		"1367": "cor meum et caro mea exsultaverunt in deum vivum alleluia",
 		"1371": "et erat ibi usque ad obitum herodis ut adimpleretur quod dictum est a domino per prophetam dicentem ex ægypto vocavi filium meum",
-		"1412": "ego sum pastor bonus alleluia et cognosco oves meas et cognoscunt me meæ alleluia alleluia",
-		"1500": "petite et accipietis quærite et invenietis pulsate et aperietur vobis omnis enim qui petit accipit et qui quærit invenit pulsanti aperietur alleluia",
-		"1549": "ego sum pastor bonus et cognosco oves meas et cognoscunt me meæ",
-		"1667": "video cœlos apertos et jesum stantem a dextris virtutis dei domine jesu accipe spiritum meum et ne statuas illis hoc peccatum quia nesciunt quid faciunt",
-		"1678": "mitte manum tuam et cognosce loca clavorum alleluia et noli esse incredulus sed fidelis alleluia alleluia",
-		"2028": "factus est repente de cælo sonus advenientis spiritus vehementis ubi erant sedentes alleluia et repleti sunt omnes spiritu sancto loquentes magnalia dei alleluia alleluia",
 		"3314": "ego sum vitis vera et vos palmites qui manet in me et ego in eo hic fert fructum multum alleluia alleluia",
 		"3316": "optimam partem elegit sibi maria quæ non auferetur ab ea in æternum"
 	},
