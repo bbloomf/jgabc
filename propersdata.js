@@ -17,7 +17,7 @@ var sundayKeys = [
     {key:"Nat2",title:"Sanctissimi Nominis Jesu",en:"Sunday preceding the Epiphany (Holy Name of Jesus)"},
     {key:"Epi",title:"Epiphania",en:"Epiphany"},
     {key:"Epi1",title:"I post Epiphaniam (Sanctæ Familiæ)",en:"1st Sunday after Epiphany (Holy Family)"},
-    {key:"Epi1s",title:"  Feria post I post Epiphaniam",en:"  Feria after 1st Sunday after Epiphany"},
+    {key:"Epi1s",title:"  Feria post I post Epiphaniam",en:"  Feria after 1st Sunday after Epiphany"},
     {key:"Epi2",title:"II post Epiphaniam",en:"2nd Sunday after Epiphany"},
     {key:"Epi3",title:"III post Epiphaniam",en:"3rd Sunday after Epiphany"},
     {key:"Epi4",title:"IV post Epiphaniam",en:"4th Sunday after Epiphany"},
