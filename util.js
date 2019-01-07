@@ -1,3 +1,6 @@
+String.prototype.repeat = function(num){return new Array(num+1).join(this);};
+String.prototype.reverse = function(){return this.split('').reverse().join('');};
+var regexLatinLongPenult = /([ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])(?!([bcdgkpt][rl]|qu|[bcdfghjklmnprstvy])[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])((?:[bcdfghjklmnprstvy]{2,}|[xz])(?:[ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])[bcdfghjklmnprstvxyz]*)$/i;
 var linkSelector="";
 var linkDownloadSelector="";
 
