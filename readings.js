@@ -169,7 +169,9 @@ function updateEditor(forceGabcUpdate,_syl) {
         favor: 'termination'
       }) + gabc;
   }
-  var header = getHeader(localStorage.psalmHeader||'');
+  var header = getHeader(localStorage.readingHeader||'');
+  delete header.name;
+  delete header.mode;
   header["centering-scheme"] = selLang;
   gabc=header+ '(' + _clef + ') ' + gabc;
   $("#txtGabc").val(gabc);
@@ -384,7 +386,7 @@ function versesFilename(format,psalmNum,tone,ending,solemn){
 function updateLocalHeader() {
   var gabc = $("#txtGabc").val();
   var header=getHeader(gabc);
-  localStorage.psalmHeader=header;
+  localStorage.readingHeader=header;
 }
 function windowResized(){
   var $cp = $("#chant-parent2");
