@@ -3310,7 +3310,7 @@ console.info(JSON.stringify(selPropers));
               splice.addString = ',';
               splice.index = nextNeume.mapping.sourceIndex + nextNeume.mapping.source.length - 1;
               break;
-            } else if(!nextNeume.hasLyrics()) {
+            } else if(!nextNeume.hasLyrics() && !nextNeume.isAccidental) {
               splice.addString = ',';
               splice.index = nextNeume.sourceIndex || nextNeume.notes[0].sourceIndex;
               break;
