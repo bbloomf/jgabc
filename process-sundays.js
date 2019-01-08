@@ -139,6 +139,7 @@ keys.forEach(key => {
   var info = fs.readFileSync(fname,'utf8');
 
   // TODO: check all propers texts
+  // stringSimilarity.findBestMatch(string, arrayOfChoices)
 
   var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
   while(!lectiones) {
