@@ -1,3 +1,8 @@
+var https= require('https'),
+    fs = require('fs'),
+    vr = require("./verseRef.js");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 var festa = {};
 var propria = {};
 var partMap = {
@@ -11,11 +16,31 @@ var partMap = {
   "Missa": "ref"
 }
 var parts = Object.keys(partMap);
-var regexPart = new RegExp(`^(${parts.join('|')})\\.\\s+(.+)$`);
+var regexPart = new RegExp(`^\\s*(${parts.join('|')})\\.\\s+(.+)$`);
 var weekdays = ["mon","tue","wed","thu","fri","sat"];
 var regexWeekday = new RegExp(`^(.*?)_?(${weekdays.join('|')})$`);
 var currentFeast = "";
-var table = document.querySelector('#main_table tbody')
+var url = 'https://www.gregorianbooks.com/propers.html';
+https.get(url, result => {
+  result.setEncoding('utf8');
+  var fileData = '';
+  result.on('data',function(data){
+    fileData += data;
+  });
+  result.on('close',function(e) {
+    console.info('socket closed on file: ' + file);
+  });
+  result.on('aborted',function(e) {
+    console.info('ABORTED on file: ' + file);
+  });
+  result.on('error',function(e) {
+    console.info('ERROR on file: ' + file);
+  });
+  result.on('end', () => {
+    
+
+var dom = new JSDOM(fileData, {url: url.replace(/^https:/,'http:')});
+var table = dom.window.document.querySelector('#main_table tbody')
 table.children.__proto__.forEach = Array.prototype.forEach;
 table.children.forEach(tr => {
   var td = tr.children[0];
@@ -33,7 +58,7 @@ table.children.forEach(tr => {
       propria = {};
       currentFeast = a.name;
       festa[a.name] = propria;
-      propria.title = td.querySelector('.greg0').innerText;
+      propria.title = td.querySelector('.greg0').textContent.trim();
       var href = td.querySelector('.jib>a[href*="introibo.fr"]');
       if(href) {
         propria.href = href.href;
@@ -41,7 +66,7 @@ table.children.forEach(tr => {
     }
   } else {
     if(a || aHref) {
-      var match = (a || aHref).innerText.match(regexPart);
+      var match = (a || aHref).textContent.match(regexPart);
       if(match) {
         var key = partMap[match[1]];
         if(sept) key += "Sept";
@@ -58,7 +83,10 @@ table.children.forEach(tr => {
           propria[key] = match[2];
           var span = td.querySelector('span.ps1');
           if(span) {
-            propria[key+"Ref"] = span.innerText;
+            var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/\.?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
+            if(ref) {
+              propria[key+"Ref"] = ref;
+            }
           }
         }
       }
@@ -66,4 +94,8 @@ table.children.forEach(tr => {
   }
 });
 
-JSON.stringify(festa,null," ");
+fs.writeFileSync('propers-gregorian.js',`// from http://www.gregorianbooks.com/propers.html
+gregorianPropers = ` + JSON.stringify(festa,null," "));
+
+  });
+});
