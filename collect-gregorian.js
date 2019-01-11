@@ -87,7 +87,13 @@ function processUrl(urlKey) {
             if(span) {
               var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
               if(ref) {
+                var refs = ref.split('\n').map(ref => vr.parseRef(ref).verseRefString());
+                ref = refs[0];
                 propria[key+"Ref"] = ref;
+                if(refs.length > 1) {
+                  if(refs.length > 2) throw propria;
+                  propria[key+"Verses"] = refs[1];
+                }
               }
             }
           }
