@@ -3,7 +3,6 @@ var http= require('http'),
     vr = require("./verseRef.js");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
-var festa = {};
 var propria = {};
 var partMap = {
   "Intr": "in",
@@ -16,7 +15,7 @@ var partMap = {
   "Missa": "ref"
 }
 var parts = Object.keys(partMap);
-var regexPart = new RegExp(`^\\s*(${parts.join('|')})\\.\\s+(.+)$`);
+var regexPart = new RegExp(`^\\s*(?:(\\d+)\\s+)?(${parts.join('|')})\\.\\s+(.+)$`);
 var weekdays = ["mon","tue","wed","thu","fri","sat"];
 var regexWeekday = new RegExp(`^(.*?)_?(${weekdays.join('|')})$`);
 var currentFeast = "";
@@ -24,6 +23,7 @@ var urls = ['propers','saints'];
 var iUrl = 0;
 processUrl(urls[iUrl++]);
 function processUrl(urlKey) {
+  var festa = {};
   if(!urlKey) return;
   var url = `http://www.gregorianbooks.com/${urlKey}.html`;
   http.get(url, result => {
@@ -70,10 +70,10 @@ function processUrl(urlKey) {
       if(a || aHref) {
         var match = (a || aHref).textContent.match(regexPart);
         if(match) {
-          var key = partMap[match[1]];
+          var key = partMap[match[2]];
           if(sept) key += "Sept";
           if(pasch) key += "Pasch";
-          if(!(key in propria)) {
+          if(match[1] || !(key in propria)) {
             if(key == 'ref') {
               var m = currentFeast.match(regexWeekday);
               if(m && m[1] in festa) {
@@ -82,14 +82,24 @@ function processUrl(urlKey) {
               propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
               return;
             }
-            propria[key] = match[2];
+            if(match[1]) {
+              propria[key] = propria[key] || [];
+              propria[key].push(match[3]);
+            } else {
+              propria[key] = match[3];
+            }
             var span = td.querySelector('span.ps1');
             if(span) {
               var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
               if(ref) {
                 var refs = ref.split('\n').map(ref => vr.parseRef(ref).verseRefString());
                 ref = refs[0];
-                propria[key+"Ref"] = ref;
+                if(match[1]) {
+                  propria[key+"Ref"] = propria[key+"Ref"] || [];
+                  propria[key+"Ref"].push(ref);
+                } else {
+                  propria[key+"Ref"] = ref;
+                }
                 if(refs.length > 1) {
                   if(refs.length > 2) throw propria;
                   propria[key+"Verses"] = refs[1];

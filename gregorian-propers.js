@@ -54,6 +54,14 @@ gregorianPropers = {
   "in": "Rorate... Ps. Caeli enarrant",
   "inRef": "Is 45: 8; Ps 18: 2",
   "inVerses": "Ps 18: 3-7",
+  "gr": [
+   "Tollite (portas)",
+   "Prope est Dominus"
+  ],
+  "grRef": [
+   "Ps 23: 7, 3, 4",
+   "Ps 144: 18, 21"
+  ],
   "of": "Confortamini",
   "ofRef": "Is 35: 4",
   "co": "Ecce virgo",
@@ -80,6 +88,18 @@ gregorianPropers = {
   "in": "Veni et ostende",
   "inRef": "Ps 79: 4, 2, 2",
   "inVerses": "Ps 79: 2-3",
+  "gr": [
+   "A summo caelo",
+   "In sole posuit",
+   "Domine Deus",
+   "Excita Domine"
+  ],
+  "grRef": [
+   "Ps 18: 7, 2",
+   "Ps 18: 6, 7",
+   "Ps 79: 20, 3",
+   "Ps 79: 3, 2, 3"
+  ],
   "tr": "Qui regis",
   "trRef": "Ps 79: 2-3",
   "of": "Exsulta satis",
@@ -624,6 +644,18 @@ gregorianPropers = {
   "in": "Intret oratio",
   "inRef": "Ps 87: 3, 2",
   "inVerses": "Ps 87: 14-15",
+  "gr": [
+   "Propitius esto",
+   "Protector noster",
+   "Convertere Domine",
+   "Dirigatur oratio mea"
+  ],
+  "grRef": [
+   "Ps 78: 9, 10",
+   "Ps 83: 10, 9",
+   "Ps 89: 13, 1",
+   "Ps 140: 2"
+  ],
   "tr": "Laudate",
   "trRef": "Ps 116: 1-2",
   "of": "Domine Deus salutis",
@@ -1879,6 +1911,18 @@ gregorianPropers = {
   "in": "Venite adoremus",
   "inRef": "Ps 94: 6-7, 1",
   "inVerses": "Ps 94: 2, 7",
+  "gr": [
+   "Propitius esto",
+   "Protector noster",
+   "Convertere Domine",
+   "Dirigatur oratio mea"
+  ],
+  "grRef": [
+   "Ps 78: 9, 10",
+   "Ps 83: 10, 9",
+   "Ps 89: 13, 1",
+   "Ps 140: 2"
+  ],
   "tr": "Laudate",
   "trRef": "Ps 116: 1-2",
   "of": "Domine Deus salutis",
