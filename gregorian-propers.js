@@ -90,6 +90,7 @@ gregorianPropers = {
  },
  "christmas0": {
   "title": "24 Dec - Vigil of the Nativity",
+  "date": "Dec24",
   "href": "http://www.introibo.fr/Vigile-de-la-Nativite",
   "in": "Hodie scietis",
   "inRef": "Exodi 16, 6 & 7; Ps. 23, 1.\nPs. 23, 2-3.",
@@ -144,6 +145,7 @@ gregorianPropers = {
  },
  "st_stephen": {
   "title": "26 Dec - St Stephen, the First Martyr",
+  "date": "Dec26",
   "href": "http://www.introibo.fr/St-Etienne-26-decembre",
   "in": "Etenim (sederunt)",
   "inRef": "Ps. 118, 23, 86 & 23. 1.\nPs. 110, 2-10.",
@@ -162,6 +164,7 @@ gregorianPropers = {
  },
  "st_john": {
   "title": "27 Dec - St John, Apostle and Evangelist",
+  "date": "Dec27",
   "href": "http://www.introibo.fr/St-Jean-27-decembre",
   "in": "In medio",
   "inRef": "Eccli. 15, 5; Ps. 91, 2.\nPs. 91, 13-14.",
@@ -180,6 +183,7 @@ gregorianPropers = {
  },
  "holy_innocents": {
   "title": "28 Dec - Holy Innocents",
+  "date": "Dec28",
   "href": "http://www.introibo.fr/Sts-Innocents-28-decembre",
   "in": "Ex ore (infantium)",
   "inRef": "Ps. 8, 3. 2.\nPs. 8, 2 & 8.",
@@ -211,6 +215,7 @@ gregorianPropers = {
  },
  "st_thomas_becket": {
   "title": "29 Dec - St Thomas Becket of Canterbury, Bishop and Martyr",
+  "date": "Dec29",
   "href": "http://www.introibo.fr/29-decembre",
   "in": "Gaudeamus",
   "inRef": "Ps. 32, 1.\nPs. 32, 2-4, 12-15, 18.",
@@ -225,11 +230,13 @@ gregorianPropers = {
  },
  "within_octave_christmas": {
   "title": "30 Dec - 6th day within the Octave of the Nativity",
+  "date": "Dec30",
   "href": "http://www.introibo.fr/30-decembre",
   "ref": "propers.html#christmas3"
  },
  "st_silvester": {
   "title": "31 Dec - St Silvester, Pope and Confessor",
+  "date": "Dec31",
   "href": "http://www.introibo.fr/31-decembre",
   "ref": "saints.html#mass_holy_pope",
   "trSept": "Beatus vir",
@@ -239,6 +246,7 @@ gregorianPropers = {
  },
  "christmas_octave": {
   "title": "1 Jan - Octave day of Christmas (Circumcision of Our Lord)",
+  "date": "Jan1",
   "href": "http://www.introibo.fr/Octave-de-la-Nativite-1er-janvier",
   "in": "Puer natus est",
   "inRef": "Is. 9, 6; Ps. 97, 1.\nPs. 97, 2-3.",
@@ -271,16 +279,19 @@ gregorianPropers = {
  },
  "st_telesphorus": {
   "title": "5 Jan - St Telesphorus, Pope and Martyr (Memory)",
+  "date": "Jan5",
   "href": "http://www.introibo.fr/05-01-St-Telesphore-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "epiphany_eve": {
   "title": "5 Jan - Eve of the Epiphany",
+  "date": "Jan5",
   "href": "http://www.introibo.fr/Vigile-de-l-Epiphanie-avant-1955",
   "ref": "propers.html#sunday_within_octave_christmas"
  },
  "epiphany": {
   "title": "6 Jan - The Epiphany of Our Lord",
+  "date": "Jan6",
   "href": "http://www.introibo.fr/Epiphanie-du-Seigneur-6-janvier",
   "in": "Ecce (advenit)",
   "inRef": "Malach. 3, 1; 1 Par. 29, 12; Ps. 71, 1.\nPs. 71, 10-11.",
@@ -325,11 +336,13 @@ gregorianPropers = {
  },
  "st_hyginus": {
   "title": "11 Jan - St Hyginus, Pope and Martyr (Memory)",
+  "date": "Jan11",
   "href": "http://www.introibo.fr/11-01-St-Hygin-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "epiphany_baptism": {
   "title": "13 Jan - Octave of Epiphany - Commemoration of Baptism of Our Lord Jesus Christ",
+  "date": "Jan13",
   "href": "http://www.introibo.fr/Bapteme-du-Seigneur-13-janvier",
   "ref": "propers.html#epiphany"
  },
@@ -963,11 +976,6 @@ gregorianPropers = {
   "co": "Dominus Jesus",
   "coRef": "Ioann. 13, 12, 13 & 15.\nPs. 22. Ps. 71. Ps. 103. Ps. 150."
  },
- "hs_mass": {
-  "title": "Holy Saturday Paschal Mass",
-  "href": "http://www.introibo.fr/Vigile-Pascale#inter10",
-  "al": "Alleluia"
- },
  "easter_sunday": {
   "title": "Easter Sunday",
   "href": "http://www.introibo.fr/Dimanche-de-Paque",
@@ -1298,9 +1306,13 @@ gregorianPropers = {
  },
  "1st_sunday_after_pentecost": {
   "title": "Former 1st Sunday after Pentecost",
+  "href": "http://www.introibo.fr/Messe-du-1er-Dimanche-apres-la",
   "in": "Domine in tua misericordia",
+  "inRef": "Ps. 12, 6; Ps 12, 1.",
   "gr": "Ego dixi",
+  "grRef": "Ps. 40, 5 et 2.",
   "al": "Verba mea",
+  "alRef": "Ps. 5, 2.",
   "of": "Intende voci",
   "ofRef": "Ps. 5, 3-4.",
   "co": "Narrabo omnia",

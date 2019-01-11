@@ -52,13 +52,15 @@ function processUrl(urlKey) {
       if(!td.classList.contains("bar") &&
         !td.classList.contains("bar2") && a) {
         // new feast:
-        if(currentFeast && Object.keys(propria).length <= 2 && !('ref' in propria)) {
+        if(currentFeast && !('ref' in propria) && !('in' in propria)) {
           delete festa[currentFeast];
         }
         propria = {};
         currentFeast = a.name;
         festa[a.name] = propria;
         propria.title = (td.querySelector('.greg0') || td).textContent.trim();
+        let match = propria.title.match(/^(\d+)\s+(?:(or)\s+(\d+)\s+)?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+-/);
+        if(match) propria.date = match[4] + match[1] + (match[2]||'') + (match[3]||'');
         var href = td.querySelector('.jib>a[href*="introibo.fr"]');
         if(href) {
           propria.href = href.href;

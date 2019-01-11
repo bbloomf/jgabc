@@ -90,6 +90,7 @@ gregorianPropers = {
  },
  "christmas0": {
   "title": "24 Dec - Vigil of the Nativity",
+  "date": "Dec24",
   "href": "http://www.introibo.fr/Vigile-de-la-Nativite",
   "in": "Hodie scietis",
   "inRef": "Exodi 16, 6 & 7; Ps. 23, 1.\nPs. 23, 2-3.",
@@ -158,11 +159,13 @@ gregorianPropers = {
  },
  "within_octave_christmas": {
   "title": "30 Dec - 6th day within the Octave of the Nativity",
+  "date": "Dec30",
   "href": "http://www.introibo.fr/30-decembre",
   "ref": "propers.html#christmas3"
  },
  "epiphany_eve": {
   "title": "5 Jan - Eve of the Epiphany",
+  "date": "Jan5",
   "href": "http://www.introibo.fr/Vigile-de-l-Epiphanie-avant-1955",
   "ref": "propers.html#sunday_within_octave_christmas"
  },
@@ -809,11 +812,6 @@ gregorianPropers = {
   "ofRef": "Ps. 117, 16 & 17.\nPs. 117, 5 & 7.",
   "co": "Dominus Jesus",
   "coRef": "Ioann. 13, 12, 13 & 15.\nPs. 22. Ps. 71. Ps. 103. Ps. 150."
- },
- "hs_mass": {
-  "title": "Holy Saturday Paschal Mass",
-  "href": "http://www.introibo.fr/Vigile-Pascale#inter10",
-  "al": "Alleluia"
  },
  "easter_sunday": {
   "title": "Easter Sunday",
@@ -1975,12 +1973,6 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Messes-de-la-Ste-Vierge-au-Samedi,350",
   "ref": "saints.html#mass_bvm"
  },
- "votive_mass_most_holy_trinity": {
-  "title": "Monday - Votive Mass of the Most Holy Trinity",
-  "href": "http://www.introibo.fr/Fete-de-la-Trinite",
-  "trSept": "Te Deum (Patrem)",
-  "alPasch": "Benedicamus Patrem"
- },
  "votive_mass_holy_angels": {
   "title": "Tuesday - Votive Mass of the Holy Angels",
   "in": "Benedicite Dominum",
@@ -2206,6 +2198,7 @@ gregorianPropers = {
  },
  "st_andrew_vigil": {
   "title": "29 Nov - Vigil of St Andrew",
+  "date": "Nov29",
   "href": "http://www.introibo.fr/29-11-Vigile-de-St-Andre-apotre",
   "in": "Dominus (secus mare)",
   "inRef": "Matth. 4, 18 & 19; Ps. 18, 2.",
@@ -2218,11 +2211,13 @@ gregorianPropers = {
  },
  "st_saturninus": {
   "title": "29 Nov - St Saturninus, Martyr",
+  "date": "Nov29",
   "href": "http://www.introibo.fr/29-11-St-Saturnin-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_andrew": {
   "title": "30 Nov - St Andrew, Apostle",
+  "date": "Nov30",
   "href": "http://www.introibo.fr/30-11-St-Andre-apotre",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6.",
@@ -2236,11 +2231,13 @@ gregorianPropers = {
  },
  "st_bibiana": {
   "title": "2 Dec - St Bibiana, Martyr",
+  "date": "Dec2",
   "href": "http://www.introibo.fr/02-12-Ste-Bibiane-Viviane-vierge",
   "ref": "saints.html#mass_ii_virgin_martyr"
  },
  "st_francis_xavier": {
   "title": "3 Dec - St Francis Xavier, Confessor",
+  "date": "Dec3",
   "href": "http://www.introibo.fr/03-12-St-Francois-Xavier",
   "in": "Loquebar... Ps. Laudate",
   "inRef": "Ps. 118, 46-47; Ps. 116, 1-2.",
@@ -2255,6 +2252,7 @@ gregorianPropers = {
  },
  "st_peter_chrysologus": {
   "title": "4 Dec - St Peter Chrysologus, Bishop, Confessor and Doctor of the Church",
+  "date": "Dec4",
   "href": "http://www.introibo.fr/04-12-St-Pierre-Chrysologue-eveque",
   "in": "In medio",
   "inRef": "Eccli. 15, 5; Ps. 91, 2.\nPs. 91, 13-14.",
@@ -2269,16 +2267,19 @@ gregorianPropers = {
  },
  "st_barbara": {
   "title": "4 Dec - St Barbara, Virgin and Martyr",
+  "date": "Dec4",
   "href": "http://www.introibo.fr/04-12-Ste-Barbe-vierge-et-martyre",
   "ref": "saints.html#mass_i_virgin_martyr"
  },
  "st_sabbas": {
   "title": "5 Dec - St Sabbas, Abbot",
+  "date": "Dec5",
   "href": "http://www.introibo.fr/05-12-St-Sabbas-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_nicholas": {
   "title": "6 Dec - St Nicholas, Bishop and Confessor",
+  "date": "Dec6",
   "href": "http://www.introibo.fr/06-12-St-Nicolas-eveque-et",
   "in": "Statuit",
   "inRef": "Eccli. 45, 30; Ps. 131, 1.",
@@ -2293,6 +2294,7 @@ gregorianPropers = {
  },
  "st_ambrose": {
   "title": "7 Dec - St Ambrose, Bishop, Confessor and Doctor of the Church",
+  "date": "Dec7",
   "href": "http://www.introibo.fr/07-12-St-Ambroise-eveque",
   "in": "In medio",
   "inRef": "Eccli. 15, 5; Ps. 91, 2.\nPs. 91, 13-14.",
@@ -2307,6 +2309,7 @@ gregorianPropers = {
  },
  "immaculate_conception_bvm": {
   "title": "8 Dec - Immaculate Conception of the Blessed Virgin Mary",
+  "date": "Dec8",
   "href": "http://www.introibo.fr/08-12-Immaculee-Conception-de-la",
   "in": "Gaudens gaudebo",
   "inRef": "Is. 61, 10; Ps. 29, 2.\nPs. 29, 4 & 5.",
@@ -2325,16 +2328,19 @@ gregorianPropers = {
  },
  "st_melchiades": {
   "title": "10 Dec - St Melchiades, Pope and Martyr",
+  "date": "Dec10",
   "href": "http://www.introibo.fr/10-12-St-Melchiade-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_damasus": {
   "title": "11 Dec - St Damasus I, Pope and Confessor",
+  "date": "Dec11",
   "href": "http://www.introibo.fr/11-12-St-Damase-Ier-pape-et",
   "ref": "saints.html#mass_holy_pope"
  },
  "our_lady_of_guadalupe": {
   "title": "12 Dec  - Our Lady of Guadalupe",
+  "date": "Dec12",
   "in": "Salve (sancta Parens)",
   "inRef": "Sedulius; Ps. 44, 2.\nPs. 44, 5 & 8.",
   "gr": "Quae est ista",
@@ -2346,6 +2352,7 @@ gregorianPropers = {
  },
  "st_lucy": {
   "title": "13 Dec - St Lucy, Virgin and Martyr",
+  "date": "Dec13",
   "href": "http://www.introibo.fr/13-12-Ste-Lucie-vierge-et-martyre",
   "in": "Dilexisti",
   "inRef": "Ps. 44, 8. 2.",
@@ -2364,11 +2371,13 @@ gregorianPropers = {
  },
  "immaculate_conception_bvm_octave": {
   "title": "15 Dec - Octave of the Immaculate Conception",
+  "date": "Dec15",
   "href": "http://www.introibo.fr/15-12-Octave-de-l-Immaculee",
   "ref": "saints.html#immaculate_conception_bvm"
  },
  "st_eusebius": {
   "title": "14 Aug - St Eusebius, Confessor",
+  "date": "Aug14",
   "href": "http://www.introibo.fr/14-08-St-Eusebe-confesseur",
   "in": "Justus (ut palma)",
   "inRef": "Ps. 91, 13-14. 2.\nPs. 91, 3 & 5.",
@@ -2383,6 +2392,7 @@ gregorianPropers = {
  },
  "st_thomas": {
   "title": "21 Dec - St Thomas",
+  "date": "Dec21",
   "href": "http://www.introibo.fr/21-12-St-Thomas-apotre",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6.",
@@ -2405,16 +2415,19 @@ gregorianPropers = {
  },
  "st_hilary": {
   "title": "14 Jan - St Hilary, Bishop, Confessor and Doctor of the Church",
+  "date": "Jan14",
   "href": "http://www.introibo.fr/14-01-St-Hilaire-eveque-confesseur",
   "ref": "saints.html#mass_doctors"
  },
  "st_felix": {
   "title": "14 Jan - St Felix, Priest and Martyr",
+  "date": "Jan14",
   "href": "http://www.introibo.fr/14-01-St-Felix-pretre-et-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_paul_hermit": {
   "title": "15 Jan - St Paul the First Hermit, Confessor",
+  "date": "Jan15",
   "href": "http://www.introibo.fr/15-01-St-Paul-premier-ermite-et",
   "in": "Justus (ut palma)",
   "inRef": "Ps. 91, 13-14. 2.\nPs. 91, 3 & 5.",
@@ -2431,21 +2444,25 @@ gregorianPropers = {
  },
  "st_maurus": {
   "title": "15 Jan - St Maurus, Abbot",
+  "date": "Jan15",
   "href": "http://www.introibo.fr/15-01-St-Maur-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_marcellus_i": {
   "title": "16 Jan - St Marcellus I, Pope and Martyr",
+  "date": "Jan16",
   "href": "http://www.introibo.fr/16-01-St-Marcel-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_anthony": {
   "title": "17 Jan - St Anthony, Abbot",
+  "date": "Jan17",
   "href": "http://www.introibo.fr/17-01-St-Antoine-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_peter_chair_rome": {
   "title": "18 Jan - St Peter's Chair at Rome",
+  "date": "Jan18",
   "href": "http://www.introibo.fr/18-01-Chaire-de-St-Pierre-Apotre-a",
   "in": "Statuit",
   "inRef": "Eccli. 45, 30; Ps. 131, 1.",
@@ -2464,11 +2481,13 @@ gregorianPropers = {
  },
  "st_prisca": {
   "title": "18 Jan - St Prisca, Martyr",
+  "date": "Jan18",
   "href": "http://www.introibo.fr/18-01-Ste-Prisque-vierge-et",
   "ref": "saints.html#mass_holy_woman_martyr"
  },
  "ss_mmaa": {
   "title": "19 Jan - SS Marius, Martha, Audifax and Abachum, Martyrs",
+  "date": "Jan19",
   "href": "http://www.introibo.fr/19-01-Sts-Marius-Marthe-Audifax-et",
   "in": "Justi (epulentur)",
   "inRef": "Ps. 67, 4. 2.\nPs. 67, 6 & 21.",
@@ -2485,11 +2504,13 @@ gregorianPropers = {
  },
  "st_canute": {
   "title": "19 Jan - St Canute, King and Martyr",
+  "date": "Jan19",
   "href": "http://www.introibo.fr/19-01-St-Canut-roi-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_fabian_st_sebastian": {
   "title": "20 Jan - St Fabian, Pope and Martyr, and St Sebastian, Martyr",
+  "date": "Jan20",
   "href": "http://www.introibo.fr/20-01-Sts-Fabien-pape-et-Sebastien",
   "in": "Intret (in conspectu)",
   "inRef": "Ps. 78, 11, 12 & 10. 1.\nPs. 78, 2-3.",
@@ -2506,6 +2527,7 @@ gregorianPropers = {
  },
  "st_agnes": {
   "title": "21 Jan - St Agnes, Virgin and Martyr",
+  "date": "Jan21",
   "href": "http://www.introibo.fr/21-01-Ste-Agnes-vierge-et-martyre",
   "in": "Me exspectaverunt",
   "inRef": "Ps. 118, 95-96. 1.\nPs. 118, 2, 39, 45, 77, 99-100, 143.",
@@ -2522,21 +2544,25 @@ gregorianPropers = {
  },
  "ss_vincent_anastasius": {
   "title": "22 Jan - SS Vincent and Anastasius, Martyrs",
+  "date": "Jan22",
   "href": "http://www.introibo.fr/22-01-Sts-Vincent-et-Anastase",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "st_raymond_of_pennafort": {
   "title": "23 Jan - St Raymond of Pennafort, Confessor",
+  "date": "Jan23",
   "href": "http://www.introibo.fr/23-01-St-Raymond-de-Pegnafort",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_emerentiana": {
   "title": "23 Jan - St Emerentiana, Virgin and Martyr",
+  "date": "Jan23",
   "href": "http://www.introibo.fr/23-01-Ste-Emerentienne-martyre",
   "ref": "saints.html#mass_holy_woman_martyr"
  },
  "st_timothy": {
   "title": "24 Jan - St Timothy, Bishop and Martyr",
+  "date": "Jan24",
   "href": "http://www.introibo.fr/24-01-St-Timothee-eveque-et-martyr",
   "ref": "saints.html#mass_i_confessor_bishop",
   "trSept": "Desiderium",
@@ -2544,6 +2570,7 @@ gregorianPropers = {
  },
  "conversion_st_paul": {
   "title": "25 Jan - Conversion of St Paul, Apostle",
+  "date": "Jan25",
   "href": "http://www.introibo.fr/25-01-Conversion-de-St-Paul-apotre",
   "in": "Scio (cui credidi)",
   "inRef": "2 Tim. 1, 12; Ps. 138, 1-2.\nPs. 138, 3 & 6.",
@@ -2558,11 +2585,13 @@ gregorianPropers = {
  },
  "st_polycarp": {
   "title": "26 Jan - St Polycarp, Bishop and Martyr",
+  "date": "Jan26",
   "href": "http://www.introibo.fr/26-01-St-Polycarpe-eveque-et",
   "ref": "saints.html#mass_ii_confessor_bishop"
  },
  "st_john_chrysostom": {
   "title": "27 Jan - St John Chrysostom, Bishop, Confessor and Doctor of the Church",
+  "date": "Jan27",
   "href": "http://www.introibo.fr/27-01-St-Jean-Chrysostome-eveque",
   "ref": "saints.html#mass_doctors",
   "in": "In medio",
@@ -2580,11 +2609,13 @@ gregorianPropers = {
  },
  "st_peter_nolasco": {
   "title": "28 Jan - St Peter Nolasco, Confessor",
+  "date": "Jan28",
   "href": "http://www.introibo.fr/28-01-St-Pierre-Nolasque",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "st_agnes_second": {
   "title": "28 Jan - St Agnes, Virgin and Martyr (second)",
+  "date": "Jan28",
   "href": "http://www.introibo.fr/28-01-Ste-Agnes-vierge-et-martyre",
   "in": "Vultum tuum",
   "inRef": "Ps. 44, 13, 15 & 16. 2.",
@@ -2601,16 +2632,19 @@ gregorianPropers = {
  },
  "st_francis_de_sales": {
   "title": "29 Jan - St Francis of Sales (St François de Sales), Bishop, Confessor and Doctor of the Church",
+  "date": "Jan29",
   "href": "http://www.introibo.fr/Saint-Francois-de-Sales",
   "ref": "saints.html#mass_doctors"
  },
  "st_martina": {
   "title": "30 Jan - St Martina, Virgin and Martyr",
+  "date": "Jan30",
   "href": "http://www.introibo.fr/30-01-Ste-Martine-vierge-et",
   "ref": "saints.html#mass_i_virgin_martyr"
  },
  "st_john_bosco": {
   "title": "31 Jan - St John Bosco, Confessor",
+  "date": "Jan31",
   "href": "http://www.introibo.fr/31-01-St-Jean-Bosco-confesseur",
   "in": "Dedit illi (Deus)",
   "inRef": "3 Reg. 4, 29; Ps. 112, 1.\nPs. 112, 2-3.",
@@ -2629,6 +2663,7 @@ gregorianPropers = {
  },
  "st_ignatius": {
   "title": "1 Feb - St Ignatius, Bishop and Martyr",
+  "date": "Feb1",
   "href": "http://www.introibo.fr/01-02-St-Ignace-d-Antioche-eveque",
   "in": "Mihi autem absit. Ps. Memento",
   "inRef": "Gal. 6, 14; Ps. 131, 1.\nPs. 131, 9 & 16.",
@@ -2647,6 +2682,7 @@ gregorianPropers = {
  },
  "purification_bvm": {
   "title": "2 Feb - Purification of the Blessed Virgin Mary (Candlemas)",
+  "date": "Feb2",
   "href": "http://www.introibo.fr/La-Purification-de-la-Sainte",
   "in": "Suscepimus",
   "inRef": "Ps. 47, 10-11, 2.\nPs. 47, 3 & 12.",
@@ -2662,16 +2698,19 @@ gregorianPropers = {
  },
  "st_blaise": {
   "title": "3 Feb - St Blaise, Bishop and Martyr",
+  "date": "Feb3",
   "href": "http://www.introibo.fr/03-02-St-Blaise-eveque-et-martyr",
   "ref": "saints.html#mass_ii_confessor_bishop"
  },
  "st_andrew_corsini": {
   "title": "4 Feb - St Andrew Corsini, Bishop and Confessor",
+  "date": "Feb4",
   "href": "http://www.introibo.fr/04-02-St-Andre-Corsini-eveque-et",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_agatha": {
   "title": "5 Feb - St Agatha, Virgin and Martyr",
+  "date": "Feb5",
   "href": "http://www.introibo.fr/05-02-Ste-Agathe-vierge-et-martyre",
   "in": "Gaudeamus (Agathae)",
   "inRef": "Ps. 44, 2.\nPs. 44, 5.",
@@ -2688,41 +2727,49 @@ gregorianPropers = {
  },
  "st_titus": {
   "title": "6 Feb - St Titus, Bishop and Confessor",
+  "date": "Feb6",
   "href": "http://www.introibo.fr/06-02-St-Tite-eveque-et-confesseur",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_dorothy": {
   "title": "6 Feb - St Dorothy, Virgin and Martyr",
+  "date": "Feb6",
   "href": "http://www.introibo.fr/06-02-Ste-Dorothee-vierge-et",
   "ref": "saints.html#mass_ii_virgin_martyr"
  },
  "st_romuald": {
   "title": "7 Feb - St Romuald, Abbot",
+  "date": "Feb7",
   "href": "http://www.introibo.fr/07-02-St-Romuald-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_john_of_matha": {
   "title": "8 Feb - St John of Matha, Confessor",
+  "date": "Feb8",
   "href": "http://www.introibo.fr/08-02-St-Jean-de-Matha-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_cyril_alexandria": {
   "title": "9 Feb - St Cyril, Bishop of Alexandria, Confessor and Doctor of the Church",
+  "date": "Feb9",
   "href": "http://www.introibo.fr/09-02-St-Cyrille-d-Alexandrie",
   "ref": "saints.html#mass_doctors"
  },
  "st_apollonia": {
   "title": "9 Feb - St Apollonia, Virgin and Martyr",
+  "date": "Feb9",
   "href": "http://www.introibo.fr/09-02-Ste-Apolline-vierge-et",
   "ref": "saints.html#mass_i_virgin_martyr"
  },
  "st_scholastica": {
   "title": "10 Feb - St Scholastica, Virgin. (Sister of St Benedict)",
+  "date": "Feb10",
   "href": "http://www.introibo.fr/10-02-Ste-Scholastique-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "apparition_lourdes": {
   "title": "11 Feb - Apparition of Our Blessed Lady at Lourdes",
+  "date": "Feb11",
   "href": "http://www.introibo.fr/11-02-Apparition-de-la-Vierge",
   "in": "Vidi (civitatem)",
   "inRef": "Apoc. 21, 2; Ps. 44, 2.\nPs. 44, 5.",
@@ -2738,6 +2785,7 @@ gregorianPropers = {
  },
  "ss_seven_holy_founders_servites": {
   "title": "12 Feb - The Seven Holy Founders of the Order of Servites of the BVM, Confessors",
+  "date": "Feb12",
   "href": "http://www.introibo.fr/12-02-Les-Sept-Saints-Fondateurs",
   "in": "Justi (decantaverunt)",
   "inRef": "Sap. 10, 20-21; Ps. 8, 2.",
@@ -2754,21 +2802,25 @@ gregorianPropers = {
  },
  "st_valentine": {
   "title": "14 Feb - St Valentine, Priest and Martyr",
+  "date": "Feb14",
   "href": "http://www.introibo.fr/14-02-St-Valentin-pretre-et-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "ss_faustinus_jovita": {
   "title": "15 Feb - SS Faustinus and Jovita, Martyrs",
+  "date": "Feb15",
   "href": "http://www.introibo.fr/15-02-Sts-Faustin-et-Jovite",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "st_simeon": {
   "title": "18 Feb - St Simeon, Bishop and Martyr",
+  "date": "Feb18",
   "href": "http://www.introibo.fr/18-02-St-Simeon-eveque-et-martyr",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "ste_bernadette": {
   "title": "18 Feb - St Mary Bernard Soubirous, Virgin - Ste Bernadette (Proper of France and USA)",
+  "date": "Feb18",
   "href": "http://www.introibo.fr/Sainte-Marie-Bernard-Soubirous",
   "in": "Vultum tuum",
   "inRef": "Ps. 44, 13, 15 & 16. 2.",
@@ -2783,11 +2835,13 @@ gregorianPropers = {
  },
  "st_peter_damian": {
   "title": "23 Feb - St Peter Damian, Bishop, Confessor and Doctor of the Church",
+  "date": "Feb23",
   "href": "http://www.introibo.fr/23-02-St-Pierre-Damien-eveque",
   "ref": "saints.html#mass_doctors"
  },
  "st_matthias": {
   "title": "24 or 25 Feb - St Matthias, Apostle",
+  "date": "Feb24or25",
   "href": "http://www.introibo.fr/24-ou-25-02-St-Mathias",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6, ...",
@@ -2802,6 +2856,7 @@ gregorianPropers = {
  },
  "st_gabriel_our_lady_of_sorrows": {
   "title": "27 or 28 Feb - St Gabriel of Our Lady of Sorrows, Confessor",
+  "date": "Feb27or28",
   "href": "http://www.introibo.fr/27-02-ou-28-02-St-Gabriel-de-la",
   "in": "Oculus Dei",
   "inRef": "Eccli. 11, 13; Ps. 72, 1.\nPs. 72, 25 & 28.",
@@ -2818,36 +2873,43 @@ gregorianPropers = {
  },
  "st_casimir": {
   "title": "4 Mar - St Casimir, Confessor",
+  "date": "Mar4",
   "href": "http://www.introibo.fr/04-03-St-Casimir-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_lucius_i": {
   "title": "4 Mar - St Lucius I, Pope and Martyr",
+  "date": "Mar4",
   "href": "http://www.introibo.fr/04-03-St-Lucius-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "ss_perpetua_felicity": {
   "title": "6 Mar - SS Perpetua and Felicity, Martyrs",
+  "date": "Mar6",
   "href": "http://www.introibo.fr/06-03-Stes-Perpetue-et-Felicite",
   "ref": "saints.html#mass_holy_woman_martyr"
  },
  "st_thomas_aquinas": {
   "title": "7 Mar - St Thomas Aquinas, Confessor and Doctor of the Church",
+  "date": "Mar7",
   "href": "http://www.introibo.fr/07-03-St-Thomas-d-Aquin-confesseur",
   "ref": "saints.html#mass_doctors"
  },
  "st_john_of_god": {
   "title": "8 Mar - St John of God, Confessor",
+  "date": "Mar8",
   "href": "http://www.introibo.fr/08-03-St-Jean-de-Dieu-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_frances_of_rome": {
   "title": "9 Mar - St Frances of Rome, Widow",
+  "date": "Mar9",
   "href": "http://www.introibo.fr/09-03-Ste-Francoise-Romaine-veuve",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "forty_martyrs": {
   "title": "10 Mar - The Forty Holy Martyrs",
+  "date": "Mar10",
   "href": "http://www.introibo.fr/10-03-Les-saints-Quarante-Martyrs",
   "in": "Clamaverunt (justi)",
   "inRef": "Ps. 33, 18. 2.",
@@ -2862,21 +2924,25 @@ gregorianPropers = {
  },
  "st_gregory_the_great": {
   "title": "12 Mar - St Gregory the Great (Gregory I), Pope, Confessor and Doctor of the Church",
+  "date": "Mar12",
   "href": "http://www.introibo.fr/12-03-St-Gregoire-le-Grand-pape",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_patrick": {
   "title": "17 Mar - St Patrick, Bishop and Confessor",
+  "date": "Mar17",
   "href": "http://www.introibo.fr/17-03-St-Patrice-Patrick-eveque-et",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_cyril_jerusalem": {
   "title": "18 Mar - St Cyril, Bishop of Jerusalem, Confessor and Doctor of the Church",
+  "date": "Mar18",
   "href": "http://www.introibo.fr/18-03-St-Cyrille-de-Jerusalem",
   "ref": "saints.html#mass_doctors"
  },
  "st_joseph": {
   "title": "19 Mar - St Joseph, Spouse of the Blessed Virgin Mary",
+  "date": "Mar19",
   "href": "http://www.introibo.fr/19-03-St-Joseph-epoux-de-la",
   "in": "Justus (ut palma)",
   "inRef": "Ps. 91, 13-14. 2.\nPs. 91, 3 & 5.",
@@ -2893,11 +2959,13 @@ gregorianPropers = {
  },
  "st_benedict": {
   "title": "21 Mar - St Benedict, Abbot",
+  "date": "Mar21",
   "href": "http://www.introibo.fr/21-03-St-Benoit-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_gabriel": {
   "title": "24 Mar - St Gabriel, Archangel",
+  "date": "Mar24",
   "href": "http://www.introibo.fr/24-03-St-Gabriel-archange",
   "in": "Benedicite Dominum",
   "inRef": "Ps. 102, 20. 1.\nPs. 102, 21-22.",
@@ -2912,6 +2980,7 @@ gregorianPropers = {
  },
  "annunciation_bvm": {
   "title": "25 Mar - Annunciation of the Blessed Virgin Mary",
+  "date": "Mar25",
   "href": "http://www.introibo.fr/25-03-Annonciation-de-la",
   "in": "Vultum tuum",
   "inRef": "Ps. 44, 13, 15 & 16. 2.\nPs. 44, 5 & 8.",
@@ -2928,6 +2997,7 @@ gregorianPropers = {
  },
  "st_john_damascene": {
   "title": "27 Mar - St John Damascene, Confessor and Doctor of the Church",
+  "date": "Mar27",
   "href": "http://www.introibo.fr/27-03-St-Jean-Damascene-confesseur",
   "in": "Tenuisti (manum)",
   "inRef": "Ps. 72, 24. 1.\nPs. 72, 25 & 28.",
@@ -2942,6 +3012,7 @@ gregorianPropers = {
  },
  "st_john_capistran": {
   "title": "28 Mar - St John Capistran, Confessor",
+  "date": "Mar28",
   "href": "http://www.introibo.fr/28-03-St-Jean-de-Capistran",
   "in": "Ego autem in... gaudebo",
   "inRef": "Habac. 3, 18-19; Ps. 80, 2.",
@@ -2954,39 +3025,39 @@ gregorianPropers = {
   "co": "Decanteverunt",
   "coRef": "Sap. 10, 20.\nPs. 77, 1, 3, 4, 23-25, 27-28."
  },
- "seven_dolours_bvm_friday_passion_week": {
-  "title": "Friday in Passion Week - Seven Dolours of the Blessed Virgin Mary",
-  "href": "http://www.introibo.fr/Vendredi-de-la-1ere-semaine-de-la",
-  "tr": "Stabat (sancta Maria)",
-  "trRef": "Thren. 1, 12."
- },
  "st_francis_of_paula": {
   "title": "2 Apr - St Francis of Paula, Confessor",
+  "date": "Apr2",
   "href": "http://www.introibo.fr/02-04-St-Francois-de-Paule",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "st_isidore": {
   "title": "4 Apr - St Isidore, Bishop, Confessor and Doctor of the Church",
+  "date": "Apr4",
   "href": "http://www.introibo.fr/04-04-St-Isidore-de-Seville-eveque",
   "ref": "saints.html#mass_doctors"
  },
  "st_vincent_ferrer": {
   "title": "5 Apr - St Vincent Ferrer, Confessor",
+  "date": "Apr5",
   "href": "http://www.introibo.fr/05-04-St-Vincent-Ferrier",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_leo_i": {
   "title": "11 Apr - St Leo I, Pope, Confessor and Doctor of the Church",
+  "date": "Apr11",
   "href": "http://www.introibo.fr/11-04-St-Leon-Ier-le-Grand-pape",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_hermenegild": {
   "title": "13 Apr - St Hermenegild, Martyr",
+  "date": "Apr13",
   "href": "http://www.introibo.fr/13-04-St-Hermenegilde-martyr",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_justin": {
   "title": "14 Apr - St Justin, Martyr",
+  "date": "Apr14",
   "href": "http://www.introibo.fr/14-04-St-Justin-martyr",
   "in": "Narraverunt",
   "inRef": "Ps. 118, 85 & 46. 1.\nPs. 118, 1-2, 39, 45, 77, 99-100, 143.",
@@ -3003,36 +3074,43 @@ gregorianPropers = {
  },
  "ss_tiburtius_valerian_maximus": {
   "title": "14 Apr - SS Tiburtius, Valerian and Maximus, Martyrs",
+  "date": "Apr14",
   "href": "http://www.introibo.fr/14-04-Sts-Tiburce-Valerien-et",
   "ref": "saints.html#mass_two_or_more_martyr"
  },
  "st_anicetus": {
   "title": "17 Apr - St Anicetus, Pope and Martyr",
+  "date": "Apr17",
   "href": "http://www.introibo.fr/17-04-St-Anicet-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_anselm": {
   "title": "21 Apr - St Anselm, Bishop, Confessor and Doctor of the Church",
+  "date": "Apr21",
   "href": "http://www.introibo.fr/21-04-St-Anselme-eveque-confesseur",
   "ref": "saints.html#mass_doctors"
  },
  "ss_soter_caius": {
   "title": "22 Apr - SS Soter and Caius",
+  "date": "Apr22",
   "href": "http://www.introibo.fr/22-04-Sts-Soter-et-Caius-papes-et",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_george": {
   "title": "23 Apr - St George, Martyr (Patron saint of England)",
+  "date": "Apr23",
   "href": "http://www.introibo.fr/23-04-St-Georges-martyr",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_fidelis_of_sigmaringen": {
   "title": "24 Apr - St Fidelis of Sigmaringen, Martyr",
+  "date": "Apr24",
   "href": "http://www.introibo.fr/24-04-St-Fidele-de-Sigmaringen",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_mark": {
   "title": "25 Apr - St Mark, Evangelist",
+  "date": "Apr25",
   "href": "http://www.introibo.fr/25-04-St-Marc-evangeliste",
   "ref": "saints.html#mass_one_martyr",
   "in": "Protexisti me",
@@ -3046,16 +3124,19 @@ gregorianPropers = {
  },
  "ss_cletus_marcellinus": {
   "title": "26 Apr - SS Cletus and Marcellinus, Popes and Martyrs",
+  "date": "Apr26",
   "href": "http://www.introibo.fr/26-04-Sts-Clet-et-Marcellin-papes",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_peter_canisius": {
   "title": "27 Apr - St Peter Canisius, Confessor and Doctor of the Church",
+  "date": "Apr27",
   "href": "http://www.introibo.fr/27-04-St-Pierre-Canisius-confesser",
   "ref": "saints.html#mass_doctors"
  },
  "st_paul_cross": {
   "title": "28 Apr - St Paul of the Cross, Confessor",
+  "date": "Apr28",
   "href": "http://www.introibo.fr/28-04-St-Paul-de-la-Croix",
   "in": "Christo (confixus)",
   "inRef": "Gal. 2, 19-20; Ps. 40, 2.",
@@ -3068,11 +3149,13 @@ gregorianPropers = {
  },
  "st_peter_of_verona": {
   "title": "29 Apr - St Peter of Verona, Martyr",
+  "date": "Apr29",
   "href": "http://www.introibo.fr/29-04-St-Pierre-de-Verone-martyr",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_catherine": {
   "title": "25 Nov - St Catherine, Virgin and Martyr",
+  "date": "Nov25",
   "href": "http://www.introibo.fr/25-11-Ste-Catherine-vierge-et",
   "ref": "saints.html#mass_i_virgin_martyr"
  },
@@ -3088,6 +3171,7 @@ gregorianPropers = {
  },
  "st_joseph_workman": {
   "title": "1 May - St Joseph the Workman, Spouse of the Blessed Virgin Mary and Confessor",
+  "date": "May1",
   "href": "http://www.introibo.fr/01-05-St-Joseph-artisan",
   "in": "Sapientia (reddidit)",
   "inRef": "Sap. 10, 17; Ps. 126, 1.\nPs. 126, 2.",
@@ -3103,6 +3187,7 @@ gregorianPropers = {
  },
  "st_athanasius": {
   "title": "2 May - St Athanasius, Bishop, Confessor and Doctor of the Church",
+  "date": "May2",
   "href": "http://www.introibo.fr/02-05-St-Athanase-eveque",
   "in": "In medio",
   "inRef": "Eccli. 15, 5; Ps. 91, 2.\nPs. 91, 13-14.",
@@ -3115,6 +3200,7 @@ gregorianPropers = {
  },
  "finding_holy_cross": {
   "title": "3 May - Finding of the Holy Cross",
+  "date": "May3",
   "href": "http://www.introibo.fr/03-05-Invention-de-la-Sainte-Croix",
   "in": "Nos autem",
   "inRef": "Gal. 6, 14; Ps. 66, 1.\nPs. 66, 2 & 3.",
@@ -3126,21 +3212,25 @@ gregorianPropers = {
  },
  "ss_alexander_eventius_theodulus_juvenalis": {
   "title": "3 May - SS Alexander, Eventius and Theodulus, Martyrs and St Juvenalis, Bishop and Confessor",
+  "date": "May3",
   "href": "http://www.introibo.fr/03-05-Sts-Alexandre-Ier-pape",
   "ref": "saints.html#mass_two_or_more_martyr"
  },
  "st_monica": {
   "title": "4 May - St Monica, Widow",
+  "date": "May4",
   "href": "http://www.introibo.fr/04-05-Ste-Monique-veuve",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "st_pius_v": {
   "title": "5 May - St Pius V, Pope and Confessor",
+  "date": "May5",
   "href": "http://www.introibo.fr/05-05-St-Pie-V-pape-et-confesseur",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_john_latin_gate": {
   "title": "6 May - St John before the Latin Gate",
+  "date": "May6",
   "href": "http://www.introibo.fr/06-05-St-Jean-apotre-et",
   "ref": "saints.html#mass_one_martyr",
   "al": "Justus ut palma",
@@ -3148,26 +3238,31 @@ gregorianPropers = {
  },
  "st_stanislaus": {
   "title": "7 May - St Stanislaus, Bishop and Martyr",
+  "date": "May7",
   "href": "http://www.introibo.fr/07-05-St-Stanislas-eveque-et",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_gregory_nazianzen": {
   "title": "9 May - St Gregory Nazianzen, Bishop, Confessor and Doctor of the Church",
+  "date": "May9",
   "href": "http://www.introibo.fr/09-05-St-Gregoire-de-Nazianze",
   "ref": "saints.html#mass_doctors"
  },
  "st_antoninus": {
   "title": "10 May - St Antoninus, Bishop and Confessor",
+  "date": "May10",
   "href": "http://www.introibo.fr/10-05-St-Antonin-eveque-et",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "ss_gordian_epimachus": {
   "title": "10 May - SS Gordian and Epimachus, Martyrs",
+  "date": "May10",
   "href": "http://www.introibo.fr/10-05-Sts-Gordien-et-Epimaque",
   "ref": "saints.html#mass_two_or_more_martyr"
  },
  "ss_philip_james": {
   "title": "11 May - SS Philip and James, Apostles",
+  "date": "May11",
   "href": "http://www.introibo.fr/11-05-Sts-Philippe-et-Jacques",
   "in": "Exclamaverunt",
   "inRef": "Neh. vel 2 Esdr. 9, 27; Ps. 32, 1.\nPs. 32, 2-4, 12-15, 18.",
@@ -3184,6 +3279,7 @@ gregorianPropers = {
  },
  "ss_nereus_achilleus_domitia_pancras": {
   "title": "12 May - SS Nereus, Achilleus, Domitia and Pancras, Martyrs",
+  "date": "May12",
   "href": "http://www.introibo.fr/12-05-Sts-Neree-Achille-et",
   "in": "Ecce oculi",
   "inRef": "Ps. 32, 18, 19 & 20. 1.",
@@ -3195,20 +3291,24 @@ gregorianPropers = {
  },
  "st_robert_bellarmine": {
   "title": "13 May - Our Lady of Fatima",
+  "date": "May13",
   "ref": "saints.html#immaculate_heart_bvm"
  },
  "st_boniface_m": {
   "title": "14 May - St Boniface, Martyr",
+  "date": "May14",
   "href": "http://www.introibo.fr/14-05-St-Boniface-martyr",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_john_baptist_de_la_salle": {
   "title": "15 May - St John Baptist de la Salle, Confessor",
+  "date": "May15",
   "href": "http://www.introibo.fr/15-05-St-Jean-Baptiste-de-la-Salle",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_john_baptist_de_la_salle_2": {
   "title": "15 May - St John Baptist de la Salle, Confessor (Society of the Christian Brothers)",
+  "date": "May15",
   "href": "http://www.introibo.fr/15-05-St-Jean-Baptiste-de-la-Salle#inter2",
   "in": "Sinite (parvulos)",
   "inRef": "Marc. 10, 14; Ps. 21, 24.",
@@ -3225,46 +3325,55 @@ gregorianPropers = {
  },
  "st_ubuald": {
   "title": "16 May - St Ubuald, Bishop and Confessor",
+  "date": "May16",
   "href": "http://www.introibo.fr/16-05-St-Ubald-eveque-et",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_paschal_baylon": {
   "title": "17 May - St Paschal Baylon, Confessor",
+  "date": "May17",
   "href": "http://www.introibo.fr/17-05-St-Pascal-Baylon-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_venantius": {
   "title": "18 May - St Venantius, Martyr",
+  "date": "May18",
   "href": "http://www.introibo.fr/18-05-St-Venant-martyr",
   "ref": "saints.html#mass_one_martyr"
  },
  "st_peter_celestine": {
   "title": "19 May - St Peter Celestine, Pope and Confessor",
+  "date": "May19",
   "href": "http://www.introibo.fr/19-05-St-Pierre-Celestin-pape-et",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_pudentiana": {
   "title": "19 May - St Pudentiana, Virgin",
+  "date": "May19",
   "href": "http://www.introibo.fr/19-05-Ste-Pudentienne-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "st_bernardine_of_sienna": {
   "title": "20 May - St Bernardine of Sienna, Confessor",
+  "date": "May20",
   "href": "http://www.introibo.fr/20-05-St-Bernardin-de-Sienne",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_gregory_vii": {
   "title": "25 May - St Gregory VII, Pope and Confessor",
+  "date": "May25",
   "href": "http://www.introibo.fr/25-05-St-Gregoire-VII-pape-et",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_urbain_i": {
   "title": "25 May - St Urbain I, Pope and Martyr",
+  "date": "May25",
   "href": "http://www.introibo.fr/25-05-St-Urbain-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_philip_neri": {
   "title": "26 May - St Philip Neri, Confessor",
+  "date": "May26",
   "href": "http://www.introibo.fr/26-05-St-Philippe-Neri-confesseur",
   "in": "Caritas Dei",
   "inRef": "Rom. 5, 5; Ps. 102. 1.",
@@ -3281,21 +3390,25 @@ gregorianPropers = {
  },
  "st_eleutherius": {
   "title": "26 May - St Eleutherius, Pope and Martyr",
+  "date": "May26",
   "href": "http://www.introibo.fr/26-05-St-Eleuthere-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_bede_venerable": {
   "title": "27 May - St Bede the Venerable, Confessor and Doctor of the Church",
+  "date": "May27",
   "href": "http://www.introibo.fr/27-05-St-Bede-le-venerable",
   "ref": "saints.html#mass_doctors"
  },
  "st_john_i": {
   "title": "27 May - St John I, Pope and Martyr",
+  "date": "May27",
   "href": "http://www.introibo.fr/27-05-St-Jean-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_augustine": {
   "title": "28 Aug - St Augustine, Bishop, Confessor and Doctor of the Church",
+  "date": "Aug28",
   "href": "http://www.introibo.fr/28-08-St-Augustin-eveque",
   "ref": "saints.html#mass_doctors",
   "al": "Inveni David",
@@ -3303,16 +3416,19 @@ gregorianPropers = {
  },
  "st_mary_magdalene_pazzi": {
   "title": "29 May - St Mary Magdalene Pazzi, Virgin",
+  "date": "May29",
   "href": "http://www.introibo.fr/29-05-Ste-Marie-Madeleine-de-Pazzi",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "st_felix_i": {
   "title": "30 May - St Felix I, Pope and Martyr",
+  "date": "May30",
   "href": "http://www.introibo.fr/30-05-St-Felix-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_joan_of_arc": {
   "title": "30 May - St Joan of Arc, Virgin - Ste Jeanne d'Arc",
+  "date": "May30",
   "href": "http://www.introibo.fr/Sainte-Jeanne-d-Arc-vierge",
   "in": "Cantemus Domino",
   "inRef": "Exodi 15, 1 & 2; Ps. 97, 1.",
@@ -3329,6 +3445,7 @@ gregorianPropers = {
  },
  "bvm_queen": {
   "title": "31 May - Blessed Virgin Mary the Queen",
+  "date": "May31",
   "href": "http://www.introibo.fr/31-05-La-bienheureuse-Vierge-Marie",
   "in": "Gaudeamus... Reginae",
   "inRef": "Ps. 44, 2.\nPs. 44, 11-12.",
@@ -3341,16 +3458,19 @@ gregorianPropers = {
  },
  "st_petronilla": {
   "title": "31 May - St Petronilla, Virgin",
+  "date": "May31",
   "href": "http://www.introibo.fr/31-05-Ste-Petronille-vierge",
   "ref": "saints.html#mass_ii_virgin_not_martyr"
  },
  "st_angela_merici": {
   "title": "1 Jun - St Angela Merici, Virgin (was on 31 May until 1955)",
+  "date": "Jun1",
   "href": "http://www.introibo.fr/01-06-Ste-Angele-Merici-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "ss_marcellinus_peter_erasmus": {
   "title": "2 Jun - SS Marcellinus, Peter and Erasmus, Martyrs",
+  "date": "Jun2",
   "href": "http://www.introibo.fr/02-06-Sts-Marcellin-et-Pierre-et",
   "in": "Clamaverunt (justi)",
   "inRef": "Ps. 33, 18. 2.",
@@ -3365,16 +3485,19 @@ gregorianPropers = {
  },
  "ss_marcellinus_peter_erasmus_pt": {
   "title": "2 Jun - SS Marcellinus, Peter and Erasmus, Martyrs (Paschal Time)",
+  "date": "Jun2",
   "href": "http://www.introibo.fr/02-06-Sts-Marcellin-et-Pierre-et",
   "ref": "saints.html#mass_two_or_more_martyr"
  },
  "st_clotilde": {
   "title": "3 Jun - Ste Clotilde Reine, Veuve (Wife of Clovis, first Christian Frank king)",
+  "date": "Jun3",
   "href": "http://www.introibo.fr/Sainte-Clotide-Reine-et-Veuve",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "st_francis_caracciolo": {
   "title": "4 Jun - St Francis Caracciolo, Confessor",
+  "date": "Jun4",
   "href": "http://www.introibo.fr/04-06-St-Francois-Carraciolo",
   "in": "Factum est cor",
   "inRef": "Ps. 21, 15; Ps. 68, 10; Ps. 72, 1.",
@@ -3391,6 +3514,7 @@ gregorianPropers = {
  },
  "st_boniface_bm": {
   "title": "5 Jun - St Boniface, Bishop and Martyr",
+  "date": "Jun5",
   "href": "http://www.introibo.fr/05-06-St-Boniface-eveque-et-martyr",
   "in": "Exsultabo",
   "inRef": "Is. 65, 19 & 23; Ps. 43, 2.",
@@ -3407,11 +3531,13 @@ gregorianPropers = {
  },
  "st_norbert": {
   "title": "6 Jun - St Norbert, Bishop and Confessor",
+  "date": "Jun6",
   "href": "http://www.introibo.fr/06-06-St-Norbert-eveque-et",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "ss_primus_felician": {
   "title": "9 Jun - SS Primus and Felician, Martyrs",
+  "date": "Jun9",
   "href": "http://www.introibo.fr/09-06-Sts-Prime-et-Felicien",
   "in": "Sapientiam (sanctorum)",
   "inRef": "Eccli. 44, 15 & 14; Ps. 32, 1.",
@@ -3425,11 +3551,13 @@ gregorianPropers = {
  },
  "st_margaret": {
   "title": "20 Jul - St Margaret, Virgin Martyr",
+  "date": "Jul20",
   "href": "http://www.introibo.fr/20-07-Ste-Marguerite-vierge-et",
   "ref": "saints.html#mass_ii_virgin_martyr"
  },
  "st_barnabas": {
   "title": "11 Jun - St Barnabas, Apostle",
+  "date": "Jun11",
   "href": "http://www.introibo.fr/11-06-St-Barnabe-apotre",
   "ref": "saints.html#mass_one_martyr",
   "in": "Mihi autem (nimis)",
@@ -3445,11 +3573,13 @@ gregorianPropers = {
  },
  "st_john_of_san_facundo": {
   "title": "12 Jun - St John of San Facundo, Confessor",
+  "date": "Jun12",
   "href": "http://www.introibo.fr/12-06-St-Jean-de-Saint-Facond",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "ss_basilides_cyrinus_nabor_nazarius": {
   "title": "12 Jun - SS Basilides, Cyrinus, Nabor, and Nazarius, Martyrs",
+  "date": "Jun12",
   "href": "http://www.introibo.fr/12-06-Sts-Basilide-Cyrin-Nabor-et",
   "in": "Intret (in conspectu)",
   "inRef": "Ps. 78, 11, 12 & 10. 1.\nPs. 78, 2-3.",
@@ -3464,11 +3594,13 @@ gregorianPropers = {
  },
  "st_anthony_padua": {
   "title": "13 Jun - St Anthony of Padua, Confessor and Doctor of the Church",
+  "date": "Jun13",
   "href": "http://www.introibo.fr/13-06-St-Antoine-de-Padoue",
   "ref": "saints.html#mass_doctors"
  },
  "st_basil_the_great": {
   "title": "14 Jun - St Basil the Great, Bishop, Confessor and Doctor of the Church",
+  "date": "Jun14",
   "href": "http://www.introibo.fr/14-06-St-Basile-le-Grand-eveque",
   "in": "In medio",
   "inRef": "Eccli. 15, 5; Ps. 91, 2.\nPs. 91, 13-14.",
@@ -3483,6 +3615,7 @@ gregorianPropers = {
  },
  "ss_vitus_modestus_crescentia": {
   "title": "15 Jun - SS Vitus, Modestus and Crescentia, Martyrs",
+  "date": "Jun15",
   "href": "http://www.introibo.fr/15-06-Sts-Vite-ou-Guy-Modeste-et",
   "in": "Multae (tribulationes)",
   "inRef": "Ps. 33, 20-21. 2.",
@@ -3497,16 +3630,19 @@ gregorianPropers = {
  },
  "st_gregory_barbarigo": {
   "title": "17 Jun - St Gregory Barbarigo, Bishop and Confessor",
+  "date": "Jun17",
   "href": "http://www.introibo.fr/17-06-St-Gregoire-Barbarigo-eveque",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_ephraem_syrian": {
   "title": "18 Jun - St Ephraem the Syrian, Deacon, Confessor and Doctor of the Church",
+  "date": "Jun18",
   "href": "http://www.introibo.fr/18-06-St-Ephrem-le-Syrien-diacre",
   "ref": "saints.html#mass_doctors"
  },
  "ss_mark_marcellian": {
   "title": "18 Jun - SS Mark and Marcellian, Martyrs",
+  "date": "Jun18",
   "href": "http://www.introibo.fr/18-06-Sts-Marc-et-Marcellien",
   "in": "Salus autem",
   "inRef": "Ps. 36, 39. 1.\nPs. 36, 29 & 40.",
@@ -3520,11 +3656,13 @@ gregorianPropers = {
  },
  "st_juliana_falconeri": {
   "title": "19 Jun - St Juliana Falconeri, Virgin",
+  "date": "Jun19",
   "href": "http://www.introibo.fr/19-06-Ste-Julienne-Falconieri",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "ss_gervase_protase": {
   "title": "19 Jun - SS Gervase and Protase, Martyrs",
+  "date": "Jun19",
   "href": "http://www.introibo.fr/19-06-Sts-Gervais-et-Protais",
   "in": "Loquetur",
   "inRef": "Ps. 84, 9. 2.\nPs. 84, 3 & 7.",
@@ -3538,11 +3676,13 @@ gregorianPropers = {
  },
  "st_silverius": {
   "title": "20 Jun - St Silverius, Pope and Martyr",
+  "date": "Jun20",
   "href": "http://www.introibo.fr/20-06-St-Silvere-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_aloysius": {
   "title": "21 Jun - St Aloysius Gonzaga, Confessor",
+  "date": "Jun21",
   "href": "http://www.introibo.fr/21-06-St-Louis-de-Gonzague",
   "in": "Minuisti eum",
   "inRef": "Ps. 8, 6; Ps. 148, 2.\nPs. 148, 1 & 3.",
@@ -3557,6 +3697,7 @@ gregorianPropers = {
  },
  "st_paulinus": {
   "title": "22 Jun - St Paulinus, Bishop and Confessor",
+  "date": "Jun22",
   "href": "http://www.introibo.fr/22-06-St-Paulin-de-Nole-confesseur",
   "in": "Sacerdotes tui",
   "inRef": "Ps. 131, 9-10. 1.\nPs. 131, 16-17.",
@@ -3571,6 +3712,7 @@ gregorianPropers = {
  },
  "st_john_baptist_vigil": {
   "title": "23 Jun - Vigil of St John the Baptist",
+  "date": "Jun23",
   "href": "http://www.introibo.fr/23-06-Vigile-de-la-Nativite-de",
   "in": "Ne timeas",
   "inRef": "Luc. 1, 13, 15 & 14; Ps. 20, 2.",
@@ -3583,6 +3725,7 @@ gregorianPropers = {
  },
  "st_john_baptist": {
   "title": "24 Jun - Nativity of St John the Baptist",
+  "date": "Jun24",
   "href": "http://www.introibo.fr/24-06-Nativite-de-Saint-Jean",
   "in": "De ventre (matris)",
   "inRef": "Is. 49, 1 & 2; Ps. 91, 2.\nPs. 91, 3 & 5.",
@@ -3597,11 +3740,13 @@ gregorianPropers = {
  },
  "st_william": {
   "title": "25 Jun - St William, Abbot",
+  "date": "Jun25",
   "href": "http://www.introibo.fr/25-06-St-Guillaume-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "ss_john_paul": {
   "title": "26 Jun - SS John and Paul, Martyrs",
+  "date": "Jun26",
   "href": "http://www.introibo.fr/26-06-Sts-Jean-et-Paul-martyrs",
   "in": "Multae (tribulationes)",
   "inRef": "Ps. 33, 20-21. 2.",
@@ -3615,6 +3760,7 @@ gregorianPropers = {
  },
  "ss_peter_paul_vigil": {
   "title": "28 Jun - Vigil of SS Peter and Paul",
+  "date": "Jun28",
   "href": "http://www.introibo.fr/28-06-Vigile-des-Sts-Pierre-et",
   "in": "Dicit (Dominus Petro)",
   "inRef": "Joann. 21, 18-19; Ps. 18, 1.",
@@ -3627,6 +3773,7 @@ gregorianPropers = {
  },
  "ss_peter_paul": {
   "title": "29 Jun - SS Peter and Paul, Holy Apostles",
+  "date": "Jun29",
   "href": "http://www.introibo.fr/29-06-Sts-Pierre-et-Paul-apotres",
   "in": "Nunc scio vere",
   "inRef": "Act. 12, 11; Ps. 138, 1-2.\nPs. 138, 17-18.",
@@ -3641,6 +3788,7 @@ gregorianPropers = {
  },
  "st_paul": {
   "title": "30 Jun - Commemoration of St Paul, Apostle",
+  "date": "Jun30",
   "href": "http://www.introibo.fr/30-06-Commemoraison-de-St-Paul",
   "in": "Scio (cui credidi)",
   "inRef": "2 Tim. 1, 12; Ps. 138, 1-2.",
@@ -3654,6 +3802,7 @@ gregorianPropers = {
  },
  "precious_blood": {
   "title": "1 Jul - Most Precious Blood of Our Lord Jesus Christ",
+  "date": "Jul1",
   "href": "http://www.introibo.fr/Le-Precieux-Sang-1er-juillet",
   "in": "Redemisti nos",
   "inRef": "Apoc. 5, 9-10; Ps. 88, 2.\nPs. 88, 6 & 8.",
@@ -3672,6 +3821,7 @@ gregorianPropers = {
  },
  "visitation_bvm": {
   "title": "2 Jul - Visitation of the Blessed Virgin Mary",
+  "date": "Jul2",
   "href": "http://www.introibo.fr/02-07-Visitation-de-la-Vierge",
   "in": "Salve (sancta Parens)",
   "inRef": "Sedulius; Ps. 44, 2.\nPs. 44, 5 & 8.",
@@ -3683,11 +3833,13 @@ gregorianPropers = {
  },
  "ss_processus_martinian": {
   "title": "2 Jul - SS Processus and Martinian, Martyrs",
+  "date": "Jul2",
   "href": "http://www.introibo.fr/02-07-Sts-Processus-et-Martinien",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_irenaeus": {
   "title": "3 Jul - St Irenaeus, Bishop and Martyr (previously 28 Jun)",
+  "date": "Jul3",
   "href": "http://www.introibo.fr/03-07-St-Irenee-eveque-et-martyr",
   "in": "Lex veritatis",
   "inRef": "Malach. 2, 6; Ps. 77, 1.",
@@ -3706,6 +3858,7 @@ gregorianPropers = {
  },
  "ss_peter_paul_sixth_day": {
   "title": "4 Jul - Sixth day within the Octave of SS Peter and Paul",
+  "date": "Jul4",
   "href": "http://www.introibo.fr/04-07-6eme-jour-dans-l-octave-des",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.",
@@ -3720,6 +3873,7 @@ gregorianPropers = {
  },
  "st_am_zaccaria": {
   "title": "5 Jul - St Anthony Mary Zaccaria, Confessor",
+  "date": "Jul5",
   "href": "http://www.introibo.fr/05-07-St-Antoine-Marie-Zaccaria",
   "in": "Sermo meus",
   "inRef": "1. Cor. 2, 4; Ps. 110, 1.",
@@ -3738,6 +3892,7 @@ gregorianPropers = {
  },
  "ss_peter_paul_octave": {
   "title": "6 Jul - Octave Day of SS Peter and Paul, Apostles",
+  "date": "Jul6",
   "href": "http://www.introibo.fr/06-07-Octave-des-Sts-Pierre-et",
   "in": "Sapientiam (sanctorum)",
   "inRef": "Eccli. 44, 15 & 14; Ps. 32, 1.",
@@ -3752,6 +3907,7 @@ gregorianPropers = {
  },
  "ss_cyril_methodius": {
   "title": "7 Jul - SS Cyril and Methodius, Bishops and Confessors",
+  "date": "Jul7",
   "href": "http://www.introibo.fr/Ss-Cyrille-et-Methode-7-juillet",
   "in": "Sacerdotes tui",
   "inRef": "Ps. 131, 9-10. 1.\nPs. 131, 16-17.",
@@ -3770,16 +3926,19 @@ gregorianPropers = {
  },
  "st_elizabeth": {
   "title": "8 Jul - St Elizabeth, Queen of Portugal, Widow",
+  "date": "Jul8",
   "href": "http://www.introibo.fr/08-07-Ste-Elisabeth-reine-et-veuve",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "st_veronica_de_giuliani": {
   "title": "9 Jul - St Veronica de Giuliani, Virgin",
+  "date": "Jul9",
   "href": "http://www.introibo.fr/09-07-Ste-Veronique-Giuliani",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "ss_john_fisher_thomas_more": {
   "title": "9 Jul - SS John Fisher and Thomas More",
+  "date": "Jul9",
   "ref": "saints.html#mass_holy_woman_not_martyr",
   "in": "Multae (tribulationes)",
   "inRef": "Ps. 33, 20-21. 2.",
@@ -3798,6 +3957,7 @@ gregorianPropers = {
  },
  "ss_seven_brothers": {
   "title": "10 Jul - The Seven Holy Brothers, Martyrs. SS Rufina and Secunda, Virgins and Martyrs",
+  "date": "Jul10",
   "href": "http://www.introibo.fr/10-07-Les-7-Freres-et-les-Stes",
   "in": "Laudate (pueri)",
   "inRef": "Ps. 112, 1 & 9. 2.",
@@ -3812,26 +3972,31 @@ gregorianPropers = {
  },
  "st_pius_i": {
   "title": "11 Jul - St Pius I, Pope and Martyr",
+  "date": "Jul11",
   "href": "http://www.introibo.fr/11-07-St-Pie-Ier-pape-et-Martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_john_gualbert": {
   "title": "12 Jul - St John Gualbert, Abbot",
+  "date": "Jul12",
   "href": "http://www.introibo.fr/12-07-St-Jean-Gualbert-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "ss_nabor_felix": {
   "title": "12 Jul - SS Nabor and Felix, Martyrs",
+  "date": "Jul12",
   "href": "http://www.introibo.fr/11-07-Sts-Nabor-et-Felix-Martyrs",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "st_anacletus": {
   "title": "13 Jul - St Anacletus, Pope and Martyr",
+  "date": "Jul13",
   "href": "http://www.introibo.fr/13-07-St-Anaclet-Clet-pape-et",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_bonaventure": {
   "title": "14 Jul - St Bonaventure, Bishop, Confessor and Doctor of the Church",
+  "date": "Jul14",
   "href": "http://www.introibo.fr/14-07-St-Bonaventure-eveque",
   "in": "In medio",
   "inRef": "Eccli. 15, 5; Ps. 91, 2.\nPs. 91, 13-14.",
@@ -3846,6 +4011,7 @@ gregorianPropers = {
  },
  "st_henry": {
   "title": "15 Jul - St Henry, Emperor, Confessor",
+  "date": "Jul15",
   "href": "http://www.introibo.fr/15-07-St-Henri-empereur-et",
   "ref": "saints.html#mass_i_confessor_not_bishop",
   "co": "Beatus servus",
@@ -3853,6 +4019,7 @@ gregorianPropers = {
  },
  "our_blessed_lady_mount_carmel": {
   "title": "16 Jul - Our Blessed Lady of Mount Carmel",
+  "date": "Jul16",
   "href": "http://www.introibo.fr/16-07-Notre-Dame-du-Mont-Carmel",
   "in": "Gaudeamus (Mariae... solemnitate)",
   "inRef": "Ps. 44, 2.",
@@ -3865,11 +4032,13 @@ gregorianPropers = {
  },
  "st_alexius": {
   "title": "17 Jul - St Alexius, Confessor",
+  "date": "Jul17",
   "href": "http://www.introibo.fr/17-07-St-Alexis-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_camillus_of_lellis": {
   "title": "18 Jul - St Camillus of Lellis, Confessor",
+  "date": "Jul18",
   "href": "http://www.introibo.fr/18-07-St-Camille-de-Lellis",
   "in": "Majorem hac",
   "inRef": "Joann. 15, 13; Ps. 40, 2.",
@@ -3884,6 +4053,7 @@ gregorianPropers = {
  },
  "st_symphorosa": {
   "title": "18 Jul - St Symphorosa and Her Seven Sons, Martyrs",
+  "date": "Jul18",
   "href": "http://www.introibo.fr/18-07-Ste-Symphorose-et-ses-Fils",
   "in": "Clamaverunt (justi)",
   "inRef": "Ps. 33, 18. 2.",
@@ -3897,11 +4067,13 @@ gregorianPropers = {
  },
  "st_vincent_de_paul": {
   "title": "19 Jul - St Vincent de Paul, Confessor",
+  "date": "Jul19",
   "href": "http://www.introibo.fr/19-07-St-Vincent-de-Paul",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "st_jerome_aemilian": {
   "title": "20 Jul - St Jerome Aemilian, Confessor",
+  "date": "Jul20",
   "href": "http://www.introibo.fr/20-07-St-Jerome-Emilien-confesseur",
   "in": "Effusum est ",
   "inRef": "Thren. 2, 11; Ps. 112, 1.",
@@ -3918,11 +4090,13 @@ gregorianPropers = {
  },
  "st_lawrence_brindisi": {
   "title": "21 Jul - St Lawrence of Brindisi, Confessor and Doctor of the Church",
+  "date": "Jul21",
   "href": "http://www.introibo.fr/21-07-St-Laurent-de-Brindes",
   "ref": "saints.html#mass_doctors"
  },
  "st_praxede": {
   "title": "21 Jul - St Praxede, Virgin",
+  "date": "Jul21",
   "href": "http://www.introibo.fr/21-07-Ste-Praxede-vierge",
   "in": "Loquebar... Ps. Beati immaculati",
   "inRef": "Ps. 118, 46-47. 1.\nPs. 118, 2-3, 8-9, 26, 59-60, 134, 168.",
@@ -3937,6 +4111,7 @@ gregorianPropers = {
  },
  "st_mary_magdalen": {
   "title": "22 Jul - St Mary Magdalen, Penitent",
+  "date": "Jul22",
   "href": "http://www.introibo.fr/22-07-Ste-Marie-Madeleine",
   "in": "Me exspectaverunt",
   "inRef": "Ps. 118, 95-96. 1.\nPs. 118, 2, 39, 45, 77, 99-100, 143.",
@@ -3951,6 +4126,7 @@ gregorianPropers = {
  },
  "st_apollinaris": {
   "title": "23 Jul - St Apollinaris, Bishop and Martyr",
+  "date": "Jul23",
   "href": "http://www.introibo.fr/23-07-St-Apollinaire-eveque-et",
   "in": "Sacerdotes Dei",
   "inRef": "Dan. 3, 84 & 87. 57.\nDan. 3, 58-61.",
@@ -3965,16 +4141,19 @@ gregorianPropers = {
  },
  "st_liborius": {
   "title": "23 Jul - St Liborius, Bishop and Confessor",
+  "date": "Jul23",
   "href": "http://www.introibo.fr/23-07-St-Liboire-eveque",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_christina": {
   "title": "24 Jul - St Christina, Virgin and Martyr",
+  "date": "Jul24",
   "href": "http://www.introibo.fr/24-07-Ste-Christine-vierge-et",
   "ref": "saints.html#mass_ii_virgin_martyr"
  },
  "st_james": {
   "title": "25 Jul - St James (St Jacques), Apostle",
+  "date": "Jul25",
   "href": "http://www.introibo.fr/25-07-St-Jacques-apotre",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6.",
@@ -3993,11 +4172,13 @@ gregorianPropers = {
  },
  "st_christopher": {
   "title": "25 Jul - St Christopher, Martyr",
+  "date": "Jul25",
   "href": "http://www.introibo.fr/25-07-St-Christophe-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_ann": {
   "title": "26 Jul - St Ann, Mother of the Blessed Virgin Mary",
+  "date": "Jul26",
   "href": "http://www.introibo.fr/26-07-Ste-Anne-mere-de-la-T-S",
   "in": "Gaudeamus... Annae",
   "inRef": "Ps. 44, 2.\nPs. 44, 5.",
@@ -4016,26 +4197,31 @@ gregorianPropers = {
  },
  "st_pantaleon": {
   "title": "27 Jul - St Pantaleon, Martyr",
+  "date": "Jul27",
   "href": "http://www.introibo.fr/27-07-St-Pantaleon-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "ss_nazarius_celsus_victor_innocent": {
   "title": "28 Jul - SS Nazarius and Celsus, Martyrs.\n                            St Victor I, Pope,\n                            St Innocent I, Pope, Conf.",
+  "date": "Jul28",
   "href": "http://www.introibo.fr/28-07-Sts-Nazaire-Celse-martyrs",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "st_martha": {
   "title": "29 Jul - St Martha, Virgin",
+  "date": "Jul29",
   "href": "http://www.introibo.fr/29-07-Ste-Marthe-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "st_felix_and_companions": {
   "title": "29 Jul - St Felix and his Companions, Martyrs",
+  "date": "Jul29",
   "href": "http://www.introibo.fr/29-07-St-Felix-pape-et-les-Sts",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "ss_abdon_sennen": {
   "title": "30 Jul - SS Abdon and Sennen, Martyrs",
+  "date": "Jul30",
   "href": "http://www.introibo.fr/30-07-Sts-Abdon-et-Sennen-martyrs",
   "in": "Intret (in conspectu)",
   "inRef": "Ps. 78, 11, 12 & 10. 1.\nPs. 78, 2-3.",
@@ -4050,6 +4236,7 @@ gregorianPropers = {
  },
  "st_ignatius_of_loyola": {
   "title": "31 Jul - St Ignatius of Loyola, Confessor",
+  "date": "Jul31",
   "href": "http://www.introibo.fr/31-07-St-Ignace-de-Loyola",
   "in": "In nomine Jesu...Ps. Gloriabuntur",
   "inRef": "Phil. 2, 10-11; Ps. 5, 12-13.",
@@ -4062,13 +4249,9 @@ gregorianPropers = {
   "co": "Ignem (veni)",
   "coRef": "Luc. 12, 49.\nPs. 20, 2-7."
  },
- "st_peter_chains": {
-  "title": "1 Aug - St Peter's Chains",
-  "href": "http://www.introibo.fr/01-08-St-Pierre-aux-Liens-apotre",
-  "al": "Solve jubente"
- },
  "holy_machabees": {
   "title": "1 Aug - Holy Machabees, Martyrs",
+  "date": "Aug1",
   "href": "http://www.introibo.fr/01-08-Sts-Machabees-martyrs",
   "in": "Clamaverunt (justi)",
   "inRef": "Ps. 33, 18. 2.",
@@ -4082,6 +4265,7 @@ gregorianPropers = {
  },
  "st_alphonsus_mary_liguori": {
   "title": "2 Aug - St Alphonsus Mary de Liguori, Bishop, Confessor and Doctor of the Church",
+  "date": "Aug2",
   "href": "http://www.introibo.fr/02-08-St-Alphonse-Marie-eveque",
   "in": "Spiritus... super me",
   "inRef": "Luc. 4, 18; Ps. 77, 1.",
@@ -4100,16 +4284,19 @@ gregorianPropers = {
  },
  "st_stephen_pope": {
   "title": "2 Aug - St Stephen, Pope and Martyr",
+  "date": "Aug2",
   "href": "http://www.introibo.fr/02-08-St-Etienne-I-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_stephen_finding": {
   "title": "3 Aug - The Finding of the Body of St Stephen, The First Martyr",
+  "date": "Aug3",
   "href": "http://www.introibo.fr/03-08-Invention-de-St-Etienne",
   "ref": "propers.html#st_stephen"
  },
  "st_dominic": {
   "title": "4 Aug - St Dominic, Confessor",
+  "date": "Aug4",
   "href": "http://www.introibo.fr/04-08-St-Dominique-confesseur",
   "in": "Os justi",
   "inRef": "Ps. 36, 30-31. 1.\nPs. 36, 3 & 26.",
@@ -4124,11 +4311,13 @@ gregorianPropers = {
  },
  "lady_of_snow": {
   "title": "5 Aug - Dedication of the Church of Our Lady of the Snow",
+  "date": "Aug5",
   "href": "http://www.introibo.fr/05-08-Dedicace-de-Ste-Marie-aux",
   "ref": "saints.html#mass_bvm"
  },
  "transfiguration": {
   "title": "6 Aug - Transfiguration of Our Lord Jesus Christ",
+  "date": "Aug6",
   "href": "http://www.introibo.fr/06-08-Transfiguration-de-Notre",
   "in": "Illuxerunt",
   "inRef": "Ps. 76, 19; Ps. 83, 2-3.\nPs. 83, 3-4.",
@@ -4143,16 +4332,19 @@ gregorianPropers = {
  },
  "ss_sixtus_ii_felicissimus_agapitus": {
   "title": "6 Aug - SS Sixtus II, Pope, Felicissimus and Agapitus, Martyrs",
+  "date": "Aug6",
   "href": "http://www.introibo.fr/06-08-St-Sixte-II-pape-et-les-Sts",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_cajetan": {
   "title": "7 Aug - St Cajetan, Confessor",
+  "date": "Aug7",
   "href": "http://www.introibo.fr/07-08-St-Gaetan-de-Thienne",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_donatus": {
   "title": "7 Aug - St Donatus, Bishop and Martyr",
+  "date": "Aug7",
   "href": "http://www.introibo.fr/07-08-St-Donat-eveque-et-martyr",
   "in": "Sacerdotes Dei",
   "inRef": "Dan. 3, 84 & 87. 57.\nDan. 3, 58-61.",
@@ -4166,11 +4358,13 @@ gregorianPropers = {
  },
  "st_jean_marie_vianney": {
   "title": "8 Aug - St John Mary Vianney, Confessor - St Jean-Marie Vianney, curé d'Ars",
+  "date": "Aug8",
   "href": "http://www.introibo.fr/08-08-St-Jean-Marie-Vianney",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_jean_marie_vianney_france": {
   "title": "8 Aug  - St John Mary Vianney, Confessor - St Jean-Marie Vianney, curé d'Ars - Propre de France",
+  "date": "Aug8",
   "href": "http://www.introibo.fr/St-Jean-Marie-Vianney-confesseur",
   "in": "Mihi absit",
   "inRef": "Gal. 6, 14; Ps. 30, 2.",
@@ -4189,6 +4383,7 @@ gregorianPropers = {
  },
  "ss_cyriacus_largus_smaragdus": {
   "title": "8 Aug - SS Cyriacus, Largus and Smaragdus, Martyrs",
+  "date": "Aug8",
   "href": "http://www.introibo.fr/08-08-Sts-Cyriaque-Large-et",
   "in": "Timete Dominum",
   "inRef": "Ps. 33, 10-11. 2.",
@@ -4203,6 +4398,7 @@ gregorianPropers = {
  },
  "st_lawrence_vigil": {
   "title": "9 Aug - Vigil of St Lawrence",
+  "date": "Aug9",
   "href": "http://www.introibo.fr/09-08-Vigile-de-St-Laurent-martyr",
   "in": "Dispersit",
   "inRef": "Ps. 111, 9. 1.\nPs. 111, 2-3.",
@@ -4215,11 +4411,13 @@ gregorianPropers = {
  },
  "st_romanus": {
   "title": "9 Aug - St Romanus, Martyr",
+  "date": "Aug9",
   "href": "http://www.introibo.fr/09-08-St-Romain-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_lawrence": {
   "title": "10 Aug - St Lawrence, Martyr",
+  "date": "Aug10",
   "href": "http://www.introibo.fr/10-08-St-Laurent-martyr",
   "in": "Confessio",
   "inRef": "Ps. 95, 6. 1.\nPs. 95, 2-3.",
@@ -4237,21 +4435,25 @@ gregorianPropers = {
  },
  "ss_tiburtius_suzanna": {
   "title": "11 Aug - SS Tiburtius and Suzanna, Martyrs",
+  "date": "Aug11",
   "href": "http://www.introibo.fr/11-08-St-Tiburce-et-Ste-Suzanne",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "st_clare": {
   "title": "12 Aug - St Clare, Virgin",
+  "date": "Aug12",
   "href": "http://www.introibo.fr/12-08-Ste-Claire-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "ss_hippolytus_cassian": {
   "title": "13 Aug - SS Hippolytus and Cassian, Martyrs",
+  "date": "Aug13",
   "href": "http://www.introibo.fr/13-08-Sts-Hippolyte-et-Cassien",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "assumption_bvm_vigil": {
   "title": "14 Aug - Vigil of the Assumption",
+  "date": "Aug14",
   "href": "http://www.introibo.fr/14-08-Vigile-de-l-Assomption",
   "in": "Vultum tuum",
   "inRef": "Ps. 44, 13, 15 & 16. 2.",
@@ -4261,6 +4463,7 @@ gregorianPropers = {
  },
  "assumption_bvm_pre1950": {
   "title": "15 Aug - Assumption of the Blessed Virgin Mary (until 1950)",
+  "date": "Aug15",
   "href": "http://www.introibo.fr/15-08-Assomption-de-la-T-Ste#inter2",
   "in": "Gaudeamus (Assumptione)",
   "inRef": "Ps. 44, 2.",
@@ -4273,6 +4476,7 @@ gregorianPropers = {
  },
  "assumption_bvm": {
   "title": "15 Aug - Assumption of the Blessed Virgin Mary (after 1950)",
+  "date": "Aug15",
   "href": "http://www.introibo.fr/15-08-Assomption-de-la-T-Ste",
   "in": "Signum magnum",
   "inRef": "Ap. 12, 1; Ps. 97, 1.\nPs. 97, 2-3.",
@@ -4286,6 +4490,7 @@ gregorianPropers = {
  },
  "st_joachim": {
   "title": "16 Aug - St Joachim, Father of the Blessed Virgin Mary, Confessor",
+  "date": "Aug16",
   "href": "http://www.introibo.fr/16-08-St-Joachim-pere-de-la-T-Ste",
   "in": "Dispersit",
   "inRef": "Ps. 111, 9. 1.\nPs. 111, 2-3.",
@@ -4303,31 +4508,37 @@ gregorianPropers = {
  },
  "st_hyacinth": {
   "title": "17 Aug - St Hyacinth, Confessor",
+  "date": "Aug17",
   "href": "http://www.introibo.fr/17-08-St-Hyacinte-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_agapitus": {
   "title": "18 Aug - St Agapitus, Martyr",
+  "date": "Aug18",
   "href": "http://www.introibo.fr/18-08-St-Agapit-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_john_eudes": {
   "title": "19 Aug - St John Eudes, Confessor",
+  "date": "Aug19",
   "href": "http://www.introibo.fr/19-08-St-Jean-Eudes-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_bernard": {
   "title": "20 Aug - St Bernard, Abbot and Doctor of the Church",
+  "date": "Aug20",
   "href": "http://www.introibo.fr/20-08-St-Bernard-abbe-et-docteur",
   "ref": "saints.html#mass_doctors"
  },
  "st_jane_francis_de_chantal": {
   "title": "21 Aug - St Jane Frances Frémiot de Chantal, Widow",
+  "date": "Aug21",
   "href": "http://www.introibo.fr/21-08-Ste-Jeanne-Francoise-Fremiot",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "immaculate_heart_bvm": {
   "title": "22 Aug - Immaculate Heart of the Blessed Virgin Mary",
+  "date": "Aug22",
   "href": "http://www.introibo.fr/22-08-Coeur-Immacule-de-la-Bse",
   "in": "Adeamus (cum fiducia)",
   "inRef": "Hebr. 4, 16; Ps. 44, 2.",
@@ -4346,16 +4557,19 @@ gregorianPropers = {
  },
  "ss_timothy_hippolytus_symphorian": {
   "title": "22 Aug - SS Timothy, Hippolytus and Symphorian, Martyrs",
+  "date": "Aug22",
   "href": "http://www.introibo.fr/22-08-Sts-Timothee-Hippolyte-et",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "st_philip_benizi": {
   "title": "23 Aug - St Philip Benizi, Confessor",
+  "date": "Aug23",
   "href": "http://www.introibo.fr/23-08-St-Philippe-Beniti",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "st_bartholomew": {
   "title": "24 Aug - St Bartholomew, Apostle",
+  "date": "Aug24",
   "href": "http://www.introibo.fr/24-08-St-Barthelemy-apotre",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6.",
@@ -4372,6 +4586,7 @@ gregorianPropers = {
  },
  "st_louis": {
   "title": "25 Aug - St Louis, King of France, Confessor",
+  "date": "Aug25",
   "href": "http://www.introibo.fr/25-08-St-Louis-roi-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop",
   "co": "Beatus servus",
@@ -4379,11 +4594,13 @@ gregorianPropers = {
  },
  "st_zephyrinus": {
   "title": "26 Aug - St Zephyrinus, Pope and Martyr",
+  "date": "Aug26",
   "href": "http://www.introibo.fr/26-08-St-Zephyrin-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_joseph_calasanctius": {
   "title": "27 Aug - St Joseph Calasanctius, Confessor",
+  "date": "Aug27",
   "href": "http://www.introibo.fr/27-08-St-Joseph-Calasance",
   "in": "Venite (filii)",
   "inRef": "Ps. 33, 12. 2.\nPs. 33.",
@@ -4398,11 +4615,13 @@ gregorianPropers = {
  },
  "st_hermes": {
   "title": "28 Aug - St Hermes, Martyr",
+  "date": "Aug28",
   "href": "http://www.introibo.fr/28-08-St-Hermes-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "beheading_st_john_baptist": {
   "title": "29 Aug - Beheading of St John the Baptist",
+  "date": "Aug29",
   "href": "http://www.introibo.fr/29-08-Decollation-de-St-Jean",
   "in": "Loquebar... Ps. Bonum est",
   "inRef": "Ps. 118, 46-47; Ps. 91, 2.\nPs. 91, 3 & 13.",
@@ -4417,16 +4636,19 @@ gregorianPropers = {
  },
  "st_sabina": {
   "title": "29 Aug - St Sabina, Martyr",
+  "date": "Aug29",
   "href": "http://www.introibo.fr/29-08-Ste-Sabine-martyre",
   "ref": "saints.html#mass_ii_virgin_martyr"
  },
  "st_rose_of_lima": {
   "title": "30 Aug - St Rose of Lima, Virgin",
+  "date": "Aug30",
   "href": "http://www.introibo.fr/30-08-Ste-Rose-de-Lima-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "ss_felix_adauctus": {
   "title": "30 Aug - SS Felix and Adauctus, Martyrs",
+  "date": "Aug30",
   "href": "http://www.introibo.fr/30-08-Sts-Felix-et-Adauctus",
   "in": "Sapientiam (sanctorum)",
   "inRef": "Eccli. 44, 15 & 14; Ps. 32, 1.",
@@ -4441,16 +4663,19 @@ gregorianPropers = {
  },
  "st_nonnat": {
   "title": "31 Aug - St Raymund Nonnatus, Confessor",
+  "date": "Aug31",
   "href": "http://www.introibo.fr/31-08-St-Raymond-Nonnat-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "st_giles": {
   "title": "1 Sep - St Giles, Abbot",
+  "date": "Sep1",
   "href": "http://www.introibo.fr/01-09-St-Gilles-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_stephen_of_hungary": {
   "title": "2 Sep - St Stephen, King of Hungary, Confessor",
+  "date": "Sep2",
   "href": "http://www.introibo.fr/02-09-St-Etienne-roi-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop",
   "co": "Beatus servus",
@@ -4458,6 +4683,7 @@ gregorianPropers = {
  },
  "st_pius_x": {
   "title": "3 Sep - St Pius X, Pope and Confessor",
+  "date": "Sep3",
   "href": "http://www.introibo.fr/03-09-St-Pie-X-pape-et-confesseur",
   "in": "Extuli electum",
   "inRef": "Ps. 88, 20-22. 2.\nPs. 88, 23 & 25. (Nov. Psalt.)",
@@ -4476,11 +4702,13 @@ gregorianPropers = {
  },
  "st_lawrence_justinian": {
   "title": "5 Sep - St Lawrence Justinian, Bishop and Confessor",
+  "date": "Sep5",
   "href": "http://www.introibo.fr/05-09-St-Laurent-Justinien-eveque",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "nativity_bvm": {
   "title": "8 Sep - Nativity of the Blessed Virgin Mary",
+  "date": "Sep8",
   "href": "http://www.introibo.fr/08-09-Nativite-de-la-Bse-Vierge",
   "in": "Salve (sancta Parens)",
   "inRef": "Sedulius; Ps. 44, 2.\nPs. 44, 5 & 8.",
@@ -4492,26 +4720,31 @@ gregorianPropers = {
  },
  "st_hadrian": {
   "title": "8 Sep - St Hadrian, Martyr",
+  "date": "Sep8",
   "href": "http://www.introibo.fr/08-09-St-Adrien-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_gorgonius": {
   "title": "9 Sep - St Gorgonius, Martyr",
+  "date": "Sep9",
   "href": "http://www.introibo.fr/09-09-St-Gorgon-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_nicholas_of_tolentino": {
   "title": "10 Sep - St Nicholas of Tolentino, Confessor",
+  "date": "Sep10",
   "href": "http://www.introibo.fr/10-09-St-Nicolas-de-Tolentino",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "ss_protus_hyacinth": {
   "title": "11 Sep - SS Protus and Hyacinth, Martyrs",
+  "date": "Sep11",
   "href": "http://www.introibo.fr/11-09-Sts-Prote-et-Hyacinthe",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "most_holy_name_mary": {
   "title": "12 Sep - Most Holy Name of Mary",
+  "date": "Sep12",
   "href": "http://www.introibo.fr/12-09-Le-Tres-Saint-Nom-de-Marie",
   "in": "Vultum tuum",
   "inRef": "Ps. 44, 13, 15 & 16. 2.\nPs. 44, 5 & 8.",
@@ -4524,6 +4757,7 @@ gregorianPropers = {
  },
  "exaltation_holy_cross": {
   "title": "14 Sep - Exaltation of the Holy Cross",
+  "date": "Sep14",
   "href": "http://www.introibo.fr/14-09-Exaltation-de-la-Ste-Croix",
   "in": "Nos autem",
   "inRef": "Gal. 6, 14; Ps. 66, 1.\nPs. 66, 2 & 3.",
@@ -4536,6 +4770,7 @@ gregorianPropers = {
  },
  "seven_dolours_bvm": {
   "title": "15 Sep - Seven Dolours of the Blessed Virgin Mary",
+  "date": "Sep15",
   "href": "http://www.introibo.fr/15-09-Notre-Dame-des-Douleurs",
   "in": "Stabant",
   "inRef": "Ioann. 19, 25. 26-27.",
@@ -4552,21 +4787,25 @@ gregorianPropers = {
  },
  "st_nicomedes": {
   "title": "15 Sep - St Nicomedes, Martyr",
+  "date": "Sep15",
   "href": "http://www.introibo.fr/15-09-St-Nicomede-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "ss_cornelius_cyprian": {
   "title": "16 Sep - St Cornelius, Pope, and St Cyprian, Bishop, Martyr.",
+  "date": "Sep16",
   "href": "http://www.introibo.fr/16-09-Sts-Corneille-pape-et",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "ss_euphemia_lucy_geminianus": {
   "title": "16 Sep - SS Euphemia, Lucy and Geminianus, Martyrs.",
+  "date": "Sep16",
   "href": "http://www.introibo.fr/16-09-Sts-Euphemie-Vierge-Lucie-et",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "st_francis_stigmata": {
   "title": "17 Sep - Imprinting of the Holy Stigmata on St Francis, Confessor.",
+  "date": "Sep17",
   "href": "http://www.introibo.fr/17-09-Impression-des-Sts-Stigmates",
   "in": "Mihi autem absit. Ps. Voce mea",
   "inRef": "Gal. 6, 14; Ps. 141, 2.",
@@ -4580,6 +4819,7 @@ gregorianPropers = {
  },
  "st_joseph_of_cupertino": {
   "title": "18 Sep - St Joseph of Cupertino, Confessor.",
+  "date": "Sep18",
   "href": "http://www.introibo.fr/18-09-St-Joseph-de-Cupertino",
   "in": "Dilectio Dei",
   "inRef": "Eccli, 1, 14-15; Ps. 83, 2.",
@@ -4591,16 +4831,19 @@ gregorianPropers = {
  },
  "st_januarius_and_companions": {
   "title": "19 Sep - St Januarius, Bishop, and his Companions, Martyrs",
+  "date": "Sep19",
   "href": "http://www.introibo.fr/19-09-St-Janvier-eveque-et-ses",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "st_eustace_and_companions": {
   "title": "20 Sep - St Eustace and his Companions, Martyrs",
+  "date": "Sep20",
   "href": "http://www.introibo.fr/20-09-St-Eustache-et-ses",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_matthew": {
   "title": "21 Sep - St Matthew, Apostle and Evangelist",
+  "date": "Sep21",
   "href": "http://www.introibo.fr/21-09-St-Matthieu-apotre-et",
   "in": "Os justi",
   "inRef": "Ps. 36, 30-31. 1.\nPs. 36, 3 & 26.",
@@ -4614,36 +4857,43 @@ gregorianPropers = {
  },
  "st_thomas_of_villanova": {
   "title": "22 Sep - St Thomas of Villanova, Bishop and Confessor",
+  "date": "Sep22",
   "href": "http://www.introibo.fr/22-09-St-Thomas-de-Villeneuve",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "st_maurice_and_companions": {
   "title": "22 Sep - St Maurice and his Companions, Martyrs",
+  "date": "Sep22",
   "href": "http://www.introibo.fr/22-09-St-Maurice-et-ses-Compagnons",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "st_linus": {
   "title": "23 Sep - St Linus, Pope and Martyr",
+  "date": "Sep23",
   "href": "http://www.introibo.fr/23-09-St-Lin-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_thecla": {
   "title": "23 Sep - St Thecla, Virgin and Martyr",
+  "date": "Sep23",
   "href": "http://www.introibo.fr/23-09-Ste-Thecle-vierge-et-martyre",
   "ref": "saints.html#mass_i_virgin_martyr"
  },
  "our_lady_of_ransom": {
   "title": "24 Sep - Our Lady of Ransom",
+  "date": "Sep24",
   "href": "http://www.introibo.fr/24-09-Notre-Dame-de-la-Merci",
   "ref": "saints.html#mass_bvm"
  },
  "ss_cyprian_and_justina": {
   "title": "26 Sep - SS Cyprian and Justina, Martyrs",
+  "date": "Sep26",
   "href": "http://www.introibo.fr/26-09-St-Cyprien-et-Ste-Justine",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "ss_cosmas_and_damian": {
   "title": "27 Sep - SS Cosmas and Damian, Martyrs",
+  "date": "Sep27",
   "href": "http://www.introibo.fr/27-09-Sts-Come-et-Damien-martyrs",
   "in": "Sapientiam (sanctorum)",
   "inRef": "Eccli. 44, 15 & 14; Ps. 32, 1.\nPs. 32, 2-4, 12-15, 18.",
@@ -4657,11 +4907,13 @@ gregorianPropers = {
  },
  "st_wenceslaus": {
   "title": "28 Sep - St Wenceslaus, Duke of Bohemia, Martyr",
+  "date": "Sep28",
   "href": "http://www.introibo.fr/28-09-St-Wenceslas-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_michael": {
   "title": "29 Sep - St Michael the Archangel (Dedication of the church of)",
+  "date": "Sep29",
   "href": "http://www.introibo.fr/29-09-Dedicace-de-St-Michel",
   "in": "Benedicite Dominum",
   "inRef": "Ps. 102, 20. 1.\nPs. 102, 21-22.",
@@ -4676,16 +4928,19 @@ gregorianPropers = {
  },
  "st_jerome": {
   "title": "30 Sep - St Jerome, Confessor and Doctor of the Church",
+  "date": "Sep30",
   "href": "http://www.introibo.fr/30-09-St-Jerome-confesseur-et",
   "ref": "saints.html#mass_doctors"
  },
  "st_remi": {
   "title": "1 Oct - St Remigius (Saint Rémi), Bishop and Confessor",
+  "date": "Oct1",
   "href": "http://www.introibo.fr/01-10-St-Remi-eveque-et-confesseur",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "guardian_angels": {
   "title": "2 Oct - The Holy Guardian Angels",
+  "date": "Oct2",
   "href": "http://www.introibo.fr/02-10-Sts-Anges-gardiens",
   "in": "Benedicite Dominum",
   "inRef": "Ps. 102, 20. 1.\nPs. 102, 21-22.",
@@ -4700,6 +4955,7 @@ gregorianPropers = {
  },
  "ste_therese_ej": {
   "title": "3 Oct - Ste Thérèse de l'Enfant-Jésus et de la Sainte-Face, Vierge",
+  "date": "Oct3",
   "href": "http://www.introibo.fr/03-10-Ste-Therese-de-l-Enfant",
   "in": "Veni (de Libano)",
   "inRef": "Cant. 4, 8-9; Ps. 112, 1.\nPs. 112, 2-3.",
@@ -4714,6 +4970,7 @@ gregorianPropers = {
  },
  "st_francis_assisi": {
   "title": "4 Oct - St Francis of Assisi",
+  "date": "Oct4",
   "href": "http://www.introibo.fr/04-10-St-Francois-d-Assise",
   "ref": "saints.html#st_francis_stigmata",
   "in": "Mihi autem absit. Ps. Voce mea",
@@ -4728,16 +4985,19 @@ gregorianPropers = {
  },
  "st_placid_and_companions": {
   "title": "5 Oct - St Placid and his Companions, Martyrs",
+  "date": "Oct5",
   "href": "http://www.introibo.fr/05-10-St-Placide-et-ses-Compagnons",
   "ref": "saints.html#mass_iii_two_or_more_martyr"
  },
  "st_bruno": {
   "title": "6 Oct - St Bruno, Confessor",
+  "date": "Oct6",
   "href": "http://www.introibo.fr/06-10-St-Bruno-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "most_holy_rosary": {
   "title": "7 Oct -  Our Lady of the Rosary",
+  "date": "Oct7",
   "href": "http://www.introibo.fr/07-10-Notre-Dame-du-Rosaire",
   "in": "Gaudeamus (Mariae... solemnitate)",
   "inRef": "Ps. 44, 2.\nPs. 44, 5.",
@@ -4751,21 +5011,25 @@ gregorianPropers = {
  },
  "st_mark_i": {
   "title": "7 Oct - St Mark I, Pope and Confessor",
+  "date": "Oct7",
   "href": "http://www.introibo.fr/07-10-St-Marc-pape-et-confesseur",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_bridget": {
   "title": "8 Oct - St Bridget, Widow",
+  "date": "Oct8",
   "href": "http://www.introibo.fr/08-10-Ste-Brigitte-veuve",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "ss_sergius_bacchus_marcellus_apuleius": {
   "title": "8 Oct - SS Sergius, Bacchus, Marcellus and Apuleius, Martyrs",
+  "date": "Oct8",
   "href": "http://www.introibo.fr/08-10-Sts-Serge-Bacchus-Marcel-et",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_john_leonardi": {
   "title": "9 Oct - St John Leonardi, Confessor",
+  "date": "Oct9",
   "href": "http://www.introibo.fr/09-10-St-Jean-Leonardi-confesseur",
   "in": "In sermonibus",
   "inRef": "Eccli. 42, 15-16; Ps. 95, 1.",
@@ -4780,16 +5044,19 @@ gregorianPropers = {
  },
  "st_dionysus_ss_rusticus_eleutherius": {
   "title": "9 Oct - St Dionysus, Bishop and Martyr, SS Rusticus and Eleutherius, Martyrs",
+  "date": "Oct9",
   "href": "http://www.introibo.fr/09-10-Sts-Denis-eveque-Rustique-et",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_francis_borgia": {
   "title": "10 Oct - St Francis Borgia, Confessor",
+  "date": "Oct10",
   "href": "http://www.introibo.fr/10-10-St-Francois-de-Borgia",
   "ref": "saints.html#mass_abbots"
  },
  "maternity_bvm": {
   "title": "11 Oct - Maternity of the Blessed Virgin Mary",
+  "date": "Oct11",
   "href": "http://www.introibo.fr/11-10-Maternite-de-la-Vierge-Marie",
   "in": "Ecce Virgo",
   "inRef": "Is. 7, 14; Ps. 97, 1.\nPs. 97, 1-2.",
@@ -4803,6 +5070,7 @@ gregorianPropers = {
  },
  "st_edward": {
   "title": "13 Oct - St Edward, King of England",
+  "date": "Oct13",
   "href": "http://www.introibo.fr/13-10-St-Edouard-roi-et-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop",
   "co": "Beatus servus",
@@ -4810,21 +5078,25 @@ gregorianPropers = {
  },
  "st_callistus_i": {
   "title": "14 Oct - St Callistus I, Pope and Martyr",
+  "date": "Oct14",
   "href": "http://www.introibo.fr/14-10-St-Calixte-Ier-pape-et",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_teresa_avila": {
   "title": "15 Oct - St Theresa of Avila, Virgin",
+  "date": "Oct15",
   "href": "http://www.introibo.fr/15-10-Ste-Therese-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "st_hedwig": {
   "title": "16 Oct - St Hedwig, Widow",
+  "date": "Oct16",
   "href": "http://www.introibo.fr/16-10-Ste-Hedwige-veuve",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "ste_marguerite_marie_alacoque": {
   "title": "17 Oct - Ste Marguerite-Marie Alacoque, Vierge",
+  "date": "Oct17",
   "href": "http://www.introibo.fr/17-10-Ste-Marguerite-Marie",
   "in": "Sub umbra illius",
   "inRef": "Cant. 2, 3; Ps. 83, 2-3.",
@@ -4839,6 +5111,7 @@ gregorianPropers = {
  },
  "st_luke": {
   "title": "18 Oct - St Luke, Evangelist",
+  "date": "Oct18",
   "href": "http://www.introibo.fr/18-10-St-Luc-evangeliste",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6.",
@@ -4853,11 +5126,13 @@ gregorianPropers = {
  },
  "st_peter_of_alcantara": {
   "title": "19 Oct - St Peter of Alcantara, Confessor",
+  "date": "Oct19",
   "href": "http://www.introibo.fr/19-10-St-Pierre-d-Alcantara",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "st_john_cantius": {
   "title": "20 Oct - St John Cantius, Confessor",
+  "date": "Oct20",
   "href": "http://www.introibo.fr/20-10-St-Jean-de-Kenty-confesseur",
   "in": "Miseratio",
   "inRef": "Eccli. 18, 12-13; Ps. 1, 1.",
@@ -4872,21 +5147,25 @@ gregorianPropers = {
  },
  "st_hilarion": {
   "title": "21 Oct - St Hilarion, Abbott",
+  "date": "Oct21",
   "href": "http://www.introibo.fr/21-10-St-Hilarion-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_ursula_and_companions": {
   "title": "21 Oct - St Ursula and her Companions, Virgins and Martyrs",
+  "date": "Oct21",
   "href": "http://www.introibo.fr/21-10-Stes-Ursule-et-ses-Compagnes",
   "ref": "saints.html#mass_i_virgin_martyr"
  },
  "st_anthony_mary_claret": {
   "title": "23 Oct - St Anthony Mary Claret, Bishop and Confessor",
+  "date": "Oct23",
   "href": "http://www.introibo.fr/23-10-St-Antoine-Marie-Claret",
   "ref": "saints.html#mass_ii_confessor_bishop"
  },
  "st_raphael": {
   "title": "24 Oct - St Raphael the Archangel",
+  "date": "Oct24",
   "href": "http://www.introibo.fr/24-10-St-Rapahel-archange",
   "in": "Benedicite Dominum",
   "inRef": "Ps. 102, 20. 1.\nPs. 102, 21-22.",
@@ -4915,16 +5194,19 @@ gregorianPropers = {
  },
  "ss_chrysanthus_daria": {
   "title": "25 Oct - SS Chrysanthus and Daria, Martyrs",
+  "date": "Oct25",
   "href": "http://www.introibo.fr/25-10-Sts-Chrysanthe-et-Darie",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "st_evaristus_i": {
   "title": "26 Oct - St Evaristus I, Pope and Martyr",
+  "date": "Oct26",
   "href": "http://www.introibo.fr/26-10-St-Evariste-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "ss_simon_jude_vigil": {
   "title": "27 Oct - Vigil of SS Simon and Jude, Apostles",
+  "date": "Oct27",
   "href": "http://www.introibo.fr/27-10-Vigile-des-Sts-Simon-et-Jude",
   "in": "Intret (in conspectu)",
   "inRef": "Ps. 78, 11, 12 & 10. 1.\nPs. 78, 2-3.",
@@ -4937,6 +5219,7 @@ gregorianPropers = {
  },
  "ss_simon_jude": {
   "title": "28 Oct - SS Simon and Jude, Apostles",
+  "date": "Oct28",
   "href": "http://www.introibo.fr/28-10-Sts-Simon-et-Jude-apotres",
   "in": "Mihi autem (nimis)",
   "inRef": "Ps. 138, 17. 1-2.\nPs. 138, 2-6.",
@@ -4951,6 +5234,7 @@ gregorianPropers = {
  },
  "all_saints_vigil": {
   "title": "31 Oct - All Saints Vigil",
+  "date": "Oct31",
   "href": "http://www.introibo.fr/31-10-Vigile-de-la-fete-de-tous",
   "in": "Judicant (sancti)",
   "inRef": "Sap. 3, 8; Ps. 32, 1.",
@@ -4963,6 +5247,7 @@ gregorianPropers = {
  },
  "all_saints": {
   "title": "1 Nov - All Saints",
+  "date": "Nov1",
   "href": "http://www.introibo.fr/01-11-Fete-de-Tous-les-Saints",
   "in": "Gaudeamus (Sanct. omnium)",
   "inRef": "Ps. 32, 1.",
@@ -4980,21 +5265,25 @@ gregorianPropers = {
  },
  "all_souls": {
   "title": "2 Nov - Commemoration of All the Faithful Departed (All Souls)",
+  "date": "Nov2",
   "href": "http://www.introibo.fr/02-11-Commemoraison-de-tous-les",
   "ref": "saints.html#requiem"
  },
  "st_charles_borromeo": {
   "title": "4 Nov - St Charles Borromeo, Bishop and Confessor",
+  "date": "Nov4",
   "href": "http://www.introibo.fr/04-11-St-Charles-Borromee-eveque",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "ss_vitalis_agricola": {
   "title": "4 Nov - SS Vitalis and Agricola, Martyrs",
+  "date": "Nov4",
   "href": "http://www.introibo.fr/04-11-Sts-Vital-et-Agricola",
   "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "holy_relics": {
   "title": "5 Nov - Feast of the Holy Relics",
+  "date": "Nov5",
   "href": "http://www.introibo.fr/05-11-Les-Saintes-Reliques",
   "in": "Multae (tribulationes)",
   "inRef": "Ps. 33, 20-21. 2.",
@@ -5009,26 +5298,31 @@ gregorianPropers = {
  },
  "four_crowned_martyrs": {
   "title": "8 Nov - Commemoration of the Four Crowned Martyrs",
+  "date": "Nov8",
   "href": "http://www.introibo.fr/08-11-Les-Quatre-Saints-Couronnes",
   "ref": "saints.html#mass_i_two_or_more_martyr"
  },
  "dedication_arch_basilica_our_saviour": {
   "title": "9 Nov - Dedication of the Arch-Basilica of Our Saviour",
+  "date": "Nov9",
   "href": "http://www.introibo.fr/09-11-Dedicace-de-l-Archibasilique",
   "ref": "saints.html#mass_dedication_church"
  },
  "st_theodore": {
   "title": "9 Nov - St Theodore, Martyr",
+  "date": "Nov9",
   "href": "http://www.introibo.fr/09-11-St-Theodore-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_andrew_avellino": {
   "title": "10 Nov - St Andrew Avellino, Confessor",
+  "date": "Nov10",
   "href": "http://www.introibo.fr/10-11-St-Andre-Avellin-confesseur",
   "ref": "saints.html#mass_i_confessor_not_bishop"
  },
  "ss_tryphon_respicius_nympha": {
   "title": "10 Nov - SS Tryphon, Respicius and Nympha, Martyrs",
+  "date": "Nov10",
   "href": "http://www.introibo.fr/10-11-Sts-Tryphon-Respice-et",
   "in": "Clamaverunt (justi)",
   "inRef": "Ps. 33, 18. 2.",
@@ -5043,6 +5337,7 @@ gregorianPropers = {
  },
  "st_martin": {
   "title": "11 Nov - St Martin, Bishop and Confessor",
+  "date": "Nov11",
   "href": "http://www.introibo.fr/11-11-St-Martin-eveque-et",
   "in": "Statuit",
   "inRef": "Eccli. 45, 30; Ps. 131, 1.\nPs. 131, 9 & 16.",
@@ -5057,21 +5352,25 @@ gregorianPropers = {
  },
  "st_menna": {
   "title": "11 Nov - St Menna, Martyr",
+  "date": "Nov11",
   "href": "http://www.introibo.fr/11-11-St-Menne-martyr",
   "ref": "saints.html#mass_ii_martyr_not_bishop"
  },
  "st_martin_i": {
   "title": "12 Nov - St Martin I, Pope and Martyr",
+  "date": "Nov12",
   "href": "http://www.introibo.fr/12-11-St-Martin-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_didacus": {
   "title": "13 Nov - St Didacus, Confessor",
+  "date": "Nov13",
   "href": "http://www.introibo.fr/13-11-St-Didace-confesseur",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "st_josaphat": {
   "title": "14 Nov - St Josaphat, Bishop and Martyr",
+  "date": "Nov14",
   "href": "http://www.introibo.fr/14-11-St-Josaphat-eveque-et-martyr",
   "in": "Gaudeamus... Josaphat",
   "inRef": "Ps. 32, 1.\nPs. 32, 2-4, 12-15, 18.",
@@ -5091,46 +5390,55 @@ gregorianPropers = {
  },
  "st_albert_the_great": {
   "title": "15 Nov - St Albert the Great, Bishop, Confessor and Doctor of the Church",
+  "date": "Nov15",
   "href": "http://www.introibo.fr/15-11-St-Albert-le-Grand-eveque",
   "ref": "saints.html#mass_doctors"
  },
  "st_gertrude": {
   "title": "16 Nov - St Gertrude, Virgin",
+  "date": "Nov16",
   "href": "http://www.introibo.fr/16-11-Ste-Gertrude-vierge",
   "ref": "saints.html#mass_i_virgin_not_martyr"
  },
  "st_gregory_wonder_worker": {
   "title": "17 Nov - St Gregory, the Wonder-Worker, Bishop and Confessor",
+  "date": "Nov17",
   "href": "http://www.introibo.fr/17-11-St-Gregoire-le-Thaumaturge",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "dedication_basilica_ss_peter_paul": {
   "title": "18 Nov - The Dedication of the Basilicas of SS Peter and Paul",
+  "date": "Nov18",
   "href": "http://www.introibo.fr/18-11-Dedicace-des-Basiliques",
   "ref": "saints.html#mass_dedication_church"
  },
  "st_elizabeth_of_hungary": {
   "title": "19 Nov - St Elizabeth of Hungary, Widow",
+  "date": "Nov19",
   "href": "http://www.introibo.fr/19-11-Ste-Elisabeth-de-Hongrie",
   "ref": "saints.html#mass_holy_woman_not_martyr"
  },
  "st_pontianus": {
   "title": "19 Nov - St Pontianus, Pope and Martyr",
+  "date": "Nov19",
   "href": "http://www.introibo.fr/19-11-St-Pontien-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
  "st_felix_of_valois": {
   "title": "20 Nov - St Felix of Valois, Confessor",
+  "date": "Nov20",
   "href": "http://www.introibo.fr/20-11-St-Felix-de-Valois",
   "ref": "saints.html#mass_ii_confessor_not_bishop"
  },
  "presentation_bvm": {
   "title": "21 Nov - Presentation of the Blessed Virgin Mary",
+  "date": "Nov21",
   "href": "http://www.introibo.fr/21-11-Presentation-de-la-Bse",
   "ref": "saints.html#mass_bvm"
  },
  "st_cecilia": {
   "title": "22 Nov - St Cecilia, Virgin and Martyr",
+  "date": "Nov22",
   "href": "http://www.introibo.fr/22-11-Ste-Cecile-vierge-et-martyre",
   "in": "Loquebar... Ps. Beati immaculati",
   "inRef": "Ps. 118, 46-47. 1.\nPs. 118, 2-3, 8-9, 26, 59-60, 134, 168.",
@@ -5145,6 +5453,7 @@ gregorianPropers = {
  },
  "st_clement": {
   "title": "23 Nov - St Clement, Pope and Martyr",
+  "date": "Nov23",
   "href": "http://www.introibo.fr/23-11-St-Clement-Ier-pape-et",
   "in": "Dicit Dominus : Sermones",
   "inRef": "Is. 59, 21; 56, 7; Ps. 111, 1.",
@@ -5159,31 +5468,37 @@ gregorianPropers = {
  },
  "st_felicity": {
   "title": "23 Nov - St Felicity, Martyr",
+  "date": "Nov23",
   "href": "http://www.introibo.fr/23-11-Ste-Felicite-martyre",
   "ref": "saints.html#mass_ii_virgin_martyr"
  },
  "st_john_cross": {
   "title": "24 Nov - St John of the Cross, Confessor and Doctor of the Church",
+  "date": "Nov24",
   "href": "http://www.introibo.fr/24-11-St-Jean-de-la-Croix",
   "ref": "saints.html#mass_doctors"
  },
  "st_chrysogonus": {
   "title": "24 Nov - St Chrysogonus, Martyr",
+  "date": "Nov24",
   "href": "http://www.introibo.fr/24-11-St-Chrysogone-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_sylvester": {
   "title": "26 Nov - St Sylvester, Abbott",
+  "date": "Nov26",
   "href": "http://www.introibo.fr/26-11-St-Silvestre-abbe",
   "ref": "saints.html#mass_abbots"
  },
  "st_peter_of_alexandria": {
   "title": "26 Nov - St Peter of Alexandria, Bishop and Martyr",
+  "date": "Nov26",
   "href": "http://www.introibo.fr/26-11-St-Pierre-d-Alexandrie",
   "ref": "saints.html#mass_i_confessor_bishop"
  },
  "our_lady_miraculous_medal": {
   "title": "27 Nov - Our Lady of the Miraculous Medal",
+  "date": "Nov27",
   "href": "http://www.introibo.fr/L-Immaculee-Vierge-Marie-de-la",
   "in": "Erit quasi signum",
   "inRef": "Exodi 13, 9; Ps. 104, 1.",
