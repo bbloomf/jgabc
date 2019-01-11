@@ -83,7 +83,7 @@ function processUrl(urlKey) {
             propria[key] = match[2];
             var span = td.querySelector('span.ps1');
             if(span) {
-              var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/\.?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
+              var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
               if(ref) {
                 propria[key+"Ref"] = ref;
               }

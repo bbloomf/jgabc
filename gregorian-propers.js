@@ -26,7 +26,7 @@ gregorianPropers = {
   "of": "Deus tu convertens",
   "ofRef": "Ps. 84, 7-8.",
   "co": "Jerusalem surge",
-  "coRef": "Bar. 5, 5 ; 4, 36.\nPs. 147, 1-4, 6-9."
+  "coRef": "Bar. 5, 5; 4, 36.\nPs. 147, 1-4, 6-9."
  },
  "advent3": {
   "title": "3rd Sunday of Advent",
@@ -283,7 +283,7 @@ gregorianPropers = {
   "title": "6 Jan - The Epiphany of Our Lord",
   "href": "http://www.introibo.fr/Epiphanie-du-Seigneur-6-janvier",
   "in": "Ecce (advenit)",
-  "inRef": "Malach. 3, 1 ;; 1 Par. 29, 12; Ps. 71, 1.\nPs. 71, 10-11.",
+  "inRef": "Malach. 3, 1; 1 Par. 29, 12; Ps. 71, 1.\nPs. 71, 10-11.",
   "gr": "Omnes (de Saba)",
   "grRef": "Is. 60, 6 & 1.",
   "al": "Vidimus stellam",
@@ -923,7 +923,7 @@ gregorianPropers = {
   "in": "Nos autem",
   "inRef": "Gal. 6, 14; Ps. 66, 1.\nPs. 66, 2 & 3.",
   "gr": "Ego autem",
-  "grRef": "Ps. 34 , 13 & 1-2.",
+  "grRef": "Ps. 34, 13 & 1-2.",
   "of": "Custodi me",
   "ofRef": "Ps. 139, 5.",
   "co": "Adversum me",
@@ -1239,7 +1239,7 @@ gregorianPropers = {
   "of": "Portas caeli",
   "ofRef": "Ps. 77, 23-25.",
   "co": "Spiritus qui",
-  "coRef": "Ioann. 15, 26 ; 16, 14 ; 17, 1 & 5.\nPs. 77, 1-3, 4-5, 7, 23-25, 29, 71-72."
+  "coRef": "Ioann. 15, 26; 16, 14; 17, 1 & 5.\nPs. 77, 1-3, 4-5, 7, 23-25, 29, 71-72."
  },
  "pentecost_wed": {
   "title": "Wednesday in Whitsun Week (Ember Wednesday)",
@@ -1298,13 +1298,9 @@ gregorianPropers = {
  },
  "1st_sunday_after_pentecost": {
   "title": "Former 1st Sunday after Pentecost",
-  "href": "http://www.introibo.fr/Messe-du-1er-Dimanche-apres-la",
   "in": "Domine in tua misericordia",
-  "inRef": "Ps. 12, 6; Ps 12, 1.",
   "gr": "Ego dixi",
-  "grRef": "Ps. 40, 5 et 2.",
   "al": "Verba mea",
-  "alRef": "Ps. 5, 2.",
   "of": "Intende voci",
   "ofRef": "Ps. 5, 3-4.",
   "co": "Narrabo omnia",

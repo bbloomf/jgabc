@@ -26,7 +26,7 @@ gregorianPropers = {
   "of": "Deus tu convertens",
   "ofRef": "Ps. 84, 7-8.",
   "co": "Jerusalem surge",
-  "coRef": "Bar. 5, 5 ; 4, 36.\nPs. 147, 1-4, 6-9."
+  "coRef": "Bar. 5, 5; 4, 36.\nPs. 147, 1-4, 6-9."
  },
  "advent3": {
   "title": "3rd Sunday of Advent",
@@ -770,7 +770,7 @@ gregorianPropers = {
   "in": "Nos autem",
   "inRef": "Gal. 6, 14; Ps. 66, 1.\nPs. 66, 2 & 3.",
   "gr": "Ego autem",
-  "grRef": "Ps. 34 , 13 & 1-2.",
+  "grRef": "Ps. 34, 13 & 1-2.",
   "of": "Custodi me",
   "ofRef": "Ps. 139, 5.",
   "co": "Adversum me",
@@ -1086,7 +1086,7 @@ gregorianPropers = {
   "of": "Portas caeli",
   "ofRef": "Ps. 77, 23-25.",
   "co": "Spiritus qui",
-  "coRef": "Ioann. 15, 26 ; 16, 14 ; 17, 1 & 5.\nPs. 77, 1-3, 4-5, 7, 23-25, 29, 71-72."
+  "coRef": "Ioann. 15, 26; 16, 14; 17, 1 & 5.\nPs. 77, 1-3, 4-5, 7, 23-25, 29, 71-72."
  },
  "pentecost_wed": {
   "title": "Wednesday in Whitsun Week (Ember Wednesday)",
@@ -2190,7 +2190,7 @@ gregorianPropers = {
   "title": "Nuptial Mass",
   "href": "http://www.introibo.fr/Messe-du-Mariage",
   "in": "Deus Israel",
-  "inRef": "Tob. 7, 15 ; 8, 19; Ps. 127, 1.",
+  "inRef": "Tob. 7, 15; 8, 19; Ps. 127, 1.",
   "gr": "Uxor (tua)",
   "grRef": "Ps. 127, 3.",
   "al": "Mittat vobis",
@@ -3377,7 +3377,7 @@ gregorianPropers = {
   "title": "4 Jun - St Francis Caracciolo, Confessor",
   "href": "http://www.introibo.fr/04-06-St-Francois-Carraciolo",
   "in": "Factum est cor",
-  "inRef": "Ps. 21, 15;; Ps. 68, 10; Ps. 72, 1.",
+  "inRef": "Ps. 21, 15; Ps. 68, 10; Ps. 72, 1.",
   "gr": "Quemadmodum",
   "grRef": "Ps. 41, 2. 3.",
   "al": "Defecit caro",
@@ -4745,7 +4745,7 @@ gregorianPropers = {
   "grRef": "Ps. 44, 5, 11 & 12.",
   "al": "Solemnitas",
   "of": "In me (gratia)",
-  "ofRef": "Eccli. 24, 25 ; 39, 17.",
+  "ofRef": "Eccli. 24, 25; 39, 17.",
   "co": "Florete flores",
   "coRef": "Eccli. 39, 19.\nPs. 44, 2, 5, 8, 10-16."
  },
@@ -4770,7 +4770,7 @@ gregorianPropers = {
   "in": "In sermonibus",
   "inRef": "Eccli. 42, 15-16; Ps. 95, 1.",
   "gr": "Inflammatum est",
-  "grRef": "Ps. 72, 21 ; 68, 10. Isai. 49, 2.",
+  "grRef": "Ps. 72, 21; 68, 10. Isai. 49, 2.",
   "al": "Tamquam prodigium",
   "alRef": "Ps. 70, 7.",
   "of": "Christi (factus sum)",
@@ -4903,7 +4903,7 @@ gregorianPropers = {
   "title": "Our Lord Jesus Christ, King",
   "href": "http://www.introibo.fr/Dernier-Dimanche-d-Octobre-le",
   "in": "Dignus est Agnus",
-  "inRef": "Apoc. 5, 12 ; 1, 6; Ps. 71, 1.\nPs. 71, 2 & 11.",
+  "inRef": "Apoc. 5, 12; 1, 6; Ps. 71, 1.\nPs. 71, 2 & 11.",
   "gr": "Dominabitur",
   "grRef": "Ps. 71, 8 & 11.",
   "al": "Potestas ejus",
@@ -5147,7 +5147,7 @@ gregorianPropers = {
   "title": "23 Nov - St Clement, Pope and Martyr",
   "href": "http://www.introibo.fr/23-11-St-Clement-Ier-pape-et",
   "in": "Dicit Dominus : Sermones",
-  "inRef": "Is. 59, 21 ; 56, 7; Ps. 111, 1.",
+  "inRef": "Is. 59, 21; 56, 7; Ps. 111, 1.",
   "gr": "Exaltent eum",
   "grRef": "Ps. 106, 32, 31.",
   "al": "Tu es Petrus",
