@@ -1,5 +1,8 @@
 "use strict";
 var fs = require("fs"),
+    texts,
+    empty = require('./texts.js'),
+    stringSimilarity = require('string-similarity'),
     dirMain = '../divinum-officium-website/web/www/missa/Latin/',
     dirTempora = dirMain + 'Tempora/',
     dirSancti = dirMain + 'Sancti/',
@@ -10,6 +13,38 @@ var fs = require("fs"),
     daysOfWeek = ' mtwhfs',
     notFound = [],
     missing = [],
+    mapSpecial = {
+      SMadvent: dirCommune+'C10a',
+      SMchristmas: dirCommune+'C10b',
+      SMlent: dirCommune+'C10c',
+      SMeaster: dirCommune+'C10Pasc',
+      SMpentecost: dirCommune+'C10',
+      ChristusRex: dirSancti+'10-DU',
+      votiveSCJ: dirTempora+'Pent02-5',
+      SCJ: dirTempora+'Pent02-5',
+      // votiveST: '',
+      // votiveA: '',
+      // votiveSS: '',
+      // votiveSES: '',
+      // votiveJCSES: '',
+      // votiveSC: '',
+      // votivePJC: '',
+      // votiveJ: '',
+      // votivePP: '',
+      // votiveOA: '',
+      // nuptialis: '',
+      defunctorum: dirCommune+'C9',
+      dedicatio: dirCommune+'C8',
+      Epi: dirSancti+'01-06',
+      Asc: dirTempora+'Pasc5-4',
+      CorpusChristi: dirTempora+'Pent01-4',
+      EmbWedSept: dirTempora+'093-3',
+      EmbFriSept: dirTempora+'093-5',
+      EmbSatSept: dirTempora+'093-6'
+      // EmbSatSeptS: '',
+      // Adv3ss: '',
+      // Pasc7ss: '',
+    },
     mapBooks = {
       "Act": "Actus Apostolorum",
       "Acts": "Actus Apostolorum",
@@ -73,7 +108,7 @@ keys.forEach(key => {
     ending = daysOfWeek.indexOf(match[1]);
   }
   // check if from Sancti:
-  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)(?:_(\d))?$/.exec(key);
+  match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)(?:_(\d)|or\d+)?$/.exec(key);
   if(match) {
     dir = dirSancti;
     k = 'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec'.indexOf(match[1]) / 4;
@@ -83,8 +118,17 @@ keys.forEach(key => {
   }
 
   var fname = `${dir}${k}-${ending}.txt`;
+  if(key in mapSpecial) {
+    dir = '';
+    k = mapSpecial[key];
+    fname = k + '.txt';
+  }
+
   var exists = fs.existsSync(fname);
   if(!exists) {
+    if(key in mapSpecial) {
+      throw fname;
+    }
     fname = `${dir}${k}-${ending}r.txt`;
     exists = fs.existsSync(fname);
     if(!exists) {
@@ -93,6 +137,10 @@ keys.forEach(key => {
     }
   }
   var info = fs.readFileSync(fname,'utf8');
+
+  // TODO: check all propers texts
+  // stringSimilarity.findBestMatch(string, arrayOfChoices)
+
   var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
   while(!lectiones) {
     var reference = info.match(/\[Rule\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);

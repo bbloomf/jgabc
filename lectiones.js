@@ -1,4 +1,44 @@
 var lectiones = {
+ "SMadvent": [
+  "Is 7:10-15",
+  "Luc 1:26-38"
+ ],
+ "SMchristmas": [
+  "Tit 3:4-7",
+  "Luc 2:15-20"
+ ],
+ "SMlent": [
+  "Eccli 24:14-16",
+  "Luc 11:27-28"
+ ],
+ "SMeaster": [
+  "Sir 24:14-16",
+  "Joannes 19:25-27"
+ ],
+ "SMpentecost": [
+  "Eccli 24:14-16",
+  "Luc 11:27-28"
+ ],
+ "ChristusRex": [
+  "Col 1:12-20",
+  "Joann 18:33-37"
+ ],
+ "votiveSCJ": [
+  "Eph 3:8-19",
+  "Joannes 19:11-37"
+ ],
+ "SCJ": [
+  "Eph 3:8-19",
+  "Joannes 19:11-37"
+ ],
+ "defunctorum": [
+  "Apoc 14:13",
+  "Joannes 6:51-55"
+ ],
+ "dedicatio": [
+  "Apoc 21:2-5",
+  "Luc 19:1-10"
+ ],
  "Dec24": [
   "Rom 1:1-6",
   "Matt 1:18-21"
@@ -18,6 +58,18 @@ var lectiones = {
  "Jan1": [
   "Tit 2:11-15",
   "Luc 2:21"
+ ],
+ "Epi": [
+  "Is 60:1-6",
+  "Matt 2:1-12"
+ ],
+ "Asc": [
+  "Act 1:1-11",
+  "Marc 16:14-20"
+ ],
+ "CorpusChristi": [
+  "1 Cor 11:23-29",
+  "Joann 6:56-59"
  ],
  "Adv1": [
   "Rom 13:11-14",
@@ -238,6 +290,24 @@ var lectiones = {
  "Pent17": [
   "Ephes 4:1-6",
   "Matt 22:34-46"
+ ],
+ "EmbWedSept": [
+  "Amos 9:13-15",
+  "Neh 8:1-10",
+  "Marc 9:16-28"
+ ],
+ "EmbFriSept": [
+  "Osee 14:2-10",
+  "Luc 7:36-50"
+ ],
+ "EmbSatSept": [
+  "Levit 23:26-32",
+  "Levit 23:39-43",
+  "Mich 7:14; 7:16; 7:18-20",
+  "Zach 8:14-19",
+  "Dan 3:47-51",
+  "Hebr 9:2-12",
+  "Luc 13:6-17"
  ],
  "Pent18": [
   "1 Cor 1:4-8",
@@ -639,6 +709,14 @@ var lectiones = {
  "Feb2": [
   "Malach 3:1-4",
   "Luc 2:22-32"
+ ],
+ "Feb24or25": [
+  "Act 1, 15-26",
+  "Matt 11:25-30"
+ ],
+ "Feb27or28": [
+  "1 Joann 2, 14-17",
+  "Marc 10:13-21"
  ],
  "Feb3": [
   "2 Cor 1:3-7",
@@ -1439,4 +1517,4 @@ var lectiones = {
   "Matt 16:13-19"
  ]
 };
-var mapTitleLectionis = {"Rom":"Lectio Epístolæ beati Pauli Apostoli ad Romános","Matt":"Sequéntia ++ sancti Evangélii secundum Matthǽum","Tit":"Léctio Epístolæ beati Pauli Apóstoli ad Titum","Luc":"Sequéntia ++ sancti Evangélii secundum Lucam","Hebr":"Léctio Epístolæ beáti Pauli Apóstoli ad Hebraeos","Joann":"Initium sancti Evangélii secúndum Joánnem","Philipp":"Lectio Epístolæ beáti Pauli Apóstoli ad Philippénses","Is":"Léctio Isaíæ Prophétæ","Isa":"Léctio Isaíæ Prophétæ","Dan":"Léctio Daniélis Prophétæ","Thess":"Léctio Epístolæ beáti Pauli Apóstoli ad Thessalonicénses","Cor":"Léctio Epístolæ beáti Pauli Apóstoli ad Corínthios","Col":"Léctio Epístolæ beáti Pauli Apóstoli ad Colossénses","Gal":"Lectio Epístolæ beati Pauli Apostoli ad Gálatas","Act":"Léctio Actuum Apostolorum","Marc":"Sequéntia ++ sancti Evangélii secúndum Marcum","Acts":"Léctio Actuum Apostolórum","Joannes":"Sequéntia ++ sancti Evangélii secúndum Joánnem","Petri":"Léctio Epístolæ beáti Petri Apóstoli","Pet":"Léctio Epístolæ beáti Petri Apóstoli","John":"Léctio Epístolæ beáti Joannis Apóstoli","Jas":"Léctio Epístolæ beáti Jacóbi Apóstoli","Joel":"Léctio Joélis Prophétæ","Lev":"Léctio libri Levítici","Deut":"Léctio libri Deuteronómii","Ephes":"Léctio Epístolæ beáti Pauli Apóstoli ad Ephésios","Phil":"Léctio Epístolæ beáti Pauli Apóstoli ad Philippénses","Ezech":"Léctio Ezechiélis Prophétæ","Exod":"Léctio libri Exodi","Reg":"Léctio libri Regum","Mach":"Léctio libri Machabæórum","Eccli":"Léctio libri Sapientiae","Esth":"Léctio libri Esther","Jer":"Léctio Jeremíæ Prophétæ","Gen":"Léctio libri Genesis","Num":"Léctio libri Numeri","Jonæ":"Léctio Jonæ Prophétæ","Judith":"Léctio libri Judith","Tim":"Léctio Epístolæ beáti Pauli Apóstoli ad Timótheum","Sap":"Léctio libri Sapiéntiæ","Prov":"Léctio libri Sapiéntiæ","Apoc":"Léctio libri Apocalýpsis beáti Joánnis Apóstoli","Malach":"Léctio Malachíæ Prophétæ","Cant":"Léctio libri Sapiéntiæ","Jac":"Léctio Epístolæ beáti Jacóbi Apóstoli","Heb":"Lectio Epistoli beati Pauli Apostoli ad Hebraeos","Tob":"Léctio libri Tobíæ","Eph":"Léctio Epístolæ beáti Pauli Apóstoli ad Ephésios","Jud":"Léctio Epístolæ beáti Judæ Apóstoli"}
+var mapTitleLectionis = {"Is":"Léctio Isaíæ Prophétæ","Luc":"Sequéntia ++ sancti Evangélii secúndum Lucam","Tit":"Léctio Epístolæ beáti Pauli Apóstoli ad Titum","Eccli":"Léctio libri Sapiéntiæ","Sir":"Léctio libri Sapiéntiæ","Joannes":"Sequéntia ++ sancti Evangélii secúndum Joánnem","Col":"Léctio Epístolæ beáti Pauli Apóstoli ad Colossénses","Joann":"Sequéntia ++ sancti Evangélii secúndum Joánnem","Eph":"Léctio Epístolæ beáti Pauli Apóstoli ad Ephésios","Apoc":"Léctio libri Apocalýpsis beáti Joánnis Apóstoli","Rom":"Lectio Epístolæ beati Pauli Apostoli ad Romános","Matt":"Sequéntia ++ sancti Evangélii secundum Matthǽum","Hebr":"Léctio Epístolæ beáti Pauli Apóstoli ad Hebraeos","Act":"Léctio Actuum Apostólorum","Marc":"Sequéntia ++ sancti Evangélii secúndum Marcum","Cor":"Léctio Epistolæ beáti Pauli Apóstoli ad Corinthios","Philipp":"Lectio Epístolæ beáti Pauli Apóstoli ad Philippénses","Isa":"Léctio Isaíæ Prophétæ","Dan":"Léctio Daniélis Prophétæ","Thess":"Léctio Epístolæ beáti Pauli Apóstoli ad Thessalonicénses","Gal":"Lectio Epístolæ beati Pauli Apostoli ad Gálatas","Acts":"Léctio Actuum Apostolórum","Petri":"Léctio Epístolæ beáti Petri Apóstoli","Pet":"Léctio Epístolæ beáti Petri Apóstoli","John":"Léctio Epístolæ beáti Joannis Apóstoli","Jas":"Léctio Epístolæ beáti Jacóbi Apóstoli","Joel":"Léctio Joélis Prophétæ","Lev":"Léctio libri Levítici","Deut":"Léctio libri Deuteronómii","Ephes":"Léctio Epístolæ beáti Pauli Apóstoli ad Ephésios","Amos":"Léctio Amos Prophétæ","Neh":"Léctio libri Esdræ","Osee":"Léctio Osee Prophétæ","Levit":"Léctio libri Levítici","Mich":"Léctio Michaeæ Prophétæ","Zach":"Léctio Zacharíæ Prophétæ","Phil":"Léctio Epístolæ beáti Pauli Apóstoli ad Philippénses","Ezech":"Léctio Ezechiélis Prophétæ","Exod":"Léctio libri Exodi","Reg":"Léctio libri Regum","Mach":"Léctio libri Machabæórum","Esth":"Léctio libri Esther","Jer":"Léctio Jeremíæ Prophétæ","Gen":"Léctio libri Genesis","Num":"Léctio libri Numeri","Jonæ":"Léctio Jonæ Prophétæ","Judith":"Léctio libri Judith","Tim":"Léctio Epístolæ beáti Pauli Apóstoli ad Timótheum","Sap":"Léctio libri Sapiéntiæ","Prov":"Léctio libri Sapiéntiæ","Malach":"Léctio Malachíæ Prophétæ","Cant":"Léctio libri Sapiéntiæ","Jac":"Léctio Epístolæ beáti Jacóbi Apóstoli","Heb":"Lectio Epistoli beati Pauli Apostoli ad Hebraeos","Tob":"Léctio libri Tobíæ","Jud":"Léctio Epístolæ beáti Judæ Apóstoli"}
