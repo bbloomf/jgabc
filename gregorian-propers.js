@@ -226,12 +226,12 @@ gregorianPropers = {
  "within_octave_christmas": {
   "title": "30 Dec - 6th day within the Octave of the Nativity",
   "href": "http://www.introibo.fr/30-decembre",
-  "ref": "http://www.gregorianbooks.com/propers.html#christmas3"
+  "ref": "propers.html#christmas3"
  },
  "st_silvester": {
   "title": "31 Dec - St Silvester, Pope and Confessor",
   "href": "http://www.introibo.fr/31-decembre",
-  "ref": "http://www.gregorianbooks.com/saints.html#mass_holy_pope",
+  "ref": "saints.html#mass_holy_pope",
   "trSept": "Beatus vir",
   "trSeptRef": "Ps. 111, 1-3.",
   "alPasch": "Tu es sacerdos",
@@ -272,12 +272,12 @@ gregorianPropers = {
  "st_telesphorus": {
   "title": "5 Jan - St Telesphorus, Pope and Martyr (Memory)",
   "href": "http://www.introibo.fr/05-01-St-Telesphore-pape-et-martyr",
-  "ref": "http://www.gregorianbooks.com/saints.html#mass_holy_pope"
+  "ref": "saints.html#mass_holy_pope"
  },
  "epiphany_eve": {
   "title": "5 Jan - Eve of the Epiphany",
   "href": "http://www.introibo.fr/Vigile-de-l-Epiphanie-avant-1955",
-  "ref": "http://www.gregorianbooks.com/propers.html#sunday_within_octave_christmas"
+  "ref": "propers.html#sunday_within_octave_christmas"
  },
  "epiphany": {
   "title": "6 Jan - The Epiphany of Our Lord",
@@ -326,12 +326,12 @@ gregorianPropers = {
  "st_hyginus": {
   "title": "11 Jan - St Hyginus, Pope and Martyr (Memory)",
   "href": "http://www.introibo.fr/11-01-St-Hygin-pape-et-martyr",
-  "ref": "http://www.gregorianbooks.com/saints.html#mass_holy_pope"
+  "ref": "saints.html#mass_holy_pope"
  },
  "epiphany_baptism": {
   "title": "13 Jan - Octave of Epiphany - Commemoration of Baptism of Our Lord Jesus Christ",
   "href": "http://www.introibo.fr/Bapteme-du-Seigneur-13-janvier",
-  "ref": "http://www.gregorianbooks.com/propers.html#epiphany"
+  "ref": "propers.html#epiphany"
  },
  "epiphany2": {
   "title": "2nd Sunday after Epiphany",
@@ -1158,7 +1158,7 @@ gregorianPropers = {
  "ascension_vigil": {
   "title": "Vigil of the Ascension",
   "href": "http://www.introibo.fr/Vigile-de-l-Ascension",
-  "ref": "http://www.gregorianbooks.com/propers.html#easter5"
+  "ref": "propers.html#easter5"
  },
  "ascension": {
   "title": "Ascension",
@@ -1175,7 +1175,7 @@ gregorianPropers = {
  "ascension_friday": {
   "title": "Friday after Ascension",
   "href": "http://www.introibo.fr/L-Ascension-du-Seigneur",
-  "ref": "http://www.gregorianbooks.com/propers.html#ascension"
+  "ref": "propers.html#ascension"
  },
  "ascension1": {
   "title": "Sunday after Ascension",
