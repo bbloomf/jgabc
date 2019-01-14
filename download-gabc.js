@@ -162,13 +162,14 @@ var path = 'gabc/',
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
                     var text = [];
-                    content = content.replace(/([a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+([,.;:!?*+†\s»"'‘’“”]*(\([^)]*\))+))+/gi, function(whole, lastSyl, toIgnore, lastParens, index, content){
+                    content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|([a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+([,.;:!?*+†\s»"'‘’“”]*(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
                       // 3. verify same number of syllables
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
+                      if(psalmMark) text.push("℣");
                       if(whole.match(/<i>|\|/)) return whole;
                       // ignore any words that have nothing in their parentheses:
                       if(whole == lastSyl && lastParens.length == 2) return whole;
@@ -228,6 +229,8 @@ var path = 'gabc/',
                       }
                     });
                     if(!isMiscChant && h.officePart && !/^(Kyriale|Varia|Toni Communes|Improperia)$/.test(h.officePart)) {
+                      var text = text.join(' ').replace(/gloria patri (e u o u a e|(?:et filio et spiritui sancto sicut erat in principio et nunc et semper et in sæcula )?sæculorum amen)$/,"gloria patri");
+                      if(h.officePart == 'Alleluia') text = text.replace(/^alleluia (℣ )?/,'');
                       texts[h.officePart] = texts[h.officePart] || {};
                       var id = ids[i];
                       var match = id.match && id.match(/^(\d+)&elem=(\d+)$/);
@@ -240,9 +243,9 @@ var path = 'gabc/',
                         } else if(current.constructor != [].constructor) {
                           texts[h.officePart][id] = current = [current];
                         }
-                        current[match[2]-1] = text.join(' ');
+                        current[match[2]-1] = text;
                       } else {
-                        texts[h.officePart][ids[i]] = text.join(' ');
+                        texts[h.officePart][ids[i]] = text;
                       }
                     }
                     //content = content.replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/AE/,'Æ').replace(/OE/,'Œ');
@@ -303,12 +306,14 @@ function makeTextTree(wordsList, textMap, prefix = "") {
     if(matching.length > 1) {
       result[word] = makeTextTree(matching, textMap, (prefix + " " + word).trim());
     } else {
-      while(!prefix && word.replace(/\s+/g,'').length < 5 && matching[0].length) {
-        word+= " " + matching[0].shift();
-      }
+      var subResult = result;
+      // while(!prefix &&
+      //   word.replace(/\s+/g,'').length < 5 &&    // this is for more human readable incipits to avoid "in", etc. even when unambiguous
+      //   matching[0].length) {
+      //   word += " " + matching[0].shift();
+      // }
       var text = (prefix + " " + word + " " + matching[0].join(' ')).trim();
       result[word] = textMap[text];
-      if(!(text in textMap)) debugger;
     }
     i += matching.length - 1;
   }
