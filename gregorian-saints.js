@@ -3276,7 +3276,7 @@ gregorianPropers = {
   "co": "Vos qui secuti... dicit",
   "coRef": "Matth 19: 28",
   "coVerses": "Ps 138: 1-6, 17-18, 23-24",
-  "refPasch": "Protexisti"
+  "refPasch": "saints.html#mass_one_martyr"
  },
  "st_louis": {
   "title": "25 Aug - St Louis, King of France, Confessor",

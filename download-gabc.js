@@ -275,6 +275,17 @@ var path = 'gabc/',
         if(active === 0 && i == ids.length) {
 
 // process incipits:
+function areWordsSubstantiallySimilar(a,b) {
+  if(!a || !b) return 0;
+  if(a == b) return 1;
+  var i = Math.min(a.length, b.length) - 1;
+  while(i > 0) {
+    if(a.slice(0, i) == b.slice(0, i)) break;
+    --i;
+  }
+  // return true if the word with the greatest number of different characters <= 4
+  return i / Math.max(a.length, b.length);
+}
 function collectTextsWithThisWord(word, i, wordsList) {
   var endI = i;
   while(++endI < wordsList.length) {
@@ -282,8 +293,9 @@ function collectTextsWithThisWord(word, i, wordsList) {
   }
   var result = wordsList.slice(i, endI);
   // count number of matching words:
-  i = 1;
+  var maxSimilarity;
   if(result.length > 1) {
+    i = 1;
     while(true) {
       var words = result.map(words => words[i]);
       word = words.pop();
@@ -291,8 +303,12 @@ function collectTextsWithThisWord(word, i, wordsList) {
       ++i;
     }
     word = result[0].slice(0, i).join(' ');
+  } else {
+    maxSimilarity = Math.max(...wordsList.slice(0,i).concat(wordsList.slice(endI)).map(words => words[0]).map(w => areWordsSubstantiallySimilar(w, word)));
+    i = 1;
   }
   result = result.map(words => words.slice(i));
+  if(maxSimilarity) result.maxSimilarity = maxSimilarity;
   result.word = word;
   return result;
 }
@@ -307,11 +323,17 @@ function makeTextTree(wordsList, textMap, prefix = "") {
       result[word] = makeTextTree(matching, textMap, (prefix + " " + word).trim());
     } else {
       var subResult = result;
-      // while(!prefix &&
-      //   word.replace(/\s+/g,'').length < 5 &&    // this is for more human readable incipits to avoid "in", etc. even when unambiguous
-      //   matching[0].length) {
-      //   word += " " + matching[0].shift();
-      // }
+      while(((
+              !prefix &&
+              word.replace(/\s+/g,'').length < 5    // this is for more human readable incipits to avoid "in", etc. even when unambiguous
+            ) || (
+              matching.maxSimilarity >= 0.8
+            )) &&
+            matching[0].length
+      ) {
+        word += " " + matching[0].shift();
+        matching.maxSimilarity = 0;
+      }
       var text = (prefix + " " + word + " " + matching[0].join(' ')).trim();
       result[word] = textMap[text];
     }
@@ -340,7 +362,10 @@ Object.keys(texts).forEach(key => {
           fs.writeFileSync('miscChants.js', `litanyMap=${JSON.stringify(litanies)};
 miscChants=${JSON.stringify(miscChants)}`);
           fs.writeFileSync('texts.js', `texts = ${JSON.stringify(texts,null, '\t')};`);
-          fs.writeFileSync('incipits.js', `incipits = ${JSON.stringify(incipits,null, '\t')};`);
+          fs.writeFileSync('incipits.js', `incipits = ${JSON.stringify(incipits,null, '\t')};
+var module;
+if(module && module.exports) module.exports.incipits = incipits;
+`);
           console.info('Finished in ' + time + ' seconds!');
           // console.info(replacements.join('\n\n'));
           console.info(errors.join('\n'));

@@ -1,6 +1,7 @@
 var http= require('http'),
     fs = require('fs'),
-    vr = require("./verseRef.js");
+    vr = require("./verseRef.js"),
+    incipits = require('./incipits.js').incipits;
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var propria = {};
@@ -74,13 +75,16 @@ function processUrl(urlKey) {
           if(sept) key += "Sept";
           if(pasch) key += "Pasch";
           if(match[1] || !(key in propria)) {
-            if(key == 'ref') {
+            if(/^ref/.test(key)) {
               var m = currentFeast.match(regexWeekday);
               if(m && m[1] in festa) {
                 delete festa[currentFeast];
               }
               propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
               return;
+            } else {
+              var incipitId = vr.findIncipitId(match[3],key);
+              console.info(key, match[3], incipitId);
             }
             if(match[1]) {
               propria[key] = propria[key] || [];

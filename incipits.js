@@ -1,7 +1,7 @@
 incipits = {
 	"Introitus": {
 		"accipite": 1278,
-		"ad": 132,
+		"ad te levavi": 132,
 		"adeamus cum fiducia ad thronum gratiæ ut misericordiam consequamur et gratiam inveniamus in auxilio opportuno alleluia alleluia ℣": {
 			"eructavit": 1110,
 			"levavi": 603
@@ -10,7 +10,7 @@ incipits = {
 		"adorate": 1123,
 		"angelus": 69,
 		"aperite": 692,
-		"aqua": 1135,
+		"aqua sapientiæ": 1135,
 		"audivit": 45,
 		"benedicite": 985,
 		"benedicta": 349,
@@ -33,7 +33,7 @@ incipits = {
 		"confiteantur": 381,
 		"congregate": 826,
 		"consummatus": 610,
-		"cor": 1256,
+		"cor meum": 1256,
 		"custodivit": 363,
 		"da": {
 			"nobis": 526,
@@ -109,10 +109,10 @@ incipits = {
 			"clamavi": 558
 		},
 		"egredimini": 1283,
-		"erit": 493,
-		"esto": 1381,
+		"erit quasi": 493,
+		"esto mihi": 1381,
 		"etenim": 1321,
-		"ex": 350,
+		"ex ore": 350,
 		"exaudi": {
 			"deus": 904,
 			"domine vocem meam qua clamavi ad te": {
@@ -131,18 +131,20 @@ incipits = {
 		"exsultet": 336,
 		"exsurge": 529,
 		"extuli": 452,
-		"fac": 733,
+		"fac mecum": 733,
 		"facies": 1131,
-		"factum": 1313,
-		"factus": 1111,
+		"factum est": 1313,
+		"factus est": 1111,
 		"foderunt": 948,
 		"gaudeamus omnes in domino diem festum celebrantes sub honore": {
 			"agathæ": 1183,
-			"beate": 950,
-			"beati": 417,
-			"beatæ mariæ virginis": {
-				"boni": 624,
-				"reginæ": 61
+			"beati josaphat": 417,
+			"beatæ": {
+				"annæ": 950,
+				"mariæ virginis": {
+					"boni": 624,
+					"reginæ": 61
+				}
 			},
 			"mariæ virginis de cujus": {
 				"assumptione": 3312,
@@ -157,7 +159,7 @@ incipits = {
 			"℣": 655
 		},
 		"gaudete": 1225,
-		"hi": 669,
+		"hi sunt": 669,
 		"hodie": 150,
 		"humiliavit": 523,
 		"illumina": 1072,
@@ -213,12 +215,12 @@ incipits = {
 			}
 		},
 		"loquetur": 271,
-		"lux": 917,
+		"lux fulgebit": 917,
 		"lætabitur": 251,
 		"lætare": 653,
 		"lætetur": 864,
 		"majorem": 785,
-		"me": 938,
+		"me exspectaverunt": 938,
 		"meditatio": 572,
 		"memento": 165,
 		"mihi": {
@@ -251,19 +253,19 @@ incipits = {
 			"alleluia": 359,
 			"℣": 374
 		},
-		"nunc": 478,
+		"nunc scio": 478,
 		"oculi": 916,
 		"oculus": 1025,
 		"omnes": 1136,
-		"omnia": 1056,
-		"omnis": 13,
-		"os": 1374,
+		"omnia quæ": 1056,
+		"omnis terra": 13,
+		"os justi": 1374,
 		"pauperes": 94,
 		"populus": 356,
 		"prope": 86,
 		"protector": 1071,
 		"protexisti": 340,
-		"puer": 72,
+		"puer natus": 72,
 		"quasi": 25,
 		"recordare": 535,
 		"redemisti": 123,
@@ -294,11 +296,11 @@ incipits = {
 		"salve": 1140,
 		"salvos": 575,
 		"sancti": 1231,
-		"sapientia": 646,
-		"sapientiam": 11,
+		"sapientia reddidit": 646,
+		"sapientiam sanctorum": 11,
 		"satiavit": 573,
 		"sciens": 676,
-		"scio": 1179,
+		"scio cui": 1179,
 		"sermo": 1349,
 		"si": {
 			"diligis": 674,
@@ -320,12 +322,12 @@ incipits = {
 		},
 		"stabant": 149,
 		"statuit": 456,
-		"sub": 1195,
+		"sub umbra": 1195,
 		"suscepimus": 1254,
 		"suscitabo": 1286,
 		"tenuisti": 656,
 		"terribilis": 923,
-		"tibi": 751,
+		"tibi dixit": 751,
 		"timete": 808,
 		"veni": {
 			"de": 59,
@@ -338,17 +340,17 @@ incipits = {
 		},
 		"verba": 1248,
 		"victricem": 1332,
-		"vidi": 5,
+		"vidi civitatem": 5,
 		"virgines": 197,
-		"viri": 1355,
+		"viri galilæi": 1355,
 		"vocem": 585,
 		"vultum": 124
 	},
 	"Graduale": {
-		"a": 698,
-		"ab": 1210,
+		"a summo": 698,
+		"ab occultis": 1210,
 		"accedite": 688,
-		"ad": 697,
+		"ad dominum": 697,
 		"adjutor": {
 			"in": 222,
 			"meus": 851
@@ -361,7 +363,7 @@ incipits = {
 			"sustinet": 1287
 		},
 		"annuntiavi": 977,
-		"aquæ": 790,
+		"aquæ multæ": 790,
 		"audi filia et vide et inclina aurem tuam": {
 			"et": 1000,
 			"quia": 840
@@ -404,7 +406,7 @@ incipits = {
 		"convertere": 1046,
 		"corona": 771,
 		"custodi": 1088,
-		"da": 414,
+		"da nobis": 414,
 		"deriventur": 75,
 		"desiderium": 54,
 		"deus": {
@@ -442,9 +444,9 @@ incipits = {
 		"electi": 1084,
 		"eripe": 760,
 		"eructavit": 654,
-		"esto": 886,
+		"esto mihi": 886,
 		"evangelizare": 1273,
-		"ex": 1268,
+		"ex sion": 1268,
 		"exaltabo": 277,
 		"exaltent": 1119,
 		"excita": 506,
@@ -457,12 +459,12 @@ incipits = {
 			"fer": 152,
 			"non": 1298
 		},
-		"fiat": 996,
+		"fiat pax": 996,
 		"flores": 27,
-		"fuit": 424,
+		"fuit homo": 424,
 		"gloria": 1206,
 		"gloriosus": 888,
-		"hic": 1263,
+		"hic est": 1263,
 		"hodie": 202,
 		"hæc dies quam fecit dominus exsultemus et lætemur in ea ℣": {
 			"benedictus": 1305,
@@ -484,7 +486,7 @@ incipits = {
 		},
 		"inflammatum": 1186,
 		"inveni": 827,
-		"ipse": 1368,
+		"ipse habet": 1368,
 		"jacta": 423,
 		"justorum": 98,
 		"justus": {
@@ -498,21 +500,21 @@ incipits = {
 		"lætatus": 1011,
 		"mementote": 1174,
 		"memor": 73,
-		"mihi": 571,
+		"mihi autem": 571,
 		"miserere": {
 			"mei": 754,
 			"mihi": 562
 		},
 		"misit": 932,
-		"ne": 1239,
+		"ne avertas": 1239,
 		"nimis": 148,
-		"nova": 357,
+		"nova bella": 357,
 		"oculi": 1230,
 		"omnes": {
 			"de": 205,
 			"gentes": 613
 		},
-		"os": 511,
+		"os justi": 511,
 		"ostende": 1055,
 		"pacifice": 819,
 		"pontifex": 546,
@@ -525,7 +527,7 @@ incipits = {
 			"veritatem": 807
 		},
 		"protector": 1226,
-		"quam": 1291,
+		"quam magna": 1291,
 		"quemadmodum": 398,
 		"qui": {
 			"ambulat": 637,
@@ -533,8 +535,8 @@ incipits = {
 			"sedes": 1007,
 			"timetis": 370
 		},
-		"quis": 472,
-		"quæ": 468,
+		"quis sicut": 472,
+		"quæ est": 468,
 		"repleta": 519,
 		"requiem": 1261,
 		"respice": 1232,
@@ -553,7 +555,7 @@ incipits = {
 		"sapientia": 1345,
 		"sciant": 1265,
 		"sederunt": 906,
-		"si": 1121,
+		"si ambulem": 1121,
 		"sicut": 748,
 		"specie": 174,
 		"speciosus forma præ": {
@@ -566,16 +568,16 @@ incipits = {
 		"tecum": 518,
 		"tenuisti": 49,
 		"testis": 155,
-		"tibi": 818,
+		"tibi domine": 818,
 		"timebunt": 1173,
 		"timete": 371,
 		"tollite": {
 			"hostias": 282,
 			"portas": 756
 		},
-		"tota": 1166,
+		"tota formosa": 1166,
 		"tribulationes": 596,
-		"tu": 850,
+		"tu es deus": 850,
 		"unam petii a domino hanc requiram ut inhabitem in domo domini": {
 			"omnibus diebus vitæ meæ ℣": {
 				"beati": 260,
@@ -584,26 +586,26 @@ incipits = {
 			"℣": 229
 		},
 		"universi": 1169,
-		"uxor": 311,
+		"uxor tua": 311,
 		"venite": 1022,
 		"viderunt": 1163,
 		"vindica": 206,
 		"vultum": 58
 	},
 	"Tractus": {
-		"ab": 644,
+		"ab ortu": 644,
 		"absolve": 338,
-		"ad": 1329,
+		"ad te levavi": 1329,
 		"adjuva": 380,
 		"adoramus": 114,
 		"angelis": 927,
 		"angelus": 660,
-		"annuntiate": 516,
-		"annuntiavi": 1085,
-		"apud": 110,
+		"annuntiate inter": 516,
+		"annuntiavi justitiam": 1085,
+		"apud dominum": 110,
 		"attende": 1638,
-		"audi": 738,
-		"ave": 266,
+		"audi filia": 738,
+		"ave maria": 266,
 		"beatus vir": {
 			"cujus": 728,
 			"qui timet dominum": {
@@ -618,7 +620,7 @@ incipits = {
 		"commovisti": 1178,
 		"confitemini": 455,
 		"contristatus": 175,
-		"cor": 63,
+		"cor meum": 63,
 		"de": {
 			"necessitatibus": 276,
 			"profundis": 926
@@ -634,7 +636,7 @@ incipits = {
 			"exaudi": 824,
 			"non": 425
 		},
-		"ecce": 144,
+		"ecce sic": 144,
 		"effuderunt": 240,
 		"ego": {
 			"autem": 437,
@@ -658,8 +660,8 @@ incipits = {
 		},
 		"hostiam": 1153,
 		"induit": 76,
-		"ipse": 483,
-		"jam": 739,
+		"ipse invocabit": 483,
+		"jam hiems": 739,
 		"jubilate": 1299,
 		"laudate dominum omnes": {
 			"angeli": 671,
@@ -667,12 +669,12 @@ incipits = {
 		},
 		"magnificentiam": 92,
 		"manum": 249,
-		"meum": 412,
+		"meum est": 412,
 		"miserere": 729,
 		"misericors": 1244,
 		"misit": 883,
 		"nolite": 1112,
-		"non": 969,
+		"non judicavi": 969,
 		"notus": 421,
 		"nunc": {
 			"dimittis": 1346,
@@ -689,13 +691,13 @@ incipits = {
 			"seminant": 305
 		},
 		"sacerdotes": 1281,
-		"si": 710,
+		"si quis": 710,
 		"sicut": 1395,
 		"stabat": 1156,
 		"surge": 597,
 		"suscepimus": 1240,
-		"sæpe": 742,
-		"te": 763,
+		"sæpe expugnaverunt": 742,
+		"te deum": 763,
 		"tu": {
 			"es": {
 				"petrus": 1029,
@@ -703,12 +705,12 @@ incipits = {
 			},
 			"gloria": 485
 		},
-		"veni": 256,
-		"vere": 978,
+		"veni sponsa": 256,
+		"vere languores": 978,
 		"vinea": 1388
 	},
 	"Alleluia": {
-		"a": 254,
+		"a summo": 254,
 		"accedite": 1365,
 		"adducentur": 208,
 		"adorabo": 242,
@@ -726,9 +728,9 @@ incipits = {
 			"maria": 1209,
 			"rex": 199
 		},
-		"beata": 734,
+		"beata es": 734,
 		"beatam": 460,
-		"beati": 1050,
+		"beati qui": 1050,
 		"beatus": {
 			"homo": 116,
 			"quem": 1170,
@@ -741,12 +743,12 @@ incipits = {
 				"sanctus": 988
 			}
 		},
-		"bene": 1343,
+		"bene fundata": 1343,
 		"benedic": 480,
 		"benedicamus": 744,
 		"benedicat": 505,
 		"benedicite": 784,
-		"benedictio": 295,
+		"benedictio dei": 295,
 		"benedictus": {
 			"dominus": 1048,
 			"es": 1289,
@@ -754,7 +756,7 @@ incipits = {
 		},
 		"candor": 1124,
 		"cantate": 1077,
-		"caro": 774,
+		"caro mea": 774,
 		"casta": 283,
 		"christo": 1162,
 		"christus": {
@@ -793,7 +795,7 @@ incipits = {
 		},
 		"dextera": 159,
 		"dicite": 627,
-		"dies": 324,
+		"dies sanctificatus": 324,
 		"diffusa": 1076,
 		"dignus": 983,
 		"dilexit": 984,
@@ -819,7 +821,7 @@ incipits = {
 			"salvavit": 287
 		},
 		"dulce": 859,
-		"dum": 657,
+		"dum complerentur": 657,
 		"ecce": {
 			"concipiet": 482,
 			"quam": 1078
@@ -836,7 +838,7 @@ incipits = {
 		},
 		"emitte": 99,
 		"eripe": 879,
-		"erit": 875,
+		"erit autem": 875,
 		"evangelizare": 297,
 		"exaltabo": 954,
 		"exaudi": 329,
@@ -846,7 +848,7 @@ incipits = {
 		"exsultabo": 1342,
 		"exsultate": 580,
 		"exsurge": 1185,
-		"fac": 213,
+		"fac nos": 213,
 		"fecisti": 999,
 		"felix": 481,
 		"filii": 445,
@@ -892,7 +894,7 @@ incipits = {
 		"inebriabuntur": 221,
 		"initio": 434,
 		"initium": 330,
-		"ipse": 1094,
+		"ipse est": 1094,
 		"jacta": 829,
 		"jesus": 1096,
 		"jubilate deo omnis terra servite domino in lætitia": {
@@ -924,7 +926,7 @@ incipits = {
 			"pueri": 661
 		},
 		"laudem": 1,
-		"leva": 252,
+		"leva in": 252,
 		"levita": 1122,
 		"lingua": 65,
 		"loquebantur": 101,
@@ -975,7 +977,7 @@ incipits = {
 		"paratum": 745,
 		"pascha": 761,
 		"pauper": 225,
-		"per": 634,
+		"per te": 634,
 		"post": {
 			"dies": 275,
 			"partum": 127
@@ -985,7 +987,7 @@ incipits = {
 		"potens": 503,
 		"potestas": 746,
 		"pretiosa": 207,
-		"pro": 476,
+		"pro omnibus": 476,
 		"prope": 934,
 		"propitius": 189,
 		"propter": 913,
@@ -1010,12 +1012,12 @@ incipits = {
 				"te": 992
 			}
 		},
-		"quia": 304,
-		"quid": 10,
+		"quia factus": 304,
+		"quid bonum": 10,
 		"quinque": 301,
-		"quis": 430,
+		"quis sicut": 430,
 		"quoniam": 1352,
-		"quæ": 527,
+		"quæ est": 527,
 		"redemptionem": 1341,
 		"regnavit": 405,
 		"repleti": 96,
@@ -1036,8 +1038,8 @@ incipits = {
 			"benedicent": 106,
 			"florebunt": 800
 		},
-		"sapientia": 334,
-		"sapientiam": 706,
+		"sapientia hujus": 334,
+		"sapientiam ipsorum": 706,
 		"scitote": 1164,
 		"senex": 429,
 		"si": {
@@ -1083,10 +1085,10 @@ incipits = {
 			"gloriosus": 442,
 			"martyrum": 590
 		},
-		"tibi": 1376,
+		"tibi gloria": 1376,
 		"timebunt": 1097,
 		"tollite": 907,
-		"tota": 1057,
+		"tota pulchra": 1057,
 		"tu": {
 			"es": {
 				"petrus": 228,
@@ -1105,31 +1107,31 @@ incipits = {
 			"comedite": 882,
 			"exsultemus": 1246
 		},
-		"verba": 103,
-		"verbo": 635,
-		"vere": 816,
+		"verba mea": 103,
+		"verbo domini": 635,
+		"vere tu": 816,
 		"verumtamen": 289,
 		"vicerunt": 911,
 		"videbitis": 314,
 		"video": 561,
 		"vidimus": 524,
-		"virga": 281,
-		"virgo": 1114,
-		"vita": 122,
-		"vivo": 488,
-		"vos": 440,
-		"vota": 563,
-		"vox": 1266
+		"virga jesse": 281,
+		"virgo dei": 1114,
+		"vita nostra": 122,
+		"vivo jam": 488,
+		"vos estis": 440,
+		"vota mea": 563,
+		"vox turturis": 1266
 	},
 	"Sequentia": {
-		"dies": 1198,
+		"dies iræ": 1198,
 		"lauda": 308,
-		"veni": 68,
+		"veni sancte": 68,
 		"victimæ": 1086
 	},
 	"Offertorium": {
 		"accedite": 366,
-		"ad": 962,
+		"ad te domine": 962,
 		"adducam": 1275,
 		"afferentur regi virgines": {
 			"post": 768,
@@ -1141,7 +1143,7 @@ incipits = {
 		"anima": 1031,
 		"ascendit": 211,
 		"assumpta": 3317,
-		"audi": 872,
+		"audi israel": 872,
 		"ave": {
 			"gratia": 234,
 			"maria gratia plena dominus tecum benedicta tu in mulieribus": {
@@ -1149,15 +1151,15 @@ incipits = {
 				"et": 843
 			}
 		},
-		"beata": 567,
-		"beati": 3,
+		"beata es": 567,
+		"beati qui": 3,
 		"benedic": 1359,
 		"benedicam": 143,
 		"benedicite": {
 			"dominum": 1270,
 			"gentes": 860
 		},
-		"benedictio": 449,
+		"benedictio perituri": 449,
 		"benedictus": {
 			"es domine doce me justificationes tuas": {
 				"benedictus": 1317,
@@ -1189,14 +1191,14 @@ incipits = {
 		"confitebuntur": 1382,
 		"confortamini": 290,
 		"constitues": 1319,
-		"cum": 910,
+		"cum esset": 910,
 		"custodi": 1322,
-		"de": 986,
+		"de profundis": 986,
 		"desiderium": {
 			"animæ": 722,
 			"pauperum": 1331
 		},
-		"det": 1272,
+		"det vobis": 1272,
 		"deus": {
 			"deus": 924,
 			"enim": 979,
@@ -1233,17 +1235,17 @@ incipits = {
 			"jesu": 1199,
 			"vivifica": 109
 		},
-		"ecce": 358,
-		"ego": 607,
+		"ecce dedi": 358,
+		"ego autem": 607,
 		"elegerunt": 462,
 		"elegi": 7,
 		"emitte": 1176,
-		"eo": 1269,
+		"eo quod": 1269,
 		"eripe me de inimicis meis": {
 			"deus": 245,
 			"domine": 411
 		},
-		"erit": 151,
+		"erit vobis": 151,
 		"exaltabo": 648,
 		"exaudi": 842,
 		"exspectans": 182,
@@ -1293,8 +1295,8 @@ incipits = {
 			"universa": 937
 		},
 		"justi": 369,
-		"justitia": 515,
-		"justitiæ": 591,
+		"justitia indutus": 515,
+		"justitiæ domini": 591,
 		"justorum": 835,
 		"justus": 777,
 		"lauda": {
@@ -1338,15 +1340,15 @@ incipits = {
 		"perfice": 265,
 		"populum": 1080,
 		"portas": 1361,
-		"post": 427,
+		"post partum": 427,
 		"postula": 390,
 		"posuisti": 487,
 		"precatus": 325,
 		"protege": 195,
-		"quam": 683,
+		"quam magna": 683,
 		"quando": 1362,
-		"quid": 618,
-		"quis": 1306,
+		"quid bonum": 618,
+		"quis ascendet": 1306,
 		"quærite": 1069,
 		"recordare": {
 			"mei": 67,
@@ -1359,7 +1361,7 @@ incipits = {
 		"salvum": 328,
 		"sanctificavit": 838,
 		"scapulis": 294,
-		"si": 616,
+		"si ambulavero": 616,
 		"sicut": 675,
 		"sperent": 1328,
 		"stetit": {
@@ -1371,20 +1373,20 @@ incipits = {
 		"terra": 725,
 		"timeat": 809,
 		"tollite": 171,
-		"tu": 1234,
-		"tuam": 1095,
-		"tui": 1274,
+		"tu es petrus": 1234,
+		"tuam coronam": 1095,
+		"tui sunt": 1274,
 		"tulerunt": 93,
-		"ubi": 3313,
+		"ubi caritas": 3313,
 		"venite": 805,
 		"veritas": 630,
-		"viam": 1253,
+		"viam mandatorum": 1253,
 		"videbam": 1074,
-		"vir": 1363,
-		"viri": 3315
+		"vir erat": 1363,
+		"viri galilæi": 3315
 	},
 	"Communio": {
-		"ab": 1316,
+		"ab occultis": 1316,
 		"acceptabis": 1221,
 		"adversum": 397,
 		"amen dico vobis": {
@@ -1397,7 +1399,7 @@ incipits = {
 		"angeli": 599,
 		"ascendam": 796,
 		"aufer": 828,
-		"beata": 160,
+		"beata viscera": 160,
 		"beatam": 286,
 		"beati": {
 			"mundo": 345,
@@ -1414,7 +1416,7 @@ incipits = {
 		"brachia": 601,
 		"cantabo": 794,
 		"cantate": 579,
-		"caro": 90,
+		"caro mea": 90,
 		"christo": 598,
 		"christus": {
 			"resurgens": 593,
@@ -1431,11 +1433,11 @@ incipits = {
 		},
 		"confundantur": 1032,
 		"contra": 186,
-		"cor": 1367,
-		"cum": 384,
-		"data": 1260,
-		"date": 1003,
-		"de": 1245,
+		"cor meum": 1367,
+		"cum invocarem": 384,
+		"data est": 1260,
+		"date et": 1003,
+		"de fructu": 1245,
 		"decantaverunt": 877,
 		"descendit": 626,
 		"dicit": {
@@ -1465,7 +1467,7 @@ incipits = {
 			"virtutum": 81
 		},
 		"domus": 43,
-		"dum": 39,
+		"dum venerit": 39,
 		"ecce": {
 			"dominus": 439,
 			"ego": 730,
@@ -1505,10 +1507,10 @@ incipits = {
 			"alleluia": 1041,
 			"et": 972
 		},
-		"feci": 844,
+		"feci judicium": 844,
 		"felices": 1180,
 		"fidelis": 1008,
-		"fili": 705,
+		"fili quid": 705,
 		"florete flores quasi lilium et": {
 			"collaudate": 995,
 			"date": 104
@@ -1521,8 +1523,8 @@ incipits = {
 		},
 		"gloriosa": 1004,
 		"gustate": 1203,
-		"hoc": 726,
-		"homo": 1132,
+		"hoc corpus": 726,
+		"homo peregre": 1132,
 		"honora": 1145,
 		"ignem": 514,
 		"illumina": 640,
@@ -1551,7 +1553,7 @@ incipits = {
 		"laudate": 322,
 		"lavabo": 141,
 		"lutum": 989,
-		"lux": 241,
+		"lux æterna": 241,
 		"lætabimur": 1296,
 		"lætabitur": 617,
 		"lætare": 854,
@@ -1572,8 +1574,8 @@ incipits = {
 			"jesum": 833
 		},
 		"narrabo": 639,
-		"ne": 1158,
-		"nemo": 1010,
+		"ne tradideris": 1158,
+		"nemo te": 1010,
 		"non": {
 			"fecit": 1133,
 			"vos": 981
@@ -1585,7 +1587,7 @@ incipits = {
 		},
 		"oportet": 1066,
 		"optimam": 3316,
-		"oves": 508,
+		"oves meæ": 508,
 		"pacem": {
 			"meam": 91,
 			"relinquo": 942
@@ -1601,7 +1603,7 @@ incipits = {
 			"cum": 1091,
 			"si": 650
 		},
-		"per": 346,
+		"per signum": 346,
 		"petite et accipietis quærite et invenietis pulsate et aperietur vobis omnis enim qui petit accipit et qui quærit invenit pulsanti aperietur": {
 			"": 422,
 			"alleluia": 364
@@ -1632,10 +1634,10 @@ incipits = {
 		},
 		"quicumque": 957,
 		"quinque": 1301,
-		"quis": 931,
-		"quod": 1002,
+		"quis dabit": 931,
+		"quod dico": 1002,
 		"quotiescumque": 577,
-		"quæ": 991,
+		"quæ mihi": 991,
 		"redime": 433,
 		"regina": 1053,
 		"religio": 1014,
@@ -1681,14 +1683,14 @@ incipits = {
 			"puer": 133
 		},
 		"ultimo": 255,
-		"unam": 574,
-		"unde": 28,
+		"unam petii": 574,
+		"unde huic": 28,
 		"unus": {
 			"militum": 1356,
 			"panis": 147
 		},
 		"valde": 204,
-		"veni": 757,
+		"veni domine": 757,
 		"venit": 1177,
 		"venite": 552,
 		"veritas": 712,
@@ -1711,17 +1713,17 @@ incipits = {
 			}
 		},
 		"vovete": 1134,
-		"vox": 136
+		"vox in": 136
 	},
 	"Antiphona": {
 		"adoramus": 1238,
 		"adorna": 1311,
-		"ante": 8177,
+		"ante sex": 8177,
 		"asperges me domine hyssopo et mundabor lavabis me et super nivem dealbabor": {
 			"": 905,
 			"miserere": 497
 		},
-		"ave": 1051,
+		"ave rex": 1051,
 		"crucem": 428,
 		"cum": {
 			"angelis": 173,
@@ -1731,21 +1733,21 @@ incipits = {
 		"cœperunt": 901,
 		"domine": 736,
 		"dominus": 291,
-		"ecce": 2087,
-		"et": 1358,
+		"ecce lignum": 2087,
+		"et valde": 1358,
 		"exaudi": 1081,
 		"exsurge": 30,
 		"fulgentibus": 1312,
 		"hosanna": 817,
 		"immutemur": 313,
-		"in": 1242,
+		"in hoc": 1242,
 		"juxta": 1208,
 		"lumen": 2897,
 		"mandatum": 279,
 		"maneant": 1252,
 		"occurrunt": 247,
 		"omnes": 1092,
-		"per": 940,
+		"per lignum": 940,
 		"popule": 157,
 		"postquam": 649,
 		"pueri hebræorum": {
@@ -1754,11 +1756,11 @@ incipits = {
 		},
 		"responsum": 46,
 		"salvator": 1335,
-		"si": 504,
+		"si ego": 504,
 		"turba": 770,
-		"ubi": 1013,
+		"ubi caritas": 1013,
 		"vespere": 8187,
-		"vidi": 958
+		"vidi aquam": 958
 	},
 	"Canticum": {
 		"attende": 2086,
@@ -1767,7 +1769,7 @@ incipits = {
 		"vinea": 2075
 	},
 	"Hymnus": {
-		"crux": 1128,
+		"crux fidelis": 1128,
 		"gloria": 259,
 		"pange": 2209
 	},
@@ -1776,9 +1778,11 @@ incipits = {
 		"domine": 3177,
 		"emendemus": 743,
 		"eripe": 22,
-		"in": 8108,
+		"in monte": 8108,
 		"ingrediente": 606,
 		"libera": 376,
 		"obtulerunt": 513
 	}
 };
+var module;
+if(module && module.exports) module.exports.incipits = incipits;

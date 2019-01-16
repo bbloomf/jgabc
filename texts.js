@@ -167,7 +167,7 @@ texts = {
 		"938": "me exspectaverunt peccatores ut perderent me testimonia tua domine intellexi omnis consummationis vidi finem latum mandatum tuum nimis alleluia alleluia ℣ beati immaculati in via qui ambulant in lege domini gloria patri",
 		"939": "exaudivit de templo sancto suo vocem meam alleluia et clamor meus in conspectu ejus introivit in aures ejus alleluia alleluia ℣ diligam te domine fortitudo mea dominus firmamentum meum et refugium meum et liberator meus gloria patri",
 		"948": "foderunt manus meas et pedes meos dinumeraverunt omnia ossa mea et sicut aqua effusus sum ℣ factum est cor meum tanquam cera liquescens in medio ventris mei gloria patri",
-		"950": "gaudeamus omnes in domino diem festum celebrantes sub honore beate annæ de cujus solemnitate gaudent angeli et collaudant filium dei ℣ eructavit cor meum verbum bonum dico ego opera mea regi gloria patri",
+		"950": "gaudeamus omnes in domino diem festum celebrantes sub honore beatæ annæ de cujus solemnitate gaudent angeli et collaudant filium dei ℣ eructavit cor meum verbum bonum dico ego opera mea regi gloria patri",
 		"956": "confessio et pulchritudo in conspectu ejus sanctitas et magnificentia in sanctificatione ejus ℣ cantate domino canticum novum cantate domino omnis terra gloria patri",
 		"970": "miseratio hominis circa proximum misericordia autem dei super omnem carnem qui misericordiam habet docet et erudit quasi pastor gregem suum ℣ beatus vir qui non abiit in consilio impiorum et in via catorum non stetit et in cathedra pestilentiæ non sedit gloria patri",
 		"974": "eduxit dominus populum suum in exsultatione alleluia et electos suos in lætitia alleluia alleluia ℣ confitemini domino et invocate nomen ejus annuntiate inter gentes opera ejus gloria patri",
