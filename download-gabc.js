@@ -162,6 +162,7 @@ var path = 'gabc/',
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
                     var text = [];
+                    var checkTextRepeat = 0;
                     content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|([a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+([,.;:!?*+†\s»"'‘’“”]*(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
                       // figure out syllabification...
                       // 1. build word
@@ -193,6 +194,14 @@ var path = 'gabc/',
                         word = syls.join('');
                       }
                       if(word) text.push(removeAcuteAccents(word.toLowerCase()));
+                      if(checkTextRepeat == text.length) {
+                        if(text.slice(0,text.length / 2).join(' ') == text.slice(text.length / 2).join(' ')) {
+                          text = text.slice(0, text.length / 2);
+                        }
+                        checkTextRepeat = Infinity;
+                      } else if(text.length > 4 && !checkTextRepeat && text[0] == text.slice(-1)[0]) {
+                        checkTextRepeat = 2 * (text.length - 1);
+                      }
                       var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
                       var vowelCount = (word.match(/[aá]u|(qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;

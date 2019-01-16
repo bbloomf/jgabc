@@ -1167,8 +1167,8 @@ incipits = {
 		"benedictio perituri": 449,
 		"benedictus": {
 			"es domine doce me justificationes tuas": {
-				"benedictus": 1317,
-				"et": 408
+				"et": 408,
+				"in": 1317
 			},
 			"qui": 941,
 			"sit": 1303

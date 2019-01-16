@@ -93,7 +93,7 @@ function processUrl(urlKey) {
               return;
             } else {
               var incipitId = vr.findIncipitId(name,key);
-              if(typeof incipitId == 'object' && (incipitId.length === 0 || Object.keys(incipitId).length === 0)) console.info(key, name, incipitId);
+              if(typeof incipitId == 'object' && (incipitId.length === 0 || Object.keys(incipitId).length === 0)) console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)})`);
             }
             if(match[1]) {
               propria[key] = propria[key] || [];
