@@ -820,7 +820,7 @@ texts = {
 		"1342": "exsultabo et lætabor in misericordia tua quoniam respexisti humilitatem meam salvasti de necessitatibus animam meam",
 		"1343": "bene fundata est domus domini supra firmam petram",
 		"1348": "christus resurgens ex mortuis jam non moritur mors illi ultra non dominabitur",
-		"1350": "in veni david servum meum oleo sancto meo unxi eum",
+		"1350": "inveni david servum meum oleo sancto meo unxi eum",
 		"1352": "quoniam deus magnus dominus et rex magnus super omnem terram",
 		"1360": "non dilexerunt animas suas usque ad mortem propterea lætamini cæli et qui habitatis in eis",
 		"1365": "accedite ad eum et illuminamini et facies vestræ non confundentur",

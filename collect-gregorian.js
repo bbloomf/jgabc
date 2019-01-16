@@ -30,9 +30,17 @@ function processUrl(urlKey) {
   http.get(url, result => {
     result.setEncoding('utf8');
     var fileData = '';
+    var lastPercent = 0;
     result.on('data', data => {
       fileData += data;
-      console.info(fileData.length / result.headers["content-length"]);
+      var percent = Math.floor(100 * fileData.length / result.headers["content-length"]);
+      if(percent != lastPercent) {
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(percent.toString());
+        if(percent == 100) process.stdout.write("\n");
+      }
+      lastPercent = percent;
     });
     result.on('close',e => console.info('socket closed on file: ' + file));
     result.on('aborted',e => console.info('ABORTED on file: ' + file));
@@ -75,6 +83,7 @@ function processUrl(urlKey) {
           if(sept) key += "Sept";
           if(pasch) key += "Pasch";
           if(match[1] || !(key in propria)) {
+            var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
             if(/^ref/.test(key)) {
               var m = currentFeast.match(regexWeekday);
               if(m && m[1] in festa) {
@@ -83,14 +92,14 @@ function processUrl(urlKey) {
               propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
               return;
             } else {
-              var incipitId = vr.findIncipitId(match[3],key);
-              console.info(key, match[3], incipitId);
+              var incipitId = vr.findIncipitId(name,key);
+              if(typeof incipitId == 'object' && (incipitId.length === 0 || Object.keys(incipitId).length === 0)) console.info(key, name, incipitId);
             }
             if(match[1]) {
               propria[key] = propria[key] || [];
-              propria[key].push(match[3]);
+              propria[key].push(name);
             } else {
-              propria[key] = match[3];
+              propria[key] = name;
             }
             var span = td.querySelector('span.ps1');
             if(span) {

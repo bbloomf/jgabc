@@ -888,12 +888,12 @@ incipits = {
 			"die": 1042,
 			"exitu": 1380,
 			"multitudine": 1015,
-			"te": 239,
-			"veni": 1350
+			"te": 239
 		},
 		"inebriabuntur": 221,
 		"initio": 434,
 		"initium": 330,
+		"inveni": 1350,
 		"ipse est": 1094,
 		"jacta": 829,
 		"jesus": 1096,
