@@ -1124,9 +1124,14 @@ incipits = {
 		"vox turturis": 1266
 	},
 	"Sequentia": {
+		"ave maria": 4627,
 		"dies iræ": 1198,
+		"inviolata": 3027,
 		"lauda": 308,
+		"o panis": 3350,
+		"stabat": 681,
 		"veni sancte": 68,
+		"verbum": 4086,
 		"victimæ": 1086
 	},
 	"Offertorium": {

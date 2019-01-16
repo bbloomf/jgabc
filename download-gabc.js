@@ -228,7 +228,7 @@ var path = 'gabc/',
                         });
                       }
                     });
-                    if(!isMiscChant && h.officePart && !/^(Kyriale|Varia|Toni Communes|Improperia)$/.test(h.officePart)) {
+                    if(h.officePart == 'Sequentia' || (!isMiscChant && h.officePart && !/^(Kyriale|Varia|Toni Communes|Improperia)$/.test(h.officePart))) {
                       var text = text.join(' ').replace(/gloria patri (e u o u a e|(?:et filio et spiritui sancto sicut erat in principio et nunc et semper et in sæcula )?sæculorum amen)$/,"gloria patri");
                       if(h.officePart == 'Alleluia') text = text.replace(/^alleluia (℣ )?/,'');
                       texts[h.officePart] = texts[h.officePart] || {};
