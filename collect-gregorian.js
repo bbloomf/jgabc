@@ -99,14 +99,19 @@ function processUrl(urlKey) {
               return;
             } else {
               var incipitId = vr.findIncipitId(name,key,grPage);
-              if(typeof incipitId == 'object') console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}) =
+              if(typeof incipitId == 'object') {
+                console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}) =
 ${JSON.stringify(incipitId,1,' ')}`);
+              }
             }
             if(match[1]) {
               propria[key] = propria[key] || [];
               propria[key].push(name);
+              propria[key+'Id'] = propria[key+'Id'] || [];
+              propria[key+'Id'].push(incipitId);
             } else {
               propria[key] = name;
+              if(incipitId) propria[key+'Id'] = incipitId
             }
             var span = td.querySelector('span.ps1');
             if(span) {
