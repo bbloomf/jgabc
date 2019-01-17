@@ -147,6 +147,8 @@ var path = 'gabc/',
                       }
                     }
                     content = content.replace(/<sp>'(?:ae|æ)<\/sp>|aé/g,'ǽ')
+                      .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1$2 *()") // asterisks being kept with the previous word
+                      .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
                       .replace(/A[éÉ]/g,'Ǽ')
                       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
                       .replace(/<sp>ae<\/sp>/g,'æ')
