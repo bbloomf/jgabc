@@ -3151,7 +3151,7 @@ gregorianPropers = {
   "grId": 307,
   "grRef": "Ps 44: 17-18",
   "al": "Rogavi pro te",
-  "alId": {},
+  "alId": 8252,
   "alRef": "Luc 22: 32",
   "of": "In omnem terram",
   "ofId": 570,
