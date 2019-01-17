@@ -983,7 +983,7 @@ gregorianPropers = {
  "lent4sat": {
   "title": "4th Week of Lent - Saturday (Saturday before the 1st Sunday of the Passion)",
   "href": "http://www.introibo.fr/Samedi-de-la-4eme-semaine-de",
-  "in": "Sitienties",
+  "in": "Sitientes",
   "inRef": "Is 55: 1; Ps 77: 1",
   "inVerses": "Ps 77: 2, 3",
   "gr": "Tibi Domine",
@@ -1119,7 +1119,7 @@ gregorianPropers = {
   "trRef": "Ps 102: 10; Ps 78: 8-9",
   "of": "Eripe me... Domine",
   "ofRef": "Ps 142: 9-10",
-  "co": "Erubescant et reveantur",
+  "co": "Erubescant et revereantur",
   "coRef": "Ps 34: 26",
   "coVerses": "Ps 34: 1-5"
  },

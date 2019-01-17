@@ -1620,7 +1620,7 @@ gregorianPropers = {
   "trRef": "Exodi 15: 2, 3",
   "of": "Invocavit",
   "ofRef": "Eccli 46: 6",
-  "co": "Decanteverunt",
+  "co": "Decantaverunt",
   "coRef": "Sap 10: 20",
   "coVerses": "Ps 77: 1, 3, 4, 23-25, 27-28"
  },

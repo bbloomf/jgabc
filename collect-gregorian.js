@@ -1,7 +1,9 @@
 var http= require('http'),
     fs = require('fs'),
     vr = require("./verseRef.js"),
-    incipits = require('./incipits.js').incipits;
+    prData = require('./incipits.js');
+const incipits = prData.incipits;
+const pages = prData.pages;
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var propria = {};
@@ -53,6 +55,10 @@ function processUrl(urlKey) {
   table.children.__proto__.forEach = Array.prototype.forEach;
   table.children.forEach(tr => {
     var td = tr.children[0];
+    var grTd = tr.children[3];
+    var grA = grTd && grTd.querySelector('a');
+    var gr = grA && grA.textContent.match(/GR(\S+)/);
+    var grPage = gr && gr[1];
     var a = td && td.querySelector("a[name]");
     var aHref = td && td.querySelector("a[href]");
     var sept = td && td.querySelector('.sept');
@@ -92,8 +98,9 @@ function processUrl(urlKey) {
               propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
               return;
             } else {
-              var incipitId = vr.findIncipitId(name,key);
-              if(typeof incipitId == 'object' && (incipitId.length === 0 || Object.keys(incipitId).length === 0)) console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)})`);
+              var incipitId = vr.findIncipitId(name,key,grPage);
+              if(typeof incipitId == 'object') console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}) =
+${JSON.stringify(incipitId,1,' ')}`);
             }
             if(match[1]) {
               propria[key] = propria[key] || [];
