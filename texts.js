@@ -828,7 +828,8 @@ texts = {
 		"1378": "quam pulchri super montes pedes annuntiantis et prædicantis pacem annuntiantis bonum prædicantis salutem",
 		"1379": "non derelinquet dominus sanctos suos in æternum conservabuntur",
 		"1380": "in exitu israel ex ægypto domus jacob de populo barbaro",
-		"3318": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero"
+		"3318": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero",
+		"8252": "rogavi pro te petre ut non deficiat fides tua et tu aliquando conversus confirma fratres tuos"
 	},
 	"Sequentia": {
 		"68": "veni sancte spiritus et emitte cælitus lucis tuæ radium veni pater pauperum veni dator munerum veni lumen cordium consolator optime dulcis hospes animæ dulce refrigerium in labore requies in æstu temperies in fletu solatium o lux beatissima reple cordis intima tuorum fidelium sine tuo numine nihil est in homine nihil est innoxium lava quod est sordidum riga quod est aridum sana quod est saucium flecte quod est rigidum fove quod est frigidum rege quod est devium da tuis fidelibus in te confidentibus sacrum septenarium da virtutis meritum da salutis exitum da perenne gaudium amen alleluia",
