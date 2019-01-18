@@ -388,8 +388,14 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
-  "alPasch": "Tu es sacerdos",
-  "alPaschId": 477,
+  "alPasch": [
+   "Tu es sacerdos",
+   "Hic est sacerdos"
+  ],
+  "alPaschId": [
+   477,
+   1118
+  ],
   "alPaschRef": "Ps 109: 4"
  },
  "christmas_octave": {
@@ -490,8 +496,14 @@ gregorianPropers = {
   "alRef": "Isai 45: 15",
   "trSept": "Hostiam",
   "trSeptId": 1153,
-  "alPasch": "Beatus homo",
-  "alPaschId": 116,
+  "alPasch": [
+   "Beatus homo",
+   "Vita nostra"
+  ],
+  "alPaschId": [
+   116,
+   122
+  ],
   "of": "Tulerunt (Jesum)",
   "ofId": 93,
   "ofRef": "Luc 2: 22",
@@ -1671,9 +1683,18 @@ gregorianPropers = {
   "inId": 974,
   "inRef": "Ps 104: 43, 1",
   "inVerses": "Ps 104: 2-5, 43-45",
-  "al": "Haec dies",
-  "alId": 568,
-  "alRef": "Ps 117: 24",
+  "al": [
+   "Haec dies",
+   "Laudate pueri"
+  ],
+  "alId": [
+   568,
+   661
+  ],
+  "alRef": [
+   "Ps 117: 24",
+   "Ps 112: 1"
+  ],
   "seq": "Victimae paschali",
   "seqId": 1086,
   "of": "Benedictus qui venit",
@@ -1691,9 +1712,18 @@ gregorianPropers = {
   "inId": 25,
   "inRef": "1 Petri 2: 2; 1 Ps 80: 2",
   "inVerses": "Ps 80: 3, 11",
-  "al": "In die resurrectionis",
-  "alId": 1042,
-  "alRef": "Matth 28: 7",
+  "al": [
+   "In die resurrectionis",
+   "Post dies octo"
+  ],
+  "alId": [
+   1042,
+   275
+  ],
+  "alRef": [
+   "Matth 28: 7",
+   "Ioann 20: 26"
+  ],
   "of": "Angelus Domini",
   "ofId": 789,
   "ofRef": "Matth 28: 2, 5, 6",
@@ -1710,9 +1740,18 @@ gregorianPropers = {
   "inId": 135,
   "inRef": "Ps 32: 5-6, 1",
   "inVerses": "Ps 32: 2-3",
-  "al": "Cognoverunt",
-  "alId": 912,
-  "alRef": "Luc 24: 35",
+  "al": [
+   "Cognoverunt",
+   "Ego sum pastor"
+  ],
+  "alId": [
+   912,
+   1220
+  ],
+  "alRef": [
+   "Luc 24: 35",
+   "Ioann 10: 14"
+  ],
   "of": "Deus Deus meus",
   "ofId": 924,
   "ofRef": "Ps 62: 2, 5",
@@ -1729,9 +1768,18 @@ gregorianPropers = {
   "inId": 536,
   "inRef": "Ps 65: 1-2, 3",
   "inVerses": "Ps 65: 8-9",
-  "al": "Redemptionem",
-  "alId": 1341,
-  "alRef": "Ps 110: 9",
+  "al": [
+   "Redemptionem",
+   "Oportebat"
+  ],
+  "alId": [
+   1341,
+   446
+  ],
+  "alRef": [
+   "Ps 110: 9",
+   "Luc 24: 46"
+  ],
   "of": "Lauda anima mea",
   "ofId": 668,
   "ofRef": "Ps 145: 2",
@@ -1748,9 +1796,18 @@ gregorianPropers = {
   "inId": 42,
   "inRef": "Ps 97: 1, 2, 1",
   "inVerses": "Ps 97: 2, 4",
-  "al": "Dextera Dei",
-  "alId": 159,
-  "alRef": "Ps 117: 16",
+  "al": [
+   "Dextera Dei",
+   "Christus resurgens"
+  ],
+  "alId": [
+   159,
+   1348
+  ],
+  "alRef": [
+   "Ps 117: 16",
+   "Rom 6: 9"
+  ],
   "of": "Jubilate Deo universa",
   "ofId": 937,
   "ofRef": "Ps 65: 1-2, 16",
@@ -1767,8 +1824,17 @@ gregorianPropers = {
   "inId": 585,
   "inRef": "Is 48: 20; Ps 65: 1-2",
   "inVerses": "Ps 65: 4-5",
-  "al": "Surrexit Christus et illuxit",
-  "alId": 633,
+  "al": [
+   "Surrexit Christus et illuxit",
+   "Exivi a Patre"
+  ],
+  "alId": [
+   633,
+   1040
+  ],
+  "alRef": [
+   "Ioann 16: 28"
+  ],
   "of": "Benedicite gentes",
   "ofId": 860,
   "ofRef": "Ps 65: 8-9, 20",
@@ -1784,9 +1850,20 @@ gregorianPropers = {
   "in": "Exaudivit",
   "inId": 451,
   "inRef": "Ps 17: 7, 2-3",
-  "al": "Confitemini... quoniam (Rogations)",
-  "alId": 1192,
-  "alRef": "Ps 117: 1",
+  "al": [
+   "Confitemini... quoniam (Rogations)",
+   "Propitius esto",
+   "Exsultabo et laetabor"
+  ],
+  "alRef": [
+   "Ps 117: 1",
+   "Ps 78: 9-10",
+   "Ps 30: 8"
+  ],
+  "alId": [
+   189,
+   1342
+  ],
   "of": "Confitebor Domino",
   "ofId": 584,
   "ofRef": "Ps 108: 30-31",
@@ -1829,9 +1906,18 @@ gregorianPropers = {
   "inId": 1355,
   "inRef": "Act 1: 11; Ps 46: 2",
   "inVerses": "Ps 46: 6-7",
-  "al": "Ascendit Deus",
-  "alId": 17,
-  "alRef": "Ps 46: 6",
+  "al": [
+   "Ascendit Deus",
+   "Dominus in Sina"
+  ],
+  "alId": [
+   17,
+   57
+  ],
+  "alRef": [
+   "Ps 46: 6",
+   "Ps 67: 18-19"
+  ],
   "of": "Ascendit Deus",
   "ofId": 211,
   "ofRef": "Ps 46: 6",
@@ -1853,9 +1939,18 @@ gregorianPropers = {
   "inId": 990,
   "inRef": "Ps 26: 7, 8, 9, 1",
   "inVerses": "Ps 26: 1, 4-5, 8, 10",
-  "al": "Regnavit Dominus",
-  "alId": 405,
-  "alRef": "Ps 46: 9",
+  "al": [
+   "Regnavit Dominus",
+   "Non vos relinquam"
+  ],
+  "alId": [
+   405,
+   107
+  ],
+  "alRef": [
+   "Ps 46: 9",
+   "Ioann 14: 18"
+  ],
   "of": "Ascendit Deus",
   "ofId": 211,
   "ofRef": "Ps 46: 6",
@@ -1872,7 +1967,7 @@ gregorianPropers = {
   "inId": 418,
   "inRef": "Ezech 36: 23, 24, 25-26; Ps 33: 2",
   "inVerses": "Ps 33",
-  "al": "Alleluia",
+  "al": "Confitemini... quoniam",
   "alId": 507,
   "tr": "Laudate",
   "trId": 1247,
@@ -1892,8 +1987,14 @@ gregorianPropers = {
   "inId": 861,
   "inRef": "Sap 1: 7; Ps 67: 2",
   "inVerses": "Ps 67: 29, 33",
-  "al": "Emitte Spiritum",
-  "alId": 99,
+  "al": [
+   "Emitte Spiritum",
+   "Veni Sancte Spiritus"
+  ],
+  "alId": [
+   99,
+   181
+  ],
   "alRef": "Ps 103: 30",
   "seq": "Veni Sancte Spiritus",
   "seqId": 68,
@@ -1913,8 +2014,14 @@ gregorianPropers = {
   "inId": 715,
   "inRef": "Ps 80: 17, 2",
   "inVerses": "Ps 80: 3, 11",
-  "al": "Loquebantur",
-  "alId": 101,
+  "al": [
+   "Loquebantur",
+   "Veni Sancte Spiritus"
+  ],
+  "alId": [
+   101,
+   181
+  ],
   "alRef": "Act 2: 4",
   "seq": "Veni Sancte Spiritus",
   "seqId": 68,
@@ -1933,8 +2040,14 @@ gregorianPropers = {
   "inId": 1278,
   "inRef": "4 Esdr 2: 36, 37; 4 Ps 77: 1",
   "inVerses": "Ps 77: 2-3",
-  "al": "Spiritus Sanctus",
-  "alId": 1197,
+  "al": [
+   "Spiritus Sanctus",
+   "Veni Sancte Spiritus"
+  ],
+  "alId": [
+   1197,
+   181
+  ],
   "alRef": "Ioann 14: 26",
   "seq": "Veni Sancte Spiritus",
   "seqId": 68,
@@ -1953,8 +2066,14 @@ gregorianPropers = {
   "inId": 822,
   "inRef": "Ps 67: 8, 9, 2",
   "inVerses": "Ps 67: 4, 10",
-  "al": "Verbo Domini",
-  "alId": 635,
+  "al": [
+   "Verbo Domini",
+   "Veni Sancte Spiritus"
+  ],
+  "alId": [
+   635,
+   181
+  ],
   "alRef": "Ps 32: 6",
   "seq": "Veni Sancte Spiritus",
   "seqId": 68,
@@ -1974,8 +2093,14 @@ gregorianPropers = {
   "inId": 557,
   "inRef": "Ps 70: 8, 23, 1-2",
   "inVerses": "Ps 70: 2-3",
-  "al": "O quam bonus",
-  "alId": 119,
+  "al": [
+   "O quam bonus",
+   "Veni Sancte Spiritus"
+  ],
+  "alId": [
+   119,
+   181
+  ],
   "alRef": "Sap 12: 1",
   "seq": "Veni Sancte Spiritus",
   "seqId": 68,
@@ -1993,9 +2118,26 @@ gregorianPropers = {
   "in": "Caritas Dei",
   "inId": 1228,
   "inRef": "Rom 5: 5; Ps 102: 1",
-  "al": "Spiritus est",
-  "alId": 1236,
-  "alRef": "Ioann 6: 64",
+  "al": [
+   "Spiritus est",
+   "Spiritus ejus",
+   "Dum complerentur",
+   "Veni Sancte Spiritus",
+   "Benedictus es Domine"
+  ],
+  "alId": [
+   1236,
+   1138,
+   657,
+   181,
+   1289
+  ],
+  "alRef": [
+   "Ioann 6: 64",
+   "Iob 26: 13",
+   "Act 2: 1",
+   "Dan 3: 52"
+  ],
   "tr": "Laudate",
   "trId": 1247,
   "trRef": "Ps 116: 1-2",

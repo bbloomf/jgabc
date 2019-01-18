@@ -641,10 +641,7 @@ texts = {
 		"500": "hæc est virgo sapiens et una de numero prudentum",
 		"503": "potens in terra erit semen ejus generatio rectorum benedicetur",
 		"505": "benedicat vobis dominus ex sion qui fecit cælum et terram",
-		"507": [
-			"alleluia",
-			"confitemini domino quoniam bonus quoniam in sæculum misericordia ejus"
-		],
+		"507": "confitemini domino quoniam bonus quoniam in sæculum misericordia ejus",
 		"524": "vidimus stellam ejus in oriente et venimus cum muneribus adorare dominum",
 		"525": "sicut abundant passiones christi in nobis ita et per christum abundat consolatio nostra",
 		"527": "quæ est ista quæ progreditur quasi aurora consurgens pulchra ut luna electa ut sol terribilis ut castrorum acies ordinata",

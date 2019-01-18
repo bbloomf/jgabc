@@ -143,9 +143,18 @@ gregorianPropers = {
   "inId": 340,
   "inRef": "Ps 63: 3, 2",
   "inVerses": "Ps 63: 4, 11",
-  "al": "Confitebuntur",
-  "alId": 762,
-  "alRef": "Ps 88: 6",
+  "al": [
+   "Confitebuntur",
+   "Posuisti Domine"
+  ],
+  "alId": [
+   762,
+   1249
+  ],
+  "alRef": [
+   "Ps 88: 6",
+   "Ps 20: 4"
+  ],
   "of": "Confitebuntur",
   "ofId": 1382,
   "ofRef": "Ps 88: 6",
@@ -160,8 +169,17 @@ gregorianPropers = {
   "in": "Sancti tui",
   "inId": 1231,
   "inRef": "Ps 144: 10-11, 1",
-  "al": "Sancti tui... florebunt",
-  "alId": 800,
+  "al": [
+   "Sancti tui... florebunt",
+   "Pretiosa"
+  ],
+  "alId": [
+   800,
+   207
+  ],
+  "alRef": [
+   "Ps 115: 15"
+  ],
   "of": "Laetamini",
   "ofId": 870,
   "ofRef": "Ps 31: 11",
@@ -573,8 +591,17 @@ gregorianPropers = {
   "inVerses": "Ps 44: 5, 8",
   "gr": "Benedicta (et venerabilis)",
   "grId": 392,
-  "al": "Post partum Virgo",
-  "alId": 127,
+  "al": [
+   "Post partum Virgo",
+   "Ave Maria"
+  ],
+  "alId": [
+   127,
+   1209
+  ],
+  "alRef": [
+   "Luc 1: 28"
+  ],
   "trSept": "Gaude (Maria)",
   "trSeptId": 18,
   "alPasch": "Virga Jesse",
@@ -653,9 +680,18 @@ gregorianPropers = {
   "in": "Salve (sancta Parens)",
   "inId": 1140,
   "inRef": "Sedulius 44: 2",
-  "al": "Virga Jesse",
-  "alId": 281,
-  "alRef": "Num 17: 8",
+  "al": [
+   "Virga Jesse",
+   "Ave Maria"
+  ],
+  "alId": [
+   281,
+   1209
+  ],
+  "alRef": [
+   "Num 17: 8",
+   "Luc 1: 28"
+  ],
   "of": "Beata es (Virgo)",
   "ofId": 567,
   "co": "Beata viscera",
@@ -745,9 +781,18 @@ gregorianPropers = {
   "inId": 340,
   "inRef": "Ps 63: 3, 2",
   "inVerses": "Ps 63: 4, 11",
-  "al": "Confitebuntur",
-  "alId": 762,
-  "alRef": "Ps 88: 6",
+  "al": [
+   "Confitebuntur",
+   "Ego vos elegi"
+  ],
+  "alId": [
+   762,
+   1030
+  ],
+  "alRef": [
+   "Ps 88: 6",
+   "Joann 15: 16"
+  ],
   "of": "Constitues (eos)",
   "ofId": 1319,
   "ofRef": "Ps 44, 17-18",
@@ -790,8 +835,14 @@ gregorianPropers = {
   "inId": 861,
   "inRef": "Sap 1: 7; Ps 67: 2",
   "inVerses": "Ps 67: 29, 33",
-  "al": "Emitte Spiritum",
-  "alId": 99,
+  "al": [
+   "Emitte Spiritum",
+   "Veni Sancte Spiritus"
+  ],
+  "alId": [
+   99,
+   181
+  ],
   "alRef": "Ps 103: 30",
   "of": "Confirma (hoc)",
   "ofId": 361,
@@ -832,9 +883,18 @@ gregorianPropers = {
   "inId": 715,
   "inRef": "Ps 80: 17, 2",
   "inVerses": "Ps 80: 3, 11",
-  "al": "Cognoverunt",
-  "alId": 912,
-  "alRef": "Luc 24: 35",
+  "al": [
+   "Cognoverunt",
+   "Caro mea"
+  ],
+  "alId": [
+   912,
+   774
+  ],
+  "alRef": [
+   "Luc 24: 35",
+   "Ioann 6: 56-57"
+  ],
   "of": "Sacerdotes (Domini)",
   "ofId": 645,
   "ofRef": "Levit 21: 6",
@@ -900,9 +960,18 @@ gregorianPropers = {
   "inId": 1320,
   "inRef": "Ps 32: 11, 19, 1",
   "inVerses": "Ps 32: 2-3",
-  "al": "Tollite",
-  "alId": 907,
-  "alRef": "Matth 11: 29",
+  "al": [
+   "Tollite",
+   "Venite ad me"
+  ],
+  "alId": [
+   907,
+   1237
+  ],
+  "alRef": [
+   "Matth 11: 29",
+   "Matth 11: 28"
+  ],
   "of": "Holocaustum",
   "ofId": 319,
   "ofRef": "Ps 39: 7-9",
@@ -1225,9 +1294,18 @@ gregorianPropers = {
   "trSept": "Audi filia",
   "trSeptId": 738,
   "trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
-  "alPasch": "Adducentur regi virgines",
-  "alPaschId": 208,
-  "alPaschRef": "Ps 44: 15, 16",
+  "alPasch": [
+   "Adducentur regi virgines",
+   "Specie tua"
+  ],
+  "alPaschId": [
+   208,
+   406
+  ],
+  "alPaschRef": [
+   "Ps 44: 15, 16",
+   "Ps 44: 5"
+  ],
   "of": "Afferentur... proximae",
   "ofId": 1107,
   "ofRef": "Ps 44: 15, 16",
@@ -1876,9 +1954,18 @@ gregorianPropers = {
   "tr": "Beatus vir (cujus)",
   "trId": 728,
   "trRef": "Ps 83: 6-7, 11, 13",
-  "alPasch": "Minuisti eum",
-  "alPaschId": 791,
-  "alPaschRef": "Ps 8: 6-7",
+  "alPasch": [
+   "Minuisti eum",
+   "Benedictio Dei"
+  ],
+  "alPaschId": [
+   791,
+   295
+  ],
+  "alPaschRef": [
+   "Ps 8: 6-7",
+   "Eccli 11: 24"
+  ],
   "of": "O Domine",
   "ofId": 1193,
   "ofRef": "Ps 115: 16-17",
@@ -1976,9 +2063,18 @@ gregorianPropers = {
   "tr": "Beatus vir",
   "trId": 7670,
   "trRef": "Ps 111: 1-3",
-  "alPasch": "Amavit eum",
-  "alPaschId": 14,
-  "alPaschRef": "Eccli 45: 9",
+  "alPasch": [
+   "Amavit eum",
+   "Justus germinabit"
+  ],
+  "alPaschId": [
+   14,
+   1207
+  ],
+  "alPaschRef": [
+   "Eccli 45: 9",
+   "Osee 14: 6"
+  ],
   "of": "Veritas mea",
   "ofId": 630,
   "ofRef": "Ps 88: 25",
@@ -2030,9 +2126,18 @@ gregorianPropers = {
   "tr": "Audi filia",
   "trId": 738,
   "trRef": "Ps 44: 11, 12, 13, 10, 15, 16",
-  "alPasch": "Ave Maria",
-  "alPaschId": 1209,
-  "alPaschRef": "Luc 1: 28",
+  "alPasch": [
+   "Ave Maria",
+   "Virga Jesse"
+  ],
+  "alPaschId": [
+   1209,
+   281
+  ],
+  "alPaschRef": [
+   "Luc 1: 28",
+   "Num 17: 8"
+  ],
   "of": "Ave Maria... et benedictus",
   "ofId": 843,
   "ofRef": "Luc 1: 28, 42",
@@ -2123,9 +2228,18 @@ gregorianPropers = {
   "inId": 831,
   "inRef": "Ps 118: 85, 46, 1",
   "inVerses": "Ps 118: 1-2, 39, 45, 77, 99-100, 143",
-  "al": "Sapientia",
-  "alId": 334,
-  "alRef": "1 Cor 3: 19, 20",
+  "al": [
+   "Sapientia",
+   "Verumtamen"
+  ],
+  "alId": [
+   334,
+   289
+  ],
+  "alRef": [
+   "1 Cor 3: 19, 20",
+   "Philipp 3: 8"
+  ],
   "gr": "Sapientia (hujus mundi)",
   "grId": 1345,
   "grRef": "1 Cor 3: 19, 20, 1, 19",
@@ -2144,7 +2258,7 @@ gregorianPropers = {
   "title": "14 Apr - SS Tiburtius, Valerian and Maximus, Martyrs",
   "date": "Apr14",
   "href": "http://www.introibo.fr/14-04-Sts-Tiburce-Valerien-et",
-  "ref": "saints.html#mass_two_or_more_martyr"
+  "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_anicetus": {
   "title": "17 Apr - St Anicetus, Pope and Martyr",
@@ -2185,9 +2299,18 @@ gregorianPropers = {
   "inId": 340,
   "inRef": "Ps 63: 3, 2",
   "inVerses": "Ps 63: 4, 11",
-  "al": "Confitebuntur",
-  "alId": 762,
-  "alRef": "Ps 88: 6",
+  "al": [
+   "Confitebuntur",
+   "Posuisti Domine"
+  ],
+  "alId": [
+   762,
+   1249
+  ],
+  "alRef": [
+   "Ps 88: 6",
+   "Ps 20: 4"
+  ],
   "of": "Confitebuntur",
   "ofId": 1382,
   "ofRef": "Ps 88: 6",
@@ -2215,9 +2338,18 @@ gregorianPropers = {
   "in": "Christo (confixus)",
   "inId": 775,
   "inRef": "Gal 2: 19-20; Ps 40: 2",
-  "al": "Pro omnibus",
-  "alId": 476,
-  "alRef": "2 Cor 5: 15",
+  "al": [
+   "Pro omnibus",
+   "Si filii"
+  ],
+  "alId": [
+   476,
+   1073
+  ],
+  "alRef": [
+   "2 Cor 5: 15",
+   "Rom 8: 17"
+  ],
   "of": "Ambulate",
   "ofId": 773,
   "ofRef": "Ephes 5: 2",
@@ -2243,8 +2375,14 @@ gregorianPropers = {
   "in": "Adjutor",
   "inId": 385,
   "inRef": "Ps 32: 20-21; Ps 79: 1",
-  "al": "De quacumque",
-  "alId": 1324,
+  "al": [
+   "De quacumque",
+   "Fac nos innocuam"
+  ],
+  "alId": [
+   1324,
+   213
+  ],
   "of": "Lauda (Jerusalem)",
   "ofId": 845,
   "ofRef": "Ps 147: 12, 13",
@@ -2259,8 +2397,14 @@ gregorianPropers = {
   "inId": 646,
   "inRef": "Sap 10: 17; Ps 126: 1",
   "inVerses": "Ps 126: 2",
-  "al": "De quacumque",
-  "alId": 1324,
+  "al": [
+   "De quacumque",
+   "Fac nos innocuam"
+  ],
+  "alId": [
+   1324,
+   213
+  ],
   "gr": "Beatus (quicumque)",
   "grId": 1344,
   "grRef": "Ps 127: 1-2",
@@ -2283,9 +2427,18 @@ gregorianPropers = {
   "inId": 233,
   "inRef": "Eccli 15: 5; Ps 91: 2",
   "inVerses": "Ps 91: 13-14",
-  "al": "Tu es sacerdos",
-  "alId": 477,
-  "alRef": "Ps 109: 4",
+  "al": [
+   "Tu es sacerdos",
+   "Beatus vir qui suffert"
+  ],
+  "alId": [
+   477,
+   724
+  ],
+  "alRef": [
+   "Ps 109: 4",
+   "Iac 1: 12"
+  ],
   "of": "Inveni (David)",
   "ofId": 779,
   "ofRef": "Ps 88: 21-22",
@@ -2302,8 +2455,14 @@ gregorianPropers = {
   "inId": 359,
   "inRef": "Gal 6: 14; Ps 66: 1",
   "inVerses": "Ps 66: 2, 3",
-  "al": "Dicite in gentibus",
-  "alId": 627,
+  "al": [
+   "Dicite in gentibus",
+   "Dulce lignum"
+  ],
+  "alId": [
+   627,
+   859
+  ],
   "alRef": "Ps 95: 10",
   "of": "Dextera Domini",
   "ofId": 448,
@@ -2315,7 +2474,7 @@ gregorianPropers = {
   "title": "3 May - SS Alexander, Eventius and Theodulus, Martyrs and St Juvenalis, Bishop and Confessor",
   "date": "May3",
   "href": "http://www.introibo.fr/03-05-Sts-Alexandre-Ier-pape",
-  "ref": "saints.html#mass_two_or_more_martyr"
+  "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "st_monica": {
   "title": "4 May - St Monica, Widow",
@@ -2334,15 +2493,24 @@ gregorianPropers = {
   "date": "May6",
   "href": "http://www.introibo.fr/06-05-St-Jean-apotre-et",
   "ref": "saints.html#mass_one_martyr",
-  "al": "Justus ut palma",
-  "alId": 946,
-  "alRef": "Ps 91: 13"
+  "al": [
+   "Justus ut palma",
+   "Justus germinabit"
+  ],
+  "alId": [
+   946,
+   1207
+  ],
+  "alRef": [
+   "Ps 91: 13",
+   "Osee 14: 6"
+  ]
  },
  "st_stanislaus": {
   "title": "7 May - St Stanislaus, Bishop and Martyr",
   "date": "May7",
   "href": "http://www.introibo.fr/07-05-St-Stanislas-eveque-et",
-  "ref": "saints.html#mass_one_martyr"
+  "ref": "saints.html#mass_ii_confessor_bishop"
  },
  "st_gregory_nazianzen": {
   "title": "9 May - St Gregory Nazianzen, Bishop, Confessor and Doctor of the Church",
@@ -2360,7 +2528,7 @@ gregorianPropers = {
   "title": "10 May - SS Gordian and Epimachus, Martyrs",
   "date": "May10",
   "href": "http://www.introibo.fr/10-05-Sts-Gordien-et-Epimaque",
-  "ref": "saints.html#mass_two_or_more_martyr"
+  "ref": "saints.html#mass_ii_two_or_more_martyr"
  },
  "ss_philip_james": {
   "title": "11 May - SS Philip and James, Apostles",
@@ -2370,18 +2538,36 @@ gregorianPropers = {
   "inId": 469,
   "inRef": "Neh 2; Esdr 9: 27; Ps 32: 1",
   "inVerses": "Ps 32: 2-4, 12-15, 18",
-  "al": "Confitebuntur",
-  "alId": 762,
-  "alRef": "Ps 88: 6",
+  "al": [
+   "Confitebuntur",
+   "Tanto tempore"
+  ],
+  "alId": [
+   762,
+   1101
+  ],
+  "alRef": [
+   "Ps 88: 6",
+   "Joann 14: 9"
+  ],
   "gr": "Constitues eos",
   "grId": 307,
   "grRef": "Ps 44: 17-18",
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
-  "of": "In omnem terram",
-  "ofId": 570,
-  "ofRef": "Ps 18: 5",
+  "of": [
+   "In omnem terram",
+   "Confitebuntur"
+  ],
+  "ofId": [
+   570,
+   1382
+  ],
+  "ofRef": [
+   "Ps 18: 5",
+   "Ps 88: 6"
+  ],
   "co": "Tanto tempore",
   "coId": 921,
   "coRef": "Joann 14: 9, 10",
@@ -2394,8 +2580,14 @@ gregorianPropers = {
   "in": "Ecce oculi",
   "inId": 1222,
   "inRef": "Ps 32: 18, 19, 20, 1",
-  "al": "Haec est vera",
-  "alId": 32,
+  "al": [
+   "Haec est vera",
+   "Te Martyrum"
+  ],
+  "alId": [
+   32,
+   590
+  ],
   "of": "Confitebuntur",
   "ofId": 1382,
   "ofRef": "Ps 88: 6",
@@ -2413,7 +2605,7 @@ gregorianPropers = {
   "title": "14 May - St Boniface, Martyr",
   "date": "May14",
   "href": "http://www.introibo.fr/14-05-St-Boniface-martyr",
-  "ref": "saints.html#mass_one_martyr"
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_john_baptist_de_la_salle": {
   "title": "15 May - St John Baptist de la Salle, Confessor",
@@ -2428,9 +2620,18 @@ gregorianPropers = {
   "in": "Sinite (parvulos)",
   "inId": 936,
   "inRef": "Marc 10: 14; Ps 21: 24",
-  "al": "Beatus quem",
-  "alId": 1170,
-  "alRef": "Ps 64: 5",
+  "al": [
+   "Beatus quem",
+   "Dispersit"
+  ],
+  "alId": [
+   1170,
+   569
+  ],
+  "alRef": [
+   "Ps 64: 5",
+   "Ps 111: 9"
+  ],
   "gr": "Venite filii",
   "grId": 1022,
   "grRef": "Ps 33: 12, 6",
@@ -2460,7 +2661,7 @@ gregorianPropers = {
   "title": "18 May - St Venantius, Martyr",
   "date": "May18",
   "href": "http://www.introibo.fr/18-05-St-Venant-martyr",
-  "ref": "saints.html#mass_one_martyr"
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_peter_celestine": {
   "title": "19 May - St Peter Celestine, Pope and Confessor",
@@ -2562,9 +2763,21 @@ gregorianPropers = {
   "in": "Cantemus Domino",
   "inId": 465,
   "inRef": "Exodi 15: 1, 2; Ps 97: 1",
-  "al": "Fecisti viriliter",
-  "alId": 999,
-  "alRef": "Judith 15: 11",
+  "al": [
+   "Fecisti viriliter",
+   "Nunc ergo",
+   "Laudate Dominum"
+  ],
+  "alId": [
+   999,
+   489,
+   750
+  ],
+  "alRef": [
+   "Judith 15: 11",
+   "Judith 8: 29",
+   "Iudith 13: 17-18"
+  ],
   "gr": "Nova bella",
   "grId": 357,
   "grRef": "Iudic 5: 8, 11",
@@ -2586,8 +2799,16 @@ gregorianPropers = {
   "inId": 61,
   "inRef": "Ps 44: 2",
   "inVerses": "Ps 44: 11-12",
-  "al": "Beata es",
-  "alId": 734,
+  "al": [
+   "Beata es",
+   "Nunc cum eo",
+   "Salve Regina"
+  ],
+  "alId": [
+   734,
+   354,
+   717
+  ],
   "gr": "Ipse habet",
   "grId": 1368,
   "grRef": "Apoc 19: 16; Ps 44: 10",
@@ -2655,9 +2876,18 @@ gregorianPropers = {
   "al": "Defecit caro",
   "alId": 594,
   "alRef": "Ps 72: 26",
-  "alPasch": "Beatus quem",
-  "alPaschId": 1170,
-  "alPaschRef": "Ps 64: 5",
+  "alPasch": [
+   "Beatus quem",
+   "Dispersit"
+  ],
+  "alPaschId": [
+   1170,
+   569
+  ],
+  "alPaschRef": [
+   "Ps 64: 5",
+   "Ps 111: 9"
+  ],
   "of": "Justus (ut palma)",
   "ofId": 777,
   "ofRef": "Ps 91: 13",
@@ -2680,8 +2910,14 @@ gregorianPropers = {
   "al": "Declinabo",
   "alId": 198,
   "alRef": "Is 66: 12",
-  "alPasch": "Laetamini",
-  "alPaschId": 528,
+  "alPasch": [
+   "Laetamini",
+   "Videbitis"
+  ],
+  "alPaschId": [
+   528,
+   314
+  ],
   "alPaschRef": "Is 66: 10, 14",
   "of": "Benedicam Dominum",
   "ofId": 143,
@@ -3078,9 +3314,18 @@ gregorianPropers = {
   "trSept": "Gratificavit nos",
   "trSeptId": 502,
   "trSeptRef": "Ephes 1: 6-8; Rom 3: 24-25",
-  "alPasch": "Dignus es Domine",
-  "alPaschId": 983,
-  "alPaschRef": "Apoc 5: 9",
+  "alPasch": [
+   "Dignus es Domine",
+   "Erit autem sanguis"
+  ],
+  "alPaschId": [
+   983,
+   875
+  ],
+  "alPaschRef": [
+   "Apoc 5: 9",
+   "Exodi 12: 13"
+  ],
   "of": "Calix (benedictionis)",
   "ofId": 320,
   "ofRef": "1 Cor 10, 16",
@@ -3176,9 +3421,18 @@ gregorianPropers = {
   "trSept": "Qui gloriatur",
   "trSeptId": 928,
   "trSeptRef": "2 Cor 10: 17-18",
-  "alPasch": "Repletus sum",
-  "alPaschId": 1142,
-  "alPaschRef": "2 Cor 7: 4",
+  "alPasch": [
+   "Repletus sum",
+   "Tamquam filiis"
+  ],
+  "alPaschId": [
+   1142,
+   382
+  ],
+  "alPaschRef": [
+   "2 Cor 7: 4",
+   "2 Cor 6: 13"
+  ],
   "of": "In conspectu",
   "ofId": 662,
   "ofRef": "Ps 137: 1-2",
@@ -3571,13 +3825,31 @@ gregorianPropers = {
   "title": "26 Jul - St Ann, Mother of the Blessed Virgin Mary",
   "date": "Jul26",
   "href": "http://www.introibo.fr/26-07-Ste-Anne-mere-de-la-T-S",
-  "in": "Gaudeamus... Annae",
-  "inId": 950,
-  "inRef": "Ps 44: 2",
-  "inVerses": "Ps 44: 5",
-  "gr": "Dilexisti",
-  "grId": 394,
-  "grRef": "Ps 44: 8",
+  "in": [
+   "Gaudeamus... Annae",
+   "Cognovi (Domine)"
+  ],
+  "inId": [
+   950,
+   619
+  ],
+  "inRef": [
+   "Ps 44: 2",
+   "Ps 118: 75, 120, 1"
+  ],
+  "inVerses": "Ps 118: 2, 22",
+  "gr": [
+   "Dilexisti",
+   "Diffusa est"
+  ],
+  "grId": [
+   394,
+   947
+  ],
+  "grRef": [
+   "Ps 44: 8",
+   "Ps 44: 3, 5"
+  ],
   "al": "Diffusa est",
   "alId": 1076,
   "alRef": "Ps 44: 3",
@@ -3698,9 +3970,18 @@ gregorianPropers = {
   "trSept": "Ego autem (cum)",
   "trSeptId": 437,
   "trSeptRef": "Ps 34: 13; Ps 22: 5; 1 Cor 9: 22",
-  "alPasch": "Ecce quam bonum",
-  "alPaschId": 1078,
-  "alPaschRef": "Ps 132: 1-2",
+  "alPasch": [
+   "Ecce quam bonum",
+   "Posui vos"
+  ],
+  "alPaschId": [
+   1078,
+   495
+  ],
+  "alPaschRef": [
+   "Ps 132: 1-2",
+   "Ioann 15: 16"
+  ],
   "of": "Honora (Dominum)",
   "ofId": 1116,
   "ofRef": "Prov 3: 9, 27",
@@ -3826,9 +4107,18 @@ gregorianPropers = {
   "trSept": "Ego (pascam)",
   "trSeptId": 769,
   "trSeptRef": "Ezech 34: 15-16",
-  "alPasch": "Evangelizare",
-  "alPaschId": 297,
-  "alPaschRef": "Luc 4: 18",
+  "alPasch": [
+   "Evangelizare",
+   "Omnibus omnia"
+  ],
+  "alPaschId": [
+   297,
+   170
+  ],
+  "alPaschRef": [
+   "Luc 4: 18",
+   "1 Cor 9: 22"
+  ],
   "of": "Gaudeo in passionibus",
   "ofId": 436,
   "ofRef": "Coloss 1: 24-25",
@@ -5101,9 +5391,18 @@ gregorianPropers = {
   "title": "14 Nov - St Josaphat, Bishop and Martyr",
   "date": "Nov14",
   "href": "http://www.introibo.fr/14-11-St-Josaphat-eveque-et-martyr",
-  "in": "Gaudeamus... Josaphat",
-  "inId": 417,
-  "inRef": "Ps 32: 1",
+  "in": [
+   "Gaudeamus... Josaphat",
+   "Statuit"
+  ],
+  "inId": [
+   417,
+   456
+  ],
+  "inRef": [
+   "Ps 32: 1",
+   "Eccli 45: 30; Ps 131: 1"
+  ],
   "inVerses": "Ps 32: 2-4, 12-15, 18",
   "gr": "Inveni (David)",
   "grId": 827,
@@ -5117,9 +5416,18 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
-  "alPasch": "Confitebuntur",
-  "alPaschId": 762,
-  "alPaschRef": "Ps 88: 6",
+  "alPasch": [
+   "Confitebuntur",
+   "Posuisti Domine"
+  ],
+  "alPaschId": [
+   762,
+   1249
+  ],
+  "alPaschRef": [
+   "Ps 88: 6",
+   "Ps 20: 4"
+  ],
   "of": "Majorem (caritatem)",
   "ofId": 401,
   "ofRef": "Ioann 15: 13",
@@ -5259,15 +5567,33 @@ gregorianPropers = {
   "gr": "Mementote",
   "grId": 1174,
   "grRef": "Ps 104: 5, 27",
-  "al": "A summo caelo",
-  "alId": 254,
-  "alRef": "Ps 18: 7",
+  "al": [
+   "A summo caelo",
+   "Ave Maria"
+  ],
+  "alId": [
+   254,
+   1209
+  ],
+  "alRef": [
+   "Ps 18: 7",
+   "Luc 1: 28"
+  ],
   "trSept": "Fundamenta ejus",
   "trSeptId": 689,
   "trSeptRef": "Ps 86: 1-2, 3, 5",
-  "alPasch": "Tu gloria Jerusalem",
-  "alPaschId": 1023,
-  "alPaschRef": "Iudith 15: 10",
+  "alPasch": [
+   "Tu gloria Jerusalem",
+   "Tota pulchra es"
+  ],
+  "alPaschId": [
+   1023,
+   1057
+  ],
+  "alPaschRef": [
+   "Iudith 15: 10",
+   "Cant 4: 7"
+  ],
   "of": "Dixit Jesus",
   "ofId": 687,
   "ofRef": "Io 19: 27",

@@ -248,18 +248,32 @@ var path = 'gabc/',
                       }
                     });
                     if(h.officePart == 'Sequentia' || (!isMiscChant && h.officePart && !/^(Kyriale|Varia|Toni Communes|Improperia)$/.test(h.officePart))) {
-                      var text = text.join(' ').replace(/gloria patri (e u o u a e|(?:et filio et spiritui sancto sicut erat in principio et nunc et semper et in sæcula )?sæculorum amen)$/,"gloria patri");
-                      if(h.officePart == 'Alleluia') text = text.replace(/^alleluia (℣ )?/,'');
-                      texts[h.officePart] = texts[h.officePart] || {};
                       var id = ids[i];
                       var match = id.match && id.match(/^(\d+)&elem=(\d+)$/);
-                      if(match) id = match[1];
+                      if(match) {
+                        id = match[1];
+                      }
                       var current = texts[h.officePart][id];
-                      if(match || current) {
-                        match = match || [0, id, 1];
+                      if(current && !match) {
+                        match = [0, id, 1];
+                      }
+                      var text = text.join(' ').replace(/gloria patri (e u o u a e|(?:et filio et spiritui sancto sicut erat in principio et nunc et semper et in sæcula )?sæculorum amen)$/,"gloria patri");
+                      if(h.officePart == 'Alleluia') {
+                        if(current) {
+                          if(!(current instanceof Array)) {
+                            current = [current];
+                          }
+                          current[match[2]-1] = text;
+                          text = current.join(' ');
+                          match = null;
+                        }
+                        text = text.replace(/^alleluia (℣ )?/,'');
+                      }
+                      texts[h.officePart] = texts[h.officePart] || {};
+                      if(match) {
                         if(!current) {
                           texts[h.officePart][id] = current = [];
-                        } else if(current.constructor != [].constructor) {
+                        } else if(!(current instanceof Array)) {
                           texts[h.officePart][id] = current = [current];
                         }
                         current[match[2]-1] = text;

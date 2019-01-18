@@ -88,8 +88,11 @@ function processUrl(urlKey) {
           var key = partMap[match[2]];
           if(sept) key += "Sept";
           if(pasch) key += "Pasch";
+          var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
+          if((key in propria) && name != propria[key] && !name.startsWith(propria[key]+'(')) {
+            match[1] = 1;
+          }
           if(match[1] || !(key in propria)) {
-            var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
             if(/^ref/.test(key)) {
               var m = currentFeast.match(regexWeekday);
               if(m && m[1] in festa) {
@@ -98,7 +101,9 @@ function processUrl(urlKey) {
               propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
               return;
             } else {
+              if(key == 'al' && name == 'Alleluia') name = 'Confitemini... quoniam';
               var incipitId = vr.findIncipitId(name,key,grPage);
+              if(key == 'al' && name.match(/\(Rogations\)/)) incipitId = null;
               if(typeof incipitId == 'object') {
                 console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}) =
 ${JSON.stringify(incipitId,1,' ')}`);
@@ -106,8 +111,10 @@ ${JSON.stringify(incipitId,1,' ')}`);
             }
             if(match[1]) {
               propria[key] = propria[key] || [];
+              if(!(propria[key] instanceof Array)) propria[key] = [propria[key]];
               propria[key].push(name);
               propria[key+'Id'] = propria[key+'Id'] || [];
+              if(!(propria[key+'Id'] instanceof Array)) propria[key+'Id'] = [propria[key+'Id']];
               propria[key+'Id'].push(incipitId);
             } else {
               propria[key] = name;
@@ -121,6 +128,7 @@ ${JSON.stringify(incipitId,1,' ')}`);
                 ref = refs[0];
                 if(match[1]) {
                   propria[key+"Ref"] = propria[key+"Ref"] || [];
+                  if(!(propria[key+'Ref'] instanceof Array)) propria[key+'Ref'] = [propria[key+'Ref']];
                   propria[key+"Ref"].push(ref);
                 } else {
                   propria[key+"Ref"] = ref;
