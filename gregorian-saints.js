@@ -1904,7 +1904,7 @@ gregorianPropers = {
   "trId": 738,
   "trRef": "Ps 44: 11, 12, 13, 10, 15, 16",
   "of": "Afferentur... pro patribus",
-  "ofId": 1107,
+  "ofId": 8253,
   "ofRef": "Ps 44: 15, 16",
   "co": "Florete flores",
   "coId": 104,

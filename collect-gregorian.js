@@ -55,6 +55,8 @@ function processUrl(urlKey) {
   table.children.__proto__.forEach = Array.prototype.forEach;
   table.children.forEach(tr => {
     var td = tr.children[0];
+    var modeTd = tr.children[1];
+    var mode = modeTd && parseInt(modeTd.textContent);
     var grTd = tr.children[3];
     var grA = grTd && grTd.querySelector('a');
     var gr = grA && grA.textContent.match(/GR(\S+)/);
@@ -102,10 +104,10 @@ function processUrl(urlKey) {
               return;
             } else {
               if(key == 'al' && name == 'Alleluia') name = 'Confitemini... quoniam';
-              var incipitId = vr.findIncipitId(name,key,grPage);
+              var incipitId = vr.findIncipitId(name,key,grPage,mode);
               if(key == 'al' && name.match(/\(Rogations\)/)) incipitId = null;
               if(typeof incipitId == 'object') {
-                console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}) =
+                console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}, ${JSON.stringify(mode)}) =
 ${JSON.stringify(incipitId,1,' ')}`);
               }
             }
