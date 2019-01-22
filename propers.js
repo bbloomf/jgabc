@@ -333,9 +333,7 @@ $(function(){
   }
   function runGabcReplaces(gabc, gabcHeader) {
     // TODO: some of these should be run within download-gabc instead...
-    gabc = gabc.replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1')
-          .replace(/<i>\((.*?)\)<\/i>/, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
-          .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')'); // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
+    gabc = gabc.replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1');
     var match = gabc.match(/<sp>V\/<\/sp>(?! \d)/g);
     if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\.?/)) {
       var count = 2;
