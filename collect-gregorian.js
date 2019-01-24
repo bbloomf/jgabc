@@ -19,7 +19,7 @@ var partMap = {
   "Missa": "ref"
 }
 var parts = Object.keys(partMap);
-var regexPart = new RegExp(`^\\s*(?:(\\d+)\\s+)?(${parts.join('|')})\\.\\s+(.+)$`);
+var regexPart = new RegExp(`^\\s*(?:(\\d+|[IiVv]+)\\s+)?(${parts.join('|')})\\.\\s+(.+)$`);
 var weekdays = ["mon","tue","wed","thu","fri","sat"];
 var regexWeekday = new RegExp(`^(.*?)_?(${weekdays.join('|')})$`);
 var currentFeast = "";

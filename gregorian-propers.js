@@ -1249,6 +1249,18 @@ gregorianPropers = {
   "inID": 418,
   "inRef": "Ezech 36: 23-26; Ps 33: 2",
   "inVerses": "Ps 33",
+  "gr": [
+   "Venite filii",
+   "Beata gens"
+  ],
+  "grID": [
+   1022,
+   1044
+  ],
+  "grRef": [
+   "Ps 33: 12, 6",
+   "Ps 32: 12, 6"
+  ],
   "tr": "Domine non secundum",
   "trID": 425,
   "trRef": "Ps 102: 10; Ps 78: 8-9",
@@ -2611,6 +2623,18 @@ gregorianPropers = {
   "inID": 1323,
   "inRef": "Ps 80: 2, 3, 4, 5, 6",
   "inVerses": "Ps 80: 11, 17",
+  "gr": [
+   "Quis sicut Dominus",
+   "Beata gens"
+  ],
+  "grID": [
+   472,
+   1044
+  ],
+  "grRef": [
+   "Ps 112: 5-7",
+   "Ps 32: 12, 6"
+  ],
   "of": "Meditabor",
   "ofID": 810,
   "ofRef": "Ps 118: 47, 48",

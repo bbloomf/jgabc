@@ -65,7 +65,9 @@
 		"alleluiaID": 127,
 		"offertoriumID": 843,
 		"communioID": 160,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"mass_bvm"
+		]
 	},
 	"ChristusRex": {
 		"introitusID": 128,
@@ -1217,7 +1219,9 @@
 		"offertoriumID": 810,
 		"communioID": 496,
 		"gloria": false,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"wed_ews"
+		]
 	},
 	"EmbFriSept": {
 		"introitusID": 864,
@@ -1638,8 +1642,10 @@
 		"gradualeID": 886,
 		"tractusID": 425,
 		"offertoriumID": 718,
-		"communioID": 1210,
-		"fromGregorianBooks": []
+		"communioID": 1316,
+		"fromGregorianBooks": [
+			"lent4mon"
+		]
 	},
 	"Quad4t": {
 		"introitusID": 904,
@@ -1659,7 +1665,9 @@
 		"tractusID": 425,
 		"offertoriumID": 860,
 		"communioID": 989,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"lent4wed"
+		]
 	},
 	"Quad4h": {
 		"introitusID": 864,
@@ -3088,7 +3096,9 @@
 		"alleluiaID": 1076,
 		"introitusID": 950,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_ann"
+		]
 	},
 	"Jul27": {
 		"communioID": 685,
@@ -3579,7 +3589,9 @@
 		"alleluiaID": 127,
 		"introitusID": 1140,
 		"offertoriumID": 843,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"mass_bvm"
+		]
 	},
 	"May26": {
 		"communioID": 1367,
@@ -3712,7 +3724,9 @@
 		"alleluiaID": 1118,
 		"introitusID": 417,
 		"offertoriumID": 401,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_josaphat"
+		]
 	},
 	"Nov2": {
 		"ref": "defunctorum",
@@ -3726,7 +3740,9 @@
 		"alleluiaID": 127,
 		"introitusID": 1140,
 		"offertoriumID": 843,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"mass_bvm"
+		]
 	},
 	"Nov22": {
 		"communioID": 1032,
@@ -4276,7 +4292,9 @@
 	},
 	"Aug5": {
 		"ref": "May24",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"mass_bvm"
+		]
 	},
 	"Aug7": {
 		"ref": "Jun12",
@@ -4447,7 +4465,9 @@
 	},
 	"Sep24": {
 		"ref": "May24",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"mass_bvm"
+		]
 	},
 	"Sep26": {
 		"ref": "Aug11",

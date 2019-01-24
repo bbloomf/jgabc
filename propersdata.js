@@ -1422,7 +1422,7 @@ var proprium = {
   Quad3f: {introitusID:733,gradualeID:865,tractusID:425,offertoriumID:293,communioID:894},
   Quad3s: {introitusID:1248,gradualeID:1121,offertoriumID:1099,communioID:1010},
   Quad4: {introitusID:653,offertoriumID:899,communioID:1353,tractusID:1377,gradualeID:1011},
-  Quad4m: {introitusID:458,gradualeID:886,tractusID:425,offertoriumID:718,communioID:1210},
+  Quad4m: {introitusID:458,gradualeID:886,tractusID:425,offertoriumID:718,communioID:1316},
   Quad4t: {introitusID:904,gradualeID:152,offertoriumID:182,communioID:1296},
   Quad4w: {introitusID:418,gradualeID:[1022,1044],tractusID:425,offertoriumID:860,communioID:989},
   Quad4h: {introitusID:864,gradualeID:1232,offertoriumID:731,communioID:1318},
