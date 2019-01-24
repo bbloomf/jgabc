@@ -75,7 +75,7 @@ function processUrl(urlKey) {
           var i = 1;
           if(currentFeast == 'st_robert_bellarmine') i = 0;
           propria.al = propria.alPasch[i];
-          propria.alId = propria.alPaschId[i];
+          propria.alID = propria.alPaschID[i];
           if(propria.alPaschRef && propria.alPaschRef[i]) {
             propria.alRef = propria.alPaschRef[i];
           }
@@ -122,12 +122,12 @@ function processUrl(urlKey) {
             if(betweenBars && !sept && !pasch) {
               if(/^(gr|al)$/.test(key) && (propria.al instanceof Array) && !('gr' in propria)) {
                 propria.alPasch = propria.al;
-                propria.alPaschId = propria.alId;
+                propria.alPaschID = propria.alID;
                 if(propria.alRef) {
                   propria.alPaschRef = propria.alRef;
                 }
                 delete propria.al;
-                delete propria.alId;
+                delete propria.alID;
                 delete propria.alRef;
               } else {
                 key += "Extra";
@@ -154,12 +154,12 @@ ${JSON.stringify(incipitId,1,' ')}`);
               propria[key] = propria[key] || [];
               if(!(propria[key] instanceof Array)) propria[key] = [propria[key]];
               propria[key].push(name);
-              propria[key+'Id'] = propria[key+'Id'] || [];
-              if(!(propria[key+'Id'] instanceof Array)) propria[key+'Id'] = [propria[key+'Id']];
-              propria[key+'Id'].push(incipitId);
+              propria[key+'ID'] = propria[key+'ID'] || [];
+              if(!(propria[key+'ID'] instanceof Array)) propria[key+'ID'] = [propria[key+'ID']];
+              propria[key+'ID'].push(incipitId);
             } else {
               propria[key] = name;
-              if(incipitId) propria[key+'Id'] = incipitId;
+              if(incipitId) propria[key+'ID'] = incipitId;
             }
 
             var span = td.querySelector('span.ps1');
