@@ -32,9 +32,11 @@ gregorianPropers = {
   "trSept": "Annuntiavi",
   "trSeptId": 1085,
   "trSeptRef": "Ps 39: 10-11",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "alPasch": "Constitues eos",
   "alPaschId": 548,
   "alPaschRef": "Ps 44: 17, 18",
+  "alPaschRubric": "In Paschal Time the previous Alleluia is sung, then this one.",
   "of": "Ecce (dedi)",
   "ofId": 358,
   "ofRef": "Jerem 1: 9-10",
@@ -59,6 +61,7 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Veritas mea",
   "ofId": 630,
   "ofRef": "Ps 88: 25",
@@ -81,6 +84,7 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Inveni (David)",
   "ofId": 779,
   "ofRef": "Ps 88: 21-22",
@@ -105,6 +109,7 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Gloria (et honore)",
   "ofId": 407,
   "ofRef": "Ps 8: 6-7",
@@ -129,6 +134,7 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Posuisti",
   "ofId": 487,
   "ofRef": "Ps 20: 4-5",
@@ -204,6 +210,7 @@ gregorianPropers = {
   "trSept": "Qui seminant",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Mirabilis Deus",
   "ofId": 919,
   "ofRef": "Ps 67: 36",
@@ -227,6 +234,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Exsultabunt (sancti)",
   "ofId": 33,
   "ofRef": "Ps 149: 5-6",
@@ -249,6 +257,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Justorum (animae)",
   "ofId": 835,
   "ofRef": "Sap 3: 1, 2, 3",
@@ -273,8 +282,10 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Hic est sacerdos",
   "alPaschId": 1118,
+  "alPaschRubric": "In Paschal time the Gradual Ecce (sacerdos magnus)--> is omitted. Instead one sings the first Alleluia Tu es sacerdos then this second Alleluia.",
   "of": "Inveni (David)",
   "ofId": 779,
   "ofRef": "Ps 88: 21-22",
@@ -299,9 +310,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Amavit eum",
   "alPaschId": 14,
   "alPaschRef": "Eccli 45: 9",
+  "alPaschRubric": "In Paschal time the Gradual is omitted. Instead one sings the first All. Juravit Dominus then this second Alleluia.",
   "of": "Veritas mea",
   "ofId": 630,
   "ofRef": "Ps 88: 25",
@@ -325,9 +338,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Justus germinabit",
   "alPaschId": 1207,
   "alPaschRef": "Osee 14: 6",
+  "alPaschRubric": "In Paschal time the Gradual Os justi--> is omitted. Instead one sings the first Alleluia Amavit eum Dominus then this second Alleluia.",
   "of": "Justus (ut palma)",
   "ofId": 777,
   "ofRef": "Ps 91: 13",
@@ -353,9 +368,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Amavit eum",
   "alPaschId": 14,
   "alPaschRef": "Eccli 45: 9",
+  "alPaschRubric": "In Paschal time the Gradual Justus (ut palma)--> is omitted. Instead one sings the first Alleluia Beatus vir then this second Alleluia.",
   "of": "Veritas mea",
   "ofId": 630,
   "ofRef": "Ps 88: 25",
@@ -379,9 +396,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Justus germinabit",
   "alPaschId": 1207,
   "alPaschRef": "Osee 14: 6",
+  "alPaschRubric": "In Paschal time the Gradual Os justi--> is omitted. Instead one sings the first Alleluia Beatus vir then this second Alleluia.",
   "of": "In virtute tua",
   "ofId": 667,
   "ofRef": "Ps 20: 2-3",
@@ -406,9 +425,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Justus germinabit",
   "alPaschId": 1207,
   "alPaschRef": "Osee 14: 6",
+  "alPaschRubric": "In Paschal time the Gradual Domine (praevenisti)--> is omitted. Instead one sings the first Alleluia Justus ut palma then this second Alleluia.",
   "of": "Desiderium",
   "ofId": 722,
   "ofRef": "Ps 20: 3, 4",
@@ -433,9 +454,11 @@ gregorianPropers = {
   "trSept": "Veni (sponsa)",
   "trSeptId": 256,
   "trSeptRef": "Ps 44: 8, 5",
+  "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
   "alPasch": "Specie tua",
   "alPaschId": 406,
   "alPaschRef": "Ps 44: 5",
+  "alPaschRubric": "From the Mass of a Holy Woman not a Martyr (GR).",
   "of": "Afferentur... proximae",
   "ofId": 1107,
   "ofRef": "Ps 44: 15, 16",
@@ -480,9 +503,11 @@ gregorianPropers = {
   "trSept": "Audi filia",
   "trSeptId": 738,
   "trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
+  "trSeptRubric": "Replaces the Alleluia after Septuagesima.",
   "alPasch": "Specie tua",
   "alPaschId": 406,
   "alPaschRef": "Ps 44: 5",
+  "alPaschRubric": "Paschal Time: Alleluia Adducentur regi virgines above, then this Alleluia.",
   "of": "Filiae regum",
   "ofId": 1333,
   "ofRef": "Ps 44: 10",
@@ -526,6 +551,7 @@ gregorianPropers = {
   "trSept": "Veni (sponsa)",
   "trSeptId": 256,
   "trSeptRef": "Ps 44: 8, 5",
+  "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
   "of": "Diffusa est",
   "ofId": 177,
   "ofRef": "Ps 44: 3",
@@ -549,6 +575,7 @@ gregorianPropers = {
   "trSept": "Veni (sponsa)",
   "trSeptId": 256,
   "trSeptRef": "Ps 44: 8, 5",
+  "trSeptRubric": "Important note: for a Holy Woman not a Martyr the ending words of the first verse are omitted: pro cujus amore sanguinem tuum fudisti = « for the love of whom thou didst shed thy blood ». Obviously.",
   "of": "Diffusa est",
   "ofId": 177,
   "ofRef": "Ps 44: 3",
@@ -572,8 +599,10 @@ gregorianPropers = {
   "trSept": "Qui confidunt",
   "trSeptId": 1377,
   "trSeptRef": "Ps 124: 1-2",
+  "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
   "alPasch": "Bene fundata est",
   "alPaschId": 1343,
+  "alPaschRubric": "In Paschal the previous Alleluia is sung then this one.",
   "of": "Domine Deus (in simplicitate)",
   "ofId": 200,
   "ofRef": "1 Paral 29: 17, 18",
@@ -591,22 +620,19 @@ gregorianPropers = {
   "inVerses": "Ps 44: 5, 8",
   "gr": "Benedicta (et venerabilis)",
   "grId": 392,
-  "al": [
-   "Post partum Virgo",
-   "Ave Maria"
-  ],
-  "alId": [
-   127,
-   1209
-  ],
-  "alRef": [
-   "Luc 1: 28"
-  ],
+  "al": "Post partum Virgo",
+  "alId": 127,
+  "alExtra": "Ave Maria",
+  "alExtraId": 1209,
+  "alExtraRef": "Luc 1: 28",
+  "alExtraRubric": "In Advent the previous Alleluia is replaced by this one.",
   "trSept": "Gaude (Maria)",
   "trSeptId": 18,
+  "trSeptRubric": "After Septuagesima this Tract replaces the Alleluia.",
   "alPasch": "Virga Jesse",
   "alPaschId": 281,
   "alPaschRef": "Num 17: 8",
+  "alPaschRubric": "During Paschal Time the Gradual is omitted, this Alleluia is sung then All. Ave Maria.",
   "of": "Ave Maria... et benedictus",
   "ofId": 843,
   "ofRef": "Luc 1: 28, 42",
@@ -649,6 +675,7 @@ gregorianPropers = {
   "alId": 127,
   "trSept": "Gaude (Maria)",
   "trSeptId": 18,
+  "trSeptRubric": "After Septuagesima this Tract replaces the Alleluia.",
   "of": "Felix (namque es)",
   "ofId": 280,
   "co": "Beata viscera",
@@ -668,6 +695,7 @@ gregorianPropers = {
   "alRef": "Num 17: 8",
   "trSept": "Gaude (Maria)",
   "trSeptId": 18,
+  "trSeptRubric": "After Septuagesima this Tract replaces the Alleluia.",
   "of": "Felix (namque es)",
   "ofId": 280,
   "co": "Beata viscera",
@@ -716,9 +744,11 @@ gregorianPropers = {
   "alRef": "Ps 137: 1-2",
   "trSept": "Benedicite (Dominum)",
   "trSeptId": 949,
+  "trSeptRubric": "After Septuagesima.",
   "alPasch": "Angelus... descendit",
   "alPaschId": 377,
   "alPaschRef": "Matth 28: 2",
+  "alPaschRubric": "In Paschal Time the previous Alleluia is sung, then this one.",
   "of": "Stetit (Angelus)",
   "ofId": 302,
   "ofRef": "Apoc 8: 3, 4",
@@ -740,8 +770,10 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "De quacumque",
   "alPaschId": 1324,
+  "alPaschRubric": "In Paschal Time sing this Alleluia first, then the previous Alleluia.",
   "of": "Lauda (Jerusalem)",
   "ofId": 845,
   "ofRef": "Ps 147: 12, 13",
@@ -763,6 +795,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "In omnem terram",
   "ofId": 570,
   "ofRef": "Ps 18: 5",
@@ -812,14 +845,17 @@ gregorianPropers = {
   "alId": 181,
   "trSept": "Emitte (Spiritum)",
   "trSeptId": 925,
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "ofSept": "Confirma (hoc)",
   "ofSeptId": 83,
   "ofSeptRef": "Ps 67: 29-30",
   "ofSeptVerses": "Ps 67: 5",
+  "ofSeptRubric": "The alleluia is omitted and the ending is different on the word munera.",
   "coSept": "Factus est repente",
   "coSeptId": 972,
   "coSeptRef": "Act 2: 2, 4",
   "coSeptVerses": "Ps 67: 2-4, 12, 27, 29",
+  "coSeptRubric": "The three alleluia are omitted. The rest of the melody is the same.",
   "of": "Confirma (hoc)",
   "ofId": 361,
   "ofRef": "Ps 67: 29-30",
@@ -868,6 +904,7 @@ gregorianPropers = {
   "trSept": "Ab ortu solis",
   "trSeptId": 644,
   "trSeptRef": "Prov 9: 5",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Sacerdotes (Domini)",
   "ofId": 645,
   "ofRef": "Levit 21: 6",
@@ -918,9 +955,11 @@ gregorianPropers = {
   "trSept": "Exsurge (Domine)",
   "trSeptId": 1370,
   "trSeptRef": "Ps 9: 34-36",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Spiritus Domini",
   "alPaschId": 611,
   "alPaschRef": "Luc 4: 18",
+  "alPaschRubric": "Sung in Paschal Time following the previous Alleluia.",
   "of": "Christus unam",
   "ofId": 1364,
   "ofRef": "Hebr 10: 12, 14",
@@ -945,6 +984,7 @@ gregorianPropers = {
   "trSept": "Misericors",
   "trSeptId": 1244,
   "trSeptRef": "Ps 102: 8-10",
+  "trSeptRubric": "- Same advice as the Graduale above: little pause at the star after retribuit and good breath after that to sing the last word nobis in one go.",
   "of": "Improperium (Sacred Heart)",
   "ofId": 628,
   "ofRef": "Ps 68: 21",
@@ -1011,9 +1051,11 @@ gregorianPropers = {
   "trSept": "Notus (in Judaea)",
   "trSeptId": 421,
   "trSeptRef": "Ps 75: 2-4",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Qui posuit fines",
   "alPaschId": 700,
   "alPaschRef": "Ps 147: 14",
+  "alPaschRubric": "Sung in Paschal Time, following the previous Alleluia.",
   "of": "Laudate (Dominum)",
   "ofId": 899,
   "ofRef": "Ps 134: 3, 6",
@@ -1025,7 +1067,8 @@ gregorianPropers = {
   "coPasch": "Pacem meam",
   "coPaschId": 91,
   "coPaschRef": "Ioann 14: 27",
-  "coPaschVerses": "Ps 121"
+  "coPaschVerses": "Ps 121",
+  "coPaschRubric": "Sung in Paschal Time according to the Graduale Romanum: the words are the same as the previous Comm. Pacem relinquo but reordered a different way."
  },
  "mass_election_pope": {
   "title": "Mass for the Election of the Pope",
@@ -1042,6 +1085,7 @@ gregorianPropers = {
   "trSept": "Surge (Domine)",
   "trSeptId": 597,
   "trSeptRef": "Ps 131: 8-10",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Non participentur",
   "ofId": 690,
   "ofRef": "Esdrae 5: 40",
@@ -1064,9 +1108,11 @@ gregorianPropers = {
   "trSept": "Ecce sic benedicetur",
   "trSeptId": 144,
   "trSeptRef": "Ps 127: 4-6",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Benedicat vobis",
   "alPaschId": 505,
   "alPaschRef": "Ps 133: 3",
+  "alPaschRubric": "Sung in Paschal Time, following the previous All. Mittat vobis.",
   "of": "In te speravi",
   "ofId": 967,
   "ofRef": "Ps 30: 15-16",
@@ -1238,9 +1284,11 @@ gregorianPropers = {
   "trSept": "Fundamenta ejus",
   "trSeptId": 689,
   "trSeptRef": "Ps 86: 1-2, 3, 5",
+  "trSeptRubric": "Sung after Septuagesima instead of the Alleluia.",
   "alPasch": "Tu gloria Jerusalem",
   "alPaschId": 1023,
   "alPaschRef": "Iudith 15: 10",
+  "alPaschRubric": "Sung in Paschal Time, followed by the previous All. Tota pulchra es.",
   "of": "Ave Maria... in mulieribus",
   "ofId": 210,
   "ofRef": "Luc 1: 28",
@@ -1294,6 +1342,7 @@ gregorianPropers = {
   "trSept": "Audi filia",
   "trSeptId": 738,
   "trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Adducentur regi virgines",
    "Specie tua"
@@ -1305,6 +1354,10 @@ gregorianPropers = {
   "alPaschRef": [
    "Ps 44: 15, 16",
    "Ps 44: 5"
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass in Paschal Time.",
+   "Sung at a Votive Mass in Paschal Time."
   ],
   "of": "Afferentur... proximae",
   "ofId": 1107,
@@ -1359,15 +1412,19 @@ gregorianPropers = {
   "inPaschId": 340,
   "inPaschRef": "Ps 63: 3, 2",
   "inPaschVerses": "Ps 63: 4, 11",
+  "inPaschRubric": "Sung at a Votive Mass in Paschal Time.",
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Confitebuntur",
   "alPaschId": 762,
   "alPaschRef": "Ps 88: 6",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "ofPasch": "Confitebuntur",
   "ofPaschId": 1382,
   "ofPaschRef": "Ps 88: 6",
+  "ofPaschRubric": "Sung at a Votive Mass in Paschal Time.",
   "of": "In omnem terram",
   "ofId": 570,
   "ofRef": "Ps 18: 5",
@@ -1405,6 +1462,7 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "In virtute tua",
   "ofId": 667,
   "ofRef": "Ps 20: 2-3",
@@ -1447,9 +1505,11 @@ gregorianPropers = {
   "trSept": "Tu es (Petrus)",
   "trSeptId": 1029,
   "trSeptRef": "Matth 16: 18-19",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Confiteantur",
   "alPaschId": 220,
   "alPaschRef": "Ps 106: 15",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, followed by the previous All. Tu es Petrus.",
   "of": "Tu es (Petrus)",
   "ofId": 1234,
   "ofRef": "Matth 16: 18-19",
@@ -1480,6 +1540,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Anima nostra",
   "ofId": 1031,
   "ofRef": "Ps 123: 7",
@@ -1510,6 +1571,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Laetamini",
   "ofId": 786,
   "ofRef": "Ps 31: 11",
@@ -1535,6 +1597,7 @@ gregorianPropers = {
   "trSept": "Veni (sponsa)",
   "trSeptId": 256,
   "trSeptRef": "Ps 44: 8, 5",
+  "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
   "of": "Afferentur... proximae",
   "ofId": 1107,
   "ofRef": "Ps 44: 15, 16",
@@ -1567,7 +1630,8 @@ gregorianPropers = {
   "ref": "saints.html#mass_i_confessor_bishop",
   "trSept": "Desiderium",
   "trSeptId": 176,
-  "trSeptRef": "Ps 20: 3-4"
+  "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia."
  },
  "conversion_st_paul": {
   "title": "25 Jan - Conversion of St Paul, Apostle",
@@ -1584,6 +1648,7 @@ gregorianPropers = {
   "alId": 466,
   "trSept": "Tu es vas",
   "trSeptId": 884,
+  "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
   "of": "Mihi (autem nimis)",
   "ofId": 499,
   "ofRef": "Ps 138: 17",
@@ -1616,6 +1681,7 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Justus (ut palma)",
   "ofId": 777,
   "ofRef": "Ps 91: 13",
@@ -1646,6 +1712,7 @@ gregorianPropers = {
   "trSept": "Audi filia",
   "trSeptId": 738,
   "trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
+  "trSeptRubric": "Replaces the Alleluia after Septuagesima.",
   "of": "Diffusa est",
   "ofId": 177,
   "ofRef": "Ps 44: 3",
@@ -1683,9 +1750,11 @@ gregorianPropers = {
   "trSept": "Factus es (spes mea)",
   "trSeptId": 837,
   "trSeptRef": "Ps 60: 4-6",
+  "trSeptRubric": "After Septuagesima, the Alleluia and its Verse are omitted, and the Tract is said instead.",
   "alPasch": "Inebriabuntur",
   "alPaschId": 221,
   "alPaschRef": "Ps 35, 9",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Venite (filii)",
   "ofId": 805,
   "ofRef": "Ps 33: 12",
@@ -1711,9 +1780,11 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Posuisti Domine",
   "alPaschId": 1249,
   "alPaschRef": "Ps 20: 4",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Gloria (et honore)",
   "ofId": 407,
   "ofRef": "Ps 8: 6-7",
@@ -1737,6 +1808,7 @@ gregorianPropers = {
   "trSept": "Nunc dimittis",
   "trSeptId": 1346,
   "trSeptRef": "Luc 2: 29-32",
+  "trSeptRubric": "After Septuagesima, the Alleluia and its Verse are omitted, and the Tract is said instead.",
   "of": "Diffusa est",
   "ofId": 177,
   "ofRef": "Ps 44: 3",
@@ -1775,6 +1847,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Afferentur... post eam",
   "ofId": 768,
   "ofRef": "Ps 44: 15, 16",
@@ -1840,6 +1913,7 @@ gregorianPropers = {
   "trSept": "Tu gloria (Jerusalem)",
   "trSeptId": 485,
   "trSeptRef": "Iudith 15: 10; Cant 4: 7",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Ave (gratia plena)",
   "ofId": 234,
   "ofRef": "Luc 1: 28",
@@ -1864,6 +1938,7 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Adducam eos",
   "ofId": 1275,
   "ofRef": "Is 56: 7",
@@ -1966,6 +2041,13 @@ gregorianPropers = {
    "Ps 8: 6-7",
    "Eccli 11: 24"
   ],
+  "alPaschRubric": [
+   "For a Votive Mass out of Septuagesima/Lent sing the previous Grad. Quam magna then this Alleluia.",
+   "For a Votive Mass in Paschal Time sing the previous All. Minuisti eum then this one."
+  ],
+  "al": "Benedictio Dei",
+  "alId": 295,
+  "alRef": "Eccli 11: 24",
   "of": "O Domine",
   "ofId": 1193,
   "ofRef": "Ps 115: 16-17",
@@ -2075,6 +2157,13 @@ gregorianPropers = {
    "Eccli 45: 9",
    "Osee 14: 6"
   ],
+  "alPaschRubric": [
+   "In Paschal Time.",
+   "In Paschal Time."
+  ],
+  "al": "Justus germinabit",
+  "alId": 1207,
+  "alRef": "Osee 14: 6",
   "of": "Veritas mea",
   "ofId": 630,
   "ofRef": "Ps 88: 25",
@@ -2138,6 +2227,13 @@ gregorianPropers = {
    "Luc 1: 28",
    "Num 17: 8"
   ],
+  "alPaschRubric": [
+   "In Paschal Time the previous Gradual and Tract are omitted, replaced by this Alleluia then the following All. Virga Jesse.",
+   "From the Mass of the Blessed Virgin Mary (LU, GR)."
+  ],
+  "al": "Virga Jesse",
+  "alId": 281,
+  "alRef": "Num 17: 8",
   "of": "Ave Maria... et benedictus",
   "ofId": 843,
   "ofRef": "Luc 1: 28, 42",
@@ -2228,24 +2324,29 @@ gregorianPropers = {
   "inId": 831,
   "inRef": "Ps 118: 85, 46, 1",
   "inVerses": "Ps 118: 1-2, 39, 45, 77, 99-100, 143",
-  "al": [
+  "alPasch": [
    "Sapientia",
    "Verumtamen"
   ],
-  "alId": [
+  "alPaschId": [
    334,
    289
   ],
-  "alRef": [
+  "alPaschRef": [
    "1 Cor 3: 19, 20",
    "Philipp 3: 8"
   ],
   "gr": "Sapientia (hujus mundi)",
   "grId": 1345,
   "grRef": "1 Cor 3: 19, 20, 1, 19",
+  "grRubric": "Out of Paschal Time this Gradual is sung followed by All. Verumtamen above.",
   "trSept": "Non judicavi",
   "trSeptId": 969,
   "trSeptRef": "1 Cor 2: 2, 7-8",
+  "trSeptRubric": "After Septuagesima the previous Grad. Sapientia is sung followed by this Tract.",
+  "al": "Verumtamen",
+  "alId": 289,
+  "alRef": "Philipp 3: 8",
   "of": "Non enim",
   "ofId": 285,
   "ofRef": "1 Cor 2: 2",
@@ -2397,20 +2498,24 @@ gregorianPropers = {
   "inId": 646,
   "inRef": "Sap 10: 17; Ps 126: 1",
   "inVerses": "Ps 126: 2",
-  "al": [
+  "alPasch": [
    "De quacumque",
    "Fac nos innocuam"
   ],
-  "alId": [
+  "alPaschId": [
    1324,
    213
   ],
   "gr": "Beatus (quicumque)",
   "grId": 1344,
   "grRef": "Ps 127: 1-2",
+  "grRubric": "Out of Paschal Time, this Gradual is sung, then All. Fac nos innocuam as above.",
   "trSept": "Beatus vir... delectatur",
   "trSeptId": 444,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "The text is different from the usual Tract. Beatus vir.",
+  "al": "Fac nos innocuam",
+  "alId": 213,
   "of": "Bonitas Domini",
   "ofId": 26,
   "ofRef": "Ps 89: 17",
@@ -2538,36 +2643,36 @@ gregorianPropers = {
   "inId": 469,
   "inRef": "Neh 2; Esdr 9: 27; Ps 32: 1",
   "inVerses": "Ps 32: 2-4, 12-15, 18",
-  "al": [
+  "alPasch": [
    "Confitebuntur",
    "Tanto tempore"
   ],
-  "alId": [
+  "alPaschId": [
    762,
    1101
   ],
-  "alRef": [
+  "alPaschRef": [
    "Ps 88: 6",
    "Joann 14: 9"
   ],
   "gr": "Constitues eos",
   "grId": 307,
   "grRef": "Ps 44: 17-18",
+  "grRubric": "Followed by the previous All. Tanto tempore.",
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
-  "of": [
-   "In omnem terram",
-   "Confitebuntur"
-  ],
-  "ofId": [
-   570,
-   1382
-  ],
-  "ofRef": [
-   "Ps 18: 5",
-   "Ps 88: 6"
-  ],
+  "trSeptRubric": "After Septuagesima the previous Grad. Constitues eos is sung followed by this Tract.",
+  "ofExtra": "In omnem terram",
+  "ofExtraId": 570,
+  "ofExtraRef": "Ps 18: 5",
+  "ofExtraRubric": "Votive Mass out of Paschal Time.",
+  "al": "Tanto tempore",
+  "alId": 1101,
+  "alRef": "Joann 14: 9",
+  "of": "Confitebuntur",
+  "ofId": 1382,
+  "ofRef": "Ps 88: 6",
   "co": "Tanto tempore",
   "coId": 921,
   "coRef": "Joann 14: 9, 10",
@@ -2620,24 +2725,29 @@ gregorianPropers = {
   "in": "Sinite (parvulos)",
   "inId": 936,
   "inRef": "Marc 10: 14; Ps 21: 24",
-  "al": [
+  "alPasch": [
    "Beatus quem",
    "Dispersit"
   ],
-  "alId": [
+  "alPaschId": [
    1170,
    569
   ],
-  "alRef": [
+  "alPaschRef": [
    "Ps 64: 5",
    "Ps 111: 9"
   ],
   "gr": "Venite filii",
   "grId": 1022,
   "grRef": "Ps 33: 12, 6",
+  "grRubric": "For a Votive Mass out of Paschal Time.",
   "trSept": "Nolite",
   "trSeptId": 1112,
   "trSeptRef": "Joann 2: 15, 16, 17",
+  "trSeptRubric": "For a Votive Mass after Septuagesima this Tract replaces the Alleluia.",
+  "al": "Dispersit",
+  "alId": 569,
+  "alRef": "Ps 111: 9",
   "of": "Timeat eum",
   "ofId": 809,
   "ofRef": "Ps 21: 25",
@@ -2709,6 +2819,7 @@ gregorianPropers = {
   "alPasch": "Concaluit cor",
   "alPaschId": 237,
   "alPaschRef": "Ps 38: 4",
+  "alPaschRubric": "In Paschal Time.",
   "of": "Viam (mandatorum)",
   "ofId": 1253,
   "ofRef": "Ps 118: 32",
@@ -2763,27 +2874,33 @@ gregorianPropers = {
   "in": "Cantemus Domino",
   "inId": 465,
   "inRef": "Exodi 15: 1, 2; Ps 97: 1",
-  "al": [
+  "alPasch": [
    "Fecisti viriliter",
-   "Nunc ergo",
-   "Laudate Dominum"
+   "Nunc ergo"
   ],
-  "alId": [
+  "alPaschId": [
    999,
-   489,
-   750
+   489
   ],
-  "alRef": [
+  "alPaschRef": [
    "Judith 15: 11",
-   "Judith 8: 29",
-   "Iudith 13: 17-18"
+   "Judith 8: 29"
   ],
   "gr": "Nova bella",
   "grId": 357,
   "grRef": "Iudic 5: 8, 11",
+  "grRubric": "Votive Mass out of Paschal Time.",
+  "alExtra": "Laudate Dominum",
+  "alExtraId": 750,
+  "alExtraRef": "Iudith 13: 17-18",
+  "alExtraRubric": "Votive Mass out of Paschal Time.",
   "trSept": "Audi filia",
   "trSeptId": 738,
   "trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
+  "trSeptRubric": "After Septuagesima.",
+  "al": "Nunc ergo",
+  "alId": 489,
+  "alRef": "Judith 8: 29",
   "of": "Benedixerunt",
   "ofId": 1255,
   "ofRef": "Judith 15: 10",
@@ -2799,19 +2916,23 @@ gregorianPropers = {
   "inId": 61,
   "inRef": "Ps 44: 2",
   "inVerses": "Ps 44: 11-12",
-  "al": [
+  "alPasch": [
    "Beata es",
-   "Nunc cum eo",
-   "Salve Regina"
+   "Nunc cum eo"
   ],
-  "alId": [
+  "alPaschId": [
    734,
-   354,
-   717
+   354
   ],
   "gr": "Ipse habet",
   "grId": 1368,
   "grRef": "Apoc 19: 16; Ps 44: 10",
+  "grRubric": "Out of Paschal Time.",
+  "alExtra": "Salve Regina",
+  "alExtraId": 717,
+  "alExtraRubric": "Out of Paschal Time.",
+  "al": "Nunc cum eo",
+  "alId": 354,
   "of": "Regali (ex progenie)",
   "ofId": 719,
   "co": "Regina mundi",
@@ -2888,6 +3009,10 @@ gregorianPropers = {
    "Ps 64: 5",
    "Ps 111: 9"
   ],
+  "alPaschRubric": [
+   "In Paschal Time.",
+   "In Paschal Time."
+  ],
   "of": "Justus (ut palma)",
   "ofId": 777,
   "ofRef": "Ps 91: 13",
@@ -2919,6 +3044,10 @@ gregorianPropers = {
    314
   ],
   "alPaschRef": "Is 66: 10, 14",
+  "alPaschRubric": [
+   "In Paschal Time.",
+   "In Paschal Time."
+  ],
   "of": "Benedicam Dominum",
   "ofId": 143,
   "ofRef": "Ps 15: 7, 8",
@@ -3314,6 +3443,7 @@ gregorianPropers = {
   "trSept": "Gratificavit nos",
   "trSeptId": 502,
   "trSeptRef": "Ephes 1: 6-8; Rom 3: 24-25",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Dignus es Domine",
    "Erit autem sanguis"
@@ -3325,6 +3455,10 @@ gregorianPropers = {
   "alPaschRef": [
    "Apoc 5: 9",
    "Exodi 12: 13"
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass during Paschal Time.",
+   "Sung at a Votive Mass during Paschal Time."
   ],
   "of": "Calix (benedictionis)",
   "ofId": 320,
@@ -3374,9 +3508,11 @@ gregorianPropers = {
   "trSept": "Apud Dominum",
   "trSeptId": 110,
   "trSeptRef": "Ps 36: 23, 30-31",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Custodi innocentiam",
   "alPaschId": 262,
   "alPaschRef": "Ps 36: 37",
+  "alPaschRubric": "Sung at a Votive Mass during Paschal Time followed by the previous All. In multitudine.",
   "of": "Doctrinam",
   "ofId": 1300,
   "ofRef": "Eccli 24: 44",
@@ -3421,6 +3557,7 @@ gregorianPropers = {
   "trSept": "Qui gloriatur",
   "trSeptId": 928,
   "trSeptRef": "2 Cor 10: 17-18",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Repletus sum",
    "Tamquam filiis"
@@ -3432,6 +3569,10 @@ gregorianPropers = {
   "alPaschRef": [
    "2 Cor 7: 4",
    "2 Cor 6: 13"
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass during Paschal Time.",
+   "Sung at a Votive Mass during Paschal Time."
   ],
   "of": "In conspectu",
   "ofId": 662,
@@ -3479,9 +3620,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Amavit eum",
   "alPaschId": 14,
   "alPaschRef": "Eccli 45: 9",
+  "alPaschRubric": "In Paschal time the Gradual is omitted. Instead one sings the first All. Juravit Dominus then this second Alleluia.",
   "of": "Mirabilis Deus",
   "ofId": 919,
   "ofRef": "Ps 67: 36",
@@ -3518,9 +3661,11 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "alPasch": "Accedite",
   "alPaschId": 1365,
   "alPaschRef": "Ps 33: 6",
+  "alPaschRubric": "During Paschal Time the Gradual is omitted, the previous Alleluia is sung then this one.",
   "of": "Mirabilis Deus",
   "ofId": 919,
   "ofRef": "Ps 67: 36",
@@ -3542,6 +3687,7 @@ gregorianPropers = {
   "alId": 32,
   "alPasch": "Te Martyrum",
   "alPaschId": 590,
+  "alPaschRubric": "For a Votive Mass at Paschal Time the Gradual is omitted, the previous All. Haec est vera is sung then this one.",
   "of": "Anima nostra",
   "ofId": 1031,
   "ofRef": "Ps 123: 7",
@@ -3694,6 +3840,7 @@ gregorianPropers = {
   "alPasch": "Beatus vir qui timet",
   "alPaschId": 765,
   "alPaschRef": "Ps 111: 1",
+  "alPaschRubric": "For a Votive Mass at Paschal Time the Gradual is omitted, this Alleluia is sung followed by the previous All. Dispersit.",
   "of": "Quando orabas",
   "ofId": 1362,
   "ofRef": "Tob 12: 12",
@@ -3804,9 +3951,11 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Confitebuntur",
   "alPaschId": 762,
   "alPaschRef": "Ps 88: 6",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "In omnem terram",
   "ofId": 570,
   "ofRef": "Ps 18: 5",
@@ -3825,40 +3974,33 @@ gregorianPropers = {
   "title": "26 Jul - St Ann, Mother of the Blessed Virgin Mary",
   "date": "Jul26",
   "href": "http://www.introibo.fr/26-07-Ste-Anne-mere-de-la-T-S",
-  "in": [
-   "Gaudeamus... Annae",
-   "Cognovi (Domine)"
-  ],
-  "inId": [
-   950,
-   619
-  ],
-  "inRef": [
-   "Ps 44: 2",
-   "Ps 118: 75, 120, 1"
-  ],
-  "inVerses": "Ps 118: 2, 22",
-  "gr": [
-   "Dilexisti",
-   "Diffusa est"
-  ],
-  "grId": [
-   394,
-   947
-  ],
-  "grRef": [
-   "Ps 44: 8",
-   "Ps 44: 3, 5"
-  ],
+  "in": "Gaudeamus... Annae",
+  "inId": 950,
+  "inRef": "Ps 44: 2",
+  "inVerses": "Ps 44: 5",
+  "gr": "Dilexisti",
+  "grId": 394,
+  "grRef": "Ps 44: 8",
   "al": "Diffusa est",
   "alId": 1076,
   "alRef": "Ps 44: 3",
+  "inExtra": "Cognovi (Domine)",
+  "inExtraId": 619,
+  "inExtraRef": "Ps 118: 75, 120, 1",
+  "inExtraVerses": "Ps 118: 2, 22",
+  "inExtraRubric": "Sung at a Votive Mass instead of the previous Introit.",
+  "grExtra": "Diffusa est",
+  "grExtraId": 947,
+  "grExtraRef": "Ps 44: 3, 5",
+  "grExtraRubric": "Sung at a Votive Mass instead of the previous Gradual.",
   "trSept": "Veni (sponsa)",
   "trSeptId": 256,
   "trSeptRef": "Ps 44: 8, 5",
+  "trSeptRubric": "Important note: for a Holy Woman not a Martyr the ending words of the first verse are omitted: pro cujus amore sanguinem tuum fudisti = « for the love of whom thou didst shed thy blood ». Obviously.",
   "alPasch": "Specie tua",
   "alPaschId": 406,
   "alPaschRef": "Ps 44: 5",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Filiae regum",
   "ofId": 1333,
   "ofRef": "Ps 44: 10",
@@ -3970,6 +4112,7 @@ gregorianPropers = {
   "trSept": "Ego autem (cum)",
   "trSeptId": 437,
   "trSeptRef": "Ps 34: 13; Ps 22: 5; 1 Cor 9: 22",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Ecce quam bonum",
    "Posui vos"
@@ -3981,6 +4124,10 @@ gregorianPropers = {
   "alPaschRef": [
    "Ps 132: 1-2",
    "Ioann 15: 16"
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass in Paschal Time.",
+   "Sung at a Votive Mass in Paschal Time."
   ],
   "of": "Honora (Dominum)",
   "ofId": 1116,
@@ -4107,6 +4254,7 @@ gregorianPropers = {
   "trSept": "Ego (pascam)",
   "trSeptId": 769,
   "trSeptRef": "Ezech 34: 15-16",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Evangelizare",
    "Omnibus omnia"
@@ -4118,6 +4266,10 @@ gregorianPropers = {
   "alPaschRef": [
    "Luc 4: 18",
    "1 Cor 9: 22"
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass in Paschal Time.",
+   "Sung at a Votive Mass in Paschal Time."
   ],
   "of": "Gaudeo in passionibus",
   "ofId": 436,
@@ -4189,9 +4341,11 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Posuisti Domine",
   "alPaschId": 1249,
   "alPaschRef": "Ps 20: 4",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Confessio",
   "ofId": 105,
   "ofRef": "Ps 95: 6",
@@ -4287,9 +4441,11 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Potens in terra",
   "alPaschId": 503,
   "alPaschRef": "Ps 111: 2",
+  "alPaschRubric": "Sung at a Votive Mass during Paschal Time followed by the previous All. O Joachim sancte.",
   "of": "Gloria (et honore)",
   "ofId": 407,
   "ofRef": "Ps 8: 6-7",
@@ -4344,9 +4500,11 @@ gregorianPropers = {
   "trSept": "Nunc ergo",
   "trSeptId": 793,
   "trSeptRef": "Prov 8: 32, 35",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Beatam me dicent",
   "alPaschId": 460,
   "alPaschRef": "Luc 1: 46-47",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Exsultavit (spiritus)",
   "ofId": 1045,
   "ofRef": "Luc 1: 46, 49",
@@ -4383,6 +4541,7 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "of": "Mihi (autem nimis)",
   "ofId": 499,
   "ofRef": "Ps 138: 17",
@@ -4530,9 +4689,11 @@ gregorianPropers = {
   "trSept": "Sacerdotes",
   "trSeptId": 1281,
   "trSeptRef": "Ps 131: 16-18",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Domine diligo",
   "alPaschId": 315,
   "alPaschRef": "Ps 25: 8",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Venite (filii)",
   "ofId": 805,
   "ofRef": "Ps 33: 12",
@@ -4642,9 +4803,11 @@ gregorianPropers = {
   "trSept": "Stabat (sancta Maria)",
   "trSeptId": 1156,
   "trSeptRef": "Thren 1: 12",
+  "trSeptRubric": "For a Votive Mass after Septuagesima.",
   "alPasch": "O vos omnes",
   "alPaschId": 1326,
   "alPaschRef": "Thren 1: 12",
+  "alPaschRubric": "For a Votive Mass during Paschal Time.",
   "seq": "Stabat Mater",
   "seqId": 681,
   "of": "Recordare (Virgo)",
@@ -4819,6 +4982,7 @@ gregorianPropers = {
   "alId": 1103,
   "alPasch": "Concussum est mare",
   "alPaschId": 1017,
+  "alPaschRubric": "During Paschal Time the Gradual is omitted, the previous Alleluia is sung then this one.",
   "of": "Stetit (Angelus)",
   "ofId": 302,
   "ofRef": "Apoc 8: 3, 4",
@@ -5254,8 +5418,10 @@ gregorianPropers = {
   "trSept": "Qui seminant (in lacrimis)",
   "trSeptId": 305,
   "trSeptRef": "Ps 125: 5-6",
+  "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "alPasch": "Sancti tui... florebunt",
   "alPaschId": 800,
+  "alPaschRubric": "Sung in Paschal Time.",
   "of": "Justorum (animae)",
   "ofId": 835,
   "ofRef": "Sap 3: 1, 2, 3",
@@ -5361,6 +5527,7 @@ gregorianPropers = {
   "alId": 988,
   "alPasch": "Hic est sacerdos",
   "alPaschId": 1118,
+  "alPaschRubric": "Sung in Paschal Time, following the previous All. Beatus vir sanctus Martinus.",
   "of": "Veritas mea",
   "ofId": 630,
   "ofRef": "Ps 88: 25",
@@ -5391,31 +5558,28 @@ gregorianPropers = {
   "title": "14 Nov - St Josaphat, Bishop and Martyr",
   "date": "Nov14",
   "href": "http://www.introibo.fr/14-11-St-Josaphat-eveque-et-martyr",
-  "in": [
-   "Gaudeamus... Josaphat",
-   "Statuit"
-  ],
-  "inId": [
-   417,
-   456
-  ],
-  "inRef": [
-   "Ps 32: 1",
-   "Eccli 45: 30; Ps 131: 1"
-  ],
+  "in": "Gaudeamus... Josaphat",
+  "inId": 417,
+  "inRef": "Ps 32: 1",
   "inVerses": "Ps 32: 2-4, 12-15, 18",
   "gr": "Inveni (David)",
   "grId": 827,
   "grRef": "Ps 88: 21-23",
   "al": "Hic est sacerdos",
   "alId": 1118,
+  "inExtra": "Statuit",
+  "inExtraId": 456,
+  "inExtraRef": "Eccli 45: 30; Ps 131: 1",
+  "inExtraRubric": "Sung at a Votive Mass out of Paschal Time.",
   "inPasch": "Protexisti me",
   "inPaschId": 340,
   "inPaschRef": "Ps 63: 3, 2",
   "inPaschVerses": "Ps 63: 4, 11",
+  "inPaschRubric": "Sung at a Votive Mass in Paschal Time.",
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Confitebuntur",
    "Posuisti Domine"
@@ -5427,6 +5591,10 @@ gregorianPropers = {
   "alPaschRef": [
    "Ps 88: 6",
    "Ps 20: 4"
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass in Paschal Time.",
+   "Sung at a Votive Mass in Paschal Time."
   ],
   "of": "Majorem (caritatem)",
   "ofId": 401,
@@ -5567,21 +5735,17 @@ gregorianPropers = {
   "gr": "Mementote",
   "grId": 1174,
   "grRef": "Ps 104: 5, 27",
-  "al": [
-   "A summo caelo",
-   "Ave Maria"
-  ],
-  "alId": [
-   254,
-   1209
-  ],
-  "alRef": [
-   "Ps 18: 7",
-   "Luc 1: 28"
-  ],
+  "al": "A summo caelo",
+  "alId": 254,
+  "alRef": "Ps 18: 7",
+  "alExtra": "Ave Maria",
+  "alExtraId": 1209,
+  "alExtraRef": "Luc 1: 28",
+  "alExtraRubric": "Replaces the previous Alleluia in the diocese of Paris.",
   "trSept": "Fundamenta ejus",
   "trSeptId": 689,
   "trSeptRef": "Ps 86: 1-2, 3, 5",
+  "trSeptRubric": "Sung after Septuagesima instead of the Alleluia.",
   "alPasch": [
    "Tu gloria Jerusalem",
    "Tota pulchra es"
@@ -5593,6 +5757,10 @@ gregorianPropers = {
   "alPaschRef": [
    "Iudith 15: 10",
    "Cant 4: 7"
+  ],
+  "alPaschRubric": [
+   "Sung in Paschal Time.",
+   "Sung in Paschal Time."
   ],
   "of": "Dixit Jesus",
   "ofId": 687,

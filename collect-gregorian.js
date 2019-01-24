@@ -7,6 +7,7 @@ const pages = prData.pages;
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var propria = {};
+var betweenBars = false;
 var partMap = {
   "Intr": "in",
   "Grad": "gr",
@@ -66,6 +67,20 @@ function processUrl(urlKey) {
     var sept = td && td.querySelector('.sept');
     var pasch = td && td.querySelector('.pasch');
     if(tr.children.length == 1) {
+      if((('in' in propria) || ('ref' in propria)) && td.classList.contains("bar2")) {
+        betweenBars = !betweenBars;
+        if(!betweenBars && propria.alPasch && propria.gr && !propria.al) {
+          // just guess that it is usally the second alleluia that gets used outside of paschal time
+          // though for st_robert_bellarmine it is the first:
+          var i = 1;
+          if(currentFeast == 'st_robert_bellarmine') i = 0;
+          propria.al = propria.alPasch[i];
+          propria.alId = propria.alPaschId[i];
+          if(propria.alPaschRef && propria.alPaschRef[i]) {
+            propria.alRef = propria.alPaschRef[i];
+          }
+        }
+      }
       if(!td.classList.contains("bar") &&
         !td.classList.contains("bar2") && a) {
         // new feast:
@@ -73,6 +88,7 @@ function processUrl(urlKey) {
           delete festa[currentFeast];
         }
         propria = {};
+        betweenBars = false;
         currentFeast = a.name;
         festa[a.name] = propria;
         propria.title = (td.querySelector('.greg0') || td).textContent.trim();
@@ -95,6 +111,29 @@ function processUrl(urlKey) {
             match[1] = 1;
           }
           if(match[1] || !(key in propria)) {
+            var rubric = tr.children[4];
+            if(betweenBars) {
+              var rubric = rubric.innerHTML.replace(/\s+/g,' ').replace(/<br>|<\/div>/g,'\n').replace(/<[^>]+>/g,'').trim().replace(/^\S\s+/,'').split(/\n+/);
+              var rubricText = rubric.slice(-1)[0].trim();
+              if(/^(From|Same)\s/.test(rubricText)) {
+                rubricText = rubric[0].trim();
+              }
+            }
+            if(betweenBars && !sept && !pasch) {
+              if(/^(gr|al)$/.test(key) && (propria.al instanceof Array) && !('gr' in propria)) {
+                propria.alPasch = propria.al;
+                propria.alPaschId = propria.alId;
+                if(propria.alRef) {
+                  propria.alPaschRef = propria.alRef;
+                }
+                delete propria.al;
+                delete propria.alId;
+                delete propria.alRef;
+              } else {
+                key += "Extra";
+                match[1] = key in propria;
+              }
+            }
             if(/^ref/.test(key)) {
               var m = currentFeast.match(regexWeekday);
               if(m && m[1] in festa) {
@@ -120,8 +159,9 @@ ${JSON.stringify(incipitId,1,' ')}`);
               propria[key+'Id'].push(incipitId);
             } else {
               propria[key] = name;
-              if(incipitId) propria[key+'Id'] = incipitId
+              if(incipitId) propria[key+'Id'] = incipitId;
             }
+
             var span = td.querySelector('span.ps1');
             if(span) {
               var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
@@ -139,6 +179,15 @@ ${JSON.stringify(incipitId,1,' ')}`);
                   if(refs.length > 2) throw propria;
                   propria[key+"Verses"] = refs[1];
                 }
+              }
+            }
+
+            if(betweenBars) {
+              if(key+'Rubric' in propria) {
+                if(!(propria[key+'Rubric'] instanceof Array)) propria[key+'Rubric'] = [propria[key+'Rubric']];
+                propria[key+'Rubric'].push(rubricText);
+              } else {
+                propria[key+'Rubric'] = rubricText;
               }
             }
           }

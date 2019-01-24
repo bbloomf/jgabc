@@ -264,9 +264,11 @@ gregorianPropers = {
   "trSept": "Desiderium",
   "trSeptId": 176,
   "trSeptRef": "Ps 20: 3-4",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Posuisti Domine",
   "alPaschId": 1249,
   "alPaschRef": "Ps 20: 4",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Elegerunt Apostoli",
   "ofId": 462,
   "ofRef": "Act 6: 5, 7, 59",
@@ -292,9 +294,11 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Justus ut palma",
   "alPaschId": 946,
   "alPaschRef": "Ps 91: 13",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Justus (ut palma)",
   "ofId": 777,
   "ofRef": "Ps 91: 13",
@@ -321,8 +325,10 @@ gregorianPropers = {
   "trSept": "Effuderunt",
   "trSeptId": 240,
   "trSeptRef": "Ps 78: 3, 10",
+  "trSeptRubric": "Also as explained in the Liber Usualis: « This Tract is said instead of the Alleluia and its verse, unless the feast falls on a Sunday; but it is never said on the Octave day. »",
   "alPasch": "Sancti tui... florebunt",
   "alPaschId": 800,
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time following the previous Alleluia.",
   "of": "Anima nostra",
   "ofId": 1031,
   "ofRef": "Ps 123: 7",
@@ -388,6 +394,7 @@ gregorianPropers = {
   "trSept": "Beatus vir",
   "trSeptId": 7670,
   "trSeptRef": "Ps 111: 1-3",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the Alleluia.",
   "alPasch": [
    "Tu es sacerdos",
    "Hic est sacerdos"
@@ -396,7 +403,11 @@ gregorianPropers = {
    477,
    1118
   ],
-  "alPaschRef": "Ps 109: 4"
+  "alPaschRef": "Ps 109: 4",
+  "alPaschRubric": [
+   "Sung at a Votive Mass in Paschal Time.",
+   "Sung at a Votive Mass in Paschal Time."
+  ]
  },
  "christmas_octave": {
   "title": "1 Jan - Octave day of Christmas (Circumcision of Our Lord)",
@@ -436,9 +447,11 @@ gregorianPropers = {
   "trSept": "Domine Deus",
   "trSeptId": 1167,
   "trSeptRef": "Ps 79: 20; Cant 2: 14",
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": "Exaltabo te",
   "alPaschId": 954,
   "alPaschRef": "Ps 144: 1",
+  "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
   "of": "Confitebor tibi... Deus",
   "ofId": 980,
   "ofRef": "Ps 85: 12, 5",
@@ -496,6 +509,7 @@ gregorianPropers = {
   "alRef": "Isai 45: 15",
   "trSept": "Hostiam",
   "trSeptId": 1153,
+  "trSeptRubric": "Sung at a Votive Mass after Septuagesima instead of the previous Alleluia.",
   "alPasch": [
    "Beatus homo",
    "Vita nostra"
@@ -503,6 +517,10 @@ gregorianPropers = {
   "alPaschId": [
    116,
    122
+  ],
+  "alPaschRubric": [
+   "Sung at a Votive Mass in Paschal Time.",
+   "Sung at a Votive Mass in Paschal Time."
   ],
   "of": "Tulerunt (Jesum)",
   "ofId": 93,

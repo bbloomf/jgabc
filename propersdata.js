@@ -1282,7 +1282,7 @@ var proprium = {
   votiveA: {introitusID:985,gradualeID:348,alleluiaID:550,offertoriumID:302,communioID:599},
   votiveAQuad: {introitusID:985,gradualeID:348,tractusID:949,offertoriumID:302,communioID:599},
   votiveAPasch: {introitusID:985,gradualeID:550,alleluiaID:377,offertoriumID:302,communioID:599},
-  votiveSS: {introitusID:636,gradualeID:1044,alleluiaID:181,offertoriumID:83,communioID:972},
+  votiveSS: {introitusID:636,gradualeID:1044,alleluiaID:181,offertoriumID:361,communioID:1041},
   votiveSSQuad: {introitusID:636,gradualeID:1044,tractusID:925,offertoriumID:83,communioID:972},
   votiveSSPasch: {introitusID:861,offertoriumID:361,communioID:1041,gradualeID:99,alleluiaID:181},
   votiveSES: {introitusID:62,gradualeID:1230,alleluiaID:774,offertoriumID:645,communioID:577,offertoriumReplace: gabcReplaceRemoveAlleluiaSacerdotesDomini},
