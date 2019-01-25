@@ -1648,7 +1648,7 @@ gregorianPropers = {
   "title": "26 Jan - St Polycarp, Bishop and Martyr",
   "date": "Jan26",
   "href": "http://www.introibo.fr/26-01-St-Polycarpe-eveque-et",
-  "ref": "saints.html#mass_ii_confessor_bishop"
+  "ref": "saints.html#mass_ii_martyr_bishop"
  },
  "st_john_chrysostom": {
   "title": "27 Jan - St John Chrysostom, Bishop, Confessor and Doctor of the Church",

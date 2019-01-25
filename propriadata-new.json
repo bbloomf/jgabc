@@ -2835,19 +2835,23 @@
 	},
 	"Jan26": {
 		"communioID": 586,
-		"gradualeID": 235,
+		"gradualeID": 1206,
 		"alleluiaID": 1118,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_polycarp"
+		]
 	},
 	"Jan26Quad": {
 		"tractusID": 7670,
 		"communioID": 586,
-		"gradualeID": 235,
+		"gradualeID": 1206,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_polycarp"
+		]
 	},
 	"Jan27": {
 		"communioID": 1008,
@@ -3003,9 +3007,11 @@
 		"communioID": 1053,
 		"gradualeID": 392,
 		"alleluiaID": 634,
-		"introitusID": 3312,
+		"introitusID": 246,
 		"offertoriumID": 787,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"our_blessed_lady_mount_carmel"
+		]
 	},
 	"Jul18": {
 		"communioID": 1126,
@@ -3315,14 +3321,6 @@
 			"st_patrick"
 		]
 	},
-	"Mar19": {
-		"communioID": 139,
-		"gradualeID": 600,
-		"alleluiaID": 14,
-		"introitusID": 108,
-		"offertoriumID": 630,
-		"fromGregorianBooks": []
-	},
 	"Mar19Quad": {
 		"tractusID": 7670,
 		"communioID": 139,
@@ -3362,14 +3360,6 @@
 		"fromGregorianBooks": [
 			"st_gabriel"
 		]
-	},
-	"Mar25": {
-		"communioID": 1144,
-		"gradualeID": 947,
-		"alleluiaID": 1209,
-		"introitusID": 124,
-		"offertoriumID": 843,
-		"fromGregorianBooks": []
 	},
 	"Mar25Quad": {
 		"tractusID": 738,
@@ -3493,11 +3483,33 @@
 	},
 	"May11": {
 		"communioID": 921,
+		"gradualeID": 307,
+		"alleluiaID": 1101,
+		"introitusID": 469,
+		"offertoriumID": 1382,
+		"fromGregorianBooks": [
+			"ss_philip_james"
+		]
+	},
+	"May11Quad": {
+		"communioID": 921,
+		"gradualeID": 307,
+		"tractusID": 305,
+		"introitusID": 469,
+		"offertoriumID": 1382,
+		"fromGregorianBooks": [
+			"ss_philip_james"
+		]
+	},
+	"May11Pasch": {
+		"communioID": 921,
 		"gradualeID": 762,
 		"alleluiaID": 1101,
 		"introitusID": 469,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"ss_philip_james"
+		]
 	},
 	"May12": {
 		"communioID": 772,
@@ -3511,11 +3523,33 @@
 	},
 	"May13": {
 		"communioID": 559,
+		"gradualeID": 235,
+		"alleluiaID": 1189,
+		"introitusID": 233,
+		"offertoriumID": 102,
+		"fromGregorianBooks": [
+			"st_robert_bellarmine"
+		]
+	},
+	"May13Quad": {
+		"communioID": 559,
+		"gradualeID": 235,
+		"tractusID": 1063,
+		"introitusID": 233,
+		"offertoriumID": 102,
+		"fromGregorianBooks": [
+			"st_robert_bellarmine"
+		]
+	},
+	"May13Pasch": {
+		"communioID": 559,
 		"gradualeID": 1189,
 		"alleluiaID": 231,
 		"introitusID": 233,
 		"offertoriumID": 102,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_robert_bellarmine"
+		]
 	},
 	"May15": {
 		"communioID": 1154,
