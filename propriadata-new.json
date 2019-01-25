@@ -682,7 +682,9 @@
 		"tractusID": 1157,
 		"offertoriumID": 929,
 		"communioID": 88,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"advent3sat"
+		]
 	},
 	"Adv3ss": {
 		"introitusID": 169,
@@ -1246,7 +1248,9 @@
 		"offertoriumID": 542,
 		"communioID": 1149,
 		"gloria": false,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"sat_ews"
+		]
 	},
 	"EmbSatSeptS": {
 		"introitusID": 450,
@@ -1483,7 +1487,9 @@
 		"tractusID": 1247,
 		"offertoriumID": 542,
 		"communioID": 131,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"lent1sat"
+		]
 	},
 	"Quad1ss": {
 		"introitusID": 238,
