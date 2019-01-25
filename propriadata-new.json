@@ -1896,8 +1896,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"st_silvester",
-			"mass_holy_pope"
+			"st_leo_i"
 		]
 	},
 	"Apr11Quad": {
@@ -1986,7 +1985,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_francis_of_paula"
 		]
 	},
 	"Apr2Quad": {
@@ -2016,7 +2015,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_anselm"
 		]
 	},
 	"Apr21Pasch": {
@@ -2036,8 +2035,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"st_silvester",
-			"mass_holy_pope"
+			"ss_soter_caius"
 		]
 	},
 	"Apr22Pasch": {
@@ -2057,8 +2055,7 @@
 		"introitusID": 340,
 		"offertoriumID": 1382,
 		"fromGregorianBooks": [
-			"st_mark",
-			"mass_one_martyr"
+			"st_george"
 		]
 	},
 	"Apr28": {
@@ -2086,7 +2083,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_isidore"
 		]
 	},
 	"Apr4Quad": {
@@ -2167,7 +2164,7 @@
 		"introitusID": 737,
 		"offertoriumID": 835,
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"ss_tiburtius_suzanna"
 		]
 	},
 	"Aug15": {
@@ -2307,7 +2304,7 @@
 		"introitusID": 938,
 		"offertoriumID": 177,
 		"fromGregorianBooks": [
-			"mass_ii_virgin_martyr"
+			"st_bibiana"
 		]
 	},
 	"Dec21": {
@@ -2437,7 +2434,7 @@
 		"introitusID": 629,
 		"offertoriumID": 1333,
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_scholastica"
 		]
 	},
 	"Feb10Quad": {
@@ -2497,7 +2494,7 @@
 		"introitusID": 316,
 		"offertoriumID": 407,
 		"fromGregorianBooks": [
-			"mass_i_martyr_not_bishop"
+			"st_valentine"
 		]
 	},
 	"Feb14Quad": {
@@ -2517,7 +2514,7 @@
 		"introitusID": 737,
 		"offertoriumID": 835,
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"ss_faustinus_jovita"
 		]
 	},
 	"Feb15Quad": {
@@ -2605,8 +2602,7 @@
 		"introitusID": 456,
 		"offertoriumID": 779,
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_andrew_corsini"
 		]
 	},
 	"Feb4Quad": {
@@ -2642,7 +2638,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 722,
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_romuald"
 		]
 	},
 	"Feb7Quad": {
@@ -2670,7 +2666,7 @@
 		"introitusID": 403,
 		"offertoriumID": 1147,
 		"fromGregorianBooks": [
-			"epiphany"
+			"epiphany_baptism"
 		]
 	},
 	"Jan14": {
@@ -2680,7 +2676,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_hilary"
 		]
 	},
 	"Jan15": {
@@ -2690,8 +2686,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"st_paul_hermit",
-			"st_eusebius"
+			"st_paul_hermit"
 		]
 	},
 	"Jan17": {
@@ -2701,7 +2696,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 722,
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_anthony"
 		]
 	},
 	"Jan18": {
@@ -2771,7 +2766,7 @@
 		"introitusID": 261,
 		"offertoriumID": 919,
 		"fromGregorianBooks": [
-			"mass_i_two_or_more_martyr"
+			"ss_vincent_anastasius"
 		]
 	},
 	"Jan22Quad": {
@@ -2791,11 +2786,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_raymond_of_pennafort"
 		]
 	},
 	"Jan23Quad": {
@@ -2895,7 +2886,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_peter_nolasco"
 		]
 	},
 	"Jan28Quad": {
@@ -2915,7 +2906,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_francis_de_sales"
 		]
 	},
 	"Jan29Quad": {
@@ -2936,7 +2927,7 @@
 		"introitusID": 510,
 		"offertoriumID": 1107,
 		"fromGregorianBooks": [
-			"mass_i_virgin_martyr"
+			"st_martina"
 		]
 	},
 	"Jan30Quad": {
@@ -3044,7 +3035,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_vincent_de_paul"
 		]
 	},
 	"Jul2": {
@@ -3054,8 +3045,7 @@
 		"introitusID": 1140,
 		"offertoriumID": 567,
 		"fromGregorianBooks": [
-			"visitation_bvm",
-			"nativity_bvm"
+			"visitation_bvm"
 		]
 	},
 	"Jul20": {
@@ -3115,7 +3105,7 @@
 		"introitusID": 251,
 		"offertoriumID": 487,
 		"fromGregorianBooks": [
-			"mass_ii_martyr_not_bishop"
+			"st_pantaleon"
 		]
 	},
 	"Jul28": {
@@ -3125,7 +3115,7 @@
 		"introitusID": 261,
 		"offertoriumID": 919,
 		"fromGregorianBooks": [
-			"mass_i_two_or_more_martyr"
+			"ss_nazarius_celsus_victor_innocent"
 		]
 	},
 	"Jul3": {
@@ -3175,7 +3165,7 @@
 		"introitusID": 629,
 		"offertoriumID": 1333,
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_angela_merici"
 		]
 	},
 	"Jun10": {
@@ -3205,11 +3195,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_john_of_san_facundo"
 		]
 	},
 	"Jun14": {
@@ -3501,8 +3487,7 @@
 		"introitusID": 456,
 		"offertoriumID": 779,
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_antoninus"
 		]
 	},
 	"May11": {
@@ -3538,11 +3523,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_john_baptist_de_la_salle"
 		]
 	},
 	"May15Pasch": {
@@ -3566,8 +3547,7 @@
 		"introitusID": 456,
 		"offertoriumID": 779,
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_ubuald"
 		]
 	},
 	"May16Pasch": {
@@ -3648,7 +3628,7 @@
 		"introitusID": 629,
 		"offertoriumID": 1333,
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_mary_magdalene_pazzi"
 		]
 	},
 	"May29Pasch": {
@@ -3692,8 +3672,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"st_silvester",
-			"mass_holy_pope"
+			"st_pius_v"
 		]
 	},
 	"May5Pasch": {
@@ -3739,7 +3718,7 @@
 	"Nov2": {
 		"ref": "defunctorum",
 		"fromGregorianBooks": [
-			"requiem"
+			"all_souls"
 		]
 	},
 	"Nov21": {
@@ -3749,7 +3728,7 @@
 		"introitusID": 1140,
 		"offertoriumID": 843,
 		"fromGregorianBooks": [
-			"mass_bvm"
+			"presentation_bvm"
 		]
 	},
 	"Nov22": {
@@ -3777,7 +3756,7 @@
 		"introitusID": 510,
 		"offertoriumID": 1107,
 		"fromGregorianBooks": [
-			"mass_i_virgin_martyr"
+			"st_catherine"
 		]
 	},
 	"Nov26": {
@@ -3787,7 +3766,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 722,
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_sylvester"
 		]
 	},
 	"Nov27": {
@@ -3827,7 +3806,7 @@
 		"introitusID": 923,
 		"offertoriumID": 200,
 		"fromGregorianBooks": [
-			"mass_dedication_church"
+			"dedication_arch_basilica_our_saviour"
 		]
 	},
 	"Oct11": {
@@ -3887,7 +3866,7 @@
 		"introitusID": 48,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_bishop"
+			"st_anthony_mary_claret"
 		]
 	},
 	"Oct24": {
@@ -3907,8 +3886,7 @@
 		"introitusID": 475,
 		"offertoriumID": 570,
 		"fromGregorianBooks": [
-			"ss_simon_jude",
-			"votive_mass_ss_peter_paul"
+			"ss_simon_jude"
 		]
 	},
 	"Oct3": {
@@ -3958,7 +3936,6 @@
 		"introitusID": 359,
 		"offertoriumID": 195,
 		"fromGregorianBooks": [
-			"votive_mass_holy_cross",
 			"exaltation_holy_cross"
 		]
 	},
@@ -3980,7 +3957,6 @@
 		"introitusID": 849,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"st_francis_assisi",
 			"st_francis_stigmata"
 		]
 	},
@@ -4021,7 +3997,7 @@
 		"introitusID": 316,
 		"offertoriumID": 407,
 		"fromGregorianBooks": [
-			"mass_i_martyr_not_bishop"
+			"st_wenceslaus"
 		]
 	},
 	"Sep29": {
@@ -4071,24 +4047,19 @@
 	"Feb6": {
 		"ref": "Feb4",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_titus"
 		]
 	},
 	"Feb8": {
 		"ref": "Jan23",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_john_of_matha"
 		]
 	},
 	"Feb9": {
 		"ref": "Jan29",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_cyril_alexandria"
 		]
 	},
 	"Feb18": {
@@ -4106,17 +4077,13 @@
 	"Feb23": {
 		"ref": "Jan29",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_peter_damian"
 		]
 	},
 	"Mar4": {
 		"ref": "Jan23",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_casimir"
 		]
 	},
 	"Mar18": {
@@ -4126,35 +4093,31 @@
 	"Apr24": {
 		"ref": "Apr23",
 		"fromGregorianBooks": [
-			"st_mark",
-			"mass_one_martyr"
+			"st_fidelis_of_sigmaringen"
 		]
 	},
 	"Apr25": {
 		"ref": "Apr23",
 		"fromGregorianBooks": [
-			"st_mark",
-			"mass_one_martyr"
+			"st_mark"
 		]
 	},
 	"Apr26": {
 		"ref": "Apr11",
 		"fromGregorianBooks": [
-			"st_silvester",
-			"mass_holy_pope"
+			"ss_cletus_marcellinus"
 		]
 	},
 	"Apr27": {
 		"ref": "Apr21",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_peter_canisius"
 		]
 	},
 	"Apr29": {
 		"ref": "Apr23",
 		"fromGregorianBooks": [
-			"st_mark",
-			"mass_one_martyr"
+			"st_peter_of_verona"
 		]
 	},
 	"May7": {
@@ -4167,17 +4130,13 @@
 	"May9": {
 		"ref": "Apr21",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_gregory_nazianzen"
 		]
 	},
 	"May17": {
 		"ref": "May15",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_paschal_baylon"
 		]
 	},
 	"May18": {
@@ -4190,24 +4149,19 @@
 	"May19": {
 		"ref": "May5",
 		"fromGregorianBooks": [
-			"st_silvester",
-			"mass_holy_pope"
+			"st_peter_celestine"
 		]
 	},
 	"May20": {
 		"ref": "May15",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_bernardine_of_sienna"
 		]
 	},
 	"May27": {
 		"ref": "Apr21",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_bede_venerable"
 		]
 	},
 	"May30": {
@@ -4217,33 +4171,31 @@
 	"Jun6": {
 		"ref": "May10",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_norbert"
 		]
 	},
 	"Jun13": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_anthony_padua"
 		]
 	},
 	"Jun17": {
 		"ref": "May10",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_gregory_barbarigo"
 		]
 	},
 	"Jun18": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_ephraem_syrian"
 		]
 	},
 	"Jun19": {
 		"ref": "Feb10",
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_juliana_falconeri"
 		]
 	},
 	"Jun20": {
@@ -4253,220 +4205,182 @@
 	"Jun25": {
 		"ref": "Jan17",
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_william"
 		]
 	},
 	"Jul8": {
 		"ref": "Jun10",
 		"fromGregorianBooks": [
-			"mass_holy_woman_not_martyr"
+			"st_elizabeth"
 		]
 	},
 	"Jul12": {
 		"ref": "Jan17",
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_john_gualbert"
 		]
 	},
 	"Jul15": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_henry"
 		]
 	},
 	"Jul17": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_alexius"
 		]
 	},
 	"Jul21": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_lawrence_brindisi"
 		]
 	},
 	"Jul29": {
 		"ref": "Jun1",
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_martha"
 		]
 	},
 	"Aug5": {
 		"ref": "May24",
 		"fromGregorianBooks": [
-			"mass_bvm"
+			"lady_of_snow"
 		]
 	},
 	"Aug7": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_cajetan"
 		]
 	},
 	"Aug8": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_jean_marie_vianney"
 		]
 	},
 	"Aug12": {
 		"ref": "Jun1",
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_clare"
 		]
 	},
 	"Aug13": {
 		"ref": "Aug11",
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"ss_hippolytus_cassian"
 		]
 	},
 	"Aug17": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_hyacinth"
 		]
 	},
 	"Aug18": {
 		"ref": "Jul27",
 		"fromGregorianBooks": [
-			"mass_ii_martyr_not_bishop"
+			"st_agapitus"
 		]
 	},
 	"Aug19": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_john_eudes"
 		]
 	},
 	"Aug20": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_bernard"
 		]
 	},
 	"Aug21": {
 		"ref": "Jun10",
 		"fromGregorianBooks": [
-			"mass_holy_woman_not_martyr"
+			"st_jane_francis_de_chantal"
 		]
 	},
 	"Aug23": {
 		"ref": "Jul19",
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_philip_benizi"
 		]
 	},
 	"Aug25": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_louis"
 		]
 	},
 	"Aug30": {
 		"ref": "Jun1",
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_rose_of_lima"
 		]
 	},
 	"Aug31": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_nonnat"
 		]
 	},
 	"Sep2": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
 			"st_stephen_of_hungary"
 		]
 	},
 	"Sep5": {
 		"ref": "May10",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_lawrence_justinian"
 		]
 	},
 	"Sep8": {
 		"ref": "Jul2",
 		"fromGregorianBooks": [
-			"visitation_bvm",
 			"nativity_bvm"
 		]
 	},
 	"Sep9": {
 		"ref": "Jul27",
 		"fromGregorianBooks": [
-			"mass_ii_martyr_not_bishop"
+			"st_gorgonius"
 		]
 	},
 	"Sep10": {
 		"ref": "Jul19",
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_nicholas_of_tolentino"
 		]
 	},
 	"Sep11": {
 		"ref": "Aug11",
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"ss_protus_hyacinth"
 		]
 	},
 	"Sep16": {
 		"ref": "Jul28",
 		"fromGregorianBooks": [
-			"mass_i_two_or_more_martyr"
+			"ss_cornelius_cyprian",
+			"ss_euphemia_lucy_geminianus"
 		]
 	},
 	"Sep19": {
 		"ref": "Aug11",
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"st_januarius_and_companions"
 		]
 	},
 	"Sep22": {
 		"ref": "May10",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_thomas_of_villanova"
 		]
 	},
 	"Sep23": {
@@ -4476,64 +4390,55 @@
 	"Sep24": {
 		"ref": "May24",
 		"fromGregorianBooks": [
-			"mass_bvm"
+			"our_lady_of_ransom"
 		]
 	},
 	"Sep26": {
 		"ref": "Aug11",
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"ss_cyprian_and_justina"
 		]
 	},
 	"Sep30": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_jerome"
 		]
 	},
 	"Oct4": {
 		"ref": "Sep17",
 		"fromGregorianBooks": [
-			"st_francis_assisi",
-			"st_francis_stigmata"
+			"st_francis_assisi"
 		]
 	},
 	"Oct5": {
 		"ref": "Aug11",
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"st_placid_and_companions"
 		]
 	},
 	"Oct6": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_bruno"
 		]
 	},
 	"Oct8": {
 		"ref": "Jun10",
 		"fromGregorianBooks": [
-			"mass_holy_woman_not_martyr"
+			"st_bridget"
 		]
 	},
 	"Oct10": {
 		"ref": "Jan17",
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_francis_borgia"
 		]
 	},
 	"Oct13": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_edward"
 		]
 	},
 	"Oct14": {
@@ -4543,36 +4448,31 @@
 	"Oct15": {
 		"ref": "Jun1",
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_teresa_avila"
 		]
 	},
 	"Oct16": {
 		"ref": "Jun10",
 		"fromGregorianBooks": [
-			"mass_holy_woman_not_martyr"
+			"st_hedwig"
 		]
 	},
 	"Oct19": {
 		"ref": "Jul19",
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_peter_of_alcantara"
 		]
 	},
 	"Nov4": {
 		"ref": "May10",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_charles_borromeo"
 		]
 	},
 	"Nov10": {
 		"ref": "Jun12",
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_andrew_avellino"
 		]
 	},
 	"Nov12": {
@@ -4582,56 +4482,55 @@
 	"Nov13": {
 		"ref": "Jul19",
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_didacus"
 		]
 	},
 	"Nov15": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_albert_the_great"
 		]
 	},
 	"Nov16": {
 		"ref": "Jun1",
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_gertrude"
 		]
 	},
 	"Nov17": {
 		"ref": "May10",
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_gregory_wonder_worker"
 		]
 	},
 	"Nov18": {
 		"ref": "Nov9",
 		"fromGregorianBooks": [
-			"mass_dedication_church"
+			"dedication_basilica_ss_peter_paul"
 		]
 	},
 	"Nov19": {
 		"ref": "Jun10",
 		"fromGregorianBooks": [
-			"mass_holy_woman_not_martyr"
+			"st_elizabeth_of_hungary"
 		]
 	},
 	"Nov20": {
 		"ref": "Jul19",
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_felix_of_valois"
 		]
 	},
 	"Nov24": {
 		"ref": "Jan14",
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_john_cross"
 		]
 	},
 	"Nov29": {
 		"ref": "Jul27",
 		"fromGregorianBooks": [
-			"mass_ii_martyr_not_bishop"
+			"st_saturninus"
 		]
 	},
 	"Dec5": {
