@@ -2616,16 +2616,20 @@
 		"gradualeID": 1373,
 		"alleluiaID": 642,
 		"introitusID": 1183,
-		"offertoriumID": 1107,
-		"fromGregorianBooks": []
+		"offertoriumID": 768,
+		"fromGregorianBooks": [
+			"st_agatha"
+		]
 	},
 	"Feb5Quad": {
 		"tractusID": 305,
 		"communioID": 454,
 		"gradualeID": 1373,
 		"introitusID": 1183,
-		"offertoriumID": 1107,
-		"fromGregorianBooks": []
+		"offertoriumID": 768,
+		"fromGregorianBooks": [
+			"st_agatha"
+		]
 	},
 	"Feb7": {
 		"communioID": 1008,
