@@ -289,6 +289,9 @@ syl.bold {
   }
 }
 @media print {
+  div.lectio {
+    display: none!important;
+  }
   div[part] {
     margin-top: 0;
   }

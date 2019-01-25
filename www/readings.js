@@ -169,7 +169,9 @@ function updateEditor(forceGabcUpdate,_syl) {
         favor: 'termination'
       }) + gabc;
   }
-  var header = getHeader(localStorage.psalmHeader||'');
+  var header = getHeader(localStorage.readingHeader||'');
+  delete header.name;
+  delete header.mode;
   header["centering-scheme"] = selLang;
   gabc=header+ '(' + _clef + ') ' + gabc;
   $("#txtGabc").val(gabc);
@@ -384,7 +386,7 @@ function versesFilename(format,psalmNum,tone,ending,solemn){
 function updateLocalHeader() {
   var gabc = $("#txtGabc").val();
   var header=getHeader(gabc);
-  localStorage.psalmHeader=header;
+  localStorage.readingHeader=header;
 }
 function windowResized(){
   var $cp = $("#chant-parent2");
@@ -556,23 +558,25 @@ $(function() {
         'mediant': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f hg..:'h hr g.",
         'fullStop': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f g.:(t[1]&&t[1].accent)?h. d.:'h dr d.",
         'question': "h. , gr f g gh..",
-        'conclusion': "g f 'h hr h. , (t[1]&&t[1].accent)?h. d.:'h dr d."
+        'conclusion': "g f 'h hr h. , (t[1]&&t[1].accent)?hr h. d.:hr 'h dr d."
       },
       'Lesson Solemn Tone ad libitum':{
         'clef':'c3',
         'recitingTone':'h',
+        'flexTone': 'f',
         'mediant': "((t[0].word&&t[0].word.length==1)||t[0].accent)?g f h.:g f 'h hr h.",
         'fullStop': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f g.:e 'f dr d.",
-        'question': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f.:'h fr f.",
-        'conclusion': "g f 'h hr h. , (t[1]&&t[1].accent)?h. d.:'h dr d."
+        'question': "h. , gr f g gh..",
+        'conclusion': "g f 'h hr h. , hr e 'f dr d."
       },
       'Lesson Ancient Tone':{
         'clef':'c4',
         'recitingTone':'h',
+        'flexTone':'f',
         'mediant': "((t[0].word&&t[0].word.length==1)||t[0].accent)?g f h.:g f 'h hr h.",
         'fullStop': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f g.:f 'g dr d.",
-        'question': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f.:'h fr f.",
-        'conclusion': "g f 'h hr h. , (t[1]&&t[1].accent)?h. d.:'h dr d."
+        'question': "h. , gr f g gh..",
+        'conclusion': "g f 'h hr h. , hr f 'g dr d."
       },
       'Chapter':{
         'clef':'c3',
