@@ -1906,7 +1906,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"mass_holy_pope"
+			"st_leo_i"
 		]
 	},
 	"Apr11Pasch": {
@@ -1916,7 +1916,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"mass_holy_pope"
+			"st_leo_i"
 		]
 	},
 	"Apr13": {
@@ -1942,8 +1942,7 @@
 		"introitusID": 340,
 		"offertoriumID": 1382,
 		"fromGregorianBooks": [
-			"st_mark",
-			"mass_one_martyr"
+			"st_hermenegild"
 		]
 	},
 	"Apr14": {
@@ -1995,7 +1994,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_francis_of_paula"
 		]
 	},
 	"Apr2Pasch": {
@@ -2005,7 +2004,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_francis_of_paula"
 		]
 	},
 	"Apr21": {
@@ -2025,7 +2024,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_anselm"
 		]
 	},
 	"Apr22": {
@@ -2045,7 +2044,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"mass_holy_pope"
+			"ss_soter_caius"
 		]
 	},
 	"Apr23": {
@@ -2093,8 +2092,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"st_augustine",
-			"mass_doctors"
+			"st_isidore"
 		]
 	},
 	"Apr4Pasch": {
@@ -2104,7 +2102,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"mass_doctors"
+			"st_isidore"
 		]
 	},
 	"Apr5": {
@@ -2122,11 +2120,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_vincent_ferrer"
 		]
 	},
 	"Apr5Pasch": {
@@ -2444,7 +2438,7 @@
 		"introitusID": 629,
 		"offertoriumID": 1333,
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_scholastica"
 		]
 	},
 	"Feb11": {
@@ -2504,7 +2498,7 @@
 		"introitusID": 316,
 		"offertoriumID": 407,
 		"fromGregorianBooks": [
-			"mass_i_martyr_not_bishop"
+			"st_valentine"
 		]
 	},
 	"Feb15": {
@@ -2524,7 +2518,7 @@
 		"introitusID": 737,
 		"offertoriumID": 835,
 		"fromGregorianBooks": [
-			"mass_iii_two_or_more_martyr"
+			"ss_faustinus_jovita"
 		]
 	},
 	"Feb2": {
@@ -2612,7 +2606,7 @@
 		"introitusID": 456,
 		"offertoriumID": 779,
 		"fromGregorianBooks": [
-			"mass_i_confessor_bishop"
+			"st_andrew_corsini"
 		]
 	},
 	"Feb5": {
@@ -2648,7 +2642,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 722,
 		"fromGregorianBooks": [
-			"mass_abbots"
+			"st_romuald"
 		]
 	},
 	"Jan11": {
@@ -2774,7 +2768,7 @@
 		"introitusID": 261,
 		"offertoriumID": 919,
 		"fromGregorianBooks": [
-			"mass_i_two_or_more_martyr"
+			"ss_vincent_anastasius"
 		]
 	},
 	"Jan23": {
@@ -2794,11 +2788,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_raymond_of_pennafort"
 		]
 	},
 	"Jan24": {
@@ -2894,7 +2884,7 @@
 		"introitusID": 108,
 		"offertoriumID": 667,
 		"fromGregorianBooks": [
-			"mass_ii_confessor_not_bishop"
+			"st_peter_nolasco"
 		]
 	},
 	"Jan29": {
@@ -2914,8 +2904,7 @@
 		"introitusID": 233,
 		"offertoriumID": 777,
 		"fromGregorianBooks": [
-			"st_augustine",
-			"mass_doctors"
+			"st_francis_de_sales"
 		]
 	},
 	"Jan30": {
@@ -2935,7 +2924,7 @@
 		"introitusID": 510,
 		"offertoriumID": 1107,
 		"fromGregorianBooks": [
-			"mass_i_virgin_martyr"
+			"st_martina"
 		]
 	},
 	"Jan31": {
@@ -3529,11 +3518,7 @@
 		"introitusID": 1374,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_confessor_not_bishop",
-			"st_louis",
-			"st_edward",
-			"st_henry",
-			"st_stephen_of_hungary"
+			"st_john_baptist_de_la_salle"
 		]
 	},
 	"May16": {
@@ -3553,8 +3538,7 @@
 		"introitusID": 456,
 		"offertoriumID": 779,
 		"fromGregorianBooks": [
-			"st_timothy",
-			"mass_i_confessor_bishop"
+			"st_ubuald"
 		]
 	},
 	"May2": {
@@ -3634,7 +3618,7 @@
 		"introitusID": 629,
 		"offertoriumID": 1333,
 		"fromGregorianBooks": [
-			"mass_i_virgin_not_martyr"
+			"st_mary_magdalene_pazzi"
 		]
 	},
 	"May31": {
@@ -3678,7 +3662,7 @@
 		"introitusID": 674,
 		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"mass_holy_pope"
+			"st_pius_v"
 		]
 	},
 	"Nov1": {
