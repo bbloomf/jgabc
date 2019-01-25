@@ -1809,7 +1809,7 @@ gregorianPropers = {
   "title": "3 Feb - St Blaise, Bishop and Martyr",
   "date": "Feb3",
   "href": "http://www.introibo.fr/03-02-St-Blaise-eveque-et-martyr",
-  "ref": "saints.html#mass_ii_confessor_bishop"
+  "ref": "saints.html#mass_ii_martyr_bishop"
  },
  "st_andrew_corsini": {
   "title": "4 Feb - St Andrew Corsini, Bishop and Confessor",
