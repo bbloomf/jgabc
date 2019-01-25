@@ -1614,7 +1614,7 @@ gregorianPropers = {
   "title": "24 Jan - St Timothy, Bishop and Martyr",
   "date": "Jan24",
   "href": "http://www.introibo.fr/24-01-St-Timothee-eveque-et-martyr",
-  "ref": "saints.html#mass_i_confessor_bishop",
+  "ref": "saints.html#mass_i_martyr_bishop",
   "trSept": "Desiderium",
   "trSeptID": 176,
   "trSeptRef": "Ps 20: 3-4",

@@ -2800,7 +2800,7 @@
 		"introitusID": 456,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_martyr_bishop"
+			"st_timothy"
 		]
 	},
 	"Jan24Quad": {
@@ -2810,7 +2810,7 @@
 		"introitusID": 456,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
-			"mass_i_martyr_bishop"
+			"st_timothy"
 		]
 	},
 	"Jan25": {
@@ -2990,6 +2990,7 @@
 		"introitusID": 456,
 		"offertoriumID": 630,
 		"fromGregorianBooks": [
+			"st_timothy",
 			"mass_i_martyr_bishop"
 		]
 	},
