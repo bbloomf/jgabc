@@ -7,10 +7,12 @@ const pages = prData.pages;
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 var propria = {};
+var tempPropria;
 var betweenBars = false;
 var partMap = {
   "Intr": "in",
   "Grad": "gr",
+  "Hymn": "hy",
   "Tract": "tr",
   "All": "al",
   "Seq": "seq",
@@ -67,7 +69,7 @@ function processUrl(urlKey) {
     var sept = td && td.querySelector('.sept');
     var pasch = td && td.querySelector('.pasch');
     if(tr.children.length == 1) {
-      if((('in' in propria) || ('ref' in propria)) && td.classList.contains("bar2")) {
+      if(propria && (('in' in propria) || ('ref' in propria)) && td.classList.contains("bar2")) {
         betweenBars = !betweenBars;
         if(!betweenBars && propria.alPasch && propria.gr && !propria.al) {
           // just guess that it is usally the second alleluia that gets used outside of paschal time
@@ -84,10 +86,10 @@ function processUrl(urlKey) {
       if(!td.classList.contains("bar") &&
         !td.classList.contains("bar2") && a) {
         // new feast:
-        if(currentFeast && !('ref' in propria) && !('in' in propria)) {
+        if(currentFeast && propria && !('ref' in propria) && !('in' in propria)) {
           delete festa[currentFeast];
         }
-        propria = {};
+        propria = tempPropria = {};
         betweenBars = false;
         currentFeast = a.name;
         festa[a.name] = propria;
@@ -99,11 +101,24 @@ function processUrl(urlKey) {
           propria.href = href.href;
         }
       }
-    } else {
+    } else if(propria || (td && td.classList.contains('ser') && /^(Missa|Mass)$/.test(td.textContent.trim()))) {
+      if(td && td.classList.contains('ser')) {
+        var match = /^(Missa|Mass)$/.test(td.textContent.trim());
+        if(match) {
+          festa[currentFeast] = propria = tempPropria;
+          betweenBars = false;
+        } else {
+          if(currentFeast && propria && !('ref' in propria) && !('in' in propria)) {
+            delete festa[currentFeast];
+          }
+          propria = null;
+        }
+      }
       if(a || aHref) {
         var match = (a || aHref).textContent.match(regexPart);
         if(match) {
           var key = partMap[match[2]];
+          if(key == 'hy' && (betweenBars || !('in' in propria))) return;
           if(sept) key += "Sept";
           if(pasch) key += "Pasch";
           var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
@@ -144,6 +159,7 @@ function processUrl(urlKey) {
             } else {
               if(key == 'al' && name == 'Alleluia') name = 'Confitemini... quoniam';
               var incipitId = vr.findIncipitId(name,key,grPage,mode);
+              if(key == 'hy' && (typeof incipitId != 'number')) return;
               if(key == 'al' && name.match(/\(Rogations\)/)) incipitId = null;
               if(typeof incipitId == 'object') {
                 console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}, ${JSON.stringify(mode)}) =
@@ -165,7 +181,7 @@ ${JSON.stringify(incipitId,1,' ')}`);
             var span = td.querySelector('span.ps1');
             if(span) {
               var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
-              if(ref) {
+              if(ref || (key+"Ref" in propria)) {
                 var refs = ref.split('\n').map(ref => vr.parseRef(ref).verseRefString());
                 ref = refs[0];
                 if(match[1]) {

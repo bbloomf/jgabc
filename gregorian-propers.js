@@ -133,6 +133,9 @@ gregorianPropers = {
    "Ps 79: 20, 3",
    "Ps 79: 3, 2, 3"
   ],
+  "hy": "Benedictus es Domine Deus",
+  "hyID": 2166,
+  "hyRef": "Dan 3: 52-53",
   "tr": "Qui regis",
   "trID": 1157,
   "trRef": "Ps 79: 2-3",
@@ -883,6 +886,9 @@ gregorianPropers = {
    "Ps 89: 13, 1",
    "Ps 140: 2"
   ],
+  "hy": "Benedictus es Domine Deus",
+  "hyID": 2166,
+  "hyRef": "Dan 3: 52-53",
   "tr": "Laudate",
   "trID": 1247,
   "trRef": "Ps 116: 1-2",
@@ -2025,7 +2031,10 @@ gregorianPropers = {
    99,
    181
   ],
-  "alRef": "Ps 103: 30",
+  "alRef": [
+   "Ps 103: 30",
+   ""
+  ],
   "seq": "Veni Sancte Spiritus",
   "seqID": 68,
   "of": "Confirma hoc",
@@ -2052,7 +2061,10 @@ gregorianPropers = {
    101,
    181
   ],
-  "alRef": "Act 2: 4",
+  "alRef": [
+   "Act 2: 4",
+   ""
+  ],
   "seq": "Veni Sancte Spiritus",
   "seqID": 68,
   "of": "Intonuit de caelo",
@@ -2078,7 +2090,10 @@ gregorianPropers = {
    1197,
    181
   ],
-  "alRef": "Ioann 14: 26",
+  "alRef": [
+   "Ioann 14: 26",
+   ""
+  ],
   "seq": "Veni Sancte Spiritus",
   "seqID": 68,
   "of": "Portas caeli",
@@ -2104,7 +2119,10 @@ gregorianPropers = {
    635,
    181
   ],
-  "alRef": "Ps 32: 6",
+  "alRef": [
+   "Ps 32: 6",
+   ""
+  ],
   "seq": "Veni Sancte Spiritus",
   "seqID": 68,
   "of": "Meditabor... Alleluia",
@@ -2131,7 +2149,10 @@ gregorianPropers = {
    119,
    181
   ],
-  "alRef": "Sap 12: 1",
+  "alRef": [
+   "Sap 12: 1",
+   ""
+  ],
   "seq": "Veni Sancte Spiritus",
   "seqID": 68,
   "of": "Lauda anima mea",
@@ -2166,6 +2187,7 @@ gregorianPropers = {
    "Ioann 6: 64",
    "Iob 26: 13",
    "Act 2: 1",
+   "",
    "Dan 3: 52"
   ],
   "tr": "Laudate",
@@ -2687,6 +2709,9 @@ gregorianPropers = {
    "Ps 89: 13, 1",
    "Ps 140: 2"
   ],
+  "hy": "Benedictus es Domine Deus",
+  "hyID": 2166,
+  "hyRef": "Dan 3: 52-53",
   "tr": "Laudate",
   "trID": 1247,
   "trRef": "Ps 116: 1-2",
@@ -2826,9 +2851,5 @@ gregorianPropers = {
   "coID": 592,
   "coRef": "Marc 11: 24",
   "coVerses": "Ps 129; Ps 6: 0"
- },
- "p24": {
-  "title": "24th and Last Sunday after Pentecost",
-  "href": "http://www.introibo.fr/24eme-et-dernier-dimanche-apres-la"
  }
 }

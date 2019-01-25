@@ -879,7 +879,10 @@ gregorianPropers = {
    99,
    181
   ],
-  "alRef": "Ps 103: 30",
+  "alRef": [
+   "Ps 103: 30",
+   ""
+  ],
   "of": "Confirma (hoc)",
   "ofID": 361,
   "ofRef": "Ps 67: 29-30",
@@ -2568,7 +2571,10 @@ gregorianPropers = {
    627,
    859
   ],
-  "alRef": "Ps 95: 10",
+  "alRef": [
+   "Ps 95: 10",
+   ""
+  ],
   "of": "Dextera Domini",
   "ofID": 448,
   "ofRef": "Ps 117: 16, 17",

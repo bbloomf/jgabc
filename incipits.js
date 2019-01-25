@@ -1782,9 +1782,77 @@ incipits = {
 		"vinea": 2075
 	},
 	"Hymnus": {
+		"a solis": 2628,
+		"ad regias": 2932,
+		"adoro": 3020,
+		"alleluia": 3031,
+		"auctor": 3988,
+		"audi benigne": 1830,
+		"ave maris": 2232,
+		"beate": 1988,
+		"benedictus": 2166,
+		"concordi": 3322,
+		"conditor": 7424,
+		"creator": 2134,
+		"crudelis": 2129,
 		"crux fidelis": 1128,
+		"custodes": 2320,
+		"cælestis": 2615,
+		"cælitum": 4044,
+		"en ut superba": 2335,
 		"gloria": 259,
-		"pange": 2209
+		"jesu": {
+			"dulcis": {
+				"amor": 3311,
+				"memoria": 3968
+			},
+			"nostra": 1227,
+			"redemptor": 3001
+		},
+		"lucis": 2014,
+		"maria": 3030,
+		"o": {
+			"gloriosa": 2885,
+			"lux": 2224,
+			"nimis": 1978,
+			"quam": 4073,
+			"salutaris": 3336,
+			"sola": 2999
+		},
+		"omnis": 2135,
+		"pange lingua gloriosi": {
+			"corporis": 1310,
+			"lauream": 2209
+		},
+		"panis": 3960,
+		"puer natus": 7462,
+		"sacris": 2274,
+		"salutis": 2828,
+		"salvete": 2294,
+		"stabat": 2163,
+		"tantum": 3994,
+		"te": {
+			"decet": 3044,
+			"deum laudamus te dominum confitemur te æternum patrem omnis terra veneratur tibi omnes angeli tibi cæli et universæ potestates tibi cherubim et seraphim incessabili voce proclamant sanctus sanctus sanctus dominus deus sabaoth pleni sunt cæli et terra majestatis gloriæ tuæ te gloriosus apostolorum chorus te prophetarum laudabilis numerus te martyrum candidatus laudat exercitus te per orbem terrarum sancta confitetur ecclesia patrem immensæ majestatis venerandum tuum verum et unicum filium sanctum quoque paraclitum spiritum tu rex gloriæ christe tu patris sempiternus es filius tu ad liberandum suscepturus hominem non": {
+				"horruisti": 2809,
+				"horuisti": 36
+			},
+			"gestientem": 2698,
+			"joseph": 2235,
+			"sæculorum": 2654
+		},
+		"ut queant": 2539,
+		"veni": {
+			"creator": 2923,
+			"veni": 7426
+		},
+		"verbum": 53,
+		"vexilla": {
+			"christus": 2588,
+			"regis": 2120
+		},
+		"virgo": 3320,
+		"æterne": 2092
 	},
 	"Responsorium": {
 		"collegerunt": 8107,
