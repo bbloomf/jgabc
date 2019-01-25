@@ -92,7 +92,12 @@ function processUrl(urlKey) {
         propria = tempPropria = {};
         betweenBars = false;
         currentFeast = a.name;
-        festa[a.name] = propria;
+        var iCount = 0;
+        while(currentFeast in festa) {
+          console.warn("2nd instance found of ", currentFeast)
+          currentFeast = a.name + (++iCount);
+        }
+        festa[currentFeast] = propria;
         propria.title = (td.querySelector('.greg0') || td).textContent.trim();
         let match = propria.title.match(/^(\d+)\s+(?:(or)\s+(\d+)\s+)?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+-/);
         if(match) propria.date = match[4] + match[1] + (match[2]||'') + (match[3]||'');
