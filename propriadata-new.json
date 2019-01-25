@@ -3649,11 +3649,13 @@
 	},
 	"May31Pasch": {
 		"communioID": 1053,
-		"gradualeID": 717,
+		"gradualeID": 734,
 		"alleluiaID": 354,
 		"introitusID": 61,
 		"offertoriumID": 719,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"bvm_queen"
+		]
 	},
 	"May4": {
 		"communioID": 799,
