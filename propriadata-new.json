@@ -2652,12 +2652,14 @@
 		]
 	},
 	"Jan11": {
-		"communioID": 666,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_hyginus"
+		]
 	},
 	"Jan13": {
 		"communioID": 918,
@@ -2700,24 +2702,20 @@
 		]
 	},
 	"Jan18": {
-		"communioID": 666,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"alleluiaID": 228,
 		"introitusID": 456,
 		"offertoriumID": 1234,
-		"fromGregorianBooks": [
-			"st_peter_chair_rome"
-		]
+		"fromGregorianBooks": []
 	},
 	"Jan18Quad": {
 		"tractusID": 1029,
-		"communioID": 666,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"introitusID": 456,
 		"offertoriumID": 1234,
-		"fromGregorianBooks": [
-			"st_peter_chair_rome"
-		]
+		"fromGregorianBooks": []
 	},
 	"Jan20": {
 		"communioID": 902,
@@ -3259,14 +3257,12 @@
 		]
 	},
 	"Jun29": {
-		"communioID": 666,
+		"communioID": 509,
 		"gradualeID": 307,
 		"alleluiaID": 228,
 		"introitusID": 478,
 		"offertoriumID": 1319,
-		"fromGregorianBooks": [
-			"ss_peter_paul"
-		]
+		"fromGregorianBooks": []
 	},
 	"Jun30": {
 		"communioID": 1337,
@@ -3310,7 +3306,7 @@
 	},
 	"Mar12": {
 		"tractusID": 1085,
-		"communioID": 666,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"introitusID": 674,
 		"offertoriumID": 358,
@@ -3742,12 +3738,14 @@
 		]
 	},
 	"Nov23": {
-		"communioID": 666,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"alleluiaID": 228,
 		"introitusID": 409,
 		"offertoriumID": 358,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_clement"
+		]
 	},
 	"Nov25": {
 		"communioID": 1032,
@@ -4042,7 +4040,9 @@
 	},
 	"Jan16": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_marcellus_i"
+		]
 	},
 	"Feb6": {
 		"ref": "Feb4",
@@ -4070,9 +4070,7 @@
 	},
 	"Feb22": {
 		"ref": "Jan18",
-		"fromGregorianBooks": [
-			"st_peter_chair_rome"
-		]
+		"fromGregorianBooks": []
 	},
 	"Feb23": {
 		"ref": "Jan29",
@@ -4166,7 +4164,9 @@
 	},
 	"May30": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_felix_i"
+		]
 	},
 	"Jun6": {
 		"ref": "May10",
@@ -4200,7 +4200,9 @@
 	},
 	"Jun20": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_silverius"
+		]
 	},
 	"Jun25": {
 		"ref": "Jan17",
@@ -4385,7 +4387,9 @@
 	},
 	"Sep23": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_linus"
+		]
 	},
 	"Sep24": {
 		"ref": "May24",
@@ -4443,7 +4447,9 @@
 	},
 	"Oct14": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_callistus_i"
+		]
 	},
 	"Oct15": {
 		"ref": "Jun1",
@@ -4477,7 +4483,9 @@
 	},
 	"Nov12": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_martin_i"
+		]
 	},
 	"Nov13": {
 		"ref": "Jul19",
@@ -4545,10 +4553,14 @@
 	},
 	"Dec10": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_melchiades"
+		]
 	},
 	"Dec11": {
 		"ref": "Jan11",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_damasus"
+		]
 	}
 }
