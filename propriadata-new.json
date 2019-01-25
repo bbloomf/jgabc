@@ -3787,8 +3787,10 @@
 		"gradualeID": 1174,
 		"alleluiaID": 254,
 		"introitusID": 493,
-		"offertoriumID": 151,
-		"fromGregorianBooks": []
+		"offertoriumID": 687,
+		"fromGregorianBooks": [
+			"our_lady_miraculous_medal"
+		]
 	},
 	"Nov30": {
 		"communioID": 552,

@@ -1640,7 +1640,7 @@ var proprium = {
   Nov23: {communioID:666,gradualeID:1119,alleluiaID:228,introitusID:409,offertoriumID:358},
   Nov25: {communioID:1032,gradualeID:394,alleluiaID:208,introitusID:510,offertoriumID:1107},
   Nov26: {communioID:1008,gradualeID:600,alleluiaID:946,introitusID:1374,offertoriumID:722},
-  Nov27: {communioID:1087,gradualeID:1174,alleluiaID:254,introitusID:493,offertoriumID:151},
+  Nov27: {communioID:1087,gradualeID:1174,alleluiaID:254,introitusID:493,offertoriumID:687},
   Nov30: {communioID:552,gradualeID:307,alleluiaID:984,introitusID:475,offertoriumID:499},
   Nov8: {communioID:902,gradualeID:888,alleluiaID:106,introitusID:261,offertoriumID:786},
   Nov9: {communioID:43,gradualeID:651,alleluiaID:242,introitusID:923,offertoriumID:200},
