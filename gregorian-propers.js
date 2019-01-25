@@ -2003,8 +2003,8 @@ gregorianPropers = {
   "inID": 418,
   "inRef": "Ezech 36: 23, 24, 25-26; Ps 33: 2",
   "inVerses": "Ps 33",
-  "al": "Confitemini... quoniam",
-  "alID": 507,
+  "gr": "Confitemini... quoniam",
+  "grID": 507,
   "tr": "Laudate",
   "trID": 1247,
   "trRef": "Ps 116: 1-2",
@@ -2169,21 +2169,21 @@ gregorianPropers = {
   "in": "Caritas Dei",
   "inID": 1228,
   "inRef": "Rom 5: 5; Ps 102: 1",
-  "al": [
+  "gr": [
    "Spiritus est",
    "Spiritus ejus",
    "Dum complerentur",
    "Veni Sancte Spiritus",
    "Benedictus es Domine"
   ],
-  "alID": [
+  "grID": [
    1236,
    1138,
    657,
    181,
    1289
   ],
-  "alRef": [
+  "grRef": [
    "Ioann 6: 64",
    "Iob 26: 13",
    "Act 2: 1",

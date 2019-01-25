@@ -2487,6 +2487,10 @@ gregorianPropers = {
    1324,
    213
   ],
+  "alRef": [
+   "",
+   ""
+  ],
   "of": "Lauda (Jerusalem)",
   "ofID": 845,
   "ofRef": "Ps 147: 12, 13",
@@ -2508,6 +2512,10 @@ gregorianPropers = {
   "alPaschID": [
    1324,
    213
+  ],
+  "alPaschRef": [
+   "",
+   ""
   ],
   "gr": "Beatus (quicumque)",
   "grID": 1344,
@@ -2698,6 +2706,10 @@ gregorianPropers = {
   "alID": [
    32,
    590
+  ],
+  "alRef": [
+   "",
+   ""
   ],
   "of": "Confitebuntur",
   "ofID": 1382,
@@ -2929,6 +2941,10 @@ gregorianPropers = {
   "alPaschID": [
    734,
    354
+  ],
+  "alPaschRef": [
+   "",
+   ""
   ],
   "gr": "Ipse habet",
   "grID": 1368,

@@ -161,6 +161,16 @@ function processUrl(urlKey) {
               var incipitId = vr.findIncipitId(name,key,grPage,mode);
               if(key == 'hy' && (typeof incipitId != 'number')) return;
               if(key == 'al' && name.match(/\(Rogations\)/)) incipitId = null;
+              if(key == 'tr' && 'al' in propria && !('gr' in propria)) {
+                propria.gr = propria.al;
+                propria.grID = propria.alID;
+                if(propria.alRef) {
+                  propria.grRef = propria.alRef;
+                }
+                delete propria.al;
+                delete propria.alID;
+                delete propria.alRef;
+              }
               if(typeof incipitId == 'object') {
                 console.info(`findIncipitId(${JSON.stringify(name)}, ${JSON.stringify(key)}, ${JSON.stringify(grPage)}, ${JSON.stringify(mode)}) =
 ${JSON.stringify(incipitId,1,' ')}`);
@@ -181,6 +191,9 @@ ${JSON.stringify(incipitId,1,' ')}`);
             var span = td.querySelector('span.ps1');
             if(span) {
               var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
+              if(!ref && !(key+"Ref" in propria) && propria[key] instanceof Array) {
+                propria[key+"Ref"] = [""];
+              }
               if(ref || (key+"Ref" in propria)) {
                 var refs = ref.split('\n').map(ref => vr.parseRef(ref).verseRefString());
                 ref = refs[0];

@@ -1020,7 +1020,9 @@
 		"rubrics": {
 			"before#divGraduale": "After each Lesson, the Cantor intones <Allelúia.>  The Choir continues the Chant, without repeating the intonation.  <Allelúia.> is not repeated at the end of the Verse."
 		},
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"pentecost_sat"
+		]
 	},
 	"Pent0ss": {
 		"introitusID": 1228,
