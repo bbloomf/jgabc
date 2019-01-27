@@ -4767,7 +4767,7 @@ gregorianSaints = {
   "title": "16 Dec - St Eusebius, Bishop and Martyr",
   "date": "Dec16",
   "href": "http://www.introibo.fr/16-12-St-Eusebe-eveque-et-martyr",
-  "ref": "saints.html#mass_ii_confessor_bishop"
+  "ref": "saints.html#mass_ii_martyr_bishop"
  },
  "st_thomas": {
   "title": "21 Dec - St Thomas",
