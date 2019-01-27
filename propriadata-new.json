@@ -2116,10 +2116,12 @@
 	"Apr5": {
 		"communioID": 1154,
 		"gradualeID": 34,
-		"alleluiaID": 765,
+		"alleluiaID": 724,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_vincent_ferrer"
+		]
 	},
 	"Apr5Quad": {
 		"tractusID": 7670,
@@ -2133,11 +2135,13 @@
 	},
 	"Apr5Pasch": {
 		"communioID": 1154,
-		"gradualeID": 765,
+		"gradualeID": 724,
 		"alleluiaID": 14,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_vincent_ferrer"
+		]
 	},
 	"Aug1": {
 		"communioID": 699,
@@ -2964,13 +2968,13 @@
 		]
 	},
 	"Jan5": {
-		"communioID": 1139,
-		"gradualeID": 1163,
-		"alleluiaID": 863,
-		"introitusID": 72,
-		"offertoriumID": 1274,
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
 		"fromGregorianBooks": [
-			"christmas_octave"
+			"st_telesphorus"
 		]
 	},
 	"Jul1": {
