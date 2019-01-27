@@ -1954,28 +1954,34 @@
 		"fromGregorianBooks": []
 	},
 	"Apr17": {
-		"communioID": 409,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_anicetus"
+		]
 	},
 	"Apr17Quad": {
-		"tractusID": 516,
-		"communioID": 409,
+		"tractusID": 1085,
+		"communioID": 509,
 		"gradualeID": 1119,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_anicetus"
+		]
 	},
 	"Apr17Pasch": {
-		"communioID": 409,
+		"communioID": 509,
 		"gradualeID": 228,
 		"alleluiaID": 548,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_anicetus"
+		]
 	},
 	"Apr2": {
 		"communioID": 1337,
