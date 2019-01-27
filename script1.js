@@ -4889,7 +4889,7 @@ gregorianSaints = {
   "ofID": 1234,
   "ofRef": "Matth 16: 18-19",
   "co": "Tu es Petrus",
-  "coID": 666,
+  "coID": 509,
   "coRef": "Matth 16: 18"
  },
  "st_prisca": {
@@ -6830,7 +6830,7 @@ gregorianSaints = {
   "ofRef": "Ps 44, 17-18",
   "ofVerses": "Ps 44: 2",
   "co": "Tu es Petrus",
-  "coID": 666,
+  "coID": 509,
   "coRef": "Matth 16: 18",
   "coVerses": "Ps 138: 1-6, 13-14, 17-18, 23"
  },
@@ -9379,3 +9379,5 @@ Object.keys(propria).forEach(key => {
   }
 });
 fs.writeFileSync('propriadata-new.json', JSON.stringify(propria,0,"\t"));
+var count = Object.keys(propria).map(k => propria[k]).filter(p => p.fromGregorianBooks.length == 0).length;
+console.info(count,'missing gbid');

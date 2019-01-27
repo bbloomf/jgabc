@@ -2717,7 +2717,9 @@
 		"alleluiaID": 228,
 		"introitusID": 456,
 		"offertoriumID": 1234,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_peter_chair_rome"
+		]
 	},
 	"Jan18Quad": {
 		"tractusID": 1029,
@@ -2725,7 +2727,9 @@
 		"gradualeID": 1119,
 		"introitusID": 456,
 		"offertoriumID": 1234,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_peter_chair_rome"
+		]
 	},
 	"Jan20": {
 		"communioID": 902,
@@ -3274,7 +3278,9 @@
 		"alleluiaID": 228,
 		"introitusID": 478,
 		"offertoriumID": 1319,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"ss_peter_paul"
+		]
 	},
 	"Jun30": {
 		"communioID": 1337,
@@ -4123,7 +4129,9 @@
 	},
 	"Feb22": {
 		"ref": "Jan18",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_peter_chair_rome"
+		]
 	},
 	"Feb23": {
 		"ref": "Jan29",
