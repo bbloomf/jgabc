@@ -571,11 +571,11 @@ R/. A(e.)men.(e.) (::)"
     {
       rubric: "After the prayers, the Priest puts incense into the thurible. Whilst he distributes the candles, the choir sings:",
       id: 2897,
-      gabcReplace: [/\s*\(Z\)[^#]*/,''], // remove everything after the first (Z)
+      gabcReplace: [/\s*\(::\)[^#]*/,' (::)'], // remove everything after the first (::)
       sticky: 0
     }, {
       id: 2897,
-      gabcReplace: [/(\n%%\r?\n\s*\([cf][1-4]\)\s*)[^#]*?\(Z\)/,'\ninitial-style: 0;$1'], // remove the first verse (up to the first (Z))
+      gabcReplace: [/(\n%%\r?\n\s*\([cf][1-4]\)\s*)[^#]*?\(::\)/,'\ninitial-style: 0;$1'], // remove the first verse [up to the first (::)]
       sticky: 1
     }, {
       rubric: "When the distribution of candles is ended, the Choir sings:",

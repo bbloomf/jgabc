@@ -9340,7 +9340,7 @@ Object.keys(propria).forEach(key => {
   var quadPasch = key.match(/(Quad|Pasch)$/);
   quadPasch = quadPasch && quadPasch[1];
   if(quadPasch == 'Quad') quadPasch = 'Sept';
-  var dateKey = key.match(/^[A-Z][a-z]{2}\d+/)||"";
+  var dateKey = key.match(/^[A-Z][a-z]{2}\d+(?:or\d+)?/)||"";
   dateKey = dateKey[0];
   if(dateKey && !quadPasch) {
     // min easter: Mar 22
