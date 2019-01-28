@@ -67,12 +67,13 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
   var vr = '';
   var asCode = !useFormat.match(/html/i);
   var asGabc = useFormat.match(/gabc/i);
+  var firstVerseAsGabc = $("#cbFirstVerseGabc").prop('checked');
   if(asCode) r+="<code>";
   if(!asGabc || !sameSyl || !sameGSyl || forceGabcUpdate) {
     gabc = "(" + clef + ")"
     for(var i=0; i<lines.length; ++i) {
       var line = splitLine(lines[i]);
-      if(firstVerse || asGabc) {
+      if(asGabc || (firstVerse && firstVerseAsGabc)) {
         var result={shortened:false};
         gabc += applyPsalmTone({
           text: line[0].trim(),
@@ -204,6 +205,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
       $("#lnkDownloadVerses").hide();
     }
   } else {
+    if(!asGabc && !firstVerseAsGabc) gabc = null;
     return [gabc,vr];
   }
 }
@@ -364,6 +366,14 @@ function updateFormat() {
   $("#btnDelFormat").val(((useFormat in o_bi_formats)? "Reset" : "Delete") + " Current Format");
   var f = bi_formats[useFormat];
   if(!f.flex) f.flex = ['','','',''];
+  var useGabcFormat = /^gabc(?:$|-)/.test(useFormat);
+  if(useGabcFormat) {
+    $("#cbFirstVerseGabc").attr('disabled','disabled');
+  } else {
+    $("#cbFirstVerseGabc").attr('disabled',false);
+  }
+  $("#chant-preview").toggle(useGabcFormat || $("#cbFirstVerseGabc").prop('checked'));
+  $("#lblFirstVerseGabc").attr("title","Use GABC for first verse instead of "+useFormat);
   $("#txtBeginPrep").val(f.italic[0]);
   $("#txtEndPrep").val(f.italic[1]);
   $("#txtBeginAccented").val(f.bold[0]);
@@ -620,7 +630,7 @@ function downloadAll(e){
                                                 t,
                                                 ending);
     
-    zip.add(header["name"] + ".gabc",header + texts[0]);
+    if(texts[0]) zip.add(header["name"] + ".gabc",header + texts[0]);
     if(texts[1].length>0)zip.add(filename,texts[1]);
   };
   var getNextPsalm = function(i){
@@ -776,7 +786,7 @@ $(function() {
   $("#cbRepeatIntonation").change(updateRepeatIntonation);
   $("#cbItalicizeIntonation").change(updateItalicizeIntonation);
   $("#cbUsePunctaCava").change(updateUsePunctaCava);
-  $("#selFormat").change(updateFormat);
+  $("#selFormat,#cbFirstVerseGabc").change(updateFormat);
   $("#selFormat").keyup(updateFormat);
   $("#selEnd").change(updateEnding);
   $("#selEnd").keyup(updateEnding);
