@@ -1942,8 +1942,7 @@
 		"introitusID": 340,
 		"offertoriumID": 1382,
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_hermenegild"
 		]
 	},
 	"Apr14": {
@@ -2077,14 +2076,33 @@
 		]
 	},
 	"Apr23": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"alleluiaID": 1249,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"fromGregorianBooks": [
+			"st_george"
+		]
+	},
+	"Apr23Quad": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"tractusID": 176,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"fromGregorianBooks": [
+			"st_george"
+		]
+	},
+	"Apr23Pasch": {
 		"communioID": 617,
 		"gradualeID": 762,
 		"alleluiaID": 1249,
 		"introitusID": 340,
 		"offertoriumID": 1382,
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_george"
 		]
 	},
 	"Apr28": {
@@ -4190,8 +4208,7 @@
 	"Apr24": {
 		"ref": "Apr23",
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_fidelis_of_sigmaringen"
 		]
 	},
 	"Apr25": {
@@ -4215,15 +4232,37 @@
 	"Apr29": {
 		"ref": "Apr23",
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_peter_of_verona"
 		]
 	},
 	"May7": {
-		"ref": "Apr23",
+		"communioID": 586,
+		"gradualeID": 1206,
+		"alleluiaID": 1118,
+		"introitusID": 227,
+		"offertoriumID": 779,
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_stanislaus"
+		]
+	},
+	"May7Quad": {
+		"tractusID": 7670,
+		"communioID": 586,
+		"gradualeID": 1206,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"fromGregorianBooks": [
+			"st_stanislaus"
+		]
+	},
+	"May7Pasch": {
+		"communioID": 617,
+		"gradualeID": 762,
+		"alleluiaID": 1249,
+		"introitusID": 340,
+		"offertoriumID": 1382,
+		"fromGregorianBooks": [
+			"st_stanislaus"
 		]
 	},
 	"May9": {
@@ -4241,8 +4280,7 @@
 	"May18": {
 		"ref": "Apr23",
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_venantius"
 		]
 	},
 	"May19": {

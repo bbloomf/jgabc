@@ -89,6 +89,14 @@ function processUrl(urlKey) {
         if(currentFeast && propria && !('ref' in propria) && !('refPasch' in propria) && !('in' in propria)) {
           delete festa[currentFeast];
         }
+        if(currentFeast && !/_pt$/.test(currentFeast) && propria && !('ref' in propria) && ('refPasch' in propria) && !('in' in propria)) {
+          console.info(currentFeast);
+          console.info(propria.title);
+          console.info(propria.refPasch);
+          if(propria.refPasch == "saints.html#mass_one_martyr") {
+            propria.ref = "saints.html#mass_i_martyr_not_bishop";
+          }
+        }
         propria = tempPropria = {};
         betweenBars = false;
         currentFeast = a.name;

@@ -239,7 +239,9 @@ var propria = {
   Apr21Pasch: {communioID:1008,gradualeID:14,alleluiaID:1207,introitusID:233,offertoriumID:777},
   Apr22: {communioID:509,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr22Pasch: {communioID:509,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},
-  Apr23: {communioID:617,gradualeID:762,alleluiaID:1249,introitusID:340,offertoriumID:1382},
+  Apr23: {communioID:89,gradualeID:153,alleluiaID:1249,introitusID:316,offertoriumID:407},
+  Apr23Quad: {communioID:89,gradualeID:153,tractusID:176,introitusID:316,offertoriumID:407},
+  Apr23Pasch: {communioID:617,gradualeID:762,alleluiaID:1249,introitusID:340,offertoriumID:1382},
   Apr28: {communioID:732,gradualeID:476,alleluiaID:1073,introitusID:775,offertoriumID:773},
   Apr30: {communioID:1301,gradualeID:208,alleluiaID:406,introitusID:629,offertoriumID:1333},
   Apr4: {communioID:1008,gradualeID:511,alleluiaID:14,introitusID:233,offertoriumID:777},
@@ -459,7 +461,9 @@ var propria = {
   Apr26: {ref:"Apr11"},
   Apr27: {ref:"Apr21"},
   Apr29: {ref:"Apr23"},
-  May7: {ref:"Apr23"},
+  May7: {communioID:586,gradualeID:1206,alleluiaID:1118,introitusID:227,offertoriumID:779},
+  May7Quad: {tractusID:7670,communioID:586,gradualeID:1206,introitusID:227,offertoriumID:779},
+  May7Pasch: {communioID:617,gradualeID:762,alleluiaID:1249,introitusID:340,offertoriumID:1382},
   May9: {ref:"Apr21"},
   May17: {ref:"May15"},
   May18: {ref:"Apr23"},
@@ -5689,7 +5693,8 @@ gregorianSaints = {
   "title": "13 Apr - St Hermenegild, Martyr",
   "date": "Apr13",
   "href": "http://www.introibo.fr/13-04-St-Hermenegilde-martyr",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_justin": {
   "title": "14 Apr - St Justin, Martyr",
@@ -5760,13 +5765,15 @@ gregorianSaints = {
   "title": "23 Apr - St George, Martyr (Patron saint of England)",
   "date": "Apr23",
   "href": "http://www.introibo.fr/23-04-St-Georges-martyr",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_fidelis_of_sigmaringen": {
   "title": "24 Apr - St Fidelis of Sigmaringen, Martyr",
   "date": "Apr24",
   "href": "http://www.introibo.fr/24-04-St-Fidele-de-Sigmaringen",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_mark": {
   "title": "25 Apr - St Mark, Evangelist",
@@ -5839,7 +5846,8 @@ gregorianSaints = {
   "title": "29 Apr - St Peter of Verona, Martyr",
   "date": "Apr29",
   "href": "http://www.introibo.fr/29-04-St-Pierre-de-Verone-martyr",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_catherine_of_sienna": {
   "title": "30 Apr - St Catherine of Sienna, Virgin",
@@ -9302,7 +9310,7 @@ function dereference(key,quadPasch) {
 var getImmediateProper = (propers, key, quadPasch) => (propers[key+quadPasch+'ID'] || propers[partKey[key]+quadPasch+'ID'] || propers[key+'ID'] || propers[partKey[key]+'ID'] || 0);
 var containsOtherThanRef = p => Object.keys(partKey).reduce((result, key) => (result || getImmediateProper(p,key) || getImmediateProper(p,key,'Sept') || getImmediateProper(p,key,'Pasch')), false);
 allGregorian = allGregorian.filter(p => containsOtherThanRef(p));
-var getFullMap = (p,qp) => ({...dereference(p.ref,qp), ...p});
+var getFullMap = (p,qp) => ({...dereference(p["ref"+qp] || p.ref,qp), ...p});
 var getProper = (propers,key,quadPasch) => {
   propers = getFullMap(propers,quadPasch);
   var proper;

@@ -2296,7 +2296,8 @@ gregorianPropers = {
   "title": "13 Apr - St Hermenegild, Martyr",
   "date": "Apr13",
   "href": "http://www.introibo.fr/13-04-St-Hermenegilde-martyr",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_justin": {
   "title": "14 Apr - St Justin, Martyr",
@@ -2367,13 +2368,15 @@ gregorianPropers = {
   "title": "23 Apr - St George, Martyr (Patron saint of England)",
   "date": "Apr23",
   "href": "http://www.introibo.fr/23-04-St-Georges-martyr",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_fidelis_of_sigmaringen": {
   "title": "24 Apr - St Fidelis of Sigmaringen, Martyr",
   "date": "Apr24",
   "href": "http://www.introibo.fr/24-04-St-Fidele-de-Sigmaringen",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_mark": {
   "title": "25 Apr - St Mark, Evangelist",
@@ -2446,7 +2449,8 @@ gregorianPropers = {
   "title": "29 Apr - St Peter of Verona, Martyr",
   "date": "Apr29",
   "href": "http://www.introibo.fr/29-04-St-Pierre-de-Verone-martyr",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop"
  },
  "st_catherine_of_sienna": {
   "title": "30 Apr - St Catherine of Sienna, Virgin",
