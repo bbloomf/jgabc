@@ -1886,15 +1886,13 @@ gregorianPropers = {
   "title": "Rogations - Greater and lesser litanies",
   "href": "http://www.introibo.fr/Lundi-des-Rogations",
   "in": "Exaudivit",
-  "inID": 451,
+  "inID": 939,
   "inRef": "Ps 17: 7, 2-3",
   "al": [
-   "Confitemini... quoniam (Rogations)",
    "Propitius esto",
    "Exsultabo et laetabor"
   ],
   "alRef": [
-   "Ps 117: 1",
    "Ps 78: 9-10",
    "Ps 30: 8"
   ],

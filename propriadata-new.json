@@ -102,8 +102,8 @@
 	"votiveSCJ": {
 		"ref": "SCJ",
 		"fromGregorianBooks": [
-			"sh",
-			"votive_mass_sacred_heart"
+			"votive_mass_sacred_heart",
+			"sh"
 		]
 	},
 	"SCJ": {
@@ -113,8 +113,8 @@
 		"offertoriumID": 628,
 		"communioID": 1356,
 		"fromGregorianBooks": [
-			"sh",
-			"votive_mass_sacred_heart"
+			"votive_mass_sacred_heart",
+			"sh"
 		]
 	},
 	"ECJ": {
@@ -132,23 +132,29 @@
 		"alleluiaID": 189,
 		"offertoriumID": 584,
 		"communioID": 422,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"rogations_out_pt"
+		]
 	},
 	"litaniisPasch": {
 		"introitusID": 939,
 		"gradualeID": 189,
-		"alleluiaID": 954,
+		"alleluiaID": 1342,
 		"offertoriumID": 584,
 		"communioID": 364,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"rogations"
+		]
 	},
 	"litaniisQuad": {
 		"introitusID": 451,
-		"gradualeID": 398,
+		"gradualeID": 395,
 		"tractusID": 276,
 		"offertoriumID": 584,
 		"communioID": 422,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"rogations_out_pt"
+		]
 	},
 	"votiveECJ": {
 		"ref": "ECJ",
@@ -326,8 +332,8 @@
 		"offertoriumID": 195,
 		"communioID": 346,
 		"fromGregorianBooks": [
-			"exaltation_holy_cross",
-			"votive_mass_holy_cross"
+			"votive_mass_holy_cross",
+			"exaltation_holy_cross"
 		]
 	},
 	"votiveSCQuad": {
@@ -408,8 +414,8 @@
 		"offertoriumID": 570,
 		"communioID": 1028,
 		"fromGregorianBooks": [
-			"votive_mass_ss_peter_paul",
-			"ss_simon_jude"
+			"ss_simon_jude",
+			"votive_mass_ss_peter_paul"
 		]
 	},
 	"votivePPQuad": {
@@ -429,15 +435,15 @@
 		"offertoriumID": 1382,
 		"communioID": 617,
 		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
+			"st_mark",
+			"mass_one_martyr"
 		]
 	},
 	"votiveOA": {
 		"ref": "votivePP",
 		"fromGregorianBooks": [
-			"votive_mass_ss_peter_paul",
-			"ss_simon_jude"
+			"ss_simon_jude",
+			"votive_mass_ss_peter_paul"
 		]
 	},
 	"votiveOAQuad": {
@@ -1417,7 +1423,9 @@
 		"gradualeID": 229,
 		"offertoriumID": 109,
 		"communioID": 897,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"lent0fri"
+		]
 	},
 	"Quad1": {
 		"introitusID": 327,
@@ -1455,7 +1463,8 @@
 		"offertoriumID": 810,
 		"communioID": 373,
 		"fromGregorianBooks": [
-			"lent1wed"
+			"lent1wed",
+			"lent2"
 		]
 	},
 	"Quad1h": {
@@ -1508,6 +1517,7 @@
 		"tractusID": 455,
 		"gradualeID": 596,
 		"fromGregorianBooks": [
+			"lent1wed",
 			"lent2"
 		]
 	},
@@ -1775,7 +1785,9 @@
 		"offertoriumID": 408,
 		"communioID": 1158,
 		"gloriaPatri": false,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"lent5fri"
+		]
 	},
 	"Quad6": {
 		"introitusID": 1171,
@@ -1920,20 +1932,24 @@
 		]
 	},
 	"Apr13": {
-		"communioID": 617,
-		"gradualeID": 827,
-		"alleluiaID": 762,
-		"introitusID": 340,
-		"offertoriumID": 1382,
-		"fromGregorianBooks": []
+		"communioID": 89,
+		"gradualeID": 153,
+		"alleluiaID": 1249,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"fromGregorianBooks": [
+			"st_hermenegild"
+		]
 	},
 	"Apr13Quad": {
+		"communioID": 89,
+		"gradualeID": 153,
 		"tractusID": 176,
-		"communioID": 617,
-		"gradualeID": 827,
-		"introitusID": 340,
-		"offertoriumID": 1382,
-		"fromGregorianBooks": []
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"fromGregorianBooks": [
+			"st_hermenegild"
+		]
 	},
 	"Apr13Pasch": {
 		"communioID": 617,
@@ -2611,7 +2627,9 @@
 		"alleluiaID": 791,
 		"introitusID": 1025,
 		"offertoriumID": 1193,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"st_gabriel_our_lady_of_sorrows"
+		]
 	},
 	"Feb27or28Quad": {
 		"tractusID": 728,

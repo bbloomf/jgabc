@@ -28,8 +28,8 @@ var propria = {
   SCJ: {introitusID:1320,gradualeID:1035,alleluiaID:907,offertoriumID:628,communioID:1356},
   ECJ: {introitusID:676,gradualeID:492,alleluiaID:10,offertoriumID:683,communioID:730,rubrics:rubricECJ},
   litaniis: {introitusID:451, gradualeID:395, alleluiaID: 189, offertoriumID: 584, communioID: 422}, // todo: 451 does not have the psalm verse, which needs to be taken from 939
-  litaniisPasch: {introitusID:939, gradualeID:189, alleluiaID: 954, offertoriumID: 584, communioID: 364},
-  litaniisQuad: {introitusID:451, gradualeID:398, tractusID: 276, offertoriumID: 584, communioID: 422},
+  litaniisPasch: {introitusID:939, gradualeID:189, alleluiaID: 1342, offertoriumID: 584, communioID: 364},
+  litaniisQuad: {introitusID:451, gradualeID:395, tractusID: 276, offertoriumID: 584, communioID: 422},
   votiveECJ: {ref:"ECJ"},
   votiveECJQuad: {introitusID:676,gradualeID:492,tractus:343,offertoriumID:683,communioID:730,introitusReplace: gabcRemoveLastIntroitAlleluia},
   votiveECJPasch: {introitusID:676,gradualeID:10,alleluiaID:29,offertoriumID:683,communioID:730},
@@ -223,8 +223,8 @@ var propria = {
   Apr11: {communioID:509,gradualeID:1119,alleluiaID:228,introitusID:674,offertoriumID:358},
   Apr11Quad: {tractusID:1085,communioID:509,gradualeID:1119,introitusID:674,offertoriumID:358},
   Apr11Pasch: {communioID:509,gradualeID:228,alleluiaID:548,introitusID:674,offertoriumID:358},
-  Apr13: {communioID:617,gradualeID:827,alleluiaID:762,introitusID:340,offertoriumID:1382},
-  Apr13Quad: {tractusID:176,communioID:617,gradualeID:827,introitusID:340,offertoriumID:1382},
+  Apr13: {communioID:89,gradualeID:153,alleluiaID:1249,introitusID:316,offertoriumID:407},
+  Apr13Quad: {communioID:89,gradualeID:153,tractusID:176,introitusID:316,offertoriumID:407},
   Apr13Pasch: {communioID:617,gradualeID:762,alleluiaID:1249,introitusID:340,offertoriumID:1382},
   Apr14: {communioID:400,gradualeID:1345,alleluiaID:289,introitusID:831,offertoriumID:285},
   Apr14Quad: {communioID:400,gradualeID:1345,tractusID:969,introitusID:831,offertoriumID:285},
@@ -2426,15 +2426,13 @@ var gregorianPropers = {
   "title": "Rogations - Greater and lesser litanies",
   "href": "http://www.introibo.fr/Lundi-des-Rogations",
   "in": "Exaudivit",
-  "inID": 451,
+  "inID": 939,
   "inRef": "Ps 17: 7, 2-3",
   "al": [
-   "Confitemini... quoniam (Rogations)",
    "Propitius esto",
    "Exsultabo et laetabor"
   ],
   "alRef": [
-   "Ps 117: 1",
    "Ps 78: 9-10",
    "Ps 30: 8"
   ],
@@ -9329,6 +9327,8 @@ var getProper = (propers,key,quadPasch) => {
         }
       }
     }
+  } else if(key == 'tractus' && (propers.gradualeID || propers.grID)) {
+    return 0;
   }
   proper = proper || propers[key+'ID'] || propers[partKey[key]+'ID'] || 0;
   if(key == 'graduale') {
@@ -9351,8 +9351,8 @@ function compare(p1,p2,quadPasch) {
   return Object.keys(partKey).reduce((result, key) => (result && getProper(p1,key,quadPasch)==getProper(p2,key,quadPasch)), true);
 }
 allGregorian.sort((a,b) => (getProper(a,'introitus')||'ref').toString().localeCompare((getProper(b,'introitus')||'ref').toString()));
-var t1 = gregorianSaints.st_gabriel_our_lady_of_sorrows,
-    t2 = propria.Feb27or28,
+var t1 = gregorianPropers.rogations,
+    t2 = propria.litaniisPasch,
     qp = "";
 console.info(Object.keys(partKey));
 console.info(Object.keys(partKey).map(k => [ getProper(t1, k, qp), getProper(t2, k, qp)]));
@@ -9382,11 +9382,12 @@ Object.keys(propria).forEach(key => {
     if((month=='Apr' && day >= 25) || (month=='May' && day < 10)) {
       quadPasch = 'Pasch';
     } else if((month=='Feb' && day >= 21) || (month=='Mar' && day < 22)) {
-      quadPasch = 'Sept';
+      quadPasch = 'Quad';
     }
     if(quadPasch && ((dateKey + quadPasch) in propria)) {
       quadPasch = "";
     }
+    if(quadPasch === "Quad") quadPasch = "Sept";
   }
   var propsByDate = byDate[dateKey];
   var possiblePropers = (propsByDate || []).filter(p => compare(p,propers,quadPasch));
@@ -9397,7 +9398,7 @@ Object.keys(propria).forEach(key => {
   if(propsByDate && possiblePropers.filter(p => propsByDate.includes(p)).length == 0) {
 
     // propers.fromGBDate = propsByDate.map(p => p.gbid);
-    console.info(key, "AND");
+    console.info(key, quadPasch, "AND");
     propsByDate.forEach(t1 => {
       console.info("AND", t1.gbid);
       console.info(Object.keys(partKey).map(k => [ getProper(propers, k, quadPasch), getProper(t1, k, quadPasch)]));
