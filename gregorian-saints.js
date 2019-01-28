@@ -458,7 +458,6 @@ gregorianPropers = {
   "alPasch": "Specie tua",
   "alPaschID": 406,
   "alPaschRef": "Ps 44: 5",
-  "alPaschRubric": "From the Mass of a Holy Woman not a Martyr (GR).",
   "of": "Afferentur... proximae",
   "ofID": 1107,
   "ofRef": "Ps 44: 15, 16",
@@ -552,6 +551,9 @@ gregorianPropers = {
   "trSeptID": 256,
   "trSeptRef": "Ps 44: 8, 5",
   "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
+  "alPasch": "Propter veritatem",
+  "alPaschID": 913,
+  "alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
   "of": "Diffusa est",
   "ofID": 177,
   "ofRef": "Ps 44: 3",
@@ -576,6 +578,9 @@ gregorianPropers = {
   "trSeptID": 256,
   "trSeptRef": "Ps 44: 8, 5",
   "trSeptRubric": "Important note: for a Holy Woman not a Martyr the ending words of the first verse are omitted: pro cujus amore sanguinem tuum fudisti = « for the love of whom thou didst shed thy blood ». Obviously.",
+  "alPasch": "Propter veritatem",
+  "alPaschID": 913,
+  "alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
   "of": "Diffusa est",
   "ofID": 177,
   "ofRef": "Ps 44: 3",
@@ -602,7 +607,7 @@ gregorianPropers = {
   "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
   "alPasch": "Bene fundata est",
   "alPaschID": 1343,
-  "alPaschRubric": "In Paschal the previous Alleluia is sung then this one.",
+  "alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
   "of": "Domine Deus (in simplicitate)",
   "ofID": 200,
   "ofRef": "1 Paral 29: 17, 18",
@@ -806,7 +811,7 @@ gregorianPropers = {
  "votive_mass_ss_peter_paul_pt": {
   "title": "Wednesday - Votive Mass of the Holy Apostles Peter and Paul (Paschal Time)",
   "href": "http://www.introibo.fr/Messe-votive-des-Sts-Pierre-et",
-  "ref": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr"
  },
  "votive_mass_holy_apostles_pt": {
   "title": "Wednesday - Votive Mass of all the Holy Apostles (Paschal Time)",
@@ -1309,7 +1314,8 @@ gregorianPropers = {
   "title": "11 Dec - St Damasus I, Pope and Confessor",
   "date": "Dec11",
   "href": "http://www.introibo.fr/11-12-St-Damase-Ier-pape-et",
-  "ref": "saints.html#mass_holy_pope"
+  "ref": "saints.html#mass_holy_pope",
+  "refRubric": "He introduced the practice of ending a psalm by the Gloria Patri."
  },
  "our_lady_of_guadalupe": {
   "title": "12 Dec  - Our Lady of Guadalupe",
@@ -1373,9 +1379,10 @@ gregorianPropers = {
   "title": "15 Dec - Octave of the Immaculate Conception",
   "date": "Dec15",
   "href": "http://www.introibo.fr/15-12-Octave-de-l-Immaculee",
-  "ref": "saints.html#immaculate_conception_bvm"
+  "ref": "saints.html#immaculate_conception_bvm",
+  "refRubric": "Suppressed in 1955."
  },
- "st_eusebius": {
+ "st_eusebius_bm": {
   "title": "16 Dec - St Eusebius, Bishop and Martyr",
   "date": "Dec16",
   "href": "http://www.introibo.fr/16-12-St-Eusebe-eveque-et-martyr",
@@ -1950,7 +1957,7 @@ gregorianPropers = {
   "title": "18 Feb - St Simeon, Bishop and Martyr",
   "date": "Feb18",
   "href": "http://www.introibo.fr/18-02-St-Simeon-eveque-et-martyr",
-  "ref": "saints.html#mass_i_confessor_bishop"
+  "ref": "saints.html#mass_i_martyr_bishop"
  },
  "ste_bernadette": {
   "title": "18 Feb - St Mary Bernard Soubirous, Virgin - Ste Bernadette (Proper of France and USA)",
@@ -2016,25 +2023,14 @@ gregorianPropers = {
   "tr": "Beatus vir (cujus)",
   "trID": 728,
   "trRef": "Ps 83: 6-7, 11, 13",
-  "alPasch": [
-   "Minuisti eum",
-   "Benedictio Dei"
-  ],
-  "alPaschID": [
-   791,
-   295
-  ],
-  "alPaschRef": [
-   "Ps 8: 6-7",
-   "Eccli 11: 24"
-  ],
-  "alPaschRubric": [
-   "For a Votive Mass out of Septuagesima/Lent sing the previous Grad. Quam magna then this Alleluia.",
-   "For a Votive Mass in Paschal Time sing the previous All. Minuisti eum then this one."
-  ],
-  "al": "Benedictio Dei",
-  "alID": 295,
-  "alRef": "Eccli 11: 24",
+  "al": "Minuisti eum",
+  "alID": 791,
+  "alRef": "Ps 8: 6-7",
+  "alRubric": "For a Votive Mass out of Septuagesima/Lent sing the previous Grad. Quam magna then this Alleluia.",
+  "alPasch": "Benedictio Dei",
+  "alPaschID": 295,
+  "alPaschRef": "Eccli 11: 24",
+  "alPaschRubric": "For a Votive Mass in Paschal Time sing the previous All. Minuisti eum then this one.",
   "of": "O Domine",
   "ofID": 1193,
   "ofRef": "Ps 115: 16-17",
@@ -2104,7 +2100,8 @@ gregorianPropers = {
   "title": "12 Mar - St Gregory the Great (Gregory I), Pope, Confessor and Doctor of the Church",
   "date": "Mar12",
   "href": "http://www.introibo.fr/12-03-St-Gregoire-le-Grand-pape",
-  "ref": "saints.html#mass_holy_pope"
+  "ref": "saints.html#mass_holy_pope",
+  "refRubric": "« Pictures were made to depict the dove of the Holy Spirit perched on Gregory's shoulder, singing God's authentic form of chant into his ear. This gave rise to calling the music \"Gregorian chant\". » (source)"
  },
  "st_patrick": {
   "title": "17 Mar - St Patrick, Bishop and Confessor",
@@ -2163,7 +2160,8 @@ gregorianPropers = {
   "title": "21 Mar - St Benedict, Abbot",
   "date": "Mar21",
   "href": "http://www.introibo.fr/21-03-St-Benoit-abbe",
-  "ref": "saints.html#mass_abbots"
+  "ref": "saints.html#mass_abbots",
+  "refRubric": "Founder of the Benedictine order and brother of St Scholastica."
  },
  "st_gabriel": {
   "title": "24 Mar - St Gabriel, Archangel",
@@ -2214,10 +2212,7 @@ gregorianPropers = {
    "Luc 1: 28",
    "Num 17: 8"
   ],
-  "alPaschRubric": [
-   "In Paschal Time the previous Gradual and Tract are omitted, replaced by this Alleluia then the following All. Virga Jesse.",
-   "From the Mass of the Blessed Virgin Mary (LU, GR)."
-  ],
+  "alPaschRubric": "In Paschal Time the previous Gradual and Tract are omitted, replaced by this Alleluia then the following All. Virga Jesse.",
   "al": "Virga Jesse",
   "alID": 281,
   "alRef": "Num 17: 8",
@@ -2301,7 +2296,7 @@ gregorianPropers = {
   "title": "13 Apr - St Hermenegild, Martyr",
   "date": "Apr13",
   "href": "http://www.introibo.fr/13-04-St-Hermenegilde-martyr",
-  "ref": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr"
  },
  "st_justin": {
   "title": "14 Apr - St Justin, Martyr",
@@ -2346,7 +2341,9 @@ gregorianPropers = {
   "title": "14 Apr - SS Tiburtius, Valerian and Maximus, Martyrs",
   "date": "Apr14",
   "href": "http://www.introibo.fr/14-04-Sts-Tiburce-Valerien-et",
-  "ref": "saints.html#mass_ii_two_or_more_martyr"
+  "refPasch": "saints.html#mass_two_or_more_martyr",
+  "ref": "saints.html#mass_ii_two_or_more_martyr",
+  "refRubric": "out of Paschal Time"
  },
  "st_anicetus": {
   "title": "17 Apr - St Anicetus, Pope and Martyr",
@@ -2370,19 +2367,19 @@ gregorianPropers = {
   "title": "23 Apr - St George, Martyr (Patron saint of England)",
   "date": "Apr23",
   "href": "http://www.introibo.fr/23-04-St-Georges-martyr",
-  "ref": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr"
  },
  "st_fidelis_of_sigmaringen": {
   "title": "24 Apr - St Fidelis of Sigmaringen, Martyr",
   "date": "Apr24",
   "href": "http://www.introibo.fr/24-04-St-Fidele-de-Sigmaringen",
-  "ref": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr"
  },
  "st_mark": {
   "title": "25 Apr - St Mark, Evangelist",
   "date": "Apr25",
   "href": "http://www.introibo.fr/25-04-St-Marc-evangeliste",
-  "ref": "saints.html#mass_one_martyr",
+  "refPasch": "saints.html#mass_one_martyr",
   "in": "Protexisti me",
   "inID": 340,
   "inRef": "Ps 63: 3, 2",
@@ -2449,9 +2446,9 @@ gregorianPropers = {
   "title": "29 Apr - St Peter of Verona, Martyr",
   "date": "Apr29",
   "href": "http://www.introibo.fr/29-04-St-Pierre-de-Verone-martyr",
-  "ref": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr"
  },
- "st_catherine": {
+ "st_catherine_of_sienna": {
   "title": "30 Apr - St Catherine of Sienna, Virgin",
   "date": "Apr30",
   "href": "http://www.introibo.fr/30-04-Ste-Catherine-de-Sienne",
@@ -2577,7 +2574,9 @@ gregorianPropers = {
   "title": "3 May - SS Alexander, Eventius and Theodulus, Martyrs and St Juvenalis, Bishop and Confessor",
   "date": "May3",
   "href": "http://www.introibo.fr/03-05-Sts-Alexandre-Ier-pape",
-  "ref": "saints.html#mass_ii_two_or_more_martyr"
+  "refPasch": "saints.html#mass_two_or_more_martyr",
+  "ref": "saints.html#mass_ii_two_or_more_martyr",
+  "refRubric": "out of Paschal Time"
  },
  "st_monica": {
   "title": "4 May - St Monica, Widow",
@@ -2596,6 +2595,7 @@ gregorianPropers = {
   "date": "May6",
   "href": "http://www.introibo.fr/06-05-St-Jean-apotre-et",
   "ref": "saints.html#mass_one_martyr",
+  "refRubric": "Feast removed in the 1960 new code of rubrics.",
   "al": [
    "Justus ut palma",
    "Justus germinabit"
@@ -2613,7 +2613,9 @@ gregorianPropers = {
   "title": "7 May - St Stanislaus, Bishop and Martyr",
   "date": "May7",
   "href": "http://www.introibo.fr/07-05-St-Stanislas-eveque-et",
-  "ref": "saints.html#mass_ii_confessor_bishop"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_ii_martyr_bishop",
+  "refRubric": "out of Paschal Time"
  },
  "st_gregory_nazianzen": {
   "title": "9 May - St Gregory Nazianzen, Bishop, Confessor and Doctor of the Church",
@@ -2631,7 +2633,9 @@ gregorianPropers = {
   "title": "10 May - SS Gordian and Epimachus, Martyrs",
   "date": "May10",
   "href": "http://www.introibo.fr/10-05-Sts-Gordien-et-Epimaque",
-  "ref": "saints.html#mass_ii_two_or_more_martyr"
+  "refPasch": "saints.html#mass_two_or_more_martyr",
+  "ref": "saints.html#mass_ii_two_or_more_martyr",
+  "refRubric": "out of Paschal Time"
  },
  "ss_philip_james": {
   "title": "11 May - SS Philip and James, Apostles",
@@ -2742,16 +2746,19 @@ gregorianPropers = {
   "coRef": "Matth 5: 14, 16",
   "coVerses": "Ps 91: 2-3, 5-6, 13-14"
  },
- "st_robert_bellarmine1": {
+ "our_lady_of_fatima": {
   "title": "13 May - Our Lady of Fatima",
   "date": "May13",
-  "ref": "saints.html#immaculate_heart_bvm"
+  "ref": "saints.html#immaculate_heart_bvm",
+  "refRubric": "decree from the offices of the Pontifical Commission 'Ecclesia Dei' says that on 13 May 2017, the 100th Anniversary of the apparitions at Fatima, it is granted and permitted using the Extraordinary Form to celebrate a Votive Mass of the Immaculate Heart of Mary (from 22 August) as 2nd Class and to use the pertinent commemorations. (source: Fr. Z's blog)"
  },
  "st_boniface_m": {
   "title": "14 May - St Boniface, Martyr",
   "date": "May14",
   "href": "http://www.introibo.fr/14-05-St-Boniface-martyr",
-  "ref": "saints.html#mass_i_martyr_not_bishop"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop",
+  "refRubric": "out of Paschal Time"
  },
  "st_john_baptist_de_la_salle": {
   "title": "15 May - St John Baptist de la Salle, Confessor",
@@ -2812,7 +2819,9 @@ gregorianPropers = {
   "title": "18 May - St Venantius, Martyr",
   "date": "May18",
   "href": "http://www.introibo.fr/18-05-St-Venant-martyr",
-  "ref": "saints.html#mass_i_martyr_not_bishop"
+  "refPasch": "saints.html#mass_one_martyr",
+  "ref": "saints.html#mass_i_martyr_not_bishop",
+  "refRubric": "out of Paschal Time"
  },
  "st_peter_celestine": {
   "title": "19 May - St Peter Celestine, Pope and Confessor",
@@ -2887,11 +2896,12 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/27-05-St-Jean-Ier-pape-et-martyr",
   "ref": "saints.html#mass_holy_pope"
  },
- "st_augustine": {
-  "title": "28 May - St Augustine, Bishop and Confessor",
+ "st_augustine_of_canterbury": {
+  "title": "28 May - St Augustine of Canterbury, Bishop and Confessor",
   "date": "May28",
   "href": "http://www.introibo.fr/28-05-St-Augustin-de-Cantorbery",
-  "ref": "saints.html#mass_ii_confessor_bishop"
+  "ref": "saints.html#mass_ii_confessor_bishop",
+  "refRubric": "out of Paschal Time"
  },
  "st_mary_magdalene_pazzi": {
   "title": "29 May - St Mary Magdalene Pazzi, Virgin",
@@ -2928,17 +2938,14 @@ gregorianPropers = {
   "grID": 357,
   "grRef": "Iudic 5: 8, 11",
   "grRubric": "Votive Mass out of Paschal Time.",
-  "alExtra": "Laudate Dominum",
-  "alExtraID": 750,
-  "alExtraRef": "Iudith 13: 17-18",
-  "alExtraRubric": "Votive Mass out of Paschal Time.",
+  "al": "Laudate Dominum",
+  "alID": 750,
+  "alRef": "Iudith 13: 17-18",
+  "alRubric": "Votive Mass out of Paschal Time.",
   "trSept": "Audi filia",
   "trSeptID": 738,
   "trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
   "trSeptRubric": "After Septuagesima.",
-  "al": "Nunc ergo",
-  "alID": 489,
-  "alRef": "Judith 8: 29",
   "of": "Benedixerunt",
   "ofID": 1255,
   "ofRef": "Judith 15: 10",
@@ -2970,11 +2977,9 @@ gregorianPropers = {
   "grID": 1368,
   "grRef": "Apoc 19: 16; Ps 44: 10",
   "grRubric": "Out of Paschal Time.",
-  "alExtra": "Salve Regina",
-  "alExtraID": 717,
-  "alExtraRubric": "Out of Paschal Time.",
-  "al": "Nunc cum eo",
-  "alID": 354,
+  "al": "Salve Regina",
+  "alID": 717,
+  "alRubric": "Out of Paschal Time.",
   "of": "Regali (ex progenie)",
   "ofID": 719,
   "co": "Regina mundi",
@@ -3018,7 +3023,7 @@ gregorianPropers = {
   "title": "2 Jun - SS Marcellinus, Peter and Erasmus, Martyrs (Paschal Time)",
   "date": "Jun2",
   "href": "http://www.introibo.fr/02-06-Sts-Marcellin-et-Pierre-et",
-  "ref": "saints.html#mass_two_or_more_martyr"
+  "refPasch": "saints.html#mass_two_or_more_martyr"
  },
  "st_clotilde": {
   "title": "3 Jun - Ste Clotilde Reine, Veuve (Wife of Clovis, first Christian Frank king)",
@@ -3124,7 +3129,7 @@ gregorianPropers = {
   "coRef": "Ioann 15: 16",
   "coVerses": "Ps 88: 2, 4, 6, 20-22, 25, 29"
  },
- "st_margaret": {
+ "st_margaret_queen_of_scotland": {
   "title": "10 Jun - St Margaret, Queen of Scotland, Widow",
   "date": "Jun10",
   "href": "http://www.introibo.fr/10-06-Ste-Marguerite-d-Ecosse",
@@ -3134,7 +3139,7 @@ gregorianPropers = {
   "title": "11 Jun - St Barnabas, Apostle",
   "date": "Jun11",
   "href": "http://www.introibo.fr/11-06-St-Barnabe-apotre",
-  "ref": "saints.html#mass_one_martyr",
+  "refPasch": "saints.html#mass_one_martyr",
   "in": "Mihi autem (nimis)",
   "inID": 475,
   "inRef": "Ps 138: 17, 1-2",
@@ -3532,7 +3537,8 @@ gregorianPropers = {
   "title": "2 Jul - SS Processus and Martinian, Martyrs",
   "date": "Jul2",
   "href": "http://www.introibo.fr/02-07-Sts-Processus-et-Martinien",
-  "ref": "saints.html#mass_ii_two_or_more_martyr"
+  "ref": "saints.html#mass_ii_two_or_more_martyr",
+  "refRubric": "Memory."
  },
  "st_irenaeus": {
   "title": "3 Jul - St Irenaeus, Bishop and Martyr (previously 28 Jun)",
@@ -3891,7 +3897,7 @@ gregorianPropers = {
   "coRef": "Jac 1: 27",
   "coVerses": "Ps 33"
  },
- "st_margaret1": {
+ "st_margaret": {
   "title": "20 Jul - St Margaret, Virgin Martyr",
   "date": "Jul20",
   "href": "http://www.introibo.fr/20-07-Ste-Marguerite-vierge-et",
@@ -4195,7 +4201,8 @@ gregorianPropers = {
   "title": "3 Aug - The Finding of the Body of St Stephen, The First Martyr",
   "date": "Aug3",
   "href": "http://www.introibo.fr/03-08-Invention-de-St-Etienne",
-  "ref": "propers.html#st_stephen"
+  "ref": "propers.html#st_stephen",
+  "refRubric": "Feast removed in the 1960 new code of rubrics."
  },
  "st_dominic": {
   "title": "4 Aug - St Dominic, Confessor",
@@ -4284,7 +4291,8 @@ gregorianPropers = {
   "title": "8 Aug - St John Mary Vianney, Confessor - St Jean-Marie Vianney, curé d'Ars",
   "date": "Aug8",
   "href": "http://www.introibo.fr/08-08-St-Jean-Marie-Vianney",
-  "ref": "saints.html#mass_i_confessor_not_bishop"
+  "ref": "saints.html#mass_i_confessor_not_bishop",
+  "refRubric": "Moved from 9 to 8 Aug with the 1960 new rubrics (page Lxviii of the Liber Usualis)."
  },
  "st_jean_marie_vianney_france": {
   "title": "8 Aug  - St John Mary Vianney, Confessor - St Jean-Marie Vianney, curé d'Ars - Propre de France",
@@ -4434,7 +4442,7 @@ gregorianPropers = {
   "co": "Beata viscera",
   "coID": 160
  },
- "st_eusebius1": {
+ "st_eusebius": {
   "title": "14 Aug - St Eusebius, Confessor",
   "date": "Aug14",
   "href": "http://www.introibo.fr/14-08-St-Eusebe-confesseur",
@@ -4619,7 +4627,8 @@ gregorianPropers = {
   "coID": 97,
   "coRef": "Matth 19: 28",
   "coVerses": "Ps 138: 1-6, 17-18, 23-24",
-  "refPasch": "saints.html#mass_one_martyr"
+  "refPasch": "saints.html#mass_one_martyr",
+  "refPaschRubric": "Mass of one Martyr for a Votive Mass in Paschal Time."
  },
  "st_louis": {
   "title": "25 Aug - St Louis, King of France, Confessor",
@@ -4659,7 +4668,7 @@ gregorianPropers = {
   "coRef": "Marc 10: 14",
   "coVerses": "Ps 33"
  },
- "st_augustine1": {
+ "st_augustine": {
   "title": "28 Aug - St Augustine, Bishop, Confessor and Doctor of the Church",
   "date": "Aug28",
   "href": "http://www.introibo.fr/28-08-St-Augustin-eveque",
@@ -5132,6 +5141,7 @@ gregorianPropers = {
   "date": "Oct4",
   "href": "http://www.introibo.fr/04-10-St-Francois-d-Assise",
   "ref": "saints.html#st_francis_stigmata",
+  "refRubric": "17 Sep",
   "in": "Mihi autem absit. Ps. Voce mea",
   "inID": 849,
   "inRef": "Gal 6: 14; Ps 141: 2",
@@ -5693,7 +5703,8 @@ gregorianPropers = {
   "title": "16 Nov - St Gertrude, Virgin",
   "date": "Nov16",
   "href": "http://www.introibo.fr/16-11-Ste-Gertrude-vierge",
-  "ref": "saints.html#mass_i_virgin_not_martyr"
+  "ref": "saints.html#mass_i_virgin_not_martyr",
+  "refRubric": "The Mass in Heaven with The Lord, angels and saints singing: here and here. (Here in French)"
  },
  "st_gregory_wonder_worker": {
   "title": "17 Nov - St Gregory, the Wonder-Worker, Bishop and Confessor",
@@ -5792,7 +5803,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/24-11-St-Chrysogone-martyr",
   "ref": "saints.html#mass_i_martyr_not_bishop"
  },
- "st_catherine1": {
+ "st_catherine": {
   "title": "25 Nov - St Catherine, Virgin and Martyr",
   "date": "Nov25",
   "href": "http://www.introibo.fr/25-11-Ste-Catherine-vierge-et",
@@ -5808,7 +5819,7 @@ gregorianPropers = {
   "title": "26 Nov - St Peter of Alexandria, Bishop and Martyr",
   "date": "Nov26",
   "href": "http://www.introibo.fr/26-11-St-Pierre-d-Alexandrie",
-  "ref": "saints.html#mass_i_confessor_bishop"
+  "ref": "saints.html#mass_i_martyr_bishop"
  },
  "our_lady_miraculous_medal": {
   "title": "27 Nov - Our Lady of the Miraculous Medal",

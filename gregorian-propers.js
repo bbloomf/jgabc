@@ -473,7 +473,8 @@ gregorianPropers = {
   "title": "5 Jan - Eve of the Epiphany",
   "date": "Jan5",
   "href": "http://www.introibo.fr/Vigile-de-l-Epiphanie-avant-1955",
-  "ref": "propers.html#sunday_within_octave_christmas"
+  "ref": "propers.html#sunday_within_octave_christmas",
+  "refRubric": "Suppressed in 1955."
  },
  "epiphany": {
   "title": "6 Jan - The Epiphany of Our Lord",
@@ -563,7 +564,8 @@ gregorianPropers = {
   "title": "13 Jan - Octave of Epiphany - Commemoration of Baptism of Our Lord Jesus Christ",
   "date": "Jan13",
   "href": "http://www.introibo.fr/Bapteme-du-Seigneur-13-janvier",
-  "ref": "propers.html#epiphany"
+  "ref": "propers.html#epiphany",
+  "refRubric": "There is no commemoration if Holy Family falls on this day."
  },
  "epiphany2": {
   "title": "2nd Sunday after Epiphany",

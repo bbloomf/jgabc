@@ -47,9 +47,9 @@ function processUrl(urlKey) {
       }
       lastPercent = percent;
     });
-    result.on('close',e => console.info('socket closed on file: ' + file));
-    result.on('aborted',e => console.info('ABORTED on file: ' + file));
-    result.on('error',e => console.info('ERROR on file: ' + file));
+    result.on('close',e => console.info('socket closed on url: ' + url));
+    result.on('aborted',e => console.info('ABORTED on url: ' + url));
+    result.on('error',e => console.info('ERROR on url: ' + url));
     result.on('end', () => {
       
 
@@ -86,7 +86,7 @@ function processUrl(urlKey) {
       if(!td.classList.contains("bar") &&
         !td.classList.contains("bar2") && a) {
         // new feast:
-        if(currentFeast && propria && !('ref' in propria) && !('in' in propria)) {
+        if(currentFeast && propria && !('ref' in propria) && !('refPasch' in propria) && !('in' in propria)) {
           delete festa[currentFeast];
         }
         propria = tempPropria = {};
@@ -125,30 +125,41 @@ function processUrl(urlKey) {
           var key = partMap[match[2]];
           if(key == 'hy' && (betweenBars || !('in' in propria))) return;
           if(sept) key += "Sept";
-          if(pasch) key += "Pasch";
+          if(pasch && !(pasch.nextSibling && /\bper\sannum\b/i.test(pasch.nextSibling.textContent))) key += "Pasch";
           var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
           if((key in propria) && name != propria[key] && !name.startsWith(propria[key]+'(')) {
             match[1] = 1;
           }
           if(match[1] || !(key in propria)) {
             var rubric = tr.children[4];
-            if(betweenBars) {
+            if(betweenBars || key == 'ref') {
               var rubric = rubric.innerHTML.replace(/\s+/g,' ').replace(/<br>|<\/div>/g,'\n').replace(/<[^>]+>/g,'').trim().replace(/^\S\s+/,'').split(/\n+/);
               var rubricText = rubric.slice(-1)[0].trim();
-              if(/^(From|Same)\s/.test(rubricText)) {
+              if(/^(From|Same|Proper)\s/.test(rubricText)) {
                 rubricText = rubric[0].trim();
+              }
+              if(key == 'ref' && /^M(ass|issa)/.test(rubricText)) {
+                rubricText = rubricText.match(/\(([^)]+)\)/);
+                rubricText = rubricText && rubricText[1];
+                if(/^\d+$/.test(rubricText)) rubricText = null;
+              }
+              if(/^(From|Same|Proper)\s/.test(rubricText)) {
+                rubricText = null;
               }
             }
             if(betweenBars && !sept && !pasch) {
-              if(/^(gr|al)$/.test(key) && (propria.al instanceof Array) && !('gr' in propria)) {
-                propria.alPasch = propria.al;
-                propria.alPaschID = propria.alID;
-                if(propria.alRef) {
-                  propria.alPaschRef = propria.alRef;
+              if((/^(gr|al)$/.test(key) && (propria.al instanceof Array) && !('gr' in propria)) ||
+                  (key=='al' && /\bout\s+of\s+paschal/i.test(rubricText))) {
+                if(propria.al && !('alPasch' in propria)) {
+                  propria.alPasch = propria.al;
+                  propria.alPaschID = propria.alID;
+                  if(propria.alRef) {
+                    propria.alPaschRef = propria.alRef;
+                  }
+                  delete propria.al;
+                  delete propria.alID;
+                  delete propria.alRef;
                 }
-                delete propria.al;
-                delete propria.alID;
-                delete propria.alRef;
               } else {
                 key += "Extra";
                 match[1] = key in propria;
@@ -159,7 +170,16 @@ function processUrl(urlKey) {
               if(m && m[1] in festa) {
                 delete festa[currentFeast];
               }
-              propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
+              if(/\bin\s+paschal\b/i.test(rubricText) && !/Pasch$/.test(key)) {
+                key += "Pasch";
+                rubricText = null;
+              }
+              var href = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
+              if(/\bMartyr\b/i.test(propria.title) && /confessor/.test(href)) {
+                href = href.replace("confessor","martyr");
+              }
+              propria[key] = href;
+              if(rubricText) propria[key+'Rubric'] = rubricText;
               return;
             } else {
               if(key == 'al' && name == 'Alleluia') name = 'Confitemini... quoniam';
@@ -216,7 +236,7 @@ ${JSON.stringify(incipitId,1,' ')}`);
               }
             }
 
-            if(betweenBars) {
+            if(betweenBars && rubricText) {
               if(key+'Rubric' in propria) {
                 if(!(propria[key+'Rubric'] instanceof Array)) propria[key+'Rubric'] = [propria[key+'Rubric']];
                 propria[key+'Rubric'].push(rubricText);
