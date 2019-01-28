@@ -332,8 +332,8 @@
 		"offertoriumID": 195,
 		"communioID": 346,
 		"fromGregorianBooks": [
-			"votive_mass_holy_cross",
-			"exaltation_holy_cross"
+			"exaltation_holy_cross",
+			"votive_mass_holy_cross"
 		]
 	},
 	"votiveSCQuad": {
@@ -343,7 +343,9 @@
 		"offertoriumID": 195,
 		"communioID": 346,
 		"offertoriumReplace": "${gabcRemoveLastAlleluia}",
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"votive_mass_holy_cross"
+		]
 	},
 	"votiveSCPasch": {
 		"introitusID": 359,
@@ -351,7 +353,9 @@
 		"alleluiaID": 859,
 		"offertoriumID": 195,
 		"communioID": 346,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"votive_mass_holy_cross"
+		]
 	},
 	"votivePJC": {
 		"introitusID": 523,
@@ -359,7 +363,9 @@
 		"alleluiaID": 199,
 		"offertoriumID": 426,
 		"communioID": 84,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"votive_mass_passion_oljc"
+		]
 	},
 	"votivePJCQuad": {
 		"introitusID": 523,
@@ -367,7 +373,9 @@
 		"tractusID": 978,
 		"offertoriumID": 426,
 		"communioID": 84,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"votive_mass_passion_oljc"
+		]
 	},
 	"votivePJCPasch": {
 		"introitusID": 523,
@@ -375,7 +383,9 @@
 		"alleluiaID": 1376,
 		"offertoriumID": 426,
 		"communioID": 84,
-		"fromGregorianBooks": []
+		"fromGregorianBooks": [
+			"votive_mass_passion_oljc"
+		]
 	},
 	"votiveJ": {
 		"introitusID": 385,
@@ -404,7 +414,8 @@
 		"offertoriumID": 845,
 		"communioID": 534,
 		"fromGregorianBooks": [
-			"st_joseph_solemnity"
+			"st_joseph_solemnity",
+			"votive_mass_st_joseph"
 		]
 	},
 	"votivePP": {
@@ -414,8 +425,8 @@
 		"offertoriumID": 570,
 		"communioID": 1028,
 		"fromGregorianBooks": [
-			"ss_simon_jude",
-			"votive_mass_ss_peter_paul"
+			"votive_mass_ss_peter_paul",
+			"ss_simon_jude"
 		]
 	},
 	"votivePPQuad": {
@@ -435,15 +446,15 @@
 		"offertoriumID": 1382,
 		"communioID": 617,
 		"fromGregorianBooks": [
-			"st_mark",
-			"mass_one_martyr"
+			"mass_one_martyr",
+			"st_mark"
 		]
 	},
 	"votiveOA": {
 		"ref": "votivePP",
 		"fromGregorianBooks": [
-			"ss_simon_jude",
-			"votive_mass_ss_peter_paul"
+			"votive_mass_ss_peter_paul",
+			"ss_simon_jude"
 		]
 	},
 	"votiveOAQuad": {

@@ -776,9 +776,14 @@ gregorianPropers = {
   "trSeptID": 7670,
   "trSeptRef": "Ps 111: 1-3",
   "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
-  "alPasch": "De quacumque",
-  "alPaschID": 1324,
-  "alPaschRubric": "In Paschal Time sing this Alleluia first, then the previous Alleluia.",
+  "alPasch": [
+   "De quacumque",
+   "Fac nos innocuam"
+  ],
+  "alPaschID": [
+   1324,
+   213
+  ],
   "of": "Lauda (Jerusalem)",
   "ofID": 845,
   "ofRef": "Ps 147: 12, 13",

@@ -4171,9 +4171,14 @@ gregorianSaints = {
   "trSeptID": 7670,
   "trSeptRef": "Ps 111: 1-3",
   "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
-  "alPasch": "De quacumque",
-  "alPaschID": 1324,
-  "alPaschRubric": "In Paschal Time sing this Alleluia first, then the previous Alleluia.",
+  "alPasch": [
+   "De quacumque",
+   "Fac nos innocuam"
+  ],
+  "alPaschID": [
+   1324,
+   213
+  ],
   "of": "Lauda (Jerusalem)",
   "ofID": 845,
   "ofRef": "Ps 147: 12, 13",
@@ -4433,11 +4438,46 @@ gregorianSaints = {
   "grRef": "Philipp 2: 8-9",
   "al": "Dulce lignum",
   "alID": 859,
+  "trSept": "Adoramus te",
+  "trSeptID": 114,
+  "alPasch": [
+   "Dicite in gentibus",
+   "Dulce lignum"
+  ],
+  "alPaschID": [
+   627,
+   859
+  ],
+  "alPaschRef": [
+   "Ps 95: 10",
+   ""
+  ],
   "of": "Protege (Domine)",
   "ofID": 195,
   "co": "Per signum Crucis",
   "coID": 346,
   "coRef": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+ },
+ "votive_mass_passion_oljc": {
+  "title": "Friday - Votive Mass of Passion of Our Lord Jesus Christ",
+  "in": "Humiliavit",
+  "inID": 523,
+  "inRef": "Philipp 2: 8-9",
+  "gr": "Improperium",
+  "grID": 780,
+  "grRef": "Ps 68: 21-22",
+  "al": "Ave Rex noster",
+  "alID": 199,
+  "trSept": "Vere languores",
+  "trSeptID": 978,
+  "trSeptRef": "Is 53: 4-5",
+  "alPasch": "Tibi gloria",
+  "alPaschID": 1376,
+  "of": "Insurrexerunt",
+  "ofID": 426,
+  "co": "Foderunt",
+  "coID": 84,
+  "coRef": "Ps 21: 17-18"
  },
  "mass_beg_for_peace": {
   "title": "Mass to beg for Peace",
@@ -9351,9 +9391,9 @@ function compare(p1,p2,quadPasch) {
   return Object.keys(partKey).reduce((result, key) => (result && getProper(p1,key,quadPasch)==getProper(p2,key,quadPasch)), true);
 }
 allGregorian.sort((a,b) => (getProper(a,'introitus')||'ref').toString().localeCompare((getProper(b,'introitus')||'ref').toString()));
-var t1 = gregorianPropers.rogations,
-    t2 = propria.litaniisPasch,
-    qp = "";
+var t1 = gregorianSaints.votive_mass_ss_peter_paul_pt,
+    t2 = propria.votivePPPasch,
+    qp = "Pasch";
 console.info(Object.keys(partKey));
 console.info(Object.keys(partKey).map(k => [ getProper(t1, k, qp), getProper(t2, k, qp)]));
 console.info(compare(t1,t2,qp))

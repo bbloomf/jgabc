@@ -244,6 +244,13 @@ ${JSON.stringify(incipitId,1,' ')}`);
               }
             }
 
+            if(betweenBars && key == 'alPasch' && /\bsing\s+this\s+Alleluia\s+first/i.test(rubricText) && propria.al) {
+              propria.alPasch = [propria.alPasch, propria.al];
+              propria.alPaschID = [propria.alPaschID, propria.alID];
+              if(propria.alPaschRef || propria.alRef)
+              propria.alPaschRef = [propria.alPaschRef || "", propria.alRef || ""];
+              rubricText = null;
+            }
             if(betweenBars && rubricText) {
               if(key+'Rubric' in propria) {
                 if(!(propria[key+'Rubric'] instanceof Array)) propria[key+'Rubric'] = [propria[key+'Rubric']];
