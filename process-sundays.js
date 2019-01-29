@@ -1,6 +1,5 @@
 "use strict";
 var fs = require("fs"),
-    texts,
     empty = require('./texts.js'),
     stringSimilarity = require('string-similarity'),
     dirMain = '../divinum-officium-website/web/www/missa/Latin/',

@@ -1062,7 +1062,7 @@ texts = {
 		"136": "vox in rama audita est ploratus et ululatus rachel plorans filios suos noluit consolari quia non sunt",
 		"139": "joseph fili david noli timere accipere mariam conjugem tuam quod enim in ea natum est de spiritu sancto est alleluia",
 		"140": "dominus jesus postquam cenavit cum discipulis suis lavit pedes eorum et ait illis scitis quid fecerim vobis ego dominus et magister exemplum dedi vobis ut et vos ita faciatis",
-		"141": "lavabo inter innocentes manus meas et circuibo altare tuum domine ut audiam vocem laudis tuæ et enarem universa mirabilia tua",
+		"141": "lavabo inter innocentes manus meas et circuibo altare tuum domine ut audiam vocem laudis tuæ et enarrem universa mirabilia tua",
 		"145": "veste sancta utetur pontifex qui fuerit constitutus et ingredietur tabernaculum testimonii ut ministret in sanctuario",
 		"147": "unus panis et unum corpus multi sumus omnes qui de uno pane et de uno calice participamus",
 		"154": "si quis sitit veniat ad me et bibat alleluia alleluia",
