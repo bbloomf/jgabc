@@ -64,7 +64,7 @@ function textFromLine(lines, i, nextPage, array = []) {
   if(array.withRef) {
     gettingRef = true;
   }
-  while(lines[i] && !/¶/.test(lines[i].cnt) && !/___/.test(lines[i].cnt) && !allSpansAreRed(lines[i].cnt) && (startI == i || !/^<span[^>]+>(Allel[úu][ij]a|L[ée]ctio\s|Or[ée]mus\b|✠)/.test(lines[i].cnt))) {
+  while(lines[i] && !/¶/.test(lines[i].cnt) && !/___/.test(lines[i].cnt) && !allSpansAreRed(lines[i].cnt) && (startI == i || !/^<span[^>]+>(Allel[úu][ij]a|Tractus\b|L[ée]ctio\s|Sequ[eé]ntia\s+sancti\s+Evang[ée]lii\b|Or[ée]mus\b|✠)/.test(lines[i].cnt))) {
     if(gettingRef) {
       var spans = lines[i].cnt.match(/(<span[^>]+\>)[^<]+?(?=\s*<\/span>)/g);
       for(var j=0; j < spans.length; ++j) {
