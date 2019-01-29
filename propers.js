@@ -2273,6 +2273,8 @@ $(function(){
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
+      .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
+      .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')

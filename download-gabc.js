@@ -189,9 +189,7 @@ var path = 'gabc/',
                       .replace(/\s+([»’”"':;!?.,]+)\s*\(/g,'$1(')
                       .replace(/([«‘“"']+)\s+(?=[a-zæœǽǽœ́áéíóúýäëïöüÿ])/gi,'$1')
                       .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n')
-                      .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
-                      .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
-
+                      
                       .replace(/\s+$/,'')
                       .replace(/\+(?=[^()]*\()/g,'†')
                       .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
