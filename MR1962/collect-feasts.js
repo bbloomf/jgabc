@@ -64,7 +64,7 @@ function textFromLine(lines, i, nextPage, array = []) {
   if(array.withRef) {
     gettingRef = true;
   }
-  while(lines[i] && !/¶/.test(lines[i].cnt) && !/___/.test(lines[i].cnt) && !allSpansAreRed(lines[i].cnt) && (startI == i || !/^<span[^>]+>(Allel[úu][ij]a|L[ée]ctio\s|Or[ée]mus\b)/.test(lines[i].cnt))) {
+  while(lines[i] && !/¶/.test(lines[i].cnt) && !/___/.test(lines[i].cnt) && !allSpansAreRed(lines[i].cnt) && (startI == i || !/^<span[^>]+>(Allel[úu][ij]a|L[ée]ctio\s|Or[ée]mus\b|✠)/.test(lines[i].cnt))) {
     if(gettingRef) {
       var spans = lines[i].cnt.match(/(<span[^>]+\>)[^<]+?(?=\s*<\/span>)/g);
       for(var j=0; j < spans.length; ++j) {
@@ -304,7 +304,7 @@ for(page = firstPage; fs.existsSync(fname = dir+page+'.html') && page < 583; ++p
       } else if(/^Allel[úu][ij]a\b/.test(textlines[i])) {
         var alleluia = textFromLine(ordered, i, nextPage, {withRef: true});
         addProperty(currentProprium, 'alRef', alleluia.ref);
-        addProperty(currentProprium, 'al', alleluia.text);
+        addProperty(currentProprium, 'al', alleluia.text.replace(/\s+allel[úu][ij]a\.?\s*$/i,''));
       } else if(/^✠/.test(textlines[i])) {
         var array = [];
         var evIncipit = textFromLine(ordered, i, nextPage, array).slice(1).trim();
