@@ -96,6 +96,8 @@ function textFromLine(lines, i, nextPage, array = []) {
   }
   array[0] = i;
   var text = result.replace(/([a-zäëïöüœæáéíóú])-\s+([a-zäëïöüœæáéíóú])/g,'$1$2').trim();
+  text = text.replace(/\b(c)œ(l)/gi,"$1æ$2");
+  text = text.replace(/\bv\.\s+/gi,"℣ ");
   return array.withRef? { ref, text } : text;
 }
 function addProperty(obj, key, val) {
@@ -113,7 +115,7 @@ function addProperty(obj, key, val) {
     var txts = texts[partKey[key]];
     var txtKeys = Object.keys(txts);
     var arrayOfChoices = txtKeys.map(k => txts[k]);
-    var text = removeAcuteAccents(val.toLowerCase()).replace(/[^℣\sa-zæœ]+/g,'').replace(/\s+/g,' ').replace(/( ℣)? ps( ib(id)?)?\b/g,' ℣').replace(/( ℣)? gloria patri( .*)?$/,' gloria patri');
+    var text = removeAcuteAccents(val.toLowerCase()).replace(/[^℣\sa-zæœ]+/g,'').replace(/\s+/g,' ').replace(/( ℣)? ps( ib(id)?)?\b/g,' ℣').replace(/( ℣)? gloria patri( .*)?$/,' gloria patri').replace(/\balleluja\b/g,'alleluia');
     var sim = stringSimilarity.findBestMatch(text, arrayOfChoices);
     var bestMatch = txtKeys[sim.bestMatchIndex];
     if(sim.bestMatch.rating > 0.6) {
