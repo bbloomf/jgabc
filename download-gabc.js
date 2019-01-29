@@ -33,6 +33,20 @@ miscChantIDs = miscChantIDs.concat(oAntiphons);
 miscChantIDs.forEach(id => {
   if(ids.indexOf(id) >= 0) throw `${id} found in both lists at index ${ids.indexOf(id)}.`;
 });
+var gabcOf939, gabcOf451;
+var writeNew451 = () => {
+  if(gabcOf939 && gabcOf451) {
+    // take the psalm from 939 and add it to 451:
+    var psalm = "\n" + gabcOf939.match(/\(::\)\s*(.*)/s)[1];
+    if(!/^\n<i>Ps/.test(psalm)) psalm = "\n<i>Ps.</i>" + psalm;
+    gabcOf451 += psalm;
+    fs.writeFileSync(path + '451.gabc',gabcOf451);
+  }
+}
+var callbackOn = {
+  939: gabc => (gabcOf939 = gabc, writeNew451()),
+  451: gabc => (gabcOf451 = gabc, writeNew451()),
+}
 ids = ids.concat(miscChantIDs);
 https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages/patterns/la-hypher.js', result => {
   var file = 'patterns/la-hypher.js';
@@ -323,6 +337,8 @@ var path = 'gabc/',
                       });
                     fs.writeFileSync(file,header + content);
                     console.info(`Processed ${(i+1)} of ${ids.length}: ${file}; ${active} active`);
+                    var myCallback = callbackOn[ids[i]];
+                    if(myCallback) myCallback(header + content);
                     callback(true);
                   });
                 }

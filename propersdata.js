@@ -1271,7 +1271,7 @@ var proprium = {
   votiveSCJ: {ref:"SCJ"},
   SCJ: {introitusID:1320,gradualeID:1035,alleluiaID:907,offertoriumID:628,communioID:1356},
   ECJ: {introitusID:676,gradualeID:492,alleluiaID:10,offertoriumID:683,communioID:730,rubrics:rubricECJ},
-  litaniis: {introitusID:451, gradualeID:395, alleluiaID: 189, offertoriumID: 584, communioID: 422}, // todo: 451 does not have the psalm verse, which needs to be taken from 939
+  litaniis: {introitusID:451, gradualeID:395, alleluiaID: 189, offertoriumID: 584, communioID: 422}, // 451 does not have the psalm verse, which is taken from 939 in download-gabc.js
   litaniisPasch: {introitusID:939, gradualeID:189, alleluiaID: 1342, offertoriumID: 584, communioID: 364},
   litaniisQuad: {introitusID:451, gradualeID:395, tractusID: 276, offertoriumID: 584, communioID: 422},
   votiveECJ: {ref:"ECJ"},
