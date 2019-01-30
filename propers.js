@@ -262,6 +262,15 @@ $(function(){
     responsorium: "Resp.",
     canticum: "Cant."
   };
+  var partKey = {
+    introitus: 'in',
+    graduale: 'gr',
+    tractus: 'tr',
+    alleluia: 'al',
+    sequentia: 'seq',
+    offertorium: 'of',
+    communio: 'co'
+  };
   var defaultTermination={
     '1':'f',
     '3':'a',
@@ -708,6 +717,13 @@ $(function(){
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
       selPropers.gloria = false;
+    }
+    for(var k in partKey) {
+      var key = partKey[k] + 'ID';
+      k += 'ID';
+      if(key in selPropers && !(k in selPropers)) {
+        selPropers[k] = selPropers[key];
+      }
     }
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay] || extraChants[ref];
@@ -2273,6 +2289,8 @@ $(function(){
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
+      .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
+      .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
