@@ -111,7 +111,8 @@ function addProperty(obj, key, val) {
     }
   }
   if(key in partKey) {
-    // TODO: check all propers texts
+    // check all propers texts
+    // TODO: check lectio refs as well
     var txts = texts[partKey[key]];
     var txtKeys = Object.keys(txts);
     var arrayOfChoices = txtKeys.map(k => txts[k]);
@@ -119,17 +120,17 @@ function addProperty(obj, key, val) {
     var sim = stringSimilarity.findBestMatch(text, arrayOfChoices);
     var bestMatch = txtKeys[sim.bestMatchIndex];
     if(sim.bestMatch.rating > 0.6) {
-      obj[key+"ID"] = parseInt(bestMatch);
+      addProperty(obj,key+"ID", parseInt(bestMatch));
       if(sim.bestMatch.rating < 1) {
-        obj[key+"ID-rating"] = sim.bestMatch.rating;
-        obj[key+"ID-seekt"] = text;
-        obj[key+"ID-found"] = sim.bestMatch.target;
+        addProperty(obj,key+"ID-rating", sim.bestMatch.rating);
+        addProperty(obj,key+"ID-seekt", text);
+        addProperty(obj,key+"ID-found", sim.bestMatch.target);
       }
     } else if(sim.bestMatch.rating > 0) {
-      obj[key+"ID-best"] = parseInt(bestMatch);
-      obj[key+"ID-rating"] = sim.bestMatch.rating;
-      obj[key+"ID-seekt"] = text;
-      obj[key+"ID-beest"] = sim.bestMatch.target;
+      addProperty(obj,key+"ID-best", parseInt(bestMatch));
+      addProperty(obj,key+"ID-rating", sim.bestMatch.rating);
+      addProperty(obj,key+"ID-seekt", text);
+      addProperty(obj,key+"ID-beest", sim.bestMatch.target);
     }
   }
 }
@@ -305,8 +306,17 @@ for(page = firstPage; fs.existsSync(fname = dir+page+'.html') && page < 583; ++p
         addProperty(currentProprium, 'tr', tractus.text);
       } else if(/^Allel[úu][ij]a\b/.test(textlines[i])) {
         var alleluia = textFromLine(ordered, i, nextPage, {withRef: true});
-        addProperty(currentProprium, 'alRef', alleluia.ref);
-        addProperty(currentProprium, 'al', alleluia.text.replace(/\s+allel[úu][ij]a\.?\s*$/i,''));
+        var aMatch = alleluia.text.match(/\s+Allel[úu][ij]a[.,]?\s*[℣V]\.?\s*((?:\d+\.?\s*)?[a-z]+[.,]?\s*[\d,;:.\s]+[.,]\s+)?(.*)/i);
+        if(aMatch) {
+          alleluia.text = alleluia.text.slice(0, aMatch.index);
+          alleluia = [alleluia, {ref: vr.parseRef(aMatch[1]).verseRefString(), text: aMatch[2]}]
+        } else {
+          alleluia = [alleluia]
+        }
+        alleluia.forEach(al => {
+          addProperty(currentProprium, 'alRef', al.ref);
+          addProperty(currentProprium, 'al', al.text.replace(/\s+allel[úu][ij]a\.?\s*$/i,''));
+        })
       } else if(/^✠/.test(textlines[i])) {
         var array = [];
         var evIncipit = textFromLine(ordered, i, nextPage, array).slice(1).trim();

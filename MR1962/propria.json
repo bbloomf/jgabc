@@ -142,7 +142,10 @@
 			"Tóllite portas, principes, vestras: et elevámini, portæ æternáles: et introíbit Rex glóriæ, ℣. Quis ascéndet in montem Dómini? aut quis stabit in loco sancto ejus Innocens mánibus et mundo corde.",
 			"Prope est Dóminus ómnibus invocántibus eum: ómnibus qui ínvocant eum in veritáte. ℣. Laudem Dómini loquétur os meum: et benedícat omnis caro nomen sanctum ejus."
 		],
-		"grID": 284,
+		"grID": [
+			756,
+			284
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secundum Lucam.",
 		"evRef": "Luc. 1, 26–38.",
 		"ev": "In illo tempore: Missus est Angelus Gábriel a Deo in civitatem Galilǽæ, cui nomen Názareth, ad Vírginem desponsátam viro, cui nomen erat Joseph, de domo David, et nomen Vírginis María. Et ingréssus Angelus ad eam, dixit: Ave, grátia plena; Dóminus tecum: benedícta tu in muliéribus. Quæ cum audísset, turbáta est in sermóne ejus: et cogitábat, qualis esset ista salutátio. Et ait Angelus ei: Ne tímeas, María, invenísti enim grátiam apud Deum: ecce, concípies in útero, et páries fílium, et vocábis nomen ejus Jesum. Hic erit magnus, et Fílius Altíssimi vocábitur, et dabit illi Dóminus Deus sedem David, patris ejus: et regnábit in domo Jacob in ætérnum, et regni ejus non erit finis. Dixit autem María ad Angelum: Quómodo fiet istud, quóniam virum non cognósco? Et respóndens Angelus, dixit ei: Spíritus Sanctus supervéniet in te, et virtus Altíssimi obumbrábit tibi. Ideóque et quod nascétur ex te Sanctum, vocábitur Fílius Dei. Et ecce, Elísabeth, cognáta tua, et ipsa concépit fílium in senectúte sua: et hic mensis sextus est illi, quæ vocátur stérilis: quia non erit impossíbile apud Deum omne verbum. Dixit autem María: Ecce ancílla Dómini, fiat mihi secúndum verbum tuum. Offertorium. Is. 35, 4. Confortámini, et jam nolite timére: ecce enim, Deus noster retríbuet judícium: ipse véniet, et salvos nos fáciet.",
@@ -170,9 +173,6 @@
 		"grRef": "Ps 84: 8, 2",
 		"gr": "Osténde nobis, Dómine, misericórdiam tuam: et salutáre tuum da nobis. ℣. Benedixísti, Dómine, terram tuam: avertísti captivitátem Jacob.",
 		"grID": 1055,
-		"grID-rating": 0.9861751152073732,
-		"grID-seekt": "ostende nobis domine misericordiam tuam et salutare tuum da nobis ℣ benedixisti domine terram tuam avertisti captivitatem jacob",
-		"grID-found": "ostende nobis domine misericordia tuam et salutare tuum da nobis ℣ benedixisti domine terram tuam avertisti captivitatem jacob",
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Lucam.",
 		"evRef": "Luc. 1, 39–47.",
 		"ev": "In illo tempore: Exsúrgens María ábiit in montána cum festinatióne in civitátem Juda: et intrávit in domum Zacharíæ, et salutávit Elísabeth. Et factum est, ut audivit salutatiónem Maríæ Elísabeth, exsultávit infans in útero ejus: et repléta est Spíritu Sancto Elísabeth, et exclamávit voce magna, et dixit: Benedícta tu inter mulíeres, et benedíctus fructus ventris tui. Et unde hoc mihi, ut véniat Mater Dómini mei ad me? Ecce enim, ut facta est vox salutatiónis tuæ in áuribus meis, exsultávit in gáudio infans in útero meo. Et beáta, quæ credidísti, quóniam perficiéntur ea, quæ dicta sunt tibi a Dómino. Et ait María: Magníficat anima mea Dóminum: et exsultávit spíritus meus in Deo, salutári meo. Offertorium. Ps. 84, 7–8. Deus, tu convérsus vivificábis nos, et plebs tua lætábitur in te: osténde nobis, Dómine, misericórdiam tuam, et salutáre tuum da nobis.",
@@ -237,7 +237,12 @@
 			"Dómine, Deus virtútum, convérte nos: et osténde fáciem tuam, et salvi érimus, ℣. Excita, Dómine, poténtiam tuam, et veni, ut salvos fácias nos.",
 			"Excita, Dómine, poténtiam tuam, et veni, ut salvos fácias nos. ℣. Qui regis Israël, inténde: qui dedúcis, velut ovem, Joseph: qui sedes super Chérubim, appáre coram Ephraim, Bénjamin, et Manásse."
 		],
-		"grID": 506,
+		"grID": [
+			698,
+			203,
+			38,
+			506
+		],
 		"trRef": "Ps 79: 2-3",
 		"tr": "Qui regis Israël, inténde: qui dedúcis, velut ovem, Joseph. ℣. Qui sedes super Chérubim, appáre coram Ephraim, Bénjamin, et Manásse. ℣. Excita, Dómine, poténtiam tuam, et veni: ut salvos fácias nos.",
 		"trID": 1157,
@@ -443,7 +448,11 @@
 			"Vídeo cælos apértos, et Jesum stantem a dextris virtútis Dei.",
 			"Posuísti, Dómine, super caput ejus corónam de lápide pretióso."
 		],
-		"alID": 1249,
+		"alID": [
+			561,
+			561,
+			1249
+		],
 		"trRef": "Ps 20: 3-4",
 		"tr": "Desidérium ánimæ ejus tribuísti ei: et voluntáte labiórum ejus non fraudásti eum. ℣. Quóniam prævenísti eum in benedictiónibus dulcédinis, ℣. Posuísti in cápite ejus corónam de lápide pretióso.",
 		"trID": 176,
@@ -487,17 +496,32 @@
 		"alRef": [
 			"Ibid : 24",
 			"Joann 21: 24",
+			"Ps 91: 13",
 			""
 		],
 		"al": [
 			"Hic est discípulus ille, qui testimónium pérhibet de his: et scimus, quia verum est testimónium ejus. Allelúja. In Missis votivis post Septuagesimam,",
-			"Hic est discípulus ille, qui testimónium pérhibet de his: et scimus, quia verum est testimónium ejus. Allelúja. ℣. Ps. 91, 13. Justus ut palma florébit: sicut cedrus Líbani multiplicábitur.",
+			"Hic est discípulus ille, qui testimónium pérhibet de his: et scimus, quia verum est testimónium ejus.",
+			"Justus ut palma florébit: sicut cedrus Líbani multiplicábitur.",
 			""
 		],
-		"alID": 914,
-		"alID-rating": 0.7232142857142857,
-		"alID-seekt": "hic est discipulus ille qui testimonium perhibet de his et scimus quia verum est testimonium ejus alleluia ℣ justus ut palma florebit sicut cedrus libani multiplicabitur",
-		"alID-found": "hic est discipulus ille qui testimonium perhibet de his et scimus quia verum est testimonium ejus",
+		"alID": [
+			914,
+			914,
+			946
+		],
+		"alID-rating": [
+			0.801980198019802,
+			0.9
+		],
+		"alID-seekt": [
+			"hic est discipulus ille qui testimonium perhibet de his et scimus quia verum est testimonium ejus alleluia in missis votivis post septuagesimam",
+			"justus ut palma florebit sicut cedrus libani multiplicabitur"
+		],
+		"alID-found": [
+			"hic est discipulus ille qui testimonium perhibet de his et scimus quia verum est testimonium ejus",
+			"justus ut palma florebit et sicut cedrus multiplicabitur"
+		],
 		"trRef": "Ps 111: 1-3",
 		"tr": "Beátus vir, qui timet Dóminum: in mandátis ejus cupit nimis. ℣. Potens in terra erit semen ejus: generátio rectórum benedicétur. ℣. Glória et divítiæ in domo ejus: et justítia ejus manet in sǽ- culum sǽculi.",
 		"trID": 7670,
@@ -527,16 +551,18 @@
 		"alRef": [
 			"",
 			"Ps 112: 1",
-			"Ps 112: 1"
+			"Ps 112: 1",
+			"Eccli 39: 19"
 		],
 		"al": [
 			", neque Ite, Missa est, nisi hoc Fe-",
 			"Laudáte, púeri, Dóminum, laudáte nomen Dómini.",
-			"Laudáte, púeri, Dóminum, laudáte nomen Dómini. Allelúja, ℣. Eccli. 39, 19. Sancti tui, Dómine, florébunt sicut lílium, et sicut odor bálsami erunt ante te."
+			"Laudáte, púeri, Dóminum, laudáte nomen Dómini.",
+			"Sancti tui, Dómine, florébunt sicut lílium, et sicut odor bálsami erunt ante te."
 		],
 		"alID-best": 194,
-		"alID-rating": 0.711864406779661,
-		"alID-seekt": "laudate pueri dominum laudate nomen domini alleluia ℣ eccli sancti tui domine florebunt sicut lilium et sicut odor balsami erunt ante te",
+		"alID-rating": 0.29850746268656714,
+		"alID-seekt": " neque ite missa est nisi hoc fe",
 		"alID-beest": "de excelso misit ignem in ossibus meis et erudivit me",
 		"collect": [
 			"Deus, cujus hodicrna die præcónium Innocéntes Mártyres non loquéndo, sed moriéndo conféssi sunt: ómnia in nobis vitiórum mala mortífica; ut fidem tuam, quam lingua nostra lóquitur, étiam móribus vita fateátur. Per Dóminum.",
@@ -548,7 +574,11 @@
 		"grRef": "Ps 123: 7-8",
 		"gr": "Anima nostra, sicut passer, erépta est de láqueo venántium. ℣. Láqueus contrítus est, et nos liberáti sumus: adjutórium nostrum in nómine Dómini, qui fecit cælum et terram.",
 		"grID": 432,
-		"alID": 800,
+		"alID": [
+			661,
+			661,
+			800
+		],
 		"trRef": [
 			"",
 			"Ps 78: 3, 10"
@@ -558,7 +588,6 @@
 			"Effudérunt sánguinem Sanctórum, velut aquam, in circuitu Jerúsalem, ℣. Et non erat, qui sepelíret. ℣.Víndica, Dómine, sánguinem Sanctórum tuórum, qui effúsus est super terram."
 		],
 		"trID": 240,
-		"alID-found": "sancti tui domine florebunt sicut lilium et sicut odor balsami erunt ante te",
 		"evIncipit": "Sequéntia sancti Evangélii secundum Matthǽum P",
 		"evRef": "Matth. 2, 13-18.",
 		"ev": "In illo témpore: Angelus Dómini appáruit in somnis Joseph, dicens: Surge, et áccipe Púerum et Matrem ejus, et fuge in Ægýptum, et esto ibi, usque dum dicam tibi. Futúrum est enim, ut Heródes quærat Púerum ad perdéndum eum. Qui consúrgens accépit Púerum et Matrem ejus nocte, et secéssit in Ægýptum: et erat ibi usque ad óbitum Heródis: ut adimplerétur quod dictum est a Dómino per Prophétam dicéntem: Ex Ægýpto vocávi Fílium meum. Tunc Heródes videns, quóniam illúsus esset a Magis, irátus est valde, et mittens occídit omnes púeros, qui erant in Béthlehem et in ómnibus fínibus ejus, a bimátu et infra, secúndum tempus, quod exquisíerat a Magis. Tunc adimplétum est, quod dictum est per Jeremíam Prophetam dicéntem: Vox in Rama audíta est, plorátus et ululátus multus: Rachel plorans fílios suos, et nóluit consolári, quia non sunt. Credo, ratione Octavæ. Offertorium. Ps. 123, 7. Anima nostra, sicut passer, erépta est de láqueo venántium: láqueus contrítus est, et nos liberáti sumus.",
@@ -650,13 +679,19 @@
 		"grID-found": "ecce sacerdos magnus qui in diebus suis placuit deo ℣ non est inventus similis illi qui conservaret legem excelsi",
 		"alRef": [
 			"Joann 10: 14",
-			"Joann 10: 14"
+			"Joann 10: 14",
+			"Ps 109: 4"
 		],
 		"al": [
 			"Ego sum pastor bonus: et cognósco oves meas, et cognóscunt me meæ.",
-			"Ego sum pastor bonus: et cognósco oves meas, et cognóscunt me meæ. Allelúja. ℣. Ps. 109, 4. Tu es sacérdos in ætérnum, secúndum órdinem Melchísedech."
+			"Ego sum pastor bonus: et cognósco oves meas, et cognóscunt me meæ.",
+			"Tu es sacérdos in ætérnum, secúndum órdinem Melchísedech."
 		],
-		"alID": 1220,
+		"alID": [
+			1220,
+			1220,
+			477
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secundum Joannem",
 		"evRef": "Joann. 10, 11-16.",
 		"ev": "In illo témpore: Dixit Jesus pharisǽis: Ego sum pastor bonus. Bonus pastor ánimam suam dat pro óvibus suis. Mercennárius autem, et qui non est pastor, cujus non sunt oves própriæ, videt lupum veniéntem, et dimíttit oves et fugit: et lupus rapit et dispérgit oves; mercennárius autem fugit, quia mercennárius est et non pértinet ad eum de óvibus. Ego sum pastor bonus: et cognósco meas et cognóscunt me meæ. Sicut novit me Pater, et ego agnósco Patrem, et ánimam meam pono pro óvibus meis. Et álias oves hábeo, quæ non sunt ex hoc ovíli: et illas opórtet me addúcere, et vocem meam áudient, et fiet unum ovíle et unus pastor. Credo, ratione Octavæ.",
@@ -684,10 +719,7 @@
 			"Hæc nos, quǽsumus, Dómine, divini sacraménti percéptio prótegat: et fámulum tuum N., quem pastórem Ecclésiæ tuæ præésse voluísti; una cum commísso sibi grege, salvet semper et múniat. Per Dóminum."
 		],
 		"trRef": "",
-		"tr": "",
-		"alID-rating": 0.6415094339622641,
-		"alID-seekt": "ego sum pastor bonus et cognosco oves meas et cognoscunt me meæ alleluia ℣ tu es sacerdos in æternum secundum ordinem melchisedech",
-		"alID-found": "ego sum pastor bonus et cognosco oves meas et cognoscunt me meæ"
+		"tr": ""
 	},
 	"De VI die infra Octavam Nativitatis": {
 		"inRef": "Is 9: 6",
@@ -740,20 +772,23 @@
 		"alRef": [
 			"Ps 88: 21",
 			"Ps 109: 4",
+			"",
 			""
 		],
 		"al": [
 			"Invéni David servum meum: óleo sancto meo unxi eum.",
-			"Tu es sacérdos in ætérnum, secúndum órdinem Melchísedech. Allelúja, ℣. Hic est sacérdos, quem coronávit Dóminus.",
+			"Tu es sacérdos in ætérnum, secúndum órdinem Melchísedech.",
+			"Hic est sacérdos, quem coronávit Dóminus.",
 			""
 		],
-		"alID": 1187,
+		"alID": [
+			1350,
+			477,
+			1118
+		],
 		"trRef": "Ps 111: 1-3",
 		"tr": "Beátus vir, qui timet Dóminum: in mandátis ejus cupit nimis. ℣. Potens in terra erit semen ejus: generátio rectorum benedicétur. ℣. Glória et divítiæ in domo ejus: et justítia ejus manet in sǽculum sǽculi.",
 		"trID": 7670,
-		"alID-rating": 0.6904761904761905,
-		"alID-seekt": "tu es sacerdos in æternum secundum ordinem melchisedech alleluia ℣ hic est sacerdos quem coronavit dominus",
-		"alID-found": "juravit dominus et non pænitebit eum tu es sacerdos in æternum secundum ordinem melchisedech",
 		"evIncipit": "Sequéntia sancti Evangélii secundum Lucam.",
 		"evRef": "Luc. 12, 35-40.",
 		"ev": "In illo témpore: Dixit Jesus discípulis suis: Sint lumbi vestri præcíncti, et lucérnæ ardéntes in mánibus vestris, et vos símiles homínibus exspectántibus dóminum suum, quando revertátur a núptiis: ut, cum vénerit et pulsáverit, conféstim apériant ei. Beáti servi illi, quos, cum vénerit dóminus, invénerit vigilántes: amen, dico vobis, quod præcínget se, et fáciet illos discúmbere, et tránsiens ministrábit illis. Et si vénerit in secúnda vigília, et si in tértia vigília vénerit, et ita invénerit, beáti sunt servi illi. Hoc autem scitóte, quóniam, si sciret paterfamílias, qua hora fur veníret, vigiláret útique, et non síneret pérfodi domum suam. Et vos estóte paráti, quia, qua hora non putátis, Fílius hóminis véniet. Credo, ratione Octavæ. Offertorium. Ps. 88, 21-22. Invéni David servum meum, óleo sancto meo unxi eum: manus enim mea auxiliábitur ei, et bráchium meum confortábit eum.",
@@ -828,22 +863,25 @@
 		"grID-found": "salvos fac nos domine deus noster et congrega nos de nationibus ut confiteamur nomini sancto tuo et gloriemur in gloria tua ℣ tu domine pater noster et redemptor noster a sæculo nomen tuum",
 		"alRef": [
 			"Ps 144: 21",
-			"Ps 144: 21"
+			"Ps 144: 21",
+			"Ibid : 1"
 		],
 		"al": [
 			"Laudem Dómini loquétur os meum, et benedícat omnis caro nomen sanctum ejus.",
-			"Laudem Dómini loquétur os meum, et benedícat omnis caro nomen sanctum ejus. Allelúja. ℣. Ibid., 1. Exaltábo te, Deus meus, Rex: et benedícam nómini sancto tuo, Jesu, in sǽculum, et in sǽculum sǽculi."
+			"Laudem Dómini loquétur os meum, et benedícat omnis caro nomen sanctum ejus.",
+			"Exaltábo te, Deus meus, Rex: et benedícam nómini sancto tuo, Jesu, in sǽculum, et in sǽculum sǽculi."
 		],
-		"alID": 954,
+		"alID": [
+			1,
+			1,
+			954
+		],
 		"trRef": "Ps 79: 20; Cant 2: 14",
 		"tr": "Dómine, Deus virtútum, convérte nos: et osténde fáciem tuam, et salvi érimus: sonet vox tua in áuribus meis. Vox enim tua dulcis, et fácies tua decóra nimis. ℣. Cant.1, 2. Oleum effúsum nomen tuum, Jesu: ideo adolescéntulæ dilexérunt te.",
 		"trID": 1167,
 		"trID-rating": 0.9749303621169917,
 		"trID-seekt": "domine deus virtutum converte nos et ostende faciem tuam et salvi erimus sonet vox tua in auribus meis vox enim tua dulcis et facies tua decora nimis ℣ cant oleum effusum nomen tuum jesu ideo adolescentulæ dilexerunt te",
 		"trID-found": "domine deus virtutum converte nos et ostende faciem tuam et salvi erimus sonet vox tua in auribus meis ℣ vox enim tua dulcis et facies tua decora nimis ℣ oleum effusum nomen tuum jesu ideo adolescentulæ dilexerunt te",
-		"alID-rating": 0.6696035242290749,
-		"alID-seekt": "laudem domini loquetur os meum et benedicat omnis caro nomen sanctum ejus alleluia ℣ ibid exaltabo te deus meus rex et benedicam nomini sancto tuo jesu in sæculum et in sæculum sæculi",
-		"alID-found": "exaltabo te deus meus rex et benedicam nomini sancto tuo jesu in sæculum et in sæculum sæculi",
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Lucam P",
 		"evRef": "Luc. 2, 21.",
 		"ev": "In illo témpore: Postquam consummáti sunt dies octo, ut circumciderétur Puer: vocátum est nomen ejus Jesus, quod vocátum est ab Angelo, priúsquam in útero conciperétur.",
@@ -967,21 +1005,27 @@
 		"grID": 260,
 		"alRef": [
 			"Isai 45: 15",
-			"Prov 8: 34"
+			"Prov 8: 34",
+			"Col 3: 3"
 		],
 		"al": [
 			"Vere tu es Rex abscónditus, Deus Israël Salvátor.",
-			"Beátus homo qui audit me, et qui vígilat ad fores meas cotídie, et obsérvat ad postes óstii mei. Allelúja, ℣. Col. 3, 3. Vita nostra est abscóndita cum Christo in Deo."
+			"Beátus homo qui audit me, et qui vígilat ad fores meas cotídie, et obsérvat ad postes óstii mei.",
+			"Vita nostra est abscóndita cum Christo in Deo."
 		],
-		"alID": 116,
+		"alID": [
+			816,
+			116,
+			122
+		],
 		"trRef": "Hebr 10: 5",
 		"tr": "Hóstiam et oblatiónem noluísti, corpus autem aptásti mihi. ℣. Ps. 39, 7- 8. Holocáustum et pro peccáto non postulásti: tunc dixi: Ecce, vénio. ℣. Hebr. 10, 7. In cápite libri scriptum est de me: Ut fáciam, Deus, voluntátem tuam.",
 		"trID": 1153,
 		"trID-rating": 0.9811320754716981,
 		"trID-seekt": "hostiam et oblationem noluisti corpus autem aptasti mihi ℣ holocaustum et pro peccato non postulasti tunc dixi ecce venio ℣ hebr in capite libri scriptum est de me ut faciam deus voluntatem tuam",
 		"trID-found": "hostiam et oblationem noluisti corpus autem aptasti mihi ℣ holocaustum et pro peccato non postulasti tunc dixi ecce venio ℣ in capite libri scriptum est de me ut faciam deus voluntatem tuam",
-		"alID-rating": 0.7263681592039801,
-		"alID-seekt": "beatus homo qui audit me et qui vigilat ad fores meas cotidie et observat ad postes ostii mei alleluia ℣ col vita nostra est abscondita cum christo in deo",
+		"alID-rating": 0.9668874172185431,
+		"alID-seekt": "beatus homo qui audit me et qui vigilat ad fores meas cotidie et observat ad postes ostii mei",
 		"alID-found": "beatus homo qui audit me et qui vigilat ad fores meas quotidie et observat ad postes ostii mei",
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Lucam. P",
 		"evRef": "Luc. 2, 42-52.",
@@ -1702,11 +1746,26 @@
 			"Dirigátur orátio mea sicut incénsum in conspéctu tuo, Dómine. ℣. Elevátio mánuum meárum sacrifícium vespertínum."
 		],
 		"grID-best": 394,
-		"grID-rating": 0.9716981132075472,
-		"grID-seekt": "convertere domine aliquantulum et deprecare super servos tuos ℣ domine refugium factus es nobis a generatione et progenie levate",
+		"grID-rating": [
+			0.12195121951219512,
+			0.9029126213592233,
+			0.9716981132075472
+		],
+		"grID-seekt": [
+			"propiti",
+			"protec oremus flectamus genua tor noster aspice deus et respice super servos tuos ℣ domine deus virtutum exaudi preces servorum tuorum",
+			"convertere domine aliquantulum et deprecare super servos tuos ℣ domine refugium factus es nobis a generatione et progenie levate"
+		],
 		"grID-beest": "dilexisti justitiam et odisti iniquitatem ℣ propterea unxit te deus deus tuus oleo lætitiæ",
-		"grID": 44,
-		"grID-found": "convertere domine aliquantulum et deprecare super servos tuos ℣ domine refugium factus es nobis a generatione et progenie",
+		"grID": [
+			1226,
+			1046,
+			44
+		],
+		"grID-found": [
+			"protector noster aspice deus et respice super servos tuos ℣ domine deus virtutum exaudi preces servorum tuorum",
+			"convertere domine aliquantulum et deprecare super servos tuos ℣ domine refugium factus es nobis a generatione et progenie"
+		],
 		"trRef": "Ps 116: 1-2",
 		"tr": "Laudáte Dóminum, omnes gentes: et collaudáte eum, omnes pópuli. ℣. Quóniam confirmáta est super nos misericórdia ejus: et véritas Dómini manet in ætérnum.",
 		"trID": 1247,
@@ -2292,7 +2351,10 @@
 			"Veníte, fílii, audíte me: timórem Dómini docébo vos. ℣. Accédite ad eum, et illuminámini: et fácies vestræ non confundéntur. Hic dicitur: ℣. Dóminus vobíscum, sine Flectámus génua. Orémus.",
 			"Beáta gens, cujus est Dóminus Deus eórum: pópulus, quem elégit Dóminus in hereditátem sibi. ℣. Verbo Dómini cæli firmáti sunt: et spíritu oris ejus omnis virtus eórum."
 		],
-		"grID": 1044,
+		"grID": [
+			1022,
+			1044
+		],
 		"grID-rating": 0.7950819672131147,
 		"grID-seekt": "venite filii audite me timorem domini docebo vos ℣ accedite ad eum et illuminamini et facies vestræ non confundentur hic dicitur ℣ dominus vobiscum sine flectamus genua oremus",
 		"grID-found": "venite filii audite me timorem domini docebo vos ℣ accedite ad eum et illuminamini et facies vestræ non confundentur",
@@ -2550,9 +2612,6 @@
 		"coRef": "Ps 25: 6-7",
 		"co": "Lavábo inter innocéntes manus meas, et circuíbo altáre tuum, Dómine: ut áudiam vocem laudis tuæ, et enárrem univérsa mirabília tua.",
 		"coID": 141,
-		"coID-rating": 0.995260663507109,
-		"coID-seekt": "lavabo inter innocentes manus meas et circuibo altare tuum domine ut audiam vocem laudis tuæ et enarrem universa mirabilia tua",
-		"coID-found": "lavabo inter innocentes manus meas et circuibo altare tuum domine ut audiam vocem laudis tuæ et enarem universa mirabilia tua",
 		"postcommunio": [
 			"Cæléstis doni benedictióne percépta: súpplices te, Deus omnípotens, deprecámur; ut hoc idem nobis et sacraménti causa sit et salútis. Per Dóminum.",
 			"Super populum: Orémus. Humiliáte cápita vestra Deo."
@@ -2968,10 +3027,35 @@
 			"Atténde, cælum, et loquar: et áudiat terra verba ex ore meo. ℣. Exspectétur sicut plúvia elóquium meum: et descéndant sicut ros verba mea. ℣. Sicut imber super gramen et sicut nix super fænum: quia nomen Dómini invocábo, ℣. Date magnitúdinem Deo nostro: Deus, vera ópera ejus, et omnes viæ ejus judícia, ℣. Deus fidélis, in quo non est iníquitas: justus et sanctus Dóminus.",
 			"Sicut cervus desíderat ad fontes aquárum: iía desíderat ánima mea ad te, Deus. ℣. Sitívit ánima mea ad Deum vivum: quando véniam, et apparébo ante fáciem Dei? ℣. Fuérunt mihi lácrimæ meæ panes die ac nocte, dum dícitur mihi per síngulos dies: Ubi est Deus tuus?"
 		],
-		"trID": 1395,
-		"trID-rating": 0.9829683698296837,
-		"trID-seekt": "sicut cervus desiderat ad fontes aquarum iia desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus",
-		"trID-found": "sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus"
+		"trID": [
+			1437,
+			1561,
+			1661,
+			1388,
+			1638,
+			1395
+		],
+		"trID-rating": [
+			0.9824,
+			0.9888143176733781,
+			0.9854368932038835,
+			0.9675213675213675,
+			0.9829683698296837
+		],
+		"trID-seekt": [
+			"domine audivi auditum tuum et timui consideravi opera tua et expavi ℣ in medio duorum animalium innotesceris dum appropinquaverint anni sognosceris dum advenerit tempus ostendens ℣ in eo dum conturbata fuerit anima mea in ira misericordiæ memor eris ℣ deus a libano veniet et sanctus de monte umbroso et condenso ℣ operuit cælos majestas ejus et laudis ejus plena est terra",
+			"eripe me domine ab homine malo a viro iniquo libera me ℣ qui cogitaverunt malitias in corde tota die constituebant prlia ℣ acuerunt linguas suas sicut serpentis venenum aspidum sub labiis eorum ℣ custodi me domine de manu peccatoris et ab hominibus iniquis libera me ℣ qui cogitaverunt supplantare gressus meos absconderunt superbi laqueum mihi ℣ et funes extenderunt in laqueum pedibus meis juxta iter scandalum posuerunt mihi ℣ dixi domino deus meus es tu exaudi domine vocem orationis meæ ℣ domine domine virtus salutis meæ obumbra caput meum in die belli ℣ ne tradas me a desiderio meo peccatori cogitaverunt adversus me ne derelinquas me ne umquam exaltentur ℣ caput circuitus eorum lador labiorum ipsorum operiet eos ℣ verumtamen justi confitebuntur nomini tuo et habitabunt recti cum vultu tuo",
+			"cantemus domino gloriose enim honorificatus est equum et ascensorem projecit in mare adjutor et protector factus est mihi in salutem ℣ hic deus meus et honorificabo eum deus patris mei et exaltabo eum ℣ dominus conterens bella dominus nomen est illi",
+			"attende cælum et loquar et audiat terra verba ex ore meo ℣ exspectetur sicut pluvia eloquium meum et descendant sicut ros verba mea ℣ sicut imber super gramen et sicut nix super fænum quia nomen domini invocabo ℣ date magnitudinem deo nostro deus vera opera ejus et omnes viæ ejus judicia ℣ deus fidelis in quo non est iniquitas justus et sanctus dominus",
+			"sicut cervus desiderat ad fontes aquarum iia desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus"
+		],
+		"trID-found": [
+			"domine audivi auditum tuum et timui consideravi opera tua et expavi ℣ in medio duorum animalium innotesceris dum appropinquaverint anni cognosceris dum advenerit tempus ostenderis ℣ in eo dum conturbata fuerit anima mea in ira misericordiæ memor eris ℣ deus a libano veniet et sanctus de monte umbroso et condenso ℣ operuit cœlos majestas ejus et laudis ejus plena est terra",
+			"eripe me domine ab homine malo a viro iniquo libera me ℣ qui cogitaverunt malitias in corde tota die constituebant prælia ℣ acuerunt linguas suas sicut serpentes venenum aspidum sub labiis eorum ℣ custodi me domine de ma nu peccatoris et ab hominibus iniquis libera me ℣ qui cogitaverunt supplantare gressus meos absconderunt superbi laqueum mihi ℣ et funes extenderunt in laqueum pedibus meis juxta iter scandalum posuerunt mihi ℣ dixi domino deus meus es tu exaudi domine vocem orationis meæ ℣ domine domine virtus salutis meæ obumbra caput meum in die belli ℣ ne tradas me a desiderio meo peccatori cogitaverunt adversum me ne derelinquas me ne umquam exaltentur ℣ caput circuitus eorum labor labiorum ipsorum operiet eos ℣ verumtamen justi confitebuntur nomini tuo et habitabunt recti cum vultu tuo",
+			"cantemus domino gloriose enim honorificatus est equum et ascensorem projecit in mare adjutor et protector factus est mihi in salutem ℣ hic deus meus et honorabo eum deus patris mei et exaltabo eum ℣ dominus conterens bella dominus nomen est illi",
+			"attende cœlum et loquar et audiat terra verba ex ore meo ℣ exspectetur sicut pluvia eloquium meum et descendant sicut ros verba mea sicut imber super gramina ℣ et sicut nix super fœnum quia nomen domini invocabo ℣ date magnitudinem deo nostro deus vera opera ejus et omnes viæ ejus judicia ℣ deus fidelis in quo non est in iniquitas justus et sanctus dominus",
+			"sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus"
+		]
 	},
 	"DOMINICA, RESURRECTIONIS": {
 		"inRef": "Ps 138: 18, 5-6",
@@ -3179,7 +3263,10 @@
 			"Hæc dies, quam fecit Dóminus: exsultémus et lætémur in ea.",
 			"Laudáte, pueri, Dóminum, laudáte nomen Dómini."
 		],
-		"alID": 661,
+		"alID": [
+			568,
+			661
+		],
 		"ofRef": "Ps 117: 26-27",
 		"of": "Benedíctus, qui venit in nómine Dómini: benedíximus vobis de domo Dómini: Deus Dóminus, et illúxit nobis, allelúja, allelúja.",
 		"ofID": 941,
@@ -3208,16 +3295,18 @@
 		"lectio": "Caríssimi: Omne, quod natum est ex Deo, vincit mundum: et hæc est victoria, quæ vincit mundum, fides nostra. Quis est, qui vincit mundum, nisi qui credit, quóniam Jesus est Fílius Dei? Hic est, qui venit per aquam et sánguinem, Jesus Christus: non in aqua solum, sed in aqua et sánguine. Et Spíritus est, qui testificátur, quóniam Christus est véritas. Quóniam tres sunt, qui testimónium dant in cælo: Pater, Verbum, et Spíritus Sanctus: et hi tres unum sunt. Et tres sunt, qui testimónium dant in terra: Spíritus, et aqua, et sanguis: et hi tres unum sunt. Si testimónium hóminum accípimus, testimónium Dei majus est: quóniam hoc est testimónium Dei, quod majus est: quóniam testificátus est de Fílio suo. Qui credit in Fílium Dei, habet testimónium Dei in se.",
 		"alRef": [
 			"Matth 28: 7",
+			"Joann 20: 26",
 			""
 		],
 		"al": [
-			"In die resurrectiónis meæ, dicit Dóminus, præcédam vos in Galilǽam. Allelúja. ℣ Joann. 20, 26. Post dies octo, jánuis clausis, stetit Jesus in médio discipulórum suórum, et dixit: Pax vobis.",
+			"In die resurrectiónis meæ, dicit Dóminus, præcédam vos in Galilǽam.",
+			"Post dies octo, jánuis clausis, stetit Jesus in médio discipulórum suórum, et dixit: Pax vobis.",
 			""
 		],
-		"alID": 275,
-		"alID-rating": 0.684931506849315,
-		"alID-seekt": "in die resurrectionis meæ dicit dominus præcedam vos in galilæam alleluia ℣ joann post dies octo januis clausis stetit jesus in medio discipulorum suorum et dixit pax vobis",
-		"alID-found": "post dies octo januis clausis stetit jesus in medio discipulorum suorum et dixit pax vobis",
+		"alID": [
+			1042,
+			275
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 20, 19-31.",
 		"ev": "In illo témpore: Cum sero esset die illo, una sabbatórum, et fores essent clausæ, ubi erant discípuli congregáti propter metum Judæórum: venit Jesus, et stetit in médio, et dixit eis: Pax vobis. Et cum hoc dixísset, osténdit eis manus et latus. Gavísi sunt ergo discípuli, viso Dómino. Dixit ergo eis íterum: Pax vobis. Sicut misit me Pater, et ego mitto vos. Hæc cum dixísset, insufflávit, et dixit eis: Accípite Spíritum Sanctum: quorum remiseritis peccáta, remittúntur eis; et quorum retinuéritis, reténta sunt. Thomas autem unus ex duódecim, qui dícitur Dídymus, non erat cum eis, quando venit Jesus. Dixérunt ergo ei alii discípuli: Vídimus Dóminum. Ille autem dixit eis: Nisi vídero in mánibus ejus fixúram clavórum, et mittam dígitum meum in locum clavórum, et mittam manum meam in latus ejus, non credam. Et post dies octo, íterum erant discípuli ejus intus, et Thomas cum eis. Venit Jesus, jánuis clausis, et stetit in médio, et dixit: Pax vobis. Deinde dicit Thomæ: Infer dígitum tuum huc et vide manus meas, et affer manum tuam et mitte in latus meum: et noli esse incrédulus, sed fidélis. Respóndit Thomas et dixit ei: Dóminus meus et Deus meus. Dixit ei Jesus: Quia vidísti me, Thoma, credidísti: beáti, qui non vidérunt, et credidérunt. Multa quidem et alia signa fecit Jesus in conspéctu discipulórum suórum, quæ non sunt scripta in libro hoc. Hæc autem scripta sunt, ut credátis, quia Jesus est Christus, Fílius Dei: et ut credéntes vitam habeátis in nómine ejus. Credo.",
@@ -3261,7 +3350,10 @@
 			"Ego sum pastor bonus: ei cognósco oves meas, et cognóscunt me meæ.",
 			""
 		],
-		"alID": 1220,
+		"alID": [
+			912,
+			1220
+		],
 		"alID-rating": 0.9607843137254902,
 		"alID-seekt": "ego sum pastor bonus ei cognosco oves meas et cognoscunt me meæ",
 		"alID-found": "ego sum pastor bonus et cognosco oves meas et cognoscunt me meæ",
@@ -3286,12 +3378,21 @@
 		"lectioIncipit": "Léctio Epístolæ beáti Petri Apóstoli.",
 		"lectioRef": "1. Petri 2, 11-19.",
 		"lectio": "Caríssimi: Obsecro vos tamquam ádvenas et peregrínos abstinére vos a carnálibus desidériis, quæ mílitant advérsus ánimam, conversatiónem vestram inter gentes habéntes bonam: ut in eo, quod detréctant de vobis tamquam de malefactóribus, ex bonis opéribus vos considerántes, gloríficent Deum in die visitatiónis. Subjécti ígitur estóte omni humánæ creatúræ propter Deum: sive regi, quasi præcellénti: sive dúcibus, tamquam ab eo missis ad vindíctam malefactórum, laudem vero bonórum: quia sic est volúntas Dei, ut benefaciéntes obmutéscere faciátis imprudéntium hóminum ignorántiam: quasi líberi, et non quasi velámen habéntes malítiæ libertátem, sed sicut servi Dei. Omnes honoráte: fraternitátem dilígite: Deum timéte: regem honorificáte Servi, súbditi estóte in omni timóre dóminis, non tantum bonis et modéstis, sed étiam dýscolis. Hæc est enim grátia: in Christo Jesu, Dómino nostro.",
-		"alRef": "Ps 110: 9",
-		"al": "Redemptiónem misit Dóminus pópulo suo. Allelúja. ℣. Luc. 24, 46. Oportebat pati Christum, et resúrgere a mórtuis: et ita intráre in glóriam suam.",
-		"alID": 446,
-		"alID-rating": 0.7398843930635838,
-		"alID-seekt": "redemptionem misit dominus populo suo alleluia ℣ luc oportebat pati christum et resurgere a mortuis et ita intrare in gloriam suam",
-		"alID-found": "oportebat pati christum et resurgere a mortuis et ita intrare in gloriam suam",
+		"alRef": [
+			"Ps 110: 9",
+			"Luc 24: 46"
+		],
+		"al": [
+			"Redemptiónem misit Dóminus pópulo suo.",
+			"Oportebat pati Christum, et resúrgere a mórtuis: et ita intráre in glóriam suam."
+		],
+		"alID": [
+			1341,
+			446
+		],
+		"alID-rating": 0.9393939393939394,
+		"alID-seekt": "redemptionem misit dominus populo suo",
+		"alID-found": "redemptionem misit dominus in populo suo",
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 16, 16-22.",
 		"ev": "In illo témpore: Dixit Jesus discípulis suis: Módicum, et jam non vidébitis me: et íterum módicum, et vidébitis me: quia vado ad Patrem. Dixérunt ergo ex discípulis ejus ad ínvicem: Quid est hoc, quod dicit nobis: Módicum, et non vidébitis me: et íterum módicum, et vidébitis me, et quia vado ad Patrem? Dicébant ergo: Quid est hoc, quod dicit: Modicum? nescímus, quid lóquitur. Cognóvit autem Jesus, quia volébant eum interrogáre, et dixit eis: De hoc quǽritis inter vos, quia dixi: Modicum, et non vidébitis me: et íterum módicum, et vidébitis me. Amen, amen, dico vobis: quia plorábitis et flébitis vos, mundus autem gaudébit: vos autem contristabímini, sed tristítia vestra vertétur in gáudium. Múlier cum parit, tristítiam habet, quia venit hora ejus: cum autem pepérerit púerum, jam non méminit pressúræ propter gáudium, quia natus est homo in mundum. Et vos igitur nunc quidem tristítiam habétis, íterum autem vidébo vos, et gaudébit cor vestrum: et gáudium vestrum nemo tollet a vobis.",
@@ -3324,7 +3425,10 @@
 			"Déxtera Dómini fecit virtútem: déxtera Dómini exaltávit me.",
 			"Christus resúrgens ex mórtuis jam non móritur: mors illi ultra non dominábitur."
 		],
-		"alID": 1348,
+		"alID": [
+			159,
+			1348
+		],
 		"alID-rating": 0.9263157894736842,
 		"alID-seekt": "dextera domini fecit virtutem dextera domini exaltavit me",
 		"alID-found": "dextera dei fecit virtutem dextera domini exaltavit me",
@@ -3354,12 +3458,18 @@
 		"lectioIncipit": "Léctio Epístolæ beáti Jacóbi Apóstoli.",
 		"lectioRef": "Jac. 1, 22-27.",
 		"lectio": "Caríssimi: Estóte factóres verbi, et non auditóres tantum: falléntes vosmetípsos. Quia si quis audítor est verbi et non factor: hic comparábitur viro consideránti vultum nativitátis suæ in spéculo: considerávit enim se et ábiit, et statim oblítus est, qualis fúerit. Qui autem perspéxerit in legem perfectam libertátis et permánserit in ea, non audítor obliviósus factus, sed factor óperis: hic beátus in facto suo erit. Si quis autem putat se religiósum esse, non refrénans linguam suam, sed sedúcens cor suum, hujus vana est relígio. Relígio munda et immaculáta apud Deum et Patrem hæc est: Visitáre pupíllos et viduas in tribulatióne eórum, et immaculátum se custodíre ab hoc sǽculo.",
-		"alRef": "",
-		"al": "Surréxit Christus, et illúxit nobis, quos rédemit sánguine suo. Allelúja, ℣. Joann. 16, 28. Exívi a Patre, et veni in mundum: íterum relínquo mundum, et vado ad Patrem.",
-		"alID": 1040,
-		"alID-rating": 0.6373626373626373,
-		"alID-seekt": "surrexit christus et illuxit nobis quos redemit sanguine suo alleluia ℣ joann exivi a patre et veni in mundum iterum relinquo mundum et vado ad patrem",
-		"alID-found": "exivi a patre et veni in mundum iterum relinquo mundum et vado ad patrem",
+		"alRef": [
+			"",
+			"Joann 16: 28"
+		],
+		"al": [
+			"Surréxit Christus, et illúxit nobis, quos rédemit sánguine suo.",
+			"Exívi a Patre, et veni in mundum: íterum relínquo mundum, et vado ad Patrem."
+		],
+		"alID": [
+			633,
+			1040
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 16, 23-30.",
 		"ev": "In illo témpore: Dixit Jesus discípulis suis: Amen, amen, dico vobis: si quid petiéritis Patrem in nómine meo, dabit vobis. Usque modo non petístis quidquam in nómine meo: Pétite, et accipiétis, ut gáudium vestrum sit plenum. Hæc in provérbiis locútus sum vobis. Venit hora, cum jam non in provérbiis loquar vobis, sed palam de Patre annuntiábo vobis. In illo die in nómine meo petétis: et non dico vobis, quia ego rogábo Patrem de vobis: ipse enim Pater amat vos, quia vos me amástis, et credidístis quia ego a Deo exívi. Exívi a Patre et veni in mundum: íterum relínquo mundum et vado ad Patrem. Dicunt ei discípuli ejus: Ecce, nunc palam loquéris et provérbium nullum dicis. Nunc scimus, quia scis ómnia et non opus est tibi, ut quis te intérroget: in hoc crédimus, quia a Deo exísti. Credo.",
@@ -3427,12 +3537,18 @@
 		"lectioIncipit": "Léctio Epístolæ beáti Pauli Apóstoli ad Ephésios.",
 		"lectioRef": "Ephes. 4, 7-13.",
 		"lectio": "Fratres: Unicuíque nostrum data est grátia secúndum mensúram donatiónis Christi. Propter quod dicit: Ascéndens in altum, captívam duxit captivitátem: dedit dona homínibus. Quod autem ascéndit, quid est, nisi quia et descéndit primum in inferióres partes terræ? Qui descéndit, ipse est et qui ascéndit super omnes cælos, ut impléret ómnia. Et ipse dedit quosdam quidem apóstolos, quosdam autem prophétas, álios vero evangelístas, álios autem pastóres et doctóres, ad consummatiónem sanctórum in opus ministérii, in ædificatiónem córporis Christi: donec occurrámus omnes in unitátem fídei, et agnitiónis Fílii Dei, in virum perféctum, in mensúram ætátis plenitúdinis Christi.",
-		"alRef": "",
-		"al": "Surréxit Christus, et illúxit nobis, quos rédemit sánguine suo. Allelúja. ℣. Joann. 16, 28. Exívi a Patre, et veni in mundum: íterum relínquo mundum, et vado ad Patrem.",
-		"alID": 1040,
-		"alID-rating": 0.6373626373626373,
-		"alID-seekt": "surrexit christus et illuxit nobis quos redemit sanguine suo alleluia ℣ joann exivi a patre et veni in mundum iterum relinquo mundum et vado ad patrem",
-		"alID-found": "exivi a patre et veni in mundum iterum relinquo mundum et vado ad patrem",
+		"alRef": [
+			"",
+			"Joann 16: 28"
+		],
+		"al": [
+			"Surréxit Christus, et illúxit nobis, quos rédemit sánguine suo.",
+			"Exívi a Patre, et veni in mundum: íterum relínquo mundum, et vado ad Patrem."
+		],
+		"alID": [
+			633,
+			1040
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 17, 1-11.",
 		"ev": "In illo témpore: Sublevátis Jesus oculis in cælum, dixit: Pater, venit hora, clarífica Fílium tuum, ut Fílius tuus claríficet te: sicut dedísti ei potestátem omnis carnis, ut omne, quod dedísti ei, det eis vitam ætérnam. Hæc est autem vita ætérna: ut cognóscant te, solum Deum verum, et quem misísti Jesum Christum. Ego te clarificávi super terram: opus consummávi, quod dedísti mihi, ut fáciam: et nunc clarífica me tu, Pater, apud temetípsum, claritáte, quam hábui, priúsquam mundus esset, apud te. Manifestávi nomen tuum homínibus, quos dedísti mihi de mundo. Tui erant, et mihi eos dedísti; et sermónem tuum servavérunt. Nunc cognovérunt, quia ómnia, quæ dedísti mihi, abs te sunt: quia verba, quæ dedísti mihi, dedi eis: et ipsi accepérunt, et cognovérunt vere, quia a te exivi, et credidérunt, quia tu me misísti. Ego pro eis rogo, non pro mundo rogo, sed pro his, quos dedísti mihi: quia tui sunt: et mea ómnia tua sunt, et tua mea sunt: et clarificátus sum in eis. Et jam non sum in mundo, et hi in mundo sunt, et ego ad te vénio.",
@@ -3511,16 +3627,18 @@
 		"lectio": "Caríssimi: Estóte prudéntes et vigiláte in oratiónibus. Ante ómnia autem mútuam in vobismetípsis caritátem contínuam habéntes: quia cáritas óperit multitúdinem peccatórum. Hospitáles ínvicem sine murmuratióne: unusquísque, sicut accépit grátiam, in altérutrum illam administrántes, sicut boni dispensatóres multifórmis grátiæ Dei. Si quis lóquitur, quasi sermónes Dei: si quis minístrat, tamquam ex virtúte, quam adminístrat Deus: ut in ómnibus honorificétur Deus per Jesum Christum, Dóminum nostrum.",
 		"alRef": [
 			"Ps 46: 9",
+			"Joann 14: 18",
 			""
 		],
 		"al": [
-			"Regnávit Dóminus super omnes gentes: Deus sedet super sedem sanctam suam. Allelúja. ℣. Joann. 14, 18. Non vos relínquam órphanos: vado, et vénio ad vos, et gaudébit cor vestrum.",
+			"Regnávit Dóminus super omnes gentes: Deus sedet super sedem sanctam suam.",
+			"Non vos relínquam órphanos: vado, et vénio ad vos, et gaudébit cor vestrum.",
 			""
 		],
-		"alID": 405,
-		"alID-rating": 0.6217616580310881,
-		"alID-seekt": "regnavit dominus super omnes gentes deus sedet super sedem sanctam suam alleluia ℣ joann non vos relinquam orphanos vado et venio ad vos et gaudebit cor vestrum",
-		"alID-found": "regnavit dominus super omnes gentes deus sedet super sedem sanctam suam",
+		"alID": [
+			405,
+			107
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 15, 26-27; 16, 1-4.",
 		"ev": "In illo témpore: Dixit Jesus discípulis suis: Cum vénerit Paráclitus, quem ego mittam vobis a Patre, Spíritum veritátis, qui a Patre procédit, ille testimónium perhibébit de me: et vos testimónium perhibébitis, quia ab inítio mecum estis. Hæc locútus sum vobis, ut non scandalizémini. Absque synagógis fácient vos: sed venit hora, ut omnis, qui intérficit vos, arbitrétur obséquium se præstáre Deo. Et hæc fácient vobis, quia non novérunt Patrem neque me. Sed hæc locútus sum vobis: ut, cum vénerit hora eórum, reminiscámini, quia ego dixi vobis. Credo. Offertorium. Ps. 46, 6. Ascéndit Deus in jubilatióne, et Dóminus in voce tubæ, allelúja.",
@@ -3552,10 +3670,27 @@
 			"Vínea facta est dilécto in cornu, in loco úberi. ℣. Et macériam circúmdedit, et circumfódit: et plantávit víneam Sorec, et ædificávit turrim in médio ejus. ℣. Et tórcular fodit in ea: vínea enim Dómini Sábaoth domus Israël est.",
 			"Sicut cervus desíderat ad fontes aquárum: iía desíderat ánima mea ad te, Deus. ℣. Sitívit ánima mea ad Deum vivum: quando véniam, et apparébo ante fáciem Dei? ℣. Fuérunt mihi lácrimæ meæ panes die ac nocte, dum dícitur mihi per síngulos dies: Ubi est Deus tuus?"
 		],
-		"trID": 1395,
-		"trID-rating": 0.9829683698296837,
-		"trID-seekt": "sicut cervus desiderat ad fontes aquarum iia desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus",
-		"trID-found": "sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus"
+		"trID": [
+			1661,
+			1638,
+			1388,
+			1395
+		],
+		"trID-rating": [
+			0.9854368932038835,
+			0.9675213675213675,
+			0.9829683698296837
+		],
+		"trID-seekt": [
+			"cantemus domino gloriose enim honorificatus est equum et ascensorem projecit in mare adjutor et protector factus est mihi in salutem ℣ hic deus meus et honorificabo eum deus patris mei et exaltabo eum ℣ dominus conterens bella dominus nomen est illi",
+			"attende cælum et loquar et audiat terra verba ex ore meo ℣ exspectetur sicut pluvia eloquium meum et descendant sicut ros verba mea ℣ sicut imber super gramen et sicut nix super fænum quia nomen domini invocabo ℣ date magnitudinem deo nostro deus vera opera ejus et omnes viæ ejus judicia ℣ deus fidelis in quo non est iniquitas justus et sanctus dominus",
+			"sicut cervus desiderat ad fontes aquarum iia desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus"
+		],
+		"trID-found": [
+			"cantemus domino gloriose enim honorificatus est equum et ascensorem projecit in mare adjutor et protector factus est mihi in salutem ℣ hic deus meus et honorabo eum deus patris mei et exaltabo eum ℣ dominus conterens bella dominus nomen est illi",
+			"attende cœlum et loquar et audiat terra verba ex ore meo ℣ exspectetur sicut pluvia eloquium meum et descendant sicut ros verba mea sicut imber super gramina ℣ et sicut nix super fœnum quia nomen domini invocabo ℣ date magnitudinem deo nostro deus vera opera ejus et omnes viæ ejus judicia ℣ deus fidelis in quo non est in iniquitas justus et sanctus dominus",
+			"sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus"
+		]
 	},
 	"In Missis privatis": {
 		"inRef": "Ezech 36: 23, 24, 25-26",
@@ -3660,7 +3795,10 @@
 			"Spíritus Sanctus docébit vos, quæcúmque díxero vobis.",
 			"Veni, Sancte Spíritus, reple tuórum corda fidélium: et tui amóris in eis ignem accénde."
 		],
-		"alID": 181,
+		"alID": [
+			1197,
+			181
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 10, 1-10.",
 		"ev": "In illo témpore: Dixit Jesus pharisǽis: Amen, amen, dico vobis: qui non intrat per óstium in ovíle óvium, sed ascéndit aliúnde, ille fur est et latro. Qui autem intrat per óstium, pastor est óvium. Huic ostiárius áperit, et oves vocem ejus áudiunt, et próprias oves vocat nominátim et e ducit eas. Et cum próprias oves emíserit, ante eas vadit: et oves illum sequúntur, quia sciunt vocem ejus. Aliénum autem non sequúntur, sed fúgiunt ab eo; quia non novérunt vocem alienórum. Hoc provérbium dixit eis Jesus. Illi autem non cognovérunt, quid loquerétur eis. Dixit ergo eis íterum Jesus: Amen, amen, dico vobis, quia ego sum óstium óvium. Omnes, quotquot venérunt, fures sunt et latrónes, et non audiérunt eos oves. Ego sum. óstium. Per me si quis introíerit, salvábitur: et ingrediétur et egrediátur et páscua invéniet. Fur non venit, nisi ut furétur et mactet et perdat. Ego veni, ut vitam hábeant et abundántius hábeant. Credo. Offertorium. Ps. 77, 23-25. Portas cæli aperuit Dóminus: et pluit illis manna, ut éderent: panem cæli dedit eis, panem Angelórum manducávit homo, allelúja.",
@@ -3709,7 +3847,10 @@
 			"Verbo Dómini cæli firmáti sunt, et Spíritu oris ejus omnis virtus eórum.",
 			"Veni, Sancte Spíritus, reple tuórum corda fidélium: et tui amóris in eis ignem accénde."
 		],
-		"alID": 181,
+		"alID": [
+			635,
+			181
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem.",
 		"evRef": "Joann. 6, 44-52.",
 		"ev": "In illo témpore: Dixit Jesus turbis Judæórum: Nemo potest veníre ad me, nisi Pater, qui misit me, tráxerit eum: et ego resuscitábo eum in novíssimo die. Est scriptum in Prophétis: Et erunt omnes docíbiles Dei. Omnis, qui audívit a Patre et dídicit, venit ad me. Non quia Patrem vidit quisquam, nisi is, qui est a Deo, hic vidit Patrem. Amen, amen, dico vobis: qui credit in me, habet vitam ætérnam. Ego sum panis vitæ. Patres vestri manducavérunt manna in desérto, et mórtui sunt. Hic est panis de cælo descéndens: ut, si quis ex ipso manducáverit, non moriátur. Ego sum panis vivus, qui de cælo descéndi. Si quis manducáverit ex hoc sane, vivet in ætérnum: et palis, quem ego dabo, caro mea est pro mundi vita.",
@@ -3780,7 +3921,10 @@
 			"O quam bonus et suávis est, Dómine, Spíritus tuus in nobis!",
 			"Veni, Sancte Spíritus, reple tuórum corda fidélium: et tui amóris in eis ignem accénde."
 		],
-		"alID": 181,
+		"alID": [
+			119,
+			181
+		],
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Lucam.",
 		"evRef": "Luc. 5, 17-26.",
 		"ev": "In illo témpore: Factum est in una diérum, et Jesus sedébat docens. Et erant pharisǽi sedéntes, et legis doctóres, qui vénerant ex omni castéllo Galilǽæ et Judǽæ et Jerúsalem: et virtus Dómini erat ad sanándum eos. Et ecce, viri portántes in lecto hóminem, qui erat paralýticus: et quærébant eum inférre, et pónere ante eum. Et non inveniéntes, qua parte illum inférrent præ turba, ascendérunt supra tectum, et per tégulas summisérunt eum cum lecto in médium ante Jesum. Quorum fidem ut vidit, dixit: Homo, remittúntur tibi peccáta tua. Et cœpérunt cogitáre scribæ et pharisǽi, dicéntes: Quis est hic, qui lóquitur blasphémias ? Quis potest dimíttere peccáta nisi solus Deus? Ut cognóvit autem Jesus cogitatiónes eórum, respóndens dixit ad illos: Quid cogitátis in córdibus vestris? Quid est facílius dícere: Dimittúntur tibi peccáta, an dícere: Surge et ámbula? Ut autem sciátis, quia Fílius hóminis habet potestátem in terra dimitténdi peccáta (ait paralýtico): Tibi dico, surge, tolle lectum tuum et vade in domum tuam. Et conféstim consúrgens coram illis, tulit lectum, in quo jacébat: et ábiit in domum suam, magníficans Deum. Et stupor apprehéndit omnes et magnificábant Deum. Et repléti sunt timóre, dicéntes: Quia vídimus mirabília hódie.",
@@ -3852,10 +3996,28 @@
 			"Benedíctus es, Dómine, Deus patrum nostrórum, et laudábilis in sǽcula. Finito Versu dicitur Glória in excélsis.",
 			"."
 		],
-		"alID": 1289,
-		"alID-rating": 0.7671232876712328,
-		"alID-seekt": "benedictus es domine deus patrum nostrorum et laudabilis in sæcula finito versu dicitur gloria in excelsis",
-		"alID-found": "benedictus es domine deus patrum nostrorum et laudabilis in sæcula",
+		"alID": [
+			1236,
+			1138,
+			657,
+			181,
+			1289
+		],
+		"alID-rating": [
+			0.9245283018867925,
+			0.9814814814814815,
+			0.7671232876712328
+		],
+		"alID-seekt": [
+			"spiritus est qui vivificat caro autem non prodest quidquam",
+			"cum complerentur dies pentecostes erant omnes pariter sedentes",
+			"benedictus es domine deus patrum nostrorum et laudabilis in sæcula finito versu dicitur gloria in excelsis"
+		],
+		"alID-found": [
+			"spiritus est qui vivificat caro autem non prodest quidquam alleluia",
+			"dum complerentur dies pentecostes erant omnes pariter sedentes",
+			"benedictus es domine deus patrum nostrorum et laudabilis in sæcula"
+		],
 		"trRef": "Ps 116: 1-2",
 		"tr": "Laudáte Dóminum, omnes gentes: et collaudáte eum, omnes pópuli. ℣. Quóniam confirmáta est super nos misericórdia ejus: et véritas Dómini manet in ætérnum.",
 		"trID": 1247,
@@ -4067,23 +4229,26 @@
 		"alRef": [
 			"Matth 11: 29",
 			"Matth 11: 29, 28",
+			"",
 			""
 		],
 		"al": [
 			"Tóllite jugum meum super vos, et díscite a me, quia mitis sum et húmilis Corde, et inveniétis réquiem animábus vestris.",
-			"Tóllite jugum meum super vos, et díscite a me, quia mitis sum et húmilis Corde: et inveniétis réquiem animábus vestris. Allelúja. ℣. Veníte ad me, omnes qui laborátis, et oneráti estis, et ego refíciam vos.",
+			"Tóllite jugum meum super vos, et díscite a me, quia mitis sum et húmilis Corde: et inveniétis réquiem animábus vestris.",
+			"Veníte ad me, omnes qui laborátis, et oneráti estis, et ego refíciam vos.",
 			""
 		],
-		"alID": 907,
+		"alID": [
+			907,
+			907,
+			1237
+		],
 		"trRef": "Ps 102: 8-10",
 		"tr": "Miséricors et miserátor Dóminus, longánimis, et multum miséricors, ℣. Non in perpétuum irascétur, neque in ætérnum comminábitur. ℣. Non secúndum peccáta nostra fecit nobis, neque secúndum iniquitátes nostras retríbuit nobis.",
 		"trID": 1244,
 		"trID-rating": 0.9891891891891892,
 		"trID-seekt": "misericors et miserator dominus longanimis et multum misericors ℣ non in perpetuum irascetur neque in æternum comminabitur ℣ non secundum peccata nostra fecit nobis neque secundum iniquitates nostras retribuit nobis",
 		"trID-found": "misericors et miserator dominus longaminis et multum misericors ℣ non in perpetuum irascetur neque in æternum comminabitur ℣ non secundum peccata nostra fecit nobis neque secundum iniquitates nostras retribuit nobis",
-		"alID-rating": 0.7421875,
-		"alID-seekt": "tollite jugum meum super vos et discite a me quia mitis sum et humilis corde et invenietis requiem animabus vestris alleluia ℣ venite ad me omnes qui laboratis et onerati estis et ego reficiam vos",
-		"alID-found": "tollite jugum meum super vos et discite a me quia mitis sum et humilis corde et invenietis requiem animabus vestris",
 		"evIncipit": "Sequéntia sancti Evangélii secúndum Joánnem. P",
 		"evRef": "Joann 19 ,11-37.",
 		"ev": "In illo témpore: Judǽi (quóniam Parascéve erat), ut non remanérent in cruce córpora sábbato (erat enim magnus dies ille sábbati), rogavérunt Pilátum, ut frangeréntur eórum crura, et tolleréntur. Venérunt ergo mílites: et primi quidem fregérunt crura et alteríus, qui crucifíxus est cum eo. Ad Jesum autem cum veníssent, ut vidérunt eum jam mórtuum, non fregérunt ejus crura, sed unus mílitum láncea latus ejus apéruit, et contínuo exívit sanguis et aqua. Et qui vidit, testimónium perhíbuit: et verum est testimónium ejus. Et ille scit quia vera dicit, ut et vos credátis. Facta sunt enim hæc ut Scriptúra implerétur: Os non comminuétis ex eo. Et íterum alia Scriptúra dicit: Vidébunt in quem transfixérunt. Credo. Offertorium. Ps. 68, 21. Impropérium exspectávi Cor meum et misériam: et sustínui, qui simul mecum contristarétur, et non fuit: consolántem me quæsívi, et non invéni.",
@@ -4095,7 +4260,10 @@
 			"Impropérium exspectávi Cor meum et misériam: et sustínui, qui simul mecum contristarétur, et non fuit: consolántem me quæsívi, et non invéni.",
 			"Holocáustum et pro peccáto non postulásti; tunc dixi: Ecce, vénio. In cápite libri scriptum est de me ut fácerem voluntátem tuam: Deus meus, volui, et legem tuam in médio Cordis mei, allelúja."
 		],
-		"ofID": 319,
+		"ofID": [
+			628,
+			319
+		],
 		"ofID-rating": 0.9868995633187773,
 		"ofID-seekt": "improperium exspectavi cor meum et miseriam et sustinui qui simul mecum contristaretur et non fuit consolantem me quæsivi et non inveni",
 		"ofID-found": "improperium exspectavit cor meum et miseriam et sustinui qui simul mecum contristaretur et non fuit consolantem me quæsivi et non inveni",
@@ -4108,7 +4276,10 @@
 			"Unus mílitum láncea latus ejus apéruit, et contínuo exívit sanguis et aqua.",
 			"Si quis sitit, véniat ad me et bibat, allelúja, allelúja."
 		],
-		"coID": 154,
+		"coID": [
+			1356,
+			154
+		],
 		"postcommunio": "Prǽbeant nobis, Dómine Jesu, divínum tua sancta fervórem: quo dulcíssimi Cordis tui suavitáte percépta; discámus terréna despícere, et amáre cæléstia: Qui vivis et regnas."
 	},
 	"Dominica infra Octavam Sacratissimi Cordis Jesu": {
@@ -4636,7 +4807,10 @@
 			"Quis sicut Dóminus, Deus noster, qui in altis hábitat, et humilia réspicit in cælo et in terra? ℣. Súscitans a terra ínopem et de stércore érigens páuperem.",
 			"Beáta gens, cujus est Dóminus Deus eórum: pópulus, quem elégit Dóminus in hereditátem sibi. ℣. Verbo Dómini cæli firmáti sunt: et spíritu oris ejus omnis virtus eórum."
 		],
-		"grID": 1044,
+		"grID": [
+			472,
+			1044
+		],
 		"grID-rating": 0.9918032786885246,
 		"grID-seekt": "quis sicut dominus deus noster qui in altis habitat et humilia respicit in cælo et in terra ℣ suscitans a terra inopem et de stercore erigens pauperem",
 		"grID-found": "quis sicut dominus deus noster qui in altis habitat humilia respicit in cælo et in terra ℣ suscitans a terra inopem et de stercore erigens pauperem",
@@ -4730,7 +4904,12 @@
 			"Convértere, Dómine, aliquántulum, et deprecáre super servos tuos. ℣. Dómine, refúgium factus es nobis, a generatióne et progénie.",
 			"Dirigátur orátio mea sicut incénsum in conspéctu tuo, Dómine. ℣. Elevátio mánuum meárum sacrifícium vespertínum."
 		],
-		"grID": 44,
+		"grID": [
+			332,
+			1226,
+			1046,
+			44
+		],
 		"trRef": "Ps 116: 1-2",
 		"tr": "Laudáte Dóminum, omnes gentes: et collaudáte eum, omnes pópuli. ℣. Quóniam confirmáta est super nos misericórdia ejus: et véritas Dómini manet in ætérnum.",
 		"trID": 1247,
