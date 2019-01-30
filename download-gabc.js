@@ -146,7 +146,7 @@ var path = 'gabc/',
                     var h = gabc.getHeader(header);
                     var ref = gabcRefs[ids[i]];
                     if(ref) {
-                      h.commentary = ref;
+                      h.commentary = ref.replace(/;/g,'.');
                       header = h.toString();
                     }
                     if(isMiscChant) {
