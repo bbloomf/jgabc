@@ -3025,7 +3025,8 @@ gregorianPropers = {
   "ofRef": "Ps 31: 11",
   "co": "Justorum animae",
   "coID": 209,
-  "coRef": "Sap 3: 1, 2, 3; Ps 149: 1-6"
+  "coRef": "Sap 3: 1, 2, 3",
+  "coVerses": "Ps 149: 1-6"
  },
  "ss_marcellinus_peter_erasmus_pt": {
   "title": "2 Jun - SS Marcellinus, Peter and Erasmus, Martyrs (Paschal Time)",
@@ -3470,7 +3471,7 @@ gregorianPropers = {
   "inRef": "2 Tim 1: 12; Ps 138: 1-2",
   "gr": "Qui operatus est",
   "grID": 1347,
-  "grRef": "Gal 2: 8-9, 1; Cor 15: 10",
+  "grRef": "Gal 2: 8-9; 1 Cor 15: 10",
   "al": "Sancte Paule",
   "alID": 120,
   "of": "Mihi (autem nimis)",
