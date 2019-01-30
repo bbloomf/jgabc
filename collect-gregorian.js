@@ -26,6 +26,7 @@ var weekdays = ["mon","tue","wed","thu","fri","sat"];
 var regexWeekday = new RegExp(`^(.*?)_?(${weekdays.join('|')})$`);
 var currentFeast = "";
 var urls = ['propers','saints'];
+var gabcRefs = {};
 var iUrl = 0;
 processUrl(urls[iUrl++]);
 function processUrl(urlKey) {
@@ -230,12 +231,23 @@ ${JSON.stringify(incipitId,1,' ')}`);
               if(ref || (key+"Ref" in propria)) {
                 var refs = ref.split('\n').map(ref => vr.parseRef(ref).verseRefString());
                 ref = refs[0];
+                if(/<hr>/.test(span.innerHTML) && refs.length == 1) {
+                  refs[1] = ref;
+                  ref = "";
+                }
                 if(match[1]) {
                   propria[key+"Ref"] = propria[key+"Ref"] || [];
                   if(!(propria[key+'Ref'] instanceof Array)) propria[key+'Ref'] = [propria[key+'Ref']];
                   propria[key+"Ref"].push(ref);
-                } else {
+                } else if(ref) {
                   propria[key+"Ref"] = ref;
+                }
+                if(ref && (typeof incipitId == 'number')) {
+                  if(incipitId in gabcRefs && (gabcRefs[incipitId] != ref)) {
+                    console.info(`different Refs for chant ${incipitId}: ${gabcRefs[incipitId]} & ${ref}`);
+                  } else {
+                    gabcRefs[incipitId] = ref;
+                  }
                 }
                 if(refs.length > 1) {
                   if(refs.length > 2) throw propria;
@@ -266,7 +278,8 @@ ${JSON.stringify(incipitId,1,' ')}`);
   });
 
   fs.writeFileSync(`gregorian-${urlKey}.js`,`// from ${url}
-gregorianPropers = ` + JSON.stringify(festa,null," "));
+gregorianPropers = ${JSON.stringify(festa,null," ")}`);
+  fs.writeFileSync('gabc-refs.js', `gabcRefs = ${JSON.stringify(gabcRefs)}`)
 
   processUrl(urls[iUrl++]);
 

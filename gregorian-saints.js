@@ -644,7 +644,7 @@ gregorianPropers = {
   "ofVerses": "Luc 1: 34, 35",
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_i_bvm_saturday": {
   "title": "Mass I of the Blessed Virgin Mary on Saturday (from Advent to Nativity)",
@@ -685,7 +685,7 @@ gregorianPropers = {
   "ofID": 280,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_iii_bvm_saturday": {
   "title": "Mass III of the Blessed Virgin Mary on Saturday (from Purification BVM to Easter)",
@@ -705,7 +705,7 @@ gregorianPropers = {
   "ofID": 280,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_iv_bvm_saturday": {
   "title": "Mass IV of the Blessed Virgin Mary on Saturday (from Easter to Pentecost)",
@@ -729,7 +729,7 @@ gregorianPropers = {
   "ofID": 567,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_v_bvm_saturday": {
   "title": "Mass V of the Blessed Virgin Mary on Saturday (from Pentecost to Advent)",
@@ -1047,7 +1047,7 @@ gregorianPropers = {
   "ofID": 195,
   "co": "Per signum Crucis",
   "coID": 346,
-  "coRef": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+  "coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
  },
  "mass_beg_for_peace": {
   "title": "Mass to beg for Peace",
@@ -1307,7 +1307,7 @@ gregorianPropers = {
   "ofRef": "Luc 1: 28",
   "co": "Gloriosa",
   "coID": 1004,
-  "coRef": "Canticum 1: 46-55"
+  "coVerses": "Canticum 1: 46-55"
  },
  "st_melchiades": {
   "title": "10 Dec - St Melchiades, Pope and Martyr",
@@ -1338,7 +1338,7 @@ gregorianPropers = {
   "ofID": 7,
   "co": "Non fecit taliter",
   "coID": 1133,
-  "coRef": "Ps 147"
+  "coVerses": "Ps 147"
  },
  "st_lucy": {
   "title": "13 Dec - St Lucy, Virgin and Martyr",
@@ -1638,7 +1638,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/25-01-Conversion-de-St-Paul-apotre",
   "in": "Scio (cui credidi)",
   "inID": 1179,
-  "inRef": "2 Tim 1: 12; 2 Ps 138: 1-2",
+  "inRef": "2 Tim 1: 12; Ps 138: 1-2",
   "inVerses": "Ps 138: 3, 6",
   "gr": "Qui operatus est",
   "grID": 1347,
@@ -1738,7 +1738,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/31-01-St-Jean-Bosco-confesseur",
   "in": "Dedit illi (Deus)",
   "inID": 1018,
-  "inRef": "3 Reg 4: 29; 3 Ps 112: 1",
+  "inRef": "3 Reg 4: 29; Ps 112: 1",
   "inVerses": "Ps 112: 2-3",
   "gr": "Spera (in Domino)",
   "grID": 21,
@@ -1789,7 +1789,7 @@ gregorianPropers = {
   "ofRef": "Ps 8: 6-7",
   "co": "Frumentum Christi sum",
   "coID": 368,
-  "coRef": "Ps 149: 1-6"
+  "coVerses": "Ps 149: 1-6"
  },
  "purification_bvm": {
   "title": "2 Feb - Purification of the Blessed Virgin Mary (Candlemas)",
@@ -1852,7 +1852,7 @@ gregorianPropers = {
   "ofRef": "Ps 44: 15, 16",
   "co": "Qui me dignatus est",
   "coID": 454,
-  "coRef": "Ps 108: 2-3, 5, 21, 25-26, 30-31"
+  "coVerses": "Ps 108: 2-3, 5, 21, 25-26, 30-31"
  },
  "st_titus": {
   "title": "6 Feb - St Titus, Bishop and Confessor",
@@ -2993,7 +2993,6 @@ gregorianPropers = {
   "ofID": 719,
   "co": "Regina mundi",
   "coID": 1053,
-  "coRef": "",
   "coVerses": "Ps 44"
  },
  "st_petronilla": {
@@ -3468,7 +3467,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/30-06-Commemoraison-de-St-Paul",
   "in": "Scio (cui credidi)",
   "inID": 1179,
-  "inRef": "2 Tim 1: 12; 2 Ps 138: 1-2",
+  "inRef": "2 Tim 1: 12; Ps 138: 1-2",
   "gr": "Qui operatus est",
   "grID": 1347,
   "grRef": "Gal 2: 8-9, 1; Cor 15: 10",
@@ -3540,7 +3539,7 @@ gregorianPropers = {
   "ofID": 567,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Luc 1: 46-55"
+  "coVerses": "Luc 1: 46-55"
  },
  "ss_processus_martinian": {
   "title": "2 Jul - SS Processus and Martinian, Martyrs",
@@ -3604,7 +3603,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/05-07-St-Antoine-Marie-Zaccaria",
   "in": "Sermo meus",
   "inID": 1349,
-  "inRef": "1 Cor 2: 4; 1 Ps 110: 1",
+  "inRef": "1 Cor 2: 4; Ps 110: 1",
   "gr": "Testis mihi",
   "grID": 155,
   "grRef": "Philipp 1, 8-9, 10",
@@ -3825,7 +3824,6 @@ gregorianPropers = {
   "ofRef": "Jer 18: 20",
   "co": "Regina mundi",
   "coID": 1053,
-  "coRef": "",
   "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "st_alexius": {
@@ -4821,7 +4819,7 @@ gregorianPropers = {
   "ofID": 567,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "st_hadrian": {
   "title": "8 Sep - St Hadrian, Martyr",
@@ -4865,7 +4863,7 @@ gregorianPropers = {
   "ofVerses": "Luc 1: 34, 35",
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "exaltation_holy_cross": {
   "title": "14 Sep - Exaltation of the Holy Cross",
@@ -4884,7 +4882,7 @@ gregorianPropers = {
   "ofID": 195,
   "co": "Per signum Crucis",
   "coID": 346,
-  "coRef": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+  "coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
  },
  "seven_dolours_bvm": {
   "title": "15 Sep - Seven Dolours of the Blessed Virgin Mary",
@@ -5269,7 +5267,7 @@ gregorianPropers = {
   "ofID": 910,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "st_edward": {
   "title": "13 Oct - St Edward, King of England",
@@ -5879,10 +5877,10 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Le-jour-de-l-enterrement",
   "in": "Requiem",
   "inID": 766,
-  "inRef": "4 Esdr 2: 34, 35; 4 Ps 64: 2-3",
+  "inRef": "4 Esdr 2: 34, 35; Ps 64: 2-3",
   "gr": "Requiem",
   "grID": 1261,
-  "grRef": "4 Esdr 2: 34, 35; 4 Ps 111: 7",
+  "grRef": "4 Esdr 2: 34, 35; Ps 111: 7",
   "tr": "Absolve (Domine)",
   "trID": 338,
   "seq": "Dies irae",

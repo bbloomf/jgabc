@@ -2,6 +2,7 @@ var https= require('https'),
     fs  = require('fs'),
     Hypher = require('hypher'),
     gabc = require('./util.js');
+require('./gabc-refs.js');
 window = {Hypher: Hypher};
 Hypher.languages = {};
 var latin,
@@ -143,6 +144,11 @@ var path = 'gabc/',
                     var header = fileData.slice(0, fileData.indexOf('\n%%\n') + 4);
                     var content = fileData.slice(header.length);
                     var h = gabc.getHeader(header);
+                    var ref = gabcRefs[ids[i]];
+                    if(ref) {
+                      h.commentary = ref;
+                      header = h.toString();
+                    }
                     if(isMiscChant) {
                       h.name = h.name.replace(/A[Ee]/g,'Æ').replace(/ae/g,'æ').replace(/O[Ee]/g,'Œ').replace(/oe/g,'œ').replace(/\.\s+([\divx]+)/i,' $1');
                       header = h.toString();

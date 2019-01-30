@@ -44,7 +44,10 @@ function parseRef(refText) {
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\D*(\d+)[,:\s]*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
-    if(match[2]) book = match[2];
+    if(match[2]) {
+      book = match[2];
+      if(!match[1]) bookNum = null;
+    }
     if(match[3]) chapter = match[3];
     verse = match[4];
     endVerse = match[5];
