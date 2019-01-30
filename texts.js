@@ -385,7 +385,7 @@ texts = {
 		"1035": "dulcis et rectus dominus propter hoc legem dabit delinquentibus in via ℣ diriget mansuetos in judicio docebit mites vias suas",
 		"1044": "beata gens cujus est dominus deus eorum populus quem elegit dominus in hereditatem sibi ℣ verbo domini cæli firmati sunt et spiritu oris ejus omnis virtus eorum",
 		"1046": "convertere domine aliquantulum et deprecare super servos tuos ℣ domine refugium factus es nobis a generatione et progenie",
-		"1055": "ostende nobis domine misericordia tuam et salutare tuum da nobis ℣ benedixisti domine terram tuam avertisti captivitatem jacob",
+		"1055": "ostende nobis domine misericordiam tuam et salutare tuum da nobis ℣ benedixisti domine terram tuam avertisti captivitatem jacob",
 		"1075": "hæc dies quam fecit dominus exsultemus et lætemur in ea ℣ confitemini domino quoniam bonus quoniam in sæculum misericordia ejus",
 		"1084": "electi mei non laborabunt frustra neque germinabunt in conturbatione quia semen benedictorum domini est et nepotes eorum cum eis ℣ corpora ipsorum in pace sepulta sunt et nomen eorum vivit in generationem et generationem",
 		"1088": "custodi me domine ut pupillam oculi sub umbra alarum tuarum protege me ℣ de vultu tuo judicium meum prodeat oculi tui videant æquitatem",
