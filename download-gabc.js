@@ -6,6 +6,8 @@ require('./gabc-refs.js');
 window = {Hypher: Hypher};
 Hypher.languages = {};
 var latin,
+    countAll = 0,
+    countWithRef = 0,
     regexGabcGloriaPatri = /\s*[eæ]\([^)]+\)\s*u\([^)]+\)\s*[oó]\([^)]+\)\s*u\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*e\.?\(([^)]+)\)\s*\(::\)\s*/i,
     texts = {
       Introitus: {},
@@ -145,8 +147,13 @@ var path = 'gabc/',
                     var content = fileData.slice(header.length);
                     var h = gabc.getHeader(header);
                     var ref = gabcRefs[ids[i]];
+                    if(ids[i] in gabcRefs) {
+                      ++countWithRef;
+                    }
                     if(ref) {
                       h.commentary = ref.replace(/;/g,'.');
+                      header = h.toString();
+                    } else if(!(ids[i] in gabcRefs) && /^(Introitus|Graduale|Tractus|Alleluia|Offertorium|Communio)$/.test(h.officePart)) {
                       header = h.toString();
                     }
                     if(isMiscChant) {
@@ -159,6 +166,8 @@ var path = 'gabc/',
                       } else {
                         miscChants.push({name: h.name, id: ids[i]});
                       }
+                    } else if(/^(Introitus|Graduale|Tractus|Alleluia|Offertorium|Communio)$/.test(h.officePart)) {
+                      ++countAll;
                     }
                     if(h.book) {
                       var m, regex = /(?:^|\s&\s+)Graduale Romanum, 1961, p. (\S*)/g;
@@ -469,6 +478,7 @@ if(module && module.exports) {
 }
 `);
           console.info('Finished in ' + time + ' seconds!');
+          console.info(`${countWithRef} / ${countAll} have reference.  (${Math.round(100 * countWithRef / countAll)}%)`);
           // console.info(replacements.join('\n\n'));
           console.info(errors.join('\n'));
           //console.info(JSON.stringify(sylReplacements, null, 2));

@@ -255,6 +255,9 @@ ${JSON.stringify(incipitId,1,' ')}`);
                 }
               }
             }
+            if(typeof incipitId == 'number') {
+              if(!gabcRefs[incipitId]) gabcRefs[incipitId] = "";
+            }
 
             if(betweenBars && key == 'alPasch' && /\bsing\s+this\s+Alleluia\s+first/i.test(rubricText) && propria.al) {
               propria.alPasch = [propria.alPasch, propria.al];

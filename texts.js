@@ -927,7 +927,7 @@ texts = {
 		"667": "in virtute tua domine lætabitur justus et super salutare tuum exsultabit vehementer desiderium animæ ejus tribuisti ei alleluia",
 		"668": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero alleluia",
 		"675": "sicut in holocausto arietum et taurorum et sicut in millibus agnorum pinguium sic fiat sacrificium nostrum in conspectu tuo hodie ut placeat tibi quia non est confusio confidentibus in te domine",
-		"680": "non habemus hoc manentem civitatem sed futuram inquirimus offeramus ergo hostiam laudis semper deo fructum labiorum confitentium nomini ejus alleluia",
+		"680": "non habemus hic manentem civitatem sed futuram inquirimus offeramus ergo hostiam laudis semper deo fructum labiorum confitentium nomini ejus alleluia",
 		"683": "quam magna multitudo dulcedinis tuæ domine quam abscondisti timentibus te alleluia",
 		"687": "dixit jesus discipulo ecce mater tua et ex illa hora accepit eam discipulus in sua",
 		"690": "non participentur sancta donec exsurgat pontifex in ostensionem et veritatem",
