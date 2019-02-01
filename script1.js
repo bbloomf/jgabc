@@ -9432,9 +9432,13 @@ Object.keys(propria).forEach(key => {
   var propsByDate = byDate[dateKey];
   var possiblePropers = (propsByDate || []).filter(p => compare(p,propers,quadPasch));
   if(possiblePropers.length == 0) {
-    var possiblePropers = allGregorian.filter(p => compare(p,propers,quadPasch));
+    possiblePropers = allGregorian.filter(p => compare(p,propers,quadPasch));
   }
-  propers.fromGregorianBooks = possiblePropers.map(p => p.gbid);
+  var props = possiblePropers.map(p => p.gbid).filter(id => (/^(votive|mass)_/i.test(id)==/votive/i.test(key) || /^mass_/i.test(id)));
+  if(props.length === 1) {
+    props = props[0];
+  }
+  propers.fromGregorianBooks = props;
   if(propsByDate && possiblePropers.filter(p => propsByDate.includes(p)).length == 0) {
 
     // propers.fromGBDate = propsByDate.map(p => p.gbid);

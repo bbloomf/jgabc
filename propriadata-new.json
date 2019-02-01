@@ -5,9 +5,7 @@
 		"alleluiaID": 1209,
 		"offertoriumID": 843,
 		"communioID": 1144,
-		"fromGregorianBooks": [
-			"mass_i_bvm_saturday"
-		]
+		"fromGregorianBooks": "mass_i_bvm_saturday"
 	},
 	"SMchristmas": {
 		"introitusID": 124,
@@ -15,9 +13,7 @@
 		"alleluiaID": 127,
 		"offertoriumID": 280,
 		"communioID": 160,
-		"fromGregorianBooks": [
-			"mass_ii_bvm_saturday"
-		]
+		"fromGregorianBooks": "mass_ii_bvm_saturday"
 	},
 	"SMchristmasQuad": {
 		"introitusID": 124,
@@ -25,9 +21,7 @@
 		"tractusID": 18,
 		"offertoriumID": 280,
 		"communioID": 160,
-		"fromGregorianBooks": [
-			"mass_ii_bvm_saturday"
-		]
+		"fromGregorianBooks": "mass_ii_bvm_saturday"
 	},
 	"SMlent": {
 		"introitusID": 1140,
@@ -35,9 +29,7 @@
 		"alleluiaID": 281,
 		"offertoriumID": 280,
 		"communioID": 160,
-		"fromGregorianBooks": [
-			"mass_iii_bvm_saturday"
-		]
+		"fromGregorianBooks": "mass_iii_bvm_saturday"
 	},
 	"SMlentQuad": {
 		"introitusID": 1140,
@@ -45,9 +37,7 @@
 		"tractusID": 18,
 		"offertoriumID": 280,
 		"communioID": 160,
-		"fromGregorianBooks": [
-			"mass_iii_bvm_saturday"
-		]
+		"fromGregorianBooks": "mass_iii_bvm_saturday"
 	},
 	"SMeaster": {
 		"introitusID": 1140,
@@ -55,9 +45,7 @@
 		"alleluiaID": 1209,
 		"offertoriumID": 567,
 		"communioID": 160,
-		"fromGregorianBooks": [
-			"mass_iv_bvm_saturday"
-		]
+		"fromGregorianBooks": "mass_iv_bvm_saturday"
 	},
 	"SMpentecost": {
 		"introitusID": 1140,
@@ -65,9 +53,7 @@
 		"alleluiaID": 127,
 		"offertoriumID": 843,
 		"communioID": 160,
-		"fromGregorianBooks": [
-			"mass_bvm"
-		]
+		"fromGregorianBooks": "mass_bvm"
 	},
 	"ChristusRex": {
 		"introitusID": 128,
@@ -75,9 +61,7 @@
 		"alleluiaID": 746,
 		"offertoriumID": 390,
 		"communioID": 1229,
-		"fromGregorianBooks": [
-			"christ_king"
-		]
+		"fromGregorianBooks": "christ_king"
 	},
 	"votiveSCJQuad": {
 		"introitusID": 1320,
@@ -85,9 +69,7 @@
 		"tractusID": 1244,
 		"offertoriumID": 628,
 		"communioID": 1356,
-		"fromGregorianBooks": [
-			"votive_mass_sacred_heart"
-		]
+		"fromGregorianBooks": "votive_mass_sacred_heart"
 	},
 	"votiveSCJPasch": {
 		"introitusID": 1320,
@@ -95,16 +77,11 @@
 		"alleluiaID": 1237,
 		"offertoriumID": 319,
 		"communioID": 154,
-		"fromGregorianBooks": [
-			"votive_mass_sacred_heart_pt"
-		]
+		"fromGregorianBooks": "votive_mass_sacred_heart_pt"
 	},
 	"votiveSCJ": {
 		"ref": "SCJ",
-		"fromGregorianBooks": [
-			"votive_mass_sacred_heart",
-			"sh"
-		]
+		"fromGregorianBooks": "votive_mass_sacred_heart"
 	},
 	"SCJ": {
 		"introitusID": 1320,
@@ -112,10 +89,7 @@
 		"alleluiaID": 907,
 		"offertoriumID": 628,
 		"communioID": 1356,
-		"fromGregorianBooks": [
-			"votive_mass_sacred_heart",
-			"sh"
-		]
+		"fromGregorianBooks": "sh"
 	},
 	"ECJ": {
 		"introitusID": 676,
@@ -132,9 +106,7 @@
 		"alleluiaID": 189,
 		"offertoriumID": 584,
 		"communioID": 422,
-		"fromGregorianBooks": [
-			"rogations_out_pt"
-		]
+		"fromGregorianBooks": "rogations_out_pt"
 	},
 	"litaniisPasch": {
 		"introitusID": 939,
@@ -142,9 +114,7 @@
 		"alleluiaID": 1342,
 		"offertoriumID": 584,
 		"communioID": 364,
-		"fromGregorianBooks": [
-			"rogations"
-		]
+		"fromGregorianBooks": "rogations"
 	},
 	"litaniisQuad": {
 		"introitusID": 451,
@@ -152,9 +122,7 @@
 		"tractusID": 276,
 		"offertoriumID": 584,
 		"communioID": 422,
-		"fromGregorianBooks": [
-			"rogations_out_pt"
-		]
+		"fromGregorianBooks": "rogations_out_pt"
 	},
 	"votiveECJ": {
 		"ref": "ECJ",
@@ -183,9 +151,7 @@
 		"alleluiaID": 1289,
 		"offertoriumID": 1303,
 		"communioID": 391,
-		"fromGregorianBooks": [
-			"p1"
-		]
+		"fromGregorianBooks": []
 	},
 	"votiveSTQuad": {
 		"introitusID": 349,
@@ -209,9 +175,7 @@
 		"alleluiaID": 550,
 		"offertoriumID": 302,
 		"communioID": 599,
-		"fromGregorianBooks": [
-			"votive_mass_holy_angels"
-		]
+		"fromGregorianBooks": "votive_mass_holy_angels"
 	},
 	"votiveAQuad": {
 		"introitusID": 985,
@@ -219,9 +183,7 @@
 		"tractusID": 949,
 		"offertoriumID": 302,
 		"communioID": 599,
-		"fromGregorianBooks": [
-			"votive_mass_holy_angels"
-		]
+		"fromGregorianBooks": "votive_mass_holy_angels"
 	},
 	"votiveAPasch": {
 		"introitusID": 985,
@@ -229,9 +191,7 @@
 		"alleluiaID": 377,
 		"offertoriumID": 302,
 		"communioID": 599,
-		"fromGregorianBooks": [
-			"votive_mass_holy_angels"
-		]
+		"fromGregorianBooks": "votive_mass_holy_angels"
 	},
 	"votiveSS": {
 		"introitusID": 636,
@@ -239,9 +199,7 @@
 		"alleluiaID": 181,
 		"offertoriumID": 361,
 		"communioID": 1041,
-		"fromGregorianBooks": [
-			"votive_mass_holy_ghost"
-		]
+		"fromGregorianBooks": "votive_mass_holy_ghost"
 	},
 	"votiveSSQuad": {
 		"introitusID": 636,
@@ -249,9 +207,7 @@
 		"tractusID": 925,
 		"offertoriumID": 83,
 		"communioID": 972,
-		"fromGregorianBooks": [
-			"votive_mass_holy_ghost"
-		]
+		"fromGregorianBooks": "votive_mass_holy_ghost"
 	},
 	"votiveSSPasch": {
 		"introitusID": 861,
@@ -259,9 +215,7 @@
 		"communioID": 1041,
 		"gradualeID": 99,
 		"alleluiaID": 181,
-		"fromGregorianBooks": [
-			"votive_mass_holy_ghost_pt"
-		]
+		"fromGregorianBooks": "votive_mass_holy_ghost_pt"
 	},
 	"votiveSES": {
 		"introitusID": 62,
@@ -270,9 +224,7 @@
 		"offertoriumID": 645,
 		"communioID": 577,
 		"offertoriumReplace": "${gabcReplaceRemoveAlleluiaSacerdotesDomini}",
-		"fromGregorianBooks": [
-			"votive_mass_blessed_sacrament"
-		]
+		"fromGregorianBooks": "votive_mass_blessed_sacrament"
 	},
 	"votiveSESQuad": {
 		"introitusID": 62,
@@ -281,9 +233,7 @@
 		"offertoriumID": 645,
 		"communioID": 577,
 		"offertoriumReplace": "${gabcReplaceRemoveAlleluiaSacerdotesDomini}",
-		"fromGregorianBooks": [
-			"votive_mass_blessed_sacrament"
-		]
+		"fromGregorianBooks": "votive_mass_blessed_sacrament"
 	},
 	"votiveSESPasch": {
 		"introitusID": 715,
@@ -291,9 +241,7 @@
 		"alleluiaID": 774,
 		"offertoriumID": 645,
 		"communioID": 577,
-		"fromGregorianBooks": [
-			"votive_mass_blessed_sacrament_pt"
-		]
+		"fromGregorianBooks": "votive_mass_blessed_sacrament_pt"
 	},
 	"votiveJCSES": {
 		"introitusID": 684,
@@ -301,9 +249,7 @@
 		"alleluiaID": 1096,
 		"offertoriumID": 1364,
 		"communioID": 726,
-		"fromGregorianBooks": [
-			"votive_mass_christ_eternal_priest"
-		]
+		"fromGregorianBooks": "votive_mass_christ_eternal_priest"
 	},
 	"votiveJCSESQuad": {
 		"introitusID": 684,
@@ -311,9 +257,7 @@
 		"tractusID": 1370,
 		"offertoriumID": 1364,
 		"communioID": 726,
-		"fromGregorianBooks": [
-			"votive_mass_christ_eternal_priest"
-		]
+		"fromGregorianBooks": "votive_mass_christ_eternal_priest"
 	},
 	"votiveJCSESPasch": {
 		"introitusID": 684,
@@ -321,9 +265,7 @@
 		"alleluiaID": 611,
 		"offertoriumID": 1364,
 		"communioID": 726,
-		"fromGregorianBooks": [
-			"votive_mass_christ_eternal_priest"
-		]
+		"fromGregorianBooks": "votive_mass_christ_eternal_priest"
 	},
 	"votiveSC": {
 		"introitusID": 359,
@@ -331,10 +273,7 @@
 		"alleluiaID": 859,
 		"offertoriumID": 195,
 		"communioID": 346,
-		"fromGregorianBooks": [
-			"exaltation_holy_cross",
-			"votive_mass_holy_cross"
-		]
+		"fromGregorianBooks": "votive_mass_holy_cross"
 	},
 	"votiveSCQuad": {
 		"introitusID": 359,
@@ -343,9 +282,7 @@
 		"offertoriumID": 195,
 		"communioID": 346,
 		"offertoriumReplace": "${gabcRemoveLastAlleluia}",
-		"fromGregorianBooks": [
-			"votive_mass_holy_cross"
-		]
+		"fromGregorianBooks": "votive_mass_holy_cross"
 	},
 	"votiveSCPasch": {
 		"introitusID": 359,
@@ -353,9 +290,7 @@
 		"alleluiaID": 859,
 		"offertoriumID": 195,
 		"communioID": 346,
-		"fromGregorianBooks": [
-			"votive_mass_holy_cross"
-		]
+		"fromGregorianBooks": "votive_mass_holy_cross"
 	},
 	"votivePJC": {
 		"introitusID": 523,
@@ -363,9 +298,7 @@
 		"alleluiaID": 199,
 		"offertoriumID": 426,
 		"communioID": 84,
-		"fromGregorianBooks": [
-			"votive_mass_passion_oljc"
-		]
+		"fromGregorianBooks": "votive_mass_passion_oljc"
 	},
 	"votivePJCQuad": {
 		"introitusID": 523,
@@ -373,9 +306,7 @@
 		"tractusID": 978,
 		"offertoriumID": 426,
 		"communioID": 84,
-		"fromGregorianBooks": [
-			"votive_mass_passion_oljc"
-		]
+		"fromGregorianBooks": "votive_mass_passion_oljc"
 	},
 	"votivePJCPasch": {
 		"introitusID": 523,
@@ -383,9 +314,7 @@
 		"alleluiaID": 1376,
 		"offertoriumID": 426,
 		"communioID": 84,
-		"fromGregorianBooks": [
-			"votive_mass_passion_oljc"
-		]
+		"fromGregorianBooks": "votive_mass_passion_oljc"
 	},
 	"votiveJ": {
 		"introitusID": 385,
@@ -393,9 +322,7 @@
 		"alleluiaID": 213,
 		"offertoriumID": 845,
 		"communioID": 534,
-		"fromGregorianBooks": [
-			"votive_mass_st_joseph"
-		]
+		"fromGregorianBooks": "votive_mass_st_joseph"
 	},
 	"votiveJQuad": {
 		"introitusID": 385,
@@ -403,9 +330,7 @@
 		"tractusID": 7670,
 		"offertoriumID": 845,
 		"communioID": 534,
-		"fromGregorianBooks": [
-			"votive_mass_st_joseph"
-		]
+		"fromGregorianBooks": "votive_mass_st_joseph"
 	},
 	"votiveJPasch": {
 		"introitusID": 385,
@@ -413,10 +338,7 @@
 		"alleluiaID": 213,
 		"offertoriumID": 845,
 		"communioID": 534,
-		"fromGregorianBooks": [
-			"st_joseph_solemnity",
-			"votive_mass_st_joseph"
-		]
+		"fromGregorianBooks": "votive_mass_st_joseph"
 	},
 	"votivePP": {
 		"introitusID": 475,
@@ -424,10 +346,7 @@
 		"alleluiaID": 130,
 		"offertoriumID": 570,
 		"communioID": 1028,
-		"fromGregorianBooks": [
-			"votive_mass_ss_peter_paul",
-			"ss_simon_jude"
-		]
+		"fromGregorianBooks": "votive_mass_ss_peter_paul"
 	},
 	"votivePPQuad": {
 		"introitusID": 475,
@@ -435,9 +354,7 @@
 		"tractusID": 305,
 		"offertoriumID": 570,
 		"communioID": 1028,
-		"fromGregorianBooks": [
-			"votive_mass_ss_peter_paul"
-		]
+		"fromGregorianBooks": "votive_mass_ss_peter_paul"
 	},
 	"votivePPPasch": {
 		"introitusID": 340,
@@ -445,23 +362,15 @@
 		"alleluiaID": 1249,
 		"offertoriumID": 1382,
 		"communioID": 617,
-		"fromGregorianBooks": [
-			"mass_one_martyr",
-			"st_mark"
-		]
+		"fromGregorianBooks": "mass_one_martyr"
 	},
 	"votiveOA": {
 		"ref": "votivePP",
-		"fromGregorianBooks": [
-			"votive_mass_ss_peter_paul",
-			"ss_simon_jude"
-		]
+		"fromGregorianBooks": "votive_mass_ss_peter_paul"
 	},
 	"votiveOAQuad": {
 		"ref": "votivePPQuad",
-		"fromGregorianBooks": [
-			"votive_mass_ss_peter_paul"
-		]
+		"fromGregorianBooks": "votive_mass_ss_peter_paul"
 	},
 	"votiveOAPasch": {
 		"introitusID": 340,
@@ -469,9 +378,7 @@
 		"alleluiaID": 1030,
 		"offertoriumID": 1319,
 		"communioID": 212,
-		"fromGregorianBooks": [
-			"votive_mass_holy_apostles_pt"
-		]
+		"fromGregorianBooks": "votive_mass_holy_apostles_pt"
 	},
 	"nuptialis": {
 		"introitusID": 551,
@@ -479,9 +386,7 @@
 		"alleluiaID": 191,
 		"offertoriumID": 967,
 		"communioID": 490,
-		"fromGregorianBooks": [
-			"nuptial_mass"
-		]
+		"fromGregorianBooks": "nuptial_mass"
 	},
 	"nuptialisQuad": {
 		"introitusID": 551,
@@ -489,9 +394,7 @@
 		"tractusID": 144,
 		"offertoriumID": 967,
 		"communioID": 490,
-		"fromGregorianBooks": [
-			"nuptial_mass"
-		]
+		"fromGregorianBooks": "nuptial_mass"
 	},
 	"nuptialisPasch": {
 		"introitusID": 551,
@@ -499,9 +402,7 @@
 		"alleluiaID": 505,
 		"offertoriumID": 967,
 		"communioID": 490,
-		"fromGregorianBooks": [
-			"nuptial_mass"
-		]
+		"fromGregorianBooks": "nuptial_mass"
 	},
 	"defunctorum": {
 		"introitusID": 766,
@@ -512,9 +413,7 @@
 		"communioID": 241,
 		"ite": false,
 		"extraChants": true,
-		"fromGregorianBooks": [
-			"requiem"
-		]
+		"fromGregorianBooks": "requiem"
 	},
 	"dedicatio": {
 		"introitusID": 923,
@@ -522,9 +421,7 @@
 		"alleluiaID": 242,
 		"offertoriumID": 200,
 		"communioID": 43,
-		"fromGregorianBooks": [
-			"mass_dedication_church"
-		]
+		"fromGregorianBooks": "mass_dedication_church"
 	},
 	"dedicatioQuad": {
 		"introitusID": 923,
@@ -532,9 +429,7 @@
 		"tractusID": 1377,
 		"offertoriumID": 200,
 		"communioID": 43,
-		"fromGregorianBooks": [
-			"mass_dedication_church"
-		]
+		"fromGregorianBooks": "mass_dedication_church"
 	},
 	"dedicatioPasch": {
 		"introitusID": 923,
@@ -542,9 +437,7 @@
 		"alleluiaID": 1343,
 		"offertoriumID": 200,
 		"communioID": 43,
-		"fromGregorianBooks": [
-			"mass_dedication_church"
-		]
+		"fromGregorianBooks": "mass_dedication_church"
 	},
 	"Dec24": {
 		"introitusID": 150,
@@ -552,9 +445,7 @@
 		"alleluiaID": 167,
 		"offertoriumID": 171,
 		"communioID": 367,
-		"fromGregorianBooks": [
-			"christmas0"
-		]
+		"fromGregorianBooks": "christmas0"
 	},
 	"Dec25_1": {
 		"introitusID": 1175,
@@ -562,9 +453,7 @@
 		"alleluiaID": 890,
 		"offertoriumID": 811,
 		"communioID": 117,
-		"fromGregorianBooks": [
-			"christmas1"
-		]
+		"fromGregorianBooks": "christmas1"
 	},
 	"Dec25_2": {
 		"introitusID": 917,
@@ -572,9 +461,7 @@
 		"alleluiaID": 714,
 		"offertoriumID": 979,
 		"communioID": 1125,
-		"fromGregorianBooks": [
-			"christmas2"
-		]
+		"fromGregorianBooks": "christmas2"
 	},
 	"Dec25_3": {
 		"introitusID": 72,
@@ -582,9 +469,7 @@
 		"alleluiaID": 324,
 		"offertoriumID": 1274,
 		"communioID": 1139,
-		"fromGregorianBooks": [
-			"christmas3"
-		]
+		"fromGregorianBooks": "christmas3"
 	},
 	"Jan1": {
 		"introitusID": 72,
@@ -592,9 +477,7 @@
 		"alleluiaID": 863,
 		"offertoriumID": 1274,
 		"communioID": 1139,
-		"fromGregorianBooks": [
-			"christmas_octave"
-		]
+		"fromGregorianBooks": "christmas_octave"
 	},
 	"Epi": {
 		"introitusID": 403,
@@ -602,9 +485,7 @@
 		"alleluiaID": 524,
 		"offertoriumID": 1147,
 		"communioID": 918,
-		"fromGregorianBooks": [
-			"epiphany"
-		]
+		"fromGregorianBooks": "epiphany"
 	},
 	"Asc": {
 		"introitusID": 1355,
@@ -612,9 +493,7 @@
 		"alleluiaID": 57,
 		"offertoriumID": 211,
 		"communioID": 263,
-		"fromGregorianBooks": [
-			"ascension"
-		]
+		"fromGregorianBooks": "ascension"
 	},
 	"CorpusChristi": {
 		"introitusID": 715,
@@ -623,9 +502,7 @@
 		"sequentiaID": 308,
 		"offertoriumID": 645,
 		"communioID": 577,
-		"fromGregorianBooks": [
-			"cc"
-		]
+		"fromGregorianBooks": "cc"
 	},
 	"Adv1": {
 		"in": "Ad te levavi",
@@ -642,9 +519,7 @@
 		"coID": 1036,
 		"coRef": "Ps 84: 13",
 		"coVerses": "Ps 84: 2-5, 7-8, 10-12, 14",
-		"fromGregorianBooks": [
-			"advent1"
-		]
+		"fromGregorianBooks": "advent1"
 	},
 	"Adv2": {
 		"introitusID": 356,
@@ -652,9 +527,7 @@
 		"communioID": 966,
 		"alleluiaID": 292,
 		"gradualeID": 1268,
-		"fromGregorianBooks": [
-			"advent2"
-		]
+		"fromGregorianBooks": "advent2"
 	},
 	"Adv3": {
 		"introitusID": 1225,
@@ -662,9 +535,7 @@
 		"communioID": 218,
 		"alleluiaID": 855,
 		"gradualeID": 1007,
-		"fromGregorianBooks": [
-			"advent3"
-		]
+		"fromGregorianBooks": "advent3"
 	},
 	"Adv3w": {
 		"introitusID": 79,
@@ -674,18 +545,14 @@
 		],
 		"offertoriumID": 290,
 		"communioID": 1144,
-		"fromGregorianBooks": [
-			"advent3wed"
-		]
+		"fromGregorianBooks": "advent3wed"
 	},
 	"Adv3f": {
 		"introitusID": 86,
 		"gradualeID": 1055,
 		"offertoriumID": 631,
 		"communioID": 439,
-		"fromGregorianBooks": [
-			"advent3fri"
-		]
+		"fromGregorianBooks": "advent3fri"
 	},
 	"Adv3s": {
 		"introitusID": 169,
@@ -699,9 +566,7 @@
 		"tractusID": 1157,
 		"offertoriumID": 929,
 		"communioID": 88,
-		"fromGregorianBooks": [
-			"advent3sat"
-		]
+		"fromGregorianBooks": "advent3sat"
 	},
 	"Adv3ss": {
 		"introitusID": 169,
@@ -717,9 +582,7 @@
 		"communioID": 1144,
 		"alleluiaID": 224,
 		"gradualeID": 284,
-		"fromGregorianBooks": [
-			"advent4"
-		]
+		"fromGregorianBooks": "advent4"
 	},
 	"Epi1": {
 		"introitusID": 336,
@@ -727,9 +590,7 @@
 		"communioID": 626,
 		"gradualeID": 260,
 		"alleluiaID": 816,
-		"fromGregorianBooks": [
-			"holy_family"
-		]
+		"fromGregorianBooks": "holy_family"
 	},
 	"Epi1s": {
 		"introitusID": 20,
@@ -737,9 +598,7 @@
 		"gradualeID": 553,
 		"alleluiaID": 802,
 		"communioID": 705,
-		"fromGregorianBooks": [
-			"epiphany1"
-		]
+		"fromGregorianBooks": "epiphany1"
 	},
 	"Epi2": {
 		"introitusID": 13,
@@ -747,9 +606,7 @@
 		"communioID": 230,
 		"alleluiaID": 538,
 		"gradualeID": 932,
-		"fromGregorianBooks": [
-			"epiphany2"
-		]
+		"fromGregorianBooks": "epiphany2"
 	},
 	"Epi3": {
 		"introitusID": 1123,
@@ -757,9 +614,7 @@
 		"communioID": 1148,
 		"alleluiaID": 1001,
 		"gradualeID": 1173,
-		"fromGregorianBooks": [
-			"epiphany3"
-		]
+		"fromGregorianBooks": "epiphany3"
 	},
 	"Epi4": {
 		"introitusID": 1123,
@@ -767,9 +622,7 @@
 		"communioID": 1148,
 		"alleluiaID": 1001,
 		"gradualeID": 1173,
-		"fromGregorianBooks": [
-			"epiphany3"
-		]
+		"fromGregorianBooks": "epiphany3"
 	},
 	"Epi5": {
 		"introitusID": 1123,
@@ -777,9 +630,7 @@
 		"communioID": 1148,
 		"alleluiaID": 1001,
 		"gradualeID": 1173,
-		"fromGregorianBooks": [
-			"epiphany3"
-		]
+		"fromGregorianBooks": "epiphany3"
 	},
 	"Epi6": {
 		"introitusID": 1123,
@@ -787,9 +638,7 @@
 		"communioID": 1148,
 		"alleluiaID": 1001,
 		"gradualeID": 1173,
-		"fromGregorianBooks": [
-			"epiphany3"
-		]
+		"fromGregorianBooks": "epiphany3"
 	},
 	"Nat1": {
 		"introitusID": 564,
@@ -797,9 +646,7 @@
 		"communioID": 1282,
 		"gradualeID": 1308,
 		"alleluiaID": 714,
-		"fromGregorianBooks": [
-			"sunday_within_octave_christmas"
-		]
+		"fromGregorianBooks": "sunday_within_octave_christmas"
 	},
 	"Nat2": {
 		"introitusID": 1033,
@@ -807,9 +654,7 @@
 		"communioID": 8,
 		"alleluiaID": 1,
 		"gradualeID": 670,
-		"fromGregorianBooks": [
-			"most_holy_name_jesus"
-		]
+		"fromGregorianBooks": "most_holy_name_jesus"
 	},
 	"Pasc0": {
 		"introitusID": 1043,
@@ -819,9 +664,7 @@
 		"offertoriumID": 725,
 		"communioID": 952,
 		"ite": 2988,
-		"fromGregorianBooks": [
-			"easter_sunday"
-		]
+		"fromGregorianBooks": "easter_sunday"
 	},
 	"Pasc0m": {
 		"introitusID": 1315,
@@ -830,9 +673,7 @@
 		"sequentiaID": 1086,
 		"offertoriumID": 789,
 		"communioID": 121,
-		"fromGregorianBooks": [
-			"easter_monday"
-		]
+		"fromGregorianBooks": "easter_monday"
 	},
 	"Pasc0t": {
 		"introitusID": 1135,
@@ -841,9 +682,7 @@
 		"sequentiaID": 1086,
 		"offertoriumID": 869,
 		"communioID": 243,
-		"fromGregorianBooks": [
-			"easter_tuesday"
-		]
+		"fromGregorianBooks": "easter_tuesday"
 	},
 	"Pasc0w": {
 		"introitusID": 997,
@@ -852,9 +691,7 @@
 		"sequentiaID": 1086,
 		"offertoriumID": 1361,
 		"communioID": 593,
-		"fromGregorianBooks": [
-			"easter_wednesday"
-		]
+		"fromGregorianBooks": "easter_wednesday"
 	},
 	"Pasc0h": {
 		"introitusID": 1332,
@@ -863,9 +700,7 @@
 		"sequentiaID": 1086,
 		"offertoriumID": 1129,
 		"communioID": 1219,
-		"fromGregorianBooks": [
-			"easter_thursday"
-		]
+		"fromGregorianBooks": "easter_thursday"
 	},
 	"Pasc0f": {
 		"introitusID": 758,
@@ -874,9 +709,7 @@
 		"sequentiaID": 1086,
 		"offertoriumID": 151,
 		"communioID": 1260,
-		"fromGregorianBooks": [
-			"easter_friday"
-		]
+		"fromGregorianBooks": "easter_friday"
 	},
 	"Pasc0s": {
 		"introitusID": 974,
@@ -885,9 +718,7 @@
 		"sequentiaID": 1086,
 		"offertoriumID": 941,
 		"communioID": 1293,
-		"fromGregorianBooks": [
-			"easter_saturday"
-		]
+		"fromGregorianBooks": "easter_saturday"
 	},
 	"Pasc1": {
 		"introitusID": 25,
@@ -895,9 +726,7 @@
 		"communioID": 953,
 		"gradualeID": 1042,
 		"alleluiaID": 275,
-		"fromGregorianBooks": [
-			"easter1"
-		]
+		"fromGregorianBooks": "easter1"
 	},
 	"Pasc2": {
 		"introitusID": 135,
@@ -905,9 +734,7 @@
 		"communioID": 95,
 		"gradualeID": 912,
 		"alleluiaID": 1220,
-		"fromGregorianBooks": [
-			"easter2"
-		]
+		"fromGregorianBooks": "easter2"
 	},
 	"Pasc3": {
 		"introitusID": 536,
@@ -915,9 +742,7 @@
 		"communioID": 813,
 		"gradualeID": 1341,
 		"alleluiaID": 446,
-		"fromGregorianBooks": [
-			"easter3"
-		]
+		"fromGregorianBooks": "easter3"
 	},
 	"Pasc4": {
 		"introitusID": 42,
@@ -925,9 +750,7 @@
 		"communioID": 39,
 		"gradualeID": 159,
 		"alleluiaID": 1348,
-		"fromGregorianBooks": [
-			"easter4"
-		]
+		"fromGregorianBooks": "easter4"
 	},
 	"Pasc5": {
 		"introitusID": 585,
@@ -935,9 +758,7 @@
 		"communioID": 579,
 		"gradualeID": 633,
 		"alleluiaID": 1040,
-		"fromGregorianBooks": [
-			"easter5"
-		]
+		"fromGregorianBooks": "easter5"
 	},
 	"Pasc6": {
 		"introitusID": 990,
@@ -945,9 +766,7 @@
 		"communioID": 1091,
 		"gradualeID": 405,
 		"alleluiaID": 107,
-		"fromGregorianBooks": [
-			"ascension1"
-		]
+		"fromGregorianBooks": "ascension1"
 	},
 	"Pent0": {
 		"introitusID": 861,
@@ -956,9 +775,7 @@
 		"gradualeID": 99,
 		"alleluiaID": 181,
 		"sequentiaID": 68,
-		"fromGregorianBooks": [
-			"pentecost"
-		]
+		"fromGregorianBooks": "pentecost"
 	},
 	"Pent0m": {
 		"introitusID": 715,
@@ -967,9 +784,7 @@
 		"sequentiaID": 68,
 		"offertoriumID": 869,
 		"communioID": 1151,
-		"fromGregorianBooks": [
-			"pentecost_mon"
-		]
+		"fromGregorianBooks": "pentecost_mon"
 	},
 	"Pent0t": {
 		"introitusID": 1278,
@@ -978,9 +793,7 @@
 		"sequentiaID": 68,
 		"offertoriumID": 1361,
 		"communioID": 333,
-		"fromGregorianBooks": [
-			"pentecost_tue"
-		]
+		"fromGregorianBooks": "pentecost_tue"
 	},
 	"Pent0w": {
 		"introitusID": 822,
@@ -993,9 +806,7 @@
 		"rubrics": {
 			"after#divGraduale": "<Allelúia.> is not repeated. The <Glória in excélsis.> is said here."
 		},
-		"fromGregorianBooks": [
-			"pentecost_wed"
-		]
+		"fromGregorianBooks": "pentecost_wed"
 	},
 	"Pent0h": {
 		"introitusID": 861,
@@ -1004,9 +815,7 @@
 		"gradualeID": 99,
 		"alleluiaID": 181,
 		"sequentiaID": 68,
-		"fromGregorianBooks": [
-			"pentecost"
-		]
+		"fromGregorianBooks": "pentecost"
 	},
 	"Pent0f": {
 		"introitusID": 557,
@@ -1015,9 +824,7 @@
 		"sequentiaID": 68,
 		"offertoriumID": 668,
 		"communioID": 981,
-		"fromGregorianBooks": [
-			"pentecost_fri"
-		]
+		"fromGregorianBooks": "pentecost_fri"
 	},
 	"Pent0s": {
 		"introitusID": 1228,
@@ -1037,9 +844,7 @@
 		"rubrics": {
 			"before#divGraduale": "After each Lesson, the Cantor intones <Allelúia.>  The Choir continues the Chant, without repeating the intonation.  <Allelúia.> is not repeated at the end of the Verse."
 		},
-		"fromGregorianBooks": [
-			"pentecost_sat"
-		]
+		"fromGregorianBooks": "pentecost_sat"
 	},
 	"Pent0ss": {
 		"introitusID": 1228,
@@ -1057,9 +862,7 @@
 		"communioID": 391,
 		"alleluiaID": 1289,
 		"gradualeID": 965,
-		"fromGregorianBooks": [
-			"p1"
-		]
+		"fromGregorianBooks": "p1"
 	},
 	"Pent1w": {
 		"introitusID": 146,
@@ -1067,9 +870,7 @@
 		"communioID": 639,
 		"alleluiaID": 103,
 		"gradualeID": 399,
-		"fromGregorianBooks": [
-			"1st_sunday_after_pentecost"
-		]
+		"fromGregorianBooks": "1st_sunday_after_pentecost"
 	},
 	"Pent2": {
 		"introitusID": 1111,
@@ -1077,9 +878,7 @@
 		"communioID": 794,
 		"alleluiaID": 801,
 		"gradualeID": 697,
-		"fromGregorianBooks": [
-			"p2"
-		]
+		"fromGregorianBooks": "p2"
 	},
 	"Pent3": {
 		"introitusID": 1235,
@@ -1087,9 +886,7 @@
 		"communioID": 1058,
 		"alleluiaID": 1264,
 		"gradualeID": 423,
-		"fromGregorianBooks": [
-			"p3"
-		]
+		"fromGregorianBooks": "p3"
 	},
 	"Pent4": {
 		"introitusID": 874,
@@ -1097,9 +894,7 @@
 		"communioID": 512,
 		"alleluiaID": 727,
 		"gradualeID": 332,
-		"fromGregorianBooks": [
-			"p4"
-		]
+		"fromGregorianBooks": "p4"
 	},
 	"Pent5": {
 		"introitusID": 396,
@@ -1107,9 +902,7 @@
 		"communioID": 574,
 		"alleluiaID": 797,
 		"gradualeID": 1226,
-		"fromGregorianBooks": [
-			"p5"
-		]
+		"fromGregorianBooks": "p5"
 	},
 	"Pent6": {
 		"introitusID": 522,
@@ -1117,9 +910,7 @@
 		"communioID": 1079,
 		"alleluiaID": 239,
 		"gradualeID": 1046,
-		"fromGregorianBooks": [
-			"p6"
-		]
+		"fromGregorianBooks": "p6"
 	},
 	"Pent7": {
 		"introitusID": 1136,
@@ -1127,9 +918,7 @@
 		"communioID": 339,
 		"alleluiaID": 77,
 		"gradualeID": 1022,
-		"fromGregorianBooks": [
-			"p7"
-		]
+		"fromGregorianBooks": "p7"
 	},
 	"Pent8": {
 		"introitusID": 1254,
@@ -1137,9 +926,7 @@
 		"communioID": 1203,
 		"alleluiaID": 709,
 		"gradualeID": 886,
-		"fromGregorianBooks": [
-			"p8"
-		]
+		"fromGregorianBooks": "p8"
 	},
 	"Pent9": {
 		"introitusID": 1357,
@@ -1147,9 +934,7 @@
 		"communioID": 798,
 		"alleluiaID": 879,
 		"gradualeID": 1205,
-		"fromGregorianBooks": [
-			"p9"
-		]
+		"fromGregorianBooks": "p9"
 	},
 	"Pent10": {
 		"introitusID": 299,
@@ -1157,9 +942,7 @@
 		"communioID": 1221,
 		"alleluiaID": 1052,
 		"gradualeID": 1088,
-		"fromGregorianBooks": [
-			"p10"
-		]
+		"fromGregorianBooks": "p10"
 	},
 	"Pent11": {
 		"introitusID": 1026,
@@ -1167,9 +950,7 @@
 		"communioID": 1145,
 		"alleluiaID": 580,
 		"gradualeID": 865,
-		"fromGregorianBooks": [
-			"p11"
-		]
+		"fromGregorianBooks": "p11"
 	},
 	"Pent12": {
 		"introitusID": 501,
@@ -1177,9 +958,7 @@
 		"communioID": 1245,
 		"alleluiaID": 1082,
 		"gradualeID": 1182,
-		"fromGregorianBooks": [
-			"p12"
-		]
+		"fromGregorianBooks": "p12"
 	},
 	"Pent13": {
 		"introitusID": 691,
@@ -1187,9 +966,7 @@
 		"communioID": 388,
 		"alleluiaID": 820,
 		"gradualeID": 1232,
-		"fromGregorianBooks": [
-			"p13"
-		]
+		"fromGregorianBooks": "p13"
 	},
 	"Pent14": {
 		"introitusID": 1071,
@@ -1197,9 +974,7 @@
 		"communioID": 868,
 		"alleluiaID": 1246,
 		"gradualeID": 547,
-		"fromGregorianBooks": [
-			"p14"
-		]
+		"fromGregorianBooks": "p14"
 	},
 	"Pent15": {
 		"introitusID": 1165,
@@ -1207,9 +982,7 @@
 		"communioID": 782,
 		"alleluiaID": 1352,
 		"gradualeID": 1338,
-		"fromGregorianBooks": [
-			"p15"
-		]
+		"fromGregorianBooks": "p15"
 	},
 	"Pent16": {
 		"introitusID": 335,
@@ -1217,9 +990,7 @@
 		"communioID": 1318,
 		"alleluiaID": 1077,
 		"gradualeID": 1173,
-		"fromGregorianBooks": [
-			"p16"
-		]
+		"fromGregorianBooks": "p16"
 	},
 	"Pent17": {
 		"introitusID": 1284,
@@ -1227,9 +998,7 @@
 		"communioID": 1134,
 		"alleluiaID": 595,
 		"gradualeID": 1044,
-		"fromGregorianBooks": [
-			"p17"
-		]
+		"fromGregorianBooks": "p17"
 	},
 	"EmbWedSept": {
 		"introitusID": 1323,
@@ -1240,9 +1009,7 @@
 		"offertoriumID": 810,
 		"communioID": 496,
 		"gloria": false,
-		"fromGregorianBooks": [
-			"wed_ews"
-		]
+		"fromGregorianBooks": "wed_ews"
 	},
 	"EmbFriSept": {
 		"introitusID": 864,
@@ -1250,9 +1017,7 @@
 		"offertoriumID": 1359,
 		"communioID": 828,
 		"gloria": false,
-		"fromGregorianBooks": [
-			"fri_ews"
-		]
+		"fromGregorianBooks": "fri_ews"
 	},
 	"EmbSatSept": {
 		"introitusID": 450,
@@ -1267,9 +1032,7 @@
 		"offertoriumID": 542,
 		"communioID": 1149,
 		"gloria": false,
-		"fromGregorianBooks": [
-			"sat_ews"
-		]
+		"fromGregorianBooks": "sat_ews"
 	},
 	"EmbSatSeptS": {
 		"introitusID": 450,
@@ -1286,9 +1049,7 @@
 		"communioID": 404,
 		"alleluiaID": 1097,
 		"gradualeID": 1011,
-		"fromGregorianBooks": [
-			"p18"
-		]
+		"fromGregorianBooks": "p18"
 	},
 	"Pent19": {
 		"introitusID": 389,
@@ -1296,9 +1057,7 @@
 		"communioID": 479,
 		"alleluiaID": 1192,
 		"gradualeID": 44,
-		"fromGregorianBooks": [
-			"p19"
-		]
+		"fromGregorianBooks": "p19"
 	},
 	"Pent20": {
 		"introitusID": 1056,
@@ -1306,9 +1065,7 @@
 		"communioID": 696,
 		"alleluiaID": 745,
 		"gradualeID": 1230,
-		"fromGregorianBooks": [
-			"p20"
-		]
+		"fromGregorianBooks": "p20"
 	},
 	"Pent21": {
 		"introitusID": 1047,
@@ -1316,9 +1073,7 @@
 		"communioID": 1290,
 		"alleluiaID": 1380,
 		"gradualeID": 1108,
-		"fromGregorianBooks": [
-			"p21"
-		]
+		"fromGregorianBooks": "p21"
 	},
 	"Pent22": {
 		"introitusID": 1271,
@@ -1326,9 +1081,7 @@
 		"communioID": 464,
 		"alleluiaID": 933,
 		"gradualeID": 614,
-		"fromGregorianBooks": [
-			"p22"
-		]
+		"fromGregorianBooks": "p22"
 	},
 	"Pent23": {
 		"introitusID": 735,
@@ -1336,39 +1089,27 @@
 		"communioID": 592,
 		"alleluiaID": 331,
 		"gradualeID": 395,
-		"fromGregorianBooks": [
-			"p23"
-		]
+		"fromGregorianBooks": "p23"
 	},
 	"Pent24": {
 		"ref": "Pent23",
-		"fromGregorianBooks": [
-			"p23"
-		]
+		"fromGregorianBooks": "p23"
 	},
 	"PentEpi3": {
 		"ref": "Pent23",
-		"fromGregorianBooks": [
-			"p23"
-		]
+		"fromGregorianBooks": "p23"
 	},
 	"PentEpi4": {
 		"ref": "Pent23",
-		"fromGregorianBooks": [
-			"p23"
-		]
+		"fromGregorianBooks": "p23"
 	},
 	"PentEpi5": {
 		"ref": "Pent23",
-		"fromGregorianBooks": [
-			"p23"
-		]
+		"fromGregorianBooks": "p23"
 	},
 	"PentEpi6": {
 		"ref": "Pent23",
-		"fromGregorianBooks": [
-			"p23"
-		]
+		"fromGregorianBooks": "p23"
 	},
 	"7a": {
 		"introitusID": 1168,
@@ -1376,9 +1117,7 @@
 		"communioID": 640,
 		"tractusID": 926,
 		"gradualeID": 222,
-		"fromGregorianBooks": [
-			"septuagesima"
-		]
+		"fromGregorianBooks": "septuagesima"
 	},
 	"6a": {
 		"introitusID": 529,
@@ -1386,9 +1125,7 @@
 		"communioID": 554,
 		"tractusID": 1178,
 		"gradualeID": 1265,
-		"fromGregorianBooks": [
-			"sexagesima"
-		]
+		"fromGregorianBooks": "sexagesima"
 	},
 	"5a": {
 		"introitusID": 1381,
@@ -1396,9 +1133,7 @@
 		"communioID": 677,
 		"tractusID": 1299,
 		"gradualeID": 850,
-		"fromGregorianBooks": [
-			"quinquagesima"
-		]
+		"fromGregorianBooks": "quinquagesima"
 	},
 	"5aw": {
 		"introitusID": 533,
@@ -1406,18 +1141,14 @@
 		"tractusID": 425,
 		"offertoriumID": 648,
 		"communioID": 582,
-		"fromGregorianBooks": [
-			"lent0"
-		]
+		"fromGregorianBooks": "lent0"
 	},
 	"5ah": {
 		"introitusID": 299,
 		"gradualeID": 423,
 		"offertoriumID": 962,
 		"communioID": 1221,
-		"fromGregorianBooks": [
-			"lent0thu"
-		]
+		"fromGregorianBooks": "lent0thu"
 	},
 	"5af": {
 		"introitusID": 45,
@@ -1425,18 +1156,14 @@
 		"tractusID": 425,
 		"offertoriumID": 109,
 		"communioID": 897,
-		"fromGregorianBooks": [
-			"lent0fri"
-		]
+		"fromGregorianBooks": "lent0fri"
 	},
 	"5as": {
 		"introitusID": 45,
 		"gradualeID": 229,
 		"offertoriumID": 109,
 		"communioID": 897,
-		"fromGregorianBooks": [
-			"lent0fri"
-		]
+		"fromGregorianBooks": "lent0fri"
 	},
 	"Quad1": {
 		"introitusID": 327,
@@ -1444,9 +1171,7 @@
 		"communioID": 1100,
 		"tractusID": 889,
 		"gradualeID": 834,
-		"fromGregorianBooks": [
-			"lent1"
-		]
+		"fromGregorianBooks": "lent1"
 	},
 	"Quad1m": {
 		"introitusID": 1330,
@@ -1454,18 +1179,14 @@
 		"tractusID": 425,
 		"offertoriumID": 1060,
 		"communioID": 623,
-		"fromGregorianBooks": [
-			"lent1mon"
-		]
+		"fromGregorianBooks": "lent1mon"
 	},
 	"Quad1t": {
 		"introitusID": 549,
 		"gradualeID": 44,
 		"offertoriumID": 967,
 		"communioID": 384,
-		"fromGregorianBooks": [
-			"lent1tue"
-		]
+		"fromGregorianBooks": "lent1tue"
 	},
 	"Quad1w": {
 		"introitusID": 1294,
@@ -1483,9 +1204,7 @@
 		"gradualeID": 1088,
 		"offertoriumID": 747,
 		"communioID": 782,
-		"fromGregorianBooks": [
-			"lent1thu"
-		]
+		"fromGregorianBooks": "lent1thu"
 	},
 	"Quad1f": {
 		"introitusID": 100,
@@ -1493,9 +1212,7 @@
 		"tractusID": 425,
 		"offertoriumID": 1359,
 		"communioID": 484,
-		"fromGregorianBooks": [
-			"lent1fri"
-		]
+		"fromGregorianBooks": "lent1fri"
 	},
 	"Quad1s": {
 		"introitusID": 238,
@@ -1509,9 +1226,7 @@
 		"tractusID": 1247,
 		"offertoriumID": 542,
 		"communioID": 131,
-		"fromGregorianBooks": [
-			"lent1sat"
-		]
+		"fromGregorianBooks": "lent1sat"
 	},
 	"Quad1ss": {
 		"introitusID": 238,
@@ -1538,18 +1253,14 @@
 		"tractusID": 425,
 		"offertoriumID": 143,
 		"communioID": 998,
-		"fromGregorianBooks": [
-			"lent2mon"
-		]
+		"fromGregorianBooks": "lent2mon"
 	},
 	"Quad2t": {
 		"introitusID": 751,
 		"gradualeID": 423,
 		"offertoriumID": 922,
 		"communioID": 639,
-		"fromGregorianBooks": [
-			"lent2tue"
-		]
+		"fromGregorianBooks": "lent2tue"
 	},
 	"Quad2w": {
 		"introitusID": 323,
@@ -1557,18 +1268,14 @@
 		"tractusID": 425,
 		"offertoriumID": 962,
 		"communioID": 268,
-		"fromGregorianBooks": [
-			"lent2wed"
-		]
+		"fromGregorianBooks": "lent2wed"
 	},
 	"Quad2h": {
 		"introitusID": 501,
 		"gradualeID": 332,
 		"offertoriumID": 325,
 		"communioID": 798,
-		"fromGregorianBooks": [
-			"lent2thu"
-		]
+		"fromGregorianBooks": "lent2thu"
 	},
 	"Quad2f": {
 		"introitusID": 830,
@@ -1576,18 +1283,14 @@
 		"tractusID": 425,
 		"offertoriumID": 993,
 		"communioID": 1159,
-		"fromGregorianBooks": [
-			"lent2fri"
-		]
+		"fromGregorianBooks": "lent2fri"
 	},
 	"Quad2s": {
 		"introitusID": 1216,
 		"gradualeID": 1338,
 		"offertoriumID": 708,
 		"communioID": 1066,
-		"fromGregorianBooks": [
-			"lent2sat"
-		]
+		"fromGregorianBooks": "lent2sat"
 	},
 	"Quad3": {
 		"introitusID": 916,
@@ -1595,9 +1298,7 @@
 		"communioID": 1090,
 		"tractusID": 1329,
 		"gradualeID": 1298,
-		"fromGregorianBooks": [
-			"lent3"
-		]
+		"fromGregorianBooks": "lent3"
 	},
 	"Quad3m": {
 		"introitusID": 839,
@@ -1605,18 +1306,14 @@
 		"tractusID": 425,
 		"offertoriumID": 842,
 		"communioID": 931,
-		"fromGregorianBooks": [
-			"lent3mon"
-		]
+		"fromGregorianBooks": "lent3mon"
 	},
 	"Quad3t": {
 		"introitusID": 558,
 		"gradualeID": 1210,
 		"offertoriumID": 47,
 		"communioID": 1340,
-		"fromGregorianBooks": [
-			"lent3tue"
-		]
+		"fromGregorianBooks": "lent3tue"
 	},
 	"Quad3w": {
 		"introitusID": 1049,
@@ -1624,18 +1321,14 @@
 		"tractusID": 425,
 		"offertoriumID": 1369,
 		"communioID": 531,
-		"fromGregorianBooks": [
-			"lent3wed"
-		]
+		"fromGregorianBooks": "lent3wed"
 	},
 	"Quad3h": {
 		"introitusID": 389,
 		"gradualeID": 1230,
 		"offertoriumID": 616,
 		"communioID": 479,
-		"fromGregorianBooks": [
-			"lent3thu"
-		]
+		"fromGregorianBooks": "lent3thu"
 	},
 	"Quad3f": {
 		"introitusID": 733,
@@ -1643,18 +1336,14 @@
 		"tractusID": 425,
 		"offertoriumID": 293,
 		"communioID": 894,
-		"fromGregorianBooks": [
-			"lent3fri"
-		]
+		"fromGregorianBooks": "lent3fri"
 	},
 	"Quad3s": {
 		"introitusID": 1248,
 		"gradualeID": 1121,
 		"offertoriumID": 1099,
 		"communioID": 1010,
-		"fromGregorianBooks": [
-			"lent3sat"
-		]
+		"fromGregorianBooks": "lent3sat"
 	},
 	"Quad4": {
 		"introitusID": 653,
@@ -1662,9 +1351,7 @@
 		"communioID": 1353,
 		"tractusID": 1377,
 		"gradualeID": 1011,
-		"fromGregorianBooks": [
-			"lent4"
-		]
+		"fromGregorianBooks": "lent4"
 	},
 	"Quad4m": {
 		"introitusID": 458,
@@ -1672,18 +1359,14 @@
 		"tractusID": 425,
 		"offertoriumID": 718,
 		"communioID": 1316,
-		"fromGregorianBooks": [
-			"lent4mon"
-		]
+		"fromGregorianBooks": "lent4mon"
 	},
 	"Quad4t": {
 		"introitusID": 904,
 		"gradualeID": 152,
 		"offertoriumID": 182,
 		"communioID": 1296,
-		"fromGregorianBooks": [
-			"lent4tue"
-		]
+		"fromGregorianBooks": "lent4tue"
 	},
 	"Quad4w": {
 		"introitusID": 418,
@@ -1694,18 +1377,14 @@
 		"tractusID": 425,
 		"offertoriumID": 860,
 		"communioID": 989,
-		"fromGregorianBooks": [
-			"lent4wed"
-		]
+		"fromGregorianBooks": "lent4wed"
 	},
 	"Quad4h": {
 		"introitusID": 864,
 		"gradualeID": 1232,
 		"offertoriumID": 731,
 		"communioID": 1318,
-		"fromGregorianBooks": [
-			"lent4thu"
-		]
+		"fromGregorianBooks": "lent4thu"
 	},
 	"Quad4f": {
 		"introitusID": 572,
@@ -1713,18 +1392,14 @@
 		"tractusID": 425,
 		"offertoriumID": 1080,
 		"communioID": 704,
-		"fromGregorianBooks": [
-			"lent4fri"
-		]
+		"fromGregorianBooks": "lent4fri"
 	},
 	"Quad4s": {
 		"introitusID": 776,
 		"gradualeID": 818,
 		"offertoriumID": 223,
 		"communioID": 278,
-		"fromGregorianBooks": [
-			"lent4sat"
-		]
+		"fromGregorianBooks": "lent4sat"
 	},
 	"Quad5": {
 		"introitusID": 78,
@@ -1733,9 +1408,7 @@
 		"tractusID": 742,
 		"gradualeID": 760,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5"
-		]
+		"fromGregorianBooks": "lent5"
 	},
 	"Quad5m": {
 		"introitusID": 138,
@@ -1744,9 +1417,7 @@
 		"offertoriumID": 848,
 		"communioID": 81,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5mon"
-		]
+		"fromGregorianBooks": "lent5mon"
 	},
 	"Quad5t": {
 		"introitusID": 60,
@@ -1754,9 +1425,7 @@
 		"offertoriumID": 1328,
 		"communioID": 433,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5tue"
-		]
+		"fromGregorianBooks": "lent5tue"
 	},
 	"Quad5w": {
 		"introitusID": 1054,
@@ -1765,9 +1434,7 @@
 		"offertoriumID": 245,
 		"communioID": 141,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5wed"
-		]
+		"fromGregorianBooks": "lent5wed"
 	},
 	"Quad5h": {
 		"introitusID": 1056,
@@ -1775,9 +1442,7 @@
 		"offertoriumID": 812,
 		"communioID": 696,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5thu"
-		]
+		"fromGregorianBooks": "lent5thu"
 	},
 	"Quad5f": {
 		"introitusID": 267,
@@ -1786,9 +1451,7 @@
 		"offertoriumID": 408,
 		"communioID": 1158,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5fri"
-		]
+		"fromGregorianBooks": "lent5fri"
 	},
 	"Quad5s": {
 		"introitusID": 267,
@@ -1796,9 +1459,7 @@
 		"offertoriumID": 408,
 		"communioID": 1158,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent5fri"
-		]
+		"fromGregorianBooks": "lent5fri"
 	},
 	"Quad6": {
 		"introitusID": 1171,
@@ -1807,9 +1468,7 @@
 		"tractusID": 372,
 		"gradualeID": 49,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent6"
-		]
+		"fromGregorianBooks": "lent6"
 	},
 	"Quad6_v": {
 		"introitusID": 1171,
@@ -1818,9 +1477,7 @@
 		"tractusID": 372,
 		"gradualeID": 49,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"lent6"
-		]
+		"fromGregorianBooks": "lent6"
 	},
 	"Quad6m": {
 		"introitusID": 226,
@@ -1829,9 +1486,7 @@
 		"offertoriumID": 411,
 		"communioID": 196,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"monday_holy_week"
-		]
+		"fromGregorianBooks": "monday_holy_week"
 	},
 	"Quad6t": {
 		"introitusID": 374,
@@ -1839,9 +1494,7 @@
 		"offertoriumID": 1322,
 		"communioID": 397,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"tuesday_holy_week"
-		]
+		"fromGregorianBooks": "tuesday_holy_week"
 	},
 	"Quad6w": {
 		"introitusID": 236,
@@ -1850,9 +1503,7 @@
 		"offertoriumID": 867,
 		"communioID": 588,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"wednesday_holy_week"
-		]
+		"fromGregorianBooks": "wednesday_holy_week"
 	},
 	"Quad6h": {
 		"extraChants": true,
@@ -1868,9 +1519,7 @@
 			{},
 			"mi$1se$2ré$3re$4 no$5bis.$6"
 		],
-		"fromGregorianBooks": [
-			"maundy_thursday"
-		]
+		"fromGregorianBooks": "maundy_thursday"
 	},
 	"Quad6h_v": {
 		"extraChants": true,
@@ -1880,9 +1529,7 @@
 		"communioID": 140,
 		"gloria": true,
 		"gloriaPatri": false,
-		"fromGregorianBooks": [
-			"maundy_thursday"
-		]
+		"fromGregorianBooks": "maundy_thursday"
 	},
 	"Quad6f": {
 		"extraChants": true,
@@ -1918,9 +1565,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_leo_i"
-		]
+		"fromGregorianBooks": "st_leo_i"
 	},
 	"Apr11Quad": {
 		"tractusID": 1085,
@@ -1928,9 +1573,7 @@
 		"gradualeID": 1119,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_leo_i"
-		]
+		"fromGregorianBooks": "st_leo_i"
 	},
 	"Apr11Pasch": {
 		"communioID": 509,
@@ -1938,9 +1581,7 @@
 		"alleluiaID": 548,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_leo_i"
-		]
+		"fromGregorianBooks": "st_leo_i"
 	},
 	"Apr13": {
 		"communioID": 89,
@@ -1948,9 +1589,7 @@
 		"alleluiaID": 1249,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_hermenegild"
-		]
+		"fromGregorianBooks": "st_hermenegild"
 	},
 	"Apr13Quad": {
 		"communioID": 89,
@@ -1958,9 +1597,7 @@
 		"tractusID": 176,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_hermenegild"
-		]
+		"fromGregorianBooks": "st_hermenegild"
 	},
 	"Apr13Pasch": {
 		"communioID": 617,
@@ -1968,9 +1605,7 @@
 		"alleluiaID": 1249,
 		"introitusID": 340,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"st_hermenegild"
-		]
+		"fromGregorianBooks": "st_hermenegild"
 	},
 	"Apr14": {
 		"communioID": 400,
@@ -1978,9 +1613,7 @@
 		"alleluiaID": 289,
 		"introitusID": 831,
 		"offertoriumID": 285,
-		"fromGregorianBooks": [
-			"st_justin"
-		]
+		"fromGregorianBooks": "st_justin"
 	},
 	"Apr14Quad": {
 		"communioID": 400,
@@ -1988,9 +1621,7 @@
 		"tractusID": 969,
 		"introitusID": 831,
 		"offertoriumID": 285,
-		"fromGregorianBooks": [
-			"st_justin"
-		]
+		"fromGregorianBooks": "st_justin"
 	},
 	"Apr14Pasch": {
 		"communioID": 400,
@@ -1998,9 +1629,7 @@
 		"alleluiaID": 289,
 		"introitusID": 831,
 		"offertoriumID": 285,
-		"fromGregorianBooks": [
-			"st_justin"
-		]
+		"fromGregorianBooks": "st_justin"
 	},
 	"Apr17": {
 		"communioID": 509,
@@ -2008,9 +1637,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_anicetus"
-		]
+		"fromGregorianBooks": "st_anicetus"
 	},
 	"Apr17Quad": {
 		"tractusID": 1085,
@@ -2018,9 +1645,7 @@
 		"gradualeID": 1119,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_anicetus"
-		]
+		"fromGregorianBooks": "st_anicetus"
 	},
 	"Apr17Pasch": {
 		"communioID": 509,
@@ -2028,9 +1653,7 @@
 		"alleluiaID": 548,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_anicetus"
-		]
+		"fromGregorianBooks": "st_anicetus"
 	},
 	"Apr2": {
 		"communioID": 1337,
@@ -2038,9 +1661,7 @@
 		"alleluiaID": 765,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_francis_of_paula"
-		]
+		"fromGregorianBooks": "st_francis_of_paula"
 	},
 	"Apr2Quad": {
 		"tractusID": 7670,
@@ -2048,9 +1669,7 @@
 		"gradualeID": 511,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_francis_of_paula"
-		]
+		"fromGregorianBooks": "st_francis_of_paula"
 	},
 	"Apr2Pasch": {
 		"communioID": 1337,
@@ -2058,9 +1677,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_francis_of_paula"
-		]
+		"fromGregorianBooks": "st_francis_of_paula"
 	},
 	"Apr21": {
 		"communioID": 1008,
@@ -2068,9 +1685,7 @@
 		"alleluiaID": 14,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_anselm"
-		]
+		"fromGregorianBooks": "st_anselm"
 	},
 	"Apr21Pasch": {
 		"communioID": 1008,
@@ -2078,9 +1693,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_anselm"
-		]
+		"fromGregorianBooks": "st_anselm"
 	},
 	"Apr22": {
 		"communioID": 509,
@@ -2088,9 +1701,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"ss_soter_caius"
-		]
+		"fromGregorianBooks": "ss_soter_caius"
 	},
 	"Apr22Pasch": {
 		"communioID": 509,
@@ -2098,9 +1709,7 @@
 		"alleluiaID": 548,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"ss_soter_caius"
-		]
+		"fromGregorianBooks": "ss_soter_caius"
 	},
 	"Apr23": {
 		"communioID": 89,
@@ -2108,9 +1717,7 @@
 		"alleluiaID": 1249,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_george"
-		]
+		"fromGregorianBooks": "st_george"
 	},
 	"Apr23Quad": {
 		"communioID": 89,
@@ -2118,9 +1725,7 @@
 		"tractusID": 176,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_george"
-		]
+		"fromGregorianBooks": "st_george"
 	},
 	"Apr23Pasch": {
 		"communioID": 617,
@@ -2128,9 +1733,7 @@
 		"alleluiaID": 1249,
 		"introitusID": 340,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"st_george"
-		]
+		"fromGregorianBooks": "st_george"
 	},
 	"Apr28": {
 		"communioID": 732,
@@ -2138,9 +1741,7 @@
 		"alleluiaID": 1073,
 		"introitusID": 775,
 		"offertoriumID": 773,
-		"fromGregorianBooks": [
-			"st_paul_cross"
-		]
+		"fromGregorianBooks": "st_paul_cross"
 	},
 	"Apr30": {
 		"communioID": 1301,
@@ -2148,9 +1749,7 @@
 		"alleluiaID": 406,
 		"introitusID": 629,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_catherine_of_sienna"
-		]
+		"fromGregorianBooks": "st_catherine_of_sienna"
 	},
 	"Apr4": {
 		"communioID": 1008,
@@ -2158,9 +1757,7 @@
 		"alleluiaID": 14,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_isidore"
-		]
+		"fromGregorianBooks": "st_isidore"
 	},
 	"Apr4Quad": {
 		"tractusID": 7670,
@@ -2168,9 +1765,7 @@
 		"gradualeID": 511,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_isidore"
-		]
+		"fromGregorianBooks": "st_isidore"
 	},
 	"Apr4Pasch": {
 		"communioID": 1008,
@@ -2178,9 +1773,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_isidore"
-		]
+		"fromGregorianBooks": "st_isidore"
 	},
 	"Apr5": {
 		"communioID": 1154,
@@ -2188,9 +1781,7 @@
 		"alleluiaID": 724,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_vincent_ferrer"
-		]
+		"fromGregorianBooks": "st_vincent_ferrer"
 	},
 	"Apr5Quad": {
 		"tractusID": 7670,
@@ -2198,9 +1789,7 @@
 		"gradualeID": 34,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_vincent_ferrer"
-		]
+		"fromGregorianBooks": "st_vincent_ferrer"
 	},
 	"Apr5Pasch": {
 		"communioID": 1154,
@@ -2208,9 +1797,7 @@
 		"alleluiaID": 14,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_vincent_ferrer"
-		]
+		"fromGregorianBooks": "st_vincent_ferrer"
 	},
 	"Aug1": {
 		"communioID": 699,
@@ -2218,9 +1805,7 @@
 		"alleluiaID": 32,
 		"introitusID": 788,
 		"offertoriumID": 33,
-		"fromGregorianBooks": [
-			"holy_machabees"
-		]
+		"fromGregorianBooks": "holy_machabees"
 	},
 	"Aug10": {
 		"communioID": 685,
@@ -2228,9 +1813,7 @@
 		"alleluiaID": 1122,
 		"introitusID": 956,
 		"offertoriumID": 105,
-		"fromGregorianBooks": [
-			"st_lawrence"
-		]
+		"fromGregorianBooks": "st_lawrence"
 	},
 	"Aug11": {
 		"communioID": 1002,
@@ -2238,9 +1821,7 @@
 		"alleluiaID": 590,
 		"introitusID": 737,
 		"offertoriumID": 835,
-		"fromGregorianBooks": [
-			"ss_tiburtius_suzanna"
-		]
+		"fromGregorianBooks": "ss_tiburtius_suzanna"
 	},
 	"Aug15": {
 		"communioID": 286,
@@ -2248,9 +1829,7 @@
 		"alleluiaID": 960,
 		"introitusID": 23,
 		"offertoriumID": 1083,
-		"fromGregorianBooks": [
-			"assumption_bvm"
-		]
+		"fromGregorianBooks": "assumption_bvm"
 	},
 	"Aug16": {
 		"communioID": 1008,
@@ -2258,9 +1837,7 @@
 		"alleluiaID": 821,
 		"introitusID": 544,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_joachim"
-		]
+		"fromGregorianBooks": "st_joachim"
 	},
 	"Aug2": {
 		"communioID": 1196,
@@ -2268,9 +1845,7 @@
 		"alleluiaID": 1094,
 		"introitusID": 214,
 		"offertoriumID": 1116,
-		"fromGregorianBooks": [
-			"st_alphonsus_mary_liguori"
-		]
+		"fromGregorianBooks": "st_alphonsus_mary_liguori"
 	},
 	"Aug22": {
 		"communioID": 982,
@@ -2278,9 +1853,7 @@
 		"alleluiaID": 881,
 		"introitusID": 1110,
 		"offertoriumID": 1045,
-		"fromGregorianBooks": [
-			"immaculate_heart_bvm"
-		]
+		"fromGregorianBooks": "immaculate_heart_bvm"
 	},
 	"Aug24": {
 		"communioID": 97,
@@ -2288,9 +1861,7 @@
 		"alleluiaID": 442,
 		"introitusID": 475,
 		"offertoriumID": 499,
-		"fromGregorianBooks": [
-			"st_bartholomew"
-		]
+		"fromGregorianBooks": "st_bartholomew"
 	},
 	"Aug27": {
 		"communioID": 643,
@@ -2298,9 +1869,7 @@
 		"alleluiaID": 724,
 		"introitusID": 695,
 		"offertoriumID": 1331,
-		"fromGregorianBooks": [
-			"st_joseph_calasanctius"
-		]
+		"fromGregorianBooks": "st_joseph_calasanctius"
 	},
 	"Aug28": {
 		"communioID": 1008,
@@ -2308,9 +1877,7 @@
 		"alleluiaID": 1350,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_augustine"
-		]
+		"fromGregorianBooks": "st_augustine"
 	},
 	"Aug29": {
 		"communioID": 586,
@@ -2318,9 +1885,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 410,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"beheading_st_john_baptist"
-		]
+		"fromGregorianBooks": "beheading_st_john_baptist"
 	},
 	"Aug4": {
 		"communioID": 1008,
@@ -2328,9 +1893,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_dominic"
-		]
+		"fromGregorianBooks": "st_dominic"
 	},
 	"Aug6": {
 		"communioID": 885,
@@ -2338,9 +1901,7 @@
 		"alleluiaID": 1124,
 		"introitusID": 326,
 		"offertoriumID": 125,
-		"fromGregorianBooks": [
-			"transfiguration"
-		]
+		"fromGregorianBooks": "transfiguration"
 	},
 	"Dec12": {
 		"communioID": 1133,
@@ -2348,9 +1909,7 @@
 		"alleluiaID": 232,
 		"introitusID": 1140,
 		"offertoriumID": 7,
-		"fromGregorianBooks": [
-			"our_lady_of_guadalupe"
-		]
+		"fromGregorianBooks": "our_lady_of_guadalupe"
 	},
 	"Dec13": {
 		"communioID": 1292,
@@ -2358,9 +1917,7 @@
 		"alleluiaID": 1076,
 		"introitusID": 629,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_lucy"
-		]
+		"fromGregorianBooks": "st_lucy"
 	},
 	"Dec16": {
 		"communioID": 586,
@@ -2368,9 +1925,7 @@
 		"alleluiaID": 1118,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_eusebius_bm"
-		]
+		"fromGregorianBooks": "st_eusebius_bm"
 	},
 	"Dec2": {
 		"communioID": 844,
@@ -2378,9 +1933,7 @@
 		"alleluiaID": 500,
 		"introitusID": 938,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"st_bibiana"
-		]
+		"fromGregorianBooks": "st_bibiana"
 	},
 	"Dec21": {
 		"communioID": 589,
@@ -2388,9 +1941,7 @@
 		"alleluiaID": 216,
 		"introitusID": 475,
 		"offertoriumID": 570,
-		"fromGregorianBooks": [
-			"st_thomas"
-		]
+		"fromGregorianBooks": "st_thomas"
 	},
 	"Dec26": {
 		"communioID": 920,
@@ -2398,9 +1949,7 @@
 		"alleluiaID": 561,
 		"introitusID": 1321,
 		"offertoriumID": 462,
-		"fromGregorianBooks": [
-			"st_stephen"
-		]
+		"fromGregorianBooks": "st_stephen"
 	},
 	"Dec27": {
 		"communioID": 781,
@@ -2408,9 +1957,7 @@
 		"alleluiaID": 914,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_john"
-		]
+		"fromGregorianBooks": "st_john"
 	},
 	"Dec28": {
 		"communioID": 136,
@@ -2418,9 +1965,7 @@
 		"alleluiaID": 661,
 		"introitusID": 350,
 		"offertoriumID": 1031,
-		"fromGregorianBooks": [
-			"holy_innocents"
-		]
+		"fromGregorianBooks": "holy_innocents"
 	},
 	"Dec29": {
 		"communioID": 556,
@@ -2428,9 +1973,7 @@
 		"alleluiaID": 1220,
 		"introitusID": 74,
 		"offertoriumID": 487,
-		"fromGregorianBooks": [
-			"st_thomas_becket"
-		]
+		"fromGregorianBooks": "st_thomas_becket"
 	},
 	"Dec3": {
 		"communioID": 1154,
@@ -2438,9 +1981,7 @@
 		"alleluiaID": 724,
 		"introitusID": 115,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_francis_xavier"
-		]
+		"fromGregorianBooks": "st_francis_xavier"
 	},
 	"Dec4": {
 		"communioID": 383,
@@ -2448,9 +1989,7 @@
 		"alleluiaID": 477,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_peter_chrysologus"
-		]
+		"fromGregorianBooks": "st_peter_chrysologus"
 	},
 	"Dec6": {
 		"communioID": 317,
@@ -2458,9 +1997,7 @@
 		"alleluiaID": 946,
 		"introitusID": 456,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_nicholas"
-		]
+		"fromGregorianBooks": "st_nicholas"
 	},
 	"Dec7": {
 		"communioID": 317,
@@ -2468,9 +2005,7 @@
 		"alleluiaID": 1187,
 		"introitusID": 233,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_ambrose"
-		]
+		"fromGregorianBooks": "st_ambrose"
 	},
 	"Dec8": {
 		"communioID": 1004,
@@ -2478,9 +2013,7 @@
 		"alleluiaID": 1057,
 		"introitusID": 622,
 		"offertoriumID": 210,
-		"fromGregorianBooks": [
-			"immaculate_conception_bvm"
-		]
+		"fromGregorianBooks": "immaculate_conception_bvm"
 	},
 	"Feb1": {
 		"communioID": 368,
@@ -2488,9 +2021,7 @@
 		"alleluiaID": 1162,
 		"introitusID": 178,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_ignatius"
-		]
+		"fromGregorianBooks": "st_ignatius"
 	},
 	"Feb1Quad": {
 		"tractusID": 176,
@@ -2498,9 +2029,7 @@
 		"gradualeID": 235,
 		"introitusID": 178,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_ignatius"
-		]
+		"fromGregorianBooks": "st_ignatius"
 	},
 	"Feb10": {
 		"communioID": 1301,
@@ -2508,9 +2037,7 @@
 		"alleluiaID": 208,
 		"introitusID": 629,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_scholastica"
-		]
+		"fromGregorianBooks": "st_scholastica"
 	},
 	"Feb10Quad": {
 		"tractusID": 738,
@@ -2518,9 +2045,7 @@
 		"gradualeID": 174,
 		"introitusID": 629,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_scholastica"
-		]
+		"fromGregorianBooks": "st_scholastica"
 	},
 	"Feb11": {
 		"communioID": 80,
@@ -2528,9 +2053,7 @@
 		"alleluiaID": 1258,
 		"introitusID": 5,
 		"offertoriumID": 234,
-		"fromGregorianBooks": [
-			"apparition_lourdes"
-		]
+		"fromGregorianBooks": "apparition_lourdes"
 	},
 	"Feb11Quad": {
 		"tractusID": 485,
@@ -2538,9 +2061,7 @@
 		"gradualeID": 27,
 		"introitusID": 5,
 		"offertoriumID": 234,
-		"fromGregorianBooks": [
-			"apparition_lourdes"
-		]
+		"fromGregorianBooks": "apparition_lourdes"
 	},
 	"Feb12": {
 		"communioID": 470,
@@ -2548,9 +2069,7 @@
 		"alleluiaID": 706,
 		"introitusID": 312,
 		"offertoriumID": 1275,
-		"fromGregorianBooks": [
-			"ss_seven_holy_founders_servites"
-		]
+		"fromGregorianBooks": "ss_seven_holy_founders_servites"
 	},
 	"Feb12Quad": {
 		"tractusID": 305,
@@ -2558,9 +2077,7 @@
 		"gradualeID": 1084,
 		"introitusID": 312,
 		"offertoriumID": 1275,
-		"fromGregorianBooks": [
-			"ss_seven_holy_founders_servites"
-		]
+		"fromGregorianBooks": "ss_seven_holy_founders_servites"
 	},
 	"Feb14": {
 		"communioID": 89,
@@ -2568,9 +2085,7 @@
 		"alleluiaID": 1249,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_valentine"
-		]
+		"fromGregorianBooks": "st_valentine"
 	},
 	"Feb14Quad": {
 		"tractusID": 176,
@@ -2578,9 +2093,7 @@
 		"gradualeID": 153,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_valentine"
-		]
+		"fromGregorianBooks": "st_valentine"
 	},
 	"Feb15": {
 		"communioID": 1002,
@@ -2588,9 +2101,7 @@
 		"alleluiaID": 590,
 		"introitusID": 737,
 		"offertoriumID": 835,
-		"fromGregorianBooks": [
-			"ss_faustinus_jovita"
-		]
+		"fromGregorianBooks": "ss_faustinus_jovita"
 	},
 	"Feb15Quad": {
 		"tractusID": 305,
@@ -2598,9 +2109,7 @@
 		"gradualeID": 1009,
 		"introitusID": 737,
 		"offertoriumID": 835,
-		"fromGregorianBooks": [
-			"ss_faustinus_jovita"
-		]
+		"fromGregorianBooks": "ss_faustinus_jovita"
 	},
 	"Feb2": {
 		"communioID": 803,
@@ -2608,9 +2117,7 @@
 		"alleluiaID": 429,
 		"introitusID": 1254,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"purification_bvm"
-		]
+		"fromGregorianBooks": "purification_bvm"
 	},
 	"Feb2Quad": {
 		"tractusID": 1346,
@@ -2618,9 +2125,7 @@
 		"gradualeID": 50,
 		"introitusID": 1254,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"purification_bvm"
-		]
+		"fromGregorianBooks": "purification_bvm"
 	},
 	"Feb24or25": {
 		"tractusID": 176,
@@ -2628,9 +2133,7 @@
 		"gradualeID": 148,
 		"introitusID": 475,
 		"offertoriumID": 1319,
-		"fromGregorianBooks": [
-			"st_matthias"
-		]
+		"fromGregorianBooks": "st_matthias"
 	},
 	"Feb27or28": {
 		"communioID": 164,
@@ -2638,9 +2141,7 @@
 		"alleluiaID": 791,
 		"introitusID": 1025,
 		"offertoriumID": 1193,
-		"fromGregorianBooks": [
-			"st_gabriel_our_lady_of_sorrows"
-		]
+		"fromGregorianBooks": "st_gabriel_our_lady_of_sorrows"
 	},
 	"Feb27or28Quad": {
 		"tractusID": 728,
@@ -2648,9 +2149,7 @@
 		"gradualeID": 1291,
 		"introitusID": 1025,
 		"offertoriumID": 1193,
-		"fromGregorianBooks": [
-			"st_gabriel_our_lady_of_sorrows"
-		]
+		"fromGregorianBooks": "st_gabriel_our_lady_of_sorrows"
 	},
 	"Feb3": {
 		"communioID": 586,
@@ -2658,9 +2157,7 @@
 		"alleluiaID": 1118,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_blaise"
-		]
+		"fromGregorianBooks": "st_blaise"
 	},
 	"Feb3Quad": {
 		"tractusID": 7670,
@@ -2668,9 +2165,7 @@
 		"gradualeID": 1206,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_blaise"
-		]
+		"fromGregorianBooks": "st_blaise"
 	},
 	"Feb4": {
 		"communioID": 1008,
@@ -2678,9 +2173,7 @@
 		"alleluiaID": 477,
 		"introitusID": 456,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_andrew_corsini"
-		]
+		"fromGregorianBooks": "st_andrew_corsini"
 	},
 	"Feb4Quad": {
 		"tractusID": 7670,
@@ -2688,9 +2181,7 @@
 		"gradualeID": 235,
 		"introitusID": 456,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_andrew_corsini"
-		]
+		"fromGregorianBooks": "st_andrew_corsini"
 	},
 	"Feb5": {
 		"communioID": 454,
@@ -2698,9 +2189,7 @@
 		"alleluiaID": 642,
 		"introitusID": 1183,
 		"offertoriumID": 768,
-		"fromGregorianBooks": [
-			"st_agatha"
-		]
+		"fromGregorianBooks": "st_agatha"
 	},
 	"Feb5Quad": {
 		"tractusID": 305,
@@ -2708,9 +2197,7 @@
 		"gradualeID": 1373,
 		"introitusID": 1183,
 		"offertoriumID": 768,
-		"fromGregorianBooks": [
-			"st_agatha"
-		]
+		"fromGregorianBooks": "st_agatha"
 	},
 	"Feb7": {
 		"communioID": 1008,
@@ -2718,9 +2205,7 @@
 		"alleluiaID": 946,
 		"introitusID": 1374,
 		"offertoriumID": 722,
-		"fromGregorianBooks": [
-			"st_romuald"
-		]
+		"fromGregorianBooks": "st_romuald"
 	},
 	"Feb7Quad": {
 		"tractusID": 7670,
@@ -2728,9 +2213,7 @@
 		"gradualeID": 600,
 		"introitusID": 1374,
 		"offertoriumID": 722,
-		"fromGregorianBooks": [
-			"st_romuald"
-		]
+		"fromGregorianBooks": "st_romuald"
 	},
 	"Jan11": {
 		"communioID": 509,
@@ -2738,9 +2221,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_hyginus"
-		]
+		"fromGregorianBooks": "st_hyginus"
 	},
 	"Jan13": {
 		"communioID": 918,
@@ -2748,9 +2229,7 @@
 		"alleluiaID": 524,
 		"introitusID": 403,
 		"offertoriumID": 1147,
-		"fromGregorianBooks": [
-			"epiphany_baptism"
-		]
+		"fromGregorianBooks": "epiphany_baptism"
 	},
 	"Jan14": {
 		"communioID": 1008,
@@ -2758,9 +2237,7 @@
 		"alleluiaID": 14,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_hilary"
-		]
+		"fromGregorianBooks": "st_hilary"
 	},
 	"Jan15": {
 		"communioID": 617,
@@ -2768,9 +2245,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_paul_hermit"
-		]
+		"fromGregorianBooks": "st_paul_hermit"
 	},
 	"Jan17": {
 		"communioID": 1008,
@@ -2778,9 +2253,7 @@
 		"alleluiaID": 946,
 		"introitusID": 1374,
 		"offertoriumID": 722,
-		"fromGregorianBooks": [
-			"st_anthony"
-		]
+		"fromGregorianBooks": "st_anthony"
 	},
 	"Jan18": {
 		"communioID": 509,
@@ -2788,9 +2261,7 @@
 		"alleluiaID": 228,
 		"introitusID": 456,
 		"offertoriumID": 1234,
-		"fromGregorianBooks": [
-			"st_peter_chair_rome"
-		]
+		"fromGregorianBooks": "st_peter_chair_rome"
 	},
 	"Jan18Quad": {
 		"tractusID": 1029,
@@ -2798,9 +2269,7 @@
 		"gradualeID": 1119,
 		"introitusID": 456,
 		"offertoriumID": 1234,
-		"fromGregorianBooks": [
-			"st_peter_chair_rome"
-		]
+		"fromGregorianBooks": "st_peter_chair_rome"
 	},
 	"Jan20": {
 		"communioID": 902,
@@ -2808,9 +2277,7 @@
 		"alleluiaID": 106,
 		"introitusID": 261,
 		"offertoriumID": 786,
-		"fromGregorianBooks": [
-			"st_fabian_st_sebastian"
-		]
+		"fromGregorianBooks": "st_fabian_st_sebastian"
 	},
 	"Jan20Quad": {
 		"tractusID": 305,
@@ -2818,9 +2285,7 @@
 		"gradualeID": 888,
 		"introitusID": 261,
 		"offertoriumID": 786,
-		"fromGregorianBooks": [
-			"st_fabian_st_sebastian"
-		]
+		"fromGregorianBooks": "st_fabian_st_sebastian"
 	},
 	"Jan21": {
 		"communioID": 1301,
@@ -2828,9 +2293,7 @@
 		"alleluiaID": 301,
 		"introitusID": 938,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_agnes"
-		]
+		"fromGregorianBooks": "st_agnes"
 	},
 	"Jan21Quad": {
 		"tractusID": 256,
@@ -2838,9 +2301,7 @@
 		"gradualeID": 947,
 		"introitusID": 938,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_agnes"
-		]
+		"fromGregorianBooks": "st_agnes"
 	},
 	"Jan22": {
 		"communioID": 658,
@@ -2848,9 +2309,7 @@
 		"alleluiaID": 1250,
 		"introitusID": 261,
 		"offertoriumID": 919,
-		"fromGregorianBooks": [
-			"ss_vincent_anastasius"
-		]
+		"fromGregorianBooks": "ss_vincent_anastasius"
 	},
 	"Jan22Quad": {
 		"tractusID": 305,
@@ -2858,9 +2317,7 @@
 		"gradualeID": 888,
 		"introitusID": 261,
 		"offertoriumID": 919,
-		"fromGregorianBooks": [
-			"ss_vincent_anastasius"
-		]
+		"fromGregorianBooks": "ss_vincent_anastasius"
 	},
 	"Jan23": {
 		"communioID": 1154,
@@ -2868,9 +2325,7 @@
 		"alleluiaID": 724,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_raymond_of_pennafort"
-		]
+		"fromGregorianBooks": "st_raymond_of_pennafort"
 	},
 	"Jan23Quad": {
 		"tractusID": 7670,
@@ -2878,9 +2333,7 @@
 		"gradualeID": 34,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_raymond_of_pennafort"
-		]
+		"fromGregorianBooks": "st_raymond_of_pennafort"
 	},
 	"Jan24": {
 		"communioID": 317,
@@ -2888,9 +2341,7 @@
 		"alleluiaID": 477,
 		"introitusID": 456,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_timothy"
-		]
+		"fromGregorianBooks": "st_timothy"
 	},
 	"Jan24Quad": {
 		"tractusID": 176,
@@ -2898,9 +2349,7 @@
 		"gradualeID": 827,
 		"introitusID": 456,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_timothy"
-		]
+		"fromGregorianBooks": "st_timothy"
 	},
 	"Jan25": {
 		"communioID": 1337,
@@ -2908,9 +2357,7 @@
 		"alleluiaID": 466,
 		"introitusID": 1179,
 		"offertoriumID": 499,
-		"fromGregorianBooks": [
-			"conversion_st_paul"
-		]
+		"fromGregorianBooks": "conversion_st_paul"
 	},
 	"Jan25Quad": {
 		"tractusID": 884,
@@ -2918,9 +2365,7 @@
 		"gradualeID": 1347,
 		"introitusID": 1179,
 		"offertoriumID": 499,
-		"fromGregorianBooks": [
-			"conversion_st_paul"
-		]
+		"fromGregorianBooks": "conversion_st_paul"
 	},
 	"Jan26": {
 		"communioID": 586,
@@ -2928,9 +2373,7 @@
 		"alleluiaID": 1118,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_polycarp"
-		]
+		"fromGregorianBooks": "st_polycarp"
 	},
 	"Jan26Quad": {
 		"tractusID": 7670,
@@ -2938,9 +2381,7 @@
 		"gradualeID": 1206,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_polycarp"
-		]
+		"fromGregorianBooks": "st_polycarp"
 	},
 	"Jan27": {
 		"communioID": 1008,
@@ -2948,9 +2389,7 @@
 		"alleluiaID": 724,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_john_chrysostom"
-		]
+		"fromGregorianBooks": "st_john_chrysostom"
 	},
 	"Jan27Quad": {
 		"tractusID": 7670,
@@ -2958,9 +2397,7 @@
 		"gradualeID": 235,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_john_chrysostom"
-		]
+		"fromGregorianBooks": "st_john_chrysostom"
 	},
 	"Jan28": {
 		"communioID": 1337,
@@ -2968,9 +2405,7 @@
 		"alleluiaID": 765,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_peter_nolasco"
-		]
+		"fromGregorianBooks": "st_peter_nolasco"
 	},
 	"Jan28Quad": {
 		"tractusID": 7670,
@@ -2978,9 +2413,7 @@
 		"gradualeID": 511,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_peter_nolasco"
-		]
+		"fromGregorianBooks": "st_peter_nolasco"
 	},
 	"Jan29": {
 		"communioID": 1008,
@@ -2988,9 +2421,7 @@
 		"alleluiaID": 14,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_francis_de_sales"
-		]
+		"fromGregorianBooks": "st_francis_de_sales"
 	},
 	"Jan29Quad": {
 		"tractusID": 7670,
@@ -2998,9 +2429,7 @@
 		"gradualeID": 511,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_francis_de_sales"
-		]
+		"fromGregorianBooks": "st_francis_de_sales"
 	},
 	"Jan30": {
 		"communioID": 1032,
@@ -3008,9 +2437,7 @@
 		"alleluiaID": 208,
 		"introitusID": 510,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_martina"
-		]
+		"fromGregorianBooks": "st_martina"
 	},
 	"Jan30Quad": {
 		"tractusID": 256,
@@ -3018,9 +2445,7 @@
 		"gradualeID": 394,
 		"introitusID": 510,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_martina"
-		]
+		"fromGregorianBooks": "st_martina"
 	},
 	"Jan31": {
 		"communioID": 186,
@@ -3028,9 +2453,7 @@
 		"alleluiaID": 225,
 		"introitusID": 1018,
 		"offertoriumID": 805,
-		"fromGregorianBooks": [
-			"st_john_bosco"
-		]
+		"fromGregorianBooks": "st_john_bosco"
 	},
 	"Jan31Quad": {
 		"tractusID": 837,
@@ -3038,9 +2461,7 @@
 		"gradualeID": 21,
 		"introitusID": 1018,
 		"offertoriumID": 805,
-		"fromGregorianBooks": [
-			"st_john_bosco"
-		]
+		"fromGregorianBooks": "st_john_bosco"
 	},
 	"Jan5": {
 		"communioID": 509,
@@ -3048,9 +2469,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_telesphorus"
-		]
+		"fromGregorianBooks": "st_telesphorus"
 	},
 	"Jul1": {
 		"communioID": 1019,
@@ -3058,9 +2477,7 @@
 		"alleluiaID": 1038,
 		"introitusID": 123,
 		"offertoriumID": 320,
-		"fromGregorianBooks": [
-			"precious_blood"
-		]
+		"fromGregorianBooks": "precious_blood"
 	},
 	"Jul10": {
 		"communioID": 957,
@@ -3068,9 +2485,7 @@
 		"alleluiaID": 32,
 		"introitusID": 87,
 		"offertoriumID": 1031,
-		"fromGregorianBooks": [
-			"ss_seven_brothers"
-		]
+		"fromGregorianBooks": "ss_seven_brothers"
 	},
 	"Jul11": {
 		"communioID": 509,
@@ -3078,9 +2493,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_pius_i"
-		]
+		"fromGregorianBooks": "st_pius_i"
 	},
 	"Jul11a": {
 		"communioID": 317,
@@ -3099,9 +2512,7 @@
 		"alleluiaID": 1187,
 		"introitusID": 233,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_bonaventure"
-		]
+		"fromGregorianBooks": "st_bonaventure"
 	},
 	"Jul16": {
 		"communioID": 1053,
@@ -3109,9 +2520,7 @@
 		"alleluiaID": 634,
 		"introitusID": 246,
 		"offertoriumID": 787,
-		"fromGregorianBooks": [
-			"our_blessed_lady_mount_carmel"
-		]
+		"fromGregorianBooks": "our_blessed_lady_mount_carmel"
 	},
 	"Jul18": {
 		"communioID": 1126,
@@ -3119,9 +2528,7 @@
 		"alleluiaID": 765,
 		"introitusID": 785,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_camillus_of_lellis"
-		]
+		"fromGregorianBooks": "st_camillus_of_lellis"
 	},
 	"Jul19": {
 		"communioID": 1337,
@@ -3129,9 +2536,7 @@
 		"alleluiaID": 765,
 		"introitusID": 108,
 		"offertoriumID": 667,
-		"fromGregorianBooks": [
-			"st_vincent_de_paul"
-		]
+		"fromGregorianBooks": "st_vincent_de_paul"
 	},
 	"Jul2": {
 		"communioID": 160,
@@ -3139,9 +2544,7 @@
 		"alleluiaID": 481,
 		"introitusID": 1140,
 		"offertoriumID": 567,
-		"fromGregorianBooks": [
-			"visitation_bvm"
-		]
+		"fromGregorianBooks": "visitation_bvm"
 	},
 	"Jul20": {
 		"communioID": 1014,
@@ -3149,9 +2552,7 @@
 		"alleluiaID": 569,
 		"introitusID": 1297,
 		"offertoriumID": 1362,
-		"fromGregorianBooks": [
-			"st_jerome_aemilian"
-		]
+		"fromGregorianBooks": "st_jerome_aemilian"
 	},
 	"Jul22": {
 		"communioID": 844,
@@ -3159,9 +2560,7 @@
 		"alleluiaID": 1076,
 		"introitusID": 938,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_mary_magdalen"
-		]
+		"fromGregorianBooks": "st_mary_magdalen"
 	},
 	"Jul23": {
 		"communioID": 383,
@@ -3169,9 +2568,7 @@
 		"alleluiaID": 1187,
 		"introitusID": 227,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_apollinaris"
-		]
+		"fromGregorianBooks": "st_apollinaris"
 	},
 	"Jul25": {
 		"communioID": 1028,
@@ -3179,9 +2576,7 @@
 		"alleluiaID": 1030,
 		"introitusID": 475,
 		"offertoriumID": 570,
-		"fromGregorianBooks": [
-			"st_james"
-		]
+		"fromGregorianBooks": "st_james"
 	},
 	"Jul26": {
 		"communioID": 900,
@@ -3189,9 +2584,7 @@
 		"alleluiaID": 1076,
 		"introitusID": 950,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_ann"
-		]
+		"fromGregorianBooks": "st_ann"
 	},
 	"Jul27": {
 		"communioID": 685,
@@ -3199,9 +2592,7 @@
 		"alleluiaID": 1201,
 		"introitusID": 251,
 		"offertoriumID": 487,
-		"fromGregorianBooks": [
-			"st_pantaleon"
-		]
+		"fromGregorianBooks": "st_pantaleon"
 	},
 	"Jul28": {
 		"communioID": 658,
@@ -3209,9 +2600,7 @@
 		"alleluiaID": 1250,
 		"introitusID": 261,
 		"offertoriumID": 919,
-		"fromGregorianBooks": [
-			"ss_nazarius_celsus_victor_innocent"
-		]
+		"fromGregorianBooks": "ss_nazarius_celsus_victor_innocent"
 	},
 	"Jul3": {
 		"communioID": 703,
@@ -3219,9 +2608,7 @@
 		"alleluiaID": 1015,
 		"introitusID": 1093,
 		"offertoriumID": 1300,
-		"fromGregorianBooks": [
-			"st_irenaeus"
-		]
+		"fromGregorianBooks": "st_irenaeus"
 	},
 	"Jul31": {
 		"communioID": 514,
@@ -3229,9 +2616,7 @@
 		"alleluiaID": 724,
 		"introitusID": 1295,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_ignatius_of_loyola"
-		]
+		"fromGregorianBooks": "st_ignatius_of_loyola"
 	},
 	"Jul5": {
 		"communioID": 201,
@@ -3239,9 +2624,7 @@
 		"alleluiaID": 96,
 		"introitusID": 1349,
 		"offertoriumID": 662,
-		"fromGregorianBooks": [
-			"st_am_zaccaria"
-		]
+		"fromGregorianBooks": "st_am_zaccaria"
 	},
 	"Jul7": {
 		"communioID": 1002,
@@ -3249,9 +2632,7 @@
 		"alleluiaID": 1187,
 		"introitusID": 48,
 		"offertoriumID": 919,
-		"fromGregorianBooks": [
-			"ss_cyril_methodius"
-		]
+		"fromGregorianBooks": "ss_cyril_methodius"
 	},
 	"Jun1": {
 		"communioID": 1301,
@@ -3259,9 +2640,7 @@
 		"alleluiaID": 208,
 		"introitusID": 629,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_angela_merici"
-		]
+		"fromGregorianBooks": "st_angela_merici"
 	},
 	"Jun10": {
 		"communioID": 799,
@@ -3269,9 +2648,7 @@
 		"alleluiaID": 406,
 		"introitusID": 619,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"st_margaret_queen_of_scotland"
-		]
+		"fromGregorianBooks": "st_margaret_queen_of_scotland"
 	},
 	"Jun11": {
 		"communioID": 1028,
@@ -3279,9 +2656,7 @@
 		"alleluiaID": 1030,
 		"introitusID": 475,
 		"offertoriumID": 1319,
-		"fromGregorianBooks": [
-			"st_barnabas"
-		]
+		"fromGregorianBooks": "st_barnabas"
 	},
 	"Jun12": {
 		"communioID": 1154,
@@ -3289,9 +2664,7 @@
 		"alleluiaID": 724,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_john_of_san_facundo"
-		]
+		"fromGregorianBooks": "st_john_of_san_facundo"
 	},
 	"Jun14": {
 		"communioID": 1008,
@@ -3299,9 +2672,7 @@
 		"alleluiaID": 1350,
 		"introitusID": 233,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_basil_the_great"
-		]
+		"fromGregorianBooks": "st_basil_the_great"
 	},
 	"Jun19a": {
 		"introitusID": 271,
@@ -3309,9 +2680,7 @@
 		"alleluiaID": 32,
 		"offertoriumID": 786,
 		"communioID": 184,
-		"fromGregorianBooks": [
-			"ss_gervase_protase"
-		]
+		"fromGregorianBooks": "ss_gervase_protase"
 	},
 	"Jun21": {
 		"communioID": 711,
@@ -3319,9 +2688,7 @@
 		"alleluiaID": 1170,
 		"introitusID": 857,
 		"offertoriumID": 1306,
-		"fromGregorianBooks": [
-			"st_aloysius"
-		]
+		"fromGregorianBooks": "st_aloysius"
 	},
 	"Jun22": {
 		"communioID": 1008,
@@ -3329,9 +2696,7 @@
 		"alleluiaID": 477,
 		"introitusID": 48,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_paulinus"
-		]
+		"fromGregorianBooks": "st_paulinus"
 	},
 	"Jun24": {
 		"communioID": 133,
@@ -3339,9 +2704,7 @@
 		"alleluiaID": 847,
 		"introitusID": 659,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_john_baptist"
-		]
+		"fromGregorianBooks": "st_john_baptist"
 	},
 	"Jun26": {
 		"communioID": 658,
@@ -3349,9 +2712,7 @@
 		"alleluiaID": 32,
 		"introitusID": 248,
 		"offertoriumID": 1375,
-		"fromGregorianBooks": [
-			"ss_john_paul"
-		]
+		"fromGregorianBooks": "ss_john_paul"
 	},
 	"Jun29": {
 		"communioID": 509,
@@ -3359,9 +2720,7 @@
 		"alleluiaID": 228,
 		"introitusID": 478,
 		"offertoriumID": 1319,
-		"fromGregorianBooks": [
-			"ss_peter_paul"
-		]
+		"fromGregorianBooks": "ss_peter_paul"
 	},
 	"Jun30": {
 		"communioID": 1337,
@@ -3369,9 +2728,7 @@
 		"alleluiaID": 120,
 		"introitusID": 1179,
 		"offertoriumID": 499,
-		"fromGregorianBooks": [
-			"st_paul"
-		]
+		"fromGregorianBooks": "st_paul"
 	},
 	"Jun4": {
 		"communioID": 6,
@@ -3379,9 +2736,7 @@
 		"alleluiaID": 594,
 		"introitusID": 1313,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_francis_caracciolo"
-		]
+		"fromGregorianBooks": "st_francis_caracciolo"
 	},
 	"Jun5": {
 		"communioID": 1190,
@@ -3389,9 +2744,7 @@
 		"alleluiaID": 198,
 		"introitusID": 1224,
 		"offertoriumID": 143,
-		"fromGregorianBooks": [
-			"st_boniface_bm"
-		]
+		"fromGregorianBooks": "st_boniface_bm"
 	},
 	"Mar10": {
 		"tractusID": 305,
@@ -3399,9 +2752,7 @@
 		"gradualeID": 614,
 		"introitusID": 788,
 		"offertoriumID": 786,
-		"fromGregorianBooks": [
-			"forty_martyrs"
-		]
+		"fromGregorianBooks": "forty_martyrs"
 	},
 	"Mar12": {
 		"tractusID": 1085,
@@ -3409,9 +2760,7 @@
 		"gradualeID": 1119,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_gregory_the_great"
-		]
+		"fromGregorianBooks": "st_gregory_the_great"
 	},
 	"Mar17": {
 		"tractusID": 7670,
@@ -3419,9 +2768,7 @@
 		"gradualeID": 235,
 		"introitusID": 456,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_patrick"
-		]
+		"fromGregorianBooks": "st_patrick"
 	},
 	"Mar19Quad": {
 		"tractusID": 7670,
@@ -3429,9 +2776,7 @@
 		"gradualeID": 600,
 		"introitusID": 108,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_joseph"
-		]
+		"fromGregorianBooks": "st_joseph"
 	},
 	"Mar19Pasch": {
 		"communioID": 139,
@@ -3439,9 +2784,7 @@
 		"alleluiaID": 1207,
 		"introitusID": 108,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_joseph"
-		]
+		"fromGregorianBooks": "st_joseph"
 	},
 	"Mar21": {
 		"tractusID": 7670,
@@ -3449,9 +2792,7 @@
 		"gradualeID": 600,
 		"introitusID": 1374,
 		"offertoriumID": 722,
-		"fromGregorianBooks": [
-			"st_benedict"
-		]
+		"fromGregorianBooks": "st_benedict"
 	},
 	"Mar24": {
 		"tractusID": 266,
@@ -3459,9 +2800,7 @@
 		"gradualeID": 609,
 		"introitusID": 985,
 		"offertoriumID": 302,
-		"fromGregorianBooks": [
-			"st_gabriel"
-		]
+		"fromGregorianBooks": "st_gabriel"
 	},
 	"Mar25Quad": {
 		"tractusID": 738,
@@ -3469,9 +2808,7 @@
 		"gradualeID": 947,
 		"introitusID": 124,
 		"offertoriumID": 843,
-		"fromGregorianBooks": [
-			"annunciation_bvm"
-		]
+		"fromGregorianBooks": "annunciation_bvm"
 	},
 	"Mar25Pasch": {
 		"communioID": 1144,
@@ -3479,9 +2816,7 @@
 		"alleluiaID": 281,
 		"introitusID": 124,
 		"offertoriumID": 843,
-		"fromGregorianBooks": [
-			"annunciation_bvm"
-		]
+		"fromGregorianBooks": "annunciation_bvm"
 	},
 	"Mar27": {
 		"tractusID": 35,
@@ -3489,9 +2824,7 @@
 		"gradualeID": 306,
 		"introitusID": 656,
 		"offertoriumID": 166,
-		"fromGregorianBooks": [
-			"st_john_damascene"
-		]
+		"fromGregorianBooks": "st_john_damascene"
 	},
 	"Mar28": {
 		"tractusID": 250,
@@ -3499,9 +2832,7 @@
 		"gradualeID": 370,
 		"introitusID": 52,
 		"offertoriumID": 244,
-		"fromGregorianBooks": [
-			"st_john_capistran"
-		]
+		"fromGregorianBooks": "st_john_capistran"
 	},
 	"Mar6": {
 		"tractusID": 256,
@@ -3509,9 +2840,7 @@
 		"gradualeID": 394,
 		"introitusID": 938,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"ss_perpetua_felicity"
-		]
+		"fromGregorianBooks": "ss_perpetua_felicity"
 	},
 	"Mar7": {
 		"tractusID": 7670,
@@ -3519,9 +2848,7 @@
 		"gradualeID": 511,
 		"introitusID": 233,
 		"offertoriumID": 777,
-		"fromGregorianBooks": [
-			"st_thomas_aquinas"
-		]
+		"fromGregorianBooks": "st_thomas_aquinas"
 	},
 	"Mar8": {
 		"tractusID": 7670,
@@ -3529,9 +2856,7 @@
 		"gradualeID": 34,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_john_of_god"
-		]
+		"fromGregorianBooks": "st_john_of_god"
 	},
 	"Mar9": {
 		"tractusID": 256,
@@ -3539,9 +2864,7 @@
 		"gradualeID": 947,
 		"introitusID": 619,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"st_frances_of_rome"
-		]
+		"fromGregorianBooks": "st_frances_of_rome"
 	},
 	"May1": {
 		"communioID": 28,
@@ -3549,9 +2872,7 @@
 		"alleluiaID": 213,
 		"introitusID": 646,
 		"offertoriumID": 26,
-		"fromGregorianBooks": [
-			"st_joseph_workman"
-		]
+		"fromGregorianBooks": "st_joseph_workman"
 	},
 	"May1Quad": {
 		"communioID": 28,
@@ -3559,9 +2880,7 @@
 		"tractusID": 444,
 		"introitusID": 646,
 		"offertoriumID": 26,
-		"fromGregorianBooks": [
-			"st_joseph_workman"
-		]
+		"fromGregorianBooks": "st_joseph_workman"
 	},
 	"May1Pasch": {
 		"communioID": 28,
@@ -3569,9 +2888,7 @@
 		"alleluiaID": 213,
 		"introitusID": 646,
 		"offertoriumID": 26,
-		"fromGregorianBooks": [
-			"st_joseph_workman"
-		]
+		"fromGregorianBooks": "st_joseph_workman"
 	},
 	"May10": {
 		"communioID": 1008,
@@ -3579,9 +2896,7 @@
 		"alleluiaID": 477,
 		"introitusID": 456,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_antoninus"
-		]
+		"fromGregorianBooks": "st_antoninus"
 	},
 	"May11": {
 		"communioID": 921,
@@ -3589,9 +2904,7 @@
 		"alleluiaID": 1101,
 		"introitusID": 469,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"ss_philip_james"
-		]
+		"fromGregorianBooks": "ss_philip_james"
 	},
 	"May11Quad": {
 		"communioID": 921,
@@ -3599,9 +2912,7 @@
 		"tractusID": 305,
 		"introitusID": 469,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"ss_philip_james"
-		]
+		"fromGregorianBooks": "ss_philip_james"
 	},
 	"May11Pasch": {
 		"communioID": 921,
@@ -3609,9 +2920,7 @@
 		"alleluiaID": 1101,
 		"introitusID": 469,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"ss_philip_james"
-		]
+		"fromGregorianBooks": "ss_philip_james"
 	},
 	"May12": {
 		"communioID": 772,
@@ -3619,9 +2928,7 @@
 		"alleluiaID": 590,
 		"introitusID": 1222,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"ss_nereus_achilleus_domitia_pancras"
-		]
+		"fromGregorianBooks": "ss_nereus_achilleus_domitia_pancras"
 	},
 	"May13": {
 		"communioID": 559,
@@ -3629,9 +2936,7 @@
 		"alleluiaID": 1189,
 		"introitusID": 233,
 		"offertoriumID": 102,
-		"fromGregorianBooks": [
-			"st_robert_bellarmine"
-		]
+		"fromGregorianBooks": "st_robert_bellarmine"
 	},
 	"May13Quad": {
 		"communioID": 559,
@@ -3639,9 +2944,7 @@
 		"tractusID": 1063,
 		"introitusID": 233,
 		"offertoriumID": 102,
-		"fromGregorianBooks": [
-			"st_robert_bellarmine"
-		]
+		"fromGregorianBooks": "st_robert_bellarmine"
 	},
 	"May13Pasch": {
 		"communioID": 559,
@@ -3649,9 +2952,7 @@
 		"alleluiaID": 231,
 		"introitusID": 233,
 		"offertoriumID": 102,
-		"fromGregorianBooks": [
-			"st_robert_bellarmine"
-		]
+		"fromGregorianBooks": "st_robert_bellarmine"
 	},
 	"May15": {
 		"communioID": 1154,
@@ -3659,9 +2960,7 @@
 		"alleluiaID": 724,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_john_baptist_de_la_salle"
-		]
+		"fromGregorianBooks": "st_john_baptist_de_la_salle"
 	},
 	"May15Pasch": {
 		"communioID": 1154,
@@ -3669,9 +2968,7 @@
 		"alleluiaID": 14,
 		"introitusID": 1374,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_john_baptist_de_la_salle"
-		]
+		"fromGregorianBooks": "st_john_baptist_de_la_salle"
 	},
 	"May16": {
 		"communioID": 1008,
@@ -3679,9 +2976,7 @@
 		"alleluiaID": 477,
 		"introitusID": 456,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_ubuald"
-		]
+		"fromGregorianBooks": "st_ubuald"
 	},
 	"May16Pasch": {
 		"communioID": 1008,
@@ -3689,9 +2984,7 @@
 		"alleluiaID": 1118,
 		"introitusID": 456,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_ubuald"
-		]
+		"fromGregorianBooks": "st_ubuald"
 	},
 	"May2": {
 		"communioID": 1002,
@@ -3699,9 +2992,7 @@
 		"alleluiaID": 724,
 		"introitusID": 233,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_athanasius"
-		]
+		"fromGregorianBooks": "st_athanasius"
 	},
 	"May24": {
 		"communioID": 160,
@@ -3709,9 +3000,7 @@
 		"alleluiaID": 127,
 		"introitusID": 1140,
 		"offertoriumID": 843,
-		"fromGregorianBooks": [
-			"mass_bvm"
-		]
+		"fromGregorianBooks": "mass_bvm"
 	},
 	"May26": {
 		"communioID": 1367,
@@ -3719,9 +3008,7 @@
 		"alleluiaID": 194,
 		"introitusID": 530,
 		"offertoriumID": 1253,
-		"fromGregorianBooks": [
-			"st_philip_neri"
-		]
+		"fromGregorianBooks": "st_philip_neri"
 	},
 	"May26Pasch": {
 		"communioID": 1367,
@@ -3729,9 +3016,7 @@
 		"alleluiaID": 237,
 		"introitusID": 530,
 		"offertoriumID": 1253,
-		"fromGregorianBooks": [
-			"st_philip_neri"
-		]
+		"fromGregorianBooks": "st_philip_neri"
 	},
 	"May28": {
 		"communioID": 1154,
@@ -3739,9 +3024,7 @@
 		"alleluiaID": 1187,
 		"introitusID": 48,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_augustine_of_canterbury"
-		]
+		"fromGregorianBooks": "st_augustine_of_canterbury"
 	},
 	"May28Pasch": {
 		"communioID": 1154,
@@ -3749,9 +3032,7 @@
 		"alleluiaID": 14,
 		"introitusID": 48,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_augustine_of_canterbury"
-		]
+		"fromGregorianBooks": "st_augustine_of_canterbury"
 	},
 	"May29": {
 		"communioID": 1301,
@@ -3759,9 +3040,7 @@
 		"alleluiaID": 208,
 		"introitusID": 629,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_mary_magdalene_pazzi"
-		]
+		"fromGregorianBooks": "st_mary_magdalene_pazzi"
 	},
 	"May29Pasch": {
 		"communioID": 1301,
@@ -3769,9 +3048,7 @@
 		"alleluiaID": 406,
 		"introitusID": 629,
 		"offertoriumID": 1333,
-		"fromGregorianBooks": [
-			"st_mary_magdalene_pazzi"
-		]
+		"fromGregorianBooks": "st_mary_magdalene_pazzi"
 	},
 	"May31": {
 		"communioID": 1053,
@@ -3779,9 +3056,7 @@
 		"alleluiaID": 717,
 		"introitusID": 61,
 		"offertoriumID": 719,
-		"fromGregorianBooks": [
-			"bvm_queen"
-		]
+		"fromGregorianBooks": "bvm_queen"
 	},
 	"May31Pasch": {
 		"communioID": 1053,
@@ -3789,9 +3064,7 @@
 		"alleluiaID": 354,
 		"introitusID": 61,
 		"offertoriumID": 719,
-		"fromGregorianBooks": [
-			"bvm_queen"
-		]
+		"fromGregorianBooks": "bvm_queen"
 	},
 	"May4": {
 		"communioID": 799,
@@ -3799,9 +3072,7 @@
 		"alleluiaID": 913,
 		"introitusID": 619,
 		"offertoriumID": 177,
-		"fromGregorianBooks": [
-			"st_monica"
-		]
+		"fromGregorianBooks": "st_monica"
 	},
 	"May5": {
 		"communioID": 509,
@@ -3809,9 +3080,7 @@
 		"alleluiaID": 228,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_pius_v"
-		]
+		"fromGregorianBooks": "st_pius_v"
 	},
 	"May5Pasch": {
 		"communioID": 509,
@@ -3819,9 +3088,7 @@
 		"alleluiaID": 548,
 		"introitusID": 674,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_pius_v"
-		]
+		"fromGregorianBooks": "st_pius_v"
 	},
 	"Nov1": {
 		"communioID": 345,
@@ -3829,9 +3096,7 @@
 		"alleluiaID": 1237,
 		"introitusID": 752,
 		"offertoriumID": 835,
-		"fromGregorianBooks": [
-			"all_saints"
-		]
+		"fromGregorianBooks": "all_saints"
 	},
 	"Nov11": {
 		"communioID": 1154,
@@ -3839,9 +3104,7 @@
 		"alleluiaID": 988,
 		"introitusID": 456,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_martin"
-		]
+		"fromGregorianBooks": "st_martin"
 	},
 	"Nov14": {
 		"communioID": 556,
@@ -3849,15 +3112,11 @@
 		"alleluiaID": 1118,
 		"introitusID": 417,
 		"offertoriumID": 401,
-		"fromGregorianBooks": [
-			"st_josaphat"
-		]
+		"fromGregorianBooks": "st_josaphat"
 	},
 	"Nov2": {
 		"ref": "defunctorum",
-		"fromGregorianBooks": [
-			"all_souls"
-		]
+		"fromGregorianBooks": "all_souls"
 	},
 	"Nov21": {
 		"communioID": 160,
@@ -3865,9 +3124,7 @@
 		"alleluiaID": 127,
 		"introitusID": 1140,
 		"offertoriumID": 843,
-		"fromGregorianBooks": [
-			"presentation_bvm"
-		]
+		"fromGregorianBooks": "presentation_bvm"
 	},
 	"Nov22": {
 		"communioID": 1032,
@@ -3875,9 +3132,7 @@
 		"alleluiaID": 301,
 		"introitusID": 510,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_cecilia"
-		]
+		"fromGregorianBooks": "st_cecilia"
 	},
 	"Nov23": {
 		"communioID": 509,
@@ -3885,9 +3140,7 @@
 		"alleluiaID": 228,
 		"introitusID": 409,
 		"offertoriumID": 358,
-		"fromGregorianBooks": [
-			"st_clement"
-		]
+		"fromGregorianBooks": "st_clement"
 	},
 	"Nov25": {
 		"communioID": 1032,
@@ -3895,9 +3148,7 @@
 		"alleluiaID": 208,
 		"introitusID": 510,
 		"offertoriumID": 1107,
-		"fromGregorianBooks": [
-			"st_catherine"
-		]
+		"fromGregorianBooks": "st_catherine"
 	},
 	"Nov26": {
 		"communioID": 1008,
@@ -3905,9 +3156,7 @@
 		"alleluiaID": 946,
 		"introitusID": 1374,
 		"offertoriumID": 722,
-		"fromGregorianBooks": [
-			"st_sylvester"
-		]
+		"fromGregorianBooks": "st_sylvester"
 	},
 	"Nov27": {
 		"communioID": 1087,
@@ -3915,9 +3164,7 @@
 		"alleluiaID": 254,
 		"introitusID": 493,
 		"offertoriumID": 687,
-		"fromGregorianBooks": [
-			"our_lady_miraculous_medal"
-		]
+		"fromGregorianBooks": "our_lady_miraculous_medal"
 	},
 	"Nov30": {
 		"communioID": 552,
@@ -3925,9 +3172,7 @@
 		"alleluiaID": 984,
 		"introitusID": 475,
 		"offertoriumID": 499,
-		"fromGregorianBooks": [
-			"st_andrew"
-		]
+		"fromGregorianBooks": "st_andrew"
 	},
 	"Nov8": {
 		"communioID": 658,
@@ -3935,9 +3180,7 @@
 		"alleluiaID": 1250,
 		"introitusID": 261,
 		"offertoriumID": 919,
-		"fromGregorianBooks": [
-			"four_crowned_martyrs"
-		]
+		"fromGregorianBooks": "four_crowned_martyrs"
 	},
 	"Nov9": {
 		"communioID": 43,
@@ -3945,9 +3188,7 @@
 		"alleluiaID": 242,
 		"introitusID": 923,
 		"offertoriumID": 200,
-		"fromGregorianBooks": [
-			"dedication_arch_basilica_our_saviour"
-		]
+		"fromGregorianBooks": "dedication_arch_basilica_our_saviour"
 	},
 	"Oct11": {
 		"communioID": 160,
@@ -3955,9 +3196,7 @@
 		"alleluiaID": 1114,
 		"introitusID": 1372,
 		"offertoriumID": 910,
-		"fromGregorianBooks": [
-			"maternity_bvm"
-		]
+		"fromGregorianBooks": "maternity_bvm"
 	},
 	"Oct17": {
 		"communioID": 459,
@@ -3965,9 +3204,7 @@
 		"alleluiaID": 1307,
 		"introitusID": 1195,
 		"offertoriumID": 618,
-		"fromGregorianBooks": [
-			"ste_marguerite_marie_alacoque"
-		]
+		"fromGregorianBooks": "ste_marguerite_marie_alacoque"
 	},
 	"Oct18": {
 		"communioID": 1028,
@@ -3975,9 +3212,7 @@
 		"alleluiaID": 1030,
 		"introitusID": 475,
 		"offertoriumID": 499,
-		"fromGregorianBooks": [
-			"st_luke"
-		]
+		"fromGregorianBooks": "st_luke"
 	},
 	"Oct2": {
 		"communioID": 1127,
@@ -3985,9 +3220,7 @@
 		"alleluiaID": 784,
 		"introitusID": 985,
 		"offertoriumID": 1270,
-		"fromGregorianBooks": [
-			"guardian_angels"
-		]
+		"fromGregorianBooks": "guardian_angels"
 	},
 	"Oct20": {
 		"communioID": 1003,
@@ -3995,9 +3228,7 @@
 		"alleluiaID": 792,
 		"introitusID": 970,
 		"offertoriumID": 515,
-		"fromGregorianBooks": [
-			"st_john_cantius"
-		]
+		"fromGregorianBooks": "st_john_cantius"
 	},
 	"Oct23": {
 		"communioID": 1154,
@@ -4005,9 +3236,7 @@
 		"alleluiaID": 1187,
 		"introitusID": 48,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_anthony_mary_claret"
-		]
+		"fromGregorianBooks": "st_anthony_mary_claret"
 	},
 	"Oct24": {
 		"communioID": 1127,
@@ -4015,9 +3244,7 @@
 		"alleluiaID": 814,
 		"introitusID": 985,
 		"offertoriumID": 302,
-		"fromGregorianBooks": [
-			"st_raphael"
-		]
+		"fromGregorianBooks": "st_raphael"
 	},
 	"Oct28": {
 		"communioID": 1028,
@@ -4025,9 +3252,7 @@
 		"alleluiaID": 130,
 		"introitusID": 475,
 		"offertoriumID": 570,
-		"fromGregorianBooks": [
-			"ss_simon_jude"
-		]
+		"fromGregorianBooks": "ss_simon_jude"
 	},
 	"Oct3": {
 		"communioID": 162,
@@ -4035,9 +3260,7 @@
 		"alleluiaID": 1257,
 		"introitusID": 59,
 		"offertoriumID": 362,
-		"fromGregorianBooks": [
-			"ste_therese_ej"
-		]
+		"fromGregorianBooks": "ste_therese_ej"
 	},
 	"Oct7": {
 		"communioID": 104,
@@ -4045,9 +3268,7 @@
 		"alleluiaID": 420,
 		"introitusID": 246,
 		"offertoriumID": 494,
-		"fromGregorianBooks": [
-			"most_holy_rosary"
-		]
+		"fromGregorianBooks": "most_holy_rosary"
 	},
 	"Oct9": {
 		"communioID": 991,
@@ -4055,9 +3276,7 @@
 		"alleluiaID": 664,
 		"introitusID": 41,
 		"offertoriumID": 1098,
-		"fromGregorianBooks": [
-			"st_john_leonardi"
-		]
+		"fromGregorianBooks": "st_john_leonardi"
 	},
 	"Sep12": {
 		"communioID": 160,
@@ -4065,9 +3284,7 @@
 		"alleluiaID": 127,
 		"introitusID": 124,
 		"offertoriumID": 843,
-		"fromGregorianBooks": [
-			"most_holy_name_mary"
-		]
+		"fromGregorianBooks": "most_holy_name_mary"
 	},
 	"Sep14": {
 		"communioID": 346,
@@ -4075,9 +3292,7 @@
 		"alleluiaID": 859,
 		"introitusID": 359,
 		"offertoriumID": 195,
-		"fromGregorianBooks": [
-			"exaltation_holy_cross"
-		]
+		"fromGregorianBooks": "exaltation_holy_cross"
 	},
 	"Sep15": {
 		"communioID": 1180,
@@ -4086,9 +3301,7 @@
 		"introitusID": 149,
 		"offertoriumID": 787,
 		"sequentiaID": 681,
-		"fromGregorianBooks": [
-			"seven_dolours_bvm"
-		]
+		"fromGregorianBooks": "seven_dolours_bvm"
 	},
 	"Sep17": {
 		"communioID": 1008,
@@ -4096,9 +3309,7 @@
 		"alleluiaID": 1200,
 		"introitusID": 849,
 		"offertoriumID": 630,
-		"fromGregorianBooks": [
-			"st_francis_stigmata"
-		]
+		"fromGregorianBooks": "st_francis_stigmata"
 	},
 	"Sep18": {
 		"communioID": 976,
@@ -4106,9 +3317,7 @@
 		"alleluiaID": 473,
 		"introitusID": 258,
 		"offertoriumID": 607,
-		"fromGregorianBooks": [
-			"st_joseph_of_cupertino"
-		]
+		"fromGregorianBooks": "st_joseph_of_cupertino"
 	},
 	"Sep21": {
 		"communioID": 365,
@@ -4116,9 +3325,7 @@
 		"alleluiaID": 442,
 		"introitusID": 1374,
 		"offertoriumID": 487,
-		"fromGregorianBooks": [
-			"st_matthew"
-		]
+		"fromGregorianBooks": "st_matthew"
 	},
 	"Sep27": {
 		"communioID": 184,
@@ -4126,9 +3333,7 @@
 		"alleluiaID": 32,
 		"introitusID": 11,
 		"offertoriumID": 1375,
-		"fromGregorianBooks": [
-			"ss_cosmas_and_damian"
-		]
+		"fromGregorianBooks": "ss_cosmas_and_damian"
 	},
 	"Sep28": {
 		"communioID": 89,
@@ -4136,9 +3341,7 @@
 		"alleluiaID": 1249,
 		"introitusID": 316,
 		"offertoriumID": 407,
-		"fromGregorianBooks": [
-			"st_wenceslaus"
-		]
+		"fromGregorianBooks": "st_wenceslaus"
 	},
 	"Sep29": {
 		"communioID": 1127,
@@ -4146,9 +3349,7 @@
 		"alleluiaID": 1103,
 		"introitusID": 985,
 		"offertoriumID": 302,
-		"fromGregorianBooks": [
-			"st_michael"
-		]
+		"fromGregorianBooks": "st_michael"
 	},
 	"Sep3": {
 		"communioID": 90,
@@ -4156,9 +3357,7 @@
 		"alleluiaID": 467,
 		"introitusID": 452,
 		"offertoriumID": 805,
-		"fromGregorianBooks": [
-			"st_pius_x"
-		]
+		"fromGregorianBooks": "st_pius_x"
 	},
 	"Sep3Quad": {
 		"tractusID": 1281,
@@ -4166,9 +3365,7 @@
 		"gradualeID": 977,
 		"introitusID": 452,
 		"offertoriumID": 805,
-		"fromGregorianBooks": [
-			"st_pius_x"
-		]
+		"fromGregorianBooks": "st_pius_x"
 	},
 	"Sep3Pasch": {
 		"communioID": 90,
@@ -4176,93 +3373,63 @@
 		"alleluiaID": 315,
 		"introitusID": 452,
 		"offertoriumID": 805,
-		"fromGregorianBooks": [
-			"st_pius_x"
-		]
+		"fromGregorianBooks": "st_pius_x"
 	},
 	"Jan16": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_marcellus_i"
-		]
+		"fromGregorianBooks": "st_marcellus_i"
 	},
 	"Feb6": {
 		"ref": "Feb4",
-		"fromGregorianBooks": [
-			"st_titus"
-		]
+		"fromGregorianBooks": "st_titus"
 	},
 	"Feb8": {
 		"ref": "Jan23",
-		"fromGregorianBooks": [
-			"st_john_of_matha"
-		]
+		"fromGregorianBooks": "st_john_of_matha"
 	},
 	"Feb9": {
 		"ref": "Jan29",
-		"fromGregorianBooks": [
-			"st_cyril_alexandria"
-		]
+		"fromGregorianBooks": "st_cyril_alexandria"
 	},
 	"Feb18": {
 		"ref": "Jan24",
-		"fromGregorianBooks": [
-			"st_simeon"
-		]
+		"fromGregorianBooks": "st_simeon"
 	},
 	"Feb22": {
 		"ref": "Jan18",
-		"fromGregorianBooks": [
-			"st_peter_chair_rome"
-		]
+		"fromGregorianBooks": "st_peter_chair_rome"
 	},
 	"Feb23": {
 		"ref": "Jan29",
-		"fromGregorianBooks": [
-			"st_peter_damian"
-		]
+		"fromGregorianBooks": "st_peter_damian"
 	},
 	"Mar4": {
 		"ref": "Jan23",
-		"fromGregorianBooks": [
-			"st_casimir"
-		]
+		"fromGregorianBooks": "st_casimir"
 	},
 	"Mar18": {
 		"ref": "Mar7",
-		"fromGregorianBooks": [
-			"st_cyril_jerusalem"
-		]
+		"fromGregorianBooks": "st_cyril_jerusalem"
 	},
 	"Apr24": {
 		"ref": "Apr23",
-		"fromGregorianBooks": [
-			"st_fidelis_of_sigmaringen"
-		]
+		"fromGregorianBooks": "st_fidelis_of_sigmaringen"
 	},
 	"Apr25": {
 		"ref": "Apr23",
-		"fromGregorianBooks": [
-			"st_mark"
-		]
+		"fromGregorianBooks": "st_mark"
 	},
 	"Apr26": {
 		"ref": "Apr11",
-		"fromGregorianBooks": [
-			"ss_cletus_marcellinus"
-		]
+		"fromGregorianBooks": "ss_cletus_marcellinus"
 	},
 	"Apr27": {
 		"ref": "Apr21",
-		"fromGregorianBooks": [
-			"st_peter_canisius"
-		]
+		"fromGregorianBooks": "st_peter_canisius"
 	},
 	"Apr29": {
 		"ref": "Apr23",
-		"fromGregorianBooks": [
-			"st_peter_of_verona"
-		]
+		"fromGregorianBooks": "st_peter_of_verona"
 	},
 	"May7": {
 		"communioID": 586,
@@ -4270,9 +3437,7 @@
 		"alleluiaID": 1118,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_stanislaus"
-		]
+		"fromGregorianBooks": "st_stanislaus"
 	},
 	"May7Quad": {
 		"tractusID": 7670,
@@ -4280,9 +3445,7 @@
 		"gradualeID": 1206,
 		"introitusID": 227,
 		"offertoriumID": 779,
-		"fromGregorianBooks": [
-			"st_stanislaus"
-		]
+		"fromGregorianBooks": "st_stanislaus"
 	},
 	"May7Pasch": {
 		"communioID": 617,
@@ -4290,249 +3453,167 @@
 		"alleluiaID": 1249,
 		"introitusID": 340,
 		"offertoriumID": 1382,
-		"fromGregorianBooks": [
-			"st_stanislaus"
-		]
+		"fromGregorianBooks": "st_stanislaus"
 	},
 	"May9": {
 		"ref": "Apr21",
-		"fromGregorianBooks": [
-			"st_gregory_nazianzen"
-		]
+		"fromGregorianBooks": "st_gregory_nazianzen"
 	},
 	"May17": {
 		"ref": "May15",
-		"fromGregorianBooks": [
-			"st_paschal_baylon"
-		]
+		"fromGregorianBooks": "st_paschal_baylon"
 	},
 	"May18": {
 		"ref": "Apr23",
-		"fromGregorianBooks": [
-			"st_venantius"
-		]
+		"fromGregorianBooks": "st_venantius"
 	},
 	"May19": {
 		"ref": "May5",
-		"fromGregorianBooks": [
-			"st_peter_celestine"
-		]
+		"fromGregorianBooks": "st_peter_celestine"
 	},
 	"May20": {
 		"ref": "May15",
-		"fromGregorianBooks": [
-			"st_bernardine_of_sienna"
-		]
+		"fromGregorianBooks": "st_bernardine_of_sienna"
 	},
 	"May27": {
 		"ref": "Apr21",
-		"fromGregorianBooks": [
-			"st_bede_venerable"
-		]
+		"fromGregorianBooks": "st_bede_venerable"
 	},
 	"May30": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_felix_i"
-		]
+		"fromGregorianBooks": "st_felix_i"
 	},
 	"Jun6": {
 		"ref": "May10",
-		"fromGregorianBooks": [
-			"st_norbert"
-		]
+		"fromGregorianBooks": "st_norbert"
 	},
 	"Jun13": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_anthony_padua"
-		]
+		"fromGregorianBooks": "st_anthony_padua"
 	},
 	"Jun17": {
 		"ref": "May10",
-		"fromGregorianBooks": [
-			"st_gregory_barbarigo"
-		]
+		"fromGregorianBooks": "st_gregory_barbarigo"
 	},
 	"Jun18": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_ephraem_syrian"
-		]
+		"fromGregorianBooks": "st_ephraem_syrian"
 	},
 	"Jun19": {
 		"ref": "Feb10",
-		"fromGregorianBooks": [
-			"st_juliana_falconeri"
-		]
+		"fromGregorianBooks": "st_juliana_falconeri"
 	},
 	"Jun20": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_silverius"
-		]
+		"fromGregorianBooks": "st_silverius"
 	},
 	"Jun25": {
 		"ref": "Jan17",
-		"fromGregorianBooks": [
-			"st_william"
-		]
+		"fromGregorianBooks": "st_william"
 	},
 	"Jul8": {
 		"ref": "Jun10",
-		"fromGregorianBooks": [
-			"st_elizabeth"
-		]
+		"fromGregorianBooks": "st_elizabeth"
 	},
 	"Jul12": {
 		"ref": "Jan17",
-		"fromGregorianBooks": [
-			"st_john_gualbert"
-		]
+		"fromGregorianBooks": "st_john_gualbert"
 	},
 	"Jul15": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_henry"
-		]
+		"fromGregorianBooks": "st_henry"
 	},
 	"Jul17": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_alexius"
-		]
+		"fromGregorianBooks": "st_alexius"
 	},
 	"Jul21": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_lawrence_brindisi"
-		]
+		"fromGregorianBooks": "st_lawrence_brindisi"
 	},
 	"Jul29": {
 		"ref": "Jun1",
-		"fromGregorianBooks": [
-			"st_martha"
-		]
+		"fromGregorianBooks": "st_martha"
 	},
 	"Aug5": {
 		"ref": "May24",
-		"fromGregorianBooks": [
-			"lady_of_snow"
-		]
+		"fromGregorianBooks": "lady_of_snow"
 	},
 	"Aug7": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_cajetan"
-		]
+		"fromGregorianBooks": "st_cajetan"
 	},
 	"Aug8": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_jean_marie_vianney"
-		]
+		"fromGregorianBooks": "st_jean_marie_vianney"
 	},
 	"Aug12": {
 		"ref": "Jun1",
-		"fromGregorianBooks": [
-			"st_clare"
-		]
+		"fromGregorianBooks": "st_clare"
 	},
 	"Aug13": {
 		"ref": "Aug11",
-		"fromGregorianBooks": [
-			"ss_hippolytus_cassian"
-		]
+		"fromGregorianBooks": "ss_hippolytus_cassian"
 	},
 	"Aug17": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_hyacinth"
-		]
+		"fromGregorianBooks": "st_hyacinth"
 	},
 	"Aug18": {
 		"ref": "Jul27",
-		"fromGregorianBooks": [
-			"st_agapitus"
-		]
+		"fromGregorianBooks": "st_agapitus"
 	},
 	"Aug19": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_john_eudes"
-		]
+		"fromGregorianBooks": "st_john_eudes"
 	},
 	"Aug20": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_bernard"
-		]
+		"fromGregorianBooks": "st_bernard"
 	},
 	"Aug21": {
 		"ref": "Jun10",
-		"fromGregorianBooks": [
-			"st_jane_francis_de_chantal"
-		]
+		"fromGregorianBooks": "st_jane_francis_de_chantal"
 	},
 	"Aug23": {
 		"ref": "Jul19",
-		"fromGregorianBooks": [
-			"st_philip_benizi"
-		]
+		"fromGregorianBooks": "st_philip_benizi"
 	},
 	"Aug25": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_louis"
-		]
+		"fromGregorianBooks": "st_louis"
 	},
 	"Aug30": {
 		"ref": "Jun1",
-		"fromGregorianBooks": [
-			"st_rose_of_lima"
-		]
+		"fromGregorianBooks": "st_rose_of_lima"
 	},
 	"Aug31": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_nonnat"
-		]
+		"fromGregorianBooks": "st_nonnat"
 	},
 	"Sep2": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_stephen_of_hungary"
-		]
+		"fromGregorianBooks": "st_stephen_of_hungary"
 	},
 	"Sep5": {
 		"ref": "May10",
-		"fromGregorianBooks": [
-			"st_lawrence_justinian"
-		]
+		"fromGregorianBooks": "st_lawrence_justinian"
 	},
 	"Sep8": {
 		"ref": "Jul2",
-		"fromGregorianBooks": [
-			"nativity_bvm"
-		]
+		"fromGregorianBooks": "nativity_bvm"
 	},
 	"Sep9": {
 		"ref": "Jul27",
-		"fromGregorianBooks": [
-			"st_gorgonius"
-		]
+		"fromGregorianBooks": "st_gorgonius"
 	},
 	"Sep10": {
 		"ref": "Jul19",
-		"fromGregorianBooks": [
-			"st_nicholas_of_tolentino"
-		]
+		"fromGregorianBooks": "st_nicholas_of_tolentino"
 	},
 	"Sep11": {
 		"ref": "Aug11",
-		"fromGregorianBooks": [
-			"ss_protus_hyacinth"
-		]
+		"fromGregorianBooks": "ss_protus_hyacinth"
 	},
 	"Sep16": {
 		"ref": "Jul28",
@@ -4543,171 +3624,115 @@
 	},
 	"Sep19": {
 		"ref": "Aug11",
-		"fromGregorianBooks": [
-			"st_januarius_and_companions"
-		]
+		"fromGregorianBooks": "st_januarius_and_companions"
 	},
 	"Sep22": {
 		"ref": "May10",
-		"fromGregorianBooks": [
-			"st_thomas_of_villanova"
-		]
+		"fromGregorianBooks": "st_thomas_of_villanova"
 	},
 	"Sep23": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_linus"
-		]
+		"fromGregorianBooks": "st_linus"
 	},
 	"Sep24": {
 		"ref": "May24",
-		"fromGregorianBooks": [
-			"our_lady_of_ransom"
-		]
+		"fromGregorianBooks": "our_lady_of_ransom"
 	},
 	"Sep26": {
 		"ref": "Aug11",
-		"fromGregorianBooks": [
-			"ss_cyprian_and_justina"
-		]
+		"fromGregorianBooks": "ss_cyprian_and_justina"
 	},
 	"Sep30": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_jerome"
-		]
+		"fromGregorianBooks": "st_jerome"
 	},
 	"Oct4": {
 		"ref": "Sep17",
-		"fromGregorianBooks": [
-			"st_francis_assisi"
-		]
+		"fromGregorianBooks": "st_francis_assisi"
 	},
 	"Oct5": {
 		"ref": "Aug11",
-		"fromGregorianBooks": [
-			"st_placid_and_companions"
-		]
+		"fromGregorianBooks": "st_placid_and_companions"
 	},
 	"Oct6": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_bruno"
-		]
+		"fromGregorianBooks": "st_bruno"
 	},
 	"Oct8": {
 		"ref": "Jun10",
-		"fromGregorianBooks": [
-			"st_bridget"
-		]
+		"fromGregorianBooks": "st_bridget"
 	},
 	"Oct10": {
 		"ref": "Jan17",
-		"fromGregorianBooks": [
-			"st_francis_borgia"
-		]
+		"fromGregorianBooks": "st_francis_borgia"
 	},
 	"Oct13": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_edward"
-		]
+		"fromGregorianBooks": "st_edward"
 	},
 	"Oct14": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_callistus_i"
-		]
+		"fromGregorianBooks": "st_callistus_i"
 	},
 	"Oct15": {
 		"ref": "Jun1",
-		"fromGregorianBooks": [
-			"st_teresa_avila"
-		]
+		"fromGregorianBooks": "st_teresa_avila"
 	},
 	"Oct16": {
 		"ref": "Jun10",
-		"fromGregorianBooks": [
-			"st_hedwig"
-		]
+		"fromGregorianBooks": "st_hedwig"
 	},
 	"Oct19": {
 		"ref": "Jul19",
-		"fromGregorianBooks": [
-			"st_peter_of_alcantara"
-		]
+		"fromGregorianBooks": "st_peter_of_alcantara"
 	},
 	"Nov4": {
 		"ref": "May10",
-		"fromGregorianBooks": [
-			"st_charles_borromeo"
-		]
+		"fromGregorianBooks": "st_charles_borromeo"
 	},
 	"Nov10": {
 		"ref": "Jun12",
-		"fromGregorianBooks": [
-			"st_andrew_avellino"
-		]
+		"fromGregorianBooks": "st_andrew_avellino"
 	},
 	"Nov12": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_martin_i"
-		]
+		"fromGregorianBooks": "st_martin_i"
 	},
 	"Nov13": {
 		"ref": "Jul19",
-		"fromGregorianBooks": [
-			"st_didacus"
-		]
+		"fromGregorianBooks": "st_didacus"
 	},
 	"Nov15": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_albert_the_great"
-		]
+		"fromGregorianBooks": "st_albert_the_great"
 	},
 	"Nov16": {
 		"ref": "Jun1",
-		"fromGregorianBooks": [
-			"st_gertrude"
-		]
+		"fromGregorianBooks": "st_gertrude"
 	},
 	"Nov17": {
 		"ref": "May10",
-		"fromGregorianBooks": [
-			"st_gregory_wonder_worker"
-		]
+		"fromGregorianBooks": "st_gregory_wonder_worker"
 	},
 	"Nov18": {
 		"ref": "Nov9",
-		"fromGregorianBooks": [
-			"dedication_basilica_ss_peter_paul"
-		]
+		"fromGregorianBooks": "dedication_basilica_ss_peter_paul"
 	},
 	"Nov19": {
 		"ref": "Jun10",
-		"fromGregorianBooks": [
-			"st_elizabeth_of_hungary"
-		]
+		"fromGregorianBooks": "st_elizabeth_of_hungary"
 	},
 	"Nov20": {
 		"ref": "Jul19",
-		"fromGregorianBooks": [
-			"st_felix_of_valois"
-		]
+		"fromGregorianBooks": "st_felix_of_valois"
 	},
 	"Nov24": {
 		"ref": "Jan14",
-		"fromGregorianBooks": [
-			"st_john_cross"
-		]
+		"fromGregorianBooks": "st_john_cross"
 	},
 	"Nov29": {
 		"ref": "Jul27",
-		"fromGregorianBooks": [
-			"st_saturninus"
-		]
+		"fromGregorianBooks": "st_saturninus"
 	},
 	"Dec5": {
 		"introitusID": 1374,
@@ -4715,20 +3740,14 @@
 		"alleluiaID": 946,
 		"offertoriumID": 722,
 		"communioID": 1008,
-		"fromGregorianBooks": [
-			"st_sabbas"
-		]
+		"fromGregorianBooks": "st_sabbas"
 	},
 	"Dec10": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_melchiades"
-		]
+		"fromGregorianBooks": "st_melchiades"
 	},
 	"Dec11": {
 		"ref": "Jan11",
-		"fromGregorianBooks": [
-			"st_damasus"
-		]
+		"fromGregorianBooks": "st_damasus"
 	}
 }
