@@ -415,6 +415,18 @@ var propria = {
   Nov11: {communioID:1154,gradualeID:235,alleluiaID:988,introitusID:456,offertoriumID:630},
   Nov14: {communioID:556,gradualeID:827,alleluiaID:1118,introitusID:417,offertoriumID:401},
   Nov2: {ref: 'defunctorum'},
+  Nov5: {
+    "inID": 248,
+    "inRef": "Ps 33: 20-21, 2",
+    "grID": 963,
+    "grRef": "Ps 149: 5, 1",
+    "alID": 896,
+    "alRef": "Ps 67: 4",
+    "ofID": 919,
+    "ofRef": "Ps 67: 36",
+    "coID": 1109,
+    "coRef": "Ps 32: 1"
+  },
   Nov21: {communioID:160,gradualeID:392,alleluiaID:127,introitusID:1140,offertoriumID:843},
   Nov22: {communioID:1032,gradualeID:840,alleluiaID:301,introitusID:510,offertoriumID:1107},
   Nov23: {communioID:509,gradualeID:1119,alleluiaID:228,introitusID:409,offertoriumID:358},
@@ -9343,7 +9355,9 @@ function dereference(key,quadPasch) {
   if(!key) return {};
   var match = key.match(/(propers|saints)\.html#(.*)/);
   if(!match && /Sept/.test(quadPasch)) quadPasch = "Quad"
-  return match? (gbooks[match[1]][match[2]]) : (propria[key+(quadPasch||'')] || propria[key]);
+  var result = match? (gbooks[match[1]][match[2]]) : (propria[key+(quadPasch||'')] || propria[key]);
+  if(match) result.isUsed = true;
+  return result;
 }
 var getImmediateProper = (propers, key, quadPasch) => (propers[key+quadPasch+'ID'] || propers[partKey[key]+quadPasch+'ID'] || propers[key+'ID'] || propers[partKey[key]+'ID'] || 0);
 var containsOtherThanRef = p => Object.keys(partKey).reduce((result, key) => (result || getImmediateProper(p,key) || getImmediateProper(p,key,'Sept') || getImmediateProper(p,key,'Pasch')), false);
@@ -9434,7 +9448,7 @@ Object.keys(propria).forEach(key => {
   if(possiblePropers.length == 0) {
     possiblePropers = allGregorian.filter(p => compare(p,propers,quadPasch));
   }
-  var props = possiblePropers.map(p => p.gbid).filter(id => (/^(votive|mass)_/i.test(id)==/votive/i.test(key) || /^mass_/i.test(id)));
+  var props = possiblePropers.filter(p => (/^(votive|mass)_/i.test(p.gbid)==/votive/i.test(key) || /^mass_/i.test(p.gbid))).map(p => (p.isUsed = true, p.gbid));
   if(props.length === 1) {
     props = props[0];
   }
@@ -9452,3 +9466,5 @@ Object.keys(propria).forEach(key => {
 fs.writeFileSync('propriadata-new.json', JSON.stringify(propria,0,"\t"));
 var count = Object.keys(propria).map(k => propria[k]).filter(p => p.fromGregorianBooks.length == 0).length;
 console.info(count,'missing gbid');
+var unusedGregorian = allGregorian.filter(p => !p.isUsed);
+console.info(`${unusedGregorian.length} unused Gregorian keys: ${JSON.stringify(unusedGregorian.map(p => p.gbid),1,'\t')}`)

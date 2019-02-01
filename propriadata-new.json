@@ -3118,6 +3118,19 @@
 		"ref": "defunctorum",
 		"fromGregorianBooks": "all_souls"
 	},
+	"Nov5": {
+		"inID": 248,
+		"inRef": "Ps 33: 20-21, 2",
+		"grID": 963,
+		"grRef": "Ps 149: 5, 1",
+		"alID": 896,
+		"alRef": "Ps 67: 4",
+		"ofID": 919,
+		"ofRef": "Ps 67: 36",
+		"coID": 1109,
+		"coRef": "Ps 32: 1",
+		"fromGregorianBooks": "holy_relics"
+	},
 	"Nov21": {
 		"communioID": 160,
 		"gradualeID": 392,
