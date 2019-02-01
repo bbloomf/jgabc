@@ -1,6 +1,9 @@
 var module;
 var problematicRefs = {};
 function Ref(ref, lastRef) {
+  if(/[IV]/i.test(ref.bookNum||"")) {
+    ref.bookNum = ref.bookNum.replace(/iv/i,'iiii').trim().length;
+  }
   if(ref.book == 'Esdr' && ref.bookNum == 2) {
     delete ref.bookNum;
     ref.book = 'Neh';
@@ -14,25 +17,35 @@ function Ref(ref, lastRef) {
   this.verse = ref.verse;
   this.endVerse = ref.endVerse;
 }
+Ref.prototype.bookString = function() { return `${this.bookNum? this.bookNum+' ' : ''}${this.book}`; }
 Ref.prototype.verseString = function() { return `${this.verse? this.verse : ''}${this.endVerse? '-'+this.endVerse : ''}`; };
-Ref.prototype.toString = function() { return `${this.bookNum? this.bookNum+' ' : ''}${this.book} ${this.chapter}${this.verse? ': '+this.verseString() : ''}`; };
+Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter}${this.verse? ': '+this.verseString() : ''}`; };
 function refArrayString(array) {
   if(!array.length) return "";
   var result = array[0].toString(),
-      lastChapter = array[0].chapter;
+      lastChapter = array[0].chapter,
+      lastBook = array[0].bookString();
   for(var i=1; i<array.length; ++i) {
     var ref = array[i];
-    if(lastChapter != ref.chapter) {
+    if(lastBook != ref.bookString()) {
       result += '; ' + ref.toString();
-      lastChapter = ref.chapter;
+    } else if(lastChapter != ref.chapter) {
+      if(ref.book == 'Ps') {
+        result += '; ' + ref.toString();
+      } else {
+        result += '; ' + ref.chapter + ': ' + ref.verseString();
+      }
     } else {
       result += ', ' + ref.verseString();
     }
+    lastChapter = ref.chapter;
+    lastBook = ref.bookString();
   }
   return result;
 }
 function parseRef(refText) {
-  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
+  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
+                
   if(!match) {
     problematicRefs[refText] = `Bad refText: "${refText}"`;
     return [];
@@ -46,16 +59,16 @@ function parseRef(refText) {
       remaining = match[7],
       result = [];
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
-  while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
+  while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
     if(match[2]) {
       book = match[2];
       if(!match[1]) bookNum = null;
     }
-    if(match[3]) chapter = match[3];
-    verse = match[4];
-    endVerse = match[5];
-    remaining = match[6];
+    chapter = match[3] || match[4] || match[5] || chapter;
+    verse = match[6];
+    endVerse = match[7];
+    remaining = match[8];
     result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   }
   // test ref:

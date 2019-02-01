@@ -40,7 +40,7 @@ gregorianPropers = {
   "ofRef": "Ps 84: 7-8",
   "co": "Jerusalem surge",
   "coID": 966,
-  "coRef": "Bar 5: 5, 4, 36",
+  "coRef": "Bar 5: 5; 4: 36",
   "coVerses": "Ps 147: 1-4, 6-9"
  },
  "advent3": {
@@ -2101,7 +2101,7 @@ gregorianPropers = {
   "ofRef": "Ps 77: 23-25",
   "co": "Spiritus qui",
   "coID": 333,
-  "coRef": "Ioann 15: 26, 16, 14, 17, 1, 5",
+  "coRef": "Ioann 15: 26; 16: 14; 17: 1, 5",
   "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
  },
  "pentecost_wed": {
