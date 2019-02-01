@@ -754,7 +754,7 @@ $(function() {
   $("#chant-parent2").resizable({handles:"e"});
   $(window).resize(windowResized);
   function parseHash() {
-    var regexKeyVal = /(?:^|#)(psalm|tone|ending|solemn|format|noeditor)(?:=([^#]+))?/g;
+    var regexKeyVal = /(?:^|#)(psalm|tone|ending|solemn|format|(?:no)?editor)(?:=([^#]+))?/g;
     var hash = {}, curMatch;
     while(curMatch = regexKeyVal.exec(location.hash)) {
       hash[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : curMatch[2];
@@ -769,8 +769,8 @@ $(function() {
     if(hash.psalm)  $("#selPsalm").val(hash.psalm);
     if(hash.tone)   $("#selTones").val(hash.tone);
     if(hash.ending && $("#selEnd")[0].firstChild) $("#selEnd").val(hash.ending);
+    if(hash.editor && hash.noeditor) delete hash.noeditor;
     $('#chant-parent2').toggleClass('noeditor',hash.noeditor?true:false);
-    gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = !hash.noeditor;
   });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<optgroup label="Psalms"><option>' + getPsalms().join('</option><option>') + '</option></optgroup>' +
@@ -881,7 +881,6 @@ $(function() {
   }
   if(hash.noeditor) {
     $('#chant-parent2').addClass('noeditor');
-    gabcSettings.showSyllableEditorOnHover = gabcSettings.showSyllableEditorOnClick = false;
   }
   var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
   ctxt.lyricTextFont = "'Crimson Text', serif";
