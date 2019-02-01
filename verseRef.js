@@ -1,6 +1,10 @@
 var module;
 var problematicRefs = {};
 function Ref(ref, lastRef) {
+  if(ref.book == 'Esdr' && ref.bookNum == 2) {
+    delete ref.bookNum;
+    ref.book = 'Neh';
+  }
   if(/^ibid$/i.test(this.book)) {
     this.ibid = lastRef || true;
   }
@@ -28,7 +32,7 @@ function refArrayString(array) {
   return result;
 }
 function parseRef(refText) {
-  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\D*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
+  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
   if(!match) {
     problematicRefs[refText] = `Bad refText: "${refText}"`;
     return [];
@@ -42,7 +46,7 @@ function parseRef(refText) {
       remaining = match[7],
       result = [];
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
-  while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\D*(\d+)[,:\s]*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
+  while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:(\d)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
     if(match[2]) {
       book = match[2];

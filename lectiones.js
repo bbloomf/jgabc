@@ -109,6 +109,10 @@ var lectiones = {
   "Col 3:12-17",
   "Luc 2:42-52"
  ],
+ "Epi1s": [
+  "Rom 12:1-5",
+  "Luc 2:42-52"
+ ],
  "Epi2": [
   "Rom 12:6-16",
   "Joann 2:1-11"
@@ -1057,6 +1061,10 @@ var lectiones = {
  "Nov2": [
   "Apoc 14:13",
   "Joannes 6:51-55"
+ ],
+ "Nov5": [
+  "Apoc 7:2-12",
+  "Matt 5:1-12"
  ],
  "Nov21": [
   "Eccli 24:14-16",

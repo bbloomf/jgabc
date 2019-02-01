@@ -2663,7 +2663,7 @@ gregorianPropers = {
   "ofVerses": "Ps 118: 57, 58",
   "co": "Comedite pinguia",
   "coID": 496,
-  "coRef": "2 Esdr 8: 10",
+  "coRef": "Neh 8: 10",
   "coVerses": "Ps 80: 2-3, 5, 11, 17"
  },
  "fri_ews": {
