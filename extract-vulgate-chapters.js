@@ -39,7 +39,7 @@ vulgate.forEach(line => {
       word = syls.map(syl => syl.replace(regexStartIVowel, match => (replaceIJ[match]) )).join('');
       word = word.replace(/([Cc][uú])i(us)/g,'$1j$2');
       word = word.replace(/([Bb][eé]n)i(amin)/i, '$1j$2');
-      // word = word.replace(/(?<!jud)([aeiouyáéíóúýœæǽ])(ic[eiéíœæǽ])/i,'$1j$2');
+      word = word.replace(/^(s[uú]b|pr[oó]|[rd][eé]|[eé]|[aáoó][bd])(ic[eiéíœæǽ])/i,'$1j$2');
       if(/j/i.test(word)) {
         if(/^(allelúja|Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajunt|ajo|ajon|gaj(o|us)|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
           word = word.replace(/j/g,'i').replace(/J/g,'I');
