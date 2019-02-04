@@ -2757,6 +2757,7 @@ $(function(){
       sel[part] = {};
       makeChantContextForSel(sel[part]);
     }
+    $('div[part='+part+']').removeClass('modified');
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   });
