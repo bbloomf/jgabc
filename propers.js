@@ -3327,11 +3327,12 @@ console.info(JSON.stringify(selPropers));
           }
           if(neumeIndex) {
             var nextNeume = note.neume.score.notations[neumeIndex + 1];
-            if(nextNeume.constructor == exsurge.TextOnly) {
+            var efNextNeume = nextNeume.isAccidental? note.neume.score.notations[neumeIndex + 2] : nextNeume;
+            if(efNextNeume.constructor == exsurge.TextOnly) {
               splice.addString = ',';
               splice.index = nextNeume.mapping.sourceIndex + nextNeume.mapping.source.length - 1;
               break;
-            } else if(!nextNeume.hasLyrics() && !nextNeume.isAccidental) {
+            } else if(!efNextNeume.hasLyrics()) {
               splice.addString = ',';
               splice.index = nextNeume.sourceIndex || nextNeume.notes[0].sourceIndex;
               break;
