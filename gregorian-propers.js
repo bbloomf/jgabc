@@ -40,7 +40,7 @@ gregorianPropers = {
   "ofRef": "Ps 84: 7-8",
   "co": "Jerusalem surge",
   "coID": 966,
-  "coRef": "Bar 5: 5, 4, 36",
+  "coRef": "Bar 5: 5; 4: 36",
   "coVerses": "Ps 147: 1-4, 6-9"
  },
  "advent3": {
@@ -161,7 +161,7 @@ gregorianPropers = {
   "alID": 224,
   "of": "Ave Maria... et benedictus",
   "ofID": 843,
-  "ofRef": "Luc 1: 28",
+  "ofRef": "Luc 1: 28, 42",
   "ofVerses": "Luc 1: 34, 35",
   "co": "Ecce virgo",
   "coID": 1144,
@@ -473,7 +473,8 @@ gregorianPropers = {
   "title": "5 Jan - Eve of the Epiphany",
   "date": "Jan5",
   "href": "http://www.introibo.fr/Vigile-de-l-Epiphanie-avant-1955",
-  "ref": "propers.html#sunday_within_octave_christmas"
+  "ref": "propers.html#sunday_within_octave_christmas",
+  "refRubric": "Suppressed in 1955."
  },
  "epiphany": {
   "title": "6 Jan - The Epiphany of Our Lord",
@@ -481,7 +482,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Epiphanie-du-Seigneur-6-janvier",
   "in": "Ecce (advenit)",
   "inID": 403,
-  "inRef": "Malach 3: 1; 1 Par 29: 12; 1 Ps 71: 1",
+  "inRef": "Malach 3: 1; 1 Par 29: 12; Ps 71: 1",
   "inVerses": "Ps 71: 10-11",
   "gr": "Omnes (de Saba)",
   "grID": 205,
@@ -563,7 +564,8 @@ gregorianPropers = {
   "title": "13 Jan - Octave of Epiphany - Commemoration of Baptism of Our Lord Jesus Christ",
   "date": "Jan13",
   "href": "http://www.introibo.fr/Bapteme-du-Seigneur-13-janvier",
-  "ref": "propers.html#epiphany"
+  "ref": "propers.html#epiphany",
+  "refRubric": "There is no commemoration if Holy Family falls on this day."
  },
  "epiphany2": {
   "title": "2nd Sunday after Epiphany",
@@ -1547,7 +1549,7 @@ gregorianPropers = {
   "title": "Mass of the Holy Oils",
   "in": "Facies unctionis",
   "inID": 1131,
-  "inRef": "Ps 88: 3-4",
+  "inVerses": "Ps 88: 3-4",
   "gr": "In Deo confisum est",
   "grID": 1251,
   "of": "Diligis justitiam",
@@ -1746,7 +1748,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Dimanche-in-Albis",
   "in": "Quasi modo",
   "inID": 25,
-  "inRef": "1 Petri 2: 2; 1 Ps 80: 2",
+  "inRef": "1 Petri 2: 2; Ps 80: 2",
   "inVerses": "Ps 80: 3, 11",
   "al": [
    "In die resurrectionis",
@@ -1884,15 +1886,13 @@ gregorianPropers = {
   "title": "Rogations - Greater and lesser litanies",
   "href": "http://www.introibo.fr/Lundi-des-Rogations",
   "in": "Exaudivit",
-  "inID": 451,
+  "inID": 939,
   "inRef": "Ps 17: 7, 2-3",
   "al": [
-   "Confitemini... quoniam (Rogations)",
    "Propitius esto",
    "Exsultabo et laetabor"
   ],
   "alRef": [
-   "Ps 117: 1",
    "Ps 78: 9-10",
    "Ps 30: 8"
   ],
@@ -2001,7 +2001,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Vigile-de-la-Pentecote",
   "in": "Dum sanctificatus",
   "inID": 418,
-  "inRef": "Ezech 36: 23, 24, 25-26; Ps 33: 2",
+  "inRef": "Ezech 36: 23-26; Ps 33: 2",
   "inVerses": "Ps 33",
   "gr": "Confitemini... quoniam",
   "grID": 507,
@@ -2080,7 +2080,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Mardi-de-la-Pentecote",
   "in": "Accipite",
   "inID": 1278,
-  "inRef": "4 Esdr 2: 36, 37; 4 Ps 77: 1",
+  "inRef": "4 Esdr 2: 36, 37; Ps 77: 1",
   "inVerses": "Ps 77: 2-3",
   "al": [
    "Spiritus Sanctus",
@@ -2101,7 +2101,7 @@ gregorianPropers = {
   "ofRef": "Ps 77: 23-25",
   "co": "Spiritus qui",
   "coID": 333,
-  "coRef": "Ioann 15: 26, 16, 14, 17, 1, 5",
+  "coRef": "Ioann 15: 26; 16: 14; 17: 1, 5",
   "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
  },
  "pentecost_wed": {
@@ -2663,7 +2663,7 @@ gregorianPropers = {
   "ofVerses": "Ps 118: 57, 58",
   "co": "Comedite pinguia",
   "coID": 496,
-  "coRef": "2 Esdr 8: 10",
+  "coRef": "Neh 8: 10",
   "coVerses": "Ps 80: 2-3, 5, 11, 17"
  },
  "fri_ews": {

@@ -262,6 +262,15 @@ $(function(){
     responsorium: "Resp.",
     canticum: "Cant."
   };
+  var partKey = {
+    introitus: 'in',
+    graduale: 'gr',
+    tractus: 'tr',
+    alleluia: 'al',
+    sequentia: 'seq',
+    offertorium: 'of',
+    communio: 'co'
+  };
   var defaultTermination={
     '1':'f',
     '3':'a',
@@ -709,6 +718,15 @@ $(function(){
     if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
       selPropers.gloria = false;
     }
+    if(selPropers) {
+      for(var k in partKey) {
+        var key = partKey[k] + 'ID';
+        k += 'ID';
+        if(key in selPropers && !(k in selPropers)) {
+          selPropers[k] = selPropers[key];
+        }
+      }
+    }
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay] || extraChants[ref];
     if(sel.extraChants && (!selPropers || selPropers.extraChants !== true)) {
@@ -719,7 +737,7 @@ $(function(){
     }
 
     $('.ordinary').toggle(!selPropers || (selPropers.ordinary !== false));
-    if(selPropers || selDay=='custom') {
+    if(selPropers || selDay=='custom' || selDay == '') {
       removeMultipleGraduales();
       // remove temporary rubrics
       $('.rubric.temporary').remove();
@@ -728,26 +746,28 @@ $(function(){
           addMultipleGraduales(selPropers.gradualeID.length - 1);
         }
         if(selPropers.rubrics) addTemporaryRubrics(selPropers.rubrics);
-        if(readings) {
-          $lectiones = $('.lectio');
-          if($lectiones.length > readings.length) {
-            $lectiones = $lectiones.not('.lectio-before-tract');
-          }
-          $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
-          readings.forEach(function(reading,i) {
-            [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
-              var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
-              getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
-                $lectio.append(reading);
-              });
-            });
-          });
-          $lectiones.show();
-          var defaultVal = localStorage.showLectionem || ''
-          $('.selectShowLectionem').val(defaultVal).change();
-        }
       } else {
         selPropers = {};
+      }
+      $lectiones = $('.lectio');
+      if(readings) {
+        if($lectiones.length > readings.length) {
+          $lectiones = $lectiones.not('.lectio-before-tract');
+        }
+        $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+        readings.forEach(function(reading,i) {
+          [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+            var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
+            getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
+              $lectio.append(reading);
+            });
+          });
+        });
+        $lectiones.show();
+        var defaultVal = localStorage.showLectionem || ''
+        $('.selectShowLectionem').val(defaultVal).change();
+      } else {
+        $lectiones.hide();
       }
       updateAllParts();
     }
@@ -1008,7 +1028,19 @@ $(function(){
       $this.toggle(match? !negated : negated);
     });
   }
+  var clearSelections = function(e) {
+    $('#btnClearSelections').addClass('hidden');
+    var hash = {};
+    $('#selSunday,#selSaint,#selMass').each(function(){
+      this.selectedIndex = 0;
+      hash[this.id] = false;
+    });
+    selDay = "";
+    clearHash(hash);
+    updateDay();
+  }
   var selectedDay = function(e){
+    $('#btnClearSelections').removeClass('hidden');
     selDay = $(this).val();
     var hash = {
       sundayNovus: false
@@ -2273,6 +2305,8 @@ $(function(){
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
+      .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
+      .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
@@ -2501,6 +2535,7 @@ $(function(){
     return result;
   }, {});
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
+  $('#btnClearSelections').click(clearSelections);
   $selSundayNovus.change(selectedDayNovus);
   $selYearNovus.change(function(){
     selYearNovus = $(this).val();

@@ -26,6 +26,7 @@ var weekdays = ["mon","tue","wed","thu","fri","sat"];
 var regexWeekday = new RegExp(`^(.*?)_?(${weekdays.join('|')})$`);
 var currentFeast = "";
 var urls = ['propers','saints'];
+var gabcRefs = {};
 var iUrl = 0;
 processUrl(urls[iUrl++]);
 function processUrl(urlKey) {
@@ -47,9 +48,9 @@ function processUrl(urlKey) {
       }
       lastPercent = percent;
     });
-    result.on('close',e => console.info('socket closed on file: ' + file));
-    result.on('aborted',e => console.info('ABORTED on file: ' + file));
-    result.on('error',e => console.info('ERROR on file: ' + file));
+    result.on('close',e => console.info('socket closed on url: ' + url));
+    result.on('aborted',e => console.info('ABORTED on url: ' + url));
+    result.on('error',e => console.info('ERROR on url: ' + url));
     result.on('end', () => {
       
 
@@ -86,13 +87,26 @@ function processUrl(urlKey) {
       if(!td.classList.contains("bar") &&
         !td.classList.contains("bar2") && a) {
         // new feast:
-        if(currentFeast && propria && !('ref' in propria) && !('in' in propria)) {
+        if(currentFeast && propria && !('ref' in propria) && !('refPasch' in propria) && !('in' in propria)) {
           delete festa[currentFeast];
+        }
+        if(currentFeast && !/_pt$/.test(currentFeast) && propria && !('ref' in propria) && ('refPasch' in propria) && !('in' in propria)) {
+          console.info(currentFeast);
+          console.info(propria.title);
+          console.info(propria.refPasch);
+          if(propria.refPasch == "saints.html#mass_one_martyr") {
+            propria.ref = "saints.html#mass_i_martyr_not_bishop";
+          }
         }
         propria = tempPropria = {};
         betweenBars = false;
         currentFeast = a.name;
-        festa[a.name] = propria;
+        var iCount = 0;
+        while(currentFeast in festa) {
+          console.warn("2nd instance found of ", currentFeast)
+          currentFeast = a.name + (++iCount);
+        }
+        festa[currentFeast] = propria;
         propria.title = (td.querySelector('.greg0') || td).textContent.trim();
         let match = propria.title.match(/^(\d+)\s+(?:(or)\s+(\d+)\s+)?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+-/);
         if(match) propria.date = match[4] + match[1] + (match[2]||'') + (match[3]||'');
@@ -120,30 +134,41 @@ function processUrl(urlKey) {
           var key = partMap[match[2]];
           if(key == 'hy' && (betweenBars || !('in' in propria))) return;
           if(sept) key += "Sept";
-          if(pasch) key += "Pasch";
+          if(pasch && !(pasch.nextSibling && /\bper\sannum\b/i.test(pasch.nextSibling.textContent))) key += "Pasch";
           var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
           if((key in propria) && name != propria[key] && !name.startsWith(propria[key]+'(')) {
             match[1] = 1;
           }
           if(match[1] || !(key in propria)) {
             var rubric = tr.children[4];
-            if(betweenBars) {
+            if(betweenBars || key == 'ref') {
               var rubric = rubric.innerHTML.replace(/\s+/g,' ').replace(/<br>|<\/div>/g,'\n').replace(/<[^>]+>/g,'').trim().replace(/^\S\s+/,'').split(/\n+/);
               var rubricText = rubric.slice(-1)[0].trim();
-              if(/^(From|Same)\s/.test(rubricText)) {
+              if(/^(From|Same|Proper)\s/.test(rubricText)) {
                 rubricText = rubric[0].trim();
+              }
+              if(key == 'ref' && /^M(ass|issa)/.test(rubricText)) {
+                rubricText = rubricText.match(/\(([^)]+)\)/);
+                rubricText = rubricText && rubricText[1];
+                if(/^\d+$/.test(rubricText)) rubricText = null;
+              }
+              if(/^(From|Same|Proper)\s/.test(rubricText)) {
+                rubricText = null;
               }
             }
             if(betweenBars && !sept && !pasch) {
-              if(/^(gr|al)$/.test(key) && (propria.al instanceof Array) && !('gr' in propria)) {
-                propria.alPasch = propria.al;
-                propria.alPaschID = propria.alID;
-                if(propria.alRef) {
-                  propria.alPaschRef = propria.alRef;
+              if((/^(gr|al)$/.test(key) && (propria.al instanceof Array) && !('gr' in propria)) ||
+                  (key=='al' && /\bout\s+of\s+paschal/i.test(rubricText))) {
+                if(propria.al && !('alPasch' in propria)) {
+                  propria.alPasch = propria.al;
+                  propria.alPaschID = propria.alID;
+                  if(propria.alRef) {
+                    propria.alPaschRef = propria.alRef;
+                  }
+                  delete propria.al;
+                  delete propria.alID;
+                  delete propria.alRef;
                 }
-                delete propria.al;
-                delete propria.alID;
-                delete propria.alRef;
               } else {
                 key += "Extra";
                 match[1] = key in propria;
@@ -154,7 +179,16 @@ function processUrl(urlKey) {
               if(m && m[1] in festa) {
                 delete festa[currentFeast];
               }
-              propria[key] = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
+              if(/\bin\s+paschal\b/i.test(rubricText) && !/Pasch$/.test(key)) {
+                key += "Pasch";
+                rubricText = null;
+              }
+              var href = aHref.href.replace(/^http:\/\/www\.gregorianbooks\.com\//,'');
+              if(/\bMartyr\b/i.test(propria.title) && /confessor/.test(href)) {
+                href = href.replace("confessor","martyr");
+              }
+              propria[key] = href;
+              if(rubricText) propria[key+'Rubric'] = rubricText;
               return;
             } else {
               if(key == 'al' && name == 'Alleluia') name = 'Confitemini... quoniam';
@@ -197,12 +231,23 @@ ${JSON.stringify(incipitId,1,' ')}`);
               if(ref || (key+"Ref" in propria)) {
                 var refs = ref.split('\n').map(ref => vr.parseRef(ref).verseRefString());
                 ref = refs[0];
+                if(/<hr>/.test(span.innerHTML) && refs.length == 1) {
+                  refs[1] = ref;
+                  ref = "";
+                }
                 if(match[1]) {
                   propria[key+"Ref"] = propria[key+"Ref"] || [];
                   if(!(propria[key+'Ref'] instanceof Array)) propria[key+'Ref'] = [propria[key+'Ref']];
                   propria[key+"Ref"].push(ref);
-                } else {
+                } else if(ref) {
                   propria[key+"Ref"] = ref;
+                }
+                if(ref && (typeof incipitId == 'number')) {
+                  if(incipitId in gabcRefs && (gabcRefs[incipitId] != ref)) {
+                    console.info(`different Refs for chant ${incipitId}: ${gabcRefs[incipitId]} & ${ref}`);
+                  } else {
+                    gabcRefs[incipitId] = ref;
+                  }
                 }
                 if(refs.length > 1) {
                   if(refs.length > 2) throw propria;
@@ -210,8 +255,18 @@ ${JSON.stringify(incipitId,1,' ')}`);
                 }
               }
             }
+            if(typeof incipitId == 'number') {
+              if(!gabcRefs[incipitId]) gabcRefs[incipitId] = "";
+            }
 
-            if(betweenBars) {
+            if(betweenBars && key == 'alPasch' && /\bsing\s+this\s+Alleluia\s+first/i.test(rubricText) && propria.al) {
+              propria.alPasch = [propria.alPasch, propria.al];
+              propria.alPaschID = [propria.alPaschID, propria.alID];
+              if(propria.alPaschRef || propria.alRef)
+              propria.alPaschRef = [propria.alPaschRef || "", propria.alRef || ""];
+              rubricText = null;
+            }
+            if(betweenBars && rubricText) {
               if(key+'Rubric' in propria) {
                 if(!(propria[key+'Rubric'] instanceof Array)) propria[key+'Rubric'] = [propria[key+'Rubric']];
                 propria[key+'Rubric'].push(rubricText);
@@ -226,7 +281,8 @@ ${JSON.stringify(incipitId,1,' ')}`);
   });
 
   fs.writeFileSync(`gregorian-${urlKey}.js`,`// from ${url}
-gregorianPropers = ` + JSON.stringify(festa,null," "));
+gregorianPropers = ${JSON.stringify(festa,null," ")}`);
+  fs.writeFileSync('gabc-refs.js', `gabcRefs = ${JSON.stringify(gabcRefs)}`)
 
   processUrl(urls[iUrl++]);
 
