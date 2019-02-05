@@ -2323,6 +2323,7 @@ $(function(){
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
     }
+    prop.commentary = gabcHeader.commentary || null;
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
     prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
@@ -2394,8 +2395,14 @@ $(function(){
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
     if(!chantContainer.length || !chantContainer.is(':visible')) return;
-    var ctxt = sel[part].ctxt;
-    var score = sel[part].score;
+    var $chantCommentary = chantContainer.prev('.commentary');
+    if($chantCommentary.length == 0) {
+      $chantCommentary = $('<div>').addClass('commentary').insertBefore(chantContainer);
+    }
+    var prop = sel[part];
+    $chantCommentary.text(prop.commentary || '');
+    var ctxt = prop.ctxt;
+    var score = prop.score;
     if(!score) return;
     var availableWidth = chantContainer.width();
     if(availableWidth == 0) {
@@ -2403,7 +2410,7 @@ $(function(){
     }
     var newWidth = Math.min(624, availableWidth);
     var useNoMoreThanHalfHeight = false;
-    if(sel[part].sticky) {
+    if(prop.sticky) {
       if(newWidth == availableWidth) {
         newWidth = Math.floor(newWidth / 0.8);
       } else {
@@ -2900,7 +2907,7 @@ $(function(){
         !gabc) return;
       header.name = name || '';
       if(name) {
-        header.commentary = ' ';
+        header.commentary = header.commentary || ' ';
         name = '';
       }
       if(isFirstChant) {

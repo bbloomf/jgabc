@@ -147,7 +147,7 @@ var path = 'gabc/',
                     var content = fileData.slice(header.length);
                     var h = gabc.getHeader(header);
                     var ref = gabcRefs[ids[i]];
-                    if(ids[i] in gabcRefs) {
+                    if(ids[i] in gabcRefs && /^(Introitus|Graduale|Tractus|Alleluia|Offertorium|Communio)$/.test(h.officePart)) {
                       ++countWithRef;
                     }
                     if(ref) {
