@@ -1154,7 +1154,6 @@ texts = {
 		"643": "sinite parvulos venire ad me et ne prohibueritis eos talium est enim regnum dei",
 		"650": "pater si non potest hic calix transire nisi bibam illum fiat voluntas tua",
 		"658": "et si coram hominibus tormenta passi sunt deus tentavit eos tamquam aurum in fornace probavit eos et quasi holocausta accepit eos",
-		"666": "tu es petrus et super hanc petram ædificabo ecclesiam meam",
 		"673": "simile est regnum cælorum homini negotiatori querenti bonas margaritas inventa una pretiosa margarita dedit omnia sua et comparavit eam alleluia",
 		"677": "manducaverunt et saturati sunt nimis et desiderium eorum attulit eis dominus non sunt fraudati a desiderio suo",
 		"685": "qui mihi ministrat me sequatur et ubi ego sum illic et minister meus erit",

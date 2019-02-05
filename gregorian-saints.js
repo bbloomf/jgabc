@@ -1043,11 +1043,46 @@ gregorianPropers = {
   "grRef": "Philipp 2: 8-9",
   "al": "Dulce lignum",
   "alID": 859,
+  "trSept": "Adoramus te",
+  "trSeptID": 114,
+  "alPasch": [
+   "Dicite in gentibus",
+   "Dulce lignum"
+  ],
+  "alPaschID": [
+   627,
+   859
+  ],
+  "alPaschRef": [
+   "Ps 95: 10",
+   ""
+  ],
   "of": "Protege (Domine)",
   "ofID": 195,
   "co": "Per signum Crucis",
   "coID": 346,
   "coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+ },
+ "votive_mass_passion_oljc": {
+  "title": "Friday - Votive Mass of Passion of Our Lord Jesus Christ",
+  "in": "Humiliavit",
+  "inID": 523,
+  "inRef": "Philipp 2: 8-9",
+  "gr": "Improperium",
+  "grID": 780,
+  "grRef": "Ps 68: 21-22",
+  "al": "Ave Rex noster",
+  "alID": 199,
+  "trSept": "Vere languores",
+  "trSeptID": 978,
+  "trSeptRef": "Is 53: 4-5",
+  "alPasch": "Tibi gloria",
+  "alPaschID": 1376,
+  "of": "Insurrexerunt",
+  "ofID": 426,
+  "co": "Foderunt",
+  "coID": 84,
+  "coRef": "Ps 21: 17-18"
  },
  "mass_beg_for_peace": {
   "title": "Mass to beg for Peace",
@@ -1513,7 +1548,7 @@ gregorianPropers = {
   "ofID": 1234,
   "ofRef": "Matth 16: 18-19",
   "co": "Tu es Petrus",
-  "coID": 666,
+  "coID": 509,
   "coRef": "Matth 16: 18"
  },
  "st_prisca": {
@@ -3458,7 +3493,7 @@ gregorianPropers = {
   "ofRef": "Ps 44, 17-18",
   "ofVerses": "Ps 44: 2",
   "co": "Tu es Petrus",
-  "coID": 666,
+  "coID": 509,
   "coRef": "Matth 16: 18",
   "coVerses": "Ps 138: 1-6, 13-14, 17-18, 23"
  },
