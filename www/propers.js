@@ -2307,22 +2307,18 @@ $(function(){
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
       .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
-      .replace(/<b><\/b>/g,'')
-      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
-      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
       .replace(/(<b>[^<]+)œ́/g,'$1œ</b>\u0301<b>') // œ́ character doesn't work in the bold version of this font.
-      .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
-        .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
-        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
+        .replace(/<v>[^<]+<\/v>/g,'');  // not currently supported by Exsurge
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
     }
+    prop.commentary = gabcHeader.officePart=='Kyriale'? null : (gabcHeader.commentary || null);
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
     prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
@@ -2394,8 +2390,14 @@ $(function(){
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
     if(!chantContainer.length || !chantContainer.is(':visible')) return;
-    var ctxt = sel[part].ctxt;
-    var score = sel[part].score;
+    var $chantCommentary = chantContainer.prev('.commentary');
+    if($chantCommentary.length == 0) {
+      $chantCommentary = $('<div>').addClass('commentary').insertBefore(chantContainer);
+    }
+    var prop = sel[part];
+    $chantCommentary.text(prop.commentary || '');
+    var ctxt = prop.ctxt;
+    var score = prop.score;
     if(!score) return;
     var availableWidth = chantContainer.width();
     if(availableWidth == 0) {
@@ -2403,7 +2405,7 @@ $(function(){
     }
     var newWidth = Math.min(624, availableWidth);
     var useNoMoreThanHalfHeight = false;
-    if(sel[part].sticky) {
+    if(prop.sticky) {
       if(newWidth == availableWidth) {
         newWidth = Math.floor(newWidth / 0.8);
       } else {
@@ -2757,6 +2759,7 @@ $(function(){
       sel[part] = {};
       makeChantContextForSel(sel[part]);
     }
+    $('div[part='+part+']').removeClass('modified');
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   });
@@ -2899,7 +2902,7 @@ $(function(){
         !gabc) return;
       header.name = name || '';
       if(name) {
-        header.commentary = ' ';
+        header.commentary = header.commentary || ' ';
         name = '';
       }
       if(isFirstChant) {
@@ -3327,11 +3330,12 @@ console.info(JSON.stringify(selPropers));
           }
           if(neumeIndex) {
             var nextNeume = note.neume.score.notations[neumeIndex + 1];
-            if(nextNeume.constructor == exsurge.TextOnly) {
+            var efNextNeume = nextNeume.isAccidental? note.neume.score.notations[neumeIndex + 2] : nextNeume;
+            if(efNextNeume.constructor == exsurge.TextOnly) {
               splice.addString = ',';
               splice.index = nextNeume.mapping.sourceIndex + nextNeume.mapping.source.length - 1;
               break;
-            } else if(!nextNeume.hasLyrics() && !nextNeume.isAccidental) {
+            } else if(!efNextNeume.hasLyrics()) {
               splice.addString = ',';
               splice.index = nextNeume.sourceIndex || nextNeume.notes[0].sourceIndex;
               break;

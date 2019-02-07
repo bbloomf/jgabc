@@ -27,7 +27,7 @@ var propria = {
   votiveSCJ: {ref:"SCJ"},
   SCJ: {introitusID:1320,gradualeID:1035,alleluiaID:907,offertoriumID:628,communioID:1356},
   ECJ: {introitusID:676,gradualeID:492,alleluiaID:10,offertoriumID:683,communioID:730,rubrics:rubricECJ},
-  litaniis: {introitusID:451, gradualeID:395, alleluiaID: 189, offertoriumID: 584, communioID: 422}, // todo: 451 does not have the psalm verse, which needs to be taken from 939
+  litaniis: {introitusID:451, gradualeID:395, alleluiaID: 189, offertoriumID: 584, communioID: 422}, // 451 does not have the psalm verse, which is taken from 939 in download-gabc.js
   litaniisPasch: {introitusID:939, gradualeID:189, alleluiaID: 1342, offertoriumID: 584, communioID: 364},
   litaniisQuad: {introitusID:451, gradualeID:395, tractusID: 276, offertoriumID: 584, communioID: 422},
   votiveECJ: {ref:"ECJ"},
@@ -78,23 +78,7 @@ var propria = {
   Epi: {introitusID:403,gradualeID:205,alleluiaID:524,offertoriumID:1147,communioID:918},
   Asc: {introitusID:1355,gradualeID:17,alleluiaID:57,offertoriumID:211,communioID:263},
   CorpusChristi: {introitusID:715,gradualeID:1230,alleluiaID:774,sequentiaID:308,offertoriumID:645,communioID:577},
-  //Adv1: {inID:132,ofID:962,coID:1036,alleluiaID:1115,gradualeID:1169},
-  Adv1: {
-    "in": "Ad te levavi",
-      "inID": 132,
-      "inRef": "Ps 24: 1-3, 4",
-      "inVerses": "Ps 24: 5-6",
-      "grID": 1169,
-      "grRef": "Ps 24: 3, 4",
-      "alID": 1115,
-      "alRef": "Ps 84: 8",
-      "ofID": 962,
-      "ofRef": "Ps 24: 1-3",
-      "ofVerses": "Ps 24: 5",
-      "coID": 1036,
-      "coRef": "Ps 84: 13",
-      "coVerses": "Ps 84: 2-5, 7-8, 10-12, 14"
-  },
+  Adv1: {introitusID:132,offertoriumID:962,communioID:1036,alleluiaID:1115,gradualeID:1169},
   Adv2: {introitusID:356,offertoriumID:631,communioID:966,alleluiaID:292,gradualeID:1268},
   Adv3: {introitusID:1225,offertoriumID:113,communioID:218,alleluiaID:855,gradualeID:1007},
   Adv3w: {introitusID:79, gradualeID: [756,284], offertoriumID:290, communioID:1144},
@@ -371,10 +355,12 @@ var propria = {
   Mar10: {tractusID:305,communioID:957,gradualeID:614,introitusID:788,offertoriumID:786},
   Mar12: {tractusID:1085,communioID:509,gradualeID:1119,introitusID:674,offertoriumID:358},
   Mar17: {tractusID:7670,communioID:1008,gradualeID:235,introitusID:456,offertoriumID:779},
+  Mar19: {communioID:139,gradualeID:600,alleluiaID:14,introitusID:108,offertoriumID:630},
   Mar19Quad: {tractusID:7670,communioID:139,gradualeID:600,introitusID:108,offertoriumID:630},
   Mar19Pasch: {communioID:139,gradualeID:14,alleluiaID:1207,introitusID:108,offertoriumID:630},
   Mar21: {tractusID:7670,communioID:1008,gradualeID:600,introitusID:1374,offertoriumID:722},
   Mar24: {tractusID:266,communioID:1127,gradualeID:609,introitusID:985,offertoriumID:302},
+  Mar25: {communioID:1144,gradualeID:947,alleluiaID:1209,introitusID:124,offertoriumID:843},
   Mar25Quad: {tractusID:738,communioID:1144,gradualeID:947,introitusID:124,offertoriumID:843},
   Mar25Pasch: {communioID:1144,gradualeID:1209,alleluiaID:281,introitusID:124,offertoriumID:843},
   Mar27: {tractusID:35,communioID:601,gradualeID:306,introitusID:656,offertoriumID:166},
@@ -592,7 +578,7 @@ var gregorianPropers = {
   "ofRef": "Ps 84: 7-8",
   "co": "Jerusalem surge",
   "coID": 966,
-  "coRef": "Bar 5: 5, 4, 36",
+  "coRef": "Bar 5: 5; 4: 36",
   "coVerses": "Ps 147: 1-4, 6-9"
  },
  "advent3": {
@@ -713,7 +699,7 @@ var gregorianPropers = {
   "alID": 224,
   "of": "Ave Maria... et benedictus",
   "ofID": 843,
-  "ofRef": "Luc 1: 28",
+  "ofRef": "Luc 1: 28, 42",
   "ofVerses": "Luc 1: 34, 35",
   "co": "Ecce virgo",
   "coID": 1144,
@@ -1034,7 +1020,7 @@ var gregorianPropers = {
   "href": "http://www.introibo.fr/Epiphanie-du-Seigneur-6-janvier",
   "in": "Ecce (advenit)",
   "inID": 403,
-  "inRef": "Malach 3: 1; 1 Par 29: 12; 1 Ps 71: 1",
+  "inRef": "Malach 3: 1; 1 Par 29: 12; Ps 71: 1",
   "inVerses": "Ps 71: 10-11",
   "gr": "Omnes (de Saba)",
   "grID": 205,
@@ -2101,7 +2087,7 @@ var gregorianPropers = {
   "title": "Mass of the Holy Oils",
   "in": "Facies unctionis",
   "inID": 1131,
-  "inRef": "Ps 88: 3-4",
+  "inVerses": "Ps 88: 3-4",
   "gr": "In Deo confisum est",
   "grID": 1251,
   "of": "Diligis justitiam",
@@ -2300,7 +2286,7 @@ var gregorianPropers = {
   "href": "http://www.introibo.fr/Dimanche-in-Albis",
   "in": "Quasi modo",
   "inID": 25,
-  "inRef": "1 Petri 2: 2; 1 Ps 80: 2",
+  "inRef": "1 Petri 2: 2; Ps 80: 2",
   "inVerses": "Ps 80: 3, 11",
   "al": [
    "In die resurrectionis",
@@ -2553,7 +2539,7 @@ var gregorianPropers = {
   "href": "http://www.introibo.fr/Vigile-de-la-Pentecote",
   "in": "Dum sanctificatus",
   "inID": 418,
-  "inRef": "Ezech 36: 23, 24, 25-26; Ps 33: 2",
+  "inRef": "Ezech 36: 23-26; Ps 33: 2",
   "inVerses": "Ps 33",
   "gr": "Confitemini... quoniam",
   "grID": 507,
@@ -2632,7 +2618,7 @@ var gregorianPropers = {
   "href": "http://www.introibo.fr/Mardi-de-la-Pentecote",
   "in": "Accipite",
   "inID": 1278,
-  "inRef": "4 Esdr 2: 36, 37; 4 Ps 77: 1",
+  "inRef": "4 Esdr 2: 36, 37; Ps 77: 1",
   "inVerses": "Ps 77: 2-3",
   "al": [
    "Spiritus Sanctus",
@@ -2653,7 +2639,7 @@ var gregorianPropers = {
   "ofRef": "Ps 77: 23-25",
   "co": "Spiritus qui",
   "coID": 333,
-  "coRef": "Ioann 15: 26, 16, 14, 17, 1, 5",
+  "coRef": "Ioann 15: 26; 16: 14; 17: 1, 5",
   "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
  },
  "pentecost_wed": {
@@ -3215,7 +3201,7 @@ var gregorianPropers = {
   "ofVerses": "Ps 118: 57, 58",
   "co": "Comedite pinguia",
   "coID": 496,
-  "coRef": "2 Esdr 8: 10",
+  "coRef": "Neh 8: 10",
   "coVerses": "Ps 80: 2-3, 5, 11, 17"
  },
  "fri_ews": {
@@ -3413,10 +3399,10 @@ gregorianSaints = {
   "in": "Ego autem sicut",
   "inID": 163,
   "inRef": "Ps 51: 10, 11, 3",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
-  "of": "Gloria (et honore)",
+  "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
   "co": "Magna est",
@@ -3517,7 +3503,7 @@ gregorianSaints = {
   "trSeptID": 176,
   "trSeptRef": "Ps 20: 3-4",
   "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
-  "of": "Gloria (et honore)",
+  "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
   "co": "Qui vult venire",
@@ -3624,7 +3610,7 @@ gregorianSaints = {
   "co": "Et si coram",
   "coID": 658,
   "coRef": "Sap 3: 4, 5, 6",
-  "coVerses": "Cant 3: 1-3, 5, 8-9"
+  "coVerses": "Sap 3: 1-3, 5, 8-9"
  },
  "mass_ii_two_or_more_martyr": {
   "title": "Mass II of two or more Martyrs",
@@ -3766,7 +3752,7 @@ gregorianSaints = {
   "inID": 1374,
   "inRef": "Ps 36: 30-31, 1",
   "inVerses": "Ps 36: 3, 26",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Beatus vir qui suffert",
@@ -4028,7 +4014,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/Commun-des-fetes-de-la-Bse-Vierge",
   "in": "Salve (sancta Parens)",
   "inID": 1140,
-  "inRef": "Sedulius 44: 2",
+  "inRef": "Ps 44: 2",
   "inVerses": "Ps 44: 5, 8",
   "gr": "Benedicta (et venerabilis)",
   "grID": 392,
@@ -4051,7 +4037,7 @@ gregorianSaints = {
   "ofVerses": "Luc 1: 34, 35",
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_i_bvm_saturday": {
   "title": "Mass I of the Blessed Virgin Mary on Saturday (from Advent to Nativity)",
@@ -4092,14 +4078,14 @@ gregorianSaints = {
   "ofID": 280,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_iii_bvm_saturday": {
   "title": "Mass III of the Blessed Virgin Mary on Saturday (from Purification BVM to Easter)",
   "href": "http://www.introibo.fr/Messes-de-la-Ste-Vierge-au-Samedi,348",
   "in": "Salve (sancta Parens)",
   "inID": 1140,
-  "inRef": "Sedulius 44: 2",
+  "inRef": "Ps 44: 2",
   "gr": "Benedicta (et venerabilis)",
   "grID": 392,
   "al": "Virga Jesse",
@@ -4112,14 +4098,14 @@ gregorianSaints = {
   "ofID": 280,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_iv_bvm_saturday": {
   "title": "Mass IV of the Blessed Virgin Mary on Saturday (from Easter to Pentecost)",
   "href": "http://www.introibo.fr/Messes-de-la-Ste-Vierge-au-Samedi,349",
   "in": "Salve (sancta Parens)",
   "inID": 1140,
-  "inRef": "Sedulius 44: 2",
+  "inRef": "Ps 44: 2",
   "al": [
    "Virga Jesse",
    "Ave Maria"
@@ -4136,7 +4122,7 @@ gregorianSaints = {
   "ofID": 567,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "mass_v_bvm_saturday": {
   "title": "Mass V of the Blessed Virgin Mary on Saturday (from Pentecost to Advent)",
@@ -4468,7 +4454,7 @@ gregorianSaints = {
   "ofID": 195,
   "co": "Per signum Crucis",
   "coID": 346,
-  "coRef": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+  "coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
  },
  "votive_mass_passion_oljc": {
   "title": "Friday - Votive Mass of Passion of Our Lord Jesus Christ",
@@ -4530,7 +4516,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/Messe-pour-l-election-du-Souverain",
   "in": "Suscitabo",
   "inID": 1286,
-  "inRef": "Reg 2: 35; Ps 131: 1",
+  "inRef": "1 Reg 2: 35; Ps 131: 1",
   "gr": "Pontifex (sacerdos)",
   "grID": 546,
   "grRef": "Levit 21: 10; Hebr 2: 17",
@@ -4543,7 +4529,7 @@ gregorianSaints = {
   "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
   "of": "Non participentur",
   "ofID": 690,
-  "ofRef": "Esdrae 5: 40",
+  "ofRef": "3 Esdrae 5: 40",
   "co": "Veste sancta",
   "coID": 145,
   "coRef": "Exod 29: 29-30"
@@ -4553,7 +4539,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/Messe-du-Mariage",
   "in": "Deus Israel",
   "inID": 551,
-  "inRef": "Tob 7: 15, 8, 19; Ps 127: 1",
+  "inRef": "Tob 7: 15; 8: 19; Ps 127: 1",
   "gr": "Uxor (tua)",
   "grID": 311,
   "grRef": "Ps 127: 3",
@@ -4586,7 +4572,7 @@ gregorianSaints = {
   "gr": "Nimis (honorati)",
   "grID": 148,
   "grRef": "Ps 138: 17-18",
-  "of": "Gloria (et honore)",
+  "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
   "co": "Dicit Andreas",
@@ -4633,7 +4619,7 @@ gregorianSaints = {
   "in": "Loquebar... Ps. Laudate",
   "inID": 115,
   "inRef": "Ps 118: 46-47; Ps 116: 1-2",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Beatus vir qui suffert",
@@ -4749,7 +4735,7 @@ gregorianSaints = {
   "ofRef": "Luc 1: 28",
   "co": "Gloriosa",
   "coID": 1004,
-  "coRef": "Canticum 1: 46-55"
+  "coVerses": "Luc 1: 46-55"
  },
  "st_melchiades": {
   "title": "10 Dec - St Melchiades, Pope and Martyr",
@@ -4769,7 +4755,7 @@ gregorianSaints = {
   "date": "Dec12",
   "in": "Salve (sancta Parens)",
   "inID": 1140,
-  "inRef": "Sedulius 44: 2",
+  "inRef": "Ps 44: 2",
   "inVerses": "Ps 44: 5, 8",
   "gr": "Quae est ista",
   "grID": 468,
@@ -4780,7 +4766,7 @@ gregorianSaints = {
   "ofID": 7,
   "co": "Non fecit taliter",
   "coID": 1133,
-  "coRef": "Ps 147"
+  "coVerses": "Ps 147"
  },
  "st_lucy": {
   "title": "13 Dec - St Lucy, Virgin and Martyr",
@@ -4894,7 +4880,7 @@ gregorianSaints = {
   "inID": 108,
   "inRef": "Ps 91: 13-14, 2",
   "inVerses": "Ps 91: 3, 5",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Justus germinabit",
@@ -5080,7 +5066,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/25-01-Conversion-de-St-Paul-apotre",
   "in": "Scio (cui credidi)",
   "inID": 1179,
-  "inRef": "2 Tim 1: 12; 2 Ps 138: 1-2",
+  "inRef": "2 Tim 1: 12; Ps 138: 1-2",
   "inVerses": "Ps 138: 3, 6",
   "gr": "Qui operatus est",
   "grID": 1347,
@@ -5180,7 +5166,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/31-01-St-Jean-Bosco-confesseur",
   "in": "Dedit illi (Deus)",
   "inID": 1018,
-  "inRef": "3 Reg 4: 29; 3 Ps 112: 1",
+  "inRef": "3 Reg 4: 29; Ps 112: 1",
   "inVerses": "Ps 112: 2-3",
   "gr": "Spera (in Domino)",
   "grID": 21,
@@ -5226,12 +5212,12 @@ gregorianSaints = {
   "alPaschID": 1249,
   "alPaschRef": "Ps 20: 4",
   "alPaschRubric": "Sung at a Votive Mass in Paschal Time, following the previous Alleluia.",
-  "of": "Gloria (et honore)",
+  "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
   "co": "Frumentum Christi sum",
   "coID": 368,
-  "coRef": "Ps 149: 1-6"
+  "coVerses": "Ps 149: 1-6"
  },
  "purification_bvm": {
   "title": "2 Feb - Purification of the Blessed Virgin Mary (Candlemas)",
@@ -5294,7 +5280,7 @@ gregorianSaints = {
   "ofRef": "Ps 44: 15, 16",
   "co": "Qui me dignatus est",
   "coID": 454,
-  "coRef": "Ps 108: 2-3, 5, 21, 25-26, 30-31"
+  "coVerses": "Ps 108: 2-3, 5, 21, 25-26, 30-31"
  },
  "st_titus": {
   "title": "6 Feb - St Titus, Bishop and Confessor",
@@ -6094,7 +6080,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/11-05-Sts-Philippe-et-Jacques",
   "in": "Exclamaverunt",
   "inID": 469,
-  "inRef": "Neh 2; Esdr 9: 27; Ps 32: 1",
+  "inRef": "Neh 9: 27; Ps 32: 1",
   "inVerses": "Ps 32: 2-4, 12-15, 18",
   "alPasch": [
    "Confitebuntur",
@@ -6435,7 +6421,6 @@ gregorianSaints = {
   "ofID": 719,
   "co": "Regina mundi",
   "coID": 1053,
-  "coRef": "",
   "coVerses": "Ps 44"
  },
  "st_petronilla": {
@@ -6468,7 +6453,8 @@ gregorianSaints = {
   "ofRef": "Ps 31: 11",
   "co": "Justorum animae",
   "coID": 209,
-  "coRef": "Sap 3: 1, 2, 3; Ps 149: 1-6"
+  "coRef": "Sap 3: 1, 2, 3",
+  "coVerses": "Ps 149: 1-6"
  },
  "ss_marcellinus_peter_erasmus_pt": {
   "title": "2 Jun - SS Marcellinus, Peter and Erasmus, Martyrs (Paschal Time)",
@@ -6807,7 +6793,7 @@ gregorianSaints = {
   "gr": "Fuit homo",
   "grID": 424,
   "grRef": "Ioann 1: 6-7",
-  "of": "Gloria (et honore)",
+  "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
   "co": "Magna est",
@@ -6862,7 +6848,7 @@ gregorianSaints = {
   "co": "Et si coram",
   "coID": 658,
   "coRef": "Sap 3: 4, 5, 6",
-  "coVerses": "Cant 3: 1-3, 5, 8-9"
+  "coVerses": "Sap 3: 1-3, 5, 8-9"
  },
  "ss_peter_paul_vigil": {
   "title": "28 Jun - Vigil of SS Peter and Paul",
@@ -6910,10 +6896,10 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/30-06-Commemoraison-de-St-Paul",
   "in": "Scio (cui credidi)",
   "inID": 1179,
-  "inRef": "2 Tim 1: 12; 2 Ps 138: 1-2",
+  "inRef": "2 Tim 1: 12; Ps 138: 1-2",
   "gr": "Qui operatus est",
   "grID": 1347,
-  "grRef": "Gal 2: 8-9, 1; Cor 15: 10",
+  "grRef": "Gal 2: 8-9; 1 Cor 15: 10",
   "al": "Sancte Paule",
   "alID": 120,
   "of": "Mihi (autem nimis)",
@@ -6972,7 +6958,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/02-07-Visitation-de-la-Vierge",
   "in": "Salve (sancta Parens)",
   "inID": 1140,
-  "inRef": "Sedulius 44: 2",
+  "inRef": "Ps 44: 2",
   "inVerses": "Ps 44: 5, 8",
   "gr": "Benedicta (et venerabilis)",
   "grID": 392,
@@ -6982,7 +6968,7 @@ gregorianSaints = {
   "ofID": 567,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Luc 1: 46-55"
+  "coVerses": "Luc 1: 46-55"
  },
  "ss_processus_martinian": {
   "title": "2 Jul - SS Processus and Martinian, Martyrs",
@@ -7046,7 +7032,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/05-07-St-Antoine-Marie-Zaccaria",
   "in": "Sermo meus",
   "inID": 1349,
-  "inRef": "1 Cor 2: 4; 1 Ps 110: 1",
+  "inRef": "1 Cor 2: 4; Ps 110: 1",
   "gr": "Testis mihi",
   "grID": 155,
   "grRef": "Philipp 1, 8-9, 10",
@@ -7267,7 +7253,6 @@ gregorianSaints = {
   "ofRef": "Jer 18: 20",
   "co": "Regina mundi",
   "coID": 1053,
-  "coRef": "",
   "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "st_alexius": {
@@ -7567,7 +7552,7 @@ gregorianSaints = {
   "in": "In nomine Jesu...Ps. Gloriabuntur",
   "inID": 1295,
   "inRef": "Phil 2: 10-11; Ps 5: 12-13",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Beatus vir qui suffert",
@@ -7663,7 +7648,7 @@ gregorianSaints = {
   "inID": 1374,
   "inRef": "Ps 36: 30-31, 1",
   "inVerses": "Ps 36: 3, 26",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Justus germinabit",
@@ -7901,7 +7886,7 @@ gregorianSaints = {
   "inID": 108,
   "inRef": "Ps 91: 13-14, 2",
   "inVerses": "Ps 91: 3, 5",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Justus germinabit",
@@ -7975,7 +7960,7 @@ gregorianSaints = {
   "alPaschID": 503,
   "alPaschRef": "Ps 111: 2",
   "alPaschRubric": "Sung at a Votive Mass during Paschal Time followed by the previous All. O Joachim sancte.",
-  "of": "Gloria (et honore)",
+  "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
   "co": "Fidelis servus",
@@ -8040,7 +8025,7 @@ gregorianSaints = {
   "co": "Dixit Jesus matri",
   "coID": 982,
   "coRef": "Joann 19: 27",
-  "coVerses": "Cant 1: 46-55"
+  "coVerses": "Luc 1: 46-55"
  },
  "ss_timothy_hippolytus_symphorian": {
   "title": "22 Aug - SS Timothy, Hippolytus and Symphorian, Martyrs",
@@ -8142,7 +8127,7 @@ gregorianSaints = {
   "inID": 410,
   "inRef": "Ps 118: 46-47; Ps 91: 2",
   "inVerses": "Ps 91: 3, 13",
-  "gr": "Justus (ut palma)",
+  "gr": "Justus ut palma",
   "grID": 34,
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Justus germinabit",
@@ -8253,7 +8238,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/08-09-Nativite-de-la-Bse-Vierge",
   "in": "Salve (sancta Parens)",
   "inID": 1140,
-  "inRef": "Sedulius 44: 2",
+  "inRef": "Ps 44: 2",
   "inVerses": "Ps 44: 5, 8",
   "gr": "Benedicta (et venerabilis)",
   "grID": 392,
@@ -8263,7 +8248,7 @@ gregorianSaints = {
   "ofID": 567,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "st_hadrian": {
   "title": "8 Sep - St Hadrian, Martyr",
@@ -8307,7 +8292,7 @@ gregorianSaints = {
   "ofVerses": "Luc 1: 34, 35",
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "exaltation_holy_cross": {
   "title": "14 Sep - Exaltation of the Holy Cross",
@@ -8326,7 +8311,7 @@ gregorianSaints = {
   "ofID": 195,
   "co": "Per signum Crucis",
   "coID": 346,
-  "coRef": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+  "coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
  },
  "seven_dolours_bvm": {
   "title": "15 Sep - Seven Dolours of the Blessed Virgin Mary",
@@ -8636,7 +8621,7 @@ gregorianSaints = {
   "alID": 420,
   "of": "In me (gratia)",
   "ofID": 494,
-  "ofRef": "Eccli 24: 25, 39, 17",
+  "ofRef": "Eccli 24: 25; 39: 17",
   "co": "Florete flores",
   "coID": 104,
   "coRef": "Eccli 39: 19",
@@ -8669,7 +8654,7 @@ gregorianSaints = {
   "inRef": "Eccli 42: 15-16; Ps 95: 1",
   "gr": "Inflammatum est",
   "grID": 1186,
-  "grRef": "Ps 72: 21, 68, 10; Isai 49: 2",
+  "grRef": "Ps 72: 21; Ps 68: 10; Isai 49: 2",
   "al": "Tamquam prodigium",
   "alID": 664,
   "alRef": "Ps 70: 7",
@@ -8711,7 +8696,7 @@ gregorianSaints = {
   "ofID": 910,
   "co": "Beata viscera",
   "coID": 160,
-  "coRef": "Ps 44: 2, 5, 8, 10-16"
+  "coVerses": "Ps 44: 2, 5, 8, 10-16"
  },
  "st_edward": {
   "title": "13 Oct - St Edward, King of England",
@@ -8857,7 +8842,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/Dernier-Dimanche-d-Octobre-le",
   "in": "Dignus est Agnus",
   "inID": 128,
-  "inRef": "Apoc 5: 12, 1, 6; Ps 71: 1",
+  "inRef": "Apoc 5: 12; 1: 6; Ps 71: 1",
   "inVerses": "Ps 71: 2, 11",
   "gr": "Dominabitur",
   "grID": 583,
@@ -9221,7 +9206,7 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/23-11-St-Clement-Ier-pape-et",
   "in": "Dicit Dominus : Sermones",
   "inID": 409,
-  "inRef": "Is 59: 21, 56, 7; Ps 111: 1",
+  "inRef": "Is 59: 21; 56: 7; Ps 111: 1",
   "gr": "Exaltent eum",
   "grID": 1119,
   "grRef": "Ps 106: 32, 31",
@@ -9321,10 +9306,10 @@ gregorianSaints = {
   "href": "http://www.introibo.fr/Le-jour-de-l-enterrement",
   "in": "Requiem",
   "inID": 766,
-  "inRef": "4 Esdr 2: 34, 35; 4 Ps 64: 2-3",
+  "inRef": "4 Esdr 2: 34, 35; Ps 64: 2-3",
   "gr": "Requiem",
   "grID": 1261,
-  "grRef": "4 Esdr 2: 34, 35; 4 Ps 111: 7",
+  "grRef": "4 Esdr 2: 34, 35; Ps 111: 7",
   "tr": "Absolve (Domine)",
   "trID": 338,
   "seq": "Dies irae",
@@ -9451,8 +9436,28 @@ Object.keys(propria).forEach(key => {
   var props = possiblePropers.filter(p => (/^(votive|mass)_/i.test(p.gbid)==/votive/i.test(key) || /^mass_/i.test(p.gbid))).map(p => (p.isUsed = true, p.gbid));
   if(props.length === 1) {
     props = props[0];
+    propers.gbid = props;
+    // TODO: rewrite the proper.
+    var p = gregorianSaints[props] || gregorianPropers[props];
+    for(k in partKey) {
+      var key = partKey[k];
+      if(p[key + "Verses"]) propers[key+"Verses"] = p[key + "Verses"];
+      if(p.ref) propers.ref = p.ref;
+      if(quadPasch) {
+        if(p[key + quadPasch + "Verses"]) propers[key+"Verses"] = p[key + quadPasch + "Verses"];
+        if(p["ref" + quadPasch]) propers.ref = p["ref" + quadPasch];
+      }
+      if(propers.ref) {
+        propers.ref = propers.ref.replace(/^(propers|saints).html#/,'');
+        if(!(propers.ref in propria)) {
+          propria[propers.ref] = gregorianSaints[propers.ref] || gregorianPropers[propers.ref];
+        }
+      }
+    }
+    // TODO: pull in any keys called from a ref link (i.e., all commons)
+  } else {
+    propers.fromGregorianBooks = props;
   }
-  propers.fromGregorianBooks = props;
   if(propsByDate && possiblePropers.filter(p => propsByDate.includes(p)).length == 0) {
 
     // propers.fromGBDate = propsByDate.map(p => p.gbid);
@@ -9464,7 +9469,7 @@ Object.keys(propria).forEach(key => {
   }
 });
 fs.writeFileSync('propriadata-new.json', JSON.stringify(propria,0,"\t"));
-var count = Object.keys(propria).map(k => propria[k]).filter(p => p.fromGregorianBooks.length == 0).length;
-console.info(count,'missing gbid');
+// var count = Object.keys(propria).map(k => propria[k]).filter(p => p.fromGregorianBooks.length == 0).length;
+// console.info(count,'missing gbid');
 var unusedGregorian = allGregorian.filter(p => !p.isUsed);
 console.info(`${unusedGregorian.length} unused Gregorian keys: ${JSON.stringify(unusedGregorian.map(p => p.gbid),1,'\t')}`)

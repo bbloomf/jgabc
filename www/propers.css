@@ -55,6 +55,7 @@ textarea {
 .verses.litany .response {
   float: right;
 }
+.commentary,
 .verses,
 .asperges-verses {
   font-size: 120%;
@@ -96,6 +97,12 @@ div[part] > div.block:first-child {
 }
 text.aboveLinesText {
   fill: #d00!important;
+}
+.commentary {
+  text-align: right;
+  font-style: italic;
+  line-height: 1;
+  color: #d00;
 }
 .rubric {
   font-family: 'Crimson Text';
@@ -269,10 +276,12 @@ syl.bold {
 }
 
 @media(min-width: 624px) {
+  .commentary,
   .verses,
   .asperges-verses {
     font-size: 3.16vw; /* 19.2 / ((624 - 16) * 0.01) */
   }
+  .show-gabc .commentary,
   .show-gabc .verses,
   .show-gabc .asperges-verses {
     font-size: 1.58vw; /* 3.16 / 2 */
@@ -283,12 +292,25 @@ syl.bold {
     max-width: 1258px;
     margin: auto;
   }
+  .commentary,
   .verses,
   .asperges-verses {
     font-size: 39.9px; /* (1262 * 3.16 / 100) */
   }
 }
 @media print {
+  .commentary,
+  .verses,
+  .asperges-verses {
+    max-width: 624px;
+    font-size: 19.2px;
+    margin: auto;
+  }
+  .commentary {
+    display: none;
+    page-break-after: avoid;
+    break-after: avoid-page;
+  }
   div.lectio {
     display: none!important;
   }
