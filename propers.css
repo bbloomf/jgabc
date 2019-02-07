@@ -281,6 +281,7 @@ syl.bold {
   .asperges-verses {
     font-size: 3.16vw; /* 19.2 / ((624 - 16) * 0.01) */
   }
+  .show-gabc .commentary,
   .show-gabc .verses,
   .show-gabc .asperges-verses {
     font-size: 1.58vw; /* 3.16 / 2 */

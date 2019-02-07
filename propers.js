@@ -2307,23 +2307,18 @@ $(function(){
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
       .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
-      .replace(/<b><\/b>/g,'')
-      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
-      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
       .replace(/(<b>[^<]+)œ́/g,'$1œ</b>\u0301<b>') // œ́ character doesn't work in the bold version of this font.
-      .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
-        .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
-        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
+        .replace(/<v>[^<]+<\/v>/g,'');  // not currently supported by Exsurge
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
     }
-    prop.commentary = gabcHeader.commentary || null;
+    prop.commentary = gabcHeader.officePart=='Kyriale'? null : (gabcHeader.commentary || null);
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
     prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));

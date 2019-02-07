@@ -184,11 +184,14 @@ var path = 'gabc/',
                         mode.push(ids[i]);
                       }
                     }
-                    content = content.replace(/<sp>'(?:ae|æ)<\/sp>|aé/g,'ǽ')
+                    content = content
                       .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1$2 *()") // asterisks being kept with the previous word
                       .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
                       .replace(/A[éÉ]/g,'Ǽ')
-                      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+                      .replace(/<b><\/b>/g,'')
+                      .replace(/<v>\\greheightstar<\/v>/g,'*')
+                      .replace(/<sp>'(?:ae|æ)<\/sp>|aé/g,'ǽ')
+                      .replace(/<sp>'(?:oe|œ)<\/sp>|oé/g,'œ́')
                       .replace(/<sp>ae<\/sp>/g,'æ')
                       .replace(/<sp>oe<\/sp>/g,'œ')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
