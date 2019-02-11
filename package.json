@@ -4,8 +4,8 @@
   "displayName": "Chant Tools",
   "cordova": {
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ],
     "plugins": {
       "cordova-plugin-insomnia": {},
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "com.borismus.webintent": "https://github.com/Initsogar/cordova-webintent.git",
-    "cordova-android": "^6.2.3",
-    "cordova-ios": "^4.5.4",
+    "cordova-android": "^7.1.4",
+    "cordova-ios": "^4.5.5",
     "cordova-plugin-inappbrowser": "~1.6.1",
     "cordova-plugin-insomnia": "~4.2.0",
     "cordova-plugin-whitelist": "1",
