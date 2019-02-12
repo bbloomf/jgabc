@@ -34,6 +34,7 @@ var mapBooks = {
   "Hebr": "Ad Hebræos",
   "Is": "Isaias",
   "Isa": "Isaias",
+  "Isaiae": "Isaias",
   "Jac": "Jacobi",
   "Jas": "Jacobi",
   "Jer": "Jeremias",
@@ -56,13 +57,15 @@ var mapBooks = {
   "Phil": "Ad Philippenses",
   "Philipp": "Ad Philippenses",
   "Prov": "Proverbia",
+  "Ps": "Psalmi",
   "Reg": "Regum",
   "Rom": "Ad Romanos",
   "Sap": "Sapientia",
   "Thess": "Ad Thessalonicenses",
   "Tim": "Ad Timotheum",
   "Tit": 'Ad Titum',
-  "Tob": 'Tobiæ'
+  "Tob": 'Tobiæ',
+  "Tobias": 'Tobiæ'
 };
 
 if (typeof Object.assign != 'function') {

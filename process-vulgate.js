@@ -2,16 +2,31 @@
 var fs = require("fs"),
     psalmMap = [],
     regexNonWord = /[^a-záéíóúæœǽýë\d\n]+/ig,
-    vulgatePsalms = fs.readFileSync('psalms/vulgate','utf8').replace(regexNonWord,' ').toLowerCase().split('\n'),
+    vulgatePsalms = fs.readFileSync('vulgate/Psalmi','utf8').replace(regexNonWord,' ').toLowerCase().split('\n'),
     vulgateLine = 0;
 
-var normalize = word => {
-  return word.replace(/^[áéóíú]/, match => (({"á":"a","é":"e","í":"i","ó":"o","ú":"u"})[match])).replace(/ë/,'e');
-}
+var normalize = word => 
+  word.replace(/^[áéóíú]/, match => (({"á":"a","é":"e","í":"i","ó":"o","ú":"u"})[match])).replace(/ë/,'e').
+    replace(/^([eé])xs/,'$1x').replace(/^([aá])ss/,'$1s').replace(/p([uú])lcr/,'p$1lchr').replace(/^her([ée])dit/,'hær$1dit').
+    replace(/^n([eé])pht([áa])li/,'n$1phth$2li').replace(/^d([íi])sr([iíuú])p/,'d$1r$2p');
+
+// cantica
+/*
+Dan 3: 57, 60-65, 83-87 // Canticum Trium Puerorum
+Dan 3: 58-61
+Deut 32: 1-4
+Is 12: 1-6
+Is 35: 1, 2-3, 5-7
+Luc 1: 46-55 // Magnificat
+Luc 1: 68-79 // Benedictus
+Luc 2: 29-32 // Nunc dimíttis
+Sap 3: 1-3, 5, 8-9
+Tob 13: 1, 3, 5-6, 8-10
+*/
 
 for(var psalm=1; psalm <= 150; ++psalm) {
   psalmMap[psalm - 1] = [];
-  var liberPsalm = fs.readFileSync(`psalms/${('00'+psalm).slice(-3)}`,'utf8').replace(regexNonWord,' ').toLowerCase().replace(/jí/g,'í').replace(/ji?/g,'i').split('\n');
+  var liberPsalm = fs.readFileSync(`psalms/${('00'+psalm).slice(-3)}`,'utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
   var liberI = 0;
   var liber = liberPsalm[liberI].trim().split(/\s+/);
   var vulgate;
@@ -33,6 +48,10 @@ for(var psalm=1; psalm <= 150; ++psalm) {
           if(typeof matched != 'number') matched = liberI;
         } else if((typeof matched=='number' || liberI > 0 || li > 0) && vulgate.length > vi + 1 && normalize(liber[li]) == normalize(vulgate[vi+1])) {
           console.warn(`\n${psalm} : ${verse}: missing word: ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
+        } else if((typeof matched=='number' || liberI > 0 || li > 0) && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi])) {
+          console.warn(`\n${psalm} : ${verse}: missing word in vulgate: ${liber[li]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
+          ++li;
+          continue;
         } else if((typeof matched=='number' || liberI > 0 || li > 0) && vulgate.length > vi + 1 && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi+1])) {
           console.warn(`\n${psalm} : ${verse}: different words: ${liber[li]} and ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
           li++;
