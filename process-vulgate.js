@@ -39,7 +39,7 @@ var cantica = {
   "Canticum Moysis": "Exod 15: 1-19",
   "Canticum Moysis (Deut)": "Deut 32: 1-18",
   "Canticum Tobiae": "Tob 13: 1-10",
-  "Canticum Trium puerorum": "Dan 3: 57-88"
+  //"Canticum Trium puerorum": "Dan 3: 57-88"
 }
 var mapBooks = {
   "Act": "Actus Apostolorum",
@@ -158,7 +158,7 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
         vi++;
       }
       if(typeof matched == 'number' && !((verse - 1) in psalmMap[psalm - 1])) {
-        psalmMap[psalm - 1][verse - 1] = matched;
+        psalmMap[psalm - 1][verse - verseRef.verse] = matched;
       }
       // console.info(`${psalmFileName} : ${verse}`, li, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
       if(li == liber.length && liberI == liberPsalm.length) {
@@ -170,4 +170,11 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
   }
   //console.info(`${verse-1} verses in psalm ${psalmFileName}`);
 }
-fs.writeFileSync('psalmMap.json','['+psalmMap.map(m => JSON.stringify(m)).join(',\n')+']','utf8');
+fs.writeFileSync('psalmMap.json','['+psalmMap.slice(0,150).map(m => JSON.stringify(m)).join(',\n')+']','utf8');
+Object.keys(cantica).forEach((k,i) => {
+  cantica[k] = {
+    ref: cantica[k],
+    map: psalmMap[150 + i]
+  }
+})
+fs.writeFileSync('canticumMap.json',JSON.stringify(cantica), 'utf8');
