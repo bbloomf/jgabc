@@ -1,5 +1,6 @@
 "use strict";
 var fs = require("fs"),
+    vr = require("./verseRef.js"),
     psalmMap = [],
     regexNonWord = /[^a-záéíóúæœǽýë\d\n]+/ig,
     vulgatePsalms = fs.readFileSync('vulgate/Psalmi','utf8').replace(regexNonWord,' ').toLowerCase().split('\n'),
@@ -23,18 +24,105 @@ Luc 2: 29-32 // Nunc dimíttis
 Sap 3: 1-3, 5, 8-9
 Tob 13: 1, 3, 5-6, 8-10
 */
+var cantica = {
+  "Benedictus": "Luc 1: 68-79",
+  "Magnificat": "Luc 1: 46-55",
+  "Nunc dimittis": "Luc 2: 29-32",
+  "Canticum Annae": "1 Reg 2: 1-10",
+  "Canticum David": "1 Par 29: 10-13",
+  "Canticum Ecclesiastici": "Eccli 36: 1-16",
+  "Canticum Ezechiae": "Is 38: 10-20",
+  "Canticum Habacuc": "Ha 3: 2-19",
+  "Canticum Isaiae": "Is 45: 15-25",
+  "Canticum Jeremiae": "Jer 31: 10-14",
+  "Canticum Judith": "Judith 16: 15-21",
+  "Canticum Moysis": "Exod 15: 1-19",
+  "Canticum Moysis (Deut)": "Deut 32: 1-18",
+  "Canticum Tobiae": "Tob 13: 1-10",
+  "Canticum Trium puerorum": "Dan 3: 57-88"
+}
+var mapBooks = {
+  "Act": "Actus Apostolorum",
+  "Acts": "Actus Apostolorum",
+  "Apoc": "Apocalypsis",
+  "Cant": "Canticum Canticorum",
+  "Col": "Ad Colossenses",
+  "Cor": "Ad Corinthios",
+  "Dan": "Daniel",
+  "Deut": "Deuteronomium",
+  "Eccli": "Ecclesiasticus",
+  "Eph": "Ad Ephesios",
+  "Ephes": "Ad Ephesios",
+  "Esth": "Esther",
+  "Exod": "Exodus",
+  "Ezech": "Ezechiel",
+  "Gal": "Ad Galatas",
+  "Gen": "Genesis",
+  "Ha": "Habacuc",
+  "Hebr": "Ad Hebræos",
+  "Is": "Isaias",
+  "Isa": "Isaias",
+  "Isaiae": "Isaias",
+  "Jac": "Jacobi",
+  "Jas": "Jacobi",
+  "Jer": "Jeremias",
+  "Joann": "Joannes",
+  "Joannes": "Joannes",
+  "Joel": "Joel",
+  "John": "Joannis",
+  "Jonæ": "Jonas",
+  "Jud": "Judæ",
+  "Judith": "Judith",
+  "Lev": "Leviticus",
+  "Luc": "Lucas",
+  "Mach": "Machabæorum",
+  "Malach": 'Malachias',
+  "Marc": "Marcus",
+  "Matt": "Matthæus",
+  "Num": "Numeri",
+  "Par": "Paralipomenon",
+  "Pet": "Petri",
+  "Petri": "Petri",
+  "Phil": "Ad Philippenses",
+  "Philipp": "Ad Philippenses",
+  "Prov": "Proverbia",
+  "Ps": "Psalmi",
+  "Reg": "Regum",
+  "Rom": "Ad Romanos",
+  "Sap": "Sapientia",
+  "Thess": "Ad Thessalonicenses",
+  "Tim": "Ad Timotheum",
+  "Tit": 'Ad Titum',
+  "Tob": 'Tobiæ',
+  "Tobias": 'Tobiæ'
+};
 
-for(var psalm=1; psalm <= 150; ++psalm) {
+for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
   psalmMap[psalm - 1] = [];
-  var liberPsalm = fs.readFileSync(`psalms/${('00'+psalm).slice(-3)}`,'utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
+  var psalmFileName = psalm <= 150? ('00'+psalm).slice(-3) : Object.keys(cantica)[psalm-151];
+  var liberPsalm = fs.readFileSync(`psalms/${psalmFileName}`,'utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
   var liberI = 0;
   var liber = liberPsalm[liberI].trim().split(/\s+/);
   var vulgate;
   var li=0;
-  for(var verse=1; ((vulgate = vulgatePsalms[vulgateLine])); ++verse, ++vulgateLine) {
+  var verseRef = {};
+  if(psalm > 150) {
+    vulgateLine = 0;
+    verseRef = vr.parseRef(cantica[psalmFileName])[0];
+    var bookText = fs.readFileSync(`vulgate/${mapBooks[verseRef.book] || verseRef.book}${verseRef.bookNum? (' '+verseRef.bookNum) : ''}`,'utf8');
+    vulgatePsalms = bookText.replace(new RegExp(`^[^@]*\\n(${verseRef.chapter}\t${verseRef.verse}\t)`),'$1');
+    vulgatePsalms = vulgatePsalms.replace(new RegExp(`(\\n${verseRef.chapter}\t${verseRef.endVerse}\t[^\\n]*)[^@]*`),'$1');
+    vulgatePsalms = vulgatePsalms.replace(regexNonWord,' ').toLowerCase().split('\n');
+    console.info(psalmFileName);
+    debugger;
+  } else {
+    verseRef.chapter = psalm;
+    verseRef.verse = 1;
+  }
+  for(var verse=verseRef.verse; ((vulgate = vulgatePsalms[vulgateLine])); ++verse, ++vulgateLine) {
     var matched = null;
-    var match = vulgate.match(`^${psalm}\\s+${verse}\\s+`);
-    var lastOfPsalm = !vulgatePsalms[vulgateLine+1] || !vulgatePsalms[vulgateLine+1].match(`^${psalm}\\s+`);
+    var match = vulgate.match(`^${verseRef.chapter}\\s+${verse}\\s+`);
+    var lastOfPsalm = !vulgatePsalms[vulgateLine+1] || !vulgatePsalms[vulgateLine+1].match(`^${verseRef.chapter}\\s+`);
     if(match) {
       vulgate = vulgate.slice(match[0].length).trim().split(/\s+/);
       var vi=0;
@@ -47,22 +135,22 @@ for(var psalm=1; psalm <= 150; ++psalm) {
           li++;
           if(typeof matched != 'number') matched = liberI;
         } else if((typeof matched=='number' || liberI > 0 || li > 0) && vulgate.length > vi + 1 && normalize(liber[li]) == normalize(vulgate[vi+1])) {
-          console.warn(`\n${psalm} : ${verse}: missing word: ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
+          console.warn(`\n${psalmFileName} : ${verse}: missing word: ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
         } else if((typeof matched=='number' || liberI > 0 || li > 0) && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi])) {
-          console.warn(`\n${psalm} : ${verse}: missing word in vulgate: ${liber[li]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
+          console.warn(`\n${psalmFileName} : ${verse}: missing word in vulgate: ${liber[li]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
           ++li;
           continue;
         } else if((typeof matched=='number' || liberI > 0 || li > 0) && vulgate.length > vi + 1 && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi+1])) {
-          console.warn(`\n${psalm} : ${verse}: different words: ${liber[li]} and ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
+          console.warn(`\n${psalmFileName} : ${verse}: different words: ${liber[li]} and ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
           li++;
         } else if(!liber[li] && normalize(vulgate[vi]) == 'allelúia') {
 
         } else if(typeof matched=='number' || liberI > 0 || li > 0) {
           if(liberI > 0 && !lastOfPsalm) {
-            console.error(`${psalm} : ${verse}`, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
-            throw `error in psalm ${psalm}: couldn't find verse ${liberI}:\n"${liber}" at word ${liber[li]},\n«${vulgate}»\nlength:${liber.length},${li}`;
+            console.error(`${psalmFileName} : ${verse}`, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
+            throw `error in psalm ${psalmFileName}: couldn't find verse ${liberI}:\n"${liber}" at word ${liber[li]},\n«${vulgate}»\nlength:${liber.length},${li}`;
           }
-          if(lastOfPsalm) console.warn(`Psalm ${psalm} is missing last verse (${vulgate.join(' ')})`);
+          if(lastOfPsalm) console.warn(`Psalm ${psalmFileName} is missing last verse (${vulgate.join(' ')})`);
           li = 0;
           matched = null;
           break;
@@ -72,7 +160,7 @@ for(var psalm=1; psalm <= 150; ++psalm) {
       if(typeof matched == 'number' && !((verse - 1) in psalmMap[psalm - 1])) {
         psalmMap[psalm - 1][verse - 1] = matched;
       }
-      // console.info(`${psalm} : ${verse}`, li, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
+      // console.info(`${psalmFileName} : ${verse}`, li, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
       if(li == liber.length && liberI == liberPsalm.length) {
         liber = (liberPsalm[++liberI]||'').split(/\s+/);
       }
@@ -80,6 +168,6 @@ for(var psalm=1; psalm <= 150; ++psalm) {
       break;
     }
   }
-  //console.info(`${verse-1} verses in psalm ${psalm}`);
+  //console.info(`${verse-1} verses in psalm ${psalmFileName}`);
 }
 fs.writeFileSync('psalmMap.json','['+psalmMap.map(m => JSON.stringify(m)).join(',\n')+']','utf8');
