@@ -57,6 +57,6 @@
     <plugin name="com.borismus.webintent" spec="https://github.com/Initsogar/cordova-webintent.git" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
     <plugin name="cordova-plugin-x-socialsharing" spec="~5.1.6" />
-    <engine name="ios" spec="^4.5.5" />
     <engine name="android" spec="^7.1.4" />
+    <engine name="ios" spec="^4.5.5" />
 </widget>
