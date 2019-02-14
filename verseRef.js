@@ -58,6 +58,7 @@ function parseRef(refText) {
       endVerse = match[6],
       remaining = match[7],
       result = [];
+  if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
@@ -69,6 +70,7 @@ function parseRef(refText) {
     verse = match[6];
     endVerse = match[7];
     remaining = match[8];
+    if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
     result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   }
   // test ref:
@@ -93,7 +95,9 @@ var partMap = {
   "al": "Alleluia",
   "se": "Sequentia",
   "of": "Offertorium",
-  "co": "Communio"
+  "co": "Communio",
+  "an": "Antiphona",
+  "re": "Responsorium"
 };
 function flattenMap(map, prefix = "", result = {}) {
   Object.keys(map).forEach(function(key) {

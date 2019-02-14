@@ -31,9 +31,11 @@ var mapBooks = {
   "Ezech": "Ezechiel",
   "Gal": "Ad Galatas",
   "Gen": "Genesis",
+  "Ha": "Habacuc",
   "Hebr": "Ad Hebræos",
   "Is": "Isaias",
   "Isa": "Isaias",
+  "Isaiae": "Isaias",
   "Jac": "Jacobi",
   "Jas": "Jacobi",
   "Jer": "Jeremias",
@@ -51,18 +53,21 @@ var mapBooks = {
   "Marc": "Marcus",
   "Matt": "Matthæus",
   "Num": "Numeri",
+  "Par": "Paralipomenon",
   "Pet": "Petri",
   "Petri": "Petri",
   "Phil": "Ad Philippenses",
   "Philipp": "Ad Philippenses",
   "Prov": "Proverbia",
+  "Ps": "Psalmi",
   "Reg": "Regum",
   "Rom": "Ad Romanos",
   "Sap": "Sapientia",
   "Thess": "Ad Thessalonicenses",
   "Tim": "Ad Timotheum",
   "Tit": 'Ad Titum',
-  "Tob": 'Tobiæ'
+  "Tob": 'Tobiæ',
+  "Tobias": 'Tobiæ'
 };
 
 if (typeof Object.assign != 'function') {

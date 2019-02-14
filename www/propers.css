@@ -1,3 +1,6 @@
+html, body {
+  overflow-x: hidden;
+}
 svg.bg-blur {
   height: 0;
   width: 0;
@@ -291,6 +294,7 @@ syl.bold {
   body {
     max-width: 1258px;
     margin: auto;
+    overflow-x: visible;
   }
   .commentary,
   .verses,
