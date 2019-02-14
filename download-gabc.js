@@ -207,7 +207,7 @@ var path = 'gabc/',
                       .replace(/\s+([»’”"':;!?.,]+)\s*\(/g,'$1(')
                       .replace(/([«‘“"']+)\s+(?=[a-zæœǽǽœ́áéíóúýäëïöüÿ])/gi,'$1')
                       .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n')
-                      
+                      .replace(/\/+([a-m]w)/g,'!$1') // don't put space before a quilisma
                       .replace(/\s+$/,'')
                       .replace(/\+(?=[^()]*\()/g,'†')
                       .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
