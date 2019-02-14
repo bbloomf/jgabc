@@ -2903,7 +2903,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/26-05-St-Philippe-Neri-confesseur",
   "in": "Caritas Dei",
   "inID": 530,
-  "inRef": "Rom 5: 5; Ps 10: 2, 1",
+  "inRef": "Rom 5: 5; Ps 102, 1",
   "gr": "Venite filii",
   "grID": 1022,
   "grRef": "Ps 33: 12, 6",
@@ -5374,7 +5374,7 @@ gregorianPropers = {
   "co": "Vos (qui secuti)",
   "coID": 1028,
   "coRef": "Matth 19: 28",
-  "coVerses": "Ps 125; Ps 13: 8"
+  "coVerses": "Ps 125; Ps 138"
  },
  "st_peter_of_alcantara": {
   "title": "19 Oct - St Peter of Alcantara, Confessor",
@@ -5515,7 +5515,7 @@ gregorianPropers = {
   "co": "Vos (qui secuti)",
   "coID": 1028,
   "coRef": "Matth 19: 28",
-  "coVerses": "Ps 125; Ps 13: 8"
+  "coVerses": "Ps 125; Ps 138"
  },
  "all_saints_vigil": {
   "title": "31 Oct - All Saints Vigil",
@@ -5926,6 +5926,6 @@ gregorianPropers = {
   "co": "Lux aeterna",
   "coID": 241,
   "coRef": "4 Esdrae 2: 35, 34",
-  "coVerses": "Ps 129; Ps 12: 0"
+  "coVerses": "Ps 129; Ps 120"
  }
 }
