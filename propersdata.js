@@ -131,6 +131,32 @@ var sundayKeys = [
     {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"},
     {key:"Pent23",title:"23 post Pentecosten",en:"23rd Sunday after Pentecost"}
 ];
+var canticumMap = {"Benedictus":{"ref":"Luc 1: 68-79","map":[0,1,2,3,4,5,6,7,8,9,10,11]},"Magnificat":{"ref":"Luc 1: 46-55","map":[0,1,2,3,4,5,6,7,8,9]},"Nunc dimittis":{"ref":"Luc 2: 29-32","map":[0,1,2,3]},"Canticum Annae":{"ref":"1 Reg 2: 1-10","map":[0,2,3,5,6,8,9,10,13,14]},"Canticum David":{"ref":"1 Par 29: 10-13","map":[0,1,4,6]},"Canticum Ecclesiastici":{"ref":"Eccli 36: 1-16","map":[0,1,3,4,5,6,6,7,7,8,9,10,11,13,14,15]},"Canticum Ezechiae":{"ref":"Is 38: 10-20","map":[0,1,3,5,6,8,10,10,12,13,14]},"Canticum Habacuc":{"ref":"Ha 3: 2-19","map":[0,3,5,6,7,10,11,13,14,16,17,18,20,22,23,26,29,30]},"Canticum Isaiae":{"ref":"Is 45: 15-25","map":[0,1,2,3,5,7,9,11,12,14,15]},"Canticum Jeremiae":{"ref":"Jer 31: 10-14","map":[0,2,3,6]},"Canticum Judith":{"ref":"Judith 16: 15-21","map":[0,1,2,4,5,6,7]},"Canticum Moysis":{"ref":"Exod 15: 1-19","map":[0,1,3,3,4,5,5,6,8,10,11,12,12,14,15,16,18,19,20]},"Canticum Moysis (Deut)":{"ref":"Deut 32: 1-18","map":[0,1,2,3,4,5,7,9,11,12,14,16,17,19,21,23,24,26]},"Canticum Tobiae":{"ref":"Tob 13: 1-10","map":[0,1,2,3,5,6,7,8,9,10]}};
+var psalmsArray = new Array(150).join(',').split(',').map(function(i,j) {
+    var psalm = j+1;
+    var val = ("00" + psalm).slice(-3);
+    return {
+        key: val,
+        en: "Psalm " + psalm,
+        title: "Psalm " + psalm
+    };
+});
+var canticleArray = Object.keys(canticumMap).map(function(key) {
+    return {
+        key: key,
+        en: key,
+        title: key
+    }
+});
+var psalmCanticleArray = [{
+    children: psalmsArray,
+    en: "Psalms",
+    title: "Psalmi"
+}, {
+    children: canticleArray,
+    en: "Canticles",
+    title: "Cantica"
+}];
 var ultimaeDominicaePostPentecosten = [
     {key:"PentEpi3",title:"3. quæ superfuit post Epiphaniam",en:"3rd Sunday after Epiphany"},
     {key:"PentEpi4",title:"4. quæ superfuit post Epiphaniam",en:"4th Sunday after Epiphany"},

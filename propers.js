@@ -2677,6 +2677,7 @@ $(function(){
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
+  populate(psalmCanticleArray,$(".sel-psalms"));
 
   var ordinaryKeys = massOrdinary.map(function(e,i){
     var name = '';
@@ -3019,6 +3020,10 @@ $(function(){
         isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
     $this.find('.showHide').text(isShowing?'Hide' : 'Show');
     layoutChant(part);
+  }).on('change','input.cbVersesAdLibitum',function(e) {
+    var $this = $(this),
+        $part = $this.parents().filter('[part]');
+    $part.toggleClass('showing-verses-ad-libitum', this.checked);
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
     e.preventDefault();
