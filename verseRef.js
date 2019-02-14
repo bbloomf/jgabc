@@ -95,7 +95,9 @@ var partMap = {
   "al": "Alleluia",
   "se": "Sequentia",
   "of": "Offertorium",
-  "co": "Communio"
+  "co": "Communio",
+  "an": "Antiphona",
+  "re": "Responsorium"
 };
 function flattenMap(map, prefix = "", result = {}) {
   Object.keys(map).forEach(function(key) {

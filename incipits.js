@@ -1727,13 +1727,22 @@ incipits = {
 	},
 	"Antiphona": {
 		"adoramus": 1238,
+		"adoremus in æternum sanctissimum sacramentum": {
+			"adoremus": 4010,
+			"℣": 3017
+		},
 		"adorna": 1311,
+		"alma redemptoris": 8146,
 		"ante sex": 8177,
 		"asperges me domine hyssopo et mundabor lavabis me et super nivem dealbabor": {
 			"": 905,
 			"miserere": 497
 		},
-		"ave rex": 1051,
+		"ave": {
+			"regina": 3300,
+			"rex": 1051
+		},
+		"confirma": 2456,
 		"crucem": 428,
 		"cum": {
 			"angelis": 173,
@@ -1750,13 +1759,28 @@ incipits = {
 		"fulgentibus": 1312,
 		"hosanna": 817,
 		"immutemur": 313,
-		"in hoc": 1242,
+		"in": {
+			"hoc": 1242,
+			"paradisum": 517
+		},
 		"juxta": 1208,
 		"lumen": 2897,
 		"mandatum": 279,
 		"maneant": 1252,
+		"o": {
+			"adonai": 2596,
+			"clavis": 2877,
+			"emmanuel": 2483,
+			"oriens": 2371,
+			"quam": 2826,
+			"radix": 2203,
+			"rex": 2133,
+			"sacrum": 2299,
+			"sapientia": 2169
+		},
 		"occurrunt": 247,
 		"omnes": 1092,
+		"parce": 3038,
 		"per lignum": 940,
 		"popule": 157,
 		"postquam": 649,
@@ -1764,11 +1788,16 @@ incipits = {
 			"portantes": 1215,
 			"vestimenta": 1155
 		},
+		"regina": 3301,
 		"responsum": 46,
 		"salvator": 1335,
+		"salve": 3299,
 		"si ego": 504,
+		"sub tuum": 2064,
+		"tu es petrus": 1950,
 		"turba": 770,
 		"ubi caritas": 1013,
+		"veni sancte": 2813,
 		"vespere": 8187,
 		"vidi aquam": 958
 	},
@@ -1859,7 +1888,8 @@ incipits = {
 		"in monte": 8108,
 		"ingrediente": 606,
 		"libera": 376,
-		"obtulerunt": 513
+		"obtulerunt": 513,
+		"virgo": 4072
 	}
 };
 var module;

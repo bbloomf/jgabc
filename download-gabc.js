@@ -301,7 +301,7 @@ var path = 'gabc/',
                         });
                       }
                     });
-                    if(h.officePart == 'Sequentia' || h.officePart == 'Hymnus' || (!isMiscChant && h.officePart && !/^(Kyriale|Varia|Toni Communes|Improperia)$/.test(h.officePart))) {
+                    if(Object.keys(texts).includes(h.officePart)) {
                       var id = ids[i];
                       var match = id.match && id.match(/^(\d+)&elem=(\d+)$/);
                       if(match) {
