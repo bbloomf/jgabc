@@ -1728,13 +1728,13 @@ var proprium = {
         "inID": 766,
         "grID": 1261,
         "trID": 338,
-        "sequentiaID": 1198,
+        "seqID": 1198,
         "ofID": 1199,
         "coID": 241,
         "ite": false,
         "extraChants": true,
         "gbid": "requiem",
-        "coVerses": "Ps 129; Ps 12: 0"
+        "coVerses": "Ps 129; Ps 120"
     },
     "dedicatio": {
         "inID": 923,
@@ -1840,7 +1840,7 @@ var proprium = {
         "inID": 715,
         "grID": 1230,
         "alID": 774,
-        "sequentiaID": 308,
+        "seqID": 308,
         "ofID": 645,
         "coID": 577,
         "gbid": "cc",
@@ -2033,7 +2033,7 @@ var proprium = {
         "inID": 1043,
         "grID": 1075,
         "alID": 761,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 725,
         "coID": 952,
         "ite": 2988,
@@ -2046,7 +2046,7 @@ var proprium = {
         "inID": 1315,
         "grID": 1150,
         "alID": 377,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 789,
         "coID": 121,
         "gbid": "easter_monday",
@@ -2058,7 +2058,7 @@ var proprium = {
         "inID": 1135,
         "grID": 1188,
         "alID": 438,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 869,
         "coID": 243,
         "gbid": "easter_tuesday",
@@ -2069,7 +2069,7 @@ var proprium = {
         "inID": 997,
         "grID": 416,
         "alID": 1217,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 1361,
         "coID": 593,
         "gbid": "easter_wednesday",
@@ -2080,7 +2080,7 @@ var proprium = {
         "inID": 1332,
         "grID": 975,
         "alID": 215,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 1129,
         "coID": 1219,
         "gbid": "easter_thursday",
@@ -2091,7 +2091,7 @@ var proprium = {
         "inID": 758,
         "grID": 1305,
         "alID": 627,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 151,
         "coID": 1260,
         "gbid": "easter_friday",
@@ -2102,7 +2102,7 @@ var proprium = {
         "inID": 974,
         "grID": 568,
         "alID": 661,
-        "sequentiaID": 1086,
+        "seqID": 1086,
         "ofID": 941,
         "coID": 1293,
         "gbid": "easter_saturday",
@@ -2181,7 +2181,7 @@ var proprium = {
         "coID": 1041,
         "grID": 99,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "gbid": "pentecost",
         "inVerses": "Ps 67: 29, 33",
         "ofVerses": "Ps 67: 5",
@@ -2191,7 +2191,7 @@ var proprium = {
         "inID": 715,
         "grID": 101,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "ofID": 869,
         "coID": 1151,
         "gbid": "pentecost_mon",
@@ -2202,7 +2202,7 @@ var proprium = {
         "inID": 1278,
         "grID": 1197,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "ofID": 1361,
         "coID": 333,
         "gbid": "pentecost_tue",
@@ -2213,7 +2213,7 @@ var proprium = {
         "inID": 822,
         "grID": 635,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "ofID": 1218,
         "coID": 91,
         "gloria": "before#divTractus",
@@ -2231,7 +2231,7 @@ var proprium = {
         "coID": 1041,
         "grID": 99,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "gbid": "pentecost",
         "inVerses": "Ps 67: 29, 33",
         "ofVerses": "Ps 67: 5",
@@ -2241,7 +2241,7 @@ var proprium = {
         "inID": 557,
         "grID": 119,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "ofID": 668,
         "coID": 981,
         "gbid": "pentecost_fri",
@@ -2258,7 +2258,7 @@ var proprium = {
             1289
         ],
         "trID": 1247,
-        "sequentiaID": 68,
+        "seqID": 68,
         "ofID": 987,
         "coID": 190,
         "sequentiaReplace": gabcRemoveLastAlleluia,
@@ -2273,7 +2273,7 @@ var proprium = {
         "inID": 1228,
         "grID": 1236,
         "alID": 181,
-        "sequentiaID": 68,
+        "seqID": 68,
         "ofID": 987,
         "coID": 190,
         "gloria": "before#divTractus",
@@ -2586,42 +2586,42 @@ var proprium = {
         "gbid": "p23",
         "inVerses": "Ps 84: 3, 13",
         "ofVerses": "Ps 129: 1-3",
-        "coVerses": "Ps 129; Ps 6: 0"
+        "coVerses": "Ps 129; Ps 60"
     },
     "Pent24": {
         "ref": "Pent23",
         "gbid": "p23",
         "inVerses": "Ps 84: 3, 13",
         "ofVerses": "Ps 129: 1-3",
-        "coVerses": "Ps 129; Ps 6: 0"
+        "coVerses": "Ps 129; Ps 60"
     },
     "PentEpi3": {
         "ref": "Pent23",
         "gbid": "p23",
         "inVerses": "Ps 84: 3, 13",
         "ofVerses": "Ps 129: 1-3",
-        "coVerses": "Ps 129; Ps 6: 0"
+        "coVerses": "Ps 129; Ps 60"
     },
     "PentEpi4": {
         "ref": "Pent23",
         "gbid": "p23",
         "inVerses": "Ps 84: 3, 13",
         "ofVerses": "Ps 129: 1-3",
-        "coVerses": "Ps 129; Ps 6: 0"
+        "coVerses": "Ps 129; Ps 60"
     },
     "PentEpi5": {
         "ref": "Pent23",
         "gbid": "p23",
         "inVerses": "Ps 84: 3, 13",
         "ofVerses": "Ps 129: 1-3",
-        "coVerses": "Ps 129; Ps 6: 0"
+        "coVerses": "Ps 129; Ps 60"
     },
     "PentEpi6": {
         "ref": "Pent23",
         "gbid": "p23",
         "inVerses": "Ps 84: 3, 13",
         "ofVerses": "Ps 129: 1-3",
-        "coVerses": "Ps 129; Ps 6: 0"
+        "coVerses": "Ps 129; Ps 60"
     },
     "7a": {
         "inID": 1168,
@@ -3088,7 +3088,7 @@ var proprium = {
         "gbid": "lent6",
         "inVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31",
         "ofVerses": "Ps 68, 2",
-        "coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 11: 5"
+        "coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 115"
     },
     "Quad6_v": {
         "inID": 1171,
@@ -3100,7 +3100,7 @@ var proprium = {
         "gbid": "lent6",
         "inVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31",
         "ofVerses": "Ps 68, 2",
-        "coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 11: 5"
+        "coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 115"
     },
     "Quad6m": {
         "inID": 226,
@@ -3148,7 +3148,7 @@ var proprium = {
         "gbid": "maundy_thursday",
         "inVerses": "Ps 66: 2, 3",
         "ofVerses": "Ps 117: 5, 7",
-        "coVerses": "Ps 22; Ps 7: 1; Ps 10: 3; Ps 15: 0"
+        "coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
     },
     "Quad6h_v": {
         "extraChants": true,
@@ -3161,7 +3161,7 @@ var proprium = {
         "gbid": "maundy_thursday",
         "inVerses": "Ps 66: 2, 3",
         "ofVerses": "Ps 117: 5, 7",
-        "coVerses": "Ps 22; Ps 7: 1; Ps 10: 3; Ps 15: 0"
+        "coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
     },
     "Quad6f": {
         "extraChants": true,
@@ -5164,7 +5164,7 @@ var proprium = {
         "ofID": 499,
         "gbid": "st_luke",
         "inVerses": "Ps 138: 2-6",
-        "coVerses": "Ps 125; Ps 13: 8"
+        "coVerses": "Ps 125; Ps 138"
     },
     "Oct2": {
         "coID": 1127,
@@ -5213,7 +5213,7 @@ var proprium = {
         "ofID": 570,
         "gbid": "ss_simon_jude",
         "inVerses": "Ps 138: 2-6",
-        "coVerses": "Ps 125; Ps 13: 8"
+        "coVerses": "Ps 125; Ps 138"
     },
     "Oct3": {
         "coID": 162,
@@ -5271,7 +5271,7 @@ var proprium = {
         "alID": 853,
         "inID": 149,
         "ofID": 787,
-        "sequentiaID": 681,
+        "seqID": 681,
         "gbid": "seven_dolours_bvm"
     },
     "Sep17": {
@@ -5839,7 +5839,7 @@ var proprium = {
     "mass_ii_confessor_not_bishop": {
         "title": "Mass II of a Confessor not a Bishop",
         "href": "http://www.introibo.fr/Commun-d-un-Confesseur-non-Pontife,333",
-        "in": "Justus (ut palma)",
+        "in": "Justus ut palma",
         "inID": 108,
         "inRef": "Ps 91: 13-14, 2",
         "inVerses": "Ps 91: 3, 5",
@@ -5922,7 +5922,7 @@ var proprium = {
         "of": "Filiae regum",
         "ofID": 1333,
         "ofRef": "Ps 44: 10",
-        "co": "Quinque (prudentes virgines)",
+        "co": "Quinque prudentes",
         "coID": 1301,
         "coRef": "Matth 25: 4, 6",
         "gbid": "mass_i_virgin_not_martyr",
@@ -5970,7 +5970,7 @@ var proprium = {
         "grRef": "Ps 33: 18-19",
         "al": "Te Martyrum",
         "alID": 590,
-        "trSept": "Qui seminant (in lacrimis)",
+        "trSept": "Qui seminant",
         "trSeptID": 305,
         "trSeptRef": "Ps 125: 5-6",
         "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
@@ -5991,7 +5991,7 @@ var proprium = {
         "inID": 227,
         "inRef": "Dan 3: 84, 87, 57",
         "inVerses": "Dan 3: 58-61",
-        "gr": "Gloria (et honore)",
+        "gr": "Gloria et honore",
         "grID": 1206,
         "grRef": "Ps 8: 6-7",
         "al": "Hic est sacerdos",
@@ -6000,7 +6000,7 @@ var proprium = {
         "trSeptID": 7670,
         "trSeptRef": "Ps 111: 1-3",
         "trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
-        "of": "Inveni (David)",
+        "of": "Inveni David",
         "ofID": 779,
         "ofRef": "Ps 88: 21-22",
         "co": "Posuisti Domine",
@@ -6040,7 +6040,7 @@ var proprium = {
         "inID": 456,
         "inRef": "Eccli 45: 30; Ps 131: 1",
         "inVerses": "Ps 131: 9, 16",
-        "gr": "Ecce (sacerdos)",
+        "gr": "Ecce sacerdos",
         "grID": 235,
         "grRef": "Eccli 44: 16, 20",
         "al": "Tu es sacerdos",
@@ -6053,7 +6053,7 @@ var proprium = {
         "alPasch": "Hic est sacerdos",
         "alPaschID": 1118,
         "alPaschRubric": "In Paschal time the Gradual Ecce (sacerdos magnus)--> is omitted. Instead one sings the first Alleluia Tu es sacerdos then this second Alleluia.",
-        "of": "Inveni (David)",
+        "of": "Inveni David",
         "ofID": 779,
         "ofRef": "Ps 88: 21-22",
         "co": "Fidelis servus",
@@ -6121,11 +6121,11 @@ var proprium = {
     "mass_i_two_or_more_martyr": {
         "title": "Mass I of two or more Martyrs",
         "href": "http://www.introibo.fr/Commun-de-plusieurs-Martyrs-hors",
-        "in": "Intret (in conspectu)",
+        "in": "Intret in conspectu",
         "inID": 261,
         "inRef": "Ps 78: 11, 12, 10, 1",
         "inVerses": "Ps 78: 2-3",
-        "gr": "Gloriosus (Deus)",
+        "gr": "Gloriosus Deus",
         "grID": 888,
         "grRef": "Exodi 15: 11, 6",
         "al": "Corpora sanctorum",
@@ -6152,7 +6152,7 @@ var proprium = {
         "inID": 456,
         "inRef": "Eccli 45: 30; Ps 131: 1",
         "inVerses": "Ps 131: 9, 16",
-        "gr": "Inveni (David)",
+        "gr": "Inveni David",
         "grID": 827,
         "grRef": "Ps 88: 21-23",
         "al": "Tu es sacerdos",
@@ -6184,7 +6184,7 @@ var proprium = {
         "al": "Adducentur regi virgines",
         "alID": 208,
         "alRef": "Ps 44: 15, 16",
-        "trSept": "Veni (sponsa)",
+        "trSept": "Veni sponsa",
         "trSeptID": 256,
         "trSeptRef": "Ps 44: 8, 5",
         "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
@@ -6230,7 +6230,7 @@ var proprium = {
     "mass_holy_woman_not_martyr": {
         "title": "Mass of a Holy Woman not a Martyr",
         "href": "http://www.introibo.fr/Commun-des-Saintes-Femmes-II-pour",
-        "in": "Cognovi (Domine)",
+        "in": "Cognovi",
         "inID": 619,
         "inRef": "Ps 118: 75, 120, 1",
         "inVerses": "Ps 118: 2, 22",
@@ -6240,7 +6240,7 @@ var proprium = {
         "al": "Specie tua",
         "alID": 406,
         "alRef": "Ps 44: 5",
-        "trSept": "Veni (sponsa)",
+        "trSept": "Veni sponsa",
         "trSeptID": 256,
         "trSeptRef": "Ps 44: 8, 5",
         "trSeptRubric": "Important note: for a Holy Woman not a Martyr the ending words of the first verse are omitted: pro cujus amore sanguinem tuum fudisti = « for the love of whom thou didst shed thy blood ». Obviously.",
@@ -6270,7 +6270,7 @@ var proprium = {
         "al": "Specie tua",
         "alID": 406,
         "alRef": "Ps 44: 5",
-        "trSept": "Veni (sponsa)",
+        "trSept": "Veni sponsa",
         "trSeptID": 256,
         "trSeptRef": "Ps 44: 8, 5",
         "trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
@@ -6334,18 +6334,18 @@ var proprium = {
         "co": "Lux aeterna",
         "coID": 241,
         "coRef": "4 Esdrae 2: 35, 34",
-        "coVerses": "Ps 129; Ps 12: 0",
+        "coVerses": "Ps 129; Ps 120",
         "gbid": "requiem",
         "isUsed": true
     },
     "mass_bvm": {
         "title": "Mass of the Blessed Virgin Mary",
         "href": "http://www.introibo.fr/Commun-des-fetes-de-la-Bse-Vierge",
-        "in": "Salve (sancta Parens)",
+        "in": "Salve sancta Parens",
         "inID": 1140,
         "inRef": "Ps 44: 2",
         "inVerses": "Ps 44: 5, 8",
-        "gr": "Benedicta (et venerabilis)",
+        "gr": "Benedicta et venerabilis",
         "grID": 392,
         "al": "Post partum Virgo",
         "alID": 127,
@@ -6353,7 +6353,7 @@ var proprium = {
         "alExtraID": 1209,
         "alExtraRef": "Luc 1: 28",
         "alExtraRubric": "In Advent the previous Alleluia is replaced by this one.",
-        "trSept": "Gaude (Maria)",
+        "trSept": "Gaude Maria",
         "trSeptID": 18,
         "trSeptRubric": "After Septuagesima this Tract replaces the Alleluia.",
         "alPasch": "Virga Jesse",
@@ -6389,7 +6389,7 @@ var proprium = {
         "alPasch": "Bene fundata est",
         "alPaschID": 1343,
         "alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
-        "of": "Domine Deus (in simplicitate)",
+        "of": "Domine Deus(Dedication)",
         "ofID": 200,
         "ofRef": "1 Paral 29: 17, 18",
         "co": "Domus mea",
