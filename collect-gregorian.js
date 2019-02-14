@@ -289,17 +289,6 @@ ${JSON.stringify(incipitId,1,' ')}`);
           }
         }
       }
-    } else if(mode && grPage && (a || aHref)) {
-      // at least check if we can add a reference to some extra GABC file:
-      var match = (a || aHref).textContent.match(regexPart);
-      if(match) {
-        var key = partMap[match[2]];
-        var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
-        var incipitId = vr.findIncipitId(name,key,grPage,mode);
-        if(typeof incipitId == 'number') {
-          console.info(key, name, incipitId)
-        }
-      }
     }
   });
 
