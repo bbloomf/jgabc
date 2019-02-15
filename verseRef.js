@@ -17,38 +17,66 @@ function Ref(ref, lastRef) {
   this.verse = ref.verse;
   this.endVerse = ref.endVerse;
 }
-var psalmMap, psalmMapPromise;
+var psalmMap, psalmMapPromise, canticumMap, canticumMapPromise;
 Ref.prototype.bookString = function() { return `${this.bookNum? this.bookNum+' ' : ''}${this.book}`; }
 Ref.prototype.verseString = function() { return `${this.verse? this.verse : ''}${this.endVerse? '-'+this.endVerse : ''}`; };
 Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter}${this.verse? ': '+this.verseString() : ''}`; };
 Ref.prototype.getEndVerse = function() { return this.endVerse || this.verse; }
 Ref.prototype.getLinesFromLiber = function() {
   var self = this;
-  if(!psalmMap) {
-    if(!psalmMapPromise) {
-      psalmMapPromise = $.get('../psalmMap.json').then(function(map) {
-        psalmMap = map;
+  var psalm, map, startVerse = 1;
+  if(/^Ps/.test(self.book)) {
+    psalm = ('00'+self.chapter).slice(-3);
+    if(!psalmMap) {
+      if(!psalmMapPromise) {
+        psalmMapPromise = $.get('../psalmMap.json').then(function(map) {
+          psalmMap = map;
+        });
+      }
+      return psalmMapPromise.pipe(function() {
+        return self.getLinesFromLiber();
       });
     }
-    return psalmMapPromise.pipe(function() {
-      return self.getLinesFromLiber();
-    });
-  }
-  if(self.book == "Psalm") {
-    var psalm = self.chapter;
+    map = psalmMap[this.chapter - 1];
+  } else {
+    // canticle?
+    if(!canticumMap) {
+      if(!canticumMapPromise) {
+        canticumMapPromise = $.get('../canticumMap.json').then(function(map) {
+          canticumMap = {};
+          Object.keys(map).forEach(function(k) {
+            var ref = parseRef(map[k].ref)[0];
+            if(!(ref.book in canticumMap)) {
+              canticumMap[ref.book] = {};
+            }
+            var bookMap = canticumMap[ref.book];
+            bookMap[ref.verse] = map[k];
+            map[k].file = k;
+          });
+        });
+      }
+      return canticumMapPromise.pipe(function() {
+        return self.getLinesFromLiber();
+      });
+    }
+    var bookMap = canticumMap[self.book];
+    if(!bookMap) return;
+    var startVerse = Object.keys(bookMap).map(function(i) { return parseInt(i); }).filter(function(i) { return i<=self.verse; }).sort().slice(-1)[0];
+    map = bookMap[startVerse];
+    psalm = map.file;
+    map = map.map;
   }
   
-  return $.get(('00'+psalm).slice(-3)).pipe(function(liber) {
+  return $.get(psalm).pipe(function(liber) {
     liber = liber.trim().split('\n');
-    var map = psalmMap[psalm - 1];
     return [].concat.apply([], map.map(function(a, index) {
       var b = map[index + 1],
           c = map[index - 1],
-          verseNum = index + 1,
+          verseNum = index + startVerse,
           verseI = 1;
       if(typeof a != 'number') a = Infinity;
       if(b === a) ++b;
-      if(c === a || (self.startInMiddle && parseInt(self.verse) === verseNum)) {
+      if(c === a || (self.startInMiddle && parseInt(self.verse) === verseNum) && b > a+1) {
         ++a;
         ++verseI;
       }
@@ -85,7 +113,7 @@ function refArrayString(array) {
   return result;
 }
 function parseRef(refText) {
-  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
+  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:([\dIV]+)\.?\s*)?([A-ZÆŒ][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
                 
   if(!match) {
     problematicRefs[refText] = `Bad refText: "${refText}"`;
