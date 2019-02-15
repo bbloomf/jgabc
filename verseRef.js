@@ -17,9 +17,50 @@ function Ref(ref, lastRef) {
   this.verse = ref.verse;
   this.endVerse = ref.endVerse;
 }
+var psalmMap, psalmMapPromise;
 Ref.prototype.bookString = function() { return `${this.bookNum? this.bookNum+' ' : ''}${this.book}`; }
 Ref.prototype.verseString = function() { return `${this.verse? this.verse : ''}${this.endVerse? '-'+this.endVerse : ''}`; };
 Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter}${this.verse? ': '+this.verseString() : ''}`; };
+Ref.prototype.getEndVerse = function() { return this.endVerse || this.verse; }
+Ref.prototype.getLinesFromLiber = function() {
+  var self = this;
+  if(!psalmMap) {
+    if(!psalmMapPromise) {
+      psalmMapPromise = $.get('../psalmMap.json').then(function(map) {
+        psalmMap = map;
+      });
+    }
+    return psalmMapPromise.pipe(function() {
+      return self.getLinesFromLiber();
+    });
+  }
+  if(self.book == "Psalm") {
+    var psalm = self.chapter;
+  }
+  
+  return $.get(('00'+psalm).slice(-3)).pipe(function(liber) {
+    liber = liber.trim().split('\n');
+    var map = psalmMap[psalm - 1];
+    return [].concat.apply([], map.map(function(a, index) {
+      var b = map[index + 1],
+          c = map[index - 1],
+          verseNum = index + 1,
+          verseI = 1;
+      if(typeof a != 'number') a = Infinity;
+      if(b === a) ++b;
+      if(c === a || (self.startInMiddle && parseInt(self.verse) === verseNum)) {
+        ++a;
+        ++verseI;
+      }
+      if(!self.verse || (verseNum >= self.verse && verseNum <= self.getEndVerse())) {
+        var liberVerses = liber.slice(a, b||undefined);
+        if(liberVerses.length == 1 && verseI == 1) verseI = 0;
+        return liberVerses.map((verse,i) => `${verseNum}${(verseI? (verseI + i + 9) : "").toString(36)}. ${verse}`);
+      }
+      return [];
+    }));
+  });
+}
 function refArrayString(array) {
   if(!array.length) return "";
   var result = array[0].toString(),
@@ -27,7 +68,7 @@ function refArrayString(array) {
       lastBook = array[0].bookString();
   for(var i=1; i<array.length; ++i) {
     var ref = array[i];
-    if(lastBook != ref.bookString()) {
+    if(lastBook != ref.bookString() || !ref.verse) {
       result += '; ' + ref.toString();
     } else if(lastChapter != ref.chapter) {
       if(ref.book == 'Ps') {

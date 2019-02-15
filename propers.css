@@ -52,13 +52,17 @@ textarea {
 [part].showing-chant .chant-preview{
   display: block;
 }
-[part] .verses-ad-libitum {
+[part] .verses-ad-libitum,
+[part] .verses-ad-libitum-custom,
+[part] .verses-ad-libitum-default {
   display: none;
 }
-[part].showing-verses-ad-libitum div.verses-ad-libitum {
+[part].showing-verses-ad-libitum-default div.verses-ad-libitum,
+[part].showing-verses-ad-libitum-custom div.verses-ad-libitum {
   display: block;
 }
-[part].showing-verses-ad-libitum span.verses-ad-libitum {
+[part].showing-verses-ad-libitum-default span.verses-ad-libitum-default,
+[part].showing-verses-ad-libitum-custom span.verses-ad-libitum-custom {
   display: inline;
 }
 .verses.litany {

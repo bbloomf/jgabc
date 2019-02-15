@@ -721,10 +721,15 @@ $(function(){
     if(selPropers) {
       for(var k in partKey) {
         var key = partKey[k] + 'ID';
+        var ok = k;
         k += 'ID';
         if(key in selPropers && !(k in selPropers)) {
           selPropers[k] = selPropers[key];
         }
+        var verses = selPropers[ok+"Verses"] || selPropers[partKey[ok]+"Verses"];
+        var $part = $("div[part="+ok+"]");
+        var $defaultVerses = $part.find(".verses-ad-libitum-default");
+        $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
       }
     }
     $("#extra-chants").empty();
@@ -3022,8 +3027,15 @@ $(function(){
     layoutChant(part);
   }).on('change','input.cbVersesAdLibitum',function(e) {
     var $this = $(this),
-        $part = $this.parents().filter('[part]');
-    $part.toggleClass('showing-verses-ad-libitum', this.checked);
+        $part = $this.parents().filter('[part]'),
+        hasDefault = !$part.find('.verses-ad-libitum-default').hasClass('is-empty'),
+        showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
+        showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
+    if(!this.checked && hasDefault && showingDefault) this.checked = true;
+    $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
+    if(this.checked) {
+      $part.addClass('showing-verses-ad-libitum-' + ((hasDefault && !showingDefault)? "default" : "custom"));
+    }
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
     e.preventDefault();
