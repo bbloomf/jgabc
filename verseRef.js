@@ -46,11 +46,16 @@ Ref.prototype.getLinesFromLiber = function() {
           canticumMap = {};
           Object.keys(map).forEach(function(k) {
             var ref = parseRef(map[k].ref)[0];
-            if(!(ref.book in canticumMap)) {
-              canticumMap[ref.book] = {};
+            var book = mapBooks[ref.book] || ref.book;
+            if(!(book in canticumMap)) {
+              canticumMap[book] = {};
             }
-            var bookMap = canticumMap[ref.book];
-            bookMap[ref.verse] = map[k];
+            var bookMap = canticumMap[book];
+            if(!(ref.chapter in bookMap)) {
+              bookMap[ref.chapter] = {};
+            }
+            var chapterMap = bookMap[ref.chapter];
+            chapterMap[ref.verse] = map[k];
             map[k].file = k;
           });
         });
@@ -59,10 +64,13 @@ Ref.prototype.getLinesFromLiber = function() {
         return self.getLinesFromLiber();
       });
     }
-    var bookMap = canticumMap[self.book];
-    if(!bookMap) return;
-    var startVerse = Object.keys(bookMap).map(function(i) { return parseInt(i); }).filter(function(i) { return i<=self.verse; }).sort().slice(-1)[0];
-    map = bookMap[startVerse];
+    var book = mapBooks[self.book] || self.book;
+    var bookMap = canticumMap[book];
+    if(!bookMap) return [];
+    var chapterMap = bookMap[self.chapter];
+    if(!chapterMap) return [];
+    var startVerse = Object.keys(chapterMap).map(function(i) { return parseInt(i); }).filter(function(i) { return i<=self.verse; }).sort().slice(-1)[0];
+    map = chapterMap[startVerse];
     psalm = map.file;
     map = map.map;
   }
