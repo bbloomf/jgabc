@@ -1,5 +1,6 @@
 var module;
 var problematicRefs = {};
+
 function Ref(ref, lastRef) {
   if(/[IV]/i.test(ref.bookNum||"")) {
     ref.bookNum = ref.bookNum.replace(/iv/i,'iiii').trim().length;
@@ -23,13 +24,14 @@ Ref.prototype.verseString = function() { return `${this.verse? this.verse : ''}$
 Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter}${this.verse? ': '+this.verseString() : ''}`; };
 Ref.prototype.getEndVerse = function() { return this.endVerse || this.verse; }
 Ref.prototype.getLinesFromLiber = function() {
+  var urlRoot = /psalms\/[^/]*$/.test(location.pathname)? "../" : "";
   var self = this;
   var psalm, map, startVerse = 1;
   if(/^Ps/.test(self.book)) {
     psalm = ('00'+self.chapter).slice(-3);
     if(!psalmMap) {
       if(!psalmMapPromise) {
-        psalmMapPromise = $.get('../psalmMap.json').then(function(map) {
+        psalmMapPromise = $.get(urlRoot+'psalmMap.json').then(function(map) {
           psalmMap = map;
         });
       }
@@ -42,7 +44,7 @@ Ref.prototype.getLinesFromLiber = function() {
     // canticle?
     if(!canticumMap) {
       if(!canticumMapPromise) {
-        canticumMapPromise = $.get('../canticumMap.json').then(function(map) {
+        canticumMapPromise = $.get(urlRoot+'canticumMap.json').then(function(map) {
           canticumMap = {};
           Object.keys(map).forEach(function(k) {
             var ref = parseRef(map[k].ref)[0];
@@ -75,7 +77,7 @@ Ref.prototype.getLinesFromLiber = function() {
     map = map.map;
   }
   
-  return $.get(psalm).pipe(function(liber) {
+  return $.get(urlRoot+"psalms/"+psalm).pipe(function(liber) {
     liber = liber.trim().split('\n');
     return [].concat.apply([], map.map(function(a, index) {
       var b = map[index + 1],

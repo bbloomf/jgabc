@@ -3028,13 +3028,27 @@ $(function(){
   }).on('change','input.cbVersesAdLibitum',function(e) {
     var $this = $(this),
         $part = $this.parents().filter('[part]'),
-        hasDefault = !$part.find('.verses-ad-libitum-default').hasClass('is-empty'),
+        $verses = $part.find(".verses-ad-libitum.chant-preview"),
+        $versesDefault = $part.find('.verses-ad-libitum-default'),
+        hasDefault = !$versesDefault.hasClass('is-empty'),
         showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
         showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
     if(!this.checked && hasDefault && showingDefault) this.checked = true;
     $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
+    $verses.empty();
     if(this.checked) {
-      $part.addClass('showing-verses-ad-libitum-' + ((hasDefault && !showingDefault)? "default" : "custom"));
+      var showingDefault = hasDefault && !showingDefault;
+      $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
+      var ref;
+      if(showingDefault) {
+        ref = $versesDefault.text();
+      } else {
+        ref = $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
+      }
+      $.when.apply($, parseRef(ref).map(function(ref) { return ref.getLinesFromLiber(); })).then(function() {
+        var lines = [].concat.apply([], arguments);
+        $verses.html(lines.map(function(l) { return "<div>" + l.replace(/^\d[a-z]?\.\s+/,'') + "</div>"}).join(''));
+      });
     }
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
