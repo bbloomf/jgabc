@@ -1394,6 +1394,10 @@ $(function(){
           case '†':
             text += ' * ';
             break;
+          case '+':
+          case '^':
+            text += ' ^ ';
+            break;
           case '℣':
             text += '\n';
             capitalize = true;
