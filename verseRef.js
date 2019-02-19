@@ -60,16 +60,16 @@ function parseRef(refText) {
       result = [];
   if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
-  while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*)?(\d+)\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
+  while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*|(\d+))(\d+)?\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
     if(match[2]) {
       book = match[2];
       if(!match[1]) bookNum = null;
     }
     chapter = match[3] || match[4] || match[5] || chapter;
-    verse = match[6];
-    endVerse = match[7];
-    remaining = match[8];
+    verse = match[6] || match[7];
+    endVerse = match[8];
+    remaining = match[9];
     if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
     result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   }

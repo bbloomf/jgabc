@@ -1483,7 +1483,7 @@ gregorianPropers = {
   "co": "Pater si non potest",
   "coID": 650,
   "coRef": "Matth 26: 42",
-  "coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 11: 5"
+  "coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 115"
  },
  "monday_holy_week": {
   "title": "Monday in Holy Week",
@@ -1574,7 +1574,7 @@ gregorianPropers = {
   "co": "Dominus Jesus",
   "coID": 140,
   "coRef": "Ioann 13: 12, 13, 15",
-  "coVerses": "Ps 22; Ps 7: 1; Ps 10: 3; Ps 15: 0"
+  "coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
  },
  "easter_sunday": {
   "title": "Easter Sunday",
@@ -2850,6 +2850,6 @@ gregorianPropers = {
   "co": "Amen dico vobis quidquid",
   "coID": 592,
   "coRef": "Marc 11: 24",
-  "coVerses": "Ps 129; Ps 6: 0"
+  "coVerses": "Ps 129; Ps 60"
  }
 }

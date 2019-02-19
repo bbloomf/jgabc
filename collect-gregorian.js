@@ -195,6 +195,9 @@ function processUrl(urlKey) {
             } else {
               if(key == 'al' && name == 'Alleluia') name = 'Confitemini... quoniam';
               var incipitId = vr.findIncipitId(name,key,grPage,mode);
+              if(incipitId == 451 && currentFeast === "rogations") {
+                incipitId = 939;
+              }
               if(key == 'hy' && (typeof incipitId != 'number')) return;
               if(key == 'al' && name.match(/\(Rogations\)/)) incipitId = null;
               if(key == 'tr' && 'al' in propria && !('gr' in propria)) {
@@ -212,22 +215,26 @@ function processUrl(urlKey) {
 ${JSON.stringify(incipitId,1,' ')}`);
               }
             }
-            if(match[1]) {
-              propria[key] = propria[key] || [];
-              if(!(propria[key] instanceof Array)) propria[key] = [propria[key]];
-              propria[key].push(name);
-              propria[key+'ID'] = propria[key+'ID'] || [];
-              if(!(propria[key+'ID'] instanceof Array)) propria[key+'ID'] = [propria[key+'ID']];
-              propria[key+'ID'].push(incipitId);
-            } else {
-              propria[key] = name;
-              if(incipitId) propria[key+'ID'] = incipitId;
+            var storePropria = !/^(an|re)(Extra)?$/.test(key);
+            if(!storePropria && !grPage && !/^O\s/.test(name)) return;
+            if(storePropria) {
+              if(match[1]) {
+                propria[key] = propria[key] || [];
+                if(!(propria[key] instanceof Array)) propria[key] = [propria[key]];
+                propria[key].push(name);
+                propria[key+'ID'] = propria[key+'ID'] || [];
+                if(!(propria[key+'ID'] instanceof Array)) propria[key+'ID'] = [propria[key+'ID']];
+                propria[key+'ID'].push(incipitId);
+              } else {
+                propria[key] = name;
+                if(incipitId) propria[key+'ID'] = incipitId;
+              }
             }
 
             var span = td.querySelector('span.ps1');
             if(span) {
               var ref = span.innerHTML.replace(/(\s)et(\s)/g,' & ').replace(/(\w)\s+(?=[,;:!\.?])/g,'$1').replace(/[\.;]?<br>\s*/g,'; ').replace(/<hr>/,'\n').trim();
-              if(!ref && !(key+"Ref" in propria) && propria[key] instanceof Array) {
+              if(storePropria && !ref && !(key+"Ref" in propria) && propria[key] instanceof Array) {
                 propria[key+"Ref"] = [""];
               }
               if(ref || (key+"Ref" in propria)) {
@@ -237,12 +244,14 @@ ${JSON.stringify(incipitId,1,' ')}`);
                   refs[1] = ref;
                   ref = "";
                 }
-                if(match[1]) {
-                  propria[key+"Ref"] = propria[key+"Ref"] || [];
-                  if(!(propria[key+'Ref'] instanceof Array)) propria[key+'Ref'] = [propria[key+'Ref']];
-                  propria[key+"Ref"].push(ref);
-                } else if(ref) {
-                  propria[key+"Ref"] = ref;
+                if(storePropria) {
+                  if(match[1]) {
+                    propria[key+"Ref"] = propria[key+"Ref"] || [];
+                    if(!(propria[key+'Ref'] instanceof Array)) propria[key+'Ref'] = [propria[key+'Ref']];
+                    propria[key+"Ref"].push(ref);
+                  } else if(ref) {
+                    propria[key+"Ref"] = ref;
+                  }
                 }
                 if(ref && (typeof incipitId == 'number')) {
                   if(incipitId in gabcRefs && (gabcRefs[incipitId] != ref)) {
@@ -251,7 +260,7 @@ ${JSON.stringify(incipitId,1,' ')}`);
                     gabcRefs[incipitId] = ref;
                   }
                 }
-                if(refs.length > 1) {
+                if(storePropria && refs.length > 1) {
                   if(refs.length > 2) throw propria;
                   propria[key+"Verses"] = refs[1];
                 }
@@ -260,6 +269,7 @@ ${JSON.stringify(incipitId,1,' ')}`);
             if(typeof incipitId == 'number') {
               if(!gabcRefs[incipitId]) gabcRefs[incipitId] = "";
             }
+            if(!storePropria) return;
 
             if(betweenBars && key == 'alPasch' && /\bsing\s+this\s+Alleluia\s+first/i.test(rubricText) && propria.al) {
               propria.alPasch = [propria.alPasch, propria.al];
@@ -279,23 +289,12 @@ ${JSON.stringify(incipitId,1,' ')}`);
           }
         }
       }
-    } else if(mode && grPage && (a || aHref)) {
-      // at least check if we can add a reference to some extra GABC file:
-      var match = (a || aHref).textContent.match(regexPart);
-      if(match) {
-        var key = partMap[match[2]];
-        var name = (match[3] || '').replace(/([a-z])([A-Z])/g,'$1 $2');
-        var incipitId = vr.findIncipitId(name,key,grPage,mode);
-        if(incipitId) {
-          console.info(key, name, incipitId)
-        }
-      }
     }
   });
 
   fs.writeFileSync(`gregorian-${urlKey}.js`,`// from ${url}
 gregorianPropers = ${JSON.stringify(festa,null," ")}`);
-  fs.writeFileSync('gabc-refs.js', `gabcRefs = ${JSON.stringify(gabcRefs)}`)
+  fs.writeFileSync('gabc-refs.js', `gabcRefs = ${JSON.stringify(gabcRefs,0,'\t')}`)
 
   processUrl(urls[iUrl++]);
 

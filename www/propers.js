@@ -1394,6 +1394,10 @@ $(function(){
           case '†':
             text += ' * ';
             break;
+          case '+':
+          case '^':
+            text += ' ^ ';
+            break;
           case '℣':
             text += '\n';
             capitalize = true;
@@ -2650,16 +2654,18 @@ $(function(){
     }
   });
 
-  var i = 1;
+  var i = 0;
   var regexExtraSundayAfterEpiphany = null;
   if(moment() > d.septuagesima) d = Dates(moment().year()+1);
   if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
+  while(++i < sundayKeys.length) {
+    if(regexExtraSundayAfterEpiphany.test(sundayKeys[i].key)) {
+      sundayKeys.splice(i,1);
+    }
+  }
+  var i = 1;
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
-    if(regexExtraSundayAfterEpiphany.test(sunday.key)) {
-      sundayKeys.splice(i,1);
-      continue;
-    }
     var next = sundayKeys[++i];
     if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now))) {
       moveToEnd = sundayKeys.splice(1, i - 1);
