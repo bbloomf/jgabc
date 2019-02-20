@@ -1,4 +1,11 @@
 {
+  "android": {
+    "release": {
+      "keystore": "/Users/bbloomfield/btsync/android-keystore.jks",
+      "alias": "ChantAndroidKey",
+      "keystoreType": "jks"
+    }
+  },
   "ios": {
     "debug": {
       "developmentTeam": "V368Z9JNH2"
@@ -6,7 +13,8 @@
     "release": {
       "developmentTeam": "V368Z9JNH2",
       "codeSignIdentity": "iPhone Developer",
-      "packageType": "app-store"
+      "packageType": "app-store",
+      "automaticProvisioning": true
     }
   }
 }

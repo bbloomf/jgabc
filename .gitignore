@@ -14,3 +14,5 @@ res
 icon.png
 douay-rheims/src
 MR1962
+.npmignore
+key.properties
