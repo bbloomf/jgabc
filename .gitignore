@@ -15,3 +15,4 @@ douay-rheims/src
 MR1962
 key.properties
 .npmignore
+package-lock.json
