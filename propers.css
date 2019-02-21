@@ -258,6 +258,13 @@ syl.bold {
   width: 1em;
 }
 
+.lectio-reference {
+  color: #d00;
+  font-family: 'Crimson Text';
+  font-size: 14pt;
+  font-style: italic;
+}
+
 .lectio-text {
   display: flex;
   margin: 0 -12pt;
