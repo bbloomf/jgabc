@@ -730,6 +730,7 @@ $(function(){
         var $part = $("div[part="+ok+"]");
         var $defaultVerses = $part.find(".verses-ad-libitum-default");
         $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
+        $part.find('input.cbVersesAdLibitum').change();
       }
     }
     $("#extra-chants").empty();
@@ -1923,7 +1924,7 @@ $(function(){
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -1962,7 +1963,7 @@ $(function(){
     var gabc;
     var lines;
     var useOriginalClef = text.indexOf('@') >= 0;
-    var fullGabc = sel[part].gabc.slice(getHeaderLen(sel[part].gabc));
+    var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
       
@@ -2066,7 +2067,7 @@ $(function(){
     var countWordsBefore = 0;
     for(var i=0; i<lines.length; ++i) {
       var countWordsInVerse = wordsInLine(lines[i]);
-      var fullVerseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+      var fullVerseGabc = sel[part].originalWords && sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
       var nextNewClef = regexGabcClef.exec(fullVerseGabc);
       nextNewClef = nextNewClef && nextNewClef[1];
       countWordsBefore += countWordsInVerse;
@@ -3033,16 +3034,21 @@ $(function(){
   }).on('change','input.cbVersesAdLibitum',function(e) {
     var $this = $(this),
         $part = $this.parents().filter('[part]'),
+        part = $part.attr('part'),
+        versePart = part + "Verses",
         $verses = $part.find(".verses-ad-libitum.chant-preview"),
         $versesDefault = $part.find('.verses-ad-libitum-default'),
         hasDefault = !$versesDefault.hasClass('is-empty'),
         showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
         showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
+    if(this.checked && !hasDefault && showingDefault) this.checked = false;
     if(!this.checked && hasDefault && showingDefault) this.checked = true;
     $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
     $verses.empty();
+    var state = sel[versePart] = sel[versePart] || {};
+    if(!state.ctxt) makeChantContextForSel(state);
     if(this.checked) {
-      var showingDefault = hasDefault && !showingDefault;
+      var showingDefault = hasDefault && e.isTrigger? showingDefault : !showingDefault;
       $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
       var ref;
       if(showingDefault) {
@@ -3051,8 +3057,12 @@ $(function(){
         ref = $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
       }
       $.when.apply($, parseRef(ref).map(function(ref) { return ref.getLinesFromLiber(); })).then(function() {
-        var lines = [].concat.apply([], arguments);
-        $verses.html(lines.map(function(l) { return "<div>" + l.replace(/^\d[a-z]?\.\s+/,'') + "</div>"}).join(''));
+        var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
+        $verses.html(lines.map(function(l) { return "<div>" + l + "</div>"}).join(''));
+        state.text = lines.join('\n');
+        state.mode = sel[part].mode;
+        state.activeGabc = getPsalmToneForPart(versePart);
+        updateExsurge(versePart, null, true);
       });
     }
   });
