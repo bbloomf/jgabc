@@ -59,6 +59,12 @@ tr.bordered>td {
   right: 0;
   background: white;
 }
+#chant-parent2 .when-no-editor {
+  display: none;
+}
+#chant-parent2.noeditor .when-no-editor {
+  display: block;
+}
 #chant-parent2{
   width:10.3in;
   max-width:100%;
@@ -198,6 +204,7 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 </div>
 </div>
 <div id="chant-parent2">
+  <div class='when-no-editor'><a href="#editor">Show Editor</a></div>
   <div id="chant-parent">
     <div id="chant-pad">
       <div id="chant-preview"></div>

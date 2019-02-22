@@ -2,6 +2,7 @@
 var fs = require("fs"),
     empty = require('./texts.js'),
     stringSimilarity = require('string-similarity'),
+    vr = require("./verseRef.js"),
     dirMain = '../divinum-officium-website/web/www/missa/Latin/',
     dirTempora = dirMain + 'Tempora/',
     dirSancti = dirMain + 'Sancti/',
@@ -84,7 +85,51 @@ var fs = require("fs"),
       "Thess": "Ad Thessalonicenses"
     },
     mapTitle = {},
-    lex = {};
+    lex = {},
+    partKey = {
+      Introitus: 'in',
+      Graduale: 'gr',
+      Tractus: 'tr',
+      Alleluia: 'al',
+      Sequentia: 'seq',
+      Offertorium: 'of',
+      Communio: 'co'
+    },
+    regexForPart = {
+      Introitus: /\[Introitus[A-Zd]*\]\n(?:\!([^\r\n]+))?\nv\.\s+((?:.*~\n)*(?:.*))\n\!([^\r\n]+)\n((?:.*~\n)*(?:.*))/g
+    }
+
+function getPropers(info) {
+  Object.keys(partKey).forEach(part => {
+    var partRegex = regexForPart[part] || new RegExp(`\\[${part}[A-Z\d]*\\]\\n[^\\r\\n]*\\n\\![^\\r\\n]+`,'g');
+    var match;
+    while(match = partRegex.exec(info)) {
+      console.info(part, match[0])
+    }
+    // TODO: check all propers texts
+    // TODO: check lectio refs as well
+    var key = partKey[part];
+    var txts = texts[part];
+    var txtKeys = Object.keys(txts);
+    var arrayOfChoices = txtKeys.map(k => txts[k]);
+    var text = removeAcuteAccents(val.toLowerCase()).replace(/[^℣\sa-zæœ]+/g,'').replace(/\s+/g,' ').replace(/( ℣)? ps( ib(id)?)?\b/g,' ℣').replace(/( ℣)? gloria patri( .*)?$/,' gloria patri').replace(/\balleluja\b/g,'alleluia');
+    var sim = stringSimilarity.findBestMatch(text, arrayOfChoices);
+    var bestMatch = txtKeys[sim.bestMatchIndex];
+    if(sim.bestMatch.rating > 0.6) {
+      addProperty(obj,key+"ID", parseInt(bestMatch));
+      if(sim.bestMatch.rating < 1) {
+        addProperty(obj,key+"ID-rating", sim.bestMatch.rating);
+        addProperty(obj,key+"ID-seekt", text);
+        addProperty(obj,key+"ID-found", sim.bestMatch.target);
+      }
+    } else if(sim.bestMatch.rating > 0) {
+      addProperty(obj,key+"ID-best", parseInt(bestMatch));
+      addProperty(obj,key+"ID-rating", sim.bestMatch.rating);
+      addProperty(obj,key+"ID-seekt", text);
+      addProperty(obj,key+"ID-beest", sim.bestMatch.target);
+    }
+  });
+}
 
 keys.forEach(key => {
   if(/(Pasch|Quad)$/.test(key)) return;
@@ -148,7 +193,11 @@ keys.forEach(key => {
     if(!reference) break;
     fname = reference[3];
     if(fname.indexOf('/') < 0) {
-      fname = dirCommune + fname;
+      if(/^C/.test(fname)) {
+        fname = dirCommune + fname
+      } else {
+        fname = dir + fname;
+      }
     } else {
       fname = dirMain + fname;
     }
@@ -166,6 +215,10 @@ keys.forEach(key => {
     return;
   }
   lex[key] = lectiones.map(lectio => {
+    var match = lectio.match(/(?:^|\n)!([^\r\n]+)/);
+    var ref = vr.parseRef(match[1]);
+    console.info(ref.verseRefString())
+    return ref.verseRefString();
     var match = /\n\s*([^\n\r\.]+)[\s\.P]*\n\s*\!((?:(\d)\s+)?((?:[\dIV]+\.?\s+)?([A-Z][a-zæœáéíóúýäëïöüÿ]+))\.?\s+([\dl:,; -]+))\.?\s*/.exec(lectio);
     if(!match) throw lectio;
     var bookNumber = match[3];
@@ -186,6 +239,6 @@ fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex,0,' ')};
 var mapTitleLectionis = ${JSON.stringify(mapTitle)}`, 'utf8');
 //console.info(mapTitle);
 //console.info(missing);
-//console.info(missing.length);
+console.info(missing.length);
 console.info(notFound);
 console.info(notFound.length);

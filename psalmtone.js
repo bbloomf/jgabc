@@ -1,6 +1,6 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
+var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\^\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
 var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ]/i;
@@ -555,7 +555,8 @@ function syllable(match,index,bi) {
             cTags: cTags,
             elision: elision,
             flex: match[7] && match[7].match(/†$/),
-            mediant: match[7] && match[7].match(/\*$/)
+            mediant: match[7] && match[7].match(/\*$/),
+            pause: match[7] && match[7].match(/\^$/),
     };
   }
 }
@@ -833,7 +834,9 @@ function applyPsalmTone(options) {
           var oldSi = si;
           var flexAccent = false;
           while(si > ti && s) {
-            if(s.flex) {
+            if(s.pause) {
+              r=s.prepunctuation + s.syl + s.punctuation + "(" + toneList.toneTenor + ".) (,)"+r;
+            } else if(s.flex) {
               if(flexEqualsTenor) {
                 r=s.prepunctuation + s.syl + s.punctuation + "(" + toneList.toneFlex + ".) (,)"+r;
               } else {
