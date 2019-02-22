@@ -3054,17 +3054,21 @@ $(function(){
       if(showingDefault) {
         ref = $versesDefault.text();
       } else {
-        ref = $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
+        ref = "Psalm " + $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
       }
       $.when.apply($, parseRef(ref).map(function(ref) { return ref.getLinesFromLiber(); })).then(function() {
         var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
-        $verses.html(lines.map(function(l) { return "<div>" + l + "</div>"}).join(''));
+        // TODO: filter out any verses that are completely contained in the text of the antiphon / verse itself
+        // $verses.html(lines.map(function(l) { return "<div>" + l + "</div>"}).join(''));
         state.text = lines.join('\n');
         state.mode = sel[part].mode;
         state.activeGabc = getPsalmToneForPart(versePart);
         updateExsurge(versePart, null, true);
       });
     }
+  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
+    var $part = $(this).parents().filter('[part]');
+    $part.find('.cbVersesAdLibitum').change();
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
     e.preventDefault();

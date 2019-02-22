@@ -1,6 +1,8 @@
 var module;
 var problematicRefs = {};
 
+(function() {
+
 function Ref(ref, lastRef) {
   if(/[IV]/i.test(ref.bookNum||"")) {
     ref.bookNum = ref.bookNum.replace(/iv/i,'iiii').trim().length;
@@ -18,10 +20,10 @@ function Ref(ref, lastRef) {
   this.verse = ref.verse;
   this.endVerse = ref.endVerse;
 }
-var psalmMap, psalmMapPromise, canticumMap, canticumMapPromise;
+var psalmMap, psalmMapPromise, canticumMap, canticumMapPromise, canticumMapByFile;
 Ref.prototype.bookString = function() { return `${this.bookNum? this.bookNum+' ' : ''}${this.book}`; }
 Ref.prototype.verseString = function() { return `${this.verse? this.verse : ''}${this.endVerse? '-'+this.endVerse : ''}`; };
-Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter}${this.verse? ': '+this.verseString() : ''}`; };
+Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter||''}${this.verse? ': '+this.verseString() : ''}`; };
 Ref.prototype.getEndVerse = function() { return this.endVerse || this.verse; }
 Ref.prototype.getLinesFromLiber = function() {
   var urlRoot = /psalms\/[^/]*$/.test(location.pathname)? "../" : "";
@@ -46,6 +48,7 @@ Ref.prototype.getLinesFromLiber = function() {
       if(!canticumMapPromise) {
         canticumMapPromise = $.get(urlRoot+'canticumMap.json').then(function(map) {
           canticumMap = {};
+          canticumMapByFile = map;
           Object.keys(map).forEach(function(k) {
             var ref = parseRef(map[k].ref)[0];
             var book = mapBooks[ref.book] || ref.book;
@@ -67,14 +70,19 @@ Ref.prototype.getLinesFromLiber = function() {
       });
     }
     var book = mapBooks[self.book] || self.book;
-    var bookMap = canticumMap[book];
-    if(!bookMap) return [];
-    var chapterMap = bookMap[self.chapter];
-    if(!chapterMap) return [];
-    var startVerse = Object.keys(chapterMap).map(function(i) { return parseInt(i); }).filter(function(i) { return i<=self.verse; }).sort().slice(-1)[0];
-    map = chapterMap[startVerse];
-    psalm = map.file;
-    map = map.map;
+    if(book in canticumMapByFile) {
+      psalm = book;
+      map = canticumMapByFile[book].map;
+    } else {
+      var bookMap = canticumMap[book];
+      if(!bookMap) return [];
+      var chapterMap = bookMap[self.chapter];
+      if(!chapterMap) return [];
+      var startVerse = Object.keys(chapterMap).map(function(i) { return parseInt(i); }).filter(function(i) { return i<=self.verse; }).sort().slice(-1)[0];
+      map = chapterMap[startVerse];
+      psalm = map.file;
+      map = map.map;
+    }
   }
   
   return $.get(urlRoot+"psalms/"+psalm).pipe(function(liber) {
@@ -123,20 +131,35 @@ function refArrayString(array) {
   return result;
 }
 function parseRef(refText) {
-  var match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:([\dIV]+)\.?\s*)?([A-ZÆŒ][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
-                
-  if(!match) {
-    problematicRefs[refText] = `Bad refText: "${refText}"`;
-    return [];
-  }
-  var ibid = match[1],
-      bookNum = match[2],
-      book = ibid || match[3],
-      chapter = ibid? "" : match[4],
-      verse = match[5],
-      endVerse = match[6],
-      remaining = match[7],
+  var ibid,
+      bookNum,
+      book,
+      chapter,
+      verse,
+      endVerse,
+      remaining,
       result = [];
+  var match = /^Psalm ([A-ZÆŒa-zæœ\(\)\s]+)(?:^|\s+)(?:(\d+)(?:-(\d+))?)?[,;.]?(.*)$/.exec(refText);
+  if(match) {
+    // canticle
+    book = match[1];
+    verse = match[2];
+    endVerse = match[3];
+    remaining = match[4];
+  } else {
+    match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:([\dIV]+)\.?\s*)?([A-ZÆŒ][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
+    if(!match) {
+      problematicRefs[refText] = `Bad refText: "${refText}"`;
+      return [];
+    }
+    ibid = match[1];
+    bookNum = match[2];
+    book = ibid || match[3];
+    chapter = ibid? "" : match[4];
+    verse = match[5];
+    endVerse = match[6];
+    remaining = match[7];
+  }
   if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*|(\d+))(\d+)?\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
@@ -273,10 +296,13 @@ function findIncipitId(incipitText, part, page, mode) {
   }
 }
 
-if(module && module.exports) {
-  module.exports.parseRef = parseRef;
-  module.exports.refArrayString = refArrayString;
-  module.exports.problematicRefs = problematicRefs;
-  module.exports.flattenMap = flattenMap;
-  module.exports.findIncipitId = findIncipitId;
+var exports = module && module.exports || window || {};
+if(exports) {
+  exports.parseRef = parseRef;
+  exports.refArrayString = refArrayString;
+  exports.problematicRefs = problematicRefs;
+  exports.flattenMap = flattenMap;
+  exports.findIncipitId = findIncipitId;
 }
+
+})();
