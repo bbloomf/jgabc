@@ -86,7 +86,7 @@ Ref.prototype.getLinesFromLiber = function() {
   }
   
   return $.get(urlRoot+"psalms/"+psalm).pipe(function(liber) {
-    liber = liber.trim().split('\n');
+    liber = liber.trim().replace(/\r\n?/g,'\n').split('\n');
     return [].concat.apply([], map.map(function(a, index) {
       var b = map[index + 1],
           c = map[index - 1],

@@ -3058,7 +3058,9 @@ $(function(){
       }
       $.when.apply($, parseRef(ref).map(function(ref) { return ref.getLinesFromLiber(); })).then(function() {
         var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
-        // TODO: filter out any verses that are completely contained in the text of the antiphon / verse itself
+        // filter out any verses that are completely contained in the text of the antiphon / verse itself
+        var parentText = sel[part].text;
+        lines = lines.filter(function(l) { return parentText.indexOf(l) < 0; })
         // $verses.html(lines.map(function(l) { return "<div>" + l + "</div>"}).join(''));
         state.text = lines.join('\n');
         state.mode = sel[part].mode;
