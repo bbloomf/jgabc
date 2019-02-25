@@ -1963,7 +1963,7 @@ $(function(){
     var noMediant = getTertiumQuid(gTermination,gMediant);
     var gabc;
     var lines;
-    var useOriginalClef = text.indexOf('@') >= 0;
+    var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
     var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
     var header = getHeader(sel[part].gabc||'');
     var useBigInitial = header.initialStyle != '0';
@@ -2160,7 +2160,8 @@ $(function(){
             onlyVowel: false,
             format: bi_formats.gabc,
             verseNumber: i+1,
-            prefix: !firstVerse && !italicNote,
+            prefix: !(useBigInitial && firstVerse) && !italicNote,
+            firstPrefix: !useBigInitial && !italicNote,
             suffix: false,
             italicizeIntonation: false,
             result: result,
@@ -3061,16 +3062,24 @@ $(function(){
       } else {
         ref = "Psalm " + $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
       }
-      $.when.apply($, parseRef(ref).map(function(ref) { return ref.getLinesFromLiber(); })).then(function() {
+      $.when.apply($, parseRef(ref).map(function(ref) {
+        return ref.getLinesFromLiber().pipe(function(lines) {
+          if(!ref.verse) lines = lines.slice(0,5);
+          return lines;
+        });
+      })).then(function() {
         var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
         // filter out any verses that are completely contained in the text of the antiphon / verse itself
         // var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
         // lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
         state.text = lines.join('\n');
         state.mode = sel[part].mode;
-        // TODO: use the same clef as sel[part]
-        // TODO: don't use big initial:
-        // state.gabc = "initial-style: 0;\n%%\n";
+
+        // match clef of antiphon:
+        var clef = sel[part].score.startingClef.mapping.source;
+        state.gabc = "initial-style: 0;\n%%\n" + clef;
+        
+        // add custos at end of each verse
         var notations = sel[part].score.notations;
         var firstNote = '';
         for(var i=0; i < 10; ++i) {
