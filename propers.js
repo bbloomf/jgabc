@@ -1921,6 +1921,7 @@ $(function(){
     var altTone = sel[part].altTone;
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
+    var endOfVerse = sel[part].endOfVerse || '(::)';
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
@@ -1964,6 +1965,8 @@ $(function(){
     var lines;
     var useOriginalClef = text.indexOf('@') >= 0;
     var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
+    var header = getHeader(sel[part].gabc||'');
+    var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
       
@@ -2028,7 +2031,9 @@ $(function(){
       lines.splice(0,1);
     } else {
       // not alleluia
-      lines = capitalizeForBigInitial(sel[part].text).split('\n');
+      lines = sel[part].text;
+      if(useBigInitial) lines = capitalizeForBigInitial(lines);
+      lines = lines.split('\n');
       gabc = header;
       if(sel[part].style == 'psalm-tone1') {
         // the first verse is to be full tone.
@@ -2178,7 +2183,7 @@ $(function(){
             italicizeIntonation: false,
             favor: 'termination',
             flexEqualsTenor: true
-          })) + " (::)\n";
+          })) + " " + endOfVerse + "\n";
         if(i==0) {
           //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
           flex = (line[0].indexOf(sym_flex) >= 0);
@@ -3059,11 +3064,24 @@ $(function(){
       $.when.apply($, parseRef(ref).map(function(ref) { return ref.getLinesFromLiber(); })).then(function() {
         var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
         // filter out any verses that are completely contained in the text of the antiphon / verse itself
-        var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
-        lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
-        // $verses.html(lines.map(function(l) { return "<div>" + l + "</div>"}).join(''));
+        // var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
+        // lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
         state.text = lines.join('\n');
         state.mode = sel[part].mode;
+        // TODO: use the same clef as sel[part]
+        // TODO: don't use big initial:
+        // state.gabc = "initial-style: 0;\n%%\n";
+        var notations = sel[part].score.notations;
+        var firstNote = '';
+        for(var i=0; i < 10; ++i) {
+          if(notations[i].isNeume) {
+            firstNote = notations[i].notes[0];
+            firstNote = (16 + firstNote.staffPosition).toString(23) + '+';
+            break;
+          }
+        }
+        state.endOfVerse = '(::) _Ant._('+firstNote+'Z)';
+        // TODO: FIX: when already showing and the feast is changed, this shouldn't be updated until after the mode has been set.
         state.activeGabc = getPsalmToneForPart(versePart);
         updateExsurge(versePart, null, true);
       });
