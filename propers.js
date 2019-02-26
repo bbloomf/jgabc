@@ -589,6 +589,7 @@ $(function(){
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
         if(!(sel[part].style||'').match(/^psalm-tone/)) $toggleEditMarkings.hide();
+        $div.find('input.cbVersesAdLibitum').change();
       };
       if(id) {
         if(typeof(id) == 'object') {
@@ -730,7 +731,6 @@ $(function(){
         var $part = $("div[part="+ok+"]");
         var $defaultVerses = $part.find(".verses-ad-libitum-default");
         $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
-        $part.find('input.cbVersesAdLibitum').change();
       }
     }
     $("#extra-chants").empty();
@@ -3090,7 +3090,6 @@ $(function(){
           }
         }
         state.endOfVerse = '(::) _Ant._('+firstNote+'Z)';
-        // TODO: FIX: when already showing and the feast is changed, this shouldn't be updated until after the mode has been set.
         state.activeGabc = getPsalmToneForPart(versePart);
         updateExsurge(versePart, null, true);
       });
