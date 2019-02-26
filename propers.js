@@ -1922,6 +1922,7 @@ $(function(){
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
     var endOfVerse = sel[part].endOfVerse || '(::)';
+    var startOfVerse = sel[part].startOfVerse || '';
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
@@ -2151,7 +2152,7 @@ $(function(){
             flexEqualsTenor: introitTone
           });
         } else {
-          gabc += (italicNote||'') + applyPsalmTone({
+          gabc += (italicNote||'') + (useBigInitial? '' : startOfVerse) + applyPsalmTone({
             text: line[0].trim(),
             gabc: line.length==1? noMediant : gMediant,
             clef: clef,
@@ -3064,7 +3065,7 @@ $(function(){
       }
       $.when.apply($, parseRef(ref).map(function(ref) {
         return ref.getLinesFromLiber().pipe(function(lines) {
-          if(!ref.verse) lines = lines.slice(0,5);
+          if(!ref.verse) lines = lines.slice(0,10);
           return lines;
         });
       })).then(function() {
@@ -3081,14 +3082,21 @@ $(function(){
         
         // add custos at end of each verse
         var notations = sel[part].score.notations;
-        var firstNote = '';
+        var lastI = notations.length - 1;
+        var firstNote = '',
+            lastNote = '';
         for(var i=0; i < 10; ++i) {
           if(notations[i].isNeume) {
             firstNote = notations[i].notes[0];
             firstNote = (16 + firstNote.staffPosition).toString(23) + '+';
-            break;
           }
+          if(notations[lastI - i].isNeume) {
+            lastNote = notations[lastI - i].notes.slice(-1)[0];
+            lastNote = (16 + lastNote.staffPosition).toString(23) + '+';
+          }
+          if(firstNote && lastNote) break;
         }
+        state.startOfVerse = '('+lastNote+') ';
         state.endOfVerse = '(::) _Ant._('+firstNote+'Z)';
         state.activeGabc = getPsalmToneForPart(versePart);
         updateExsurge(versePart, null, true);
