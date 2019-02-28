@@ -1,4 +1,4 @@
-html, body {
+html {
   overflow-x: hidden;
 }
 svg.bg-blur {
@@ -256,6 +256,13 @@ syl.bold {
 }
 .glyphicon.glyphicon-blank {
   width: 1em;
+}
+
+.lectio-reference {
+  color: #d00;
+  font-family: 'Crimson Text';
+  font-size: 14pt;
+  font-style: italic;
 }
 
 .lectio-text {

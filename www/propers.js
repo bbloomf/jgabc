@@ -1031,13 +1031,14 @@ $(function(){
   var clearSelections = function(e) {
     $('#btnClearSelections').addClass('hidden');
     var hash = {};
-    $('#selSunday,#selSaint,#selMass').each(function(){
+    $('#selSunday,#selSaint,#selMass,#selOrdinary,[id^=selCustom]').each(function(){
       this.selectedIndex = 0;
       hash[this.id] = false;
     });
     selDay = "";
     clearHash(hash);
     updateDay();
+    $('#selOrdinary,[id^=selCustom]').change();
   }
   var selectedDay = function(e){
     $('#btnClearSelections').removeClass('hidden');
