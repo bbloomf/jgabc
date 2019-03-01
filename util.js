@@ -32,6 +32,7 @@ var mapBooks = {
   "Gal": "Ad Galatas",
   "Gen": "Genesis",
   "Ha": "Habacuc",
+  "Heb": "Ad Hebræos",
   "Hebr": "Ad Hebræos",
   "Is": "Isaias",
   "Isa": "Isaias",
@@ -1528,7 +1529,7 @@ function getReading(source, returnText) {
     language = source.language || language;
     source = source.ref;
   }
-  var match = /\s*(?:(\d)\s+)?([A-Z][a-zæœ]+)(.*)/.exec(source),
+  var match = /\s*(?:(\d)\s+)?((?:[A-ZÆŒ][a-zæœ]+(?:\s(?=[A-ZÆŒ])|))+)(.*)/.exec(source),
       bookNumber = match[1],
       book = match[2],
       numbers = match[3];
@@ -1538,7 +1539,7 @@ function getReading(source, returnText) {
   var bookName = book;
   if(bookNumber) {
     book += ' ' + bookNumber;
-    bookName = bookNumber + ' ' + bookName;
+    bookName += ' ' + bookNumber;
   }
   var result = $.Deferred();
   $.get(edition+'/'+book).then(function(book) {

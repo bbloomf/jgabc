@@ -45,23 +45,33 @@ var fs = require("fs"),
       // Adv3ss: '',
       // Pasc7ss: '',
     },
+    mapBooksWithNumber = {
+      "Joann": "Joannis"
+    },
     mapBooks = {
       "Act": "Actus Apostolorum",
       "Acts": "Actus Apostolorum",
+      "Apoc": "Apocalypsis",
+      "Cant": "Canticum Canticorum",
       "Col": "Ad Colossenses",
       "Cor": "Ad Corinthios",
       "Dan": "Daniel",
       "Deut": "Deuteronomium",
-      "Eccli": "Sapientia",
+      "Eccli": "Ecclesiasticus",
+      "Eph": "Ad Ephesios",
       "Ephes": "Ad Ephesios",
       "Esth": "Esther",
       "Exod": "Exodus",
       "Ezech": "Ezechiel",
       "Gal": "Ad Galatas",
       "Gen": "Genesis",
+      "Ha": "Habacuc",
+      "Heb": "Ad Hebræos",
       "Hebr": "Ad Hebræos",
       "Is": "Isaias",
       "Isa": "Isaias",
+      "Isaiae": "Isaias",
+      "Jac": "Jacobi",
       "Jas": "Jacobi",
       "Jer": "Jeremias",
       "Joann": "Joannes",
@@ -69,21 +79,36 @@ var fs = require("fs"),
       "Joel": "Joel",
       "John": "Joannis",
       "Jonæ": "Jonas",
+      "Jud": "Judæ",
       "Judith": "Judith",
       "Lev": "Leviticus",
+      "Levit": "Leviticus",
       "Luc": "Lucas",
       "Mach": "Machabæorum",
+      "Malach": 'Malachias',
       "Marc": "Marcus",
       "Matt": "Matthæus",
+      "Mich": "Michæa",
+      "Neh": "Nehemiæ",
       "Num": "Numeri",
+      "Par": "Paralipomenon",
       "Pet": "Petri",
       "Petri": "Petri",
       "Phil": "Ad Philippenses",
       "Philipp": "Ad Philippenses",
+      "Prov": "Proverbia",
+      "Ps": "Psalmi",
       "Reg": "Regum",
       "Rom": "Ad Romanos",
-      "Thess": "Ad Thessalonicenses"
-    },
+      "Sap": "Sapientia",
+      "Sir": "Ecclesiasticus",
+      "Thess": "Ad Thessalonicenses",
+      "Tim": "Ad Timotheum",
+      "Tit": 'Ad Titum',
+      "Tob": 'Tobiæ',
+      "Tobias": 'Tobiæ',
+      "Zach": "Zacharias"
+},
     mapTitle = {},
     lex = {},
     partKey = {
@@ -184,8 +209,8 @@ keys.forEach(key => {
 
   // TODO: check all propers texts
   // stringSimilarity.findBestMatch(string, arrayOfChoices)
-
-  var lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
+  var regexLectiones = /\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^~\n]+\n([^~\n]+~\n)*[^~\n]*\n/g;
+  var lectiones = info.match(regexLectiones);
   while(!lectiones) {
     var reference = info.match(/\[Rule\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
     if(!reference) reference = info.match(/\[Rank1960\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
@@ -208,18 +233,34 @@ keys.forEach(key => {
       return;
     }
     info = fs.readFileSync(fname,'utf8');
-    lectiones = info.match(/\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^\r\n]+/g);
+    lectiones = info.match(regexLectiones);
   }
   if(!lectiones) {
     missing.push(fname + ': ' + key);
     return;
   }
   lex[key] = lectiones.map(lectio => {
-    var match = lectio.match(/(?:^|\n)!([^\r\n]+)/);
+    var match = lectio.match(/(?:^|\n)!([^\r\n]+)\n((?:[^~\n]+~\n)*[^~\n]*)(?:\n|$)/);
     var ref = vr.parseRef(match[1]);
-    console.info(ref.verseRefString())
+    var fullText = match[2].replace(/\s*~\n\s*/g,' ');
+    var show = ref[0].book.match(/Eccli/);
+    // console.info(fullText)
+    var referencedVulgate = getReading(ref).replace(/\s+/g,' ');
+    var similarity = stringSimilarity.compareTwoStrings(fullText, referencedVulgate);
+    if(show || similarity < 0.4) {
+      console.info(fname);
+      console.info(`${ref.verseRefString()}: ${similarity}`)
+      console.info('--');
+      console.info(referencedVulgate);
+      console.info('--');
+      console.info(fullText);
+      console.info('');
+    }
     return ref.verseRefString();
-    var match = /\n\s*([^\n\r\.]+)[\s\.P]*\n\s*\!((?:(\d)\s+)?((?:[\dIV]+\.?\s+)?([A-Z][a-zæœáéíóúýäëïöüÿ]+))\.?\s+([\dl:,; -]+))\.?\s*/.exec(lectio);
+
+
+
+    var match = /\n\s*([^\n\r\.]+)[\s\.P]*\n\s*\!((?:(\d)\s+)?((?:[\dIV]+\.?\s+)?([A-Z][a-zæœáéíóúýäëïöüÿ]+))\.?\s+([\dl:,; -]+))\.?\s*\n((?:[^~\n]+~\n)*[^~\n]*)(?:\n|$)/.exec(lectio);
     if(!match) throw lectio;
     var bookNumber = match[3];
     bookNumber = bookNumber? (bookNumber + ' ') : '';
@@ -231,10 +272,53 @@ keys.forEach(key => {
     } else {
       mapTitle[match[5]] = match[1];
     }
-    console.info(`${bookAbbreviation} ${numbers}`);
+    var fullText = match[7].replace(/\s*~\n\s*/g,' ');
+    console.info(`${bookAbbreviation} ${numbers}: ${fullText}`);
     return `${bookNumber}${bookAbbreviation} ${numbers}`;
   });
 });
+
+
+
+function getReading(source) {
+  var edition = 'vulgate';
+  var language = 'la';
+  return source.map(src => {
+    if(src.bookNum && src.book in mapBooksWithNumber) {
+      src.book = mapBooksWithNumber[src.book];
+    } else if(src.book in mapBooks) {
+      src.book = mapBooks[src.book];
+    }
+    var bookName = src.book;
+    if(src.bookNum) bookName += ' ' + src.bookNum;
+    var book = fs.readFileSync(edition+'/'+bookName,'utf8');
+
+    var text = '';
+    var wholeChapter = !src.verse;
+    if(wholeChapter) src.verse = 1;
+    var beginning = (src.chapter == 1 && src.verse == 1)? '' : '\n';
+    var beginIndex = book.indexOf(`${beginning}${src.chapter}\t${src.verse}\t`);
+    if(beginIndex < 0) {
+      text += `${src.book} Verse ${src.chapter}: ${src.verse} was not found.\n`;
+      return text;
+    }
+    if(beginning) beginIndex++;
+    var temp = book.slice(beginIndex);
+    var endIndex = 0;
+    if(wholeChapter) {
+      endIndex = temp.indexOf(`\n${src.chapter- -1}\t1\t`);
+      if(endIndex < 0) endIndex = temp.length-1;
+    } else if(src.endVerse) {
+      endIndex = temp.indexOf(`\n${src.chapter}\t${src.endVerse}\t`) + 1;
+    }
+    endIndex = temp.indexOf('\n',endIndex);
+    if(endIndex < 0) endIndex = temp.length;
+    text += temp.slice(0,endIndex) + ' ';
+    text = text.trim();
+    return text.replace(/(^|\n)\d+\t\d+\t([^\n]+)/g,'$1$2');
+  }).join(' ');
+}
+
 fs.writeFileSync('lectiones.js', `var lectiones = ${JSON.stringify(lex,0,' ')};
 var mapTitleLectionis = ${JSON.stringify(mapTitle)}`, 'utf8');
 //console.info(mapTitle);
