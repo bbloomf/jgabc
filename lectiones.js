@@ -25,11 +25,11 @@ var lectiones = {
  ],
  "votiveSCJ": [
   "Eph 3: 8-19",
-  "Joannes 19: 11-37"
+  "Joannes 19: 31-37"
  ],
  "SCJ": [
   "Eph 3: 8-19",
-  "Joannes 19: 11-37"
+  "Joannes 19: 31-37"
  ],
  "defunctorum": [
   "Apoc 14: 13",
