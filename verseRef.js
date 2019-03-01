@@ -159,6 +159,12 @@ function parseRef(refText) {
     verse = match[5];
     endVerse = match[6];
     remaining = match[7];
+    if(chapter && !verse && (match = remaining.match(/^\s*-\s*(\d+)/))) {
+      verse = chapter;
+      chapter = 1;
+      endVerse = match[1];
+      remaining = remaining.slice(match[0].length);
+    }
   }
   if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
