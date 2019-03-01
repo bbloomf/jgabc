@@ -862,7 +862,7 @@ texts = {
 		"182": "exspectans exspectavi dominum et respexit me et exaudivit deprecationem meam et immisit in os meum canticum novum hymnum deo nostro",
 		"185": "oratio mea munda est et ideo peto ut detur locus voci meæ in cælo quia ibi est judex meus et conscius meus in excelsis ascendat ad dominum deprecatio mea",
 		"187": "non duplices sermonem de revelatione sermonis absconditi et eris vere sine confusione et invenies gratiam in conspectu omnium hominum alleluia",
-		"195": "protege domine plebem tuam per signum sancte crucis ab omnibus insidiis inimicorum omnium ut tibi gratam exhibeamus servitutem et acceptabile tibi fiat sacrificium nostrum alleluia",
+		"195": "protege domine plebem tuam per signum sanctæ crucis ab omnibus insidiis inimicorum omnium ut tibi gratam exhibeamus servitutem et acceptabile tibi fiat sacrificium nostrum alleluia",
 		"200": "domine deus in simplicitate cordis mei lætus obtuli universa et populum tuum qui repertus est vidi cum ingenti gaudio deus israel custodi hanc voluntatem domine deus alleluia",
 		"210": "ave maria gratia plena dominus tecum benedicta tu in mulieribus alleluia",
 		"211": "ascendit deus in jubilatione dominus in voce tubæ alleluia",
