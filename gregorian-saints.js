@@ -21,7 +21,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/Commun-des-Souverains-Pontifes",
   "in": "Si diligis me",
   "inID": 674,
-  "inRef": "Ioann 21: 15, 16, 17; Ps 29: 2",
+  "inRef": "Joann 21: 15, 16, 17; Ps 29: 2",
   "inVerses": "Ps 29: 4, 5",
   "gr": "Exaltent eum",
   "grID": 1119,
@@ -130,7 +130,7 @@ gregorianPropers = {
   "grRef": "Ps 36: 24, 26",
   "al": "Qui sequitur me",
   "alID": 1201,
-  "alRef": "Ioann 8: 12",
+  "alRef": "Joann 8: 12",
   "trSept": "Beatus vir",
   "trSeptID": 7670,
   "trSeptRef": "Ps 111: 1-3",
@@ -364,7 +364,7 @@ gregorianPropers = {
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Beatus vir qui suffert",
   "alID": 724,
-  "alRef": "Iac 1: 12",
+  "alRef": "Jac 1: 12",
   "trSept": "Beatus vir",
   "trSeptID": 7670,
   "trSeptRef": "Ps 111: 1-3",
@@ -913,7 +913,7 @@ gregorianPropers = {
   "grRef": "Ps 144: 15-16",
   "al": "Caro mea",
   "alID": 774,
-  "alRef": "Ioann 6: 56-57",
+  "alRef": "Joann 6: 56-57",
   "trSept": "Ab ortu solis",
   "trSeptID": 644,
   "trSeptRef": "Prov 9: 5",
@@ -943,7 +943,7 @@ gregorianPropers = {
   ],
   "alRef": [
    "Luc 24: 35",
-   "Ioann 6: 56-57"
+   "Joann 6: 56-57"
   ],
   "of": "Sacerdotes (Domini)",
   "ofID": 645,
@@ -1003,7 +1003,7 @@ gregorianPropers = {
   "ofRef": "Ps 68: 21",
   "co": "Unus militum",
   "coID": 1356,
-  "coRef": "Ioann 19: 34",
+  "coRef": "Joann 19: 34",
   "coVerses": "Ps 88: 2-3, 6, 15-16, 18, 25, 29, 34-35"
  },
  "votive_mass_sacred_heart_pt": {
@@ -1030,7 +1030,7 @@ gregorianPropers = {
   "ofRef": "Ps 39: 7-9",
   "co": "Si quis sitit",
   "coID": 154,
-  "coRef": "Ioann 7: 37"
+  "coRef": "Joann 7: 37"
  },
  "votive_mass_holy_cross": {
   "title": "Friday - Votive Mass of the Holy Cross",
@@ -1110,11 +1110,11 @@ gregorianPropers = {
   "ofVerses": "Ps 134: 2, 5",
   "co": "Pacem relinquo",
   "coID": 942,
-  "coRef": "Ioann 14: 27",
+  "coRef": "Joann 14: 27",
   "coVerses": "Ps 121",
   "coPasch": "Pacem meam",
   "coPaschID": 91,
-  "coPaschRef": "Ioann 14: 27",
+  "coPaschRef": "Joann 14: 27",
   "coPaschVerses": "Ps 121",
   "coPaschRubric": "Sung in Paschal Time according to the Graduale Romanum: the words are the same as the previous Comm. Pacem relinquo but reordered a different way."
  },
@@ -1184,7 +1184,7 @@ gregorianPropers = {
   "ofRef": "Ps 8: 6-7",
   "co": "Dicit Andreas",
   "coID": 1021,
-  "coRef": "Ioann 1: 41, 42"
+  "coRef": "Joann 1: 41, 42"
  },
  "st_saturninus": {
   "title": "29 Nov - St Saturninus, Martyr",
@@ -1231,7 +1231,7 @@ gregorianPropers = {
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Beatus vir qui suffert",
   "alID": 724,
-  "alRef": "Iac 1: 12",
+  "alRef": "Jac 1: 12",
   "of": "Veritas mea",
   "ofID": 630,
   "ofRef": "Ps 88: 25",
@@ -1325,7 +1325,7 @@ gregorianPropers = {
   "inVerses": "Ps 29: 4, 5",
   "gr": "Benedicta es tu",
   "grID": 713,
-  "grRef": "Iudith 13: 23, 15, 10",
+  "grRef": "Judith 13: 23, 15, 10",
   "al": "Tota pulchra es",
   "alID": 1057,
   "alRef": "Cant 4: 7",
@@ -1335,7 +1335,7 @@ gregorianPropers = {
   "trSeptRubric": "Sung after Septuagesima instead of the Alleluia.",
   "alPasch": "Tu gloria Jerusalem",
   "alPaschID": 1023,
-  "alPaschRef": "Iudith 15: 10",
+  "alPaschRef": "Judith 15: 10",
   "alPaschRubric": "Sung in Paschal Time, followed by the previous All. Tota pulchra es.",
   "of": "Ave Maria... in mulieribus",
   "ofID": 210,
@@ -1464,7 +1464,7 @@ gregorianPropers = {
   "ofRef": "Ps 18: 5",
   "co": "Mitte manum",
   "coID": 589,
-  "coRef": "Ioann 20: 27",
+  "coRef": "Joann 20: 27",
   "coVerses": "Ps 125"
  },
  "st_hilary": {
@@ -1711,7 +1711,7 @@ gregorianPropers = {
   "grRef": "Eccli 44: 16, 20",
   "al": "Beatus vir qui suffert",
   "alID": 724,
-  "alRef": "Iac 1: 12",
+  "alRef": "Jac 1: 12",
   "trSept": "Beatus vir",
   "trSeptID": 7670,
   "trSeptRef": "Ps 111: 1-3",
@@ -1946,7 +1946,7 @@ gregorianPropers = {
   "alID": 1258,
   "trSept": "Tu gloria (Jerusalem)",
   "trSeptID": 485,
-  "trSeptRef": "Iudith 15: 10; Cant 4: 7",
+  "trSeptRef": "Judith 15: 10; Cant 4: 7",
   "trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
   "of": "Ave (gratia plena)",
   "ofID": 234,
@@ -1978,7 +1978,7 @@ gregorianPropers = {
   "ofRef": "Is 56: 7",
   "co": "Ego (vos elegi)",
   "coID": 470,
-  "coRef": "Ioann 15: 16",
+  "coRef": "Joann 15: 16",
   "coVerses": "Ps 88: 2, 4, 6, 20-22, 25, 29"
  },
  "st_valentine": {
@@ -2281,7 +2281,7 @@ gregorianPropers = {
   "trRef": "Ps 17: 38, 39, 50",
   "of": "Lignum",
   "ofID": 166,
-  "ofRef": "Iob 14: 7",
+  "ofRef": "Job 14: 7",
   "co": "Brachia",
   "coID": 601,
   "coRef": "Ps 36: 17",
@@ -2578,7 +2578,7 @@ gregorianPropers = {
   ],
   "alRef": [
    "Ps 109: 4",
-   "Iac 1: 12"
+   "Jac 1: 12"
   ],
   "of": "Inveni David",
   "ofID": 779,
@@ -2980,11 +2980,11 @@ gregorianPropers = {
   ],
   "gr": "Nova bella",
   "grID": 357,
-  "grRef": "Iudic 5: 8, 11",
+  "grRef": "Judic 5: 8, 11",
   "grRubric": "Votive Mass out of Paschal Time.",
   "al": "Laudate Dominum",
   "alID": 750,
-  "alRef": "Iudith 13: 17-18",
+  "alRef": "Judith 13: 17-18",
   "alRubric": "Votive Mass out of Paschal Time.",
   "trSept": "Audi filia",
   "trSeptID": 738,
@@ -3170,7 +3170,7 @@ gregorianPropers = {
   "ofRef": "Ps 67: 36",
   "co": "Ego (vos elegi)",
   "coID": 470,
-  "coRef": "Ioann 15: 16",
+  "coRef": "Joann 15: 16",
   "coVerses": "Ps 88: 2, 4, 6, 20-22, 25, 29"
  },
  "st_margaret_queen_of_scotland": {
@@ -3399,7 +3399,7 @@ gregorianPropers = {
   "inRef": "Luc 1: 13, 15, 14; Ps 20: 2",
   "gr": "Fuit homo",
   "grID": 424,
-  "grRef": "Ioann 1: 6-7",
+  "grRef": "Joann 1: 6-7",
   "of": "Gloria et honore",
   "ofID": 407,
   "ofRef": "Ps 8: 6-7",
@@ -3418,7 +3418,7 @@ gregorianPropers = {
   "inVerses": "Ps 91: 3, 5",
   "gr": "Priusquam",
   "grID": 647,
-  "grRef": "Ier 1: 5, 9",
+  "grRef": "Jer 1: 5, 9",
   "al": "Tu puer",
   "alID": 847,
   "alRef": "Luc 1: 76",
@@ -3527,10 +3527,10 @@ gregorianPropers = {
   "inVerses": "Ps 88: 6, 8",
   "gr": "Hic est (qui venit)",
   "grID": 1263,
-  "grRef": "1 Ioann 5: 6, 7-8",
+  "grRef": "1 Joann 5: 6, 7-8",
   "al": "Si testimonium",
   "alID": 1038,
-  "alRef": "1 Ioann 9",
+  "alRef": "1 Joann 9",
   "trSept": "Gratificavit nos",
   "trSeptID": 502,
   "trSeptRef": "Ephes 1: 6-8; Rom 3: 24-25",
@@ -3749,7 +3749,7 @@ gregorianPropers = {
   "grRef": "Ps 33: 6, 16",
   "al": "Haec est vita aeterna",
   "alID": 540,
-  "alRef": "Ioann 17: 3",
+  "alRef": "Joann 17: 3",
   "trSept": "Qui seminant",
   "trSeptID": 305,
   "trSeptRef": "Ps 125: 5-6",
@@ -3763,7 +3763,7 @@ gregorianPropers = {
   "ofRef": "Ps 67: 36",
   "co": "Oves meae",
   "coID": 508,
-  "coRef": "Ioann 10: 27-28"
+  "coRef": "Joann 10: 27-28"
  },
  "ss_seven_brothers": {
   "title": "10 Jul - The Seven Holy Brothers, Martyrs. SS Rufina and Secunda, Virgins and Martyrs",
@@ -4164,7 +4164,7 @@ gregorianPropers = {
   "grRef": "Ps 91: 13, 14, 3",
   "al": "Beatus vir qui suffert",
   "alID": 724,
-  "alRef": "Iac 1: 12",
+  "alRef": "Jac 1: 12",
   "of": "Veritas mea",
   "ofID": 630,
   "ofRef": "Ps 88: 25",
@@ -4220,7 +4220,7 @@ gregorianPropers = {
   ],
   "alPaschRef": [
    "Ps 132: 1-2",
-   "Ioann 15: 16"
+   "Joann 15: 16"
   ],
   "alPaschRubric": [
    "Sung at a Votive Mass in Paschal Time.",
@@ -4412,7 +4412,7 @@ gregorianPropers = {
   "grRef": "Ps 111: 9, 2",
   "of": "Oratio (mea)",
   "ofID": 185,
-  "ofRef": "Iob 16: 20",
+  "ofRef": "Job 16: 20",
   "co": "Qui vult venire",
   "coID": 89,
   "coRef": "Matth 16: 24",
@@ -4702,7 +4702,7 @@ gregorianPropers = {
   "grRef": "Ps 36: 30-31",
   "al": "Beatus vir qui suffert",
   "alID": 724,
-  "alRef": "Iac 1: 12",
+  "alRef": "Jac 1: 12",
   "of": "Desiderium pauperum",
   "ofID": 1331,
   "ofRef": "Ps 9: 17",
@@ -4830,7 +4830,7 @@ gregorianPropers = {
   "ofRef": "Ps 33: 12",
   "co": "Caro mea",
   "coID": 90,
-  "coRef": "Ioan 6: 56-57",
+  "coRef": "Joan 6: 56-57",
   "coVerses": "Ps 77: 1-3, 23-25, 29, 70-72"
  },
  "st_lawrence_justinian": {
@@ -4926,7 +4926,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/15-09-Notre-Dame-des-Douleurs",
   "in": "Stabant",
   "inID": 149,
-  "inRef": "Ioann 19: 25, 26-27",
+  "inRef": "Joann 19: 25, 26-27",
   "gr": "Dolorosa",
   "grID": 1383,
   "al": "Stabat sancta Maria",
@@ -5145,7 +5145,7 @@ gregorianPropers = {
   "inVerses": "Ps 102: 21-22",
   "gr": "Angelis (suis)",
   "grID": 834,
-  "grRef": "Ps 90: 11-1, 2",
+  "grRef": "Ps 90: 11-12",
   "al": "Benedicite Domino",
   "alID": 784,
   "alRef": "Ps 102: 21",
@@ -5397,7 +5397,7 @@ gregorianPropers = {
   "alRef": "Prov 31: 20",
   "of": "Justitia",
   "ofID": 515,
-  "ofRef": "Iob 29: 14-16",
+  "ofRef": "Job 29: 14-16",
   "co": "Date (et dabitur)",
   "coID": 1003,
   "coRef": "Luc 6: 38",
@@ -5730,10 +5730,10 @@ gregorianPropers = {
   ],
   "of": "Majorem (caritatem)",
   "ofID": 401,
-  "ofRef": "Ioann 15: 13",
+  "ofRef": "Joann 15: 13",
   "co": "Ego sum (pastor)",
   "coID": 556,
-  "coRef": "Ioann 10: 14",
+  "coRef": "Joann 10: 14",
   "coVerses": "Ps 22"
  },
  "st_albert_the_great": {
@@ -5894,7 +5894,7 @@ gregorianPropers = {
    1057
   ],
   "alPaschRef": [
-   "Iudith 15: 10",
+   "Judith 15: 10",
    "Cant 4: 7"
   ],
   "alPaschRubric": [
@@ -5903,7 +5903,7 @@ gregorianPropers = {
   ],
   "of": "Dixit Jesus",
   "ofID": 687,
-  "ofRef": "Io 19: 27",
+  "ofRef": "Jo 19: 27",
   "co": "Innova signa",
   "coID": 1087,
   "coRef": "Eccli 36: 6-7, 10"
