@@ -209,9 +209,12 @@ keys.forEach(key => {
 
   // TODO: check all propers texts
   // stringSimilarity.findBestMatch(string, arrayOfChoices)
-  var regexLectiones = /\[(Lectio(?:L\d+)?|Evangelium)\]\n[^\r\n]*\n\![^~\n]+\n([^~\n]+~\n)*[^~\n]*\n/g;
+  var regexLectiones = /\[(Lectio(?:L\d+)?)\]\n(?:[^\s@!][^\n]*\n)*(?:@[^~\n]+|[^\r\n]*\n![^~\n]+\n([^~\n]+~\n)*[^~\n]*)(?:\n|$)/g;
+  var regexEvangelium = /\[Evangelium\]\n(?:[^\s!][^\n]*\n)*(?:@[^~\n]+\n|[^\r\n]*\n![^~\n]+\n([^~\n]+~\n)*[^~\n]*)(?:\n|$)/;
+  var regexLectio = /\[[^\]]+\]\n(?:[^\s@!][^\n]*\n)*(?:@[^~\n]+|[^\r\n]*\n![^~\n]+\n([^~\n]+~\n)*[^~\n]*)\n/;
   var lectiones = info.match(regexLectiones);
-  while(!lectiones) {
+  var evangelium = info.match(regexEvangelium);
+  while(!lectiones || !evangelium) {
     var reference = info.match(/\[Rule\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
     if(!reference) reference = info.match(/\[Rank1960\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
     if(!reference) reference = info.match(/\[Rank\]\n(.*[\n;](?!\n))*(vide|ex)\s+([^;\n]+)/);
@@ -233,14 +236,23 @@ keys.forEach(key => {
       return;
     }
     info = fs.readFileSync(fname,'utf8');
-    lectiones = info.match(regexLectiones);
+    if(!lectiones) lectiones = info.match(regexLectiones);
+    if(!evangelium) evangelium = info.match(regexEvangelium);
   }
-  if(!lectiones) {
+  if(!lectiones || !evangelium) {
     missing.push(fname + ': ' + key);
     return;
   }
+  lectiones.push(evangelium[0]);
+  var regex = /(?:^|\n)(?:[^\s@!][^\n]*\n)*(?:!([^\r\n]+)\n((?:[^~\n]+~\n)*[^~\n]*)|@([^:\n]*):([^\n]+)\n)(?:\n|$)/;
   lex[key] = lectiones.map(lectio => {
-    var match = lectio.match(/(?:^|\n)!([^\r\n]+)\n((?:[^~\n]+~\n)*[^~\n]*)(?:\n|$)/);
+    var match = lectio.match(regex);
+    while(match[4]) {
+      let fname = dirMain + match[3] + '.txt';
+      var contents = match[3]? fs.readFileSync(fname,'utf8') : info;
+      lectio = contents.slice(contents.indexOf(`[${match[4]}]`)).match(regexLectio)[0];
+      match = lectio.match(regex);
+    }
     var ref = vr.parseRef(match[1]);
     var fullText = match[2].replace(/\s*~\n\s*/g,' ');
     var show = ref[0].book.match(/Eccli/);
