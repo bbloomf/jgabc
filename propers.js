@@ -3087,11 +3087,12 @@ $(function(){
         var firstNote = '',
             lastNote = '';
         for(var i=0; i < 10; ++i) {
-          if(notations[i].isNeume) {
+          if(!firstNote && notations[i].isNeume) {
             firstNote = notations[i].notes[0];
             firstNote = (16 + firstNote.staffPosition).toString(23) + '+';
           }
-          if(notations[lastI - i].isNeume) {
+          if(!lastNote && notations[lastI - i].isNeume) {
+            // TODO: this needs to ignore the verse and Gloria Patri in the Introit
             lastNote = notations[lastI - i].notes.slice(-1)[0];
             lastNote = (16 + lastNote.staffPosition).toString(23) + '+';
           }
