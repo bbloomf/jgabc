@@ -244,6 +244,9 @@ ${JSON.stringify(incipitId,1,' ')}`);
                   refs[1] = ref;
                   ref = "";
                 }
+                if(ref) {
+                  ref = ref.replace(/\bI([aeouy])/,'J$1');
+                }
                 if(storePropria) {
                   if(match[1]) {
                     propria[key+"Ref"] = propria[key+"Ref"] || [];

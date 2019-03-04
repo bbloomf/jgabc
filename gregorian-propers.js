@@ -290,10 +290,10 @@ gregorianPropers = {
   "inVerses": "Ps 91: 13-14",
   "gr": "Exiit (sermo)",
   "grID": 702,
-  "grRef": "Ioann 21: 23, 19",
+  "grRef": "Joann 21: 23, 19",
   "al": "Hic est discipulus",
   "alID": 914,
-  "alRef": "Ioann 21: 24",
+  "alRef": "Joann 21: 24",
   "trSept": "Beatus vir",
   "trSeptID": 7670,
   "trSeptRef": "Ps 111: 1-3",
@@ -308,7 +308,7 @@ gregorianPropers = {
   "ofVerses": "Ps 91: 2",
   "co": "Exiit (sermo)",
   "coID": 781,
-  "coRef": "Ioann 21: 23",
+  "coRef": "Joann 21: 23",
   "coVerses": "Ps 88: 2, 4-5, 6, 8, 20-22, 25"
  },
  "holy_innocents": {
@@ -374,13 +374,13 @@ gregorianPropers = {
   "grRef": "Eccli 44: 16, 20",
   "al": "Ego sum pastor bonus",
   "alID": 1220,
-  "alRef": "Ioann 10: 14",
+  "alRef": "Joann 10: 14",
   "of": "Posuisti (Domine)",
   "ofID": 487,
   "ofRef": "Ps 20: 4-5",
   "co": "Ego sum (pastor)",
   "coID": 556,
-  "coRef": "Ioann 10: 14",
+  "coRef": "Joann 10: 14",
   "coVerses": "Ps 22"
  },
  "within_octave_christmas": {
@@ -586,7 +586,7 @@ gregorianPropers = {
   "ofVerses": "Ps 65: 13, 14",
   "co": "Dicit Dominus",
   "coID": 230,
-  "coRef": "Ioann 2: 7, 8, 9, 10-11",
+  "coRef": "Joann 2: 7, 8, 9, 10-11",
   "coVerses": "Ps 65: 1-3, 5-6, 8-9"
  },
  "epiphany3": {
@@ -748,7 +748,7 @@ gregorianPropers = {
   "inVerses": "Ps 90: 2, 11",
   "gr": "Angelis (suis)",
   "grID": 834,
-  "grRef": "Ps 90: 11-1, 2",
+  "grRef": "Ps 90: 11-12",
   "tr": "Qui habitat",
   "trID": 889,
   "trRef": "Ps 90: 1-7, 11-16",
@@ -839,7 +839,7 @@ gregorianPropers = {
   "ofVerses": "Ps 33: 1",
   "co": "Panis quem ego",
   "coID": 782,
-  "coRef": "Ioann 6: 52",
+  "coRef": "Joann 6: 52",
   "coVerses": "Ps 110: 1-10"
  },
  "lent1fri": {
@@ -1003,7 +1003,7 @@ gregorianPropers = {
   "ofVerses": "Exodi 33",
   "co": "Qui manducat",
   "coID": 798,
-  "coRef": "Ioann 6: 57",
+  "coRef": "Joann 6: 57",
   "coVerses": "Ps 118: 1-2, 11, 49-50, 72, 103, 105, 162"
  },
  "lent2fri": {
@@ -1167,7 +1167,7 @@ gregorianPropers = {
   "ofRef": "Ps 5: 3-4",
   "co": "Qui biberit",
   "coID": 894,
-  "coRef": "Ioann 4: 13, 14",
+  "coRef": "Joann 4: 13, 14",
   "coVerses": "Is 12: 1-6"
  },
  "lent3sat": {
@@ -1185,7 +1185,7 @@ gregorianPropers = {
   "ofRef": "Ps 118: 133",
   "co": "Nemo te condemnavit",
   "coID": 1010,
-  "coRef": "Ioann 8: 10, 11",
+  "coRef": "Joann 8: 10, 11",
   "coVerses": "Ps 31: 1-3, 5, 8, 10-11"
  },
  "lent4": {
@@ -1278,7 +1278,7 @@ gregorianPropers = {
   "ofVerses": "Ps 65: 1, 2",
   "co": "Lutum fecit",
   "coID": 989,
-  "coRef": "Ioann 9: 11",
+  "coRef": "Joann 9: 11",
   "coVerses": "Ps 33: 1, 3-6, 8"
  },
  "lent4thu": {
@@ -1318,7 +1318,7 @@ gregorianPropers = {
   "ofVerses": "Ps 17: 7",
   "co": "Videns Dominus",
   "coID": 704,
-  "coRef": "Ioann 11: 33, 35, 43, 44, 39",
+  "coRef": "Joann 11: 33, 35, 43, 44, 39",
   "coVerses": "Ps 21: 2-3, 22-25"
  },
  "lent4sat": {
@@ -1573,7 +1573,7 @@ gregorianPropers = {
   "ofVerses": "Ps 117: 5, 7",
   "co": "Dominus Jesus",
   "coID": 140,
-  "coRef": "Ioann 13: 12, 13, 15",
+  "coRef": "Joann 13: 12, 13, 15",
   "coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
  },
  "easter_sunday": {
@@ -1760,7 +1760,7 @@ gregorianPropers = {
   ],
   "alRef": [
    "Matth 28: 7",
-   "Ioann 20: 26"
+   "Joann 20: 26"
   ],
   "of": "Angelus Domini",
   "ofID": 789,
@@ -1768,7 +1768,7 @@ gregorianPropers = {
   "ofVerses": "Matth 28: 7",
   "co": "Mitte manum... Alleluia",
   "coID": 953,
-  "coRef": "Ioann 20: 27",
+  "coRef": "Joann 20: 27",
   "coVerses": "Ps 117: 1-2, 5, 8, 10-11, 13-17, 21-26"
  },
  "easter2": {
@@ -1788,7 +1788,7 @@ gregorianPropers = {
   ],
   "alRef": [
    "Luc 24: 35",
-   "Ioann 10: 14"
+   "Joann 10: 14"
   ],
   "of": "Deus Deus meus",
   "ofID": 924,
@@ -1796,7 +1796,7 @@ gregorianPropers = {
   "ofVerses": "Ps 62: 2, 3",
   "co": "Ego sum pastor",
   "coID": 95,
-  "coRef": "Ioann 10: 14",
+  "coRef": "Joann 10: 14",
   "coVerses": "Ps 22"
  },
  "easter3": {
@@ -1824,7 +1824,7 @@ gregorianPropers = {
   "ofVerses": "Ps 145: 7",
   "co": "Modicum",
   "coID": 813,
-  "coRef": "Ioann 16: 16",
+  "coRef": "Joann 16: 16",
   "coVerses": "Ps 65: 1-2, 4-6, 8-9, 16, 20"
  },
  "easter4": {
@@ -1852,7 +1852,7 @@ gregorianPropers = {
   "ofVerses": "Ps 65: 13, 14",
   "co": "Dum venerit Paraclitus",
   "coID": 39,
-  "coRef": "Ioann 16: 8",
+  "coRef": "Joann 16: 8",
   "coVerses": "Ps 97: 1, 2-7"
  },
  "easter5": {
@@ -1871,7 +1871,7 @@ gregorianPropers = {
    1040
   ],
   "alRef": [
-   "Ioann 16: 28"
+   "Joann 16: 28"
   ],
   "of": "Benedicite gentes",
   "ofID": 860,
@@ -1985,7 +1985,7 @@ gregorianPropers = {
   ],
   "alRef": [
    "Ps 46: 9",
-   "Ioann 14: 18"
+   "Joann 14: 18"
   ],
   "of": "Ascendit Deus",
   "ofID": 211,
@@ -1993,7 +1993,7 @@ gregorianPropers = {
   "ofVerses": "Ps 46: 2",
   "co": "Pater cum essem",
   "coID": 1091,
-  "coRef": "Ioann 17: 12-13, 15",
+  "coRef": "Joann 17: 12-13, 15",
   "coVerses": "Ps 121: 1-2, 5-9"
  },
  "pentecost_vigil": {
@@ -2013,7 +2013,7 @@ gregorianPropers = {
   "ofRef": "Ps 103: 30-31",
   "co": "Ultimo festivitatis",
   "coID": 255,
-  "coRef": "Ioann 7: 37-39",
+  "coRef": "Joann 7: 37-39",
   "coVerses": "Ps 103: 1, 30-31, 33-34"
  },
  "pentecost": {
@@ -2072,7 +2072,7 @@ gregorianPropers = {
   "ofRef": "Ps 17: 14, 16",
   "co": "Spiritus Sanctus",
   "coID": 1151,
-  "coRef": "Ioann 14: 26",
+  "coRef": "Joann 14: 26",
   "coVerses": "Ps 50: 3, 9-10, 12-15, 17, 20"
  },
  "pentecost_tue": {
@@ -2091,7 +2091,7 @@ gregorianPropers = {
    181
   ],
   "alRef": [
-   "Ioann 14: 26",
+   "Joann 14: 26",
    ""
   ],
   "seq": "Veni Sancte Spiritus",
@@ -2101,7 +2101,7 @@ gregorianPropers = {
   "ofRef": "Ps 77: 23-25",
   "co": "Spiritus qui",
   "coID": 333,
-  "coRef": "Ioann 15: 26; 16: 14; 17: 1, 5",
+  "coRef": "Joann 15: 26; 16: 14; 17: 1, 5",
   "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
  },
  "pentecost_wed": {
@@ -2131,7 +2131,7 @@ gregorianPropers = {
   "ofVerses": "Ps 118: 57, 58",
   "co": "Pacem meam",
   "coID": 91,
-  "coRef": "Ioann 14: 27",
+  "coRef": "Joann 14: 27",
   "coVerses": "Ps 121"
  },
  "pentecost_fri": {
@@ -2160,7 +2160,7 @@ gregorianPropers = {
   "ofRef": "Ps 145: 2",
   "co": "Non vos relinquam",
   "coID": 981,
-  "coRef": "Ioann 14: 18",
+  "coRef": "Joann 14: 18",
   "coVerses": "Ps 121"
  },
  "pentecost_sat": {
@@ -2184,8 +2184,8 @@ gregorianPropers = {
    1289
   ],
   "grRef": [
-   "Ioann 6: 64",
-   "Iob 26: 13",
+   "Joann 6: 64",
+   "Job 26: 13",
    "Act 2: 1",
    "",
    "Dan 3: 52"
@@ -2200,7 +2200,7 @@ gregorianPropers = {
   "ofRef": "Ps 87: 2-3",
   "co": "Spiritus ubi vult",
   "coID": 190,
-  "coRef": "Ioann 3: 8",
+  "coRef": "Joann 3: 8",
   "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
  },
  "p1": {
@@ -2253,7 +2253,7 @@ gregorianPropers = {
   "grRef": "Ps 144: 15-16",
   "al": "Caro mea",
   "alID": 774,
-  "alRef": "Ioann 6: 56-57",
+  "alRef": "Joann 6: 56-57",
   "seq": "Lauda Sion",
   "seqID": 308,
   "of": "Sacerdotes Domini",
@@ -2305,7 +2305,7 @@ gregorianPropers = {
   "ofRef": "Ps 68: 21",
   "co": "Unus militum",
   "coID": 1356,
-  "coRef": "Ioann 19: 34",
+  "coRef": "Joann 19: 34",
   "coVerses": "Ps 88: 2-3, 6, 15-16, 18, 25, 29, 34-35"
  },
  "p3": {
@@ -2459,7 +2459,7 @@ gregorianPropers = {
   "ofVerses": "Ps 18: 9, 10",
   "co": "Qui manducat",
   "coID": 798,
-  "coRef": "Ioann 6: 57",
+  "coRef": "Joann 6: 57",
   "coVerses": "Ps 118: 1-2, 11, 49-50, 72, 103, 105, 162"
  },
  "p10": {
@@ -2591,7 +2591,7 @@ gregorianPropers = {
   "ofVerses": "Ps 39: 3",
   "co": "Panis quem ego",
   "coID": 782,
-  "coRef": "Ioann 6: 52",
+  "coRef": "Joann 6: 52",
   "coVerses": "Ps 110: 1-10"
  },
  "p16": {
@@ -2803,7 +2803,7 @@ gregorianPropers = {
   "alRef": "Ps 113: 1",
   "of": "Vir erat",
   "ofID": 1363,
-  "ofRef": "Iob 1",
+  "ofRef": "Job 1",
   "co": "In salutari",
   "coID": 1290,
   "coRef": "Ps 118: 81, 84, 86",
@@ -2835,7 +2835,7 @@ gregorianPropers = {
   "href": "http://www.introibo.fr/23eme-Dimanche-apres-la-Pentecote",
   "in": "Dicit Dominus : Ego",
   "inID": 735,
-  "inRef": "Ier 29: 11, 12, 14; Ps 84: 2",
+  "inRef": "Jer 29: 11, 12, 14; Ps 84: 2",
   "inVerses": "Ps 84: 3, 13",
   "gr": "Liberasti nos",
   "grID": 395,

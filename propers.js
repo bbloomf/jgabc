@@ -2917,9 +2917,10 @@ $(function(){
           hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
+          isExtra = /^extra-/.test(part),
           header = getHeader(gabc);
       if($includePart.parent('li').hasClass('disabled') ||
-        includePropers.indexOf(part)<0 ||
+        (!isExtra && includePropers.indexOf(part)<0) ||
         !gabc) return;
       header.name = name || '';
       if(name) {
