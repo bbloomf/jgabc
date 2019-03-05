@@ -1,4 +1,64 @@
 var lectiones = {
+ "votiveMPI": [
+  "Jacobi 5: 13-16",
+  "Matthæus 8: 5-13"
+ ],
+ "votiveECJ": [
+  "Ad Ephesios 3: 8-19",
+  "Lucas 22: 15-20"
+ ],
+ "ECJ": [
+  "Ad Ephesios 3: 8-19",
+  "Lucas 22: 15-20"
+ ],
+ "litaniis": [
+  "Jacobi 5: 16-20",
+  "Lucas 11: 5-13"
+ ],
+ "votiveST": [
+  "2 Ad Corinthios 13: 11, 13",
+  "Joannes 15: 26-27; 16: 1-4"
+ ],
+ "votiveA": [
+  "Apocalypsis 5: 11-14",
+  "Joannes 1: 47-51"
+ ],
+ "votiveJ": [
+  "Genesis 49: 22-26",
+  "Lucas 3: 21-23"
+ ],
+ "votivePP": [
+  "Actus Apostolorum 5: 12-16",
+  "Matthæus 19: 27-29"
+ ],
+ "votiveOA": [
+  "Ad Ephesios 4: 7-13",
+  "Matthæus 19: 27-29"
+ ],
+ "votiveSS": [
+  "Actus Apostolorum 8: 14-17",
+  "Joannes 14: 23-31"
+ ],
+ "votiveSES": [
+  "1 Ad Corinthios 11: 23-29",
+  "Joannes 6: 56-59"
+ ],
+ "votiveJCSES": [
+  "Ad Hebræos 5: 1-11",
+  "Lucas 22: 14-20"
+ ],
+ "votiveSC": [
+  "Ad Philippenses 2: 8-11",
+  "Matthæus 20: 17-19"
+ ],
+ "votivePJC": [
+  "Zacharias 12: 10-11; 13: 6-7",
+  "Joannes 19: 28-35"
+ ],
+ "nuptialis": [
+  "Ad Ephesios 5: 22-33",
+  "Matthæus 19: 3-6"
+ ],
  "SMadvent": [
   "Isaias 7: 10-15",
   "Lucas 1: 26-38"
