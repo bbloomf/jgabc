@@ -194,6 +194,7 @@ var otherKeys = [
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
     {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
+    {key:"votiveMPI", title:"Missa votiva pro Infirmis",en:"Votive Mass for the Sick"},
     {key:"votiveECJ",title:"Missa votiva de Eucharistico Corde Jesu",en:"Votive Mass of the Eucharistic Heart of Jesus"}
 ];
 var saintKeys = [
@@ -1791,6 +1792,27 @@ var proprium = {
         "gbid": "mass_dedication_church",
         "inVerses": "Ps 83: 4, 5",
         "coVerses": "Ps 83: 2-5, 9-11"
+    },
+    "votiveMPI": {
+        "inID": 904,
+        "grID": 562,
+        "alID": 595,
+        "ofID": 842,
+        "coID": 640
+    },
+    "votiveMPIQuad": {
+        "inID": 904,
+        "grID": 562,
+        "trID": 729,
+        "ofID": 842,
+        "coID": 640
+    },
+    "votiveMPIPasch": {
+        "inID": 904,
+        "grID": 595,
+        "alID": 1285,
+        "ofID": 842,
+        "coID": 640
     },
     "Dec24": {
         "inID": 150,
