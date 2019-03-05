@@ -168,6 +168,8 @@ var otherKeys = [
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
     {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
+    {key:"votiveESP", title:"Missa votiva pro eligendo Summo Pontifice",en:"Votive Mass for electing a pope"},
+    {key:"votiveFP", title:"Missa votiva pro Fidei Propagatione",en:"Votive Mass for the propagation of the faith"},
     {key:"votiveMPI", title:"Missa votiva pro Infirmis",en:"Votive Mass for the Sick"},
     {key:"votiveECJ",title:"Missa votiva de Eucharistico Corde Jesu",en:"Votive Mass of the Eucharistic Heart of Jesus"}
 ];
@@ -1787,6 +1789,48 @@ var proprium = {
         "alID": 1285,
         "ofID": 842,
         "coID": 640
+    },
+    "votiveESP": {
+      "introitusID": 1286,
+      "gradualeID": 546,
+      "alleluiaID": 679,
+      "offertoriumID": 690,
+      "communioID": 145
+    },
+    "votiveESPQuad": {
+      "introitusID": 1286,
+      "gradualeID": 546,
+      "tractusID": 597,
+      "offertoriumID": 690,
+      "communioID": 145
+    },
+    "votiveESPPasch": {
+      "introitusID": 1286,
+      "gradualeID": 679,
+      "alleluiaID": 1220,
+      "offertoriumID": 690,
+      "communioID": 145
+    },
+    "votiveFP": {
+      "introitusID": 2,
+      "gradualeID": 632,
+      "alleluiaID": 253,
+      "offertoriumID": 1277,
+      "communioID": 322
+    },
+    "votiveFPQuad": {
+      "introitusID": 2,
+      "gradualeID": 632,
+      "tractusID": 516,
+      "offertoriumID": 1277,
+      "communioID": 322
+    },
+    "votiveFPPasch": {
+      "introitusID": 2,
+      "gradualeID": 253,
+      "alleluiaID": 1164,
+      "offertoriumID": 1277,
+      "communioID": 322
     },
     "Dec24": {
         "inID": 150,
