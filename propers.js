@@ -3089,18 +3089,25 @@ $(function(){
         for(var i=0; i < 10; ++i) {
           if(!firstNote && notations[i].isNeume) {
             firstNote = notations[i].notes[0];
-            firstNote = (16 + firstNote.staffPosition).toString(23) + '+';
+            firstNote = (16 + firstNote.staffPosition).toString(23);
           }
           if(!lastNote && notations[lastI - i].isNeume) {
             // TODO: this needs to ignore the verse and Gloria Patri in the Introit
             lastNote = notations[lastI - i].notes.slice(-1)[0];
-            lastNote = (16 + lastNote.staffPosition).toString(23) + '+';
+            lastNote = (16 + lastNote.staffPosition).toString(23);
           }
           if(firstNote && lastNote) break;
         }
-        state.startOfVerse = '('+lastNote+') ';
-        state.endOfVerse = '(::) _Ant._('+firstNote+'Z)';
-        state.activeGabc = getPsalmToneForPart(versePart);
+        var tone = getIntroitTone(state);
+        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc);
+        var lastNoteMatch = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/.exec(sel[part].gabc);
+        if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
+          console.info(lastNoteMatch[1], lastNote);
+        }
+        lastNote = lastNoteMatch[1].toLowerCase();
+        state.startOfVerse = '('+lastNote+'+) ';
+        state.endOfVerse = '(::) _Ant._('+firstNote+'+Z)';
+        state.activeGabc = getPsalmToneForPart(versePart) + state.startOfVerse + 'V/. ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
         updateExsurge(versePart, null, true);
       });
     }
