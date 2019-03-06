@@ -2354,7 +2354,7 @@ var proprium = {
         "ofID": 987,
         "coID": 190,
         "sequentiaReplace": gabcRemoveLastAlleluia,
-        "gloria": "before#divTractus",
+        "gloria": "before#divLectioAnteTractu",
         "rubrics": {
             "before#divGraduale": "After each Lesson, the Cantor intones <Allelúia.>  The Choir continues the Chant, without repeating the intonation.  <Allelúia.> is not repeated at the end of the Verse."
         },
@@ -2368,7 +2368,7 @@ var proprium = {
         "seqID": 68,
         "ofID": 987,
         "coID": 190,
-        "gloria": "before#divTractus",
+        "gloria": "before#divLectioAnteTractu",
         "fromGregorianBooks": []
     },
     "Pent1": {

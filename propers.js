@@ -713,6 +713,10 @@ $(function(){
     var match = /^Pent(Epi\d)$/.exec(selDay);
     var lecDay = match? match[1] : selDay;
     var readings = lectiones[lecDay];
+    if(!readings && /s$/i.test(lecDay)) {
+      readings = lectiones[lecDay.slice(0,-1)];
+      readings = [readings[0]].concat(readings.slice(-2));
+    }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
