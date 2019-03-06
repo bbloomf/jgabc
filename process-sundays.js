@@ -270,6 +270,7 @@ keys.forEach(key => {
     fname = `${dir}${k}-${ending}r.txt`;
     exists = fs.existsSync(fname);
     if(!exists) {
+      if(/s$/i.test(key) && (key.slice(0,-1) in proprium)) return;
       if(!(key in lex) && !proprium[key].title) {
         notFound.push(`${dir}${k}-${ending}.txt`);
       }
