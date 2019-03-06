@@ -712,6 +712,10 @@ $(function(){
     var match = /^Pent(Epi\d)$/.exec(selDay);
     var lecDay = match? match[1] : selDay;
     var readings = lectiones[lecDay];
+    if(!readings && /s$/i.test(lecDay)) {
+      readings = lectiones[lecDay.slice(0,-1)];
+      readings = [readings[0]].concat(readings.slice(-2));
+    }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
@@ -759,7 +763,7 @@ $(function(){
           [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
             var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
             getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
-              $lectio.append(reading);
+              $lectio.empty().append(reading);
             });
           });
         });
@@ -2903,9 +2907,10 @@ $(function(){
           hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
+          isExtra = /^extra-/.test(part),
           header = getHeader(gabc);
       if($includePart.parent('li').hasClass('disabled') ||
-        includePropers.indexOf(part)<0 ||
+        (!isExtra && includePropers.indexOf(part)<0) ||
         !gabc) return;
       header.name = name || '';
       if(name) {

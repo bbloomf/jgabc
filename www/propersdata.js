@@ -168,6 +168,9 @@ var otherKeys = [
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
     {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
+    {key:"votiveESP", title:"Missa votiva pro eligendo Summo Pontifice",en:"Votive Mass for electing a pope"},
+    {key:"votiveFP", title:"Missa votiva pro Fidei Propagatione",en:"Votive Mass for the propagation of the faith"},
+    {key:"votiveMPI", title:"Missa votiva pro Infirmis",en:"Votive Mass for the Sick"},
     {key:"votiveECJ",title:"Missa votiva de Eucharistico Corde Jesu",en:"Votive Mass of the Eucharistic Heart of Jesus"}
 ];
 var saintKeys = [
@@ -1766,6 +1769,69 @@ var proprium = {
         "inVerses": "Ps 83: 4, 5",
         "coVerses": "Ps 83: 2-5, 9-11"
     },
+    "votiveMPI": {
+        "inID": 904,
+        "grID": 562,
+        "alID": 595,
+        "ofID": 842,
+        "coID": 640
+    },
+    "votiveMPIQuad": {
+        "inID": 904,
+        "grID": 562,
+        "trID": 729,
+        "ofID": 842,
+        "coID": 640
+    },
+    "votiveMPIPasch": {
+        "inID": 904,
+        "grID": 595,
+        "alID": 1285,
+        "ofID": 842,
+        "coID": 640
+    },
+    "votiveESP": {
+      "introitusID": 1286,
+      "gradualeID": 546,
+      "alleluiaID": 679,
+      "offertoriumID": 690,
+      "communioID": 145
+    },
+    "votiveESPQuad": {
+      "introitusID": 1286,
+      "gradualeID": 546,
+      "tractusID": 597,
+      "offertoriumID": 690,
+      "communioID": 145
+    },
+    "votiveESPPasch": {
+      "introitusID": 1286,
+      "gradualeID": 679,
+      "alleluiaID": 1220,
+      "offertoriumID": 690,
+      "communioID": 145
+    },
+    "votiveFP": {
+      "introitusID": 2,
+      "gradualeID": 632,
+      "alleluiaID": 253,
+      "offertoriumID": 1277,
+      "communioID": 322
+    },
+    "votiveFPQuad": {
+      "introitusID": 2,
+      "gradualeID": 632,
+      "tractusID": 516,
+      "offertoriumID": 1277,
+      "communioID": 322
+    },
+    "votiveFPPasch": {
+      "introitusID": 2,
+      "gradualeID": 253,
+      "alleluiaID": 1164,
+      "offertoriumID": 1277,
+      "communioID": 322
+    },
     "Dec24": {
         "inID": 150,
         "grID": 202,
@@ -2262,7 +2328,7 @@ var proprium = {
         "ofID": 987,
         "coID": 190,
         "sequentiaReplace": gabcRemoveLastAlleluia,
-        "gloria": "before#divTractus",
+        "gloria": "before#divLectioAnteTractu",
         "rubrics": {
             "before#divGraduale": "After each Lesson, the Cantor intones <Allelúia.>  The Choir continues the Chant, without repeating the intonation.  <Allelúia.> is not repeated at the end of the Verse."
         },
@@ -2276,7 +2342,7 @@ var proprium = {
         "seqID": 68,
         "ofID": 987,
         "coID": 190,
-        "gloria": "before#divTractus",
+        "gloria": "before#divLectioAnteTractu",
         "fromGregorianBooks": []
     },
     "Pent1": {

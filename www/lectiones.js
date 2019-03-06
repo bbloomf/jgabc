@@ -1,4 +1,72 @@
 var lectiones = {
+ "votiveMPI": [
+  "Jacobi 5: 13-16",
+  "Matthæus 8: 5-13"
+ ],
+ "votiveECJ": [
+  "Ad Ephesios 3: 8-19",
+  "Lucas 22: 15-20"
+ ],
+ "ECJ": [
+  "Ad Ephesios 3: 8-19",
+  "Lucas 22: 15-20"
+ ],
+ "litaniis": [
+  "Jacobi 5: 16-20",
+  "Lucas 11: 5-13"
+ ],
+ "votiveST": [
+  "2 Ad Corinthios 13: 11, 13",
+  "Joannes 15: 26-27; 16: 1-4"
+ ],
+ "votiveA": [
+  "Apocalypsis 5: 11-14",
+  "Joannes 1: 47-51"
+ ],
+ "votiveJ": [
+  "Genesis 49: 22-26",
+  "Lucas 3: 21-23"
+ ],
+ "votivePP": [
+  "Actus Apostolorum 5: 12-16",
+  "Matthæus 19: 27-29"
+ ],
+ "votiveOA": [
+  "Ad Ephesios 4: 7-13",
+  "Matthæus 19: 27-29"
+ ],
+ "votiveSS": [
+  "Actus Apostolorum 8: 14-17",
+  "Joannes 14: 23-31"
+ ],
+ "votiveSES": [
+  "1 Ad Corinthios 11: 23-29",
+  "Joannes 6: 56-59"
+ ],
+ "votiveJCSES": [
+  "Ad Hebræos 5: 1-11",
+  "Lucas 22: 14-20"
+ ],
+ "votiveSC": [
+  "Ad Philippenses 2: 8-11",
+  "Matthæus 20: 17-19"
+ ],
+ "votivePJC": [
+  "Zacharias 12: 10-11; 13: 6-7",
+  "Joannes 19: 28-35"
+ ],
+ "nuptialis": [
+  "Ad Ephesios 5: 22-33",
+  "Matthæus 19: 3-6"
+ ],
+ "votiveESP": [
+  "Ad Hebræos 4: 16; 5: 1-7",
+  "Joannes 14: 15-21"
+ ],
+ "votiveFP": [
+  "Ecclesiasticus 36: 1-10, 17-19",
+  "Matthæus 9: 35-38"
+ ],
  "SMadvent": [
   "Isaias 7: 10-15",
   "Lucas 1: 26-38"
@@ -517,18 +585,21 @@ var lectiones = {
   "Joannes 12: 10-36"
  ],
  "Quad6": [
-  "Ad Philippenses 2: 5-11"
+  "Ad Philippenses 2: 5-11",
+  "Matthæus 26: 1-75; 27: 1-66"
  ],
  "Quad6m": [
   "Isaias 50: 5-10",
   "Joannes 12: 1-9"
  ],
  "Quad6t": [
-  "Jeremias 11: 18-20"
+  "Jeremias 11: 18-20",
+  "Marcus 14: 32-72; 15: 1-46"
  ],
  "Quad6w": [
   "Isaias 63: 1-7",
-  "Isaias 53: 1-12"
+  "Isaias 53: 1-12",
+  "Lucas 22: 39-71; 23: 1-53"
  ],
  "Quad6h": [
   "1 Ad Corinthios 11: 20-32",
@@ -539,6 +610,7 @@ var lectiones = {
   "Matthæus 16: 13-19"
  ],
  "Apr13": [
+  "Sapientia 10: 10-14",
   "Lucas 14: 26-33"
  ],
  "Apr14": [
@@ -550,7 +622,8 @@ var lectiones = {
   "Matthæus 16: 13-19"
  ],
  "Apr2": [
-  "Ad Philippenses 3: 7-12"
+  "Ad Philippenses 3: 7-12",
+  "Lucas 12: 32-34"
  ],
  "Apr21": [
   "2 Ad Timotheum 4: 1-8",
@@ -561,7 +634,8 @@ var lectiones = {
   "Matthæus 16: 13-19"
  ],
  "Apr23": [
-  "2 Ad Timotheum 2: 8-10; 3: 10-12"
+  "2 Ad Timotheum 2: 8-10; 3: 10-12",
+  "Matthæus 10: 34-42"
  ],
  "Apr28": [
   "1 Ad Corinthios 1: 17-25",
@@ -588,7 +662,8 @@ var lectiones = {
   "Joannes 12: 24-26"
  ],
  "Aug11": [
-  "Ad Hebræos 11: 33-39"
+  "Ad Hebræos 11: 33-39",
+  "Lucas 21: 9-19"
  ],
  "Aug15": [
   "Judith 13: 22-25; 15: 10",
@@ -756,7 +831,7 @@ var lectiones = {
  ],
  "Jan17": [
   "Ecclesiasticus 45: 1-6",
-  "Matthæus 19: 27-29"
+  "Lucas 12: 35-40"
  ],
  "Jan18": [
   "1 Petri 1: 1-7",
@@ -779,7 +854,8 @@ var lectiones = {
   "Lucas 12: 35-40"
  ],
  "Jan24": [
-  "1 Ad Timotheum 6: 11-16"
+  "1 Ad Timotheum 6: 11-16",
+  "Matthæus 10: 34-42"
  ],
  "Jan25": [
   "Actus Apostolorum 9: 1-22",
@@ -970,7 +1046,7 @@ var lectiones = {
   "Lucas 1: 26-38"
  ],
  "Mar27": [
-  "Sapientia 10: 10-17",
+  "Sapientia 10: 10-14",
   "Lucas 6: 6-11"
  ],
  "Mar28": [
@@ -982,9 +1058,11 @@ var lectiones = {
   "Matthæus 13: 44-52"
  ],
  "Mar7": [
-  "Sapientia 7: 7-14"
+  "Sapientia 7: 7-14",
+  "Matthæus 5: 13-19"
  ],
  "Mar8": [
+  "Ecclesiasticus 31: 8-11",
   "Matthæus 22: 34-46"
  ],
  "Mar9": [
@@ -1008,7 +1086,8 @@ var lectiones = {
   "Joannes 4: 46-53"
  ],
  "May13": [
-  "Sapientia 7: 7-14"
+  "Sapientia 7: 7-14",
+  "Matthæus 5: 13-19"
  ],
  "May15": [
   "Ecclesiasticus 31: 8-11",
@@ -1075,7 +1154,8 @@ var lectiones = {
   "Matthæus 25: 1-13"
  ],
  "Nov23": [
-  "Ad Philippenses 3: 17-21; 4: 1-3"
+  "Ad Philippenses 3: 17-21; 4: 1-3",
+  "Matthæus 16: 13-19"
  ],
  "Nov25": [
   "Ecclesiasticus 51: 1-8, 12",
@@ -1234,14 +1314,15 @@ var lectiones = {
   "Matthæus 5: 13-19"
  ],
  "Apr29": [
-  "2 Ad Timotheum 2: 8-10; 3: 10-12"
+  "2 Ad Timotheum 2: 8-10; 3: 10-12",
+  "Matthæus 10: 34-42"
  ],
  "May7": [
   "Sapientia 10: 10-14",
   "Matthæus 10: 34-42"
  ],
  "May9": [
-  "2 Ad Timotheum 4: 1-8",
+  "Ecclesiasticus 39: 6-14",
   "Matthæus 5: 13-19"
  ],
  "May17": [
@@ -1289,7 +1370,8 @@ var lectiones = {
   "Matthæus 25: 1-13"
  ],
  "Jun20": [
-  "Judæ 1: 17-21"
+  "Judæ 1: 17-21",
+  "Lucas 21: 9-19"
  ],
  "Jun25": [
   "Ecclesiasticus 45: 1-6",
@@ -1312,7 +1394,8 @@ var lectiones = {
   "Matthæus 19: 27-29"
  ],
  "Jul21": [
-  "1 Ad Corinthios 7: 25-34"
+  "1 Ad Corinthios 7: 25-34",
+  "Matthæus 25: 1-13"
  ],
  "Jul29": [
   "2 Ad Corinthios 10: 17-18; 11: 1-2",
@@ -1335,8 +1418,8 @@ var lectiones = {
   "Matthæus 25: 1-13"
  ],
  "Aug13": [
-  "Sapientia 3: 1-8",
-  "Lucas 21: 9-19"
+  "Ad Hebræos 10: 32-38",
+  "Lucas 12: 1-8"
  ],
  "Aug17": [
   "Ecclesiasticus 31: 8-11",
@@ -1403,6 +1486,7 @@ var lectiones = {
   "Lucas 21: 9-19"
  ],
  "Sep19": [
+  "Ad Hebræos 10: 32-38",
   "Matthæus 24: 3-13"
  ],
  "Sep22": [
@@ -1438,7 +1522,7 @@ var lectiones = {
   "Lucas 12: 35-40"
  ],
  "Oct8": [
-  "Proverbia 31: 10-31",
+  "1 Ad Timotheum 5: 3-10",
   "Matthæus 13: 44-52"
  ],
  "Oct10": [
@@ -1490,6 +1574,7 @@ var lectiones = {
   "Matthæus 25: 1-13"
  ],
  "Nov17": [
+  "Ecclesiasticus 44: 16-27; 45: 3-20",
   "Marcus 11: 22-24"
  ],
  "Nov18": [
