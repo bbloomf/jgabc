@@ -170,6 +170,14 @@ var fs = require("fs"),
       nuptialis: [
         "Ad Ephesios 5: 22-33",
         "Matthæus 19: 3-6"
+      ],
+      votiveESP: [
+        "Ad Hebræos 4: 16; 5: 1-7",
+        "Joannes 14: 15-21"
+      ],
+      votiveFP: [
+        "Ecclesiasticus 36: 1-10, 17-19",
+        "Matthæus 9: 35-38"
       ]
     },
     partKey = {
@@ -262,7 +270,7 @@ keys.forEach(key => {
     fname = `${dir}${k}-${ending}r.txt`;
     exists = fs.existsSync(fname);
     if(!exists) {
-      if(!(key in lex)) {
+      if(!(key in lex) && !proprium[key].title) {
         notFound.push(`${dir}${k}-${ending}.txt`);
       }
       return;
