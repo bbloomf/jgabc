@@ -194,10 +194,19 @@ var otherKeys = [
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
     {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
-    {key:"votiveESP", title:"Missa votiva pro eligendo Summo Pontifice",en:"Votive Mass for electing a pope"},
-    {key:"votiveFP", title:"Missa votiva pro Fidei Propagatione",en:"Votive Mass for the propagation of the faith"},
-    {key:"votiveMPI", title:"Missa votiva pro Infirmis",en:"Votive Mass for the Sick"},
-    {key:"votiveECJ",title:"Missa votiva de Eucharistico Corde Jesu",en:"Votive Mass of the Eucharistic Heart of Jesus"}
+    {key:"votiveESP", title:"Pro eligendo Summo Pontifice",en:"For electing a pope"},
+    {key:"votiveFP", title:"Pro Fidei Propagatione",en:"For the propagation of the faith"},
+    {key:"votiveED", title:"Pro Ecclesiæ defensione",en:"For defense of the Church"},
+    {key:"votiveUE", title:"Pro unitate Ecclesiæ",en:"For unity of the Church"},
+    {key:"votiveTB", title:"Tempore belli",en:"In time of war"},
+    {key:"votiveP", title:"Pro pace",en:"To beg for Peace"},
+    {key:"votiveVM", title:"Pro vitanda mortalitate",en:"In time of Pestilence"},
+    {key:"votiveRP", title:"Pro remissione peccatorum",en:"For the remission of sins"},
+    {key:"votivePIA", title:"Pro peregrinantibus (et iter agentibus)",en:"For pilgrims and travelers"},
+    {key:"votiveMPI", title:"Pro Infirmis",en:"For the Sick"},
+    {key:"votiveGBM", title:"Ad postulandam gratiam bene moriendi",en:"To ask for the grace of a happy death"},
+    {key:"votiveQN", title:"Pro quacumque necessitate",en:"For any necessity"},
+    {key:"votiveECJ",title:"De Eucharistico Corde Jesu",en:"Of the Eucharistic Heart of Jesus"}
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -1816,47 +1825,236 @@ var proprium = {
         "ofID": 842,
         "coID": 640
     },
+    "votiveGBM": {
+      "inID": 1072,
+      "grID": 1121,
+      "alID": 239,
+      "ofID": 967,
+      "coID": 1318
+    },
+    "votiveGBMQuad": {
+      "inID": 1072,
+      "grID": 1121,
+      "trID": 276,
+      "ofID": 967,
+      "coID": 1318
+    },
+    "votiveGBMPasch": {
+      "inID": 1072,
+      "grID": 1380,
+      "alID": 745,
+      "ofID": 967,
+      "coID": 1318
+    },
+    "votiveQN": {
+      "inID": 389,
+      "grID": 395,
+      "alID": 189,
+      "ofID": 616,
+      "coID": 696
+    },
+    "votiveQNQuad": {
+      "inID": 389,
+      "grID": 395,
+      "trID": 276,
+      "ofID": 616,
+      "coID": 696
+    },
+    "votiveQNPasch": {
+      "inID": 389,
+      "grID": 189,
+      "alID": 1342,
+      "ofID": 616,
+      "coID": 696
+    },
     "votiveESP": {
-      "introitusID": 1286,
-      "gradualeID": 546,
-      "alleluiaID": 679,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 546,
+      "alID": 679,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveESPQuad": {
-      "introitusID": 1286,
-      "gradualeID": 546,
-      "tractusID": 597,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 546,
+      "trID": 597,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveESPPasch": {
-      "introitusID": 1286,
-      "gradualeID": 679,
-      "alleluiaID": 1220,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 679,
+      "alID": 1220,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveFP": {
-      "introitusID": 2,
-      "gradualeID": 632,
-      "alleluiaID": 253,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 632,
+      "alID": 253,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveFPQuad": {
-      "introitusID": 2,
-      "gradualeID": 632,
-      "tractusID": 516,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 632,
+      "trID": 516,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveFPPasch": {
-      "introitusID": 2,
-      "gradualeID": 253,
-      "alleluiaID": 1164,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 253,
+      "alID": 1164,
+      "ofID": 1277,
+      "coID": 322
+    },
+    "votiveED": {
+      "inID": 529,
+      "grID": 1265,
+      "alID": 855,
+      "ofID": 1080,
+      "coID": 1290
+    },
+    "votiveEDQuad": {
+      "inID": 529,
+      "grID": 1265,
+      "trID": 380,
+      "ofID": 1080,
+      "coID": 1290
+    },
+    "votiveEDPasch": {
+      "inID": 529,
+      "grID": 855,
+      "alID": 539,
+      "ofID": 1080,
+      "coID": 1290
+    },
+    "votiveUE": {
+      "inID": 575,
+      "grID": 180,
+      "alID": 641,
+      "ofID": 1272,
+      "coID": 147
+    },
+    "votiveUEQuad": {
+      "inID": 575,
+      "grID": 180,
+      "trID": 421,
+      "ofID": 1272,
+      "coID": 147
+    },
+    "votiveUEPasch": {
+      "inID": 575,
+      "grID": 641,
+      "alID": 700,
+      "ofID": 1272,
+      "coID": 147
+    },
+    "votiveTB": {
+      "inID": 1294,
+      "grID": 850,
+      "alID": 879,
+      "ofID": 1080,
+      "coID": 339
+    },
+    "votiveTBQuad": {
+      "inID": 1294,
+      "grID": 850,
+      "trID": 425,
+      "ofID": 1080,
+      "coID": 339
+    },
+    "votiveTBPasch": {
+      "inID": 1294,
+      "grID": 879,
+      "alID": 192,
+      "ofID": 1080,
+      "coID": 339
+    },
+    "votiveP": {
+      "inID": 172,
+      "grID": 180,
+      "alID": 641,
+      "ofID": 899,
+      "coID": 942
+    },
+    "votivePQuad": {
+      "inID": 172,
+      "grID": 180,
+      "trID": 421,
+      "ofID": 899,
+      "coID": 942
+    },
+    "votivePPasch": {
+      "inID": 172,
+      "grID": 641,
+      "alID": 700,
+      "ofID": 899,
+      "coID": 942
+    },
+    "votiveVM": {
+      "inID": 535,
+      "grID": 932,
+      "alID": 134,
+      "ofID": 723,
+      "coID": 902
+    },
+    "votiveVMQuad": {
+      "inID": 535,
+      "grID": 932,
+      "trID": 425,
+      "ofID": 723,
+      "coID": 902
+    },
+    "votiveVMPasch": {
+      "inID": 535,
+      "grID": 134,
+      "alID": 158,
+      "ofID": 723,
+      "coID": 902
+    },
+    "votiveRP": {
+      "inID": 533,
+      "grID": 332,
+      "alID": 1264,
+      "ofID": 461,
+      "coID": 422
+    },
+    "votiveRPQuad": {
+      "inID": 533,
+      "grID": 332,
+      "trID": 926,
+      "ofID": 461,
+      "coID": 422
+    },
+    "votiveRPPasch": {
+      "inID": 533,
+      "grID": 1264,
+      "alID": 453,
+      "ofID": 461,
+      "coID": 364
+    },
+    "votivePIA": {
+      "inID": 1314,
+      "grID": 1121,
+      "alID": 352,
+      "ofID": 265,
+      "coID": 479
+    },
+    "votivePIAQuad": {
+      "inID": 1314,
+      "grID": 1121,
+      "trID": 927,
+      "ofID": 265,
+      "coID": 479
+    },
+    "votivePIAPasch": {
+      "inID": 1314,
+      "grID": 352,
+      "alID": 292,
+      "ofID": 265,
+      "coID": 479
     },
     "Dec24": {
         "inID": 150,
