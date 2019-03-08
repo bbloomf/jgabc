@@ -1800,235 +1800,235 @@ var proprium = {
         "coID": 640
     },
     "votiveGBM": {
-      "introitusID": "1072",
-      "gradualeID": "1121",
-      "alleluiaID": "239",
-      "offertoriumID": "967",
-      "communioID": "1318"
+      "inID": 1072,
+      "grID": 1121,
+      "alID": 239,
+      "ofID": 967,
+      "coID": 1318
     },
     "votiveGBMQuad": {
-      "introitusID": "1072",
-      "gradualeID": "1121",
-      "tractusID": "276",
-      "offertoriumID": "967",
-      "communioID": "1318"
+      "inID": 1072,
+      "grID": 1121,
+      "trID": 276,
+      "ofID": 967,
+      "coID": 1318
     },
     "votiveGBMPasch": {
-      "introitusID": "1072",
-      "gradualeID": "1380",
-      "alleluiaID": "745",
-      "offertoriumID": "967",
-      "communioID": "1318"
+      "inID": 1072,
+      "grID": 1380,
+      "alID": 745,
+      "ofID": 967,
+      "coID": 1318
     },
     "votiveQN": {
-      "introitusID": "389",
-      "gradualeID": "395",
-      "alleluiaID": "189",
-      "offertoriumID": "616",
-      "communioID": "696"
+      "inID": 389,
+      "grID": 395,
+      "alID": 189,
+      "ofID": 616,
+      "coID": 696
     },
     "votiveQNQuad": {
-      "introitusID": "389",
-      "gradualeID": "395",
-      "tractusID": "276",
-      "offertoriumID": "616",
-      "communioID": "696"
+      "inID": 389,
+      "grID": 395,
+      "trID": 276,
+      "ofID": 616,
+      "coID": 696
     },
     "votiveQNPasch": {
-      "introitusID": "389",
-      "gradualeID": "189",
-      "alleluiaID": "1342",
-      "offertoriumID": "616",
-      "communioID": "696"
+      "inID": 389,
+      "grID": 189,
+      "alID": 1342,
+      "ofID": 616,
+      "coID": 696
     },
     "votiveESP": {
-      "introitusID": 1286,
-      "gradualeID": 546,
-      "alleluiaID": 679,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 546,
+      "alID": 679,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveESPQuad": {
-      "introitusID": 1286,
-      "gradualeID": 546,
-      "tractusID": 597,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 546,
+      "trID": 597,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveESPPasch": {
-      "introitusID": 1286,
-      "gradualeID": 679,
-      "alleluiaID": 1220,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 679,
+      "alID": 1220,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveFP": {
-      "introitusID": 2,
-      "gradualeID": 632,
-      "alleluiaID": 253,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 632,
+      "alID": 253,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveFPQuad": {
-      "introitusID": 2,
-      "gradualeID": 632,
-      "tractusID": 516,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 632,
+      "trID": 516,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveFPPasch": {
-      "introitusID": 2,
-      "gradualeID": 253,
-      "alleluiaID": 1164,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 253,
+      "alID": 1164,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveED": {
-      "introitusID": "529",
-      "gradualeID": "1265",
-      "alleluiaID": "855",
-      "offertoriumID": "1080",
-      "communioID": "1290"
+      "inID": 529,
+      "grID": 1265,
+      "alID": 855,
+      "ofID": 1080,
+      "coID": 1290
     },
     "votiveEDQuad": {
-      "introitusID": "529",
-      "gradualeID": "1265",
-      "tractusID": "380",
-      "offertoriumID": "1080",
-      "communioID": "1290"
+      "inID": 529,
+      "grID": 1265,
+      "trID": 380,
+      "ofID": 1080,
+      "coID": 1290
     },
     "votiveEDPasch": {
-      "introitusID": "529",
-      "gradualeID": "855",
-      "alleluiaID": "539",
-      "offertoriumID": "1080",
-      "communioID": "1290"
+      "inID": 529,
+      "grID": 855,
+      "alID": 539,
+      "ofID": 1080,
+      "coID": 1290
     },
     "votiveUE": {
-      "introitusID": "575",
-      "gradualeID": "180",
-      "alleluiaID": "641",
-      "offertoriumID": "1272",
-      "communioID": "147"
+      "inID": 575,
+      "grID": 180,
+      "alID": 641,
+      "ofID": 1272,
+      "coID": 147
     },
     "votiveUEQuad": {
-      "introitusID": "575",
-      "gradualeID": "180",
-      "tractusID": "421",
-      "offertoriumID": "1272",
-      "communioID": "147"
+      "inID": 575,
+      "grID": 180,
+      "trID": 421,
+      "ofID": 1272,
+      "coID": 147
     },
     "votiveUEPasch": {
-      "introitusID": "575",
-      "gradualeID": "641",
-      "alleluiaID": "700",
-      "offertoriumID": "1272",
-      "communioID": "147"
+      "inID": 575,
+      "grID": 641,
+      "alID": 700,
+      "ofID": 1272,
+      "coID": 147
     },
     "votiveTB": {
-      "introitusID": "1294",
-      "gradualeID": "850",
-      "alleluiaID": "879",
-      "offertoriumID": "1080",
-      "communioID": "339"
+      "inID": 1294,
+      "grID": 850,
+      "alID": 879,
+      "ofID": 1080,
+      "coID": 339
     },
     "votiveTBQuad": {
-      "introitusID": "1294",
-      "gradualeID": "850",
-      "tractusID": "425",
-      "offertoriumID": "1080",
-      "communioID": "339"
+      "inID": 1294,
+      "grID": 850,
+      "trID": 425,
+      "ofID": 1080,
+      "coID": 339
     },
     "votiveTBPasch": {
-      "introitusID": "1294",
-      "gradualeID": "879",
-      "alleluiaID": "192",
-      "offertoriumID": "1080",
-      "communioID": "339"
+      "inID": 1294,
+      "grID": 879,
+      "alID": 192,
+      "ofID": 1080,
+      "coID": 339
     },
     "votiveP": {
-      "introitusID": "172",
-      "gradualeID": "180",
-      "alleluiaID": "641",
-      "offertoriumID": "899",
-      "communioID": "942"
+      "inID": 172,
+      "grID": 180,
+      "alID": 641,
+      "ofID": 899,
+      "coID": 942
     },
     "votivePQuad": {
-      "introitusID": "172",
-      "gradualeID": "180",
-      "tractusID": "421",
-      "offertoriumID": "899",
-      "communioID": "942"
+      "inID": 172,
+      "grID": 180,
+      "trID": 421,
+      "ofID": 899,
+      "coID": 942
     },
     "votivePPasch": {
-      "introitusID": "172",
-      "gradualeID": "641",
-      "alleluiaID": "700",
-      "offertoriumID": "899",
-      "communioID": "942"
+      "inID": 172,
+      "grID": 641,
+      "alID": 700,
+      "ofID": 899,
+      "coID": 942
     },
     "votiveVM": {
-      "introitusID": "535",
-      "gradualeID": "932",
-      "alleluiaID": "134",
-      "offertoriumID": "723",
-      "communioID": "902"
+      "inID": 535,
+      "grID": 932,
+      "alID": 134,
+      "ofID": 723,
+      "coID": 902
     },
     "votiveVMQuad": {
-      "introitusID": "535",
-      "gradualeID": "932",
-      "tractusID": "425",
-      "offertoriumID": "723",
-      "communioID": "902"
+      "inID": 535,
+      "grID": 932,
+      "trID": 425,
+      "ofID": 723,
+      "coID": 902
     },
     "votiveVMPasch": {
-      "introitusID": "535",
-      "gradualeID": "134",
-      "alleluiaID": "158",
-      "offertoriumID": "723",
-      "communioID": "902"
+      "inID": 535,
+      "grID": 134,
+      "alID": 158,
+      "ofID": 723,
+      "coID": 902
     },
     "votiveRP": {
-      "introitusID": "533",
-      "gradualeID": "332",
-      "alleluiaID": "1264",
-      "offertoriumID": "461",
-      "communioID": "422"
+      "inID": 533,
+      "grID": 332,
+      "alID": 1264,
+      "ofID": 461,
+      "coID": 422
     },
     "votiveRPQuad": {
-      "introitusID": "533",
-      "gradualeID": "332",
-      "tractusID": "926",
-      "offertoriumID": "461",
-      "communioID": "422"
+      "inID": 533,
+      "grID": 332,
+      "trID": 926,
+      "ofID": 461,
+      "coID": 422
     },
     "votiveRPPasch": {
-      "introitusID": "533",
-      "gradualeID": "1264",
-      "alleluiaID": "453",
-      "offertoriumID": "461",
-      "communioID": "364"
+      "inID": 533,
+      "grID": 1264,
+      "alID": 453,
+      "ofID": 461,
+      "coID": 364
     },
     "votivePIA": {
-      "introitusID": "1314",
-      "gradualeID": "1121",
-      "alleluiaID": "352",
-      "offertoriumID": "265",
-      "communioID": "479"
+      "inID": 1314,
+      "grID": 1121,
+      "alID": 352,
+      "ofID": 265,
+      "coID": 479
     },
     "votivePIAQuad": {
-      "introitusID": "1314",
-      "gradualeID": "1121",
-      "tractusID": "927",
-      "offertoriumID": "265",
-      "communioID": "479"
+      "inID": 1314,
+      "grID": 1121,
+      "trID": 927,
+      "ofID": 265,
+      "coID": 479
     },
     "votivePIAPasch": {
-      "introitusID": "1314",
-      "gradualeID": "352",
-      "alleluiaID": "292",
-      "offertoriumID": "265",
-      "communioID": "479"
+      "inID": 1314,
+      "grID": 352,
+      "alID": 292,
+      "ofID": 265,
+      "coID": 479
     },
     "Dec24": {
         "inID": 150,
