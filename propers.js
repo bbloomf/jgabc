@@ -3043,7 +3043,7 @@ $(function(){
         isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
     $this.find('.showHide').text(isShowing?'Hide' : 'Show');
     layoutChant(part);
-  }).on('change','input.cbVersesAdLibitum',function(e) {
+  }).on('change','input.cbVersesAdLibitum',function(e,targetState) {
     var $this = $(this),
         $part = $this.parents().filter('[part]'),
         part = $part.attr('part'),
@@ -3054,14 +3054,15 @@ $(function(){
         showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
         showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
     if(this.checked && !hasDefault && showingDefault) this.checked = false;
-    if(!this.checked && hasDefault && showingDefault) this.checked = true;
+    if(targetState || (!this.checked && hasDefault && showingDefault)) this.checked = true;
     $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
     $verses.empty();
     var state = sel[versePart] = sel[versePart] || {};
     if(!state.ctxt) makeChantContextForSel(state);
     var versesSelected = this.checked? 1 : 0;
     if(this.checked) {
-      var showingDefault = hasDefault && e.isTrigger? showingDefault : !showingDefault;
+      showingDefault = (hasDefault && e.isTrigger)? showingDefault : !showingDefault;
+      if(targetState) showingDefault = targetState == 1;
       $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
       var ref;
       if(showingDefault) {
@@ -3278,12 +3279,12 @@ console.info(JSON.stringify(selPropers));
       }
       $('select[id^=selStyle]').each(function(){
         var $this=$(this),
-            capPart = this.id.slice(3),
-            part = capPart[0].toLowerCase() + capPart.slice(1),
-            style = hash[part];
+            capPart = this.id.slice(8),
+            part = capPart.toLowerCase(),
+            style = hash['style'+capPart],
+            verseStyle = hash[part+'Verses'],
+            $verses = $('#div'+capPart+' input.cbVersesAdLibitum');
         if(style) {
-          capPart = part.slice(5);
-          part = capPart.toLowerCase();
           var pattern = hash[part+'Pattern'];
           if(pattern) {
             pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
@@ -3315,6 +3316,9 @@ console.info(JSON.stringify(selPropers));
             if($selTone.val() != tone) $selTone.val(tone).change();
             if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
           }
+        }
+        if(verseStyle && $verses.length) {
+          $verses.trigger('change', parseInt(verseStyle));
         }
       });
     }
