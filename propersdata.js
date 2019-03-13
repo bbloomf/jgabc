@@ -2212,7 +2212,9 @@ var proprium = {
         "trID": 1157,
         "ofID": 929,
         "coID": 88,
-        "fromGregorianBooks": []
+        "gbid": "advent3sat",
+        "inVerses": "Ps 79: 2-3",
+        "coVerses": "Ps 18: 2-6"
     },
     "Adv4": {
         "inID": 79,
@@ -2567,7 +2569,8 @@ var proprium = {
         "ofID": 987,
         "coID": 190,
         "gloria": "before#divLectioAnteTractu",
-        "fromGregorianBooks": []
+        "gbid": "pentecost_sat",
+        "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
     },
     "Pent1": {
         "inID": 349,
@@ -2813,7 +2816,9 @@ var proprium = {
         "ofID": 542,
         "coID": 1149,
         "gloria": false,
-        "fromGregorianBooks": []
+        "gbid": "sat_ews",
+        "inVerses": "Ps 94: 2, 7",
+        "coVerses": "Ps 80: 2-3, 5, 11, 17"
     },
     "Pent18": {
         "inID": 172,
@@ -3069,7 +3074,9 @@ var proprium = {
         "trID": 1247,
         "ofID": 542,
         "coID": 131,
-        "fromGregorianBooks": []
+        "gbid": "lent1sat",
+        "inVerses": "Ps 87: 14-15",
+        "coVerses": "Ps 7: 3, 7-8, 9, 11, 18"
     },
     "Quad2": {
         "inID": 1294,
@@ -4905,7 +4912,9 @@ var proprium = {
         "alID": 14,
         "inID": 108,
         "ofID": 630,
-        "fromGregorianBooks": []
+        "gbid": "st_joseph",
+        "inVerses": "Ps 91: 3, 5",
+        "coVerses": "Ps 111: 1-9"
     },
     "Mar19Quad": {
         "trID": 7670,
@@ -4953,7 +4962,9 @@ var proprium = {
         "alID": 1209,
         "inID": 124,
         "ofID": 843,
-        "fromGregorianBooks": []
+        "inVerses": "Ps 44: 5, 8",
+        "ofVerses": "Luc 1: 34, 35",
+        "coVerses": "Ps 44: 2, 5, 8, 10-16; Ps 18: 2-7"
     },
     "Mar25Quad": {
         "trID": 738,

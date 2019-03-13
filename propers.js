@@ -3061,7 +3061,7 @@ $(function(){
     if(!state.ctxt) makeChantContextForSel(state);
     var versesSelected = this.checked? 1 : 0;
     if(this.checked) {
-      showingDefault = (hasDefault && e.isTrigger)? showingDefault : !showingDefault;
+      showingDefault = hasDefault? (e.isTrigger? showingDefault : !showingDefault) : false;
       if(targetState) showingDefault = targetState == 1;
       $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
       var ref;
