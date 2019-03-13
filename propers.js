@@ -3059,6 +3059,7 @@ $(function(){
     $verses.empty();
     var state = sel[versePart] = sel[versePart] || {};
     if(!state.ctxt) makeChantContextForSel(state);
+    var versesSelected = this.checked? 1 : 0;
     if(this.checked) {
       var showingDefault = hasDefault && e.isTrigger? showingDefault : !showingDefault;
       $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
@@ -3066,6 +3067,7 @@ $(function(){
       if(showingDefault) {
         ref = $versesDefault.text();
       } else {
+        ++versesSelected;
         ref = "Psalm " + $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
       }
       $.when.apply($, parseRef(ref).map(function(ref) {
@@ -3115,6 +3117,7 @@ $(function(){
         updateExsurge(versePart, null, true);
       });
     }
+    addToHash(versePart,versesSelected);
   }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
     var $part = $(this).parents().filter('[part]');
     $part.find('.cbVersesAdLibitum').change();
