@@ -3023,10 +3023,9 @@ var proprium = {
         "trID": 276,
         "ofID": 810,
         "coID": 373,
-        "fromGregorianBooks": [
-            "lent1wed",
-            "lent2"
-        ]
+        "gbid": "lent1wed",
+        "inVerses": "Ps 24: 4, 5",
+        "coVerses": "Ps 5: 5-8, 12-13"
     },
     "Quad1h": {
         "inID": 956,
@@ -3078,10 +3077,9 @@ var proprium = {
         "coID": 373,
         "trID": 455,
         "grID": 596,
-        "fromGregorianBooks": [
-            "lent1wed",
-            "lent2"
-        ]
+        "gbid": "lent2",
+        "inVerses": "Ps 24: 4, 5",
+        "coVerses": "Ps 5: 5-8, 12-13"
     },
     "Quad2m": {
         "inID": 1314,
@@ -4580,6 +4578,7 @@ var proprium = {
         "alID": 477,
         "inID": 456,
         "ofID": 630,
+        "inVerses": "Ps 131: 9, 16",
         "fromGregorianBooks": [
             "st_timothy",
             "mass_i_martyr_bishop"
@@ -5903,10 +5902,7 @@ var proprium = {
     },
     "Sep16": {
         "ref": "Jul28",
-        "fromGregorianBooks": [
-            "ss_cornelius_cyprian",
-            "ss_euphemia_lucy_geminianus"
-        ]
+        "gbid": "ss_cornelius_cyprian"
     },
     "Sep19": {
         "ref": "mass_iii_two_or_more_martyr",
