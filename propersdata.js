@@ -137,8 +137,8 @@ var psalmsArray = new Array(150).join(',').split(',').map(function(i,j) {
     var val = ("00" + psalm).slice(-3);
     return {
         key: val,
-        en: "Psalm " + psalm,
-        title: "Psalm " + psalm
+        en: "" + psalm,
+        title: "" + psalm
     };
 });
 var canticleArray = Object.keys(canticumMap).map(function(key) {

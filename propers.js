@@ -2418,6 +2418,12 @@ $(function(){
     }
     var prop = sel[part];
     $chantCommentary.text(prop.commentary || '');
+    if(prop.commentary && parseRef) {
+      ref = parseRef(prop.commentary).slice(-1)[0];
+      if(/^Ps/.test(ref.book)) {
+        $('#div'+part[0].toUpperCase()+part.slice(1)+' select.sel-psalms:not(:visible)').val(('00'+ref.chapter).slice(-3));
+      }
+    }
     var ctxt = prop.ctxt;
     var score = prop.score;
     if(!score) return;
