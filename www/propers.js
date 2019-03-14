@@ -3082,7 +3082,7 @@ $(function(){
         var $selPsalms = $part.find('select.sel-psalms');
         var $txtPsalmRef = $part.find("input.txtPsalmVerses");
         if(customVerse) {
-          var cantica = Object.keys(canticumMap).join('|').replace(/[()+*.[{]/g,'\\$&');
+          var cantica = Object.keys(canticumMap).sort().reverse().join('|').replace(/[()+*.[{]/g,'\\$&');
           var match = new RegExp("(\\d{3}|"+cantica+") (.*)").exec(customVerse);
           $selPsalms.val(match[1]);
           $txtPsalmRef.val(match[2]);
