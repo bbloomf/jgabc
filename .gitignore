@@ -17,3 +17,4 @@ MR1962
 .npmignore
 key.properties
 package-lock.json
+build.json
