@@ -64,7 +64,7 @@ $(function(){
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]).replace(/\+/g,' ');
     }
     if(Object.keys(this).length == 1 && ('hash' in this)) {
       return new LocationHash(this.hash);
@@ -84,7 +84,7 @@ $(function(){
           if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
           // otherwise, fall through to default:
         default:
-          result += '#' + key + '=' + hash[key];
+          result += '#' + key + '=' + hash[key].toString().replace(/\s+/g,'+');
           break;
       }
     });
@@ -3060,12 +3060,16 @@ $(function(){
         showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
         showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
     if(this.checked && !hasDefault && showingDefault) this.checked = false;
+    targetState = targetState || {};
+    var customVerse = targetState.customVerse;
+    targetState = targetState.state;
     if(targetState || (!this.checked && hasDefault && showingDefault)) this.checked = true;
     $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
     $verses.empty();
     var state = sel[versePart] = sel[versePart] || {};
     if(!state.ctxt) makeChantContextForSel(state);
     var versesSelected = this.checked? 1 : 0;
+    var customRef = null;
     if(this.checked) {
       showingDefault = hasDefault? (e.isTrigger? showingDefault : !showingDefault) : false;
       if(targetState) showingDefault = targetState == 1;
@@ -3075,7 +3079,19 @@ $(function(){
         ref = $versesDefault.text();
       } else {
         ++versesSelected;
-        ref = "Psalm " + $part.find('select.sel-psalms').val() + " " + $part.find("input.txtPsalmVerses").val();
+        var $selPsalms = $part.find('select.sel-psalms');
+        var $txtPsalmRef = $part.find("input.txtPsalmVerses");
+        if(customVerse) {
+          var cantica = Object.keys(canticumMap).join('|').replace(/[()+*.[{]/g,'\\$&');
+          var match = new RegExp("(\\d{3}|"+cantica+") (.*)").exec(customVerse);
+          $selPsalms.val(match[1]);
+          $txtPsalmRef.val(match[2]);
+          customRef = customVerse;
+          ref = "Psalm " + customVerse;
+        } else {
+          ref = "Psalm " + $selPsalms.val() + " " + $txtPsalmRef.val();
+          customRef = ref.slice(6);
+        }
       }
       $.when.apply($, parseRef(ref).map(function(ref) {
         return ref.getLinesFromLiber().pipe(function(lines) {
@@ -3125,6 +3141,7 @@ $(function(){
       });
     }
     addToHash(versePart,versesSelected);
+    addToHash(versePart+'Custom',customRef);
   }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
     var $part = $(this).parents().filter('[part]');
     $part.find('.cbVersesAdLibitum').change();
@@ -3289,6 +3306,7 @@ console.info(JSON.stringify(selPropers));
             part = capPart.toLowerCase(),
             style = hash['style'+capPart],
             verseStyle = hash[part+'Verses'],
+            customVerse = hash[part+'VersesCustom'],
             $verses = $('#div'+capPart+' input.cbVersesAdLibitum');
         if(style) {
           var pattern = hash[part+'Pattern'];
@@ -3324,7 +3342,7 @@ console.info(JSON.stringify(selPropers));
           }
         }
         if(verseStyle && $verses.length) {
-          $verses.trigger('change', parseInt(verseStyle));
+          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse});
         }
       });
     }
