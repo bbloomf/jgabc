@@ -131,6 +131,32 @@ var sundayKeys = [
     {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"},
     {key:"Pent23",title:"23 post Pentecosten",en:"23rd Sunday after Pentecost"}
 ];
+var canticumMap = {"Benedictus":{"ref":"Luc 1: 68-79","map":[0,1,2,3,4,5,6,7,8,9,10,11]},"Magnificat":{"ref":"Luc 1: 46-55","map":[0,1,2,3,4,5,6,7,8,9]},"Nunc dimittis":{"ref":"Luc 2: 29-32","map":[0,1,2,3]},"Canticum Annae":{"ref":"1 Reg 2: 1-10","map":[0,2,3,5,6,8,9,10,13,14]},"Canticum David":{"ref":"1 Par 29: 10-13","map":[0,1,4,6]},"Canticum Ecclesiastici":{"ref":"Eccli 36: 1-16","map":[0,1,3,4,5,6,6,7,7,8,9,10,11,13,14,15]},"Canticum Ezechiae":{"ref":"Is 38: 10-20","map":[0,1,3,5,6,8,10,10,12,13,14]},"Canticum Habacuc":{"ref":"Ha 3: 2-19","map":[0,3,5,6,7,10,11,13,14,16,17,18,20,22,23,26,29,30]},"Canticum Isaiae":{"ref":"Is 45: 15-25","map":[0,1,2,3,5,7,9,11,12,14,15]},"Canticum Jeremiae":{"ref":"Jer 31: 10-14","map":[0,2,3,6]},"Canticum Judith":{"ref":"Judith 16: 15-21","map":[0,1,2,4,5,6,7]},"Canticum Moysis":{"ref":"Exod 15: 1-19","map":[0,1,3,3,4,5,5,6,8,10,11,12,12,14,15,16,18,19,20]},"Canticum Moysis (Deut)":{"ref":"Deut 32: 1-18","map":[0,1,2,3,4,5,7,9,11,12,14,16,17,19,21,23,24,26]},"Canticum Tobiae":{"ref":"Tob 13: 1-10","map":[0,1,2,3,5,6,7,8,9,10]}};
+var psalmsArray = new Array(150).join(',').split(',').map(function(i,j) {
+    var psalm = j+1;
+    var val = ("00" + psalm).slice(-3);
+    return {
+        key: val,
+        en: "" + psalm,
+        title: "" + psalm
+    };
+});
+var canticleArray = Object.keys(canticumMap).map(function(key) {
+    return {
+        key: key,
+        en: key,
+        title: key
+    }
+});
+var psalmCanticleArray = [{
+    children: psalmsArray,
+    en: "Psalms",
+    title: "Psalmi"
+}, {
+    children: canticleArray,
+    en: "Canticles",
+    title: "Cantica"
+}];
 var ultimaeDominicaePostPentecosten = [
     {key:"PentEpi3",title:"3. quæ superfuit post Epiphaniam",en:"3rd Sunday after Epiphany"},
     {key:"PentEpi4",title:"4. quæ superfuit post Epiphaniam",en:"4th Sunday after Epiphany"},
@@ -168,10 +194,19 @@ var otherKeys = [
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
     {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
-    {key:"votiveESP", title:"Missa votiva pro eligendo Summo Pontifice",en:"Votive Mass for electing a pope"},
-    {key:"votiveFP", title:"Missa votiva pro Fidei Propagatione",en:"Votive Mass for the propagation of the faith"},
-    {key:"votiveMPI", title:"Missa votiva pro Infirmis",en:"Votive Mass for the Sick"},
-    {key:"votiveECJ",title:"Missa votiva de Eucharistico Corde Jesu",en:"Votive Mass of the Eucharistic Heart of Jesus"}
+    {key:"votiveESP", title:"Pro eligendo Summo Pontifice",en:"For electing a pope"},
+    {key:"votiveFP", title:"Pro Fidei Propagatione",en:"For the propagation of the faith"},
+    {key:"votiveED", title:"Pro Ecclesiæ defensione",en:"For defense of the Church"},
+    {key:"votiveUE", title:"Pro unitate Ecclesiæ",en:"For unity of the Church"},
+    {key:"votiveTB", title:"Tempore belli",en:"In time of war"},
+    {key:"votiveP", title:"Pro pace",en:"To beg for Peace"},
+    {key:"votiveVM", title:"Pro vitanda mortalitate",en:"In time of Pestilence"},
+    {key:"votiveRP", title:"Pro remissione peccatorum",en:"For the remission of sins"},
+    {key:"votivePIA", title:"Pro peregrinantibus (et iter agentibus)",en:"For pilgrims and travelers"},
+    {key:"votiveMPI", title:"Pro Infirmis",en:"For the Sick"},
+    {key:"votiveGBM", title:"Ad postulandam gratiam bene moriendi",en:"To ask for the grace of a happy death"},
+    {key:"votiveQN", title:"Pro quacumque necessitate",en:"For any necessity"},
+    {key:"votiveECJ",title:"De Eucharistico Corde Jesu",en:"Of the Eucharistic Heart of Jesus"}
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -1790,47 +1825,236 @@ var proprium = {
         "ofID": 842,
         "coID": 640
     },
+    "votiveGBM": {
+      "inID": 1072,
+      "grID": 1121,
+      "alID": 239,
+      "ofID": 967,
+      "coID": 1318
+    },
+    "votiveGBMQuad": {
+      "inID": 1072,
+      "grID": 1121,
+      "trID": 276,
+      "ofID": 967,
+      "coID": 1318
+    },
+    "votiveGBMPasch": {
+      "inID": 1072,
+      "grID": 1380,
+      "alID": 745,
+      "ofID": 967,
+      "coID": 1318
+    },
+    "votiveQN": {
+      "inID": 389,
+      "grID": 395,
+      "alID": 189,
+      "ofID": 616,
+      "coID": 696
+    },
+    "votiveQNQuad": {
+      "inID": 389,
+      "grID": 395,
+      "trID": 276,
+      "ofID": 616,
+      "coID": 696
+    },
+    "votiveQNPasch": {
+      "inID": 389,
+      "grID": 189,
+      "alID": 1342,
+      "ofID": 616,
+      "coID": 696
+    },
     "votiveESP": {
-      "introitusID": 1286,
-      "gradualeID": 546,
-      "alleluiaID": 679,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 546,
+      "alID": 679,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveESPQuad": {
-      "introitusID": 1286,
-      "gradualeID": 546,
-      "tractusID": 597,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 546,
+      "trID": 597,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveESPPasch": {
-      "introitusID": 1286,
-      "gradualeID": 679,
-      "alleluiaID": 1220,
-      "offertoriumID": 690,
-      "communioID": 145
+      "inID": 1286,
+      "grID": 679,
+      "alID": 1220,
+      "ofID": 690,
+      "coID": 145
     },
     "votiveFP": {
-      "introitusID": 2,
-      "gradualeID": 632,
-      "alleluiaID": 253,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 632,
+      "alID": 253,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveFPQuad": {
-      "introitusID": 2,
-      "gradualeID": 632,
-      "tractusID": 516,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 632,
+      "trID": 516,
+      "ofID": 1277,
+      "coID": 322
     },
     "votiveFPPasch": {
-      "introitusID": 2,
-      "gradualeID": 253,
-      "alleluiaID": 1164,
-      "offertoriumID": 1277,
-      "communioID": 322
+      "inID": 2,
+      "grID": 253,
+      "alID": 1164,
+      "ofID": 1277,
+      "coID": 322
+    },
+    "votiveED": {
+      "inID": 529,
+      "grID": 1265,
+      "alID": 855,
+      "ofID": 1080,
+      "coID": 1290
+    },
+    "votiveEDQuad": {
+      "inID": 529,
+      "grID": 1265,
+      "trID": 380,
+      "ofID": 1080,
+      "coID": 1290
+    },
+    "votiveEDPasch": {
+      "inID": 529,
+      "grID": 855,
+      "alID": 539,
+      "ofID": 1080,
+      "coID": 1290
+    },
+    "votiveUE": {
+      "inID": 575,
+      "grID": 180,
+      "alID": 641,
+      "ofID": 1272,
+      "coID": 147
+    },
+    "votiveUEQuad": {
+      "inID": 575,
+      "grID": 180,
+      "trID": 421,
+      "ofID": 1272,
+      "coID": 147
+    },
+    "votiveUEPasch": {
+      "inID": 575,
+      "grID": 641,
+      "alID": 700,
+      "ofID": 1272,
+      "coID": 147
+    },
+    "votiveTB": {
+      "inID": 1294,
+      "grID": 850,
+      "alID": 879,
+      "ofID": 1080,
+      "coID": 339
+    },
+    "votiveTBQuad": {
+      "inID": 1294,
+      "grID": 850,
+      "trID": 425,
+      "ofID": 1080,
+      "coID": 339
+    },
+    "votiveTBPasch": {
+      "inID": 1294,
+      "grID": 879,
+      "alID": 192,
+      "ofID": 1080,
+      "coID": 339
+    },
+    "votiveP": {
+      "inID": 172,
+      "grID": 180,
+      "alID": 641,
+      "ofID": 899,
+      "coID": 942
+    },
+    "votivePQuad": {
+      "inID": 172,
+      "grID": 180,
+      "trID": 421,
+      "ofID": 899,
+      "coID": 942
+    },
+    "votivePPasch": {
+      "inID": 172,
+      "grID": 641,
+      "alID": 700,
+      "ofID": 899,
+      "coID": 942
+    },
+    "votiveVM": {
+      "inID": 535,
+      "grID": 932,
+      "alID": 134,
+      "ofID": 723,
+      "coID": 902
+    },
+    "votiveVMQuad": {
+      "inID": 535,
+      "grID": 932,
+      "trID": 425,
+      "ofID": 723,
+      "coID": 902
+    },
+    "votiveVMPasch": {
+      "inID": 535,
+      "grID": 134,
+      "alID": 158,
+      "ofID": 723,
+      "coID": 902
+    },
+    "votiveRP": {
+      "inID": 533,
+      "grID": 332,
+      "alID": 1264,
+      "ofID": 461,
+      "coID": 422
+    },
+    "votiveRPQuad": {
+      "inID": 533,
+      "grID": 332,
+      "trID": 926,
+      "ofID": 461,
+      "coID": 422
+    },
+    "votiveRPPasch": {
+      "inID": 533,
+      "grID": 1264,
+      "alID": 453,
+      "ofID": 461,
+      "coID": 364
+    },
+    "votivePIA": {
+      "inID": 1314,
+      "grID": 1121,
+      "alID": 352,
+      "ofID": 265,
+      "coID": 479
+    },
+    "votivePIAQuad": {
+      "inID": 1314,
+      "grID": 1121,
+      "trID": 927,
+      "ofID": 265,
+      "coID": 479
+    },
+    "votivePIAPasch": {
+      "inID": 1314,
+      "grID": 352,
+      "alID": 292,
+      "ofID": 265,
+      "coID": 479
     },
     "Dec24": {
         "inID": 150,
@@ -1988,7 +2212,9 @@ var proprium = {
         "trID": 1157,
         "ofID": 929,
         "coID": 88,
-        "fromGregorianBooks": []
+        "gbid": "advent3sat",
+        "inVerses": "Ps 79: 2-3",
+        "coVerses": "Ps 18: 2-6"
     },
     "Adv4": {
         "inID": 79,
@@ -2343,7 +2569,8 @@ var proprium = {
         "ofID": 987,
         "coID": 190,
         "gloria": "before#divLectioAnteTractu",
-        "fromGregorianBooks": []
+        "gbid": "pentecost_sat",
+        "coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
     },
     "Pent1": {
         "inID": 349,
@@ -2589,7 +2816,9 @@ var proprium = {
         "ofID": 542,
         "coID": 1149,
         "gloria": false,
-        "fromGregorianBooks": []
+        "gbid": "sat_ews",
+        "inVerses": "Ps 94: 2, 7",
+        "coVerses": "Ps 80: 2-3, 5, 11, 17"
     },
     "Pent18": {
         "inID": 172,
@@ -2799,10 +3028,9 @@ var proprium = {
         "trID": 276,
         "ofID": 810,
         "coID": 373,
-        "fromGregorianBooks": [
-            "lent1wed",
-            "lent2"
-        ]
+        "gbid": "lent1wed",
+        "inVerses": "Ps 24: 4, 5",
+        "coVerses": "Ps 5: 5-8, 12-13"
     },
     "Quad1h": {
         "inID": 956,
@@ -2846,7 +3074,9 @@ var proprium = {
         "trID": 1247,
         "ofID": 542,
         "coID": 131,
-        "fromGregorianBooks": []
+        "gbid": "lent1sat",
+        "inVerses": "Ps 87: 14-15",
+        "coVerses": "Ps 7: 3, 7-8, 9, 11, 18"
     },
     "Quad2": {
         "inID": 1294,
@@ -2854,10 +3084,9 @@ var proprium = {
         "coID": 373,
         "trID": 455,
         "grID": 596,
-        "fromGregorianBooks": [
-            "lent1wed",
-            "lent2"
-        ]
+        "gbid": "lent2",
+        "inVerses": "Ps 24: 4, 5",
+        "coVerses": "Ps 5: 5-8, 12-13"
     },
     "Quad2m": {
         "inID": 1314,
@@ -4356,6 +4585,7 @@ var proprium = {
         "alID": 477,
         "inID": 456,
         "ofID": 630,
+        "inVerses": "Ps 131: 9, 16",
         "fromGregorianBooks": [
             "st_timothy",
             "mass_i_martyr_bishop"
@@ -4682,7 +4912,9 @@ var proprium = {
         "alID": 14,
         "inID": 108,
         "ofID": 630,
-        "fromGregorianBooks": []
+        "gbid": "st_joseph",
+        "inVerses": "Ps 91: 3, 5",
+        "coVerses": "Ps 111: 1-9"
     },
     "Mar19Quad": {
         "trID": 7670,
@@ -4730,7 +4962,9 @@ var proprium = {
         "alID": 1209,
         "inID": 124,
         "ofID": 843,
-        "fromGregorianBooks": []
+        "inVerses": "Ps 44: 5, 8",
+        "ofVerses": "Luc 1: 34, 35",
+        "coVerses": "Ps 44: 2, 5, 8, 10-16; Ps 18: 2-7"
     },
     "Mar25Quad": {
         "trID": 738,
@@ -5679,10 +5913,7 @@ var proprium = {
     },
     "Sep16": {
         "ref": "Jul28",
-        "fromGregorianBooks": [
-            "ss_cornelius_cyprian",
-            "ss_euphemia_lucy_geminianus"
-        ]
+        "gbid": "ss_cornelius_cyprian"
     },
     "Sep19": {
         "ref": "mass_iii_two_or_more_martyr",

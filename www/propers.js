@@ -64,7 +64,7 @@ $(function(){
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]).replace(/\+/g,' ');
     }
     if(Object.keys(this).length == 1 && ('hash' in this)) {
       return new LocationHash(this.hash);
@@ -84,7 +84,7 @@ $(function(){
           if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
           // otherwise, fall through to default:
         default:
-          result += '#' + key + '=' + hash[key];
+          result += '#' + key + '=' + hash[key].toString().replace(/\s+/g,'+');
           break;
       }
     });
@@ -589,6 +589,7 @@ $(function(){
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
         if(!(sel[part].style||'').match(/^psalm-tone/)) $toggleEditMarkings.hide();
+        $div.find('input.cbVersesAdLibitum').change();
       };
       if(id) {
         if(typeof(id) == 'object') {
@@ -725,10 +726,15 @@ $(function(){
     if(selPropers) {
       for(var k in partKey) {
         var key = partKey[k] + 'ID';
+        var ok = k;
         k += 'ID';
         if(key in selPropers && !(k in selPropers)) {
           selPropers[k] = selPropers[key];
         }
+        var verses = selPropers[ok+"Verses"] || selPropers[partKey[ok]+"Verses"];
+        var $part = $("div[part="+ok+"]");
+        var $defaultVerses = $part.find(".verses-ad-libitum-default");
+        $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
       }
     }
     $("#extra-chants").empty();
@@ -1919,10 +1925,12 @@ $(function(){
     var altTone = sel[part].altTone;
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
+    var endOfVerse = sel[part].endOfVerse || '(::)';
+    var startOfVerse = sel[part].startOfVerse || '';
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -1960,8 +1968,10 @@ $(function(){
     var noMediant = getTertiumQuid(gTermination,gMediant);
     var gabc;
     var lines;
-    var useOriginalClef = text.indexOf('@') >= 0;
-    var fullGabc = sel[part].gabc.slice(getHeaderLen(sel[part].gabc));
+    var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
+    var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
+    var header = getHeader(sel[part].gabc||'');
+    var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
       
@@ -2026,7 +2036,9 @@ $(function(){
       lines.splice(0,1);
     } else {
       // not alleluia
-      lines = capitalizeForBigInitial(sel[part].text).split('\n');
+      lines = sel[part].text;
+      if(useBigInitial) lines = capitalizeForBigInitial(lines);
+      lines = lines.split('\n');
       gabc = header;
       if(sel[part].style == 'psalm-tone1') {
         // the first verse is to be full tone.
@@ -2065,7 +2077,7 @@ $(function(){
     var countWordsBefore = 0;
     for(var i=0; i<lines.length; ++i) {
       var countWordsInVerse = wordsInLine(lines[i]);
-      var fullVerseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+      var fullVerseGabc = sel[part].originalWords && sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
       var nextNewClef = regexGabcClef.exec(fullVerseGabc);
       nextNewClef = nextNewClef && nextNewClef[1];
       countWordsBefore += countWordsInVerse;
@@ -2144,7 +2156,7 @@ $(function(){
             flexEqualsTenor: introitTone
           });
         } else {
-          gabc += (italicNote||'') + applyPsalmTone({
+          gabc += (italicNote||'') + (useBigInitial? '' : startOfVerse) + applyPsalmTone({
             text: line[0].trim(),
             gabc: line.length==1? noMediant : gMediant,
             clef: clef,
@@ -2153,7 +2165,8 @@ $(function(){
             onlyVowel: false,
             format: bi_formats.gabc,
             verseNumber: i+1,
-            prefix: !firstVerse && !italicNote,
+            prefix: !(useBigInitial && firstVerse) && !italicNote,
+            firstPrefix: !useBigInitial && !italicNote,
             suffix: false,
             italicizeIntonation: false,
             result: result,
@@ -2176,7 +2189,7 @@ $(function(){
             italicizeIntonation: false,
             favor: 'termination',
             flexEqualsTenor: true
-          })) + " (::)\n";
+          })) + " " + endOfVerse + "\n";
         if(i==0) {
           //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
           flex = (line[0].indexOf(sym_flex) >= 0);
@@ -2405,6 +2418,12 @@ $(function(){
     }
     var prop = sel[part];
     $chantCommentary.text(prop.commentary || '');
+    if(prop.commentary && parseRef) {
+      ref = parseRef(prop.commentary).slice(-1)[0];
+      if(/^Ps/.test(ref.book)) {
+        $('#div'+part[0].toUpperCase()+part.slice(1)+' select.sel-psalms:not(:visible)').val(('00'+ref.chapter).slice(-3));
+      }
+    }
     var ctxt = prop.ctxt;
     var score = prop.score;
     if(!score) return;
@@ -2686,6 +2705,7 @@ $(function(){
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
+  populate(psalmCanticleArray,$(".sel-psalms"));
 
   var ordinaryKeys = massOrdinary.map(function(e,i){
     var name = '';
@@ -3029,6 +3049,102 @@ $(function(){
         isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
     $this.find('.showHide').text(isShowing?'Hide' : 'Show');
     layoutChant(part);
+  }).on('change','input.cbVersesAdLibitum',function(e,targetState) {
+    var $this = $(this),
+        $part = $this.parents().filter('[part]'),
+        part = $part.attr('part'),
+        versePart = part + "Verses",
+        $verses = $part.find(".verses-ad-libitum.chant-preview"),
+        $versesDefault = $part.find('.verses-ad-libitum-default'),
+        hasDefault = !$versesDefault.hasClass('is-empty'),
+        showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
+        showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
+    if(this.checked && !hasDefault && showingDefault) this.checked = false;
+    targetState = targetState || {};
+    var customVerse = targetState.customVerse;
+    targetState = targetState.state;
+    if(targetState || (!this.checked && hasDefault && showingDefault)) this.checked = true;
+    $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
+    $verses.empty();
+    var state = sel[versePart] = sel[versePart] || {};
+    if(!state.ctxt) makeChantContextForSel(state);
+    var versesSelected = this.checked? 1 : 0;
+    var customRef = null;
+    if(this.checked) {
+      showingDefault = hasDefault? (e.isTrigger? showingDefault : !showingDefault) : false;
+      if(targetState) showingDefault = targetState == 1;
+      $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
+      var ref;
+      if(showingDefault) {
+        ref = $versesDefault.text();
+      } else {
+        ++versesSelected;
+        var $selPsalms = $part.find('select.sel-psalms');
+        var $txtPsalmRef = $part.find("input.txtPsalmVerses");
+        if(customVerse) {
+          var cantica = Object.keys(canticumMap).join('|').replace(/[()+*.[{]/g,'\\$&');
+          var match = new RegExp("(\\d{3}|"+cantica+") (.*)").exec(customVerse);
+          $selPsalms.val(match[1]);
+          $txtPsalmRef.val(match[2]);
+          customRef = customVerse;
+          ref = "Psalm " + customVerse;
+        } else {
+          ref = "Psalm " + $selPsalms.val() + " " + $txtPsalmRef.val();
+          customRef = ref.slice(6);
+        }
+      }
+      $.when.apply($, parseRef(ref).map(function(ref) {
+        return ref.getLinesFromLiber().pipe(function(lines) {
+          if(!ref.verse) lines = lines.slice(0,10);
+          return lines;
+        });
+      })).then(function() {
+        var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
+        // filter out any verses that are completely contained in the text of the antiphon / verse itself
+        // var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
+        // lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
+        state.text = lines.join('\n');
+        state.mode = sel[part].mode;
+
+        // match clef of antiphon:
+        var clef = sel[part].score.startingClef.mapping.source;
+        state.gabc = "initial-style: 0;\n%%\n" + clef;
+        
+        // add custos at end of each verse
+        var notations = sel[part].score.notations;
+        var lastI = notations.length - 1;
+        var firstNote = '',
+            lastNote = '';
+        for(var i=0; i < 10; ++i) {
+          if(!firstNote && notations[i].isNeume) {
+            firstNote = notations[i].notes[0];
+            firstNote = (16 + firstNote.staffPosition).toString(23);
+          }
+          if(!lastNote && notations[lastI - i].isNeume) {
+            // TODO: this needs to ignore the verse and Gloria Patri in the Introit
+            lastNote = notations[lastI - i].notes.slice(-1)[0];
+            lastNote = (16 + lastNote.staffPosition).toString(23);
+          }
+          if(firstNote && lastNote) break;
+        }
+        var tone = getIntroitTone(state);
+        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc);
+        var lastNoteMatch = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/.exec(sel[part].gabc);
+        if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
+          console.info(lastNoteMatch[1], lastNote);
+        }
+        lastNote = lastNoteMatch[1].toLowerCase();
+        state.startOfVerse = '('+lastNote+'+) ';
+        state.endOfVerse = '(::) _Ant._('+firstNote+'+Z)';
+        state.activeGabc = getPsalmToneForPart(versePart) + state.startOfVerse + 'V/. ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
+        updateExsurge(versePart, null, true);
+      });
+    }
+    addToHash(versePart,versesSelected);
+    addToHash(versePart+'Custom',customRef);
+  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
+    var $part = $(this).parents().filter('[part]');
+    $part.find('.cbVersesAdLibitum').change();
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
     e.preventDefault();
@@ -3186,12 +3302,13 @@ console.info(JSON.stringify(selPropers));
       }
       $('select[id^=selStyle]').each(function(){
         var $this=$(this),
-            capPart = this.id.slice(3),
-            part = capPart[0].toLowerCase() + capPart.slice(1),
-            style = hash[part];
+            capPart = this.id.slice(8),
+            part = capPart.toLowerCase(),
+            style = hash['style'+capPart],
+            verseStyle = hash[part+'Verses'],
+            customVerse = hash[part+'VersesCustom'],
+            $verses = $('#div'+capPart+' input.cbVersesAdLibitum');
         if(style) {
-          capPart = part.slice(5);
-          part = capPart.toLowerCase();
           var pattern = hash[part+'Pattern'];
           if(pattern) {
             pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
@@ -3223,6 +3340,9 @@ console.info(JSON.stringify(selPropers));
             if($selTone.val() != tone) $selTone.val(tone).change();
             if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
           }
+        }
+        if(verseStyle && $verses.length) {
+          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse});
         }
       });
     }

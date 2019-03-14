@@ -30,6 +30,7 @@
   <script src="ordinarydata.js"></script>
   <script src="miscChants.js"></script>
   <script src="propersdatanovus.js"></script>
+  <script src="verseRef.js"></script>
   <script src="propers.js"></script>
   <script src="exsurge.min.js"></script>
   <script src="incipits.js"></script>
@@ -213,6 +214,12 @@
           <div id="introitus-preview" class='chant-preview'></div>
         </div>
       </div>
+    </div>
+    <div>
+      <label><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
+      <span class="verses-ad-libitum-default rubric"></span>
+      <span class="verses-ad-libitum-custom"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>
+      <div id="introitusVerses-preview" class="verses verses-ad-libitum chant-preview"></div>
     </div>
   </div>
   <div id='divKyrie' part='kyrie' class='ordinary'>
@@ -542,9 +549,12 @@
         </div>
       </div>
     </div>
-    <!-- <div>
-      <label>Verses: <select class='sel-psalms'></select></label>
-    </div> -->
+    <div>
+      <label><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
+      <span class="verses-ad-libitum-default rubric"></span>
+      <span class="verses-ad-libitum-custom"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>
+      <div id="communioVerses-preview" class="verses verses-ad-libitum chant-preview"></div>
+    </div>
   </div>
   <div id='divIte' part='ite' class='ordinary'>
     <div class='block hide-print'>

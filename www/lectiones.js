@@ -67,6 +67,42 @@ var lectiones = {
   "Ecclesiasticus 36: 1-10, 17-19",
   "Matthæus 9: 35-38"
  ],
+ "votiveED": [
+  "Esther 13: 8-11, 15-17",
+  "Lucas 11: 5-13"
+ ],
+ "votiveUE": [
+  "Ad Ephesios 4: 1-7, 13-21",
+  "Joannes 17: 1, 11-23"
+ ],
+ "votiveTB": [
+  "Jeremias 42: 1-2, 7-12",
+  "Matthæus 24: 3-8"
+ ],
+ "votiveP": [
+  "2 Machabæorum 1: 1-5",
+  "Joannes 20: 19-23"
+ ],
+ "votiveVM": [
+  "2 Regum 24: 15-19, 25",
+  "Lucas 4: 38-44"
+ ],
+ "votiveRP": [
+  "Ad Romanos 7: 22-25",
+  "Lucas 11: 9-13"
+ ],
+ "votivePIA": [
+  "Genesis 28: 10-12, 13-15, 18, 20-22",
+  "Matthæus 10: 7-14"
+ ],
+ "votiveGBM": [
+  "Ad Romanos 14: 7-12",
+  "Lucas 21: 34-36"
+ ],
+ "votiveQN": [
+  "Jeremias 14: 7-8, 9",
+  "Marcus 11: 22-26"
+ ],
  "SMadvent": [
   "Isaias 7: 10-15",
   "Lucas 1: 26-38"
