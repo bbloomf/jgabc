@@ -33,7 +33,7 @@ Ref.prototype.getLinesFromLiber = function() {
     psalm = ('00'+self.chapter).slice(-3);
     if(!psalmMap) {
       if(!psalmMapPromise) {
-        psalmMapPromise = $.get(urlRoot+'psalmMap.json').then(function(map) {
+        psalmMapPromise = $.getJSON(urlRoot+'psalmMap.json').then(function(map) {
           psalmMap = map;
         });
       }
@@ -46,7 +46,7 @@ Ref.prototype.getLinesFromLiber = function() {
     // canticle?
     if(!canticumMap) {
       if(!canticumMapPromise) {
-        canticumMapPromise = $.get(urlRoot+'canticumMap.json').then(function(map) {
+        canticumMapPromise = $.getJSON(urlRoot+'canticumMap.json').then(function(map) {
           canticumMap = {};
           canticumMapByFile = map;
           Object.keys(map).forEach(function(k) {
