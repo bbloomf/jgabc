@@ -215,6 +215,23 @@ var fs = require("fs"),
         "Jeremias 14: 7-8, 9",
         "Marcus 11: 22-26"
       ],
+      Quad6t_v: [
+        "Jeremias 11: 18-20",
+        "Marcus 14: 1-72; 15: 1-46"
+      ],
+      Quad6w_v: [
+        "Isaias 62: 11, 63: 1-7",
+        "Isaias 53: 1-12",
+        "Lucas 22: 1-71; 23: 1-53"
+      ],
+      Quad6_v: [
+        "Ad Philippenses 2: 5-11",
+        "Matthæus 26: 1-75; 27: 1-66"
+      ],
+      Quad6h_v: [
+        "1 Ad Corinthios 11: 20-32",
+        "Joannes 13: 1-15"
+      ]
     },
     partKey = {
       Introitus: 'in',
