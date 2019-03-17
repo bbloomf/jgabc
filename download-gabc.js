@@ -100,7 +100,7 @@ var path = 'gabc/',
     sylReplacements = {},
     errors = [],
     timeA = new Date(),
-    gabcUrls = litanies.map(l => `<a href='gabc/${litanyDir+l}'>litanies/${l}</a>
+    gabcUrls = litanies.map(l => `<a href='${litanyDir+l}'>litanies/${l}</a>
 `).join(''),
     oAntiphonChants = [],
     miscChants = [{name: 'O Antiphons', children: oAntiphonChants}],
