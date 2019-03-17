@@ -83,17 +83,17 @@ textarea {
   padding-left: 10pt;
 }
 .red {
-  color: #d00;
+  color: #d00!important;
 }
 .asperges-verses .versiculum {
   font-size: 120%;
-  color: #d00;
+  color: #d00!important;
   line-height: 0;
 }
 .asperges-verses .rubric {
   font-size: inherit;
   font-style: italic;
-  color: #d00;
+  color: #d00!important;
 }
 .chant-title {
   text-align: center;
@@ -124,7 +124,7 @@ text.aboveLinesText {
   font-family: 'Crimson Text';
   font-size: 120%;
   font-style: italic;
-  color: #d00;
+  color: #d00!important;
   margin: 0.5em 0 0.25em;
 }
 .rubric.after {
@@ -132,7 +132,7 @@ text.aboveLinesText {
 }
 .rubric .quote {
   font-style: normal;
-  color: #000;
+  color: #000!important;
 }
 .rubric .bracket {
   font-style: normal;
@@ -325,6 +325,7 @@ syl.bold {
 @media print {
   .commentary,
   .verses,
+  .extra-verses,
   .asperges-verses {
     max-width: 624px;
     font-size: 19.2px;

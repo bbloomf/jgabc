@@ -2420,7 +2420,7 @@ $(function(){
     $chantCommentary.text(prop.commentary || '');
     if(prop.commentary && parseRef) {
       ref = parseRef(prop.commentary).slice(-1)[0];
-      if(/^Ps/.test(ref.book)) {
+      if(/^Ps/.test(ref && ref.book)) {
         $('#div'+part[0].toUpperCase()+part.slice(1)+' select.sel-psalms:not(:visible)').val(('00'+ref.chapter).slice(-3));
       }
     }
@@ -2927,6 +2927,8 @@ $(function(){
           hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
+          verses = sel[part+"Verses"],
+          gabcVerses = verses && verses.activeGabc,
           isExtra = /^extra-/.test(part),
           header = getHeader(gabc);
       if($includePart.parent('li').hasClass('disabled') ||
@@ -2952,6 +2954,7 @@ $(function(){
       }
       gabc = header + gabc.slice(header.original.length);
       result.push(gabc);
+      if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
     });
     return result;
@@ -3099,7 +3102,7 @@ $(function(){
           return lines;
         });
       })).then(function() {
-        var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d[a-z]?\.\s+/,''); });
+        var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d+[a-z]*\.\s+/,''); });
         // filter out any verses that are completely contained in the text of the antiphon / verse itself
         // var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
         // lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
@@ -3135,8 +3138,8 @@ $(function(){
         }
         lastNote = lastNoteMatch[1].toLowerCase();
         state.startOfVerse = '('+lastNote+'+) ';
-        state.endOfVerse = '(::) _Ant._('+firstNote+'+Z)';
-        state.activeGabc = getPsalmToneForPart(versePart) + state.startOfVerse + 'V/. ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
+        state.endOfVerse = '(::) <i>Ant.</i>('+firstNote+'+Z)';
+        state.activeGabc = getPsalmToneForPart(versePart) + state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
         updateExsurge(versePart, null, true);
       });
     }

@@ -70,7 +70,9 @@ var sundayKeys = [
     {key:"Quad6_v",title:"Dominica in Palmis (ante 1955)",en:"Palm Sunday (pre 1955)"},
     {key:"Quad6m",title:"  Feria II Hebdomadæ Sanctæ",en:"  Monday in Holy Week"},
     {key:"Quad6t",title:"  Feria III Hebdomadæ Sanctæ",en:"  Tuesday in Holy Week"},
+    {key:"Quad6t_v",title:"  Feria III Hebdomadæ Sanctæ (ante 1955)",en:"  Tuesday in Holy Week (pre 1955)"},
     {key:"Quad6w",title:"  Feria IV Hebdomadæ Sanctæ",en:"  Wednesday in Holy Week"},
+    {key:"Quad6w_v",title:"  Feria IV Hebdomadæ Sanctæ (ante 1955)",en:"  Wednesday in Holy Week (pre 1955)"},
     {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
     {key:"Quad6h_v",title:"Feria V in Cena Domini (ante 1955)",en:"Maundy Thursday (pre 1955)"},
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
@@ -729,8 +731,7 @@ R/. A(e.)men.(e.) (::)"
       id: 1215,
       sticky: 0
     }, {
-      rubric: "<Psalm 23, 1–2 and 7–10>",
-      gabc: "initial-style: 0;\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
+      gabc: "initial-style: 0;\ncommentary: Psalm 23, 1-2, 7-10;\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
 <i>Flex:</i> pr{í}n(h)ci(h)pes,(h) ve(h)stras, †(g. h h h) (::) 2. Qui(h)a(h) ip(h)se...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
@@ -746,8 +747,7 @@ R/. A(e.)men.(e.) (::)"
       id: 1155,
       sticky: 0
     }, {
-      rubric: "<Psalm 46>",
-      gabc: "initial-style: 0;\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) (::) 2. Quó(h)ni(h)am...(h)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 46;\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) (::) 2. Quó(h)ni(h)am...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam Dóminus ex<b>cél</b>sus, ter<b>rí</b>bilis:&nbsp;* Rex magnus super <i>om</i><i>nem</i> <b>ter</b>ram. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">3.&nbsp;</span>Subjécit <b>pó</b>pulos <b>no</b>bis:&nbsp;* et Gentes sub pé<i>di</i><i>bus</i> <b>nos</b>tris.</p>\
@@ -3418,6 +3418,7 @@ var proprium = {
         "inVerses": "Ps 66: 2, 3",
         "coVerses": "Ps 68: 2-3, 16, 24, 31, 35"
     },
+    "Quad6t_v": { ref: "Quad6t" },
     "Quad6w": {
         "inID": 236,
         "grID": 1239,
@@ -3429,6 +3430,7 @@ var proprium = {
         "inVerses": "Ps 101: 3",
         "coVerses": "Ps 101: 2-3, 5, 18"
     },
+    "Quad6w_v": { ref: "Quad6w" },
     "Quad6h": {
         "extraChants": true,
         "inID": 374,
