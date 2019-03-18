@@ -1567,19 +1567,19 @@ function getReading(source, returnText) {
       var wholeChapter = !verse;
       if(wholeChapter) verse = 1;
       var beginning = (chapter == 1 && verse == 1)? '' : '\n';
-      beginIndex = book.indexOf(`${beginning}${chapter}\t${verse}\t`);
+      beginIndex = book.indexOf(beginning + chapter + '\t' + verse + '\t');
       if(beginIndex < 0) {
-        text += `Verse ${chapter}: ${verse} was not found.\n`;
+        text += 'Verse ' + chapter + ': ' + verse + ' was not found.\n';
         continue;
       }
       if(beginning) beginIndex++;
       var temp = book.slice(beginIndex);
       var endIndex = 0;
       if(wholeChapter) {
-        endIndex = temp.indexOf(`\n${chapter- -1}\t1\t`);
+        endIndex = temp.indexOf('\n' + (chapter- -1) + '\t1\t');
         if(endIndex < 0) endIndex = temp.length-1;
       } else if(endVerse) {
-        endIndex = temp.indexOf(`\n${chapter}\t${endVerse}\t`) + 1;
+        endIndex = temp.indexOf('\n' + chapter + '\t' + endVerse + '\t') + 1;
       }
       endIndex = temp.indexOf('\n',endIndex);
       if(endIndex < 0) endIndex = temp.length;

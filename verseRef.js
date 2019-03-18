@@ -21,9 +21,9 @@ function Ref(ref, lastRef) {
   this.endVerse = ref.endVerse;
 }
 var psalmMap, psalmMapPromise, canticumMap, canticumMapPromise, canticumMapByFile;
-Ref.prototype.bookString = function() { return `${this.bookNum? this.bookNum+' ' : ''}${this.book}`; }
-Ref.prototype.verseString = function() { return `${this.verse? this.verse : ''}${this.endVerse? '-'+this.endVerse : ''}`; };
-Ref.prototype.toString = function() { return `${this.bookString()} ${this.chapter||''}${this.verse? ': '+this.verseString() : ''}`; };
+Ref.prototype.bookString = function() { return (this.bookNum? this.bookNum+' ' : '') + this.book; }
+Ref.prototype.verseString = function() { return (this.verse? this.verse : '') + (this.endVerse? '-'+this.endVerse : ''); };
+Ref.prototype.toString = function() { return this.bookString() + ' ' +(this.chapter||'') + (this.verse? ': '+this.verseString() : ''); };
 Ref.prototype.getEndVerse = function() { return this.endVerse || this.verse; }
 Ref.prototype.getLinesFromLiber = function() {
   var urlRoot = /psalms\/[^/]*$/.test(location.pathname)? "../" : "";
@@ -101,7 +101,7 @@ Ref.prototype.getLinesFromLiber = function() {
       if(!self.verse || (verseNum >= self.verse && verseNum <= self.getEndVerse())) {
         var liberVerses = liber.slice(a, b||undefined);
         if(liberVerses.length == 1 && verseI == 1) verseI = 0;
-        return liberVerses.map((verse,i) => `${verseNum}${(verseI? (verseI + i + 9) : "").toString(36)}. ${verse}`);
+        return liberVerses.map(function(verse,i) { return verseNum + ((verseI? (verseI + i + 9) : "").toString(36)) + '. ' + verse;});
       }
       return [];
     }));
@@ -149,7 +149,7 @@ function parseRef(refText) {
   } else {
     match = /[\sV℣.]*(?:([Ii]bid)[.,\s]*|(?:([\dIV]+)\.?\s*)?([A-ZÆŒ][a-zæœáéíóú]+)\W*(\d+))\s*(?:[,:]?\s*(\d+)\s*(?:[-–—\s]+(\d+))?\s*)?(.*)/.exec(refText);
     if(!match) {
-      problematicRefs[refText] = `Bad refText: "${refText}"`;
+      problematicRefs[refText] = 'Bad refText: "' + refText + '"';
       return [];
     }
     ibid = match[1];
@@ -166,7 +166,7 @@ function parseRef(refText) {
       remaining = remaining.slice(match[0].length);
     }
   }
-  if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
+  if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + ', ' + endVerse + ' < ' + verse);
   result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*|(\d+))(\d+)?\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
@@ -178,7 +178,7 @@ function parseRef(refText) {
     verse = match[6] || match[7];
     endVerse = match[8];
     remaining = match[9];
-    if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + `, ${endVerse} < ${verse}`);
+    if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + ', ' + endVerse + ' < ' + verse);
     result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
   }
   // test ref:
