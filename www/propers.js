@@ -718,7 +718,33 @@ $(function(){
       readings = [readings[0]].concat(readings.slice(-2));
     }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
+    selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus];
+    if(!selPropers && proprium[ref]) {
+      selPropers = proprium[ref];
+      if(selTempus && (selDay != ref)) {
+        selPropers = $.extend(true,{},selPropers);
+        var regex;
+        if(selTempus == 'Quad') {
+          delete selPropers.alID;
+          regex = /^(\w{2,3})(?:Quad|Sept)ID$/;
+        } else if(selTempus == 'Pasch') {
+          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.alID;
+          regex = /^(\w{2,3})PaschID$/;
+        }
+        Object.keys(selPropers).forEach(function(key) {
+          var match = regex.exec(key);
+          if(match) {
+            selPropers[match[1]+"ID"] = selPropers[key];
+          }
+        });
+        if(!('grID' in selPropers) && selPropers.alID && selPropers.alID.length > 1) {
+          selPropers.grID = selPropers.alID.shift();
+        }
+      }
+      if(selPropers.alID && selPropers.alID.length == 1) {
+        selPropers.alID = selPropers.alID.pop();
+      }
+    }
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
       selPropers.gloria = false;

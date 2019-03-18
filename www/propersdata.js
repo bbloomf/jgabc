@@ -5700,14 +5700,12 @@ var proprium = {
         "gbid": "st_cyril_jerusalem"
     },
     "Apr24": {
-        "ref": "mass_i_martyr_not_bishop",
+        "ref": "mass_one_martyr",
         "gbid": "st_fidelis_of_sigmaringen"
     },
     "Apr25": {
         "ref": "mass_one_martyr",
-        "gbid": "st_mark",
-        "inVerses": "Ps 63: 4, 11",
-        "coVerses": "Ps 63: 2-7"
+        "gbid": "st_mark"
     },
     "Apr26": {
         "ref": "mass_holy_pope",
