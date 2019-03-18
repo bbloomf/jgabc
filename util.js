@@ -790,168 +790,174 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
 }
-
+var Tone;
 if(typeof window=='object') (function(window) {
-  var synth = new Tone.Synth({
-    "oscillator" : {
-        type: "custom",
-        partials: [0.3,0.03,0.05]
-      },
-      "envelope" : {
-        "attack" : 0.05,
-        "decay" : 0.3,
-        "sustain" : 0.4,
-        "release" : 0.8,
+  var synth;
+  if(Tone) {
+    synth = new Tone.Synth({
+      "oscillator" : {
+          type: "custom",
+          partials: [0.3,0.03,0.05]
+        },
+        "envelope" : {
+          "attack" : 0.05,
+          "decay" : 0.3,
+          "sustain" : 0.4,
+          "release" : 0.8,
+        }
+    }).toMaster();
+    Tone.Transport.bpm.value = 165;
+    window.setTempo = function(newTempo) { Tone.Transport.bpm.value = newTempo || 165; }
+    window.setRelativeTempo = function(delta) {
+      var state = Tone.Transport.state;
+      Tone.Transport.stop();
+      var val = Tone.Transport.bpm.value = Math.round(Math.max(0, Tone.Transport.bpm.value + delta)) || 165;
+      if(state === 'started') {
+        Tone.Transport.clear(timeoutNextNote);
+        Tone.Transport.start();
+        timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+8n');
       }
-  }).toMaster();
-  var timeoutNextNote, transpose = 0;
-  Tone.Transport.bpm.value = 165;
-  var _isPlaying=false;
-  window.setTempo = function(newTempo) { Tone.Transport.bpm.value = newTempo || 165; }
-  window.setRelativeTempo = function(delta) {
-    var state = Tone.Transport.state;
-    Tone.Transport.stop();
-    var val = Tone.Transport.bpm.value = Math.round(Math.max(0, Tone.Transport.bpm.value + delta)) || 165;
-    if(state === 'started') {
+      return val;
+    }
+    window.playScore = function(score, firstPitch, startNote){
       Tone.Transport.clear(timeoutNextNote);
       Tone.Transport.start();
-      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+8n');
+      if($('#mediaControls').length == 0) {
+        $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
+      }
+      $('#mediaControls').removeClass('offscreen');
+      if(syllable) {
+        syllable.classList.remove('active');
+        syllable = null;
+      }
+      var originalSvg = score.svg;
+      var dropCap = !startNote && $('text', originalSvg)[0];
+      if(dropCap)
+        dropCap.classList.add('active');
+      var noteId = 0;
+      var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
+      if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
+      if(!firstPitch) firstPitch = score.defaultStartPitch;
+      if(!firstPitch) {
+        var startPitch = notes[0].pitch.toInt(),
+            pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
+            lowPitch = Math.min.apply(null, pitches),
+            highPitch = Math.max.apply(null, pitches);
+        firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
+      }
+      if(firstPitch.toInt) firstPitch = firstPitch.toInt();
+      transpose = firstPitch - notes[0].pitch.toInt();
+      _isPlaying = true;
+      function playNextNote(time){
+        var note = notes[noteId];
+        if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
+        if(originalSvg != score.svg || note == null) {
+          if(syllable) syllable.classList.remove('active');
+          _isPlaying = false;
+        }
+        if(!_isPlaying) {
+          if(dropCap) dropCap.classList.remove('active');
+          $('#mediaControls').addClass('offscreen');
+          return;
+        }
+        var duration = 1;
+        if(note.constructor != exsurge.Note) {
+          while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+            if(!(note = notes[++noteId])) return;
+          }
+          if(note.isDivider) {
+            if(syllable) syllable.classList.remove('active');
+            if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+              duration = 2;
+            } // otherwise (for half bar) duration is default of 1.
+          }
+        }
+        noteElem = note.svgNode;
+        if(noteElem) {
+          var href = noteElem.attributes.getNamedItem('href').value;
+          if(href == '#None') {
+            noteElem = noteElem.previousSibling;
+            noteElem.classList.remove('porrectus-left');
+            noteElem.classList.add('porrectus-right');
+          } else if(/^#Porrectus/.test(href)) {
+            noteElem.classList.add('porrectus-left');
+          }
+          noteElem.classList.add('active');
+          var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
+          if(tmpSyllable && tmpSyllable != syllable) {
+            if(dropCap && syllable) dropCap.classList.remove('active');
+            if(syllable) syllable.classList.remove('active');
+            syllable = tmpSyllable;
+            if(syllable) syllable.classList.add('active');
+          }
+        }
+        if(note.constructor === exsurge.Note) {
+          var nextNote = notes[noteId + 1];
+          if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+          var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
+          var prevNote = notes[noteId - 1];
+          if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+          if(note.morae.length) {
+            duration = 2;
+          } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
+            duration = 1.8;
+          } else if(note.episemata.length) {
+            var episemataCount = 1;
+            if(prevNote && prevNote.episemata.length) ++ episemataCount;
+            if(nextNote && nextNote.episemata.length) ++ episemataCount;
+            duration += 0.9 / episemataCount;
+          }
+          var noteNeume = noteElem.parentNode.parentNode.source;
+          var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
+          var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
+          var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
+          // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
+          // var options = { length: durationMS };
+          // tones.play(note.pitch, options, transpose);
+          var noteName = tones.getNoteName(note.pitch, transpose);
+          synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
+        }
+        ++noteId;
+        if(noteId >= notes.length) _isPlaying = false;
+        if(Tone.Transport.state != 'started') return;
+        timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+' + (new Tone.Time("4n").toSeconds()*duration));
+      };
+      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote);
+      window.playNextNote = playNextNote;
+      window.playPauseScore = function() {
+        if(timeoutNextNote) {
+          Tone.Transport.clear(timeoutNextNote);
+          Tone.Transport.pause();
+          timeoutNextNote = null;
+        } else {
+          Tone.Transport.start();
+          playNextNote();
+          return true;
+        }
+      }
+      window.highlightCurrentlyPlayingNote = function() {
+        if(noteElem) {
+          noteElem.classList.add('active');
+        }
+        if(syllable) {
+          syllable.classList.add('active');
+        }
+      }
+    };
+    window.stopScore = function(){
+      Tone.Transport.stop();
+      _isPlaying=false;
+      $('#mediaControls').addClass('offscreen');
     }
-    return val;
+  } else {
+    Tone = {};
+    window.setTempo = window.setRelativeTempo = window.playScore = window.stopScore = function(){};
   }
+  var timeoutNextNote, transpose = 0;
+  var _isPlaying=false;
   var noteElem, syllable;
   window.isPlayingChant = function() {
     return _isPlaying;
-  }
-  window.playScore = function(score, firstPitch, startNote){
-    Tone.Transport.clear(timeoutNextNote);
-    Tone.Transport.start();
-    if($('#mediaControls').length == 0) {
-      $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
-    }
-    $('#mediaControls').removeClass('offscreen');
-    if(syllable) {
-      syllable.classList.remove('active');
-      syllable = null;
-    }
-    var originalSvg = score.svg;
-    var dropCap = !startNote && $('text', originalSvg)[0];
-    if(dropCap)
-      dropCap.classList.add('active');
-    var noteId = 0;
-    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
-    if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
-    if(!firstPitch) firstPitch = score.defaultStartPitch;
-    if(!firstPitch) {
-      var startPitch = notes[0].pitch.toInt(),
-          pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
-          lowPitch = Math.min.apply(null, pitches),
-          highPitch = Math.max.apply(null, pitches);
-      firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
-    }
-    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
-    transpose = firstPitch - notes[0].pitch.toInt();
-    _isPlaying = true;
-    function playNextNote(time){
-      var note = notes[noteId];
-      if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
-      if(originalSvg != score.svg || note == null) {
-        if(syllable) syllable.classList.remove('active');
-        _isPlaying = false;
-      }
-      if(!_isPlaying) {
-        if(dropCap) dropCap.classList.remove('active');
-        $('#mediaControls').addClass('offscreen');
-        return;
-      }
-      var duration = 1;
-      if(note.constructor != exsurge.Note) {
-        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
-          if(!(note = notes[++noteId])) return;
-        }
-        if(note.isDivider) {
-          if(syllable) syllable.classList.remove('active');
-          if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
-            duration = 2;
-          } // otherwise (for half bar) duration is default of 1.
-        }
-      }
-      noteElem = note.svgNode;
-      if(noteElem) {
-        var href = noteElem.attributes.getNamedItem('href').value;
-        if(href == '#None') {
-          noteElem = noteElem.previousSibling;
-          noteElem.classList.remove('porrectus-left');
-          noteElem.classList.add('porrectus-right');
-        } else if(/^#Porrectus/.test(href)) {
-          noteElem.classList.add('porrectus-left');
-        }
-        noteElem.classList.add('active');
-        var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
-        if(tmpSyllable && tmpSyllable != syllable) {
-          if(dropCap && syllable) dropCap.classList.remove('active');
-          if(syllable) syllable.classList.remove('active');
-          syllable = tmpSyllable;
-          if(syllable) syllable.classList.add('active');
-        }
-      }
-      if(note.constructor === exsurge.Note) {
-        var nextNote = notes[noteId + 1];
-        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
-        var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
-        var prevNote = notes[noteId - 1];
-        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
-        if(note.morae.length) {
-          duration = 2;
-        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
-          duration = 1.8;
-        } else if(note.episemata.length) {
-          var episemataCount = 1;
-          if(prevNote && prevNote.episemata.length) ++ episemataCount;
-          if(nextNote && nextNote.episemata.length) ++ episemataCount;
-          duration += 0.9 / episemataCount;
-        }
-        var noteNeume = noteElem.parentNode.parentNode.source;
-        var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
-        var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
-        var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
-        // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
-        // var options = { length: durationMS };
-        // tones.play(note.pitch, options, transpose);
-        var noteName = tones.getNoteName(note.pitch, transpose);
-        synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
-      }
-      ++noteId;
-      if(noteId >= notes.length) _isPlaying = false;
-      if(Tone.Transport.state != 'started') return;
-      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+' + (new Tone.Time("4n").toSeconds()*duration));
-    };
-    timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote);
-    window.playNextNote = playNextNote;
-    window.playPauseScore = function() {
-      if(timeoutNextNote) {
-        Tone.Transport.clear(timeoutNextNote);
-        Tone.Transport.pause();
-        timeoutNextNote = null;
-      } else {
-        Tone.Transport.start();
-        playNextNote();
-        return true;
-      }
-    }
-    window.highlightCurrentlyPlayingNote = function() {
-      if(noteElem) {
-        noteElem.classList.add('active');
-      }
-      if(syllable) {
-        syllable.classList.add('active');
-      }
-    }
-  };
-  window.stopScore = function(){
-    Tone.Transport.stop();
-    _isPlaying=false;
-    $('#mediaControls').addClass('offscreen');
   }
   window.removeChantContextMenus = function() {
     $('svg.ChantScore use[source-index].active,svg.ChantScore text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });

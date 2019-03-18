@@ -167,7 +167,7 @@ function parseRef(refText) {
     }
   }
   if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + ', ' + endVerse + ' < ' + verse);
-  result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
+  result.push(new Ref({bookNum:bookNum, book:book, chapter:chapter, verse:verse, endVerse:endVerse}));
   while(remaining && (match = /\s*[.,]?\s*(?:et\s*)?(?:(?:([\dIV]+)\.?\s*)?([A-Z][a-zæœáéíóú]+)\W*(\d+)[,:\s]*|;\s*(\d+)[:,]\s*|(\d+):\s*|(\d+))(\d+)?\s*(?:[-–—\s]+(\d+))?\s*(.*)/.exec(remaining))) {
     if(match[1]) bookNum = match[1];
     if(match[2]) {
@@ -179,7 +179,7 @@ function parseRef(refText) {
     endVerse = match[8];
     remaining = match[9];
     if(endVerse && parseInt(endVerse) < parseInt(verse)) console.error( "incorrect reference: " + refText + ', ' + endVerse + ' < ' + verse);
-    result.push(new Ref({bookNum, book, chapter, verse, endVerse}));
+    result.push(new Ref({bookNum:bookNum, book:book, chapter:chapter, verse:verse, endVerse:endVerse}));
   }
   // test ref:
   var regexUnimportant = /\bV\b|[℣.\s]/g;
@@ -207,7 +207,9 @@ var partMap = {
   "an": "Antiphona",
   "re": "Responsorium"
 };
-function flattenMap(map, prefix = "", result = {}) {
+function flattenMap(map, prefix, result) {
+  prefix = prefix || "";
+  result = result || {};
   Object.keys(map).forEach(function(key) {
     var subMap = map[key];
     var fullKey = (prefix + " " + key).trim();
