@@ -722,7 +722,7 @@ $(function(){
     if(!selPropers && proprium[ref]) {
       selPropers = proprium[ref];
       if(selTempus && (selDay != ref)) {
-        selPropers = $.extend({},selPropers);
+        selPropers = $.extend(true,{},selPropers);
         var regex;
         if(selTempus == 'Quad') {
           delete selPropers.alID;
@@ -740,6 +740,9 @@ $(function(){
         if(!('grID' in selPropers) && selPropers.alID && selPropers.alID.length > 1) {
           selPropers.grID = selPropers.alID.shift();
         }
+      }
+      if(selPropers.alID && selPropers.alID.length == 1) {
+        selPropers.alID = selPropers.alID.pop();
       }
     }
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
