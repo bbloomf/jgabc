@@ -728,7 +728,7 @@ $(function(){
           delete selPropers.alID;
           regex = /^(\w{2,3})(?:Quad|Sept)ID$/;
         } else if(selTempus == 'Pasch') {
-          selPropers.grID = selPropers.alID;
+          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.alID;
           regex = /^(\w{2,3})PaschID$/;
         }
         Object.keys(selPropers).forEach(function(key) {
@@ -736,7 +736,10 @@ $(function(){
           if(match) {
             selPropers[match[1]+"ID"] = selPropers[key];
           }
-        })
+        });
+        if(!('grID' in selPropers) && selPropers.alID && selPropers.alID.length > 1) {
+          selPropers.grID = selPropers.alID.shift();
+        }
       }
     }
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
