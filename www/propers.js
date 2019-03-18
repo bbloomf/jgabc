@@ -3089,6 +3089,7 @@ $(function(){
         showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
         showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
     if(this.checked && !hasDefault && showingDefault) this.checked = false;
+    var cbVersesAdLibitum = this;
     targetState = targetState || {};
     var customVerse = targetState.customVerse;
     targetState = targetState.state;
@@ -3128,6 +3129,7 @@ $(function(){
           return lines;
         });
       })).then(function() {
+        if(!cbVersesAdLibitum.checked) return;
         var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d+[a-z]*\.\s+/,''); });
         // filter out any verses that are completely contained in the text of the antiphon / verse itself
         // var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
