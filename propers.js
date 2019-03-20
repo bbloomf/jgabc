@@ -2519,6 +2519,7 @@ $(function(){
           chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
+            if(window.afterChantLayout) window.afterChantLayout();
           };
           queue.push(callback);
           setTimeout(processQueue, 100);
@@ -3306,14 +3307,26 @@ console.info(JSON.stringify(selPropers));
     var hash = localStorage[key];
     if(hash) location.hash = (new LocationHash(hash+location.hash)).toString();
   }
-  function hashChanged() {
+  function hashChanged(isPageLoad) {
     if(lastHandledHash !== location.hash) {
+      window.afterChantLayout = null;
       lastHandledHash = location.hash;
       allowAddToHash = false;
       var hash = parseHash();
       ['sunday', 'sundayNovus', 'saint', 'mass',
        'tempus', 'yearNovus',
        'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).forEach(function(key, i) {
+        if(isPageLoad === true && (key in hash)) {
+          var selector = '#divCustom1';
+          if(key == 'ordinary') {
+            selector = '#divKyrie';
+          } else if(i > 6) {
+            selector = '#div' + key[0].toUpperCase() + key.slice(1);
+          }
+          var element = $(selector)[0];
+          window.afterChantLayout = function() { element.scrollIntoView(); };
+          isPageLoad = false;
+        }
         if(key in hash || (i > 5 && (i <= 10 || !('ordinary' in hash)))) {
           var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1)),
               val = hash[key] || '';
@@ -3719,5 +3732,5 @@ console.info(JSON.stringify(selPropers));
   });
   selTempus = getSeasonForMoment(new moment());
   updateTempus();
-  hashChanged();
+  hashChanged(true);
 });
