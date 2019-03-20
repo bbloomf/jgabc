@@ -265,7 +265,7 @@ function splitGabc(gabc,offset) {
   return gSyl;
 }
 
-var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœ][^\s\)]*)\)/;
+var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœǽœ́][^\s\)]*)\)/;
 function splitText(text) {
   switch($("#selLanguage").val()) {
     case 'en':
@@ -289,7 +289,7 @@ function splitText(text) {
   var index = 0,lastIndex = 0;
   while((m = regexLatin.exec(text))) {
     index = m.index;
-    if(m[0].match(/^n[cg]u[aeiouyáéíóúý?æœ]/i)) {
+    if(m[0].match(/^n[cg]u[aeiouyáéíóúý?æœǽœ́]/i)) {
       var lastSyl = syl.slice(-1);
       if(lastSyl) lastSyl = lastSyl[0];
       if(!lastSyl.space && !lastSyl.punctuation) {
@@ -447,7 +447,7 @@ function decompile(mixed) {
       text.push(tws);
     }
     if(syl){
-      var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
+      var sylR=syl.replace(/<i>([aeiouyæœ])<\/i>/ig,'($1)');
       hasElisions = hasElisions||(syl!=sylR);
       text.push(sylR);
     }

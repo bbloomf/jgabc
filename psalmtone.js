@@ -1,9 +1,9 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\^\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
+var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽœ́æœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ]\u0301?)(?:(?:[\wáéíóúýǽæœ]\u0301?)*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]\u0301?|[bcdgptf][lrh][\wáéíóúýǽæœ]\u0301?)|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|((?:[^\w\sáëéíóúýǽæœ]\u0301)*(?:\s[:;†\^\*"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
+var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)((?:\s*[-"'“”‘’:;,.\)\?!])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
-var regexAccent = /[áéíóúýǽ]/i;
+var regexAccent = /[áéíóúýǽœ́]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /^(\d+)\.?\s*/;
 var sym_flex = '†';
@@ -329,7 +329,8 @@ var Syl = (function(){
           forceSyl=false,
           words=this.words,
           accentsMarked=text.match(/[a-z]\*/i),
-          prefix = null;
+          prefix = null,
+          sylWords = [];
       lang = lang || 'en';
       regexWords.exec("");
       // in Polish, sometimes a word does not contain a vowel, and therefore has to be part of first syllable of the following word.
@@ -340,6 +341,7 @@ var Syl = (function(){
             cpi=m[5]?1+opi+m[5].length:0,   // closing parenthesis index
             ai=w.split('*'),                // accent indices
             wordSyls = [];
+        sylWords.push(wordSyls);
         w = ai.join('');
         m[3] = m[3] && m[3].replace(/\*/g,'');
         m[5] = m[5] && m[5].replace(/\*/g,'');
@@ -456,9 +458,26 @@ var Syl = (function(){
           result.push(tmpSyllable);
         }
       }
-      if(!accentsMarked) {
+      if(lang == 'la') {
+        sylWords.forEach(function(syls) {
+          var word = syls.map(function(syl) { return syl.syl; }).join('');
+          if(!regexAccent.test(word) && syls.length == 2) {
+            syls[0].accent = true;
+          }
+        });
+        for(var i=1, lastAccent = 0; i <= result.length; ++i) {
+          var curSyl = result[result.length - i];
+          var nextSyl = result[result.length - i - 1];
+          if(curSyl.accent) {
+            lastAccent = i;
+          } else if(lastAccent == i-2 && !(nextSyl && nextSyl.accent)) {
+            lastAccent = i;
+            curSyl.accent = true;
+          }
+        }
+      } else if(!accentsMarked) {
         for(var i=1; i<=3; ++i) {
-          var curSyl = result[result.length-1];
+          var curSyl = result[result.length-i];
           if(!curSyl) break;
           var curWord = curSyl.word;
           if(curWord.length == 1) {
@@ -1101,8 +1120,9 @@ var _getSyllables = function(text,bi) {
   }
   return syl;
 }
-var getSyllables = _getSyllables;
 var _getEnSyllables = function(text){return Syl.syllabify(text);};
+var _getLaSyllables = function(text){return Syl.syllabify(text,'la');};
+var getSyllables = _getLaSyllables;
 
 function getWords(syls) {
   var len = syls.length;

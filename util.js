@@ -502,9 +502,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'U':'Ú',
            'Y':'Ý',
            'æ':"ǽ",
-           'œ':"oé",
+           'œ':"œ́",
            'Æ':"Ǽ",
-           'Œ':"Oé"
+           'Œ':"Œ́"
            },
         "true":
           {'a':'ä',
@@ -570,7 +570,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
             'Ö':'O',
             'Ü':'U',
             'Ǽ':"Aé",
-            'ǽ':"aé"
+            'ǽ':"aé",
+            'Œ́':'Oé',
+            'œ́':'oé'
           },
         "true":
           {
