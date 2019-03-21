@@ -475,39 +475,39 @@ var gabcPsalm21 = "initial-style: 0;\n\
 %%\n\
 (f3)1. De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quí</b>(h)sti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)li(h)ctó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)";
 var versesPsalm21 = '<div class="verses">\
-<p><span class="versenum">2.&nbsp;</span>Deus meus, clamábo per diem, et <i>non</i> <i>e</i><b>xáu</b>dies:&nbsp;* et nocte, et non ad insipiéntiam <b>mi</b>hi.<br></p>\
-<p><span class="versenum">3.&nbsp;</span>Tu autem in <i>san</i><i>cto</i> <b>há</b>bitas:&nbsp;* laus <b>Is</b>raël.<br></p>\
-<p><span class="versenum">4.&nbsp;</span>In te speravérunt <i>pa</i><i>tres</i> <b>nos</b>tri:&nbsp;* speravérunt, et liberásti <b>e</b>os.<br></p>\
-<p><span class="versenum">5.&nbsp;</span>Ad te clamavérunt, et <i>sal</i><i>vi</i> <b>fa</b>cti sunt:&nbsp;* in te speravérunt, et non sunt con<b>fú</b>si.<br></p>\
-<p><span class="versenum">6.&nbsp;</span>Ego autem sum vermis, <i>et</i> <i>non</i> <b>ho</b>mo:&nbsp;* oppróbrium hóminum, et abjéctio <b>ple</b>bis.<br></p>\
-<p><span class="versenum">7.&nbsp;</span>Omnes vidéntes me <i>de</i><i>ri</i><b>sé</b>runt me:&nbsp;* locúti sunt lábiis, et movérunt <b>ca</b>put.<br></p>\
-<p><span class="versenum">8.&nbsp;</span>Sperávit in Dómino, erí<i>pi</i><i>at</i> <b>e</b>um:&nbsp;* salvum fáciat eum, quóniam vult <b>e</b>um.<br></p>\
-<p><span class="versenum">9.&nbsp;</span>Quóniam tu es, qui extraxísti <i>me</i> <i>de</i> <b>ven</b>tre:&nbsp;* spes mea ab ubéribus matris <b>me</b>æ.<br></p>\
-<p><span class="versenum">10.&nbsp;</span>In te projéctus sum ex útero:&nbsp;† de ventre matris meæ Deus <i>me</i><i>us</i> <b>es</b> tu,&nbsp;* ne discésseris <b>a</b> me:<br></p>\
-<p><span class="versenum">11.&nbsp;</span>Quóniam tribulátio <i>pró</i><i>xi</i><b>ma</b> est:&nbsp;* quóniam non est qui <b>ád</b>juvet.<br></p>\
-<p><span class="versenum">12.&nbsp;</span>Circumdedérunt me ví<i>tu</i><i>li</i> <b>mul</b>ti:&nbsp;* tauri pingues obse<b>dé</b>runt me.<br></p>\
-<p><span class="versenum">13.&nbsp;</span>Aperuérunt super <i>me</i> <i>os</i> <b>su</b>um:&nbsp;* sicut leo rápiens et <b>rú</b>giens.<br></p>\
-<p><span class="versenum">14.&nbsp;</span>Sicut a<i>qua</i> <i>ef</i><b>fú</b>sus sum:&nbsp;* et dispérsa sunt ómnia ossa <b>me</b>a.<br></p>\
-<p><span class="versenum">15.&nbsp;</span>Factum est cor meum tamquam ce<i>ra</i> <i>li</i><b>qué</b>scens:&nbsp;* in médio ventris <b>me</b>i.<br></p>\
-<p><span class="versenum">16.&nbsp;</span>Aruit tamquam testa virtus mea,&nbsp;† et lingua mea adhǽsit fáu<i>ci</i><i>bus</i> <b>me</b>is:&nbsp;* et in púlverem mortis dedu<b>xí</b>sti me.<br></p>\
-<p><span class="versenum">17.&nbsp;</span>Quóniam circumdedérunt me <i>ca</i><i>nes</i> <b>mul</b>ti:&nbsp;* concílium malignántium ob<b>sé</b>dit me.<br></p>\
-<p><span class="versenum">18.&nbsp;</span>Fodérunt manus meas et <i>pe</i><i>des</i> <b>me</b>os:&nbsp;* dinumeravérunt ómnia ossa <b>me</b>a.<br></p>\
-<p><span class="versenum">19.&nbsp;</span>Ipsi vero consíderavérunt et inspexérunt me:&nbsp;† divisérunt sibi vesti<i>mén</i><i>ta</i> <b>me</b>a,&nbsp;* et super vestem meam misérunt <b>sor</b>tem.<br></p>\
-<p><span class="versenum">20.&nbsp;</span>Tu autem, Dómine, ne elongáveris auxílium <i>tu</i><i>um</i> <b>a</b> me:&nbsp;* ad defensiónem meam <b>cón</b>spice.<br></p>\
-<p><span class="versenum">21.&nbsp;</span>Erue a frámea, Deus, á<i>ni</i><i>mam</i> <b>me</b>am:&nbsp;* et de manu canis únicam <b>me</b>am.<br></p>\
-<p><span class="versenum">22.&nbsp;</span>Salva me ex o<i>re</i> <i>le</i><b>ó</b>nis:&nbsp;* et a córnibus unicórnium humilitátem <b>me</b>am.<br></p>\
-<p><span class="versenum">23.&nbsp;</span>Narrábo nomen tuum frá<i>tri</i><i>bus</i> <b>me</b>is:&nbsp;* in médio Ecclésiæ lau<b>dá</b>bo te.<br></p>\
-<p><span class="versenum">24.&nbsp;</span>Qui timétis Dóminum, lau<i>dá</i><i>te</i> <b>e</b>um:&nbsp;* univérsum semen Jacob, glorificáte <b>e</b>um.<br></p>\
-<p><span class="versenum">25.&nbsp;</span>Tímeat eum omne <i>se</i><i>men</i> <b>Is</b>raël:&nbsp;* quóniam non sprevit, neque despéxit deprecatiónem <b>páu</b>peris:<br></p>\
-<p><span class="versenum">26.&nbsp;</span>Nec avértit fáciem <i>su</i><i>am</i> <b>a</b> me:&nbsp;* et cum clamárem ad eum, exau<b>dí</b>vit me.<br></p>\
-<p><span class="versenum">27.&nbsp;</span>Apud te laus mea in ecclé<i>si</i><i>a</i> <b>ma</b>gna:&nbsp;* vota mea reddam in conspéctu timéntium <b>e</b>um.<br></p>\
-<p><span class="versenum">28.&nbsp;</span>Edent páuperes, et saturabúntur:&nbsp;† et laudábunt Dóminum qui re<i>quí</i><i>runt</i> <b>e</b>um:&nbsp;* vivent corda eórum in sǽculum <b>sǽ</b>culi.<br></p>\
-<p><span class="versenum">29.&nbsp;</span>Reminiscéntur et convertén<i>tur</i> <i>ad</i> <b>Dó</b>minum&nbsp;* univérsi fines <b>ter</b>ræ:<br></p>\
-<p><span class="versenum">30.&nbsp;</span>Et adorábunt in con<i>spé</i><i>ctu</i> <b>e</b>jus&nbsp;* univérsæ famíliæ <b>Gén</b>tium.<br></p>\
-<p><span class="versenum">31.&nbsp;</span>Quóniam Dómi<i>ni</i> <i>est</i> <b>re</b>gnum:&nbsp;* et ipse dominábitur <b>Gén</b>tium.<br></p>\
-<p><span class="versenum">32.&nbsp;</span>Manducavérunt et adoravérunt omnes <i>pin</i><i>gues</i> <b>ter</b>ræ:&nbsp;* in conspéctu ejus cadent omnes qui descéndunt in <b>ter</b>ram.<br></p>\
-<p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>i</b>psi.<br></p>\
-<p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.<br></p>\
+<p><span class="versenum">2.&nbsp;</span>Deus meus, clamábo per diem, et <i>non</i> <i>e</i><b>xáu</b>dies:&nbsp;* et nocte, et non ad insipiéntiam <b>mi</b>hi.</p>\
+<p><span class="versenum">3.&nbsp;</span>Tu autem in <i>san</i><i>cto</i> <b>há</b>bitas:&nbsp;* laus <b>Is</b>raël.</p>\
+<p><span class="versenum">4.&nbsp;</span>In te speravérunt <i>pa</i><i>tres</i> <b>nos</b>tri:&nbsp;* speravérunt, et liberásti <b>e</b>os.</p>\
+<p><span class="versenum">5.&nbsp;</span>Ad te clamavérunt, et <i>sal</i><i>vi</i> <b>fa</b>cti sunt:&nbsp;* in te speravérunt, et non sunt con<b>fú</b>si.</p>\
+<p><span class="versenum">6.&nbsp;</span>Ego autem sum vermis, <i>et</i> <i>non</i> <b>ho</b>mo:&nbsp;* oppróbrium hóminum, et abjéctio <b>ple</b>bis.</p>\
+<p><span class="versenum">7.&nbsp;</span>Omnes vidéntes me <i>de</i><i>ri</i><b>sé</b>runt me:&nbsp;* locúti sunt lábiis, et movérunt <b>ca</b>put.</p>\
+<p><span class="versenum">8.&nbsp;</span>Sperávit in Dómino, erí<i>pi</i><i>at</i> <b>e</b>um:&nbsp;* salvum fáciat eum, quóniam vult <b>e</b>um.</p>\
+<p><span class="versenum">9.&nbsp;</span>Quóniam tu es, qui extraxísti <i>me</i> <i>de</i> <b>ven</b>tre:&nbsp;* spes mea ab ubéribus matris <b>me</b>æ.</p>\
+<p><span class="versenum">10.&nbsp;</span>In te projéctus sum ex útero:&nbsp;† de ventre matris meæ Deus <i>me</i><i>us</i> <b>es</b> tu,&nbsp;* ne discésseris <b>a</b> me:</p>\
+<p><span class="versenum">11.&nbsp;</span>Quóniam tribulátio <i>pró</i><i>xi</i><b>ma</b> est:&nbsp;* quóniam non est qui <b>ád</b>juvet.</p>\
+<p><span class="versenum">12.&nbsp;</span>Circumdedérunt me ví<i>tu</i><i>li</i> <b>mul</b>ti:&nbsp;* tauri pingues obse<b>dé</b>runt me.</p>\
+<p><span class="versenum">13.&nbsp;</span>Aperuérunt super <i>me</i> <i>os</i> <b>su</b>um:&nbsp;* sicut leo rápiens et <b>rú</b>giens.</p>\
+<p><span class="versenum">14.&nbsp;</span>Sicut a<i>qua</i> <i>ef</i><b>fú</b>sus sum:&nbsp;* et dispérsa sunt ómnia ossa <b>me</b>a.</p>\
+<p><span class="versenum">15.&nbsp;</span>Factum est cor meum tamquam ce<i>ra</i> <i>li</i><b>qué</b>scens:&nbsp;* in médio ventris <b>me</b>i.</p>\
+<p><span class="versenum">16.&nbsp;</span>Aruit tamquam testa virtus mea,&nbsp;† et lingua mea adhǽsit fáu<i>ci</i><i>bus</i> <b>me</b>is:&nbsp;* et in púlverem mortis dedu<b>xí</b>sti me.</p>\
+<p><span class="versenum">17.&nbsp;</span>Quóniam circumdedérunt me <i>ca</i><i>nes</i> <b>mul</b>ti:&nbsp;* concílium malignántium ob<b>sé</b>dit me.</p>\
+<p><span class="versenum">18.&nbsp;</span>Fodérunt manus meas et <i>pe</i><i>des</i> <b>me</b>os:&nbsp;* dinumeravérunt ómnia ossa <b>me</b>a.</p>\
+<p><span class="versenum">19.&nbsp;</span>Ipsi vero consíderavérunt et inspexérunt me:&nbsp;† divisérunt sibi vesti<i>mén</i><i>ta</i> <b>me</b>a,&nbsp;* et super vestem meam misérunt <b>sor</b>tem.</p>\
+<p><span class="versenum">20.&nbsp;</span>Tu autem, Dómine, ne elongáveris auxílium <i>tu</i><i>um</i> <b>a</b> me:&nbsp;* ad defensiónem meam <b>cón</b>spice.</p>\
+<p><span class="versenum">21.&nbsp;</span>Erue a frámea, Deus, á<i>ni</i><i>mam</i> <b>me</b>am:&nbsp;* et de manu canis únicam <b>me</b>am.</p>\
+<p><span class="versenum">22.&nbsp;</span>Salva me ex o<i>re</i> <i>le</i><b>ó</b>nis:&nbsp;* et a córnibus unicórnium humilitátem <b>me</b>am.</p>\
+<p><span class="versenum">23.&nbsp;</span>Narrábo nomen tuum frá<i>tri</i><i>bus</i> <b>me</b>is:&nbsp;* in médio Ecclésiæ lau<b>dá</b>bo te.</p>\
+<p><span class="versenum">24.&nbsp;</span>Qui timétis Dóminum, lau<i>dá</i><i>te</i> <b>e</b>um:&nbsp;* univérsum semen Jacob, glorificáte <b>e</b>um.</p>\
+<p><span class="versenum">25.&nbsp;</span>Tímeat eum omne <i>se</i><i>men</i> <b>Is</b>raël:&nbsp;* quóniam non sprevit, neque despéxit deprecatiónem <b>páu</b>peris:</p>\
+<p><span class="versenum">26.&nbsp;</span>Nec avértit fáciem <i>su</i><i>am</i> <b>a</b> me:&nbsp;* et cum clamárem ad eum, exau<b>dí</b>vit me.</p>\
+<p><span class="versenum">27.&nbsp;</span>Apud te laus mea in ecclé<i>si</i><i>a</i> <b>ma</b>gna:&nbsp;* vota mea reddam in conspéctu timéntium <b>e</b>um.</p>\
+<p><span class="versenum">28.&nbsp;</span>Edent páuperes, et saturabúntur:&nbsp;† et laudábunt Dóminum qui re<i>quí</i><i>runt</i> <b>e</b>um:&nbsp;* vivent corda eórum in sǽculum <b>sǽ</b>culi.</p>\
+<p><span class="versenum">29.&nbsp;</span>Reminiscéntur et convertén<i>tur</i> <i>ad</i> <b>Dó</b>minum&nbsp;* univérsi fines <b>ter</b>ræ:</p>\
+<p><span class="versenum">30.&nbsp;</span>Et adorábunt in con<i>spé</i><i>ctu</i> <b>e</b>jus&nbsp;* univérsæ famíliæ <b>Gén</b>tium.</p>\
+<p><span class="versenum">31.&nbsp;</span>Quóniam Dómi<i>ni</i> <i>est</i> <b>re</b>gnum:&nbsp;* et ipse dominábitur <b>Gén</b>tium.</p>\
+<p><span class="versenum">32.&nbsp;</span>Manducavérunt et adoravérunt omnes <i>pin</i><i>gues</i> <b>ter</b>ræ:&nbsp;* in conspéctu ejus cadent omnes qui descéndunt in <b>ter</b>ram.</p>\
+<p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>i</b>psi.</p>\
+<p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.</p>\
 </div>';
 var gabcHagios = "initial-style: 1;\n\
 annotation: \\Vbar;\n\
@@ -1105,15 +1105,15 @@ R/. A(e.)men.(e.) (::)"
         rubric: "<Psalm 150>",
         gabc: "initial-style: 0;\n\
 %%\n\
-(c4)Lau(f)dá(gh)te(h) Dó(h)mi(h)num(h) in(h) san(h)<i>ctis</i>(g) <b>e</b>(h fr)jus:(f.) *(:) lau(h)dá(h)te(h) e(h)um(h) in(h) fir(h)ma(h)mén(h)to(h) vir(h)<i>tú</i>(f)<i>tis</i>(gh) <b>e</b>(g fr)jus.(f.) (::)\n\
-<i>Flex:</i> b{e}(h)ne(h)so(h)nán(h)ti(g)bus: †(g. h h h  ::)",
+(c4)Lau(f)dá(gh)te(h) Dó(h)mi(h)num(h) in(h) sanc(h)<i>tis</i>(g) <b>e</b>(h fr)jus:(f.) *(:) lau(h)dá(h)te(h) e(h)um(h) in(h) fir(h)ma(h)mén(h)to(h) vir(h)<i>tú</i>(f)<i>tis</i>(gh) <b>e</b>(g fr)jus.(f.) (::)\n\
+<i>Flex:</i> be(h)ne(h)so(h)nán(h)ti(g)bus: †(g. h h h  ::)",
         html: '<div class="verses">\
-<p><span class="versenum">2.&nbsp;</span>Laudáte eum in virtúti<i>bus</i> <b>e</b>jus:&nbsp;* laudáte eum secúndum multitúdinem magnitú<i>di</i><i>nis</i> <b>e</b>jus.<br></p>\
-<p><span class="versenum">3.&nbsp;</span>Laudáte eum in so<i>no</i> <b>tu</b>bæ:&nbsp;* laudáte eum in psaltéri<i>o</i>, <i>et</i> <b>cí</b>thara.<br></p>\
-<p><span class="versenum">4.&nbsp;</span>Laudáte eum in týmpano, <i>et</i> <b>cho</b>ro:&nbsp;* laudáte eum in chor<i>dis</i>, <i>et</i> <b>ór</b>gano.<br></p>\
-<p><span class="versenum">5.&nbsp;</span>Laudáte eum in cýmbalis benesonántibus:&nbsp;† laudáte eum in cýmbalis jubila<i>ti</i><b>ó</b>nis:&nbsp;* omnis spíritus <i>lau</i><i>det</i> <b>Dó</b>minum.<br></p>\
-<p><span class="versenum">6.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
-<p><span class="versenum">7.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p>\
+<p><span class="versenum">2.&nbsp;</span>Laudáte eum in virtúti<i>bus</i> <b>e</b>jus:&nbsp;* laudáte eum secúndum multitúdinem magnitú<i>di</i><i>nis</i> <b>e</b>jus.</p>\
+<p><span class="versenum">3.&nbsp;</span>Laudáte eum in so<i>no</i> <b>tu</b>bæ:&nbsp;* laudáte eum in psaltéri<i>o</i>, <i>et</i> <b>cí</b>thara.</p>\
+<p><span class="versenum">4.&nbsp;</span>Laudáte eum in týmpano, <i>et</i> <b>cho</b>ro:&nbsp;* laudáte eum in chor<i>dis</i>, <i>et</i> <b>ór</b>gano.</p>\
+<p><span class="versenum">5.&nbsp;</span>Laudáte eum in cýmbalis benesonántibus:&nbsp;† laudáte eum in cýmbalis jubila<i>ti</i><b>ó</b>nis:&nbsp;* omnis spíritus <i>lau</i><i>det</i> <b>Dó</b>minum.</p>\
+<p><span class="versenum">6.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
+<p><span class="versenum">7.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
 </div>',
         sticky: 1
     },
@@ -1129,19 +1129,19 @@ R/. A(e.)men.(e.) (::)"
 %%\n\
 (c4)Be(g)ne(hg)díc(gj)tus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) red(j)emp(j)ti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
         html: '<div class="verses">\
-<p><span class="versenum">2.&nbsp;</span>Et eréxit cornu <i>sa</i><i>lú</i><i>tis</i> <b>no</b>bis:&nbsp;* in domo David, pú<i>e</i><i>ri</i> <b>su</b>i.<br></p>\
-<p><span class="versenum">3.&nbsp;</span>Sicut locútus est <i>per</i> <i>os</i> <i>sanc</i><b>tó</b>rum,&nbsp;* qui a sǽculo sunt, prophe<i>tá</i><i>rum</i> <b>e</b>jus:<br></p>\
-<p><span class="versenum">4.&nbsp;</span>Salútem ex in<i>i</i><i>mí</i><i>cis</i> <b>nos</b>tris,&nbsp;* et de manu ómnium, <i>qui</i> <i>o</i><b>dé</b>runt nos.<br></p>\
-<p><span class="versenum">5.&nbsp;</span>Ad faciéndam misericórdiam cum <i>pá</i><i>tri</i><i>bus</i> <b>nos</b>tris:&nbsp;* et memorári testaménti <i>su</i><i>i</i> <b>sanc</b>ti.<br></p>\
-<p><span class="versenum">6.&nbsp;</span>Jusjurándum, quod jurávit ad Abra<i>ham</i> <i>pa</i><i>trem</i> <b>nos</b>trum,&nbsp;* datú<i>rum</i> <i>se</i> <b>no</b>bis:<br></p>\
-<p><span class="versenum">7.&nbsp;</span>Ut sine timóre, de manu inimicórum nostró<i>rum</i> <i>li</i><i>be</i><b>rá</b>ti,&nbsp;* servi<i>á</i><i>mus</i> <b>il</b>li.<br></p>\
-<p><span class="versenum">8.&nbsp;</span>In sanctitáte, et justíti<i>a</i> <i>co</i><i>ram</i> <b>ip</b>so,&nbsp;* ómnibus di<i>é</i><i>bus</i> <b>nos</b>tris.<br></p>\
-<p><span class="versenum">9.&nbsp;</span>Et tu, puer, Prophéta Altís<i>si</i><i>mi</i> <i>vo</i><b>cá</b>beris:&nbsp;* præíbis enim ante fáciem Dómini, paráre <i>vi</i><i>as</i> <b>e</b>jus:<br></p>\
-<p><span class="versenum">10.&nbsp;</span>Ad dandam sciéntiam salú<i>tis</i> <i>ple</i><i>bi</i> <b>e</b>jus:&nbsp;* in remissiónem peccató<i>rum</i> <i>e</i><b>ó</b>rum:<br></p>\
-<p><span class="versenum">11.&nbsp;</span>Per víscera misericórdi<i>æ</i> <i>De</i><i>i</i> <b>nos</b>tri:&nbsp;* in quibus visitávit nos, óri<i>ens</i> <i>ex</i> <b>al</b>to:<br></p>\
-<p><span class="versenum">12.&nbsp;</span>Illumináre his, qui in ténebris, et in um<i>bra</i> <i>mor</i><i>tis</i> <b>se</b>dent:&nbsp;* ad dirigéndos pedes nostros in <i>vi</i><i>am</i> <b>pa</b>cis.<br></p>\
-<p><span class="versenum">13.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.<br></p>\
-<p><span class="versenum">14.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p>\
+<p><span class="versenum">2.&nbsp;</span>Et eréxit cornu <i>sa</i><i>lú</i><i>tis</i> <b>no</b>bis:&nbsp;* in domo David, pú<i>e</i><i>ri</i> <b>su</b>i.</p>\
+<p><span class="versenum">3.&nbsp;</span>Sicut locútus est <i>per</i> <i>os</i> <i>sanc</i><b>tó</b>rum,&nbsp;* qui a sǽculo sunt, prophe<i>tá</i><i>rum</i> <b>e</b>jus:</p>\
+<p><span class="versenum">4.&nbsp;</span>Salútem ex in<i>i</i><i>mí</i><i>cis</i> <b>nos</b>tris,&nbsp;* et de manu ómnium, <i>qui</i> <i>o</i><b>dé</b>runt nos.</p>\
+<p><span class="versenum">5.&nbsp;</span>Ad faciéndam misericórdiam cum <i>pá</i><i>tri</i><i>bus</i> <b>nos</b>tris:&nbsp;* et memorári testaménti <i>su</i><i>i</i> <b>sanc</b>ti.</p>\
+<p><span class="versenum">6.&nbsp;</span>Jusjurándum, quod jurávit ad Abra<i>ham</i> <i>pa</i><i>trem</i> <b>nos</b>trum,&nbsp;* datú<i>rum</i> <i>se</i> <b>no</b>bis:</p>\
+<p><span class="versenum">7.&nbsp;</span>Ut sine timóre, de manu inimicórum nostró<i>rum</i> <i>li</i><i>be</i><b>rá</b>ti,&nbsp;* servi<i>á</i><i>mus</i> <b>il</b>li.</p>\
+<p><span class="versenum">8.&nbsp;</span>In sanctitáte, et justíti<i>a</i> <i>co</i><i>ram</i> <b>ip</b>so,&nbsp;* ómnibus di<i>é</i><i>bus</i> <b>nos</b>tris.</p>\
+<p><span class="versenum">9.&nbsp;</span>Et tu, puer, Prophéta Altís<i>si</i><i>mi</i> <i>vo</i><b>cá</b>beris:&nbsp;* præíbis enim ante fáciem Dómini, paráre <i>vi</i><i>as</i> <b>e</b>jus:</p>\
+<p><span class="versenum">10.&nbsp;</span>Ad dandam sciéntiam salú<i>tis</i> <i>ple</i><i>bi</i> <b>e</b>jus:&nbsp;* in remissiónem peccató<i>rum</i> <i>e</i><b>ó</b>rum:</p>\
+<p><span class="versenum">11.&nbsp;</span>Per víscera misericórdi<i>æ</i> <i>De</i><i>i</i> <b>nos</b>tri:&nbsp;* in quibus visitávit nos, óri<i>ens</i> <i>ex</i> <b>al</b>to:</p>\
+<p><span class="versenum">12.&nbsp;</span>Illumináre his, qui in ténebris, et in um<i>bra</i> <i>mor</i><i>tis</i> <b>se</b>dent:&nbsp;* ad dirigéndos pedes nostros in <i>vi</i><i>am</i> <b>pa</b>cis.</p>\
+<p><span class="versenum">13.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
+<p><span class="versenum">14.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
 </div>',
     }, {
         rubric: "The antiphon <Et valde mane.> is repeated.",
@@ -1250,9 +1250,9 @@ R/. A(e.)men.(e.) (::)"
 %%\n\
 (c4)1. Lau(f)dá(gh)te(h) Dó(h)mi(h)num,(h) om(h)<i>nes</i>(g) <b>Gen</b>(h fr)tes:(f.) *(:) lau(h)dá(h)te(h) e(h)um,(h) <i>om</i>(f)<i>nes</i>(gh) <b>pó</b>(g)pu(fr)li:(f.) (::)",
         html: '<div class="verses">\
-<p><span class="versenum">2.&nbsp;</span>Quóniam confirmáta est super nos misericórdi<i>a</i> <b>e</b>jus:&nbsp;* et véritas Dómini manet <i>in</i> <i>æ</i><b>tér</b>num.<br></p>\
-<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
-<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p></div>',
+<p><span class="versenum">2.&nbsp;</span>Quóniam confirmáta est super nos misericórdi<i>a</i> <b>e</b>jus:&nbsp;* et véritas Dómini manet <i>in</i> <i>æ</i><b>tér</b>num.</p>\
+<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p></div>',
         sticky: 1
     },
     {
@@ -1268,16 +1268,16 @@ R/. A(e.)men.(e.) (::)"
 (c4)1. Ma(g)gní(hg)fi(gj jr)cat(j.) *(:) á(j)ni(j)ma(j) <i>me</i>(i)<i>a</i>(j) <b>Dó</b>(h)mi(gr)num.(g.) (::) \
 2. Et(g) ex(hg)sul(gj)tá(j)vit(j) <i>spí</i>(ji)<i>ri</i>(jk)<i>tus</i>(k) <b>me</b>(jk jr)us(j.) *(:) in(j) De(j)o(j) sa(j)lu(j)<i>tá</i>(i)<i>ri</i>(j) <b>me</b>(h gr)o.(g.) (::)",
         html: '<div class="verses">\
-<p><span class="versenum">3.&nbsp;</span>Quia respéxit humilitátem <i>an</i><i>cíl</i><i>læ</i> <b>su</b>æ:&nbsp;* ecce enim ex hoc beátam me dicent omnes gene<i>ra</i><i>ti</i><b>ó</b>nes.<br></p>\
-<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>po</b>tens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.<br></p>\
-<p><span class="versenum">5.&nbsp;</span>Et misericórdia ejus a progéni<i>e</i> <i>in</i> <i>pro</i><b>gé</b>nies&nbsp;* timén<i>ti</i><i>bus</i> <b>e</b>um.<br></p>\
-<p><span class="versenum">6.&nbsp;</span>Fecit poténtiam in <i>brá</i><i>chi</i><i>o</i> <b>su</b>o:&nbsp;* dispérsit supérbos mente <i>cor</i><i>dis</i> <b>su</b>i.<br></p>\
-<p><span class="versenum">7.&nbsp;</span>Depósuit po<i>tén</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.<br></p>\
-<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>i</i><b>ná</b>nes.<br></p>\
-<p><span class="versenum">9.&nbsp;</span>Suscépit Israël <i>pú</i><i>e</i><i>rum</i> <b>su</b>um,&nbsp;* recordátus misericór<i>di</i><i>æ</i> <b>su</b>æ.<br></p>\
-<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>no</b>stros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.<br></p>\
-<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.<br></p>\
-<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.<br></p></div>',
+<p><span class="versenum">3.&nbsp;</span>Quia respéxit humilitátem <i>an</i><i>cíl</i><i>læ</i> <b>su</b>æ:&nbsp;* ecce enim ex hoc beátam me dicent omnes gene<i>ra</i><i>ti</i><b>ó</b>nes.</p>\
+<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>po</b>tens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.</p>\
+<p><span class="versenum">5.&nbsp;</span>Et misericórdia ejus a progéni<i>e</i> <i>in</i> <i>pro</i><b>gé</b>nies&nbsp;* timén<i>ti</i><i>bus</i> <b>e</b>um.</p>\
+<p><span class="versenum">6.&nbsp;</span>Fecit poténtiam in <i>brá</i><i>chi</i><i>o</i> <b>su</b>o:&nbsp;* dispérsit supérbos mente <i>cor</i><i>dis</i> <b>su</b>i.</p>\
+<p><span class="versenum">7.&nbsp;</span>Depósuit po<i>tén</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.</p>\
+<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>i</i><b>ná</b>nes.</p>\
+<p><span class="versenum">9.&nbsp;</span>Suscépit Israël <i>pú</i><i>e</i><i>rum</i> <b>su</b>um,&nbsp;* recordátus misericór<i>di</i><i>æ</i> <b>su</b>æ.</p>\
+<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>no</b>stros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.</p>\
+<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p></div>',
         sticky: 1
     }, {
         rubric: "The antiphon <Vespere autem.> is repeated."

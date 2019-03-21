@@ -323,6 +323,9 @@ var Syl = (function(){
     words:(window.localStorage&&window.localStorage.words&&JSON.parse(window.localStorage.words))||{},
     queue:[],
     syllabify:function(text,lang){
+      if(typeof(text)!="string") {
+        return text;
+      }
       var result=[],
           m,
           d,
