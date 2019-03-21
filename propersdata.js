@@ -1127,7 +1127,7 @@ R/. A(e.)men.(e.) (::)"
         rubric: " ",
         gabc: "initial-style: 0;\n\
 %%\n\
-(c4)Be(g)ne(hg)dí(gj)ctus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) re(j)dem(j)pti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
+(c4)Be(g)ne(hg)díc(gj)tus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) red(j)emp(j)ti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
         html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Et eréxit cornu <i>sa</i><i>lú</i><i>tis</i> <b>no</b>bis:&nbsp;* in domo David, pú<i>e</i><i>ri</i> <b>su</b>i.<br></p>\
 <p><span class="versenum">3.&nbsp;</span>Sicut locútus est <i>per</i> <i>os</i> <i>sanc</i><b>tó</b>rum,&nbsp;* qui a sǽculo sunt, prophe<i>tá</i><i>rum</i> <b>e</b>jus:<br></p>\

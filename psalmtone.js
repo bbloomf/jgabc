@@ -461,8 +461,13 @@ var Syl = (function(){
       if(lang == 'la') {
         sylWords.forEach(function(syls) {
           var word = syls.map(function(syl) { return syl.syl; }).join('');
-          if(!regexAccent.test(word) && syls.length == 2) {
-            syls[0].accent = true;
+          if(!regexAccent.test(word)) {
+            if(syls.length == 2) {
+              syls[0].accent = true;
+            } else if(syls.length > 2) {
+              syls = syls.filter(function(syl) { return /[AEIOUYÆŒæœ]/.test(syl.syl); });
+              if(syls.length === 1) syls[0].accent = true;
+            }
           }
         });
         for(var i=1, lastAccent = 0; i <= result.length; ++i) {
