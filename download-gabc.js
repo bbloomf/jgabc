@@ -3,6 +3,12 @@ var https= require('https'),
     Hypher = require('hypher'),
     gabc = require('./util.js');
 require('./gabc-refs.js');
+gabcRefs["507&elem=2"] = "Ps 117: 1";
+gabcRefs["2060"] = "Ex 15: 1-2";
+gabcRefs["2075"] = "Is 5: 1-2";
+gabcRefs["2086"] = "Deut 32: 1-4";
+gabcRefs["943"] = "Ps 41: 2-4";
+
 window = {Hypher: Hypher};
 Hypher.languages = {};
 var latin,
@@ -147,7 +153,6 @@ var path = 'gabc/',
                     var content = fileData.slice(header.length);
                     var h = gabc.getHeader(header);
                     var ref = gabcRefs[ids[i]];
-                    if(ids[i] === "507&elem=2") ref = "Ps 117: 1";
                     if(ids[i] in gabcRefs && /^(Introitus|Graduale|Tractus|Alleluia|Offertorium|Communio)$/.test(h.officePart)) {
                       ++countWithRef;
                     }
