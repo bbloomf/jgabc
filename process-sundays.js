@@ -215,6 +215,18 @@ var fs = require("fs"),
         "Jeremias 14: 7-8, 9",
         "Marcus 11: 22-26"
       ],
+      Quad6s: [
+        "Genesis 1: 1-31; 2: 1-2",
+        "Exodus 14: 24-31; 15: 1",
+        // Canticum
+        "Isaias 4: 2-6",
+        // Canticum
+        "Deuteronomium 31: 22-30",
+        // Canticum
+
+        "Colossenses 3: 1-4",
+        "Matthæus 28: 1-7"
+      ],
       Quad6t_v: [
         "Jeremias 11: 18-20",
         "Marcus 14: 1-72; 15: 1-46"
@@ -231,6 +243,27 @@ var fs = require("fs"),
       Quad6h_v: [
         "1 Ad Corinthios 11: 20-32",
         "Joannes 13: 1-15"
+      ],
+      Quad6s_v: [
+        "Genesis 1: 1-31; 2: 1-2",
+        "Gensis 5: 31; 6: 1-22; 7: 1-24; 8: 1-21",
+        "Gensis 22: 1-19",
+        "Exodus 14: 24-31; 15: 1",
+        // Tract
+        "Isaias 54: 17; 55, 1-11",
+        "Baruch 3: 9-38",
+        "Ezechiel 37: 1-14",
+        "Isaias 4: 1-6",
+        // Tract
+        "Exodus 12: 1-11",
+        "Jonas 3: 1-10",
+        "Deuteronomium 31: 22-30",
+        // Tract
+        "Daniel 3: 1-24",
+        // Tract "Sicut cervus"
+
+        "Colossenses 3: 1-4",
+        "Matthæus 28: 1-7"
       ]
     },
     partKey = {

@@ -1414,8 +1414,7 @@ var proprium = {
         "alID": 10,
         "ofID": 683,
         "coID": 730,
-        "rubrics": rubricECJ,
-        "fromGregorianBooks": []
+        "rubrics": rubricECJ
     },
     "litaniis": {
         "inID": 451,
@@ -1445,8 +1444,7 @@ var proprium = {
         "coVerses": "Ps 30: 2-6, 7-9"
     },
     "votiveECJ": {
-        "ref": "ECJ",
-        "fromGregorianBooks": []
+        "ref": "ECJ"
     },
     "votiveECJQuad": {
         "inID": 676,
@@ -1454,40 +1452,35 @@ var proprium = {
         "tractus": 343,
         "ofID": 683,
         "coID": 730,
-        "introitusReplace": gabcRemoveLastIntroitAlleluia,
-        "fromGregorianBooks": []
+        "introitusReplace": gabcRemoveLastIntroitAlleluia
     },
     "votiveECJPasch": {
         "inID": 676,
         "grID": 10,
         "alID": 29,
         "ofID": 683,
-        "coID": 730,
-        "fromGregorianBooks": []
+        "coID": 730
     },
     "votiveST": {
         "inID": 349,
         "grID": 965,
         "alID": 1289,
         "ofID": 1303,
-        "coID": 391,
-        "fromGregorianBooks": []
+        "coID": 391
     },
     "votiveSTQuad": {
         "inID": 349,
         "grID": 965,
         "trID": 763,
         "ofID": 1303,
-        "coID": 391,
-        "fromGregorianBooks": []
+        "coID": 391
     },
     "votiveSTPasch": {
         "inID": 349,
         "grID": 1289,
         "alID": 744,
         "ofID": 1303,
-        "coID": 391,
-        "fromGregorianBooks": []
+        "coID": 391
     },
     "votiveA": {
         "inID": 985,
@@ -3462,13 +3455,11 @@ var proprium = {
     },
     "Quad6f": {
         "extraChants": true,
-        "ordinary": false,
-        "fromGregorianBooks": []
+        "ordinary": false
     },
     "Quad6f_v": {
         "extraChants": true,
-        "ordinary": false,
-        "fromGregorianBooks": []
+        "ordinary": false
     },
     "Quad6s": {
         "extraChants": true,
@@ -3476,8 +3467,7 @@ var proprium = {
         "credo": false,
         "agnus": false,
         "ite": false,
-        "asperges": false,
-        "fromGregorianBooks": []
+        "asperges": false
     },
     "Quad6s_v": {
         "extraChants": true,
@@ -3485,8 +3475,7 @@ var proprium = {
         "credo": false,
         "agnus": false,
         "ite": false,
-        "asperges": false,
-        "fromGregorianBooks": []
+        "asperges": false
     },
     "Apr11": {
         "coID": 509,

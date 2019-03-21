@@ -563,7 +563,9 @@ $(function(){
         var annotation = partAbbrev[truePart] || partAbbrev[(header.officePart||'').toLowerCase()];
         if(annotation) {
           header.annotation = (partIndex? partIndex + '. ' : '') + annotation;
-          header.annotationArray = [header.annotation, romanMode];
+          if(annotation != 'V/.') {
+            header.annotationArray = [header.annotation, romanMode];
+          }
         } else {
           header.annotation = romanMode;
         }
@@ -715,7 +717,11 @@ $(function(){
     var readings = lectiones[lecDay];
     if(!readings && /s$/i.test(lecDay)) {
       readings = lectiones[lecDay.slice(0,-1)];
-      readings = [readings[0]].concat(readings.slice(-2));
+      if(readings.length <= 2) {
+        readings = null;
+      } else {
+        readings = [readings[0]].concat(readings.slice(-2));
+      }
     }
     var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus];
@@ -2398,7 +2404,11 @@ $(function(){
         var annotation;
         if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
         if(annotation) {
-          score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
+          if(annotation == 'V/.') {
+            score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%');
+          } else {
+            score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
+          }
         } else if(gabcHeader.mode) {
           score.annotation = new exsurge.Annotations(ctxt, '%'+romanNumeral[gabcHeader.mode]+'%');
         }
