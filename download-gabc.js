@@ -10,6 +10,7 @@ gabcRefs["2086"] = "Deut 32: 1-4";
 gabcRefs["943"] = "Ps 41: 2-4";
 gabcRefs["958"] = "Ez 47: 2, 9; Ps 117: 1";
 gabcRefs["497"] = "Ps 50: 9, 3a";
+gabcRefs["142"] = "Ps 50: 9, 3a";
 gabcRefs["905"] = "Ps 50: 9, 3a";
 
 window = {Hypher: Hypher};

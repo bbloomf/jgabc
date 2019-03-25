@@ -609,7 +609,7 @@ $(function(){
     } else {
       if(isOrdinaryPart) {
         $extraChantsPlaceholder.remove();
-        $div.find('.chant-preview').empty();
+        $div.find('.chant-preview,.commentary').empty();
         if(partType == 'custom') {
           $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text('Ad libitum');
         }
