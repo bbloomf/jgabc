@@ -2444,7 +2444,7 @@ $(function(){
   }
 
   var layoutChant = function(part, synchronous, id) {
-    var isIE11 = /Trident\/7\.0|AppleWebKit\/([1-4]\d\d|5[12]\d|53[1-4])\./.test(navigator.userAgent);
+    var isIE11 = /\b(Trident\/7\.0|Chrome\/([1-2]\d|30)\.)/.test(navigator.userAgent);
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
     if(!chantContainer.length || !chantContainer.is(':visible')) return;
