@@ -244,7 +244,7 @@ function findIncipitId(incipitText, part, page, mode) {
       pageIds = pages[page];
     }
     var map = incipits[part] || incipits[partMap[part.slice(0,2)]];
-    var longestKey = Math.max(...Object.keys(map).map(k => k.length));
+    var longestKey = Math.max.apply(null,Object.keys(map).map(function(k) {return k.length}));
     var incipit = incipitText.toLowerCase().
       replace(/[^\sa-z.(]/g,'').
       replace(/(\s*(\.+\s+|\())?\b(ps|v)(\.|\b)/g,' .* ℣').
@@ -256,7 +256,7 @@ function findIncipitId(incipitText, part, page, mode) {
     for(var i=0,j=1; j <= incipit.length; ++j) {
       key = incipit.slice(i,j).join(' ');
       if(incipit[j - 2] == '.*') {
-        map = Object.keys(map).reduce((r,k) => {
+        map = Object.keys(map).reduce(function(r,k) {
           r[k.replace(RegExp("^("+key.reverse().replace(/(\*\.)/,'($1)').reverse()+")"),"$1.*$2")] = map[k];
           return r;
         }, {})
@@ -264,15 +264,15 @@ function findIncipitId(incipitText, part, page, mode) {
       if(key in map) {
         map = map[key];
         if(typeof map != 'object') return testId(pageIds,map,mode);
-        longestKey = Math.max(...Object.keys(map).map(k => k.length));
+        longestKey = Math.max.apply(null,Object.keys(map).map(function(k) {return k.length}));
         i = j;
         continue;
       } else {
         var regex = "^"+key.replace(/\s*\.\*\s*/g,'\\s*.*\\s*');
         // allow the .* to go to the very end if there is no versicle, since we might just not have the versicle
         regex = regex.replace(/\.\*\\s\*℣(.*)/,'([^℣]*$|.*\\s*$1)');
-        var possibleKeys = Object.keys(map).filter(k => k.match(regex));
-        map = possibleKeys.reduce((r,k) => {
+        var possibleKeys = Object.keys(map).filter(function(k) {return k.match(regex)});
+        map = possibleKeys.reduce(function(r,k) {
           r[k] = map[k];
           return r;
         }, {});
@@ -288,10 +288,10 @@ function findIncipitId(incipitText, part, page, mode) {
     }
     map = flattenMap(map, incipit.slice(0,i).join(' '));
     if(pages && page) {
-      var incipitIds = Object.keys(map).map(k => map[k]);
+      var incipitIds = Object.keys(map).map(function(k) {return map[k]});
       if(pageIds && pageIds.length) {
         if(incipitIds && incipitIds.length) {
-          var id = pageIds.filter(id => incipitIds.includes(id))[0];
+          var id = pageIds.filter(function(id) {return incipitIds.includes(id)})[0];
           if(id) return id;
         }
       }

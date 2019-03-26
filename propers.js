@@ -2444,7 +2444,7 @@ $(function(){
   }
 
   var layoutChant = function(part, synchronous, id) {
-    var isIE11 = navigator.userAgent.match(/Trident\/7\.0/);
+    var isIE11 = /Trident\/7\.0|AppleWebKit\/([1-4]\d\d|5[12]\d|53[1-4])\./.test(navigator.userAgent);
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
     if(!chantContainer.length || !chantContainer.is(':visible')) return;
@@ -2487,7 +2487,11 @@ $(function(){
         svg.removeAttribute('viewBox');
       } else if(newWidth != availableWidth && svg && svg.hasAttribute('width')) {
         svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
-        if(!isIE11) {
+        if(isIE11) {
+          var ratio = availableWidth / newWidth;
+          svg.setAttribute('width', availableWidth);
+          svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
+        } else {
           svg.removeAttribute('width');
           svg.removeAttribute('height');
         }
@@ -2521,7 +2525,11 @@ $(function(){
           if(newWidth == availableWidth) {
             svg.removeAttribute('viewBox');
           } else {
-            if(!isIE11) {
+            if(isIE11) {
+              var ratio = availableWidth / newWidth;
+              svg.setAttribute('width', availableWidth);
+              svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
+            } else {
               svg.removeAttribute('width');
               svg.removeAttribute('height');
             }
