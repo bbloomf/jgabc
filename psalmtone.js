@@ -1,7 +1,7 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽœ́æœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ]\u0301?)(?:(?:[\wáéíóúýǽæœ]\u0301?)*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]\u0301?|[bcdgptf][lrh][\wáéíóúýǽæœ]\u0301?)|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|((?:[^\w\sáëéíóúýǽæœ]\u0301)*(?:\s[:;†\^\*"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)((?:\s*[-"'“”‘’«»„:;,.\)¿\?¡!])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
+var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<!]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<!]))(!(?:<\w+>.*?<\/\w+>|\S+)|([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)((?:\s*[-"'“”‘’«»„:;,.\)¿\?¡])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽœ́]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
@@ -346,6 +346,10 @@ var Syl = (function(){
             wordSyls = [];
         sylWords.push(wordSyls);
         w = ai.join('');
+        if(/^!/.test(m[3])) {
+          result.push(syllable(m[3].slice(1),regexWords.lastIndex+1,{nbsp:""}))
+          continue;
+        }
         m[3] = m[3] && m[3].replace(/\*/g,'');
         m[5] = m[5] && m[5].replace(/\*/g,'');
         ai.pop();
@@ -446,7 +450,7 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[7] = m[8] + (m[9]||'').replace(/\s+(†|\*)/, ' $1');
+        tmp[7] = m[8] + (m[9]||'').replace(/\s+(?:(†|\*)|!(\S+))/, ' $1$2');
         tmp[8]=" ";
         tmp[9]=m[10];
         if(ai.length) tmp[6]='*';
@@ -538,7 +542,8 @@ function syllable(match,index,bi) {
             space: "",
             syl:"",
             prepunctuation: "",
-            word: undefined
+            word: undefined,
+            directive: true
     };
   } else {
     if(bi && bi.makeSylSubstitutions){
@@ -571,7 +576,7 @@ function syllable(match,index,bi) {
             syl: match[1] + (prepunc?sylnospace:match[3]) + match[9],
             vowel: match[5]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
             separator: match[6], // - or *
-            punctuation: match[7]? (match[7].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
+            punctuation: /[a-z]/i.test(match[7])? "" : (match[7].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/),  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
             space: match[8],
@@ -583,7 +588,7 @@ function syllable(match,index,bi) {
             elision: elision,
             flex: match[7] && match[7].match(/†$/),
             mediant: match[7] && match[7].match(/\*$/),
-            pause: match[7] && match[7].match(/\^$/),
+            pause: match[7] && match[7].match(/\^$/)
     };
   }
 }

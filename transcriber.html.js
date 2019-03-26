@@ -99,8 +99,11 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
           if(curSyl.punctuation.length>1) result+=curSyl.punctuation.slice(0,-1);
           --iG;
           continue;
+        } else if(curSyl.directive) {
+          result += " ";
         }
         result+=curSyl.punctuation;
+        if(curSyl.directive) result += "()";
       }
       if(j>0 && (curSyl.space||curSyl.punctuation)) result += ' ';
     }
@@ -152,6 +155,11 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
             flexOrMediant=false;
           } else {
             result+=" ";
+          }
+          if(syl[i+1] && syl[i+1].directive) {
+            curSyl = syl[++i];
+            _textGabcMap.push([result.length+mapOffset - 1, curSyl.index - ((curSyl.syl.match(/^\s*/)[0]).length) + (syl.offset || 0)]);
+            result+=curSyl.all;
           }
           _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
           result+=cGabc.gabc;
