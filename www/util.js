@@ -502,9 +502,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'U':'Ú',
            'Y':'Ý',
            'æ':"ǽ",
-           'œ':"oé",
+           'œ':"œ́",
            'Æ':"Ǽ",
-           'Œ':"Oé"
+           'Œ':"Œ́"
            },
         "true":
           {'a':'ä',
@@ -570,7 +570,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
             'Ö':'O',
             'Ü':'U',
             'Ǽ':"Aé",
-            'ǽ':"aé"
+            'ǽ':"aé",
+            'Œ́':'Oé',
+            'œ́':'oé'
           },
         "true":
           {
@@ -637,6 +639,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
     }
     var isEnglish=$("#cbEnglish")[0] && cbEnglish.checked;
     if(e.which == 49 || e.which == 50 || (e.which == 51 && isEnglish)) {
+      if(e.shiftKey) return;
       // swap e.which (49;50;51 => 2;1;0)
       var which = 2 - (e.which - 49),
           start = this.selectionStart,
@@ -682,6 +685,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         // TODO: expand selection to entire word if it isn't currently on a whole word
         var word = this.value.slice(start,end);
         var syllables = word.match(regexLatin);
+        if(!syllables) return;
         if(syllables.length>2) {
           syllables = syllables.reverse();
           word = accentSyllable(syllables,which);
@@ -691,7 +695,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         }
       }
     }
-    if(e.which==9 || (!isEnglish && (e.which == 49 || e.which == 50))) {
+    if(e.which==9 || (!isEnglish && !e.shiftKey && (e.which == 49 || e.which == 50))) {
       if(isEnglish) {
         var selectionEnd = this.selectionEnd;
         while(/\s/.test(this.value[selectionEnd])) {

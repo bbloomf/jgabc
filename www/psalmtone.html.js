@@ -126,7 +126,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
               index -= sylcount - 1;
             }
             syls.splice(0,index);
-            gabc += "<i>Flex :</i>() " + applyPsalmTone({
+            gabc += "<i>Flex:</i>() " + applyPsalmTone({
               text: syls,
               gabc: getFlexGabc(medTones),
               useOpenNotes: false,

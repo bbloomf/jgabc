@@ -99,8 +99,11 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
           if(curSyl.punctuation.length>1) result+=curSyl.punctuation.slice(0,-1);
           --iG;
           continue;
+        } else if(curSyl.directive) {
+          result += " ";
         }
         result+=curSyl.punctuation;
+        if(curSyl.directive) result += "()";
       }
       if(j>0 && (curSyl.space||curSyl.punctuation)) result += ' ';
     }
@@ -152,6 +155,11 @@ function applyGabc(syl,gSyl,repeat,mapOffset,indexOffset) {
             flexOrMediant=false;
           } else {
             result+=" ";
+          }
+          if(syl[i+1] && syl[i+1].directive) {
+            curSyl = syl[++i];
+            _textGabcMap.push([result.length+mapOffset - 1, curSyl.index - ((curSyl.syl.match(/^\s*/)[0]).length) + (syl.offset || 0)]);
+            result+=curSyl.all;
           }
           _hymnGabcMap.push([result.length+mapOffset, cGabc.index+indexOffset]);
           result+=cGabc.gabc;
@@ -265,7 +273,7 @@ function splitGabc(gabc,offset) {
   return gSyl;
 }
 
-var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœ][^\s\)]*)\)/;
+var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœǽœ́][^\s\)]*)\)/;
 function splitText(text) {
   switch($("#selLanguage").val()) {
     case 'en':
@@ -289,7 +297,7 @@ function splitText(text) {
   var index = 0,lastIndex = 0;
   while((m = regexLatin.exec(text))) {
     index = m.index;
-    if(m[0].match(/^n[cg]u[aeiouyáéíóúý?æœ]/i)) {
+    if(m[0].match(/^n[cg]u[aeiouyáéíóúý?æœǽœ́]/i)) {
       var lastSyl = syl.slice(-1);
       if(lastSyl) lastSyl = lastSyl[0];
       if(!lastSyl.space && !lastSyl.punctuation) {
@@ -447,7 +455,7 @@ function decompile(mixed) {
       text.push(tws);
     }
     if(syl){
-      var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
+      var sylR=syl.replace(/<i>([aeiouyæœ])<\/i>/ig,'($1)');
       hasElisions = hasElisions||(syl!=sylR);
       text.push(sylR);
     }

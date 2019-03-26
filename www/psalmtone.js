@@ -1,9 +1,9 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
-var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽæœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ])(?:[\wáéíóúýǽæœ]*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]|[bcdgptf][lrh][\wáéíóúýǽæœ])|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|([^\w\sáëéíóúýǽæœ]*(?:\s[:;†\^\*\"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<]))(([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)([-"'“”‘’:;,.\)\?!]*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
+var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽœ́æœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ]\u0301?)(?:(?:[\wáéíóúýǽæœ]\u0301?)*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]\u0301?|[bcdgptf][lrh][\wáéíóúýǽæœ]\u0301?)|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|((?:[^\w\sáëéíóúýǽæœ]\u0301)*(?:\s[:;†\^\*"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
+var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<!]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<!]))(!(?:<\w+>.*?<\/\w+>|\S+)|([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)((?:\s*[-"'“”‘’«»„:;,.\)¿\?¡])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
-var regexAccent = /[áéíóúýǽ]/i;
+var regexAccent = /[áéíóúýǽœ́]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /^(\d+)\.?\s*/;
 var sym_flex = '†';
@@ -323,13 +323,17 @@ var Syl = (function(){
     words:(window.localStorage&&window.localStorage.words&&JSON.parse(window.localStorage.words))||{},
     queue:[],
     syllabify:function(text,lang){
+      if(typeof(text)!="string") {
+        return text;
+      }
       var result=[],
           m,
           d,
           forceSyl=false,
           words=this.words,
           accentsMarked=text.match(/[a-z]\*/i),
-          prefix = null;
+          prefix = null,
+          sylWords = [];
       lang = lang || 'en';
       regexWords.exec("");
       // in Polish, sometimes a word does not contain a vowel, and therefore has to be part of first syllable of the following word.
@@ -340,7 +344,12 @@ var Syl = (function(){
             cpi=m[5]?1+opi+m[5].length:0,   // closing parenthesis index
             ai=w.split('*'),                // accent indices
             wordSyls = [];
+        sylWords.push(wordSyls);
         w = ai.join('');
+        if(/^!/.test(m[3])) {
+          result.push(syllable(m[3].slice(1),regexWords.lastIndex+1,{nbsp:""}))
+          continue;
+        }
         m[3] = m[3] && m[3].replace(/\*/g,'');
         m[5] = m[5] && m[5].replace(/\*/g,'');
         ai.pop();
@@ -441,7 +450,7 @@ var Syl = (function(){
         var ts = m[3].slice(wi);;
         tmp[2] = tmp[3] = tmp[3] + ts;
         //tmp[3] = ts;
-        tmp[7] = m[8] + (m[9]||'').replace(/\s+(†|\*)/, ' $1');
+        tmp[7] = m[8] + (m[9]||'').replace(/\s+(?:(†|\*)|!(\S+))/, ' $1$2');
         tmp[8]=" ";
         tmp[9]=m[10];
         if(ai.length) tmp[6]='*';
@@ -456,9 +465,31 @@ var Syl = (function(){
           result.push(tmpSyllable);
         }
       }
-      if(!accentsMarked) {
+      if(lang == 'la') {
+        sylWords.forEach(function(syls) {
+          var word = syls.map(function(syl) { return syl.syl; }).join('');
+          if(!regexAccent.test(word)) {
+            if(syls.length == 2) {
+              syls[0].accent = true;
+            } else if(syls.length > 2) {
+              syls = syls.filter(function(syl) { return /[AEIOUYÆŒæœ]/.test(syl.syl); });
+              if(syls.length === 1) syls[0].accent = true;
+            }
+          }
+        });
+        for(var i=1, lastAccent = 0; i <= result.length; ++i) {
+          var curSyl = result[result.length - i];
+          var nextSyl = result[result.length - i - 1];
+          if(curSyl.accent) {
+            lastAccent = i;
+          } else if(lastAccent == i-2 && !(nextSyl && nextSyl.accent)) {
+            lastAccent = i;
+            curSyl.accent = true;
+          }
+        }
+      } else if(!accentsMarked) {
         for(var i=1; i<=3; ++i) {
-          var curSyl = result[result.length-1];
+          var curSyl = result[result.length-i];
           if(!curSyl) break;
           var curWord = curSyl.word;
           if(curWord.length == 1) {
@@ -511,7 +542,8 @@ function syllable(match,index,bi) {
             space: "",
             syl:"",
             prepunctuation: "",
-            word: undefined
+            word: undefined,
+            directive: true
     };
   } else {
     if(bi && bi.makeSylSubstitutions){
@@ -544,7 +576,7 @@ function syllable(match,index,bi) {
             syl: match[1] + (prepunc?sylnospace:match[3]) + match[9],
             vowel: match[5]||(tmp=regexVowel.exec(match[3]),(tmp&&tmp[0]||"")),
             separator: match[6], // - or *
-            punctuation: match[7]? (match[7].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/) : "",  // TODO: make space before punctuation optional
+            punctuation: /[a-z]/i.test(match[7])? "" : (match[7].replace(/\s|[\*†]$/g,"")/*.replace(/[:;"«»‘’“”„‟‹›‛]/g,nbsp+"$&")*/),  // TODO: make space before punctuation optional
             prespace: prepunc?"":prespace,
             sylnospace: sylnospace,
             space: match[8],
@@ -556,7 +588,7 @@ function syllable(match,index,bi) {
             elision: elision,
             flex: match[7] && match[7].match(/†$/),
             mediant: match[7] && match[7].match(/\*$/),
-            pause: match[7] && match[7].match(/\^$/),
+            pause: match[7] && match[7].match(/\^$/)
     };
   }
 }
@@ -1101,8 +1133,9 @@ var _getSyllables = function(text,bi) {
   }
   return syl;
 }
-var getSyllables = _getSyllables;
 var _getEnSyllables = function(text){return Syl.syllabify(text);};
+var _getLaSyllables = function(text){return Syl.syllabify(text,'la');};
+var getSyllables = _getLaSyllables;
 
 function getWords(syls) {
   var len = syls.length;
