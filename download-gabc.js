@@ -12,6 +12,9 @@ gabcRefs["958"] = "Ez 47: 2, 9; Ps 117: 1";
 gabcRefs["497"] = "Ps 50: 9, 3a";
 gabcRefs["142"] = "Ps 50: 9, 3a";
 gabcRefs["905"] = "Ps 50: 9, 3a";
+gabcRefs["374"] = "Gal 6: 14; Ps 66: 2";
+gabcRefs["1215"] = "Joann 12; Marc 11";
+gabcRefs["1155"] = "Matth 21: 8, 9";
 
 window = {Hypher: Hypher};
 Hypher.languages = {};
