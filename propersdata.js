@@ -736,10 +736,10 @@ R/. A(e.)men.(e.) (::)"
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">7.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
-<p><span class="versenum">8.&nbsp;</span>Quis est iste Rex glóriæ?&nbsp;† Dóminus <b>for</b>tis et <b>po</b>tens:&nbsp;* Dóminus po<i>tens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">8.&nbsp;</span>Quis est iste Rex glóriæ?&nbsp;† Dóminus <b>for</b>tis et <b>pot</b>ens:&nbsp;* Dóminus pot<i>ens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">9.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
-<p><span class="versenum">10.&nbsp;</span>Quis est <b>i</b>ste Rex <b>gló</b>riæ?&nbsp;* Dóminus virtútum ipse <i>est</i> <i>Rex</i> <b>gló</b>riæ. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
-<p><span class="versenum">11.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">10.&nbsp;</span>Quis est <b>is</b>te Rex <b>gló</b>riæ?&nbsp;* Dóminus virtútum ipse <i>est</i> <i>Rex</i> <b>gló</b>riæ. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">11.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
 <p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, et <b>nunc</b>, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 </div>',
       sticky: 1
@@ -753,11 +753,11 @@ R/. A(e.)men.(e.) (::)"
 <p><span class="versenum">3.&nbsp;</span>Subjécit <b>pó</b>pulos <b>no</b>bis:&nbsp;* et Gentes sub pé<i>di</i><i>bus</i> <b>nos</b>tris.</p>\
 <p><span class="versenum">4.&nbsp;</span>Elégit nobis heredi<b>tá</b>tem <b>su</b>am:&nbsp;* spéciem Jacob, <i>quam</i> <i>di</i><b>lé</b>xit. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">5.&nbsp;</span>Ascéndit <b>De</b>us in <b>jú</b>bilo:&nbsp;* et Dóminus in <i>vo</i><i>ce</i> <b>tu</b>bæ.</p>\
-<p><span class="versenum">6.&nbsp;</span>Psállite Deo <b>nos</b>tro, <b>psál</b>lite:&nbsp;* psállite Regi <i>no</i><i>stro</i>, <b>psál</b>lite. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">6.&nbsp;</span>Psállite Deo <b>nos</b>tro, <b>psál</b>lite:&nbsp;* psállite Regi <i>nos</i><i>tro</i>, <b>psál</b>lite. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">7.&nbsp;</span>Quóniam Rex omnis <b>ter</b>ræ <b>De</b>us:&nbsp;* psállite <i>sa</i><i>pi</i><b>én</b>ter.</p>\
-<p><span class="versenum">8.&nbsp;</span>Regnábit Deus <b>su</b>per <b>Gen</b>tes:&nbsp;* Deus sedet super sedem <i>san</i><i>ctam</i> <b>su</b>am. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">8.&nbsp;</span>Regnábit Deus <b>su</b>per <b>Gen</b>tes:&nbsp;* Deus sedet super sedem <i>sanc</i><i>tam</i> <b>su</b>am. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">9.&nbsp;</span>Príncipes populórum congregáti sunt cum <b>De</b>o <b>A</b>braham:&nbsp;* quóniam dii fortes terræ veheménter <i>e</i><i>le</i><b>vá</b>ti sunt. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
-<p><span class="versenum">10.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">10.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
 <p><span class="versenum">11.&nbsp;</span>Sicut erat in princípio, et <b>nunc</b>, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 </div>',
       sticky: 1
@@ -807,7 +807,7 @@ R/. A(e.)men.(e.) (::)"
       sticky: 0
     }, {
       rubric: "<Psalm 147>",
-      gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quó(j)ni(j)am...(j)",
+      gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
       html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confortávit seras portárum tu<b>á</b>rum:&nbsp;* benedíxit fíliis <i>tu</i><i>is</i> <b>in</b> te.</p>\
 <p><span class="versenum">3.&nbsp;</span>Qui pósuit fines tuos <b>pa</b>cem:&nbsp;* et ádipe fruménti <i>sá</i><i>ti</i><b>at</b> te.</p>\
@@ -816,8 +816,8 @@ R/. A(e.)men.(e.) (::)"
 <p><span class="versenum">6.&nbsp;</span>Mittit crystállum suam sicut buc<b>cél</b>las:&nbsp;* ante fáciem frígoris ejus quis <i>sus</i><i>ti</i><b>né</b>bit?</p>\
 <p><span class="versenum">7.&nbsp;</span>Emíttet verbum suum, et liquefáciet <b>e</b>a:&nbsp;* flabit spíritus ejus, et <i>flu</i><i>ent</i> <b>a</b>quæ.</p>\
 <p><span class="versenum">8.&nbsp;</span>Qui annúntiat verbum suum <b>Ja</b>cob:&nbsp;* justítias, et judícia <i>su</i><i>a</i> <b>Is</b>raël.</p>\
-<p><span class="versenum">9.&nbsp;</span>Non fecit táliter omni nati<b>ó</b>ni:&nbsp;* et judícia sua non manife<i>stá</i><i>vit</i> <b>e</b>is.</p>\
-<p><span class="versenum">10.&nbsp;</span>Glória Patri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">9.&nbsp;</span>Non fecit táliter omni nati<b>ó</b>ni:&nbsp;* et judícia sua non manifes<i>tá</i><i>vit</i> <b>e</b>is.</p>\
+<p><span class="versenum">10.&nbsp;</span>Glória Patri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
 <p><span class="versenum">11.&nbsp;</span>Sicut erat in princípio, et nunc, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
 </div>',
       sticky: 1
@@ -846,7 +846,7 @@ R/. A(e.)men.(e.) (::)"
             rubric: "<Verses ad libitum.>",
             gabc: "initial-style: 0;\n\
 %%\n\
-(c4)2. Ut(hg~) co(gh)gno(h)scá(h)mus(h) in(h) ter(h)ra(hg) vi(gi)am(i) tu(hi)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)tá(gf)re(gh) tu(g)um.(egff) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
+(c4)2. Ut(hg~) co(gh)gnos(h)cá(h)mus(h) in(h) ter(h)ra(hg) vi(gi)am(i) tu(hi)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)tá(gf)re(gh) tu(g)um.(egff) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
 3. Con(hg~)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(hg)pu(gi)li,(i) De(hi)us:(h.) *(:) con(hg)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(h)pu(gf)li(gh) om(g)nes.(egff) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::) () ^Kyrie IV <i>or</i> IX.^()\
 "
         }
@@ -1251,8 +1251,9 @@ R/. A(e.)men.(e.) (::)"
 (c4)1. Lau(f)dá(gh)te(h) Dó(h)mi(h)num,(h) om(h)<i>nes</i>(g) <b>Gen</b>(h fr)tes:(f.) *(:) lau(h)dá(h)te(h) e(h)um,(h) <i>om</i>(f)<i>nes</i>(gh) <b>pó</b>(g)pu(fr)li:(f.) (::)",
         html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confirmáta est super nos misericórdi<i>a</i> <b>e</b>jus:&nbsp;* et véritas Dómini manet <i>in</i> <i>æ</i><b>tér</b>num.</p>\
-<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
-<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p></div>',
+<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
+<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
+</div>',
         sticky: 1
     },
     {
@@ -1269,15 +1270,16 @@ R/. A(e.)men.(e.) (::)"
 2. Et(g) ex(hg)sul(gj)tá(j)vit(j) <i>spí</i>(ji)<i>ri</i>(jk)<i>tus</i>(k) <b>me</b>(jk jr)us(j.) *(:) in(j) De(j)o(j) sa(j)lu(j)<i>tá</i>(i)<i>ri</i>(j) <b>me</b>(h gr)o.(g.) (::)",
         html: '<div class="verses">\
 <p><span class="versenum">3.&nbsp;</span>Quia respéxit humilitátem <i>an</i><i>cíl</i><i>læ</i> <b>su</b>æ:&nbsp;* ecce enim ex hoc beátam me dicent omnes gene<i>ra</i><i>ti</i><b>ó</b>nes.</p>\
-<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>po</b>tens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.</p>\
+<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>pot</b>ens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.</p>\
 <p><span class="versenum">5.&nbsp;</span>Et misericórdia ejus a progéni<i>e</i> <i>in</i> <i>pro</i><b>gé</b>nies&nbsp;* timén<i>ti</i><i>bus</i> <b>e</b>um.</p>\
 <p><span class="versenum">6.&nbsp;</span>Fecit poténtiam in <i>brá</i><i>chi</i><i>o</i> <b>su</b>o:&nbsp;* dispérsit supérbos mente <i>cor</i><i>dis</i> <b>su</b>i.</p>\
-<p><span class="versenum">7.&nbsp;</span>Depósuit po<i>tén</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.</p>\
-<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>i</i><b>ná</b>nes.</p>\
+<p><span class="versenum">7.&nbsp;</span>Depósuit pot<i>én</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.</p>\
+<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>in</i><b>á</b>nes.</p>\
 <p><span class="versenum">9.&nbsp;</span>Suscépit Israël <i>pú</i><i>e</i><i>rum</i> <b>su</b>um,&nbsp;* recordátus misericór<i>di</i><i>æ</i> <b>su</b>æ.</p>\
-<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>no</b>stros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.</p>\
-<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
-<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p></div>',
+<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>nos</b>tros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.</p>\
+<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
+<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
+</div>',
         sticky: 1
     }, {
         rubric: "The antiphon <Vespere autem.> is repeated."
