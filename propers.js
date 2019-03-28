@@ -796,16 +796,7 @@ $(function(){
         if($lectiones.length > readings.length) {
           $lectiones = $lectiones.not('.lectio-before-tract');
         }
-        $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
-        readings.forEach(function(reading,i) {
-          [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
-            var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
-            getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
-              $lectio.empty().append(reading);
-            });
-          });
-        });
-        $lectiones.show();
+        updateReadings(readings, $lectiones);
         var defaultVal = localStorage.showLectionem || ''
         $('.selectShowLectionem').val(defaultVal).change();
       } else {
@@ -813,6 +804,18 @@ $(function(){
       }
       updateAllParts();
     }
+  }
+  function updateReadings(readings, $lectiones) {
+    $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+    readings.forEach(function(reading,i) {
+      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+        var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
+        getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
+          $lectio.empty().append(reading);
+        });
+      });
+    });
+    $lectiones.show();
   }
   var updateDayNovus = function() {
     $('.lectio').hide();
@@ -940,6 +943,11 @@ $(function(){
         var id = 'graduale'+(selPropers.gradualeID.length - 1);
         selPropers[id+'Replace'] = chant.gabcReplace;
         updatePart(id);
+      } else if(chant.lectio) {
+        var $lectio = $(lectioTemplate.replace(/\$num\b/g,'extra'));
+        $curContainer.append($lectio);
+        updateReadings([chant.lectio], $lectio);
+        $lectio.find('.selectShowLectionem').val('').change();
       } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);

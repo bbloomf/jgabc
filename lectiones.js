@@ -103,6 +103,10 @@ var lectiones = {
   "Jeremias 14: 7-8, 9",
   "Marcus 11: 22-26"
  ],
+ "Quad6s": [
+  "Ad Colossenses 3: 1-4",
+  "Matthæus 28: 1-7"
+ ],
  "Quad6t_v": [
   "Jeremias 11: 18-20",
   "Marcus 14: 1-72; 15: 1-46"
@@ -119,6 +123,10 @@ var lectiones = {
  "Quad6h_v": [
   "1 Ad Corinthios 11: 20-32",
   "Joannes 13: 1-15"
+ ],
+ "Quad6s_v": [
+  "Ad Colossenses 3: 1-4",
+  "Matthæus 28: 1-7"
  ],
  "SMadvent": [
   "Isaias 7: 10-15",

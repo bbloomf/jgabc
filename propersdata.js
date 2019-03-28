@@ -657,11 +657,15 @@ R/. A(e.)men.(e.) (::)"
       id: 817,
       rubricAfter: "The Lesson is in the tone of the Epistle."
     }, {
+      lectio: "Exodus 15: 27; 16: 1-7"
+    }, {
       rubric: "In place of the Gradual, the Choir sings one of the following responsories",
       id: {
         "Collegérunt pontífices": 8107,
         "In monte Olivéti": 8108
       }
+    }, {
+      lectio: "Matthæus 21: 1-9"
     }, {
       rubric: "The Versicles and Responses before the Preface are sung in the ferial tone:",
       id: 7675
@@ -731,7 +735,7 @@ R/. A(e.)men.(e.) (::)"
       id: 1215,
       sticky: 0
     }, {
-      gabc: "initial-style: 0;\ncommentary: Psalm 23, 1-2, 7-10;\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
+      gabc: "initial-style: 0;\ncommentary: Psalm 23, 1-2, 7-10;\n%%\n(c4)1. Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
 <i>Flex:</i> pr{í}n(h)ci(h)pes,(h) ves(h)tras, †(g. h h h) (::) 2. Qui(h)a(h) ip(h)se...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
@@ -747,7 +751,7 @@ R/. A(e.)men.(e.) (::)"
       id: 1155,
       sticky: 0
     }, {
-      gabc: "initial-style: 0;\ncommentary: Psalm 46;\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) (::) 2. Quón(h)i(h)am...(h)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 46;\n%%\n(c4)1. Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) (::) 2. Quón(h)i(h)am...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam Dóminus ex<b>cél</b>sus, ter<b>rí</b>bilis:&nbsp;* Rex magnus super <i>om</i><i>nem</i> <b>ter</b>ram. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">3.&nbsp;</span>Subjécit <b>pó</b>pulos <b>no</b>bis:&nbsp;* et Gentes sub pé<i>di</i><i>bus</i> <b>nos</b>tris.</p>\
@@ -761,6 +765,8 @@ R/. A(e.)men.(e.) (::)"
 <p><span class="versenum">11.&nbsp;</span>Sicut erat in princípio, et <b>nunc</b>, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 </div>',
       sticky: 1
+    }, {
+      lectio: "Matthæus 21: 1-9"
     }, {
       title: "The Procession with Blessed Palms",
       rubric: "After the Gospel, the celebrant, with the ministers (or servers), returns to the foot of the altar, makes reverence, and blesses incense. Then the deacon (or celebrant) turns to the people and says:",
@@ -1028,14 +1034,22 @@ R/. A(e.)men.(e.) (::)"
         rubric: "The conclusion is sung:",
         gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
 <sp>R/</sp> A(e)men.(ef..) (::)"
+    }, {
+      lectio: "Genesis 1: 1-31; 2: 1-2"
+    }, {
+      lectio: "Exodus 14: 24-31; 15: 1"
     },
     {
         id: 2060,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Isaias 4: 2-6"
     },
     {
         id: 2075,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Deuteronomium 31: 22-30"
     },
     {
         id: 2086,
@@ -1166,21 +1180,45 @@ R/. A(e.)men.(e.) (::)"
         rubric: "The conclusion is sung:",
         gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
 <sp>R/</sp> A(e)men.(ef..) (::)"
+    }, {
+      lectio: "Genesis 1: 1-31; 2: 1-2"
+    }, {
+      lectio: "Genesis 5: 31; 6: 1-22; 7: 1-24; 8: 1-21"
+    }, {
+      lectio: "Genesis 22: 1-19"
+    }, {
+      lectio: "Exodus 14: 24-31; 15: 1"
     },
     {
         id: 2060,
         gabcReplace: replaceOfficePartToTract,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Isaias 54: 17; 55, 1-11"
+    }, {
+      lectio: "Baruch 3: 9-38"
+    }, {
+      lectio: "Ezechiel 37: 1-14"
+    }, {
+      lectio: "Isaias 4: 1-6"
     },
     {
         id: 2075,
         gabcReplace: replaceOfficePartToTract,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Exodus 12: 1-11"
+    }, {
+      lectio: "Jonas 3: 1-10"
+    }, {
+      lectio: "Deuteronomium 31: 22-30"
     },
     {
         id: 2086,
         gabcReplace: replaceOfficePartToTract,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Daniel 3: 1-24"
     }, {
         rubric: "If the Church has a baptismal font, the Celebrant goes with his ministers and the clergy to bless the font at the end of the Prophecies; during the procession, the following Tract is sung:",
         id: 943,
