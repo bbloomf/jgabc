@@ -2460,6 +2460,10 @@ $(function(){
     if($chantCommentary.length == 0) {
       $chantCommentary = $('<div>').addClass('commentary').insertBefore(chantContainer);
     }
+    var $cb = $();
+    if(/Verses$/.test(part)) {
+      $cb = chantContainer.parent().find('input.cbVersesAdLibitum');
+    }
     var prop = sel[part];
     $chantCommentary.text(prop.commentary || '');
     if(prop.commentary && parseRef) {
@@ -2524,7 +2528,9 @@ $(function(){
       updateTextSize(part);
     } else {
       score.performLayoutAsync(ctxt, function() {
+        if($cb.prop('checked')===false) return;
         score.layoutChantLines(ctxt, ctxt.width, function() {
+          if($cb.prop('checked')===false) return;
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
           if(useNoMoreThanHalfHeight) {
