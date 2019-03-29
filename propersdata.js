@@ -850,7 +850,7 @@ R/. A(e.)men.(e.) (::)"
         { title: 'V', id: 504 },
         { title: 'VI', id: 1242 },
         { title: 'VII', id: 1252 },
-        { title: ' ', id: 8268 },
+        { rubric: "The following antiphon is not included in the liturgical books after the 1955 Holy Week reform.", id: 8268 },
         { title: 'VIII', id: 1013, rubric: "The following antiphon and its verses are never omitted. It is begun towards the end of the washing of the feet; some of the preceding antiphons may be omitted." }
     ]
   },

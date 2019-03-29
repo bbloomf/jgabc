@@ -24,6 +24,7 @@ gabcRefs["736"] = "Joan 13: 6-7, 8";
 gabcRefs["504"] = "Joan 13: 14; Ps 48: 2";
 gabcRefs["1242"] = "Joan 13: 35";
 gabcRefs["1252"] = "1 Cor 13: 13";
+gabcRefs["8268"] = "Tob 12: 6; Ps 83: 2-3";
 
 
 window = {Hypher: Hypher};
