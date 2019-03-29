@@ -1349,7 +1349,8 @@ texts = {
 		"8110": "cum appropinquaret dominus jerosolymam misit duos ex discipulis suis dicens ite in castellum quod est contra vos et invenietis pullum asinæ alligatum super quem nullus hominum sedit solvite et adducite mihi si quis vos interrogaverit dicite opus domino est solventes adduxerunt ad jesum et imposuerunt illi vestimenta et sedit super eum alii expandebant vestimenta sua in via alii ramos de arboribus exsternebant et qui sequebantur clamabant hosanna benedictus qui venit in nomine domini benedictum regnum patris nostri david hosanna in excelsis miserere nobis fili david",
 		"8146": "alma redemptoris mater quæ pervia cæli porta manes et stella maris succurre cadenti surgere qui curat populo tu quæ genuisti natura mirante tuum sanctum genitorem virgo prius ac posterius gabrielis ab ore sumens illud ave peccatorum miserere",
 		"8177": "ante sex dies solemnis paschæ quando venit dominus in civitatem jerusalem occurrerunt ei pueri et in manibus portabant ramos palmarum et clamabant voce magna dicentes hosanna in excelsis benedictus qui venisti in multitudine misericordiæ hosanna in excelsis",
-		"8187": "vespere autem sabbati quæ lucescit in prima sabbati venit maria magdalene et altera maria videre sepulcrum alleluia"
+		"8187": "vespere autem sabbati quæ lucescit in prima sabbati venit maria magdalene et altera maria videre sepulcrum alleluia",
+		"8268": "benedicta sit sancta trinitas atque indivisa unitas confitebimur ei quia fecit nobiscum misericordiam suam ℣ benedicamus patrem et filium cum sancto spiritu ℣ quam dilecta tabernacula tua domine virtutum concupiscit et deficit anima mea in atria domini benedicta sit"
 	},
 	"Canticum": {
 		"943": "sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus",

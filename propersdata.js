@@ -75,6 +75,7 @@ var sundayKeys = [
     {key:"Quad6w_v",title:"  Feria IV Hebdomadæ Sanctæ (ante 1955)",en:"  Wednesday in Holy Week (pre 1955)"},
     {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
     {key:"Quad6h_v",title:"Feria V in Cena Domini (ante 1955)",en:"Maundy Thursday (pre 1955)"},
+    {key:"Quad6h-lotio",title:"  Antiphonæ ad Lotionem Pedum",en:"  Antiphons at the Washing of the Feet"},
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
     {key:"Quad6f_v",title:"Feria VI in Passione et Morte Domini (ante 1955)",en:"Good Friday (pre 1955)"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
@@ -841,9 +842,16 @@ R/. A(e.)men.(e.) (::)"
   ],
   "Quad6h-lotio": {
     "asperges": [
-        {
-            options: [279, 649, 291, 736, 504, 1242, 1252, 1013]
-        }
+        // options: [279, 649, 291, 736, 504, 1242, 1252, 1013]
+        { title: 'I', id: 279, rubricAfter: ["The antiphon <Mandátum novum.> is repeated.", "The following antiphons are each repeated after the Psalm or Versicle. Only the first verse of the Psalm is said in each case."] },
+        { title: 'II', id: 649 },
+        { title: 'III', id: 291 },
+        { title: 'IV', id: 736 },
+        { title: 'V', id: 504 },
+        { title: 'VI', id: 1242 },
+        { title: 'VII', id: 1252 },
+        { title: ' ', id: 8268 },
+        { title: 'VIII', id: 1013, rubric: "The following antiphon and its verses are never omitted. It is begun towards the end of the washing of the feet; some of the preceding antiphons may be omitted." }
     ]
   },
   "Quad6h": {
@@ -3454,6 +3462,7 @@ var proprium = {
         "coVerses": "Ps 101: 2-3, 5, 18"
     },
     "Quad6w_v": { ref: "Quad6w" },
+    "Quad6h-lotio": { extraChants: true, kyrie: false, gloria: false, credo: false, agnus: false, sanctus: false, ite: false, asperges: false, preface: false },
     "Quad6h": {
         "extraChants": true,
         "inID": 374,
