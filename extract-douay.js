@@ -14,7 +14,7 @@ var fs = require("fs"),
 
 douay.forEach(line => {
   if(!line) return;
-  line = line.trim();
+  line = line.trim().replace(/ {2,}/g,' ');
   var match = regexBookChapter.exec(line);
   if(match) {
     inBook = true;
