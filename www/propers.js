@@ -496,16 +496,16 @@ $(function(){
             if(isNovus) {
               // in novus ordo, neither ij. nor asterisks are marked.
               // remove ij. if present
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
-                replace(/\*(\(\))?/g,''); // remove asterisks
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s]+)\s*(?:<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
+                replace(/(\*|\{\*\})(\(\))?/g,''); // remove asterisks
             } else {
-              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]) && !/non\srep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
+              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
               if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
                 // add ij. if not present:
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 {*} <i>ij.</i>');
               } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
                 // remove ij. if present
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\)\s*[^a-z\s]+)\s*(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
               }
             }
             plaintext = decompile(gabc,true,sel[part]);
@@ -796,16 +796,7 @@ $(function(){
         if($lectiones.length > readings.length) {
           $lectiones = $lectiones.not('.lectio-before-tract');
         }
-        $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
-        readings.forEach(function(reading,i) {
-          [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
-            var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
-            getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
-              $lectio.empty().append(reading);
-            });
-          });
-        });
-        $lectiones.show();
+        updateReadings(readings, $lectiones);
         var defaultVal = localStorage.showLectionem || ''
         $('.selectShowLectionem').val(defaultVal).change();
       } else {
@@ -813,6 +804,18 @@ $(function(){
       }
       updateAllParts();
     }
+  }
+  function updateReadings(readings, $lectiones) {
+    $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+    readings.forEach(function(reading,i) {
+      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+        var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
+        getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
+          $lectio.empty().append(reading);
+        });
+      });
+    });
+    $lectiones.show();
   }
   var updateDayNovus = function() {
     $('.lectio').hide();
@@ -940,6 +943,11 @@ $(function(){
         var id = 'graduale'+(selPropers.gradualeID.length - 1);
         selPropers[id+'Replace'] = chant.gabcReplace;
         updatePart(id);
+      } else if(chant.lectio) {
+        var $lectio = $(lectioTemplate.replace(/\$num\b/g,'extra'));
+        $curContainer.append($lectio);
+        updateReadings([chant.lectio], $lectio);
+        $lectio.find('.selectShowLectionem').val('').change();
       } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);
@@ -2452,6 +2460,10 @@ $(function(){
     if($chantCommentary.length == 0) {
       $chantCommentary = $('<div>').addClass('commentary').insertBefore(chantContainer);
     }
+    var $cb = $();
+    if(/Verses$/.test(part)) {
+      $cb = chantContainer.parent().find('input.cbVersesAdLibitum');
+    }
     var prop = sel[part];
     $chantCommentary.text(prop.commentary || '');
     if(prop.commentary && parseRef) {
@@ -2516,7 +2528,9 @@ $(function(){
       updateTextSize(part);
     } else {
       score.performLayoutAsync(ctxt, function() {
+        if($cb.prop('checked')===false) return;
         score.layoutChantLines(ctxt, ctxt.width, function() {
+          if($cb.prop('checked')===false) return;
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
           if(useNoMoreThanHalfHeight) {

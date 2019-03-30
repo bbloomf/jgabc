@@ -75,6 +75,7 @@ var sundayKeys = [
     {key:"Quad6w_v",title:"  Feria IV Hebdomadæ Sanctæ (ante 1955)",en:"  Wednesday in Holy Week (pre 1955)"},
     {key:"Quad6h",title:"Feria V in Cena Domini",en:"Maundy Thursday"},
     {key:"Quad6h_v",title:"Feria V in Cena Domini (ante 1955)",en:"Maundy Thursday (pre 1955)"},
+    {key:"Quad6h-lotio",title:"  Antiphonæ ad Lotionem Pedum",en:"  Antiphons at the Washing of the Feet"},
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
     {key:"Quad6f_v",title:"Feria VI in Passione et Morte Domini (ante 1955)",en:"Good Friday (pre 1955)"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
@@ -473,12 +474,12 @@ var saintKeys = [
 ];
 var gabcPsalm21 = "initial-style: 0;\n\
 %%\n\
-(f3)1. De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quí</b>(h)sti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)li(h)ctó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)";
+(f3)1. De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quís</b>(h)ti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)lic(h)tó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)";
 var versesPsalm21 = '<div class="verses">\
-<p><span class="versenum">2.&nbsp;</span>Deus meus, clamábo per diem, et <i>non</i> <i>e</i><b>xáu</b>dies:&nbsp;* et nocte, et non ad insipiéntiam <b>mi</b>hi.</p>\
-<p><span class="versenum">3.&nbsp;</span>Tu autem in <i>san</i><i>cto</i> <b>há</b>bitas:&nbsp;* laus <b>Is</b>raël.</p>\
+<p><span class="versenum">2.&nbsp;</span>Deus meus, clamábo per diem, et <i>non</i> <i>ex</i><b>áu</b>dies:&nbsp;* et nocte, et non ad insipiéntiam <b>mi</b>hi.</p>\
+<p><span class="versenum">3.&nbsp;</span>Tu autem in <i>sanc</i><i>to</i> <b>há</b>bitas:&nbsp;* laus <b>Is</b>raël.</p>\
 <p><span class="versenum">4.&nbsp;</span>In te speravérunt <i>pa</i><i>tres</i> <b>nos</b>tri:&nbsp;* speravérunt, et liberásti <b>e</b>os.</p>\
-<p><span class="versenum">5.&nbsp;</span>Ad te clamavérunt, et <i>sal</i><i>vi</i> <b>fa</b>cti sunt:&nbsp;* in te speravérunt, et non sunt con<b>fú</b>si.</p>\
+<p><span class="versenum">5.&nbsp;</span>Ad te clamavérunt, et <i>sal</i><i>vi</i> <b>fac</b>ti sunt:&nbsp;* in te speravérunt, et non sunt con<b>fú</b>si.</p>\
 <p><span class="versenum">6.&nbsp;</span>Ego autem sum vermis, <i>et</i> <i>non</i> <b>ho</b>mo:&nbsp;* oppróbrium hóminum, et abjéctio <b>ple</b>bis.</p>\
 <p><span class="versenum">7.&nbsp;</span>Omnes vidéntes me <i>de</i><i>ri</i><b>sé</b>runt me:&nbsp;* locúti sunt lábiis, et movérunt <b>ca</b>put.</p>\
 <p><span class="versenum">8.&nbsp;</span>Sperávit in Dómino, erí<i>pi</i><i>at</i> <b>e</b>um:&nbsp;* salvum fáciat eum, quóniam vult <b>e</b>um.</p>\
@@ -489,10 +490,10 @@ var versesPsalm21 = '<div class="verses">\
 <p><span class="versenum">13.&nbsp;</span>Aperuérunt super <i>me</i> <i>os</i> <b>su</b>um:&nbsp;* sicut leo rápiens et <b>rú</b>giens.</p>\
 <p><span class="versenum">14.&nbsp;</span>Sicut a<i>qua</i> <i>ef</i><b>fú</b>sus sum:&nbsp;* et dispérsa sunt ómnia ossa <b>me</b>a.</p>\
 <p><span class="versenum">15.&nbsp;</span>Factum est cor meum tamquam ce<i>ra</i> <i>li</i><b>qué</b>scens:&nbsp;* in médio ventris <b>me</b>i.</p>\
-<p><span class="versenum">16.&nbsp;</span>Aruit tamquam testa virtus mea,&nbsp;† et lingua mea adhǽsit fáu<i>ci</i><i>bus</i> <b>me</b>is:&nbsp;* et in púlverem mortis dedu<b>xí</b>sti me.</p>\
+<p><span class="versenum">16.&nbsp;</span>Aruit tamquam testa virtus mea,&nbsp;† et lingua mea adhǽsit fáu<i>ci</i><i>bus</i> <b>me</b>is:&nbsp;* et in púlverem mortis dedu<b>xís</b>ti me.</p>\
 <p><span class="versenum">17.&nbsp;</span>Quóniam circumdedérunt me <i>ca</i><i>nes</i> <b>mul</b>ti:&nbsp;* concílium malignántium ob<b>sé</b>dit me.</p>\
 <p><span class="versenum">18.&nbsp;</span>Fodérunt manus meas et <i>pe</i><i>des</i> <b>me</b>os:&nbsp;* dinumeravérunt ómnia ossa <b>me</b>a.</p>\
-<p><span class="versenum">19.&nbsp;</span>Ipsi vero consíderavérunt et inspexérunt me:&nbsp;† divisérunt sibi vesti<i>mén</i><i>ta</i> <b>me</b>a,&nbsp;* et super vestem meam misérunt <b>sor</b>tem.</p>\
+<p><span class="versenum">19.&nbsp;</span>Ipsi vero consideravérunt et inspexérunt me:&nbsp;† divisérunt sibi vesti<i>mén</i><i>ta</i> <b>me</b>a,&nbsp;* et super vestem meam misérunt <b>sor</b>tem.</p>\
 <p><span class="versenum">20.&nbsp;</span>Tu autem, Dómine, ne elongáveris auxílium <i>tu</i><i>um</i> <b>a</b> me:&nbsp;* ad defensiónem meam <b>cón</b>spice.</p>\
 <p><span class="versenum">21.&nbsp;</span>Erue a frámea, Deus, á<i>ni</i><i>mam</i> <b>me</b>am:&nbsp;* et de manu canis únicam <b>me</b>am.</p>\
 <p><span class="versenum">22.&nbsp;</span>Salva me ex o<i>re</i> <i>le</i><b>ó</b>nis:&nbsp;* et a córnibus unicórnium humilitátem <b>me</b>am.</p>\
@@ -503,10 +504,10 @@ var versesPsalm21 = '<div class="verses">\
 <p><span class="versenum">27.&nbsp;</span>Apud te laus mea in ecclé<i>si</i><i>a</i> <b>ma</b>gna:&nbsp;* vota mea reddam in conspéctu timéntium <b>e</b>um.</p>\
 <p><span class="versenum">28.&nbsp;</span>Edent páuperes, et saturabúntur:&nbsp;† et laudábunt Dóminum qui re<i>quí</i><i>runt</i> <b>e</b>um:&nbsp;* vivent corda eórum in sǽculum <b>sǽ</b>culi.</p>\
 <p><span class="versenum">29.&nbsp;</span>Reminiscéntur et convertén<i>tur</i> <i>ad</i> <b>Dó</b>minum&nbsp;* univérsi fines <b>ter</b>ræ:</p>\
-<p><span class="versenum">30.&nbsp;</span>Et adorábunt in con<i>spé</i><i>ctu</i> <b>e</b>jus&nbsp;* univérsæ famíliæ <b>Gén</b>tium.</p>\
+<p><span class="versenum">30.&nbsp;</span>Et adorábunt in con<i>spéc</i><i>tu</i> <b>e</b>jus&nbsp;* univérsæ famíliæ <b>Gén</b>tium.</p>\
 <p><span class="versenum">31.&nbsp;</span>Quóniam Dómi<i>ni</i> <i>est</i> <b>re</b>gnum:&nbsp;* et ipse dominábitur <b>Gén</b>tium.</p>\
 <p><span class="versenum">32.&nbsp;</span>Manducavérunt et adoravérunt omnes <i>pin</i><i>gues</i> <b>ter</b>ræ:&nbsp;* in conspéctu ejus cadent omnes qui descéndunt in <b>ter</b>ram.</p>\
-<p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>i</b>psi.</p>\
+<p><span class="versenum">33.&nbsp;</span>Et ánima mea <i>il</i><i>li</i> <b>vi</b>vet:&nbsp;* et semen meum sérviet <b>ip</b>si.</p>\
 <p><span class="versenum">34.&nbsp;</span>Annuntiábitur Dómino generátio ventúra:&nbsp;† et annuntiábunt cæli justítiam ejus pópulo <i>qui</i> <i>na</i><b>scé</b>tur,&nbsp;* quem fecit <b>Dó</b>minus.</p>\
 </div>';
 var gabcHagios = "initial-style: 1;\n\
@@ -657,11 +658,15 @@ R/. A(e.)men.(e.) (::)"
       id: 817,
       rubricAfter: "The Lesson is in the tone of the Epistle."
     }, {
+      lectio: "Exodus 15: 27; 16: 1-7"
+    }, {
       rubric: "In place of the Gradual, the Choir sings one of the following responsories",
       id: {
         "Collegérunt pontífices": 8107,
         "In monte Olivéti": 8108
       }
+    }, {
+      lectio: "Matthæus 21: 1-9"
     }, {
       rubric: "The Versicles and Responses before the Preface are sung in the ferial tone:",
       id: 7675
@@ -731,15 +736,15 @@ R/. A(e.)men.(e.) (::)"
       id: 1215,
       sticky: 0
     }, {
-      gabc: "initial-style: 0;\ncommentary: Psalm 23, 1-2, 7-10;\n%%\n(c4)Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
-<i>Flex:</i> pr{í}n(h)ci(h)pes,(h) ve(h)stras, †(g. h h h) (::) 2. Qui(h)a(h) ip(h)se...(h)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 23, 1-2, 7-10;\n%%\n(c4)1. Dó(f)mi(gh)ni(h) est(h) ter(h)ra,(h) et(h) ple(h)ni(h)<b>tú</b>(ixi hr)do(h) <b>e</b>(g hr)jus:(h.) *(:) or(h)bis(h) ter(h)rá(h)rum,(h) et(h) u(h)ni(h)vér(h)si(h) qui(h) há(h)bi(h)<i>tant</i>(g) <i>in</i>(f) <b>e</b>(gh gr)o.(gf..) (::)\
+<i>Flex:</i> pr{í}n(h)ci(h)pes,(h) ves(h)tras, †(g. h h h) (::) 2. Qui(h)a(h) ip(h)se...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quia ipse super mária fun<b>dá</b>vit <b>e</b>um:&nbsp;* et super flúmina præpa<i>rá</i><i>vit</i> <b>e</b>um. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">7.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
-<p><span class="versenum">8.&nbsp;</span>Quis est iste Rex glóriæ?&nbsp;† Dóminus <b>for</b>tis et <b>po</b>tens:&nbsp;* Dóminus po<i>tens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">8.&nbsp;</span>Quis est iste Rex glóriæ?&nbsp;† Dóminus <b>for</b>tis et <b>pot</b>ens:&nbsp;* Dóminus pot<i>ens</i> <i>in</i> <b>prǽ</b>lio. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">9.&nbsp;</span>Attóllite portas, príncipes, vestras,&nbsp;† et elevámini, portæ <b>æ</b>ter<b>ná</b>les:&nbsp;* et introí<i>bit</i> <i>Rex</i> <b>gló</b>riæ.</p>\
-<p><span class="versenum">10.&nbsp;</span>Quis est <b>i</b>ste Rex <b>gló</b>riæ?&nbsp;* Dóminus virtútum ipse <i>est</i> <i>Rex</i> <b>gló</b>riæ. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
-<p><span class="versenum">11.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">10.&nbsp;</span>Quis est <b>is</b>te Rex <b>gló</b>riæ?&nbsp;* Dóminus virtútum ipse <i>est</i> <i>Rex</i> <b>gló</b>riæ. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">11.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
 <p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, et <b>nunc</b>, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 </div>',
       sticky: 1
@@ -747,20 +752,22 @@ R/. A(e.)men.(e.) (::)"
       id: 1155,
       sticky: 0
     }, {
-      gabc: "initial-style: 0;\ncommentary: Psalm 46;\n%%\n(c4)Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) (::) 2. Quó(h)ni(h)am...(h)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 46;\n%%\n(c4)1. Om(f)nes(gh) Gen(h)tes,(h) <b>pláu</b>(ixi)di(hr)te(h) <b>má</b>(g)ni(hr)bus:(h.) *(:) ju(h)bi(h)lá(h)te(h) De(h)o(h) in(h) vo(h)ce(h) ex(h)sul(h)<i>ta</i>(g)<i>ti</i>(f)<b>ó</b>(gh gr)nis.(gf..) (::) 2. Quón(h)i(h)am...(h)",
       html: '<div class="verses" style="display:inline-block">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam Dóminus ex<b>cél</b>sus, ter<b>rí</b>bilis:&nbsp;* Rex magnus super <i>om</i><i>nem</i> <b>ter</b>ram. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">3.&nbsp;</span>Subjécit <b>pó</b>pulos <b>no</b>bis:&nbsp;* et Gentes sub pé<i>di</i><i>bus</i> <b>nos</b>tris.</p>\
 <p><span class="versenum">4.&nbsp;</span>Elégit nobis heredi<b>tá</b>tem <b>su</b>am:&nbsp;* spéciem Jacob, <i>quam</i> <i>di</i><b>lé</b>xit. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">5.&nbsp;</span>Ascéndit <b>De</b>us in <b>jú</b>bilo:&nbsp;* et Dóminus in <i>vo</i><i>ce</i> <b>tu</b>bæ.</p>\
-<p><span class="versenum">6.&nbsp;</span>Psállite Deo <b>nos</b>tro, <b>psál</b>lite:&nbsp;* psállite Regi <i>no</i><i>stro</i>, <b>psál</b>lite. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">6.&nbsp;</span>Psállite Deo <b>nos</b>tro, <b>psál</b>lite:&nbsp;* psállite Regi <i>nos</i><i>tro</i>, <b>psál</b>lite. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">7.&nbsp;</span>Quóniam Rex omnis <b>ter</b>ræ <b>De</b>us:&nbsp;* psállite <i>sa</i><i>pi</i><b>én</b>ter.</p>\
-<p><span class="versenum">8.&nbsp;</span>Regnábit Deus <b>su</b>per <b>Gen</b>tes:&nbsp;* Deus sedet super sedem <i>san</i><i>ctam</i> <b>su</b>am. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
+<p><span class="versenum">8.&nbsp;</span>Regnábit Deus <b>su</b>per <b>Gen</b>tes:&nbsp;* Deus sedet super sedem <i>sanc</i><i>tam</i> <b>su</b>am. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 <p><span class="versenum">9.&nbsp;</span>Príncipes populórum congregáti sunt cum <b>De</b>o <b>A</b>braham:&nbsp;* quóniam dii fortes terræ veheménter <i>e</i><i>le</i><b>vá</b>ti sunt. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
-<p><span class="versenum">10.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">10.&nbsp;</span>Glória <b>Pa</b>tri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
 <p><span class="versenum">11.&nbsp;</span>Sicut erat in princípio, et <b>nunc</b>, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men. <span class="rubric pull-right">The antiphon <span class="quote">Púeri</span> is repeated as above.</span></p>\
 </div>',
       sticky: 1
+    }, {
+      lectio: "Matthæus 21: 1-9"
     }, {
       title: "The Procession with Blessed Palms",
       rubric: "After the Gospel, the celebrant, with the ministers (or servers), returns to the foot of the altar, makes reverence, and blesses incense. Then the deacon (or celebrant) turns to the people and says:",
@@ -807,7 +814,7 @@ R/. A(e.)men.(e.) (::)"
       sticky: 0
     }, {
       rubric: "<Psalm 147>",
-      gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quó(j)ni(j)am...(j)",
+      gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
       html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confortávit seras portárum tu<b>á</b>rum:&nbsp;* benedíxit fíliis <i>tu</i><i>is</i> <b>in</b> te.</p>\
 <p><span class="versenum">3.&nbsp;</span>Qui pósuit fines tuos <b>pa</b>cem:&nbsp;* et ádipe fruménti <i>sá</i><i>ti</i><b>at</b> te.</p>\
@@ -816,8 +823,8 @@ R/. A(e.)men.(e.) (::)"
 <p><span class="versenum">6.&nbsp;</span>Mittit crystállum suam sicut buc<b>cél</b>las:&nbsp;* ante fáciem frígoris ejus quis <i>sus</i><i>ti</i><b>né</b>bit?</p>\
 <p><span class="versenum">7.&nbsp;</span>Emíttet verbum suum, et liquefáciet <b>e</b>a:&nbsp;* flabit spíritus ejus, et <i>flu</i><i>ent</i> <b>a</b>quæ.</p>\
 <p><span class="versenum">8.&nbsp;</span>Qui annúntiat verbum suum <b>Ja</b>cob:&nbsp;* justítias, et judícia <i>su</i><i>a</i> <b>Is</b>raël.</p>\
-<p><span class="versenum">9.&nbsp;</span>Non fecit táliter omni nati<b>ó</b>ni:&nbsp;* et judícia sua non manife<i>stá</i><i>vit</i> <b>e</b>is.</p>\
-<p><span class="versenum">10.&nbsp;</span>Glória Patri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
+<p><span class="versenum">9.&nbsp;</span>Non fecit táliter omni nati<b>ó</b>ni:&nbsp;* et judícia sua non manifes<i>tá</i><i>vit</i> <b>e</b>is.</p>\
+<p><span class="versenum">10.&nbsp;</span>Glória Patri, et <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
 <p><span class="versenum">11.&nbsp;</span>Sicut erat in princípio, et nunc, et <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
 </div>',
       sticky: 1
@@ -835,22 +842,19 @@ R/. A(e.)men.(e.) (::)"
   ],
   "Quad6h-lotio": {
     "asperges": [
-        {
-            options: [279, 649, 291, 736, 504, 1242, 1252, 1013]
-        }
+        // options: [279, 649, 291, 736, 504, 1242, 1252, 1013]
+        { title: 'I', id: 279, rubricAfter: ["The antiphon <Mandátum novum.> is repeated.", "The following antiphons are each repeated after the Psalm or Versicle. Only the first verse of the Psalm is said in each case."] },
+        { title: 'II', id: 649 },
+        { title: 'III', id: 291 },
+        { title: 'IV', id: 736 },
+        { title: 'V', id: 504 },
+        { title: 'VI', id: 1242 },
+        { title: 'VII', id: 1252 },
+        { rubric: "The following antiphon is not included in the liturgical books after the 1955 Holy Week reform.", id: 8268 },
+        { title: 'VIII', id: 1013, rubric: "The following antiphon and its verses are never omitted. It is begun towards the end of the washing of the feet; some of the preceding antiphons may be omitted." }
     ]
   },
   "Quad6h": {
-    "introitus": [
-        {
-            rubric: "<Verses ad libitum.>",
-            gabc: "initial-style: 0;\n\
-%%\n\
-(c4)2. Ut(hg~) co(gh)gno(h)scá(h)mus(h) in(h) ter(h)ra(hg) vi(gi)am(i) tu(hi)am:(h.) *(:) in(hg) óm(gh)ni(h)bus(h) gén(h)ti(h)bus(h) sa(h)lu(h)tá(gf)re(gh) tu(g)um.(egff) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::Z)\n\
-3. Con(hg~)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(hg)pu(gi)li,(i) De(hi)us:(h.) *(:) con(hg)fi(gh)te(h)án(h)tur(h) ti(h)bi(h) pó(h)pu(gf)li(gh) om(g)nes.(egff) (::) Nos(dfe) au(ef!gvFD/fe)tem.(fff) (::) () ^Kyrie IV <i>or</i> IX.^()\
-"
-        }
-    ],
     "ite": [
         {
             title: "THE SOLEMN TRANSLATION AND RESERVATION OF THE BLESSED SACRAMENT",
@@ -1038,14 +1042,22 @@ R/. A(e.)men.(e.) (::)"
         rubric: "The conclusion is sung:",
         gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
 <sp>R/</sp> A(e)men.(ef..) (::)"
+    }, {
+      lectio: "Genesis 1: 1-31; 2: 1-2"
+    }, {
+      lectio: "Exodus 14: 24-31; 15: 1"
     },
     {
         id: 2060,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Isaias 4: 2-6"
     },
     {
         id: 2075,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Deuteronomium 31: 22-30"
     },
     {
         id: 2086,
@@ -1176,21 +1188,45 @@ R/. A(e.)men.(e.) (::)"
         rubric: "The conclusion is sung:",
         gabc: "initial-style: 0;\n%%\n(c3)per(f) óm(g)ni(g)a(g) sǽ(h)cu(g)la(fe) sæ(ef)cu(g)ló(fg)rum.(f.) (::) \
 <sp>R/</sp> A(e)men.(ef..) (::)"
+    }, {
+      lectio: "Genesis 1: 1-31; 2: 1-2"
+    }, {
+      lectio: "Genesis 5: 31; 6: 1-22; 7: 1-24; 8: 1-21"
+    }, {
+      lectio: "Genesis 22: 1-19"
+    }, {
+      lectio: "Exodus 14: 24-31; 15: 1"
     },
     {
         id: 2060,
         gabcReplace: replaceOfficePartToTract,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Isaias 54: 17; 55, 1-11"
+    }, {
+      lectio: "Baruch 3: 9-38"
+    }, {
+      lectio: "Ezechiel 37: 1-14"
+    }, {
+      lectio: "Isaias 4: 1-6"
     },
     {
         id: 2075,
         gabcReplace: replaceOfficePartToTract,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Exodus 12: 1-11"
+    }, {
+      lectio: "Jonas 3: 1-10"
+    }, {
+      lectio: "Deuteronomium 31: 22-30"
     },
     {
         id: 2086,
         gabcReplace: replaceOfficePartToTract,
         psalmtone: 'tractus'
+    }, {
+      lectio: "Daniel 3: 1-24"
     }, {
         rubric: "If the Church has a baptismal font, the Celebrant goes with his ministers and the clergy to bless the font at the end of the Prophecies; during the procession, the following Tract is sung:",
         id: 943,
@@ -1251,8 +1287,9 @@ R/. A(e.)men.(e.) (::)"
 (c4)1. Lau(f)dá(gh)te(h) Dó(h)mi(h)num,(h) om(h)<i>nes</i>(g) <b>Gen</b>(h fr)tes:(f.) *(:) lau(h)dá(h)te(h) e(h)um,(h) <i>om</i>(f)<i>nes</i>(gh) <b>pó</b>(g)pu(fr)li:(f.) (::)",
         html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confirmáta est super nos misericórdi<i>a</i> <b>e</b>jus:&nbsp;* et véritas Dómini manet <i>in</i> <i>æ</i><b>tér</b>num.</p>\
-<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
-<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p></div>',
+<p><span class="versenum">3.&nbsp;</span>Glória Patri, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
+<p><span class="versenum">4.&nbsp;</span>Sicut erat in princípio, et nunc, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
+</div>',
         sticky: 1
     },
     {
@@ -1269,15 +1306,16 @@ R/. A(e.)men.(e.) (::)"
 2. Et(g) ex(hg)sul(gj)tá(j)vit(j) <i>spí</i>(ji)<i>ri</i>(jk)<i>tus</i>(k) <b>me</b>(jk jr)us(j.) *(:) in(j) De(j)o(j) sa(j)lu(j)<i>tá</i>(i)<i>ri</i>(j) <b>me</b>(h gr)o.(g.) (::)",
         html: '<div class="verses">\
 <p><span class="versenum">3.&nbsp;</span>Quia respéxit humilitátem <i>an</i><i>cíl</i><i>læ</i> <b>su</b>æ:&nbsp;* ecce enim ex hoc beátam me dicent omnes gene<i>ra</i><i>ti</i><b>ó</b>nes.</p>\
-<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>po</b>tens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.</p>\
+<p><span class="versenum">4.&nbsp;</span>Quia fecit mihi <i>ma</i><i>gna</i> <i>qui</i> <b>pot</b>ens est:&nbsp;* et sanctum <i>no</i><i>men</i> <b>e</b>jus.</p>\
 <p><span class="versenum">5.&nbsp;</span>Et misericórdia ejus a progéni<i>e</i> <i>in</i> <i>pro</i><b>gé</b>nies&nbsp;* timén<i>ti</i><i>bus</i> <b>e</b>um.</p>\
 <p><span class="versenum">6.&nbsp;</span>Fecit poténtiam in <i>brá</i><i>chi</i><i>o</i> <b>su</b>o:&nbsp;* dispérsit supérbos mente <i>cor</i><i>dis</i> <b>su</b>i.</p>\
-<p><span class="versenum">7.&nbsp;</span>Depósuit po<i>tén</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.</p>\
-<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>i</i><b>ná</b>nes.</p>\
+<p><span class="versenum">7.&nbsp;</span>Depósuit pot<i>én</i><i>tes</i> <i>de</i> <b>se</b>de,&nbsp;* et exal<i>tá</i><i>vit</i> <b>hú</b>miles.</p>\
+<p><span class="versenum">8.&nbsp;</span>Esuriéntes <i>im</i><i>plé</i><i>vit</i> <b>bo</b>nis:&nbsp;* et dívites dimí<i>sit</i> <i>in</i><b>á</b>nes.</p>\
 <p><span class="versenum">9.&nbsp;</span>Suscépit Israël <i>pú</i><i>e</i><i>rum</i> <b>su</b>um,&nbsp;* recordátus misericór<i>di</i><i>æ</i> <b>su</b>æ.</p>\
-<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>no</b>stros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.</p>\
-<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>San</b>cto.</p>\
-<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p></div>',
+<p><span class="versenum">10.&nbsp;</span>Sicut locútus est <i>ad</i> <i>pa</i><i>tres</i> <b>nos</b>tros,&nbsp;* Abraham et sémini e<i>jus</i> <i>in</i> <b>sǽ</b>cula.</p>\
+<p><span class="versenum">11.&nbsp;</span>Glória <i>Pa</i><i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirí<i>tu</i><i>i</i> <b>Sanc</b>to.</p>\
+<p><span class="versenum">12.&nbsp;</span>Sicut erat in princípio, <i>et</i> <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæcu<i>ló</i><i>rum</i>. <b>A</b>men.</p>\
+</div>',
         sticky: 1
     }, {
         rubric: "The antiphon <Vespere autem.> is repeated."
@@ -3424,6 +3462,7 @@ var proprium = {
         "coVerses": "Ps 101: 2-3, 5, 18"
     },
     "Quad6w_v": { ref: "Quad6w" },
+    "Quad6h-lotio": { extraChants: true, kyrie: false, gloria: false, credo: false, agnus: false, sanctus: false, ite: false, asperges: false, preface: false },
     "Quad6h": {
         "extraChants": true,
         "inID": 374,
@@ -3436,7 +3475,7 @@ var proprium = {
         "ite": "benedicamus",
         "agnusReplace": [/d[oó](\([^)]+\))na(\([^)]+\))\s+n[oó](\([^)]+\))bis(\([^)]+\))\s+p[aá](\([^)]+\))cem\.?(\([^)]+\))/gi, 'mi$1se$2ré$3re$4 no$5bis.$6'],
         "gbid": "maundy_thursday",
-        "inVerses": "Ps 66: 2, 3",
+        "inVerses": "Ps 66: 3, 4",
         "ofVerses": "Ps 117: 5, 7",
         "coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
     },

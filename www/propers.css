@@ -101,7 +101,7 @@ textarea {
   font-weight: bold;
   font-family: 'Crimson Text';
   text-transform: uppercase;
-  margin: 0.75em 0 -0.5em;
+  margin: 0.75em 0 0;
   line-height: 1;
 }
 div[part] > div.block:first-child {
@@ -127,8 +127,9 @@ text.aboveLinesText {
   color: #d00!important;
   margin: 0.5em 0 0.25em;
 }
+.chant-title + *,
 .rubric.after {
-  margin-top: 0;
+  margin-top: 0!important;
 }
 .rubric .quote {
   font-style: normal;

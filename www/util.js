@@ -229,7 +229,7 @@ var rog = {
 var regexTag = /<(\/)?(\w+)>/i;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
-var regexHeaderLine = /^([\w-_.]+):\s*([^;\r\n]*)(?:;|$)/i;
+var regexHeaderLine = /^([\w-_.]+):\s*((?:[^;\r\n]|;[ \t])*)(?:;|$)/i;
 var regexHeaderComment = /^%.*/;
 function GabcHeader(text){
   if(typeof(text)!='string') text='';
