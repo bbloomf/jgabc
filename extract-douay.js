@@ -13,8 +13,8 @@ var fs = require("fs"),
     inBook = false;
 var lastChapter = 0;
 var lastVerse = 0;
-var psalm9 = 0;
-var psalm113 = 0;
+var psalmSpecial = 0;
+// Psalms 9, 113, 115, 147 are somewhat special cases.
   
 douay.forEach(line => {
   if(!line) return;
@@ -28,6 +28,7 @@ douay.forEach(line => {
       flag = 'w';
       lastChapter = 0;
       lastVerse = 0;
+      psalmSpecial = 0;
     }
   }
   if(!inBook) return;
@@ -37,19 +38,22 @@ douay.forEach(line => {
     if(match) {
       var chapter = parseInt(match[1]),
           verse = parseInt(match[2]);
-      if(book == "Psalmi" && chapter == 9 && psalm9) verse += psalm9;
-      if(book == "Psalmi" && chapter == 113 && psalm113) verse += psalm113;
-      if((chapter == lastChapter)? (verse != (lastVerse + 1)) : (verse != 1)) {
+      if(chapter != lastChapter) psalmSpecial = 0;
+      if(book == "Psalmi" && psalmSpecial && /^(9|113|115|147)$/.test(match[1])) verse += psalmSpecial;
+      var expectedVerse = (chapter == lastChapter)? (lastVerse + 1) : 1;
+      if(verse != expectedVerse) {
         if(book == "Psalmi") {
-          if(chapter == 9) {
-            psalm9 = lastVerse;
-            verse += psalm9;
-          } else if(chapter == 113) {
-            psalm113 = lastVerse;
-            verse += psalm113;
+          if(chapter == 9 || chapter == 113) {
+            console.info(`${chapter}:${verse}  setting psalmSpecial from ${psalmSpecial} to ${lastVerse}`);
+            psalmSpecial = lastVerse;
+            verse += psalmSpecial;
+          } else if(chapter == 115 || chapter == 147) {
+            console.info(`${chapter}:${verse}  setting psalmSpecial from ${psalmSpecial} to ${1 - verse}`);
+            psalmSpecial = 1 - verse;
+            verse += psalmSpecial;
           }
         } else if(chapter == lastChapter && verse <= lastVerse) return;
-        console.info(`unexpected verse in chapter ${chapter}; expected ${lastVerse + 1}; saw ${verse}: ${match[3].trim()}`);
+        console.info(`unexpected verse in chapter ${chapter}; expected ${expectedVerse}; saw ${verse}.`);
       }
       match[2] = ""+verse;
       lastChapter = chapter;
