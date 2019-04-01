@@ -2,7 +2,7 @@
 var fs = require("fs"),
     douay = fs.readFileSync('douay-rheims/src/pg8300.txt','utf8').split('\n'),
     regexBookChapter = /^(.+) Chapter (\d+)$/i,
-    regexVerse = /^(\d+)[:;](\d+)[:.]?\s+(.+)\s*$/,
+    regexVerse = /^(\d+)a?[:;](\d+)[:.]?\s+(.+)\s*$/,
     regexWhitespace = /^\s*$/,
     books = ["Genesis","Exodus","Leviticus","Numeri","Deuteronomium","Josue","Judicum","Ruth","Regum 1","Regum 2","Regum 3","Regum 4","Paralipomenon 1","Paralipomenon 2","Esdræ","Nehemiæ","Tobiæ","Judith","Esther","Job","Psalmi","Proverbia","Ecclesiastes","Canticum Canticorum","Sapientia","Ecclesiasticus","Isaias","Jeremias","Lamentationes","Baruch","Ezechiel","Daniel","Osee","Joel","Amos","Abdias","Jonas","Michæa","Nahum","Habacuc","Sophonias","Aggæus","Zacharias","Malachias","Machabæorum 1","Machabæorum 2",
 "Matthæus","Marcus","Lucas","Joannes","Actus Apostolorum","Ad Romanos","Ad Corinthios 1","Ad Corinthios 2","Ad Galatas","Ad Ephesios","Ad Philippenses","Ad Colossenses","Ad Thessalonicenses 1","Ad Thessalonicenses 2","Ad Timotheum 1","Ad Timotheum 2","Ad Titum","Ad Philemonem","Ad Hebræos","Jacobi","Petri 1","Petri 2","Joannis 1","Joannis 2","Joannis 3","Judæ","Apocalypsis"],
@@ -14,6 +14,7 @@ var fs = require("fs"),
 var lastChapter = 0;
 var lastVerse = 0;
 var psalmSpecial = 0;
+var lastLine;
 // Psalms 9, 113, 115, 147 are somewhat special cases.
   
 douay.forEach(line => {
@@ -66,12 +67,13 @@ douay.forEach(line => {
         lastLineWasVerse = false;
         line = '\n';
       } else {
-        line = ' ' + line.trim();
+        line = (/-^/.test(lastLine)? '' : ' ') + line.trim();
       }
     } else {
       return;
     }
     fs.writeFileSync('douay-rheims/'+book,line,{encoding: 'utf8', flag});
+    lastLine = line;
     flag = 'a';
   });
 });
