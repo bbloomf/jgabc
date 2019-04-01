@@ -35,7 +35,8 @@ douay.forEach(line => {
   if(!inBook) return;
   var lines = line.split(/\s+(?=\d+[:;]\d+)/);
   lines.forEach((line,i) => {
-    match = regexVerse.exec(line);
+    if(book == "Apocalypsis" && line == "APPENDICES") throw "Found Appendices; exiting";
+    match = regexVerse.exec(line.replace(/\s+([,;:.!?])\s*/g,'$1 '));
     if(match) {
       var chapter = parseInt(match[1]),
           verse = parseInt(match[2]);
@@ -67,7 +68,7 @@ douay.forEach(line => {
         lastLineWasVerse = false;
         line = '\n';
       } else {
-        line = (/-^/.test(lastLine)? '' : ' ') + line.trim();
+        line = (/[--]^/.test(lastLine)? '' : ' ') + line.trim();
       }
     } else {
       return;
