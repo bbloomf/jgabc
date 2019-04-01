@@ -68,7 +68,7 @@ douay.forEach(line => {
         lastLineWasVerse = false;
         line = '\n';
       } else {
-        line = (/[--]^/.test(lastLine)? '' : ' ') + line.trim();
+        line = (/-$/.test(lastLine)? '' : ' ') + line.trim();
       }
     } else {
       return;
