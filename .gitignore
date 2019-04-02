@@ -18,3 +18,4 @@ MR1962
 key.properties
 package-lock.json
 build.json
+show-diffs.sh
