@@ -17,3 +17,4 @@ key.properties
 .npmignore
 package-lock.json
 build.json
+show-diffs.sh
