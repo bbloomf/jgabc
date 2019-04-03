@@ -712,7 +712,7 @@ $(function(){
     });
     return $newGraduale;
   }
-  var updateDay = function() {
+  var updateDay = function(gregorianBooksPage) {
     var match = /^Pent(Epi\d)$/.exec(selDay);
     var lecDay = match? match[1] : selDay;
     var readings = lectiones[lecDay];
@@ -757,6 +757,7 @@ $(function(){
       selPropers.gloria = false;
     }
     if(selPropers) {
+      gregorianBooksPage = (gregorianBooksPage && selPropers.gbid)? (gregorianBooksPage + "#" + selPropers.gbid) : "";
       for(var k in partKey) {
         var key = partKey[k] + 'ID';
         var ok = k;
@@ -768,6 +769,7 @@ $(function(){
         var $part = $("div[part="+ok+"]");
         var $defaultVerses = $part.find(".verses-ad-libitum-default");
         $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
+        $part.find('div.chant-preview').attr('gregorianBooksId',gregorianBooksPage);
       }
     }
     $("#extra-chants").empty();
@@ -1129,7 +1131,7 @@ $(function(){
       $('.sel-custom').hide();
     }
     $('.lectio').hide();
-    updateDay();
+    updateDay(this.id == 'selSunday'? 'propers.html' : 'saints.html');
   };
   var selectedTempus = function(e){
     selTempus = $(this).val();

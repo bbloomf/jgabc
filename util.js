@@ -1350,6 +1350,7 @@ if(typeof $=='function') $(function($) {
     return null;
   }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
+  var gregorianBooksUrlPrefix = 'http://www.gregorianbooks.com/';
   var stopTone;
   var mouseUpTone = function() {
     stopTone && stopTone();
@@ -1506,10 +1507,14 @@ if(typeof $=='function') $(function($) {
     var $this = $(this);
     var $div = $this.parents('div').first();
     var gregoBaseId = $div.attr('gregobase-id');
+    var gregorianBooksId = $div.attr('gregorianBooksId');
     
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {
       $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
+    }
+    if(gregorianBooksId) {
+      $toolbar.append($('<a>').attr('target','_blak').attr('href',gregorianBooksUrlPrefix + gregorianBooksId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> Gregorian Books'));
     }
     addPitchButtonsToToolbar($toolbar, null, $this.parents('svg').prop('source'));
     $toolbar.appendTo(document.body);
