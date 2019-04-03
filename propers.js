@@ -490,6 +490,7 @@ $(function(){
             truePart = partType;
         if(!isOrdinaryPart) {
           var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
+          sel[part].responsoryCallbacks = [];
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
@@ -1303,13 +1304,20 @@ $(function(){
           slice = slice.slice(0, indexFirstSymbol + 2 + indexDoubleBar + 4);
           var firstWord = slice.match(/[*+†](?:\([^)]+\))?\s+([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
           if(firstWord) {
+            var firstWordComplete = firstWord[1];
             firstWord = firstWord[1].replace(/\s?[,;:.!?]\(/g,'(');
             if(firstWord in gabcAfterAsterisks) {
               // if it's in our dictionary, let's replace it with the whole thing:
               var lastIndex = regexOuter.lastIndex,
-                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones),
-                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones);
+                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+/,'');
               if(sliceText != replaceText) {
+                if(storeMap && storeMap.responsoryCallbacks) {
+                  var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
+                  if(temp.slice(-1)[0].length == 0) temp.pop();
+                  var regex = firstWordComplete.replace(/\s*[,;:.!?]\(/g,'\\s*[,;:.!?]?(').replace(/[()]/g,'\\$&');
+                  storeMap.responsoryCallbacks.push(new RegExp(regex,'gi'));
+                }
                 console.info('replacing responsory text: "' + sliceText + '" with "' + replaceText + '"');
                 mixed = mixed.slice(0,match.index) + gabcAfterAsterisks[firstWord] + mixed.slice(match.index + slice.length);
                 regexOuter.lastIndex = match.index;
@@ -2353,6 +2361,15 @@ $(function(){
     var ctxt = prop.ctxt;
     var gabc = prop.activeGabc;
     gabc = removeNotApplicableFromGabc(gabc);
+    if(!prop.responsoryCallbacks) {
+      prop.responsoryCallbacks = [];
+      plaintext = decompile(gabc,true,prop);
+    }
+    prop.responsoryCallbacks && prop.responsoryCallbacks.forEach(function(regex) {
+      gabc = gabc.replace(regex,function(match) {
+        return match.replace(/(^|\)\s*)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s*[,;:.!?]?)/gi,'$1^$2^');
+      });
+    });
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
