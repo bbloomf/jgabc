@@ -2382,6 +2382,7 @@ $(function(){
       })
 //      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3') // add empty parentheses after verse numbers, asterisks, and daggers
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
+      .replace(/(v[A-Z]__[A-Z])([^_])/g,'$1_3$2') // episemata over puncta inclinata don't go quite over far enough in a few chants
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
