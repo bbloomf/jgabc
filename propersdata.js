@@ -2698,7 +2698,7 @@ var proprium = {
         "gbid": "p8",
         "inVerses": "Ps 47: 3, 12",
         "ofVerses": "Ps 17: 7",
-        "coVerses": "Ps 33, 8"
+        "coVerses": "Ps 33, 1-7, 9-22"
     },
     "Pent9": {
         "inID": 1357,

@@ -106,6 +106,7 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
   var vulgate;
   var li=0;
   var verseRef = {};
+  var verseOffset = 0;
   if(psalm > 150) {
     vulgateLine = 0;
     verseRef = vr.parseRef(cantica[psalmFileName])[0];
@@ -118,6 +119,7 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
   } else {
     verseRef.chapter = psalm;
     verseRef.verse = 1;
+    verseOffset = psalm==33? 1 : 0;
   }
   for(var verse=verseRef.verse; ((vulgate = vulgatePsalms[vulgateLine])); ++verse, ++vulgateLine) {
     var matched = null;
@@ -150,15 +152,21 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
             console.error(`${psalmFileName} : ${verse}`, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
             throw `error in psalm ${psalmFileName}: couldn't find verse ${liberI}:\n"${liber}" at word ${liber[li]},\n«${vulgate}»\nlength:${liber.length},${li}`;
           }
-          if(lastOfPsalm) console.warn(`Psalm ${psalmFileName} is missing last verse (${vulgate.join(' ')})`);
-          li = 0;
-          matched = null;
+          if(lastOfPsalm) {
+            console.warn(`Psalm ${psalmFileName} is missing last verse (${vulgate.join(' ')})`);
+          } else {
+            li = 0;
+            matched = null;
+          }
           break;
         }
         vi++;
       }
       if(typeof matched == 'number' && !((verse - 1) in psalmMap[psalm - 1])) {
-        psalmMap[psalm - 1][verse - verseRef.verse] = matched;
+        var vnum = verse - verseRef.verse - verseOffset;
+        if(vnum >= 0) {
+          psalmMap[psalm - 1][vnum] = matched;
+        }
       }
       // console.info(`${psalmFileName} : ${verse}`, li, '\n'+liber.join(' '), "\nvs.\n", vulgate.join(' '));
       if(li == liber.length && liberI == liberPsalm.length) {
