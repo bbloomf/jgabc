@@ -490,6 +490,7 @@ $(function(){
             truePart = partType;
         if(!isOrdinaryPart) {
           var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
+          sel[part].responsoryCallbacks = [];
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
@@ -711,7 +712,7 @@ $(function(){
     });
     return $newGraduale;
   }
-  var updateDay = function() {
+  var updateDay = function(gregorianBooksPage) {
     var match = /^Pent(Epi\d)$/.exec(selDay);
     var lecDay = match? match[1] : selDay;
     var readings = lectiones[lecDay];
@@ -756,6 +757,7 @@ $(function(){
       selPropers.gloria = false;
     }
     if(selPropers) {
+      gregorianBooksPage = (gregorianBooksPage && selPropers.gbid)? (gregorianBooksPage + "#" + selPropers.gbid) : "";
       for(var k in partKey) {
         var key = partKey[k] + 'ID';
         var ok = k;
@@ -767,6 +769,7 @@ $(function(){
         var $part = $("div[part="+ok+"]");
         var $defaultVerses = $part.find(".verses-ad-libitum-default");
         $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
+        $part.find('div.chant-preview').attr('gregorianBooksId',gregorianBooksPage);
       }
     }
     $("#extra-chants").empty();
@@ -851,14 +854,21 @@ $(function(){
       } else {
         var i = 0;
         $.each(sel.extraChants, function(part, extraChants) {
+          var match = /^(before|after)-(.+)$/.exec(part);
+          var hidePart = !match;
+          var beforeAfter = match? match[1] : 'after';
+          beforeAfter = beforeAfter[0].toUpperCase() + beforeAfter.slice(1);
+          if(match) {
+            part = match[2];
+          }
           var $part = $('[part="'+part+'"]');
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
-          } else if(!(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
+          } else if(hidePart && !(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
             $part.hide();
           }
-          var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
+          var $extraChants = $('<div>').addClass('mandatory-extra-chant')["insert"+beforeAfter]($part);
           i = renderExtraChants($extraChants, extraChants, i);
         });
         $('div[part^=graduale]').each(function(){
@@ -1128,7 +1138,7 @@ $(function(){
       $('.sel-custom').hide();
     }
     $('.lectio').hide();
-    updateDay();
+    updateDay(this.id == 'selSunday'? 'propers.html' : 'saints.html');
   };
   var selectedTempus = function(e){
     selTempus = $(this).val();
@@ -1303,13 +1313,20 @@ $(function(){
           slice = slice.slice(0, indexFirstSymbol + 2 + indexDoubleBar + 4);
           var firstWord = slice.match(/[*+†](?:\([^)]+\))?\s+([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
           if(firstWord) {
+            var firstWordComplete = firstWord[1];
             firstWord = firstWord[1].replace(/\s?[,;:.!?]\(/g,'(');
             if(firstWord in gabcAfterAsterisks) {
               // if it's in our dictionary, let's replace it with the whole thing:
               var lastIndex = regexOuter.lastIndex,
-                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones),
-                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones);
+                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+/,'');
               if(sliceText != replaceText) {
+                if(storeMap && storeMap.responsoryCallbacks) {
+                  var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
+                  if(temp.slice(-1)[0].length == 0) temp.pop();
+                  var regex = firstWordComplete.replace(/\s*[,;:.!?]\(/g,'\\s*[,;:.!?]?(').replace(/[()]/g,'\\$&');
+                  storeMap.responsoryCallbacks.push(new RegExp(regex,'gi'));
+                }
                 console.info('replacing responsory text: "' + sliceText + '" with "' + replaceText + '"');
                 mixed = mixed.slice(0,match.index) + gabcAfterAsterisks[firstWord] + mixed.slice(match.index + slice.length);
                 regexOuter.lastIndex = match.index;
@@ -2353,6 +2370,15 @@ $(function(){
     var ctxt = prop.ctxt;
     var gabc = prop.activeGabc;
     gabc = removeNotApplicableFromGabc(gabc);
+    if(!prop.responsoryCallbacks) {
+      prop.responsoryCallbacks = [];
+      plaintext = decompile(gabc,true,prop);
+    }
+    prop.responsoryCallbacks && prop.responsoryCallbacks.forEach(function(regex) {
+      gabc = gabc.replace(regex,function(match) {
+        return match.replace(/(^|\)\s*)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s*[,;:.!?]?)/gi,'$1^$2^');
+      });
+    });
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
@@ -2363,6 +2389,7 @@ $(function(){
       })
 //      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3') // add empty parentheses after verse numbers, asterisks, and daggers
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
+      .replace(/(v[A-Z]__[A-Z])([^_])/g,'$1_3$2') // episemata over puncta inclinata don't go quite over far enough in a few chants
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
