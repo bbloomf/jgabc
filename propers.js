@@ -1006,6 +1006,7 @@ $(function(){
         var downloadThisChant = function() {
           if(sel[part].id) {
             $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
+              sel[part].responsoryCallbacks = null;
               if(chant.gabcReplace) {
                 gabc = runRegexReplaces(gabc, chant.gabcReplace);
               }
