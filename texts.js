@@ -1350,7 +1350,9 @@ texts = {
 		"8146": "alma redemptoris mater quæ pervia cæli porta manes et stella maris succurre cadenti surgere qui curat populo tu quæ genuisti natura mirante tuum sanctum genitorem virgo prius ac posterius gabrielis ab ore sumens illud ave peccatorum miserere",
 		"8177": "ante sex dies solemnis paschæ quando venit dominus in civitatem jerusalem occurrerunt ei pueri et in manibus portabant ramos palmarum et clamabant voce magna dicentes hosanna in excelsis benedictus qui venisti in multitudine misericordiæ hosanna in excelsis",
 		"8187": "vespere autem sabbati quæ lucescit in prima sabbati venit maria magdalene et altera maria videre sepulcrum alleluia",
-		"8268": "benedicta sit sancta trinitas atque indivisa unitas confitebimur ei quia fecit nobiscum misericordiam suam ℣ benedicamus patrem et filium cum sancto spiritu ℣ quam dilecta tabernacula tua domine virtutum concupiscit et deficit anima mea in atria domini benedicta sit"
+		"8268": "benedicta sit sancta trinitas atque indivisa unitas confitebimur ei quia fecit nobiscum misericordiam suam ℣ benedicamus patrem et filium cum sancto spiritu ℣ quam dilecta tabernacula tua domine virtutum concupiscit et deficit anima mea in atria domini benedicta sit",
+		"8283": "cum angelis et pueris fideles inveniamur triumphatori mortis clamantes hosanna in excelsis",
+		"8284": "turba multa quæ convenerat ad diem festum clamabat domino benedictus qui venit in nomine domini hosanna in excelsis"
 	},
 	"Canticum": {
 		"943": "sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus",

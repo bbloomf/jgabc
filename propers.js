@@ -854,14 +854,21 @@ $(function(){
       } else {
         var i = 0;
         $.each(sel.extraChants, function(part, extraChants) {
+          var match = /^(before|after)-(.+)$/.exec(part);
+          var hidePart = !match;
+          var beforeAfter = match? match[1] : 'after';
+          beforeAfter = beforeAfter[0].toUpperCase() + beforeAfter.slice(1);
+          if(match) {
+            part = match[2];
+          }
           var $part = $('[part="'+part+'"]');
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
-          } else if(!(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
+          } else if(hidePart && !(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
             $part.hide();
           }
-          var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
+          var $extraChants = $('<div>').addClass('mandatory-extra-chant')["insert"+beforeAfter]($part);
           i = renderExtraChants($extraChants, extraChants, i);
         });
         $('div[part^=graduale]').each(function(){

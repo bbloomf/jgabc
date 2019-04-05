@@ -697,11 +697,15 @@ R/. A(e.)men.(e.) (::)"
       id: 247,
       psalmtone: true
     }, {
-      id: 173,
-      psalmtone: true
+      id: {
+        "Roman Tone": 173,
+        "Monastic Tone": 8283
+      }
     }, {
-      id: 770,
-      psalmtone: true
+      id: {
+        "Roman Tone": 770,
+        "Monastic Tone": 8284
+      }
     }, {
       rubric: "On the return of the Procession, two or four Cantors enter the church, and, closing the door, stand with their faces towards the procession, singing the following:",
       id: 259,
@@ -777,11 +781,15 @@ R/. A(e.)men.(e.) (::)"
       id: 247,
       psalmtone: true
     }, {
-      id: 173,
-      psalmtone: true
+      id: {
+        "Roman Tone": 173,
+        "Monastic Tone": 8283
+      }
     }, {
-      id: 770,
-      psalmtone: true
+      id: {
+        "Roman Tone": 770,
+        "Monastic Tone": 8284
+      }
     }, {
       id: 901,
       psalmtone: true
@@ -1107,10 +1115,10 @@ R/. A(e.)men.(e.) (::)"
         psalmtone: "tractus"
     }
 ],
-"agnus": [
+"before-ite": [
     {
         title: "Lauds of Easter Sunday",
-        rubric: " ",
+        rubric: "After the last ablution, Lauds is sung in Choir, in the following manner.",
         gabc: gabcEasterAlleluia,
         sticky: 0
     }, {
@@ -1234,6 +1242,10 @@ R/. A(e.)men.(e.) (::)"
         psalmtone: 'tractus'
     },
     {
+        rubric: "Within the Blessing of the Baptismal Water, the following responses are sung to the ferial tone of the Preface:",
+        id: 7675,
+    },
+    {
         title: "The Litany of the Saints",
         rubric: [
     "While the Celebrant and his ministers return to the altar, two Cantors sing the Litany, each invocation being repeated by the Choir.",
@@ -1274,10 +1286,10 @@ R/. A(e.)men.(e.) (::)"
         psalmtone: "tractus"
     }
 ],
-"agnus": [
+"before-ite": [
     {
         title: "First Vespers of Easter Sunday",
-        rubric: " ",
+        rubric: "After the last ablution, Vespers is sung in Choir, in the following manner.",
         gabc: gabcEasterAlleluia,
         sticky: 0
     }, {
