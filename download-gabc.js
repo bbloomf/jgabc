@@ -25,6 +25,7 @@ gabcRefs["504"] = "Joan 13: 14; Ps 48: 2";
 gabcRefs["1242"] = "Joan 13: 35";
 gabcRefs["1252"] = "1 Cor 13: 13";
 gabcRefs["8268"] = "Tob 12: 6; Ps 83: 2-3";
+gabcRefs["606"] = "Joan. 12";
 gabcRefs["1092"] = " ";
 gabcRefs["532"] = " ";
 
@@ -240,7 +241,7 @@ var path = 'gabc/',
                       .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
                       .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
                       // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-                      .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
+                      .replace(/(a'?b'?a|[a-b]'?c'?[a-b]|[a-c]'?d'?[a-c]|[a-d]'?e'?[a-d]|[a-e]'?f'?[a-e]|[a-f]'?g'?[a-f]|[a-g]'?h'?[a-g]|[a-h]'?i'?[a-h]|[a-i]'?j'?[a-i]|[a-j]'?k'?[a-j]|[a-k]'?l'?[a-k]|[a-l]'?m'?[a-l])[.']*__(?!_)/g,'$&_')
                       .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
                       .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
                       .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
