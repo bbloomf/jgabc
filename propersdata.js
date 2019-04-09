@@ -473,6 +473,7 @@ var saintKeys = [
     /* END_GEN */
 ];
 var gabcPsalm21 = "initial-style: 0;\n\
+commentary: Psalm 21;\n\
 %%\n\
 (f3)1. De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quís</b>(h)ti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)lic(h)tó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)";
 var versesPsalm21 = '<div class="verses">\
@@ -962,7 +963,6 @@ R/. A(e.)men.(e.) (::)"
             id: 1335,
             rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus.> may be sung, or else one or other of the responsories from Matins of Good Friday."
         }, {
-            rubric: "<Psalm 21>",
             gabc: gabcPsalm21,
             html: versesPsalm21
         }
