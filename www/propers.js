@@ -1024,15 +1024,19 @@ $(function(){
         if(options) {
           // in case it's sticky, we want the option to be sticky too:
           $curElement = $('<div>').append($curElement);
-          var optionID = 0;
           var optionKeys = Object.keys(options);
+          var optionName = optionKeys.reduce(function(result, k) {
+            result[options[k]] = k;
+            return result;
+          }, {});
           sel[part].id = null;
           var $option = $("<select>"+optionKeys.map(function(key) {
             return "<option value='"+options[key]+"'>"+key+"</option>";
           })+"</select>").change(function() {
-            sel[part].id = $(this).val();
-            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionKeys[optionID])) {
-              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            var val = $(this).val();
+            sel[part].id = val;
+            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionName[val])) {
+              sel[part].annotationArray = ['Ant.',optionName[val]];
             }
             downloadThisChant();
           }).change().prependTo($curElement);

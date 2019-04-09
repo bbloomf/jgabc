@@ -473,6 +473,7 @@ var saintKeys = [
     /* END_GEN */
 ];
 var gabcPsalm21 = "initial-style: 0;\n\
+commentary: Psalm 21;\n\
 %%\n\
 (f3)1. De(h)us,(h) De(h)us(h) me(h)us,(h) ré(h)spi(h)ce(h) in(h) me:(f.) †(,) qua(h)re(h) me(h) de(h)<i>re</i>(g)<i>li</i>(f)<b>quís</b>(h)ti?(h.) *(:) lon(h)ge(h) a(h) sa(h)lú(h)te(h) me(h)a(h) ver(h)ba(h) de(h)lic(h)tó(h)rum(h) me(h)<b>ó</b>(h)rum.(f.) (::)";
 var versesPsalm21 = '<div class="verses">\
@@ -821,8 +822,7 @@ R/. A(e.)men.(e.) (::)"
       },
       sticky: 0
     }, {
-      rubric: "<Psalm 147>",
-      gabc: "initial-style: 0;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 147;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
       html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confortávit seras portárum tu<b>á</b>rum:&nbsp;* benedíxit fíliis <i>tu</i><i>is</i> <b>in</b> te.</p>\
 <p><span class="versenum">3.&nbsp;</span>Qui pósuit fines tuos <b>pa</b>cem:&nbsp;* et ádipe fruménti <i>sá</i><i>ti</i><b>at</b> te.</p>\
@@ -962,7 +962,6 @@ R/. A(e.)men.(e.) (::)"
             id: 1335,
             rubricAfter: "While Holy Communion is being distributed, Psalm 21, <Deus, Deus meus.> may be sung, or else one or other of the responsories from Matins of Good Friday."
         }, {
-            rubric: "<Psalm 21>",
             gabc: gabcPsalm21,
             html: versesPsalm21
         }
