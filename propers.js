@@ -3039,7 +3039,7 @@ $(function(){
       } else {
         header['%width'] = '7.5';
       }
-      gabc = header + gabc.slice(header.original.length);
+      gabc = header + gabc.slice(header.original.length).replace(/\^/g,'');
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;

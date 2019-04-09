@@ -234,8 +234,8 @@ var path = 'gabc/',
                       .replace(/\/+([a-m]w)/g,'!$1') // don't put space before a quilisma
                       .replace(/\s+$/,'')
                       .replace(/\+(?=[^()]*\()/g,'†')
-                      .replace(/(\S)(\([a-m]\+[^)]*\))/g,'$1() $2')
-                      .replace(/(\s+)(\([a-m]\+[^)]*\))\s+([^(\s][^(]*\(\))/g,'$1$3 $2')
+                      .replace(/(\S)(\([a-m]\+[^)]*\))/g,'$1() $2') // put any lyrics after a manual custos
+                      .replace(/(\s+)(\([a-m]\+[^)]*\))\s+([^(\s][^(]*\(\))/g,'$1$3 $2') // put any lyrics after a manual custos
                       .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
                       .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
                       // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
