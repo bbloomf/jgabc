@@ -3227,7 +3227,7 @@ $(function(){
         }
         lastNote = lastNoteMatch[1].toLowerCase();
         state.startOfVerse = '('+lastNote+'+) ';
-        state.endOfVerse = '(::) <i>Ant.</i>('+firstNote+'+Z)';
+        state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
         state.activeGabc = getPsalmToneForPart(versePart);
         if(!selPropers || selPropers.gloriaPatri !== false) {
           state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
