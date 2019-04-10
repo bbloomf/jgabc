@@ -3043,7 +3043,7 @@ $(function(){
       } else {
         header['%width'] = '7.5';
       }
-      gabc = header + gabc.slice(header.original.length).replace(/\^/g,'').replace(/([^()\s]\s+)([^()\s]+\()/g,'$1() $2');
+      gabc = header + gabc.slice(header.original.length).replace(/\^/g,'').replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3');
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
