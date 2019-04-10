@@ -622,7 +622,7 @@ $(function(){
   }
   var removeMultipleGraduales = function() {
     var i = 1;
-    var $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
+    var $multipleGraduales = $('.multiple-lectiones-extra,.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     while($multipleGraduales.length) {
       $multipleGraduales.remove();
       delete sel['graduale'+i];
@@ -757,6 +757,7 @@ $(function(){
       selPropers.gloria = false;
     }
     if(selPropers) {
+      selPropers = $.extend(true,{},selPropers);
       gregorianBooksPage = (gregorianBooksPage && selPropers.gbid)? (gregorianBooksPage + "#" + selPropers.gbid) : "";
       for(var k in partKey) {
         var key = partKey[k] + 'ID';

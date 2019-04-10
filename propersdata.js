@@ -1131,8 +1131,8 @@ R/. A(e.)men.(e.) (::)"
         gabc: gabcEasterAlleluia,
         sticky: 0
     }, {
-        rubric: "<Psalm 150>",
         gabc: "initial-style: 0;\n\
+commentary: Psalm 150;\n\
 %%\n\
 (c4)Lau(f)dá(gh)te(h) Dó(h)mi(h)num(h) in(h) sanc(h)<i>tis</i>(g) <b>e</b>(h fr)jus:(f.) *(:) lau(h)dá(h)te(h) e(h)um(h) in(h) fir(h)ma(h)mén(h)to(h) vir(h)<i>tú</i>(f)<i>tis</i>(gh) <b>e</b>(g fr)jus.(f.) (::)\n\
 <i>Flex:</i> be(h)ne(h)so(h)nán(h)ti(g)bus: †(g. h h h  ::)",
@@ -1155,6 +1155,7 @@ R/. A(e.)men.(e.) (::)"
     }, {
         rubric: " ",
         gabc: "initial-style: 0;\n\
+commentary: Luc 1: 68-79;\n\
 %%\n\
 (c4)Be(g)ne(hg)díc(gj)tus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) red(j)emp(j)ti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
         html: '<div class="verses">\
@@ -1302,8 +1303,8 @@ R/. A(e.)men.(e.) (::)"
         gabc: gabcEasterAlleluia,
         sticky: 0
     }, {
-        rubric: "<Psalm 116>",
         gabc: "initial-style: 0;\n\
+commentary: Psalm 116;\n\
 %%\n\
 (c4)1. Lau(f)dá(gh)te(h) Dó(h)mi(h)num,(h) om(h)<i>nes</i>(g) <b>Gen</b>(h fr)tes:(f.) *(:) lau(h)dá(h)te(h) e(h)um,(h) <i>om</i>(f)<i>nes</i>(gh) <b>pó</b>(g)pu(fr)li:(f.) (::)",
         html: '<div class="verses">\
@@ -1322,6 +1323,7 @@ R/. A(e.)men.(e.) (::)"
     }, {
         rubric: " ",
         gabc: "initial-style: 0;\n\
+commentary: Luc 1: 46-55;\
 %%\n\
 (c4)1. Ma(g)gní(hg)fi(gj jr)cat(j.) *(:) á(j)ni(j)ma(j) <i>me</i>(i)<i>a</i>(j) <b>Dó</b>(h)mi(gr)num.(g.) (::) \
 2. Et(g) ex(hg)sul(gj)tá(j)vit(j) <i>spí</i>(ji)<i>ri</i>(jk)<i>tus</i>(k) <b>me</b>(jk jr)us(j.) *(:) in(j) De(j)o(j) sa(j)lu(j)<i>tá</i>(i)<i>ri</i>(j) <b>me</b>(h gr)o.(g.) (::)",
