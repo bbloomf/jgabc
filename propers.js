@@ -3045,7 +3045,10 @@ $(function(){
       } else {
         header['%width'] = '7.5';
       }
-      gabc = header + gabc.slice(header.original.length).replace(/\^/g,'').replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3');
+      gabc = header + gabc.slice(header.original.length).
+        replace(/\^/g,''). // get rid of exsurge specific ^
+        replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
+        replace(/'\d/g,"'"); // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
