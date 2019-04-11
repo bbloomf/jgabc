@@ -1283,8 +1283,8 @@ $(function(){
     var gabcAfterAsterisks = {};
     var justAppliedAsteriskCallback = false;
     while(match) {
-      if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
-        dictionary.wordMap.push(match.index);
+      if(storeMap && newWord && match[rog.gabc] && !/^[,;:`]+$/.test(match[rog.gabc]) && match[rog.syl] && /[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i.test(match[rog.syl])) {
+        dictionary.push(match.index);
         newWord = false
       }
       ws=match[rog.whitespace]||'';
@@ -2137,7 +2137,7 @@ $(function(){
       return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
     }
     var newClef = null;
-    var countWordsBefore = 0;
+    var countWordsBefore = isAl? 1 : 0;
     for(var i=0; i<lines.length; ++i) {
       var countWordsInVerse = wordsInLine(lines[i]);
       var fullVerseGabc = sel[part].originalWords && sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
