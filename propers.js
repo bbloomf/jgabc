@@ -1704,6 +1704,7 @@ $(function(){
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
+    sel[part].overrideTone = sel[part].overrideToneEnding = null;
     var capPart = part[0].toUpperCase() + part.slice(1),
         $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
