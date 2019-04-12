@@ -7,7 +7,7 @@ var fs = require("fs"),
     vulgateLine = 0;
 
 var normalize = word => 
-  word.replace(/^[áéóíú]/, match => (({"á":"a","é":"e","í":"i","ó":"o","ú":"u"})[match])).replace(/ë/,'e').
+  (word||'').replace(/^[áéóíú]/, match => (({"á":"a","é":"e","í":"i","ó":"o","ú":"u"})[match])).replace(/ë/,'e').
     replace(/^([eé])xs/,'$1x').replace(/^([aá])ss/,'$1s').replace(/p([uú])lcr/,'p$1lchr').replace(/^her([ée])dit/,'hær$1dit').
     replace(/^n([eé])pht([áa])li/,'n$1phth$2li').replace(/^d([íi])sr([iíuú])p/,'d$1r$2p');
 
@@ -34,6 +34,7 @@ var cantica = {
   "Canticum Ezechiae": "Is 38: 10-20",
   "Canticum Habacuc": "Ha 3: 2-19",
   "Canticum Isaiae": "Is 45: 15-25",
+  "Canticum Isaiae (alterum)": "Is 53: 1-5",
   "Canticum Jeremiae": "Jer 31: 10-14",
   "Canticum Judith": "Judith 16: 15-21",
   "Canticum Moysis": "Exod 15: 1-19",
@@ -115,7 +116,6 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
     vulgatePsalms = vulgatePsalms.replace(new RegExp(`(\\n${verseRef.chapter}\t${verseRef.endVerse}\t[^\\n]*)[^@]*`),'$1');
     vulgatePsalms = vulgatePsalms.replace(regexNonWord,' ').toLowerCase().split('\n');
     console.info(psalmFileName);
-    debugger;
   } else {
     verseRef.chapter = psalm;
     verseRef.verse = 1;
@@ -136,13 +136,14 @@ for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
         if(normalize(liber[li]) == normalize(vulgate[vi])) {
           li++;
           if(typeof matched != 'number') matched = liberI;
-        } else if((typeof matched=='number' || liberI > 0 || li > 0) && vulgate.length > vi + 1 && normalize(liber[li]) == normalize(vulgate[vi+1])) {
+        } else if((typeof matched=='number' || liberI > 0 || li > 0 || normalize(liber[li+1]) == normalize(vulgate[vi+2])) && vulgate.length > vi + 1 && normalize(liber[li]) == normalize(vulgate[vi+1])) {
           console.warn(`\n${psalmFileName} : ${verse}: missing word: ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
-        } else if((typeof matched=='number' || liberI > 0 || li > 0) && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi])) {
+        } else if((typeof matched=='number' || liberI > 0 || li > 0 || normalize(liber[li+2]) == normalize(vulgate[vi+1])) && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi])) {
           console.warn(`\n${psalmFileName} : ${verse}: missing word in vulgate: ${liber[li]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
           ++li;
           continue;
-        } else if((typeof matched=='number' || liberI > 0 || li > 0) && vulgate.length > vi + 1 && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi+1])) {
+        } else if((typeof matched=='number' || liberI > 0 || li > 0 || normalize(liber[li+2]) === normalize(vulgate[vi+2]) || normalize(liber[li+3]) === normalize(vulgate[vi+3])) &&
+            vulgate.length > vi + 1 && liber.length > li + 1 && normalize(liber[li+1]) == normalize(vulgate[vi+1])) {
           console.warn(`\n${psalmFileName} : ${verse}: different words: ${liber[li]} and ${vulgate[vi]}, \n${liber.join(' ')}\n${vulgate.join(' ')}`);
           li++;
         } else if(!liber[li] && normalize(vulgate[vi]) == 'allelúia') {

@@ -65,6 +65,7 @@ var sundayKeys = [
     {key:"Quad5w",title:"  Feria IV post Dominicam I Passionis",en:"  Wednesday in Passion Week"},
     {key:"Quad5h",title:"  Feria V post Dominicam I Passionis",en:"  Thursday in Passion Week"},
     {key:"Quad5f",title:"  Feria VI post Dominicam I Passionis",en:"  Friday in Passion Week"},
+    {key:"Quad5f_sd",title:"  Feria VI: Septem Dolorum beatæ Mariæ Virginis",en:"  Friday: The Sever Sorrows of the Blessed Virgin Mary"},
     {key:"Quad5s",title:"  Sabbato post Dominicam I Passionis",en:"  Saturday in Passion Week"},
     {key:"Quad6",title:"Dominica in Palmis",en:"Palm Sunday"},
     {key:"Quad6_v",title:"Dominica in Palmis (ante 1955)",en:"Palm Sunday (pre 1955)"},
@@ -3417,6 +3418,10 @@ var proprium = {
         "inVerses": "Ps 30: 3, 11",
         "coVerses": "Ps 26: 1, 2-3, 9-10, 13-14"
     },
+    "Quad5f_sd": {
+      "ref": "Sep15",
+      "trID": 1156
+    },
     "Quad5s": {
         "inID": 267,
         "grID": 819,
@@ -5625,7 +5630,8 @@ var proprium = {
         "inID": 149,
         "ofID": 787,
         "seqID": 681,
-        "gbid": "seven_dolours_bvm"
+        "gbid": "seven_dolours_bvm",
+        "coVerses": "Is 53: 1, 2-5"
     },
     "Sep17": {
         "coID": 1008,

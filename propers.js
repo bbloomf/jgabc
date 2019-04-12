@@ -713,9 +713,10 @@ $(function(){
     return $newGraduale;
   }
   var updateDay = function(gregorianBooksPage) {
+    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     var match = /^Pent(Epi\d)$/.exec(selDay);
     var lecDay = match? match[1] : selDay;
-    var readings = lectiones[lecDay];
+    var readings = lectiones[lecDay] || lectiones[ref];
     if(!readings && /s$/i.test(lecDay)) {
       readings = lectiones[lecDay.slice(0,-1)];
       if(readings.length <= 2) {
@@ -724,12 +725,15 @@ $(function(){
         readings = [readings[0]].concat(readings.slice(-2));
       }
     }
-    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus];
     if(!selPropers && proprium[ref]) {
       selPropers = proprium[ref];
       if(selTempus && (selDay != ref)) {
         selPropers = $.extend(true,{},selPropers);
+        if(ref != selDay) {
+          $.extend(true, selPropers, proprium[selDay]);
+          delete selPropers.ref;
+        }
         var regex;
         if(selTempus == 'Quad') {
           delete selPropers.alID;
