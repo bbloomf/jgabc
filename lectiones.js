@@ -638,8 +638,8 @@ var lectiones = {
   "Lucas 7: 36-50"
  ],
  "Quad5f": [
-  "Judith 13: 22, 23-25",
-  "Joannes 19: 25-27"
+  "Jeremias 17: 13-18",
+  "Joannes 11: 47-54"
  ],
  "Quad5s": [
   "Jeremias 18: 18-23",

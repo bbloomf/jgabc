@@ -306,6 +306,7 @@ keys.forEach(key => {
     k = k.slice(0,-1);
     ending = daysOfWeek.indexOf(match[1]);
   }
+  if(k == 'Quad5' && ending == 5) ending += "Feria"; // Otherwise, Quad5-5 is Septem Dolorum
   // check if from Sancti:
   match = /(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(\d+)(?:_(\d)|or\d+)?$/.exec(key);
   if(match) {
