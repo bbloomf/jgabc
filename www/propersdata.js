@@ -627,7 +627,7 @@ R/. A(e.)men.(e.) (::)"
       rubricAfter: "Repeat: <Exsúrge Dómine.>"
     }, {
       rubric: "The procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns toward the people and says:",
-      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
+      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne(h) Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "During the procession, the following antiphons are sung:",
       id: 1311
@@ -683,7 +683,7 @@ R/. A(e.)men.(e.) (::)"
     }, {
       title: "The Procession with Blessed Palms",
       rubric: "The Procession then takes place. When the Celebrant has put incense into the thurible, the Deacon turns towards the people and sings:",
-      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(f)men.(h.) (::) <i>or:</i> A(h)men.(f.) (::)"
+      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne(h) Chris(h)ti.(h) A(f)men.(h.) (::) <i>or:</i> A(h)men.(f.) (::)"
     }, {
       rubric: "During the Procession, the following Antiphons are sung or as many of them as are required.",
       id: 8110,
@@ -776,7 +776,7 @@ R/. A(e.)men.(e.) (::)"
     }, {
       title: "The Procession with Blessed Palms",
       rubric: "After the Gospel, the celebrant, with the ministers (or servers), returns to the foot of the altar, makes reverence, and blesses incense. Then the deacon (or celebrant) turns to the people and says:",
-      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne Chris(h)ti.(h) A(h)men.(f.) (::)"
+      gabc: "initial-style: 0;\n%%\n(c3) <sp>V/</sp> Pro(h)ce(h)dá(h)mus(h) in(h) pa(h)ce.(f.) (::)\n<sp>R/</sp> In(h) nó(h)mi(h)ne(h) Chris(h)ti.(h) A(h)men.(f.) (::)"
     }, {
       rubric: "As the procession begins, all or some of the following antiphons may be sung:",
       id: 247,

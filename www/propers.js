@@ -1283,8 +1283,8 @@ $(function(){
     var gabcAfterAsterisks = {};
     var justAppliedAsteriskCallback = false;
     while(match) {
-      if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
-        dictionary.wordMap.push(match.index);
+      if(storeMap && newWord && match[rog.gabc] && !/^[,;:`]+$/.test(match[rog.gabc]) && match[rog.syl] && /[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i.test(match[rog.syl])) {
+        dictionary.push(match.index);
         newWord = false
       }
       ws=match[rog.whitespace]||'';
@@ -1704,6 +1704,7 @@ $(function(){
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
+    sel[part].overrideTone = sel[part].overrideToneEnding = null;
     var capPart = part[0].toUpperCase() + part.slice(1),
         $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
@@ -2137,7 +2138,7 @@ $(function(){
       return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
     }
     var newClef = null;
-    var countWordsBefore = 0;
+    var countWordsBefore = isAl? 1 : 0;
     for(var i=0; i<lines.length; ++i) {
       var countWordsInVerse = wordsInLine(lines[i]);
       var fullVerseGabc = sel[part].originalWords && sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
@@ -3044,7 +3045,10 @@ $(function(){
       } else {
         header['%width'] = '7.5';
       }
-      gabc = header + gabc.slice(header.original.length).replace(/\^/g,'').replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3');
+      gabc = header + gabc.slice(header.original.length).
+        replace(/\^/g,''). // get rid of exsurge specific ^
+        replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
+        replace(/'\d/g,"'"); // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
