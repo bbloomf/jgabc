@@ -224,7 +224,7 @@ var fs = require("fs"),
         "Marcus 14: 1-72; 15: 1-46"
       ],
       Quad6w_v: [
-        "Isaias 62: 11, 63: 1-7",
+        "Isaias 62: 11; 63: 1-7",
         "Isaias 53: 1-12",
         "Lucas 22: 1-71; 23: 1-53"
       ],
