@@ -82,6 +82,11 @@ textarea {
   white-space: nowrap;
   padding-left: 10pt;
 }
+.verses.litany .rubric {
+  white-space: normal;
+  padding-left: 0;
+  text-align: justify;
+}
 .red {
   color: #d00!important;
 }

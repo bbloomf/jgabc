@@ -574,7 +574,78 @@ var replaceAltEtc = [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/a
 var replaceOfficePartToTract = [/((?:$|\n)office-part:)\s*[^;]+;/,'$1Tractus;'];
 var replaceRemoveAsterisks = [/(\*(\|\*)*|<i>ij\.<\/i>)\(/g,'('];
 var replaceRemoveHtmlAsterisks = [/\*\s+/g,''];
+var replaceRemoveAbImminentibus = [/<p>Ab imminénti<i>bus<\/i> <i>per<\/i><b>í<\/b>culis,[^\n]*<\/p>/i,''];
 var extraChants = {
+  "litaniis": [
+    {
+        title: "At the Procession",
+        rubric: "Before the procession, the choir sings, standing:",
+        id: 30
+    }, {
+        rubric: "Then, two cantors, kneeling before the altar, begin the litany.  Each invocation is doubled, unless the procession cannot take place.",
+        id: 'litanies/saints1-1',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints1-2rogations.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    }, {
+        id: 'litanies/saints1-3',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints1-4.html',
+        htmlReplace: replaceRemoveHtmlAsterisks.concat(replaceRemoveAbImminentibus)
+    }, {
+        id: "litanies/saints1-5",
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints1-6.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    },
+    {
+        id: "litanies/saints1-7",
+        gabcReplace: replaceRemoveAsterisks
+    }, {
+        gabc: "initial-style: 0;\n%%\n(c3)Pa(h)ter(h) nos(h)ter.(f.) (::) <i>secreto.</i>() \
+V/. Et(h) ne(h) nos(h) in(h)dú(h)cas(h) in(h) ten(h)ta(h)ti(h)ó(h)nem.(f.) (::) \
+R/. Sed(h) lí(h)be(h)ra(h) nos(h) a(h) ma(h)lo.(f.) (::)"
+    }, {
+        gabc: "initial-style: 1;\
+user-notes: Psalm 69.;\
+%%\
+(c3)De(h)us,(h) in(h) ad(h)ju(h)tó(h)ri(h)um(h) me(h)<i>um</i>(g) <i>in</i>(f)<b>tén</b>(h)de:(h.) *(:) Dó(h)mi(h)ne(h) ad(h) ad(h)ju(h)ván(h)dum(h) me(h) fes(h)<b>tí</b>(h)na.(f.) (::)\
+<i>Flex:</i>()  vi(h)ví(h)fi(h)cet(h) e(h)um, †(f. h h h  ::)",
+        html: "<div class='verses' style='display: inline-block'>\
+<p><span class='versenum'>2.&nbsp;</span>Confundántur et re<i>ve</i><i>re</i><b>án</b>tur,&nbsp;* qui quærunt ánimam <b>me</b>am.</p>\
+<p><span class='versenum'>3.&nbsp;</span>Avertántur retrórsum, et <i>e</i><i>ru</i><b>bés</b>cant,&nbsp;* qui volunt mihi <b>ma</b>la.</p>\
+<p><span class='versenum'>4.&nbsp;</span>Avertántur statim e<i>ru</i><i>be</i><b>scén</b>tes,&nbsp;* qui dicunt mihi: Euge, <b>eu</b>ge.</p>\
+<p><span class='versenum'>5.&nbsp;</span>Exsúltent et læténtur in te om<i>nes</i> <i>qui</i> <b>quæ</b>runt te,&nbsp;* et dicant semper: Magnificétur Dóminus: qui díligunt salutáre <b>tu</b>um.</p>\
+<p><span class='versenum'>6.&nbsp;</span>Ego vero egé<i>nus</i>, <i>et</i> <b>pau</b>per sum:&nbsp;* Deus, ádju<b>va</b> me.</p>\
+<p><span class='versenum'>7.&nbsp;</span>Adjútor meus, et liberátor <i>me</i><i>us</i> <b>es</b> tu:&nbsp;* Dómine, ne mo<b>ré</b>ris.</p>\
+<p><span class='versenum'>8.&nbsp;</span>Glória Pa<i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirítui <b>Sanc</b>to.</p>\
+<p><span class='versenum'>9.&nbsp;</span>Sicut erat in princípio, et <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæculórum. <b>A</b>men.</p>\
+<p></p>\
+<p><span class='versiculum'>v</span> Salvos fac servos <b>tu</b>os.</p>\
+<p><span class='versiculum'>r</span> Deus meus sperántes <b>in</b> te.</p>\
+<p><span class='versiculum'>v</span> Esto nobis Dómine turris forti<b>tú</b>dinis.</p>\
+<p><span class='versiculum'>r</span> A fácie ini<b>mí</b>ci.</p>\
+<p><span class='versiculum'>v</span> Nihil profíciat inimícus in <b>no</b>bis.</p>\
+<p><span class='versiculum'>r</span> Et fílius iniquitátis non appónat nocére <b>no</b>bis.</p>\
+<p><span class='versiculum'>v</span> Domine non secúndum peccáta nostra fácias <b>no</b>bis.</p>\
+<p><span class='versiculum'>r</span> Neque secúndum iniquitátes nostras retríbuas <b>no</b>bis.</p>\
+<p><span class='versiculum'>v</span> Orémus pro Pontífice nostro <span class='rubric' style='padding-left: 0'>N.</span></p>\
+<p><span class='versiculum'>r</span> Dóminus consérvet eum, et vivíficet eum,&nbsp;† et beátum fáciat e<i>um</i> <i>in</i> <b>ter</b>ra,&nbsp;* et non tradat eum in ánimam inimicórum <b>e</b>jus.</p>\
+<p><span class='versiculum'>v</span> Orémus pro benefactóribus <b>nos</b>tris.</p>\
+<p><span class='versiculum'>r</span> Retribúere dignáre Domine,&nbsp;† ómnibus nobis bona faciéntibus propter <i>nomen</i> <b>tu</b>um,&nbsp;* vitam ætérnam. <b>A</b>men.</p>\
+<p><span class='versiculum'>v</span> Orémus pro fidélibus de<b>fún</b>ctis.</p>\
+<p><span class='versiculum'>r</span> Réquiem ætérnam dona <i>eis</i> <b>Dó</b>mine,&nbsp;* et lux perpétua lúceat <b>e</b>is.</p>\
+<p><span class='versiculum'>v</span> Requiéscant in <b>pa</b>ce. <span class='versiculum'>r</span>&nbsp;<b>A</b>men.</p>\
+<p><span class='versiculum'>v</span> Pro frátribus nostris ab<b>sén</b>tibus.</p>\
+<p><span class='versiculum'>r</span> Salvos fac <i>servos</i> <b>tu</b>os,&nbsp;* Deus meus, sperántes <b>in</b> te.</p>\
+<p><span class='versiculum'>v</span> Mitte eis Dómine auxílium de <b>san</b>cto.</p>\
+<p><span class='versiculum'>r</span> Et de Sion tuére <b>e</b>os.</p>\
+<p><span class='versiculum'>v</span> Dómine exáudi oratiónem <b>me</b>am.</p>\
+<p><span class='versiculum'>r</span> Et clamor meus ad te <b>vé</b>niat.</p>\
+<p><span class='versiculum'>v</span> Dóminus vo<b>bís</b>cum. <span class='versiculum'>v</span>&nbsp;Et cum spíritu <b>tu</b>o.</p>\
+</div>"
+    }
+  ],
   "defunctorum": {
     ite: [{
         id: 823
