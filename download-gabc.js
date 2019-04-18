@@ -131,15 +131,18 @@ var path = 'gabc/',
     oAntiphonChants = [],
     miscChants = [{name: 'O Antiphons', children: oAntiphonChants}],
     litanies = litanies.sort().reduce((result, l) => {
-      var id = l.match(/^([\w-_ ]+)-\d+\.(?:html?|gabc)$/)[1];
-      var map = result[id];
-      if(!map) {
-        map = result[id] = [];
-        var file = fs.readFileSync(litanyDir+l,'utf8');
-        var h = gabc.getHeader(file);
-        miscChants.push({name: h.name, id:'litany/'+id});
+      var match = l.match(/^([\w-_ ]+)-\d+\.(?:html?|gabc)$/);
+      if(match) {
+        var id = match[1];
+        var map = result[id];
+        if(!map) {
+          map = result[id] = [];
+          var file = fs.readFileSync(litanyDir+l,'utf8');
+          var h = gabc.getHeader(file);
+          miscChants.push({name: h.name, id:'litany/'+id});
+        }
+        map.push(l);
       }
-      map.push(l);
       return result;
     }, {});
     function callback(startedWorker) {
