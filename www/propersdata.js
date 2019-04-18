@@ -65,6 +65,7 @@ var sundayKeys = [
     {key:"Quad5w",title:"  Feria IV post Dominicam I Passionis",en:"  Wednesday in Passion Week"},
     {key:"Quad5h",title:"  Feria V post Dominicam I Passionis",en:"  Thursday in Passion Week"},
     {key:"Quad5f",title:"  Feria VI post Dominicam I Passionis",en:"  Friday in Passion Week"},
+    {key:"Quad5f_sd",title:"  Feria VI: Septem Dolorum beatæ Mariæ Virginis",en:"  Friday: The Seven Sorrows of the Blessed Virgin Mary"},
     {key:"Quad5s",title:"  Sabbato post Dominicam I Passionis",en:"  Saturday in Passion Week"},
     {key:"Quad6",title:"Dominica in Palmis",en:"Palm Sunday"},
     {key:"Quad6_v",title:"Dominica in Palmis (ante 1955)",en:"Palm Sunday (pre 1955)"},
@@ -134,7 +135,7 @@ var sundayKeys = [
     {key:"ChristusRex",title:"Domini Nostri Jesu Christi Regis",en:"Feast of Our Lord Jesus Christ, King"},
     {key:"Pent23",title:"23 post Pentecosten",en:"23rd Sunday after Pentecost"}
 ];
-var canticumMap = {"Benedictus":{"ref":"Luc 1: 68-79","map":[0,1,2,3,4,5,6,7,8,9,10,11]},"Magnificat":{"ref":"Luc 1: 46-55","map":[0,1,2,3,4,5,6,7,8,9]},"Nunc dimittis":{"ref":"Luc 2: 29-32","map":[0,1,2,3]},"Canticum Annae":{"ref":"1 Reg 2: 1-10","map":[0,2,3,5,6,8,9,10,13,14]},"Canticum David":{"ref":"1 Par 29: 10-13","map":[0,1,4,6]},"Canticum Ecclesiastici":{"ref":"Eccli 36: 1-16","map":[0,1,3,4,5,6,6,7,7,8,9,10,11,13,14,15]},"Canticum Ezechiae":{"ref":"Is 38: 10-20","map":[0,1,3,5,6,8,10,10,12,13,14]},"Canticum Habacuc":{"ref":"Ha 3: 2-19","map":[0,3,5,6,7,10,11,13,14,16,17,18,20,22,23,26,29,30]},"Canticum Isaiae":{"ref":"Is 45: 15-25","map":[0,1,2,3,5,7,9,11,12,14,15]},"Canticum Jeremiae":{"ref":"Jer 31: 10-14","map":[0,2,3,6]},"Canticum Judith":{"ref":"Judith 16: 15-21","map":[0,1,2,4,5,6,7]},"Canticum Moysis":{"ref":"Exod 15: 1-19","map":[0,1,3,3,4,5,5,6,8,10,11,12,12,14,15,16,18,19,20]},"Canticum Moysis (Deut)":{"ref":"Deut 32: 1-18","map":[0,1,2,3,4,5,7,9,11,12,14,16,17,19,21,23,24,26]},"Canticum Tobiae":{"ref":"Tob 13: 1-10","map":[0,1,2,3,5,6,7,8,9,10]}};
+var canticumMap = {"Benedictus":{"ref":"Luc 1: 68-79","map":[0,1,2,3,4,5,6,7,8,9,10,11]},"Magnificat":{"ref":"Luc 1: 46-55","map":[0,1,2,3,4,5,6,7,8,9]},"Nunc dimittis":{"ref":"Luc 2: 29-32","map":[0,1,2,3]},"Canticum Annae":{"ref":"1 Reg 2: 1-10","map":[0,2,3,5,6,8,9,10,13,14]},"Canticum David":{"ref":"1 Par 29: 10-13","map":[0,1,4,6]},"Canticum Ecclesiastici":{"ref":"Eccli 36: 1-16","map":[0,1,3,4,5,6,6,7,7,8,9,10,11,13,14,15]},"Canticum Ezechiae":{"ref":"Is 38: 10-20","map":[0,1,3,5,6,8,10,10,12,13,14]},"Canticum Habacuc":{"ref":"Ha 3: 2-19","map":[0,3,5,6,7,10,11,13,14,16,17,18,20,22,23,26,29,30]},"Canticum Isaiae":{"ref":"Is 45: 15-25","map":[0,1,2,3,5,7,9,11,12,14,15]},"Canticum Isaiae (alterum)":{"ref":"Is 53: 1-5","map":[0,1,3,5,7]},"Canticum Jeremiae":{"ref":"Jer 31: 10-14","map":[0,2,3,6,8]},"Canticum Judith":{"ref":"Judith 16: 15-21","map":[0,1,2,4,5,6,7]},"Canticum Moysis":{"ref":"Exod 15: 1-19","map":[0,1,3,3,4,5,5,6,8,10,11,12,12,14,15,16,18,19,20]},"Canticum Moysis (Deut)":{"ref":"Deut 32: 1-18","map":[0,1,2,3,4,5,7,9,11,12,14,16,17,19,21,23,24,26]},"Canticum Tobiae":{"ref":"Tob 13: 1-10","map":[0,1,2,3,5,6,7,8,9,10]}};
 var psalmsArray = new Array(150).join(',').split(',').map(function(i,j) {
     var psalm = j+1;
     var val = ("00" + psalm).slice(-3);
@@ -573,7 +574,78 @@ var replaceAltEtc = [/\\hspace{[^}]*}/g,'',/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/a
 var replaceOfficePartToTract = [/((?:$|\n)office-part:)\s*[^;]+;/,'$1Tractus;'];
 var replaceRemoveAsterisks = [/(\*(\|\*)*|<i>ij\.<\/i>)\(/g,'('];
 var replaceRemoveHtmlAsterisks = [/\*\s+/g,''];
+var replaceRemoveAbImminentibus = [/<p>Ab imminénti<i>bus<\/i> <i>per<\/i><b>í<\/b>culis,[^\n]*<\/p>/i,''];
 var extraChants = {
+  "litaniis": [
+    {
+        title: "At the Procession",
+        rubric: "Before the procession, the choir sings, standing:",
+        id: 30
+    }, {
+        rubric: "Then, two cantors, kneeling before the altar, begin the litany.  Each invocation is doubled, unless the procession cannot take place.",
+        id: 'litanies/saints1-1',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints1-2rogations.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    }, {
+        id: 'litanies/saints1-3',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints1-4.html',
+        htmlReplace: replaceRemoveHtmlAsterisks.concat(replaceRemoveAbImminentibus)
+    }, {
+        id: "litanies/saints1-5",
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints1-6.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    },
+    {
+        id: "litanies/saints1-7",
+        gabcReplace: replaceRemoveAsterisks
+    }, {
+        gabc: "initial-style: 0;\n%%\n(c3)Pa(h)ter(h) nos(h)ter.(f.) (::) <i>secreto.</i>() \
+V/. Et(h) ne(h) nos(h) in(h)dú(h)cas(h) in(h) ten(h)ta(h)ti(h)ó(h)nem.(f.) (::) \
+R/. Sed(h) lí(h)be(h)ra(h) nos(h) a(h) ma(h)lo.(f.) (::)"
+    }, {
+        gabc: "initial-style: 1;\
+commentary: Psalm 69;\
+%%\
+(c3)De(h)us,(h) in(h) ad(h)ju(h)tó(h)ri(h)um(h) me(h)<i>um</i>(g) <i>in</i>(f)<b>tén</b>(h)de:(h.) *(:) Dó(h)mi(h)ne(h) ad(h) ad(h)ju(h)ván(h)dum(h) me(h) fes(h)<b>tí</b>(h)na.(f.) (::)\
+<i>Flex:</i>()  vi(h)ví(h)fi(h)cet(h) e(h)um, †(f. h h h  ::)",
+        html: "<div class='verses' style='display: inline-block'>\
+<p><span class='versenum'>2.&nbsp;</span>Confundántur et re<i>ve</i><i>re</i><b>án</b>tur,&nbsp;* qui quærunt ánimam <b>me</b>am.</p>\
+<p><span class='versenum'>3.&nbsp;</span>Avertántur retrórsum, et <i>e</i><i>ru</i><b>bés</b>cant,&nbsp;* qui volunt mihi <b>ma</b>la.</p>\
+<p><span class='versenum'>4.&nbsp;</span>Avertántur statim e<i>ru</i><i>be</i><b>scén</b>tes,&nbsp;* qui dicunt mihi: Euge, <b>eu</b>ge.</p>\
+<p><span class='versenum'>5.&nbsp;</span>Exsúltent et læténtur in te om<i>nes</i> <i>qui</i> <b>quæ</b>runt te,&nbsp;* et dicant semper: Magnificétur Dóminus: qui díligunt salutáre <b>tu</b>um.</p>\
+<p><span class='versenum'>6.&nbsp;</span>Ego vero egé<i>nus</i>, <i>et</i> <b>pau</b>per sum:&nbsp;* Deus, ádju<b>va</b> me.</p>\
+<p><span class='versenum'>7.&nbsp;</span>Adjútor meus, et liberátor <i>me</i><i>us</i> <b>es</b> tu:&nbsp;* Dómine, ne mo<b>ré</b>ris.</p>\
+<p><span class='versenum'>8.&nbsp;</span>Glória Pa<i>tri</i>, <i>et</i> <b>Fí</b>lio,&nbsp;* et Spirítui <b>Sanc</b>to.</p>\
+<p><span class='versenum'>9.&nbsp;</span>Sicut erat in princípio, et <i>nunc</i>, <i>et</i> <b>sem</b>per,&nbsp;* et in sǽcula sæculórum. <b>A</b>men.</p>\
+<p></p>\
+<p><span class='versiculum'>v</span> Salvos fac servos <b>tu</b>os.</p>\
+<p><span class='versiculum'>r</span> Deus meus sperántes <b>in</b> te.</p>\
+<p><span class='versiculum'>v</span> Esto nobis Dómine turris forti<b>tú</b>dinis.</p>\
+<p><span class='versiculum'>r</span> A fácie ini<b>mí</b>ci.</p>\
+<p><span class='versiculum'>v</span> Nihil profíciat inimícus in <b>no</b>bis.</p>\
+<p><span class='versiculum'>r</span> Et fílius iniquitátis non appónat nocére <b>no</b>bis.</p>\
+<p><span class='versiculum'>v</span> Domine non secúndum peccáta nostra fácias <b>no</b>bis.</p>\
+<p><span class='versiculum'>r</span> Neque secúndum iniquitátes nostras retríbuas <b>no</b>bis.</p>\
+<p><span class='versiculum'>v</span> Orémus pro Pontífice nostro <span class='rubric' style='padding-left: 0'>N.</span></p>\
+<p><span class='versiculum'>r</span> Dóminus consérvet eum, et vivíficet eum,&nbsp;† et beátum fáciat e<i>um</i> <i>in</i> <b>ter</b>ra,&nbsp;* et non tradat eum in ánimam inimicórum <b>e</b>jus.</p>\
+<p><span class='versiculum'>v</span> Orémus pro benefactóribus <b>nos</b>tris.</p>\
+<p><span class='versiculum'>r</span> Retribúere dignáre Domine,&nbsp;† ómnibus nobis bona faciéntibus propter <i>nomen</i> <b>tu</b>um,&nbsp;* vitam ætérnam. <b>A</b>men.</p>\
+<p><span class='versiculum'>v</span> Orémus pro fidélibus de<b>fún</b>ctis.</p>\
+<p><span class='versiculum'>r</span> Réquiem ætérnam dona <i>eis</i> <b>Dó</b>mine,&nbsp;* et lux perpétua lúceat <b>e</b>is.</p>\
+<p><span class='versiculum'>v</span> Requiéscant in <b>pa</b>ce. <span class='versiculum'>r</span>&nbsp;<b>A</b>men.</p>\
+<p><span class='versiculum'>v</span> Pro frátribus nostris ab<b>sén</b>tibus.</p>\
+<p><span class='versiculum'>r</span> Salvos fac <i>servos</i> <b>tu</b>os,&nbsp;* Deus meus, sperántes <b>in</b> te.</p>\
+<p><span class='versiculum'>v</span> Mitte eis Dómine auxílium de <b>san</b>cto.</p>\
+<p><span class='versiculum'>r</span> Et de Sion tuére <b>e</b>os.</p>\
+<p><span class='versiculum'>v</span> Dómine exáudi oratiónem <b>me</b>am.</p>\
+<p><span class='versiculum'>r</span> Et clamor meus ad te <b>vé</b>niat.</p>\
+<p><span class='versiculum'>v</span> Dóminus vo<b>bís</b>cum. <span class='versiculum'>v</span>&nbsp;Et cum spíritu <b>tu</b>o.</p>\
+</div>"
+    }
+  ],
   "defunctorum": {
     ite: [{
         id: 823
@@ -822,7 +894,7 @@ R/. A(e.)men.(e.) (::)"
       },
       sticky: 0
     }, {
-      gabc: "initial-style: 0;\ncommentary: Psalm 147;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 147;\n%%\n(c4)1. Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
       html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confortávit seras portárum tu<b>á</b>rum:&nbsp;* benedíxit fíliis <i>tu</i><i>is</i> <b>in</b> te.</p>\
 <p><span class="versenum">3.&nbsp;</span>Qui pósuit fines tuos <b>pa</b>cem:&nbsp;* et ádipe fruménti <i>sá</i><i>ti</i><b>at</b> te.</p>\
@@ -1134,7 +1206,7 @@ R/. A(e.)men.(e.) (::)"
         gabc: "initial-style: 0;\n\
 commentary: Psalm 150;\n\
 %%\n\
-(c4)Lau(f)dá(gh)te(h) Dó(h)mi(h)num(h) in(h) sanc(h)<i>tis</i>(g) <b>e</b>(h fr)jus:(f.) *(:) lau(h)dá(h)te(h) e(h)um(h) in(h) fir(h)ma(h)mén(h)to(h) vir(h)<i>tú</i>(f)<i>tis</i>(gh) <b>e</b>(g fr)jus.(f.) (::)\n\
+(c4)1. Lau(f)dá(gh)te(h) Dó(h)mi(h)num(h) in(h) sanc(h)<i>tis</i>(g) <b>e</b>(h fr)jus:(f.) *(:) lau(h)dá(h)te(h) e(h)um(h) in(h) fir(h)ma(h)mén(h)to(h) vir(h)<i>tú</i>(f)<i>tis</i>(gh) <b>e</b>(g fr)jus.(f.) (::)\n\
 <i>Flex:</i> be(h)ne(h)so(h)nán(h)ti(g)bus: †(g. h h h  ::)",
         html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Laudáte eum in virtúti<i>bus</i> <b>e</b>jus:&nbsp;* laudáte eum secúndum multitúdinem magnitú<i>di</i><i>nis</i> <b>e</b>jus.</p>\
@@ -1157,7 +1229,7 @@ commentary: Psalm 150;\n\
         gabc: "initial-style: 0;\n\
 commentary: Luc 1: 68-79;\n\
 %%\n\
-(c4)Be(g)ne(hg)díc(gj)tus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) red(j)emp(j)ti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
+(c4)1. Be(g)ne(hg)díc(gj)tus(j) Dó(j)mi(j)<i>nus</i>,(ji) <i>De</i>(jk)<i>us</i>(k) <b>Is</b>(jk)ra(jr)ël:(j.) *(:) qui(j)a(j) vi(j)si(j)tá(j)vit,(j) et(j) fe(j)cit(j) red(j)emp(j)ti(j)ó(j)nem(j) <i>ple</i>(i)<i>bis</i>(j) <b>su</b>(h gr)æ:(g.) (::)",
         html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Et eréxit cornu <i>sa</i><i>lú</i><i>tis</i> <b>no</b>bis:&nbsp;* in domo David, pú<i>e</i><i>ri</i> <b>su</b>i.</p>\
 <p><span class="versenum">3.&nbsp;</span>Sicut locútus est <i>per</i> <i>os</i> <i>sanc</i><b>tó</b>rum,&nbsp;* qui a sǽculo sunt, prophe<i>tá</i><i>rum</i> <b>e</b>jus:</p>\
@@ -1323,7 +1395,7 @@ commentary: Psalm 116;\n\
     }, {
         rubric: " ",
         gabc: "initial-style: 0;\n\
-commentary: Luc 1: 46-55;\
+commentary: Luc 1: 46-55;\n\
 %%\n\
 (c4)1. Ma(g)gní(hg)fi(gj jr)cat(j.) *(:) á(j)ni(j)ma(j) <i>me</i>(i)<i>a</i>(j) <b>Dó</b>(h)mi(gr)num.(g.) (::) \
 2. Et(g) ex(hg)sul(gj)tá(j)vit(j) <i>spí</i>(ji)<i>ri</i>(jk)<i>tus</i>(k) <b>me</b>(jk jr)us(j.) *(:) in(j) De(j)o(j) sa(j)lu(j)<i>tá</i>(i)<i>ri</i>(j) <b>me</b>(h gr)o.(g.) (::)",
@@ -3416,6 +3488,10 @@ var proprium = {
         "gbid": "lent5fri",
         "inVerses": "Ps 30: 3, 11",
         "coVerses": "Ps 26: 1, 2-3, 9-10, 13-14"
+    },
+    "Quad5f_sd": {
+      "ref": "Sep15",
+      "trID": 1156
     },
     "Quad5s": {
         "inID": 267,
@@ -5625,7 +5701,8 @@ var proprium = {
         "inID": 149,
         "ofID": 787,
         "seqID": 681,
-        "gbid": "seven_dolours_bvm"
+        "gbid": "seven_dolours_bvm",
+        "coVerses": "Is 53: 1, 2-5"
     },
     "Sep17": {
         "coID": 1008,
