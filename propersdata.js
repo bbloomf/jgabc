@@ -607,7 +607,7 @@ V/. Et(h) ne(h) nos(h) in(h)dú(h)cas(h) in(h) ten(h)ta(h)ti(h)ó(h)nem.(f.) (::
 R/. Sed(h) lí(h)be(h)ra(h) nos(h) a(h) ma(h)lo.(f.) (::)"
     }, {
         gabc: "initial-style: 1;\
-user-notes: Psalm 69.;\
+commentary: Psalm 69;\
 %%\
 (c3)De(h)us,(h) in(h) ad(h)ju(h)tó(h)ri(h)um(h) me(h)<i>um</i>(g) <i>in</i>(f)<b>tén</b>(h)de:(h.) *(:) Dó(h)mi(h)ne(h) ad(h) ad(h)ju(h)ván(h)dum(h) me(h) fes(h)<b>tí</b>(h)na.(f.) (::)\
 <i>Flex:</i>()  vi(h)ví(h)fi(h)cet(h) e(h)um, †(f. h h h  ::)",
@@ -894,7 +894,7 @@ R/. A(e.)men.(e.) (::)"
       },
       sticky: 0
     }, {
-      gabc: "initial-style: 0;\ncommentary: Psalm 147;\n%%\n(c4)Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
+      gabc: "initial-style: 0;\ncommentary: Psalm 147;\n%%\n(c4)1. Lau(g)da,(h) Je(j)rú(j)sa(j)lem,(j) <b>Dó</b>(k)mi(jr)num:(j.) *(:) lau(j)da(j) De(j)um(j) <i>tu</i>(i)<i>um</i>,(j) <b>Si</b>(h gr)on.(g.) (::) 2. Quón(j)i(j)am...(j)",
       html: '<div class="verses">\
 <p><span class="versenum">2.&nbsp;</span>Quóniam confortávit seras portárum tu<b>á</b>rum:&nbsp;* benedíxit fíliis <i>tu</i><i>is</i> <b>in</b> te.</p>\
 <p><span class="versenum">3.&nbsp;</span>Qui pósuit fines tuos <b>pa</b>cem:&nbsp;* et ádipe fruménti <i>sá</i><i>ti</i><b>at</b> te.</p>\
