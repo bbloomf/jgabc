@@ -279,6 +279,7 @@ $(function(){
     '8':'G'
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
   var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
   var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
   var removeDiacritics=function(string) {
@@ -1859,6 +1860,36 @@ $(function(){
     gTertium += ' ' + match[1];
     return gTertium;
   }
+
+  var applyAmenTones = function(gabc, gAmenTones, gMediant) {
+    if(gAmenTones){
+      var originalGabc = gAmenTones.input || '',
+          originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
+      originalClef = originalClef? originalClef[1] : clef;
+      if(gabc.mediant && gabc.termination) {
+        // gabc is a tone object
+        var shift = parseInt(gabc.mediant[0],23) - parseInt(gAmenTones[1],23);
+        if(isNaN(shift)) shift = 0;
+        gabc.termination = gabc.termination.replace(/('[a-mA-Mvw._]+(?:\s[a-mA-Mvw._]+)?r)\s+[a-mA-Mvw._]+$/, '$1 '+gAmenTones.slice(3));
+        gabc.termination = gabc.termination.replace(/(\s[a-mA-Mvw._]+){2}$/, ' '+gAmenTones.slice(2).join(' '));
+      } else {
+        // gabc is a string
+        for(var i=3,index=gabc.length; i>1; --i) {
+          index = 1 + gabc.lastIndexOf('(',index-2);
+          if(index>0) {
+            var index2 = gabc.indexOf(')',index);
+            if(index2>=0) {
+              // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
+              var shift = parseInt(gMediant[0],23) - parseInt(gAmenTones[1],23);
+              if(isNaN(shift)) shift = 0;
+              gabc = gabc.slice(0,index) + shiftGabc(gAmenTones[i],shift) + gabc.slice(index2);
+            }
+          }
+        }
+      }
+    }
+    return gabc;
+  }
   
   var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
     var gp = "Glória Patri, et Fílio, † et Spirítui Sancto.\nSicut erat in princípio, † et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
@@ -1888,23 +1919,7 @@ $(function(){
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
-    if(gAmenTones){
-      var originalGabc = gAmenTones.input || '',
-          originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
-      originalClef = originalClef? originalClef[1] : clef;
-      for(var i=3,index=temp.length; i>1; --i) {
-        index = 1 + temp.lastIndexOf('(',index-2);
-        if(index>0) {
-          var index2 = temp.indexOf(')',index);
-          if(index2>=0) {
-            // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
-            var shift = parseInt(gMediant[0],23) - parseInt(gAmenTones[1],23);
-            if(isNaN(shift)) shift = 0;
-            temp = temp.slice(0,index) + shiftGabc(gAmenTones[i],shift) + temp.slice(index2);
-          }
-        }
-      }
-    }
+    temp = applyAmenTones(temp, gAmenTones, gMediant);
     return applyLiquescents(result + temp + " (::)\n");
   }
   
@@ -1983,10 +1998,9 @@ $(function(){
     return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
-  var getPsalmToneForPart = function(part){
+  var getPsalmToneForPart = function(part, tone){
     var text = sel[part].text;
     if(!text) return;
-    var tone;
     var header = getHeader(sel[part].gabc||'');
     var termination = sel[part].termination;
     var mode = sel[part].mode;
@@ -1999,10 +2013,10 @@ $(function(){
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
     if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
-      tone = g_tones['Introit ' + mode];
+      tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
-      tone = g_tones[mode + '.' + (altTone? ' alt' : '')];
+      tone = tone || g_tones[mode + '.' + (altTone? ' alt' : '')];
     }
     if(!tone) return;
     var clef = tone.clef;
@@ -3233,7 +3247,8 @@ $(function(){
           if(firstNote && lastNote) break;
         }
         var tone = getIntroitTone(state);
-        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc);
+        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc);
+        applyAmenTones(tone, amenTones);
         var lastNoteMatch = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/.exec(sel[part].gabc);
         if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
           console.info(lastNoteMatch[1], lastNote);
@@ -3241,7 +3256,7 @@ $(function(){
         lastNote = lastNoteMatch[1].toLowerCase();
         state.startOfVerse = '('+lastNote+'+) ';
         state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
-        state.activeGabc = getPsalmToneForPart(versePart);
+        state.activeGabc = getPsalmToneForPart(versePart, tone);
         if(!selPropers || selPropers.gloriaPatri !== false) {
           state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
         }

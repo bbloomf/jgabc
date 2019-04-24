@@ -78,7 +78,7 @@ var sundayKeys = [
     {key:"Quad6h_v",title:"Feria V in Cena Domini (ante 1955)",en:"Maundy Thursday (pre 1955)"},
     {key:"Quad6h-lotio",title:"  Antiphonæ ad Lotionem Pedum",en:"  Antiphons at the Washing of the Feet"},
     {key:"Quad6f",title:"Feria VI in Passione et Morte Domini",en:"Good Friday"},
-    {key:"Quad6f_v",title:"Feria VI in Passione et Morte Domini (ante 1955)",en:"Good Friday (pre 1955)"},
+    {key:"Quad6f_v",title:"Feria VI in Parasceve (ante 1955)",en:"Good Friday (pre 1955)"},
     {key:"Quad6s",title:"Vigilia Paschalis",en:"Easter Vigil"},
     {key:"Quad6s_v",title:"Vigilia Paschalis (ante 1955)",en:"Easter Vigil (pre 1955)"},
     {key:"Pasc0",title:"Dominica Resurrectionis",en:"Easter Sunday"},
