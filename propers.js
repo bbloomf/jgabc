@@ -1331,7 +1331,7 @@ $(function(){
               var lastIndex = regexOuter.lastIndex,
                   sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
                   replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+/,'');
-              if(sliceText != replaceText) {
+              if(sliceText.countSyllables() < 10 && sliceText != replaceText) {
                 if(storeMap && storeMap.responsoryCallbacks) {
                   var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
                   if(temp.slice(-1)[0].length == 0) temp.pop();
