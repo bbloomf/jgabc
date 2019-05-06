@@ -288,7 +288,6 @@ var saintKeys = [
     {key:"Apr30",title:"Apr 30: St Catherine of Sienna",en:"Apr 30: St Catherine of Sienna"},
     {key:"May1",title:"May 1: St Joseph the Worker",en:"May 1: St Joseph the Worker",class:1},
     {key:"May2",title:"May 2: St Athanasius",en:"May 2: St Athanasius"},
-    {key:"May3",title:"May 3: Inventio",en:"May 2: St Athanasius"},
     {key:"May4",title:"May 4: St Monica",en:"May 4: St Monica"},
     {key:"May5",title:"May 5: St Pius V",en:"May 5: St Pius V"},
     {key:"May7",title:"May 7: St Stanislaus",en:"May 7: St Stanislaus"},
