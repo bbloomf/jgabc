@@ -2417,6 +2417,7 @@ $(function(){
       .replace(/(v[A-Z]__[A-Z])([^_])/g,'$1_3$2') // episemata over puncta inclinata don't go quite over far enough in a few chants
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
+      .replace(/(\{[^}(]*}[^{(]*)\{([^}(]*)}/g,'$1$2') // correction for above in case there were already braces indicating where to center the neume
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
