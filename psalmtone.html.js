@@ -1,4 +1,5 @@
 if(location.search.match(/dominican/i))g_tones=d_tones;
+var selLang = 'latin';
 var custom_tones={};
 var gSyl,syl,_clef;
 var last_syl,last_gSyl,gShortMediant;
@@ -179,6 +180,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
                                                   $("#selPsalm").val(),
                                                   $("#selTones").val(),
                                                   $("#selEnd").val());
+      header["centering-scheme"] = selLang;
       gabc=header+gabc;
       $("#txtGabc").val(gabc);
       $("#txtGabc").keyup();
@@ -772,6 +774,14 @@ $(function() {
     if(hash.editor && hash.noeditor) delete hash.noeditor;
     $('#chant-parent2').toggleClass('noeditor',hash.noeditor?true:false);
   });
+  var cbEnglishChanged = function(){
+    selLang = cbEnglish.checked? 'english' : 'latin';
+    localStorage.selLang = selLang;
+    getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;
+    last_syl = null;
+    updateText();
+  };
+  $("#cbEnglish").click(cbEnglishChanged);
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<optgroup label="Psalms"><option>' + getPsalms().join('</option><option>') + '</option></optgroup>' +
                         '<optgroup label="Canticles"><option>' + getCantica().join('</option><option>') + '</option></optgroup>');
