@@ -501,7 +501,7 @@ $(function(){
               gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s]+)\s*(?:<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
                 replace(/(\*|\{\*\})(\(\))?/g,''); // remove asterisks
             } else {
-              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
+              var gradualeIsFirstAlleluia = ((sel.graduale && sel.graduale.id in chantID.alleluiaById) || isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
               if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
                 // add ij. if not present:
                 gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 {*} <i>ij.</i>');
@@ -602,6 +602,7 @@ $(function(){
           $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
+          sel[part].id = id;
           $.get('gabc/'+id+'.gabc',updateGabc);
         }
       } else {
@@ -2417,6 +2418,7 @@ $(function(){
       .replace(/(v[A-Z]__[A-Z])([^_])/g,'$1_3$2') // episemata over puncta inclinata don't go quite over far enough in a few chants
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
+      .replace(/(\{[^}(]*}[^{(]*)\{([^}(]*)}/g,'$1$2') // correction for above in case there were already braces indicating where to center the neume
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
@@ -3066,7 +3068,11 @@ $(function(){
       gabc = header + gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
-        replace(/'\d/g,"'"); // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
+        replace(/'\d/g,"'"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
+        replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
+        replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
+          return '[<v>' + translation + (whitespace? '' : '-') + '</v>](';
+        }); // use translations instead of multiple lines of lyrics
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
