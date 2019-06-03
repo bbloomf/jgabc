@@ -3068,7 +3068,11 @@ $(function(){
       gabc = header + gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
-        replace(/'\d/g,"'"); // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
+        replace(/'\d/g,"'"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
+        replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
+        replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
+          return '[<v>' + translation + (whitespace? '' : '-') + '</v>](';
+        }); // use translations instead of multiple lines of lyrics
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
