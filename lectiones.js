@@ -739,8 +739,8 @@ var lectiones = {
   "Lucas 10: 1-9"
  ],
  "Aug22": [
-  "Ecclesiasticus 24: 14-16",
-  "Lucas 11: 27-28"
+  "Ecclesiasticus 24: 23-31",
+  "Joannes 19:25-27"
  ],
  "Aug24": [
   "1 Ad Corinthios 12: 27-31",
