@@ -62,7 +62,7 @@ miscChantIDs = miscChantIDs.concat(oAntiphons);
 miscChantIDs.forEach(id => {
   if(ids.indexOf(id) >= 0) throw `${id} found in both lists at index ${ids.indexOf(id)}.`;
 });
-var gabcOf939, gabcOf451;
+var gabcOf939, gabcOf451, gabcOf507, gabcOf507_2;
 var writeNew451 = () => {
   if(gabcOf939 && gabcOf451) {
     // take the psalm from 939 and add it to 451:
@@ -72,9 +72,19 @@ var writeNew451 = () => {
     fs.writeFileSync(path + '451.gabc',gabcOf451);
   }
 }
+var write507a = () => {
+  if(gabcOf507 && gabcOf507_2) {
+    // take the psalm from 507-2 and tack it onto 507 and write it as 507a.
+    var psalm = "\n<sp>V/</sp>. " + gabcOf507_2.match(/\(c4\)\s*([^`]+)/s)[1].replace(/([A-Z])([A-Z]+)(?=[a-z,;:.!?]*\()/,(match,cap,low) => cap+low.toLowerCase());
+    gabcOf507 += psalm;
+    fs.writeFileSync(path + '507a.gabc',gabcOf507);
+  }
+}
 var callbackOn = {
   939: gabc => (gabcOf939 = gabc, writeNew451()),
   451: gabc => (gabcOf451 = gabc, writeNew451()),
+  507: gabc => (gabcOf507 = gabc, write507a()),
+  "507&elem=2": gabc => (gabcOf507_2 = gabc, write507a())
 }
 ids = ids.concat(miscChantIDs);
 https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages/patterns/la-hypher.js', result => {

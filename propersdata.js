@@ -95,6 +95,8 @@ var sundayKeys = [
     {key:"Pasc5",title:"V post Pascha",en:"5th Sunday after Easter"},
     {key:"Asc",title:"Ascensio",en:"Ascension Thursday"},
     {key:"Pasc6",title:"in Oct Ascensione Domini",en:"Sunday within the octave of the Ascension"},
+    {key:"Pasc6s",title:"Sabbato in Vigilia Pentecostes",en:"Pentecost Vigil (Whitsun Eve)"},
+    //{key:"Pasc6s_v",title:"Sabbato in Vigilia Pentecostes (ante 1955)",en:"Pentecost Vigil (Whitsun Eve) (pre 1955)"},
     {key:"Pent0",title:"Dominica Pentecostes",en:"Pentecost (Whitsunday)"},
     {key:"Pent0m",title:"Feria II in Oct Pentecostes",en:"Pentecost Monday"},
     {key:"Pent0t",title:"Feria III in Oct Pentecostes",en:"Pentecost Tuesday"},
@@ -2591,6 +2593,19 @@ var proprium = {
         "inVerses": "Ps 26: 1, 4-5, 8, 10",
         "ofVerses": "Ps 46: 2",
         "coVerses": "Ps 121: 1-2, 5-9"
+    },
+    "Pasc6s": {
+        "inID": 418,
+        "grID": "507a",
+        "trID": 1247,
+        "ofID": 1176,
+        "coID": 255,
+        "rubrics": {
+            "after#divGraduale": "<Allelúia.> is not repeated, but the Tract <Laudáte.> follows immediately."
+        },
+        "gbid": "pentecost_vigil",
+        "inVerses": "Ps 33",
+        "coVerses": "Ps 103: 1, 30-31, 33-34"
     },
     "Pent0": {
         "inID": 861,
