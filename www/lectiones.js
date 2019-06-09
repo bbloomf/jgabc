@@ -322,6 +322,10 @@ var lectiones = {
   "1 Petri 4: 7-11",
   "Joannes 15: 26-27; 16: 1-4"
  ],
+ "Pasc6s": [
+  "Actus Apostolorum 19: 1-8",
+  "Joannes 14: 15-21"
+ ],
  "Pent0": [
   "Actus Apostolorum 2: 1-11",
   "Joannes 14: 23-31"
@@ -739,8 +743,8 @@ var lectiones = {
   "Lucas 10: 1-9"
  ],
  "Aug22": [
-  "Ecclesiasticus 24: 14-16",
-  "Lucas 11: 27-28"
+  "Ecclesiasticus 24: 23-31",
+  "Joannes 19:25-27"
  ],
  "Aug24": [
   "1 Ad Corinthios 12: 27-31",

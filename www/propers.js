@@ -740,12 +740,12 @@ $(function(){
         if(selTempus == 'Quad') {
           delete selPropers.alID;
           regex = /^(\w{2,3})(?:Quad|Sept)ID$/;
-        } else if(selTempus == 'Pasch') {
+        } else if(selTempus == 'Pasch' && selPropers.alID) {
           selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.alID;
           regex = /^(\w{2,3})PaschID$/;
         }
         Object.keys(selPropers).forEach(function(key) {
-          var match = regex.exec(key);
+          var match = regex && regex.exec(key);
           if(match) {
             selPropers[match[1]+"ID"] = selPropers[key];
           }

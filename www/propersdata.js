@@ -95,6 +95,8 @@ var sundayKeys = [
     {key:"Pasc5",title:"V post Pascha",en:"5th Sunday after Easter"},
     {key:"Asc",title:"Ascensio",en:"Ascension Thursday"},
     {key:"Pasc6",title:"in Oct Ascensione Domini",en:"Sunday within the octave of the Ascension"},
+    {key:"Pasc6s",title:"Sabbato in Vigilia Pentecostes",en:"Pentecost Vigil (Whitsun Eve)"},
+    {key:"Pasc6s_v",title:"Sabbato in Vigilia Pentecostes (ante 1955)",en:"Pentecost Vigil (Whitsun Eve) (pre 1955)"},
     {key:"Pent0",title:"Dominica Pentecostes",en:"Pentecost (Whitsunday)"},
     {key:"Pent0m",title:"Feria II in Oct Pentecostes",en:"Pentecost Monday"},
     {key:"Pent0t",title:"Feria III in Oct Pentecostes",en:"Pentecost Tuesday"},
@@ -1420,6 +1422,72 @@ commentary: Luc 1: 46-55;\n\
         id: 2988
     }
 ]
+},
+  "Pasc6s_v": {
+    "asperges": [
+    {
+      lectio: "Genesis 22: 1-19"
+    }, {
+      lectio: "Exodus 14: 24-31; 15: 1"
+    },
+    {
+        id: 2060,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    }, {
+      lectio: "Deuteronomium 31: 22-30"
+    },
+    {
+        id: 2086,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    }, {
+      lectio: "Isaias 4: 1-6"
+    },
+    {
+        id: 2075,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    }, {
+      lectio: "Baruch 3: 9-38"
+    }, {
+      lectio: "Ezechiel 37: 1-14"
+    }, {
+        rubric: "If the Church has a baptismal font, the Celebrant goes with his ministers and the clergy to bless the font at the end of the Prophecies; during the procession, the following Tract is sung:",
+        id: 943,
+        gabcReplace: replaceOfficePartToTract,
+        psalmtone: 'tractus'
+    },
+    {
+        rubric: "Within the Blessing of the Baptismal Water, the following responses are sung to the ferial tone of the Preface:",
+        id: 7675,
+    },
+    {
+        title: "The Litany of the Saints",
+        rubric: [
+    "While the Celebrant and his ministers return to the altar, two Cantors sing the Litany, each invocation being repeated by the Choir.",
+    "In churches where there is no baptismal font, after the Prayer which follows the last Prophecy, all kneel, and two Cantors sing the Litany, each invocation being repeated by the Choir."
+        ],
+        id: 'litanies/saints-1',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints-2.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    }, {
+        id: 'litanies/saints-3',
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints-4.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    }, {
+        id: "litanies/saints-5",
+        gabcReplace: replaceRemoveAsterisks,
+        url: 'litanies/saints-6.html',
+        htmlReplace: replaceRemoveHtmlAsterisks
+    },
+    {
+        id: "litanies/saints-7",
+        gabcReplace: replaceRemoveAsterisks
+    }
+]
 }
 }
 var tempusKeys = [{title:"Selige tempus anni...",en:"Select a season..."},{key:"",title:"Inter Annum",en:"During the Year"},{key:"Quad",title:"Septuagesima usque ad Finem Quadragesimæ",en:"Septuagesima through Lent"},{key:"Pasch",title:"Tempus Paschale",en:"Paschal Time"}];
@@ -2591,6 +2659,27 @@ var proprium = {
         "inVerses": "Ps 26: 1, 4-5, 8, 10",
         "ofVerses": "Ps 46: 2",
         "coVerses": "Ps 121: 1-2, 5-9"
+    },
+    "Pasc6s": {
+        "inID": 418,
+        "grID": "507a",
+        "trID": 1247,
+        "ofID": 1176,
+        "coID": 255,
+        "rubrics": {
+            "after#divGraduale": "<Allelúia.> is not repeated, but the Tract <Laudáte.> follows immediately."
+        },
+        "gbid": "pentecost_vigil",
+        "inVerses": "Ps 33",
+        "coVerses": "Ps 103: 1, 30-31, 33-34"
+    },
+    "Pasc6s_v": {
+        "extraChants": true,
+        "ref": "Pasc6s",
+        "gloria": true,
+        "credo": false,
+        "agnus": false,
+        "ite": false,
     },
     "Pent0": {
         "inID": 861,
