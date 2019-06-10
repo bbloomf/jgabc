@@ -722,6 +722,10 @@ var lectiones = {
   "Actus Apostolorum 12: 1-11",
   "Matthæus 16: 13-19"
  ],
+ "Aug9": [
+  "Ecclesiasticus 51: 1-8, 12",
+  "Matthæus 16: 24-27"
+ ],
  "Aug10": [
   "2 Ad Corinthios 9: 6-10",
   "Joannes 12: 24-26"
@@ -729,6 +733,10 @@ var lectiones = {
  "Aug11": [
   "Ad Hebræos 11: 33-39",
   "Lucas 21: 9-19"
+ ],
+ "Aug14": [
+  "Ecclesiasticus 24: 23-31",
+  "Lucas 11: 27-28"
  ],
  "Aug15": [
   "Judith 13: 22-25; 15: 10",
@@ -1058,6 +1066,10 @@ var lectiones = {
   "2 Ad Corinthios 8: 9-15",
   "Lucas 12: 32-34"
  ],
+ "Jun23": [
+  "Jeremias 1: 4-10",
+  "Lucas 1: 5-17"
+ ],
  "Jun24": [
   "Isaias 49: 1-3, 5-7",
   "Lucas 1: 57-68"
@@ -1065,6 +1077,10 @@ var lectiones = {
  "Jun26": [
   "Ecclesiasticus 44: 10-15",
   "Lucas 12: 1-8"
+ ],
+ "Jun28": [
+  "Actus Apostolorum 3: 1-10",
+  "Joannes 21: 15-19"
  ],
  "Jun29": [
   "Actus Apostolorum 12: 1-11",

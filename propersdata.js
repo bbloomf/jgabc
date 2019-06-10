@@ -327,9 +327,11 @@ var saintKeys = [
     {key:"Jun20",title:"Jun 20: St Silverius",en:"Jun 20: St Silverius"},
     {key:"Jun21",title:"Jun 21: St Aloysius Gonzaga",en:"Jun 21: St Aloysius Gonzaga"},
     {key:"Jun22",title:"Jun 22: St Paulinus",en:"Jun 22: St Paulinus"},
+    {key:"Jun23",title:"Jun 23: In Vigilia Nativitatis S Joannis Baptistæ",en:"Jun 23: Vigil of the Birth of St John the Baptist"},
     {key:"Jun24",title:"Jun 24: Birth of St John the Baptist",en:"Jun 24: Birth of St John the Baptist"},
     {key:"Jun25",title:"Jun 25: St William",en:"Jun 25: St William"},
     {key:"Jun26",title:"Jun 26: Ss John and Paul",en:"Jun 26: Ss John and Paul"},
+    {key:"Jun28",title:"Jun 28: Vigil of Ss Peter and Paul",en:"Jun 28: Vigil of SS Peter and Paul"},
     {key:"Jun29",title:"Jun 29: Ss Peter and Paul",en:"Jun 29: Ss Peter and Paul"},
     {key:"Jun30",title:"Jun 30: Commemoration of St Paul",en:"Jun 30: Commemoration of St Paul"},
     {key:"Jul1",title:"Jul 1: The Most Precious Blood of Our Lord",en:"Jul 1: The Most Precious Blood of Our Lord"},
@@ -365,10 +367,12 @@ var saintKeys = [
     {key:"Aug6",title:"Aug 6: Transfiguration of Our Lord",en:"Aug 6: Transfiguration of Our Lord"},
     {key:"Aug7",title:"Aug 7: St Cajetan",en:"Aug 7: St Cajetan"},
     {key:"Aug8",title:"Aug 8: St John Mary Vianney",en:"Aug 8: St John Mary Vianney"},
+    {key:"Aug9",title:"Aug 9: Vigil of St Lawrence",en:"Aug 9: Vigil of St Lawrence"},
     {key:"Aug10",title:"Aug 10: St Lawrence",en:"Aug 10: St Lawrence"},
     {key:"Aug11",title:"Aug 11: St Tiburtius and St Susanna",en:"Aug 11: St Tiburtius and St Susanna"},
     {key:"Aug12",title:"Aug 12: St Clare",en:"Aug 12: St Clare"},
     {key:"Aug13",title:"Aug 13: Ss Hippolytus and Cassian",en:"Aug 13: Ss Hippolytus and Cassian"},
+    {key:"Aug14",title:"Aug 14: Vigil of Assumption of BVM",en:"Aug 14: Vigil of Assumption of BVM"},
     {key:"Aug15",title:"Aug 15: Assumption of BVM",en:"Aug 15: Assumption of BVM"},
     {key:"Aug16",title:"Aug 16: St Joachim",en:"Aug 16: St Joachim"},
     {key:"Aug17",title:"Aug 17: St Hyacinth",en:"Aug 17: St Hyacinth"},
@@ -3984,6 +3988,15 @@ var proprium = {
         "gbid": "holy_machabees",
         "coVerses": "Ps 118: 1, 78, 84, 86, 95, 150, 153, 157, 161, 173"
     },
+    "Aug9": {
+        "inID": 544,
+        "grID": 1212,
+        "ofID": 185,
+        "coID": 89,
+        "gbid": "st_lawrence_vigil",
+        "inVerses": "Ps 111: 2-3",
+        "coVerses": "Ps 111: 1-7, 9-10"
+    },
     "Aug10": {
         "coID": 685,
         "grID": 1027,
@@ -4002,6 +4015,13 @@ var proprium = {
         "ofID": 835,
         "gbid": "ss_tiburtius_suzanna",
         "ref": "mass_iii_two_or_more_martyr"
+    },
+    "Aug14": {
+        "inID": 124,
+        "grID": 392,
+        "ofID": 567,
+        "coID": 160,
+        "gbid": "assumption_bvm_vigil"
     },
     "Aug15": {
         "coID": 286,
@@ -5037,6 +5057,14 @@ var proprium = {
         "inVerses": "Ps 131: 16-17",
         "coVerses": "Ps 131: 1, 9-13, 16-18"
     },
+    "Jun23": {
+        "inID": 1141,
+        "grID": 424,
+        "ofID": 407,
+        "coID": 365,
+        "gbid": "st_john_baptist_vigil",
+        "coVerses": "Ps 20: 2-5, 7-9, 14"
+    },
     "Jun24": {
         "coID": 133,
         "grID": 647,
@@ -5057,6 +5085,13 @@ var proprium = {
         "gbid": "ss_john_paul",
         "coVerses": "Sap 3: 1-3, 5, 8-9"
     },
+    "Jun28": {
+      "inID": 1366,
+      "grID": 351,
+      "ofID": 499,
+      "coID": 846,
+      "gbid": "ss_peter_paul_vigil"
+     },
     "Jun29": {
         "coID": 509,
         "grID": 307,
