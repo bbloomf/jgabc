@@ -3018,7 +3018,7 @@ $(function(){
   var removeSolesmes = window.removeSolesmes = function(gabc) {
     return gabc.replace(/\(([^)]+)\)/g, function(match, inParens) {
       return '(' +
-        inParens.replace(/[_']+\d?|\.+\d?$/g,'').replace(/(\.+\d?)[/\s]+/ig,' ').replace(/(\.+\d?)!/ig,'/') +
+        inParens.replace(/[_']+\d?|\.+\d?$/g,'').replace(/(\.+\d?)[/\s]+/ig,' ').replace(/(\.+\d?)!/ig,'/').replace(/(\.+\d?)/ig,'') +
         ')';
     });
   }
