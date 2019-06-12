@@ -2726,7 +2726,7 @@ var proprium = {
         "seqID": 68,
         "ofID": 1218,
         "coID": 91,
-        "gloria": "before#divTractus",
+        "gloria": "before#divLectioAnteTractu",
         "rubrics": {
             "after#divGraduale": "<Allelúia.> is not repeated. The <Glória in excélsis.> is said here."
         },
