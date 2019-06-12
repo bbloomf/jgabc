@@ -3015,6 +3015,13 @@ $(function(){
   populateSelectWithTones($('[part=introitus] select.tones'));
   populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
+  var removeSolesmes = window.removeSolesmes = function(gabc) {
+    return gabc.replace(/\(([^)]+)\)/g, function(match, inParens) {
+      return '(' +
+        inParens.replace(/[_']+\d?|\.+\d?$/g,'').replace(/(\.+\d?)[/\s]+/ig,' ').replace(/(\.+\d?)!/ig,'/') +
+        ')';
+    });
+  }
   var getAllGabc = window.getAllGabc = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
