@@ -3015,6 +3015,13 @@ $(function(){
   populateSelectWithTones($('[part=introitus] select.tones'));
   populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
+  var removeSolesmes = window.removeSolesmes = function(gabc) {
+    return gabc.replace(/\(([^)]+)\)/g, function(match, inParens) {
+      return '(' +
+        inParens.replace(/[_']+\d?|\.+\d?$/g,'').replace(/(\.+\d?)[/\s]+/ig,' ').replace(/(\.+\d?)!/ig,'/').replace(/(\.+\d?)/ig,'') +
+        ')';
+    });
+  }
   var getAllGabc = window.getAllGabc = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
@@ -3032,6 +3039,8 @@ $(function(){
     }
     var result=[];
     var isFirstChant = true;
+    var shouldRemoveSolesmes = $('#removeSolesmes > span.glyphicon').hasClass('glyphicon-unchecked');
+    var processSolesmes = shouldRemoveSolesmes? removeSolesmes : function(gabc) { return gabc; };
     $('[part]').each(function(){
       var $this = $(this),
           part = $this.attr('part'),
@@ -3065,14 +3074,14 @@ $(function(){
       } else {
         header['%width'] = '7.5';
       }
-      gabc = header + gabc.slice(header.original.length).
+      gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
         replace(/'\d/g,"'"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
         replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
         replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
           return '[<v>' + translation + (whitespace? '' : '-') + '</v>](';
-        }); // use translations instead of multiple lines of lyrics
+        })); // use translations instead of multiple lines of lyrics
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
@@ -3120,6 +3129,17 @@ $(function(){
     } else {
       //had been included, now it won't be:
       includePropers.splice(i,1);
+      $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+    }
+  }).on('click','a#removeSolesmes',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $span = $(this).find('span.glyphicon').first();
+    if($span.hasClass('glyphicon-unchecked')) {
+      // wasn't included, now it will be:
+      $span.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+    } else {
+      //had been included, now it won't be:
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   }).on('click','.toggle-page-break', function(e) {
