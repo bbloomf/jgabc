@@ -1,6 +1,15 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-24502736-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-24502736-2');
+</script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Mass Propers</title>
@@ -25,6 +34,7 @@
   <script src="ordinarydata.js"></script>
   <script src="miscChants.js"></script>
   <script src="propersdatanovus.js"></script>
+  <script src="verseRef.js"></script>
   <script src="propers.js"></script>
   <script src="exsurge.min.js"></script>
   <!-- <script type="text/javascript">window.require = s => s.replace(/^url\?[^!]*\!/,'');</script>
@@ -32,6 +42,7 @@
     import * as exsurge from '../exsurge/src/index.js';
     window.exsurge = exsurge;
   </script> -->
+  <script src="incipits.js"></script>
   <script src="jquery.hypher.js"></script>
   <script src="patterns/la-hypher.js"></script>
   <script src="patterns/en-us.js"></script>
@@ -69,6 +80,7 @@
           Include in PDF <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right" id="dropdown-menu-include">
+          <li><a href='#' id='removeSolesmes'><span class='glyphicon glyphicon-check'></span> <span class='lbl'>Solesmes Markings</span></li>
           <li class="centered-heading" style="padding: 0 20px;">Propers<span id="toggle-all-page-break" class='pull-right glyphicon glyphicon-file'></span></li>
           <li class="disabled"><a href='#' id='includeIntroitus'><span class='glyphicon glyphicon-check'></span> <span class='lbl'>Introitus</span><span class='pull-right toggle-page-break glyphicon glyphicon-file'></span></a></li>
           <li class="disabled multiple-graduales-0"><a href='#' id='includeGraduale'><span class='glyphicon glyphicon-check'></span> <span class='lbl'>Graduale</span><span class='pull-right toggle-page-break glyphicon glyphicon-file'></span></a></li>
@@ -109,6 +121,7 @@
   </div>
   <div class='hide-print'>
     <label for="btnCalendar">Calendar:&nbsp;</label><button id='btnCalendar' class='btn btn-default active' value='traditional' style='button'>Traditional</button>
+    <div><button class="hidden btn btn-danger" style="margin: 6px 0" id="btnClearSelections"><span class='glyphicon glyphicon-remove'></span> Clear Selections</button></div>
     <div><select id="selSunday" class="small-screen"></select></div>
     <div><select id="selSundayNovus" class="small-screen" style='display:none'></select></div>
     <div><select id="selSaint" class="small-screen"></select></div>
@@ -177,7 +190,7 @@
     </div>
   </div>
   <div id='divExtraChants' style="display: none;">
-    <div><a href='' class='showHide'><span class='showHide'>Show</span> Extra Chants</a></div>
+    <div class="hide-print"><a href='' class='showHide'><span class='showHide'>Show</span> Extra Chants</a></div>
     <div id='extra-chants'></div>
   </div>
   <div id='divIntroitus' part='introitus' style='display:none;'>
@@ -211,6 +224,12 @@
           <div id="introitus-preview" class='chant-preview'></div>
         </div>
       </div>
+    </div>
+    <div class='extra-verses'>
+      <label class='hide-print'><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
+      <span class="verses-ad-libitum-default rubric hide-print"></span>
+      <span class="verses-ad-libitum-custom hide-print"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>
+      <div id="introitusVerses-preview" class="verses verses-ad-libitum chant-preview"></div>
     </div>
   </div>
   <div id='divKyrie' part='kyrie' class='ordinary'>
@@ -539,6 +558,12 @@
           <div id="communio-preview" class='chant-preview'></div>
         </div>
       </div>
+    </div>
+    <div class='extra-verses'>
+      <label class='hide-print'><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
+      <span class="verses-ad-libitum-default rubric hide-print"></span>
+      <span class="verses-ad-libitum-custom hide-print"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>
+      <div id="communioVerses-preview" class="verses verses-ad-libitum chant-preview"></div>
     </div>
   </div>
   <div id='divIte' part='ite' class='ordinary'>

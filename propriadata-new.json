@@ -1,0 +1,5167 @@
+{
+	"SMadvent": {
+		"introitusID": 161,
+		"gradualeID": 756,
+		"alleluiaID": 1209,
+		"offertoriumID": 843,
+		"communioID": 1144,
+		"gbid": "mass_i_bvm_saturday",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 18: 2-7"
+	},
+	"SMchristmas": {
+		"introitusID": 124,
+		"gradualeID": 1308,
+		"alleluiaID": 127,
+		"offertoriumID": 280,
+		"communioID": 160,
+		"gbid": "mass_ii_bvm_saturday",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"SMchristmasQuad": {
+		"introitusID": 124,
+		"gradualeID": 1308,
+		"tractusID": 18,
+		"offertoriumID": 280,
+		"communioID": 160,
+		"gbid": "mass_ii_bvm_saturday",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"SMlent": {
+		"introitusID": 1140,
+		"gradualeID": 392,
+		"alleluiaID": 281,
+		"offertoriumID": 280,
+		"communioID": 160,
+		"gbid": "mass_iii_bvm_saturday",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"SMlentQuad": {
+		"introitusID": 1140,
+		"gradualeID": 392,
+		"tractusID": 18,
+		"offertoriumID": 280,
+		"communioID": 160,
+		"gbid": "mass_iii_bvm_saturday",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"SMeaster": {
+		"introitusID": 1140,
+		"gradualeID": 281,
+		"alleluiaID": 1209,
+		"offertoriumID": 567,
+		"communioID": 160,
+		"gbid": "mass_iv_bvm_saturday",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"SMpentecost": {
+		"introitusID": 1140,
+		"gradualeID": 392,
+		"alleluiaID": 127,
+		"offertoriumID": 843,
+		"communioID": 160,
+		"gbid": "mass_bvm",
+		"inVerses": "Ps 44: 5, 8",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"ChristusRex": {
+		"introitusID": 128,
+		"gradualeID": 583,
+		"alleluiaID": 746,
+		"offertoriumID": 390,
+		"communioID": 1229,
+		"gbid": "christ_king",
+		"inVerses": "Ps 71: 2, 11",
+		"coVerses": "Ps 28: 1-9"
+	},
+	"votiveSCJQuad": {
+		"introitusID": 1320,
+		"gradualeID": 1035,
+		"tractusID": 1244,
+		"offertoriumID": 628,
+		"communioID": 1356,
+		"gbid": "votive_mass_sacred_heart",
+		"inVerses": "Ps 32: 2-3",
+		"coVerses": "Ps 88: 2-3, 6, 15-16, 18, 25, 29, 34-35"
+	},
+	"votiveSCJPasch": {
+		"introitusID": 1320,
+		"gradualeID": 907,
+		"alleluiaID": 1237,
+		"offertoriumID": 319,
+		"communioID": 154,
+		"gbid": "votive_mass_sacred_heart_pt",
+		"inVerses": "Ps 32: 2-3"
+	},
+	"votiveSCJ": {
+		"ref": "SCJ",
+		"gbid": "votive_mass_sacred_heart",
+		"inVerses": "Ps 32: 2-3",
+		"coVerses": "Ps 88: 2-3, 6, 15-16, 18, 25, 29, 34-35"
+	},
+	"SCJ": {
+		"introitusID": 1320,
+		"gradualeID": 1035,
+		"alleluiaID": 907,
+		"offertoriumID": 628,
+		"communioID": 1356,
+		"gbid": "sh",
+		"inVerses": "Ps 32: 2-3",
+		"coVerses": "Ps 88: 2-3, 6, 15-16, 18, 25, 29, 34-35"
+	},
+	"ECJ": {
+		"introitusID": 676,
+		"gradualeID": 492,
+		"alleluiaID": 10,
+		"offertoriumID": 683,
+		"communioID": 730,
+		"rubrics": "${rubricECJ}",
+		"fromGregorianBooks": []
+	},
+	"litaniis": {
+		"introitusID": 451,
+		"gradualeID": 395,
+		"alleluiaID": 189,
+		"offertoriumID": 584,
+		"communioID": 422,
+		"gbid": "rogations_out_pt",
+		"coVerses": "Ps 30: 2-6, 7-9"
+	},
+	"litaniisPasch": {
+		"introitusID": 939,
+		"gradualeID": 189,
+		"alleluiaID": 1342,
+		"offertoriumID": 584,
+		"communioID": 364,
+		"gbid": "rogations",
+		"coVerses": "Ps 30: 2-6, 7-9"
+	},
+	"litaniisQuad": {
+		"introitusID": 451,
+		"gradualeID": 395,
+		"tractusID": 276,
+		"offertoriumID": 584,
+		"communioID": 422,
+		"gbid": "rogations_out_pt",
+		"coVerses": "Ps 30: 2-6, 7-9"
+	},
+	"votiveECJ": {
+		"ref": "ECJ",
+		"fromGregorianBooks": []
+	},
+	"votiveECJQuad": {
+		"introitusID": 676,
+		"gradualeID": 492,
+		"tractus": 343,
+		"offertoriumID": 683,
+		"communioID": 730,
+		"introitusReplace": "${gabcRemoveLastIntroitAlleluia}",
+		"fromGregorianBooks": []
+	},
+	"votiveECJPasch": {
+		"introitusID": 676,
+		"gradualeID": 10,
+		"alleluiaID": 29,
+		"offertoriumID": 683,
+		"communioID": 730,
+		"fromGregorianBooks": []
+	},
+	"votiveST": {
+		"introitusID": 349,
+		"gradualeID": 965,
+		"alleluiaID": 1289,
+		"offertoriumID": 1303,
+		"communioID": 391,
+		"fromGregorianBooks": []
+	},
+	"votiveSTQuad": {
+		"introitusID": 349,
+		"gradualeID": 965,
+		"tractusID": 763,
+		"offertoriumID": 1303,
+		"communioID": 391,
+		"fromGregorianBooks": []
+	},
+	"votiveSTPasch": {
+		"introitusID": 349,
+		"gradualeID": 1289,
+		"alleluiaID": 744,
+		"offertoriumID": 1303,
+		"communioID": 391,
+		"fromGregorianBooks": []
+	},
+	"votiveA": {
+		"introitusID": 985,
+		"gradualeID": 348,
+		"alleluiaID": 550,
+		"offertoriumID": 302,
+		"communioID": 599,
+		"gbid": "votive_mass_holy_angels",
+		"inVerses": "Ps 102: 21-22",
+		"ofVerses": "Ps 137: 1, 2"
+	},
+	"votiveAQuad": {
+		"introitusID": 985,
+		"gradualeID": 348,
+		"tractusID": 949,
+		"offertoriumID": 302,
+		"communioID": 599,
+		"gbid": "votive_mass_holy_angels",
+		"inVerses": "Ps 102: 21-22",
+		"ofVerses": "Ps 137: 1, 2"
+	},
+	"votiveAPasch": {
+		"introitusID": 985,
+		"gradualeID": 550,
+		"alleluiaID": 377,
+		"offertoriumID": 302,
+		"communioID": 599,
+		"gbid": "votive_mass_holy_angels",
+		"inVerses": "Ps 102: 21-22",
+		"ofVerses": "Ps 137: 1, 2"
+	},
+	"votiveSS": {
+		"introitusID": 636,
+		"gradualeID": 1044,
+		"alleluiaID": 181,
+		"offertoriumID": 361,
+		"communioID": 1041,
+		"gbid": "votive_mass_holy_ghost",
+		"ofVerses": "Ps 67: 5",
+		"coVerses": "Ps 67: 2-4, 12, 27, 29"
+	},
+	"votiveSSQuad": {
+		"introitusID": 636,
+		"gradualeID": 1044,
+		"tractusID": 925,
+		"offertoriumID": 83,
+		"communioID": 972,
+		"gbid": "votive_mass_holy_ghost",
+		"ofVerses": "Ps 67: 5",
+		"coVerses": "Ps 67: 2-4, 12, 27, 29"
+	},
+	"votiveSSPasch": {
+		"introitusID": 861,
+		"offertoriumID": 361,
+		"communioID": 1041,
+		"gradualeID": 99,
+		"alleluiaID": 181,
+		"gbid": "votive_mass_holy_ghost_pt",
+		"inVerses": "Ps 67: 29, 33",
+		"ofVerses": "Ps 67: 5",
+		"coVerses": "Ps 67: 2-4, 12, 27, 29"
+	},
+	"votiveSES": {
+		"introitusID": 62,
+		"gradualeID": 1230,
+		"alleluiaID": 774,
+		"offertoriumID": 645,
+		"communioID": 577,
+		"offertoriumReplace": "${gabcReplaceRemoveAlleluiaSacerdotesDomini}",
+		"gbid": "votive_mass_blessed_sacrament",
+		"inVerses": "Ps 80: 3, 11",
+		"ofVerses": "Ps 67: 27",
+		"coVerses": "Ps 22"
+	},
+	"votiveSESQuad": {
+		"introitusID": 62,
+		"gradualeID": 1230,
+		"tractusID": 644,
+		"offertoriumID": 645,
+		"communioID": 577,
+		"offertoriumReplace": "${gabcReplaceRemoveAlleluiaSacerdotesDomini}",
+		"gbid": "votive_mass_blessed_sacrament",
+		"inVerses": "Ps 80: 3, 11",
+		"ofVerses": "Ps 67: 27",
+		"coVerses": "Ps 22"
+	},
+	"votiveSESPasch": {
+		"introitusID": 715,
+		"gradualeID": 912,
+		"alleluiaID": 774,
+		"offertoriumID": 645,
+		"communioID": 577,
+		"gbid": "votive_mass_blessed_sacrament_pt",
+		"inVerses": "Ps 80: 3, 11",
+		"ofVerses": "Ps 67: 27",
+		"coVerses": "Ps 22"
+	},
+	"votiveJCSES": {
+		"introitusID": 684,
+		"gradualeID": 1016,
+		"alleluiaID": 1096,
+		"offertoriumID": 1364,
+		"communioID": 726,
+		"gbid": "votive_mass_christ_eternal_priest",
+		"coVerses": "Ps 115"
+	},
+	"votiveJCSESQuad": {
+		"introitusID": 684,
+		"gradualeID": 1016,
+		"tractusID": 1370,
+		"offertoriumID": 1364,
+		"communioID": 726,
+		"gbid": "votive_mass_christ_eternal_priest",
+		"coVerses": "Ps 115"
+	},
+	"votiveJCSESPasch": {
+		"introitusID": 684,
+		"gradualeID": 1096,
+		"alleluiaID": 611,
+		"offertoriumID": 1364,
+		"communioID": 726,
+		"gbid": "votive_mass_christ_eternal_priest",
+		"coVerses": "Ps 115"
+	},
+	"votiveSC": {
+		"introitusID": 359,
+		"gradualeID": 873,
+		"alleluiaID": 859,
+		"offertoriumID": 195,
+		"communioID": 346,
+		"gbid": "votive_mass_holy_cross",
+		"inVerses": "Ps 66: 2, 3",
+		"coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+	},
+	"votiveSCQuad": {
+		"introitusID": 359,
+		"gradualeID": 873,
+		"tractusID": 114,
+		"offertoriumID": 195,
+		"communioID": 346,
+		"offertoriumReplace": "${gabcRemoveLastAlleluia}",
+		"gbid": "votive_mass_holy_cross",
+		"inVerses": "Ps 66: 2, 3",
+		"coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+	},
+	"votiveSCPasch": {
+		"introitusID": 359,
+		"gradualeID": 627,
+		"alleluiaID": 859,
+		"offertoriumID": 195,
+		"communioID": 346,
+		"gbid": "votive_mass_holy_cross",
+		"inVerses": "Ps 66: 2, 3",
+		"coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+	},
+	"votivePJC": {
+		"introitusID": 523,
+		"gradualeID": 780,
+		"alleluiaID": 199,
+		"offertoriumID": 426,
+		"communioID": 84,
+		"gbid": "votive_mass_passion_oljc"
+	},
+	"votivePJCQuad": {
+		"introitusID": 523,
+		"gradualeID": 780,
+		"tractusID": 978,
+		"offertoriumID": 426,
+		"communioID": 84,
+		"gbid": "votive_mass_passion_oljc"
+	},
+	"votivePJCPasch": {
+		"introitusID": 523,
+		"gradualeID": 199,
+		"alleluiaID": 1376,
+		"offertoriumID": 426,
+		"communioID": 84,
+		"gbid": "votive_mass_passion_oljc"
+	},
+	"votiveJ": {
+		"introitusID": 385,
+		"gradualeID": 600,
+		"alleluiaID": 213,
+		"offertoriumID": 845,
+		"communioID": 534,
+		"gbid": "votive_mass_st_joseph"
+	},
+	"votiveJQuad": {
+		"introitusID": 385,
+		"gradualeID": 600,
+		"tractusID": 7670,
+		"offertoriumID": 845,
+		"communioID": 534,
+		"gbid": "votive_mass_st_joseph"
+	},
+	"votiveJPasch": {
+		"introitusID": 385,
+		"gradualeID": 1324,
+		"alleluiaID": 213,
+		"offertoriumID": 845,
+		"communioID": 534,
+		"gbid": "votive_mass_st_joseph"
+	},
+	"votivePP": {
+		"introitusID": 475,
+		"gradualeID": 307,
+		"alleluiaID": 130,
+		"offertoriumID": 570,
+		"communioID": 1028,
+		"gbid": "votive_mass_ss_peter_paul"
+	},
+	"votivePPQuad": {
+		"introitusID": 475,
+		"gradualeID": 307,
+		"tractusID": 305,
+		"offertoriumID": 570,
+		"communioID": 1028,
+		"gbid": "votive_mass_ss_peter_paul"
+	},
+	"votivePPPasch": {
+		"introitusID": 340,
+		"gradualeID": 762,
+		"alleluiaID": 1249,
+		"offertoriumID": 1382,
+		"communioID": 617,
+		"gbid": "mass_one_martyr",
+		"inVerses": "Ps 63: 4, 11",
+		"coVerses": "Ps 63: 2-7"
+	},
+	"votiveOA": {
+		"ref": "votivePP",
+		"gbid": "votive_mass_ss_peter_paul"
+	},
+	"votiveOAQuad": {
+		"ref": "votivePPQuad",
+		"gbid": "votive_mass_ss_peter_paul"
+	},
+	"votiveOAPasch": {
+		"introitusID": 340,
+		"gradualeID": 762,
+		"alleluiaID": 1030,
+		"offertoriumID": 1319,
+		"communioID": 212,
+		"gbid": "votive_mass_holy_apostles_pt",
+		"inVerses": "Ps 63: 4, 11",
+		"ofVerses": "Ps 44: 2"
+	},
+	"nuptialis": {
+		"introitusID": 551,
+		"gradualeID": 311,
+		"alleluiaID": 191,
+		"offertoriumID": 967,
+		"communioID": 490,
+		"gbid": "nuptial_mass",
+		"ofVerses": "Ps 30: 17, 18"
+	},
+	"nuptialisQuad": {
+		"introitusID": 551,
+		"gradualeID": 311,
+		"tractusID": 144,
+		"offertoriumID": 967,
+		"communioID": 490,
+		"gbid": "nuptial_mass",
+		"ofVerses": "Ps 30: 17, 18"
+	},
+	"nuptialisPasch": {
+		"introitusID": 551,
+		"gradualeID": 191,
+		"alleluiaID": 505,
+		"offertoriumID": 967,
+		"communioID": 490,
+		"gbid": "nuptial_mass",
+		"ofVerses": "Ps 30: 17, 18"
+	},
+	"defunctorum": {
+		"introitusID": 766,
+		"gradualeID": 1261,
+		"tractusID": 338,
+		"sequentiaID": 1198,
+		"offertoriumID": 1199,
+		"communioID": 241,
+		"ite": false,
+		"extraChants": true,
+		"gbid": "requiem",
+		"coVerses": "Ps 129; Ps 120"
+	},
+	"dedicatio": {
+		"introitusID": 923,
+		"gradualeID": 651,
+		"alleluiaID": 242,
+		"offertoriumID": 200,
+		"communioID": 43,
+		"gbid": "mass_dedication_church",
+		"inVerses": "Ps 83: 4, 5",
+		"coVerses": "Ps 83: 2-5, 9-11"
+	},
+	"dedicatioQuad": {
+		"introitusID": 923,
+		"gradualeID": 651,
+		"tractusID": 1377,
+		"offertoriumID": 200,
+		"communioID": 43,
+		"gbid": "mass_dedication_church",
+		"inVerses": "Ps 83: 4, 5",
+		"coVerses": "Ps 83: 2-5, 9-11"
+	},
+	"dedicatioPasch": {
+		"introitusID": 923,
+		"gradualeID": 242,
+		"alleluiaID": 1343,
+		"offertoriumID": 200,
+		"communioID": 43,
+		"gbid": "mass_dedication_church",
+		"inVerses": "Ps 83: 4, 5",
+		"coVerses": "Ps 83: 2-5, 9-11"
+	},
+	"Dec24": {
+		"introitusID": 150,
+		"gradualeID": 202,
+		"alleluiaID": 167,
+		"offertoriumID": 171,
+		"communioID": 367,
+		"gbid": "christmas0",
+		"inVerses": "Ps 23: 2-3",
+		"coVerses": "Ps 23: 1-8"
+	},
+	"Dec25_1": {
+		"introitusID": 1175,
+		"gradualeID": 518,
+		"alleluiaID": 890,
+		"offertoriumID": 811,
+		"communioID": 117,
+		"gbid": "christmas1",
+		"inVerses": "Ps 2: 2, 8",
+		"coVerses": "Ps 109"
+	},
+	"Dec25_2": {
+		"introitusID": 917,
+		"gradualeID": 217,
+		"alleluiaID": 714,
+		"offertoriumID": 979,
+		"communioID": 1125,
+		"gbid": "christmas2",
+		"coVerses": "Ps 33"
+	},
+	"Dec25_3": {
+		"introitusID": 72,
+		"gradualeID": 1163,
+		"alleluiaID": 324,
+		"offertoriumID": 1274,
+		"communioID": 1139,
+		"gbid": "christmas3",
+		"inVerses": "Ps 97: 2-3",
+		"coVerses": "Ps 97: 1-3, 4-8"
+	},
+	"Jan1": {
+		"introitusID": 72,
+		"gradualeID": 1163,
+		"alleluiaID": 863,
+		"offertoriumID": 1274,
+		"communioID": 1139,
+		"gbid": "christmas_octave",
+		"inVerses": "Ps 97: 2-3",
+		"coVerses": "Ps 97: 1-3, 4-8"
+	},
+	"Epi": {
+		"introitusID": 403,
+		"gradualeID": 205,
+		"alleluiaID": 524,
+		"offertoriumID": 1147,
+		"communioID": 918,
+		"gbid": "epiphany",
+		"inVerses": "Ps 71: 10-11",
+		"coVerses": "Ps 71: 2-3, 7-8, 10-12, 17-18"
+	},
+	"Asc": {
+		"introitusID": 1355,
+		"gradualeID": 17,
+		"alleluiaID": 57,
+		"offertoriumID": 211,
+		"communioID": 263,
+		"gbid": "ascension",
+		"inVerses": "Ps 46: 6-7",
+		"ofVerses": "Ps 46: 2",
+		"coVerses": "Ps 67: 2, 5, 19-21, 25, 27, 29-30, 33"
+	},
+	"CorpusChristi": {
+		"introitusID": 715,
+		"gradualeID": 1230,
+		"alleluiaID": 774,
+		"sequentiaID": 308,
+		"offertoriumID": 645,
+		"communioID": 577,
+		"gbid": "cc",
+		"inVerses": "Ps 80: 3, 11",
+		"ofVerses": "Ps 67: 27",
+		"coVerses": "Ps 22"
+	},
+	"Adv1": {
+		"introitusID": 132,
+		"offertoriumID": 962,
+		"communioID": 1036,
+		"alleluiaID": 1115,
+		"gradualeID": 1169,
+		"gbid": "advent1",
+		"inVerses": "Ps 24: 5-6",
+		"ofVerses": "Ps 24: 5",
+		"coVerses": "Ps 84: 2-5, 7-8, 10-12, 14"
+	},
+	"Adv2": {
+		"introitusID": 356,
+		"offertoriumID": 631,
+		"communioID": 966,
+		"alleluiaID": 292,
+		"gradualeID": 1268,
+		"gbid": "advent2",
+		"inVerses": "Ps 79: 2-3",
+		"coVerses": "Ps 147: 1-4, 6-9"
+	},
+	"Adv3": {
+		"introitusID": 1225,
+		"offertoriumID": 113,
+		"communioID": 218,
+		"alleluiaID": 855,
+		"gradualeID": 1007,
+		"gbid": "advent3",
+		"inVerses": "Ps 84: 3-5, 7-8, 10-12, 14",
+		"coVerses": "Isaiae 35: 1, 2-3, 5-7"
+	},
+	"Adv3w": {
+		"introitusID": 79,
+		"gradualeID": [
+			756,
+			284
+		],
+		"offertoriumID": 290,
+		"communioID": 1144,
+		"gbid": "advent3wed",
+		"inVerses": "Ps 18: 3-7",
+		"coVerses": "Ps 18: 2-7"
+	},
+	"Adv3f": {
+		"introitusID": 86,
+		"gradualeID": 1055,
+		"offertoriumID": 631,
+		"communioID": 439,
+		"gbid": "advent3fri",
+		"inVerses": "Ps 118: 4, 166",
+		"coVerses": "Ps 49: 1-5"
+	},
+	"Adv3s": {
+		"introitusID": 169,
+		"gradualeID": [
+			698,
+			203,
+			38,
+			506,
+			2166
+		],
+		"tractusID": 1157,
+		"offertoriumID": 929,
+		"communioID": 88,
+		"gbid": "advent3sat",
+		"inVerses": "Ps 79: 2-3",
+		"coVerses": "Ps 18: 2-6"
+	},
+	"Adv3ss": {
+		"introitusID": 169,
+		"gradualeID": 698,
+		"tractusID": 1157,
+		"offertoriumID": 929,
+		"communioID": 88,
+		"fromGregorianBooks": []
+	},
+	"Adv4": {
+		"introitusID": 79,
+		"offertoriumID": 843,
+		"communioID": 1144,
+		"alleluiaID": 224,
+		"gradualeID": 284,
+		"gbid": "advent4",
+		"inVerses": "Ps 18: 3-7",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 18: 2-7"
+	},
+	"Epi1": {
+		"introitusID": 336,
+		"offertoriumID": 93,
+		"communioID": 626,
+		"gradualeID": 260,
+		"alleluiaID": 816,
+		"gbid": "holy_family",
+		"inVerses": "Ps 83: 3, 5",
+		"coVerses": "Ps 97: 1-3, 4-8; Ps 83: 2-3, 9-13"
+	},
+	"Epi1s": {
+		"introitusID": 20,
+		"offertoriumID": 718,
+		"gradualeID": 553,
+		"alleluiaID": 802,
+		"communioID": 705,
+		"gbid": "epiphany1",
+		"coVerses": "Ps 26: 1, 4-5, 8, 10"
+	},
+	"Epi2": {
+		"introitusID": 13,
+		"offertoriumID": 937,
+		"communioID": 230,
+		"alleluiaID": 538,
+		"gradualeID": 932,
+		"gbid": "epiphany2",
+		"inVerses": "Ps 65: 3, 5",
+		"ofVerses": "Ps 65: 13, 14",
+		"coVerses": "Ps 65: 1-3, 5-6, 8-9"
+	},
+	"Epi3": {
+		"introitusID": 1123,
+		"offertoriumID": 47,
+		"communioID": 1148,
+		"alleluiaID": 1001,
+		"gradualeID": 1173,
+		"gbid": "epiphany3",
+		"inVerses": "Ps 96: 6-7",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 96: 1, 4-6, 7-10, 12"
+	},
+	"Epi4": {
+		"introitusID": 1123,
+		"offertoriumID": 47,
+		"communioID": 1148,
+		"alleluiaID": 1001,
+		"gradualeID": 1173,
+		"gbid": "epiphany3",
+		"inVerses": "Ps 96: 6-7",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 96: 1, 4-6, 7-10, 12"
+	},
+	"Epi5": {
+		"introitusID": 1123,
+		"offertoriumID": 47,
+		"communioID": 1148,
+		"alleluiaID": 1001,
+		"gradualeID": 1173,
+		"gbid": "epiphany3",
+		"inVerses": "Ps 96: 6-7",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 96: 1, 4-6, 7-10, 12"
+	},
+	"Epi6": {
+		"introitusID": 1123,
+		"offertoriumID": 47,
+		"communioID": 1148,
+		"alleluiaID": 1001,
+		"gradualeID": 1173,
+		"gbid": "epiphany3",
+		"inVerses": "Ps 96: 6-7",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 96: 1, 4-6, 7-10, 12"
+	},
+	"Nat1": {
+		"introitusID": 564,
+		"offertoriumID": 979,
+		"communioID": 1282,
+		"gradualeID": 1308,
+		"alleluiaID": 714,
+		"gbid": "sunday_within_octave_christmas",
+		"inVerses": "Ps 92: 1-2",
+		"coVerses": "Ps 92"
+	},
+	"Nat2": {
+		"introitusID": 1033,
+		"offertoriumID": 980,
+		"communioID": 8,
+		"alleluiaID": 1,
+		"gradualeID": 670,
+		"gbid": "most_holy_name_jesus",
+		"inVerses": "Ps 8: 2",
+		"coVerses": "Ps 85: 1, 11-13, 15-16"
+	},
+	"Pasc0": {
+		"introitusID": 1043,
+		"gradualeID": 1075,
+		"alleluiaID": 761,
+		"sequentiaID": 1086,
+		"offertoriumID": 725,
+		"communioID": 952,
+		"ite": 2988,
+		"gbid": "easter_sunday",
+		"inVerses": "Ps 138: 3, 14",
+		"ofVerses": "Ps 75: 2",
+		"coVerses": "Ps 117: 1-2, 5, 8, 10-11, 13-17, 21-26"
+	},
+	"Pasc0m": {
+		"introitusID": 1315,
+		"gradualeID": 1150,
+		"alleluiaID": 377,
+		"sequentiaID": 1086,
+		"offertoriumID": 789,
+		"communioID": 121,
+		"gbid": "easter_monday",
+		"inVerses": "Ps 104: 2-3",
+		"ofVerses": "Matth 28: 7",
+		"coVerses": "Ps 117: 1-2, 5, 8, 10-11, 13-17, 21-26"
+	},
+	"Pasc0t": {
+		"introitusID": 1135,
+		"gradualeID": 1188,
+		"alleluiaID": 438,
+		"sequentiaID": 1086,
+		"offertoriumID": 869,
+		"communioID": 243,
+		"gbid": "easter_tuesday",
+		"inVerses": "Ps 104: 3, 4",
+		"coVerses": "Ps 104: 1-5, 43-45"
+	},
+	"Pasc0w": {
+		"introitusID": 997,
+		"gradualeID": 416,
+		"alleluiaID": 1217,
+		"sequentiaID": 1086,
+		"offertoriumID": 1361,
+		"communioID": 593,
+		"gbid": "easter_wednesday",
+		"inVerses": "Ps 95: 2-3",
+		"coVerses": "Ps 95: 1-4, 7-9"
+	},
+	"Pasc0h": {
+		"introitusID": 1332,
+		"gradualeID": 975,
+		"alleluiaID": 215,
+		"sequentiaID": 1086,
+		"offertoriumID": 1129,
+		"communioID": 1219,
+		"gbid": "easter_thursday",
+		"inVerses": "Ps 97: 2-7",
+		"coVerses": "Ps 104: 1-5, 43-45"
+	},
+	"Pasc0f": {
+		"introitusID": 758,
+		"gradualeID": 1305,
+		"alleluiaID": 627,
+		"sequentiaID": 1086,
+		"offertoriumID": 151,
+		"communioID": 1260,
+		"gbid": "easter_friday",
+		"inVerses": "Ps 77: 2-3",
+		"coVerses": "Ps 77: 1, 3, 4, 23-25, 27-28"
+	},
+	"Pasc0s": {
+		"introitusID": 974,
+		"gradualeID": 568,
+		"alleluiaID": 661,
+		"sequentiaID": 1086,
+		"offertoriumID": 941,
+		"communioID": 1293,
+		"gbid": "easter_saturday",
+		"inVerses": "Ps 104: 2-5, 43-45",
+		"coVerses": "Ps 104: 1-5, 43-45"
+	},
+	"Pasc1": {
+		"introitusID": 25,
+		"offertoriumID": 789,
+		"communioID": 953,
+		"gradualeID": 1042,
+		"alleluiaID": 275,
+		"gbid": "easter1",
+		"inVerses": "Ps 80: 3, 11",
+		"ofVerses": "Matth 28: 7",
+		"coVerses": "Ps 117: 1-2, 5, 8, 10-11, 13-17, 21-26"
+	},
+	"Pasc2": {
+		"introitusID": 135,
+		"offertoriumID": 924,
+		"communioID": 95,
+		"gradualeID": 912,
+		"alleluiaID": 1220,
+		"gbid": "easter2",
+		"inVerses": "Ps 32: 2-3",
+		"ofVerses": "Ps 62: 2, 3",
+		"coVerses": "Ps 22"
+	},
+	"Pasc3": {
+		"introitusID": 536,
+		"offertoriumID": 668,
+		"communioID": 813,
+		"gradualeID": 1341,
+		"alleluiaID": 446,
+		"gbid": "easter3",
+		"inVerses": "Ps 65: 8-9",
+		"ofVerses": "Ps 145: 7",
+		"coVerses": "Ps 65: 1-2, 4-6, 8-9, 16, 20"
+	},
+	"Pasc4": {
+		"introitusID": 42,
+		"offertoriumID": 937,
+		"communioID": 39,
+		"gradualeID": 159,
+		"alleluiaID": 1348,
+		"gbid": "easter4",
+		"inVerses": "Ps 97: 2, 4",
+		"ofVerses": "Ps 65: 13, 14",
+		"coVerses": "Ps 97: 1, 2-7"
+	},
+	"Pasc5": {
+		"introitusID": 585,
+		"offertoriumID": 860,
+		"communioID": 579,
+		"gradualeID": 633,
+		"alleluiaID": 1040,
+		"gbid": "easter5",
+		"inVerses": "Ps 65: 4-5",
+		"ofVerses": "Ps 65: 1, 2",
+		"coVerses": "Ps 95: 1, 3-4, 8-10, 13"
+	},
+	"Pasc6": {
+		"introitusID": 990,
+		"offertoriumID": 211,
+		"communioID": 1091,
+		"gradualeID": 405,
+		"alleluiaID": 107,
+		"gbid": "ascension1",
+		"inVerses": "Ps 26: 1, 4-5, 8, 10",
+		"ofVerses": "Ps 46: 2",
+		"coVerses": "Ps 121: 1-2, 5-9"
+	},
+	"Pent0": {
+		"introitusID": 861,
+		"offertoriumID": 361,
+		"communioID": 1041,
+		"gradualeID": 99,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"gbid": "pentecost",
+		"inVerses": "Ps 67: 29, 33",
+		"ofVerses": "Ps 67: 5",
+		"coVerses": "Ps 67: 2-4, 12, 27, 29"
+	},
+	"Pent0m": {
+		"introitusID": 715,
+		"gradualeID": 101,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"offertoriumID": 869,
+		"communioID": 1151,
+		"gbid": "pentecost_mon",
+		"inVerses": "Ps 80: 3, 11",
+		"coVerses": "Ps 50: 3, 9-10, 12-15, 17, 20"
+	},
+	"Pent0t": {
+		"introitusID": 1278,
+		"gradualeID": 1197,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"offertoriumID": 1361,
+		"communioID": 333,
+		"gbid": "pentecost_tue",
+		"inVerses": "Ps 77: 2-3",
+		"coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
+	},
+	"Pent0w": {
+		"introitusID": 822,
+		"gradualeID": 635,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"offertoriumID": 1218,
+		"communioID": 91,
+		"gloria": "before#divTractus",
+		"rubrics": {
+			"after#divGraduale": "<Allelúia.> is not repeated. The <Glória in excélsis.> is said here."
+		},
+		"gbid": "pentecost_wed",
+		"inVerses": "Ps 67: 4, 10",
+		"ofVerses": "Ps 118: 57, 58",
+		"coVerses": "Ps 121"
+	},
+	"Pent0h": {
+		"introitusID": 861,
+		"offertoriumID": 361,
+		"communioID": 1041,
+		"gradualeID": 99,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"gbid": "pentecost",
+		"inVerses": "Ps 67: 29, 33",
+		"ofVerses": "Ps 67: 5",
+		"coVerses": "Ps 67: 2-4, 12, 27, 29"
+	},
+	"Pent0f": {
+		"introitusID": 557,
+		"gradualeID": 119,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"offertoriumID": 668,
+		"communioID": 981,
+		"gbid": "pentecost_fri",
+		"inVerses": "Ps 70: 2-3",
+		"coVerses": "Ps 121"
+	},
+	"Pent0s": {
+		"introitusID": 1228,
+		"gradualeID": [
+			1236,
+			1138,
+			657,
+			181,
+			1289
+		],
+		"tractusID": 1247,
+		"sequentiaID": 68,
+		"offertoriumID": 987,
+		"communioID": 190,
+		"sequentiaReplace": "${gabcRemoveLastAlleluia}",
+		"gloria": "before#divTractus",
+		"rubrics": {
+			"before#divGraduale": "After each Lesson, the Cantor intones <Allelúia.>  The Choir continues the Chant, without repeating the intonation.  <Allelúia.> is not repeated at the end of the Verse."
+		},
+		"gbid": "pentecost_sat",
+		"coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
+	},
+	"Pent0ss": {
+		"introitusID": 1228,
+		"gradualeID": 1236,
+		"alleluiaID": 181,
+		"sequentiaID": 68,
+		"offertoriumID": 987,
+		"communioID": 190,
+		"gloria": "before#divTractus",
+		"fromGregorianBooks": []
+	},
+	"Pent1": {
+		"introitusID": 349,
+		"offertoriumID": 1303,
+		"communioID": 391,
+		"alleluiaID": 1289,
+		"gradualeID": 965,
+		"gbid": "p1",
+		"inVerses": "Ps 8: 2, 3",
+		"ofVerses": "Tob 12: 6",
+		"coVerses": "Tobias 13: 1, 3, 5-6, 8-10"
+	},
+	"Pent1w": {
+		"introitusID": 146,
+		"offertoriumID": 293,
+		"communioID": 639,
+		"alleluiaID": 103,
+		"gradualeID": 399,
+		"gbid": "1st_sunday_after_pentecost",
+		"coVerses": "Ps 9: 4, 11-13, 15"
+	},
+	"Pent2": {
+		"introitusID": 1111,
+		"offertoriumID": 848,
+		"communioID": 794,
+		"alleluiaID": 801,
+		"gradualeID": 697,
+		"gbid": "p2",
+		"inVerses": "Ps 17: 3-4",
+		"ofVerses": "Ps 6: 2",
+		"coVerses": "Ps 12: 1-6"
+	},
+	"Pent3": {
+		"introitusID": 1235,
+		"offertoriumID": 1328,
+		"communioID": 1058,
+		"alleluiaID": 1264,
+		"gradualeID": 423,
+		"gbid": "p3",
+		"inVerses": "Ps 24: 4, 17",
+		"ofVerses": "Ps 9: 5, 6, 9",
+		"coVerses": "Ps 31: 1-5, 7-8, 10-11"
+	},
+	"Pent4": {
+		"introitusID": 874,
+		"offertoriumID": 708,
+		"communioID": 512,
+		"alleluiaID": 727,
+		"gradualeID": 332,
+		"gbid": "p4",
+		"inVerses": "Ps 26: 9, 14",
+		"ofVerses": "Ps 12: 2, 3",
+		"coVerses": "Ps 17: 4, 7, 28-30, 32-33, 36"
+	},
+	"Pent5": {
+		"introitusID": 396,
+		"offertoriumID": 143,
+		"communioID": 574,
+		"alleluiaID": 797,
+		"gradualeID": 1226,
+		"gbid": "p5",
+		"inVerses": "Ps 26: 1, 3",
+		"ofVerses": "Ps 15: 1, 2, 5",
+		"coVerses": "Ps 26: 1, 2-3, 9-10, 13-14"
+	},
+	"Pent6": {
+		"introitusID": 522,
+		"offertoriumID": 265,
+		"communioID": 1079,
+		"alleluiaID": 239,
+		"gradualeID": 1046,
+		"gbid": "p6",
+		"inVerses": "Ps 27: 7",
+		"ofVerses": "Ps 16: 1",
+		"coVerses": "Ps 26: 1-5"
+	},
+	"Pent7": {
+		"introitusID": 1136,
+		"offertoriumID": 675,
+		"communioID": 339,
+		"alleluiaID": 77,
+		"gradualeID": 1022,
+		"gbid": "p7",
+		"inVerses": "Ps 46: 4, 7-8",
+		"ofVerses": "Dan 3: 41, 42",
+		"coVerses": "Ps 30: 2, 3, 6, 7-9, 20-21, 24-25"
+	},
+	"Pent8": {
+		"introitusID": 1254,
+		"offertoriumID": 1080,
+		"communioID": 1203,
+		"alleluiaID": 709,
+		"gradualeID": 886,
+		"gbid": "p8",
+		"inVerses": "Ps 47: 3, 12",
+		"ofVerses": "Ps 17: 7",
+		"coVerses": "Ps 33, 8"
+	},
+	"Pent9": {
+		"introitusID": 1357,
+		"offertoriumID": 591,
+		"communioID": 798,
+		"alleluiaID": 879,
+		"gradualeID": 1205,
+		"gbid": "p9",
+		"inVerses": "Ps 53: 4, 8",
+		"ofVerses": "Ps 18: 9, 10",
+		"coVerses": "Ps 118: 1-2, 11, 49-50, 72, 103, 105, 162"
+	},
+	"Pent10": {
+		"introitusID": 299,
+		"offertoriumID": 962,
+		"communioID": 1221,
+		"alleluiaID": 1052,
+		"gradualeID": 1088,
+		"gbid": "p10",
+		"inVerses": "Ps 54: 5, 6",
+		"ofVerses": "Ps 24: 5",
+		"coVerses": "Ps 50: 3, 10, 12-15, 17, 19-20"
+	},
+	"Pent11": {
+		"introitusID": 1026,
+		"offertoriumID": 648,
+		"communioID": 1145,
+		"alleluiaID": 580,
+		"gradualeID": 865,
+		"gbid": "p11",
+		"inVerses": "Ps 67: 8, 10",
+		"ofVerses": "Ps 29: 4",
+		"coVerses": "Ps 127"
+	},
+	"Pent12": {
+		"introitusID": 501,
+		"offertoriumID": 325,
+		"communioID": 1245,
+		"alleluiaID": 1082,
+		"gradualeID": 1182,
+		"gbid": "p12",
+		"inVerses": "Ps 69: 6",
+		"ofVerses": "Exodi 33",
+		"coVerses": "Ps 103: 1-2, 23-24, 30-31, 33-35"
+	},
+	"Pent13": {
+		"introitusID": 691,
+		"offertoriumID": 967,
+		"communioID": 388,
+		"alleluiaID": 820,
+		"gradualeID": 1232,
+		"gbid": "p13",
+		"inVerses": "Ps 73: 2, 18",
+		"ofVerses": "Ps 30: 17, 18",
+		"coVerses": "Ps 77: 1-4, 23-25, 27, 29"
+	},
+	"Pent14": {
+		"introitusID": 1071,
+		"offertoriumID": 747,
+		"communioID": 868,
+		"alleluiaID": 1246,
+		"gradualeID": 547,
+		"gbid": "p14",
+		"inVerses": "Ps 83: 3, 5",
+		"ofVerses": "Ps 33: 1",
+		"coVerses": "Ps 36: 1, 3, 16, 18-19, 23, 27-28, 29, 34"
+	},
+	"Pent15": {
+		"introitusID": 1165,
+		"offertoriumID": 182,
+		"communioID": 782,
+		"alleluiaID": 1352,
+		"gradualeID": 1338,
+		"gbid": "p15",
+		"inVerses": "Ps 85: 5, 6",
+		"ofVerses": "Ps 39: 3",
+		"coVerses": "Ps 110: 1-10"
+	},
+	"Pent16": {
+		"introitusID": 335,
+		"offertoriumID": 993,
+		"communioID": 1318,
+		"alleluiaID": 1077,
+		"gradualeID": 1173,
+		"gbid": "p16",
+		"inVerses": "Ps 85: 2, 4",
+		"ofVerses": "Ps 39: 1",
+		"coVerses": "Ps 70: 1-2, 3, 5-6, 9, 12, 14, 23"
+	},
+	"Pent17": {
+		"introitusID": 1284,
+		"offertoriumID": 652,
+		"communioID": 1134,
+		"alleluiaID": 595,
+		"gradualeID": 1044,
+		"gbid": "p17",
+		"inVerses": "Ps 110: 2-10",
+		"ofVerses": "Dan 9: 20",
+		"coVerses": "Ps 75: 2-4, 9-11"
+	},
+	"EmbWedSept": {
+		"introitusID": 1323,
+		"gradualeID": [
+			472,
+			1044
+		],
+		"offertoriumID": 810,
+		"communioID": 496,
+		"gloria": false,
+		"gbid": "wed_ews",
+		"inVerses": "Ps 80: 11, 17",
+		"ofVerses": "Ps 118: 57, 58",
+		"coVerses": "Ps 80: 2-3, 5, 11, 17"
+	},
+	"EmbFriSept": {
+		"introitusID": 864,
+		"gradualeID": 1046,
+		"offertoriumID": 1359,
+		"communioID": 828,
+		"gloria": false,
+		"gbid": "fri_ews",
+		"inVerses": "Ps 104: 2-5, 43-45",
+		"coVerses": "Ps 118: 1-2, 39, 45, 77, 99-100, 143"
+	},
+	"EmbSatSept": {
+		"introitusID": 450,
+		"gradualeID": [
+			332,
+			1226,
+			1046,
+			44,
+			2166
+		],
+		"tractusID": 1247,
+		"offertoriumID": 542,
+		"communioID": 1149,
+		"gloria": false,
+		"gbid": "sat_ews",
+		"inVerses": "Ps 94: 2, 7",
+		"coVerses": "Ps 80: 2-3, 5, 11, 17"
+	},
+	"EmbSatSeptS": {
+		"introitusID": 450,
+		"gradualeID": 332,
+		"tractusID": 1247,
+		"offertoriumID": 542,
+		"communioID": 1149,
+		"gloria": false,
+		"fromGregorianBooks": []
+	},
+	"Pent18": {
+		"introitusID": 172,
+		"offertoriumID": 838,
+		"communioID": 404,
+		"alleluiaID": 1097,
+		"gradualeID": 1011,
+		"gbid": "p18",
+		"inVerses": "Ps 121: 6-7",
+		"coVerses": "Ps 95, 1-8, 9-12"
+	},
+	"Pent19": {
+		"introitusID": 389,
+		"offertoriumID": 616,
+		"communioID": 479,
+		"alleluiaID": 1192,
+		"gradualeID": 44,
+		"gbid": "p19",
+		"inVerses": "Ps 77: 2-3",
+		"ofVerses": "Ps 137: 3",
+		"coVerses": "Ps 118: 1-3, 8-9, 26, 59-60, 134, 168"
+	},
+	"Pent20": {
+		"introitusID": 1056,
+		"offertoriumID": 812,
+		"communioID": 696,
+		"alleluiaID": 745,
+		"gradualeID": 1230,
+		"gbid": "p20",
+		"inVerses": "Ps 118: 2, 22",
+		"ofVerses": "Ps 136: 2-4",
+		"coVerses": "Ps 118: 1-2, 25, 28, 41, 74, 76, 81-82, 114"
+	},
+	"Pent21": {
+		"introitusID": 1047,
+		"offertoriumID": 1363,
+		"communioID": 1290,
+		"alleluiaID": 1380,
+		"gradualeID": 1108,
+		"gbid": "p21",
+		"inVerses": "Ps 118: 4, 166",
+		"coVerses": "Ps 118: 1, 41, 85, 87, 113, 123, 157, 161, 166, 174"
+	},
+	"Pent22": {
+		"introitusID": 1271,
+		"offertoriumID": 67,
+		"communioID": 464,
+		"alleluiaID": 933,
+		"gradualeID": 614,
+		"gbid": "p22",
+		"inVerses": "Ps 129: 2, 4-5",
+		"coVerses": "Ps 16: 1-3, 5, 7-9, 15"
+	},
+	"Pent23": {
+		"introitusID": 735,
+		"offertoriumID": 986,
+		"communioID": 592,
+		"alleluiaID": 331,
+		"gradualeID": 395,
+		"gbid": "p23",
+		"inVerses": "Ps 84: 3, 13",
+		"ofVerses": "Ps 129: 1-3",
+		"coVerses": "Ps 129; Ps 60"
+	},
+	"Pent24": {
+		"ref": "Pent23",
+		"gbid": "p23",
+		"inVerses": "Ps 84: 3, 13",
+		"ofVerses": "Ps 129: 1-3",
+		"coVerses": "Ps 129; Ps 60"
+	},
+	"PentEpi3": {
+		"ref": "Pent23",
+		"gbid": "p23",
+		"inVerses": "Ps 84: 3, 13",
+		"ofVerses": "Ps 129: 1-3",
+		"coVerses": "Ps 129; Ps 60"
+	},
+	"PentEpi4": {
+		"ref": "Pent23",
+		"gbid": "p23",
+		"inVerses": "Ps 84: 3, 13",
+		"ofVerses": "Ps 129: 1-3",
+		"coVerses": "Ps 129; Ps 60"
+	},
+	"PentEpi5": {
+		"ref": "Pent23",
+		"gbid": "p23",
+		"inVerses": "Ps 84: 3, 13",
+		"ofVerses": "Ps 129: 1-3",
+		"coVerses": "Ps 129; Ps 60"
+	},
+	"PentEpi6": {
+		"ref": "Pent23",
+		"gbid": "p23",
+		"inVerses": "Ps 84: 3, 13",
+		"ofVerses": "Ps 129: 1-3",
+		"coVerses": "Ps 129; Ps 60"
+	},
+	"7a": {
+		"introitusID": 1168,
+		"offertoriumID": 1194,
+		"communioID": 640,
+		"tractusID": 926,
+		"gradualeID": 222,
+		"gbid": "septuagesima",
+		"inVerses": "Ps 17: 4, 7",
+		"ofVerses": "Ps 91: 6",
+		"coVerses": "Ps 30: 2-6, 7-9"
+	},
+	"6a": {
+		"introitusID": 529,
+		"offertoriumID": 265,
+		"communioID": 554,
+		"tractusID": 1178,
+		"gradualeID": 1265,
+		"gbid": "sexagesima",
+		"inVerses": "Ps 43: 2-3",
+		"ofVerses": "Ps 16: 1",
+		"coVerses": "Ps 42: 1-3, 4-6"
+	},
+	"5a": {
+		"introitusID": 1381,
+		"offertoriumID": 1317,
+		"communioID": 677,
+		"tractusID": 1299,
+		"gradualeID": 850,
+		"gbid": "quinquagesima",
+		"inVerses": "Ps 30: 3, 6",
+		"ofVerses": "Ps 118: 1, 2",
+		"coVerses": "Ps 77: 1, 3, 4, 23-25, 27-28"
+	},
+	"5aw": {
+		"introitusID": 533,
+		"gradualeID": 754,
+		"tractusID": 425,
+		"offertoriumID": 648,
+		"communioID": 582,
+		"gbid": "lent0",
+		"inVerses": "Ps 56: 3-4",
+		"ofVerses": "Ps 29: 4",
+		"coVerses": "Ps 1"
+	},
+	"5ah": {
+		"introitusID": 299,
+		"gradualeID": 423,
+		"offertoriumID": 962,
+		"communioID": 1221,
+		"gbid": "lent0thu",
+		"inVerses": "Ps 54: 5, 6",
+		"ofVerses": "Ps 24: 5",
+		"coVerses": "Ps 50: 3, 10, 12-15, 17, 19-20"
+	},
+	"5af": {
+		"introitusID": 45,
+		"gradualeID": 229,
+		"tractusID": 425,
+		"offertoriumID": 109,
+		"communioID": 897,
+		"gbid": "lent0fri",
+		"inVerses": "Ps 29: 4-5",
+		"coVerses": "Ps 2: 1-5, 10, 13"
+	},
+	"5as": {
+		"introitusID": 45,
+		"gradualeID": 229,
+		"offertoriumID": 109,
+		"communioID": 897,
+		"gbid": "lent0fri",
+		"inVerses": "Ps 29: 4-5",
+		"coVerses": "Ps 2: 1-5, 10, 13"
+	},
+	"Quad1": {
+		"introitusID": 327,
+		"offertoriumID": 294,
+		"communioID": 1100,
+		"tractusID": 889,
+		"gradualeID": 834,
+		"gbid": "lent1",
+		"inVerses": "Ps 90: 2, 11",
+		"ofVerses": "Ps 90: 2, 5",
+		"coVerses": "Ps 90: 1-3, 11-15"
+	},
+	"Quad1m": {
+		"introitusID": 1330,
+		"gradualeID": 1226,
+		"tractusID": 425,
+		"offertoriumID": 1060,
+		"communioID": 623,
+		"gbid": "lent1mon",
+		"inVerses": "Ps 122: 3-4",
+		"coVerses": "Ps 144: 1, 5, 10-13, 15-16"
+	},
+	"Quad1t": {
+		"introitusID": 549,
+		"gradualeID": 44,
+		"offertoriumID": 967,
+		"communioID": 384,
+		"gbid": "lent1tue",
+		"inVerses": "Ps 89: 3, 13",
+		"ofVerses": "Ps 30: 17, 18",
+		"coVerses": "Ps 4: 4-8"
+	},
+	"Quad1w": {
+		"introitusID": 1294,
+		"gradualeID": 596,
+		"tractusID": 276,
+		"offertoriumID": 810,
+		"communioID": 373,
+		"fromGregorianBooks": [
+			"lent1wed",
+			"lent2"
+		]
+	},
+	"Quad1h": {
+		"introitusID": 956,
+		"gradualeID": 1088,
+		"offertoriumID": 747,
+		"communioID": 782,
+		"gbid": "lent1thu",
+		"inVerses": "Ps 95: 2-3",
+		"ofVerses": "Ps 33: 1",
+		"coVerses": "Ps 110: 1-10"
+	},
+	"Quad1f": {
+		"introitusID": 100,
+		"gradualeID": 1117,
+		"tractusID": 425,
+		"offertoriumID": 1359,
+		"communioID": 484,
+		"gbid": "lent1fri",
+		"inVerses": "Ps 24: 4, 5",
+		"coVerses": "Ps 6: 2-7"
+	},
+	"Quad1s": {
+		"introitusID": 238,
+		"gradualeID": [
+			332,
+			1226,
+			1046,
+			44,
+			2166
+		],
+		"tractusID": 1247,
+		"offertoriumID": 542,
+		"communioID": 131,
+		"gbid": "lent1sat",
+		"inVerses": "Ps 87: 14-15",
+		"coVerses": "Ps 7: 3, 7-8, 9, 11, 18"
+	},
+	"Quad1ss": {
+		"introitusID": 238,
+		"gradualeID": 332,
+		"tractusID": 1247,
+		"offertoriumID": 542,
+		"communioID": 131,
+		"fromGregorianBooks": []
+	},
+	"Quad2": {
+		"introitusID": 1294,
+		"offertoriumID": 810,
+		"communioID": 373,
+		"tractusID": 455,
+		"gradualeID": 596,
+		"fromGregorianBooks": [
+			"lent1wed",
+			"lent2"
+		]
+	},
+	"Quad2m": {
+		"introitusID": 1314,
+		"gradualeID": 851,
+		"tractusID": 425,
+		"offertoriumID": 143,
+		"communioID": 998,
+		"gbid": "lent2mon",
+		"inVerses": "Ps 25: 9, 11",
+		"ofVerses": "Ps 15: 1, 2, 5",
+		"coVerses": "Ps 8: 2-8"
+	},
+	"Quad2t": {
+		"introitusID": 751,
+		"gradualeID": 423,
+		"offertoriumID": 922,
+		"communioID": 639,
+		"gbid": "lent2tue",
+		"inVerses": "Ps 26: 1, 9",
+		"ofVerses": "Ps 50: 4, 5",
+		"coVerses": "Ps 9: 4, 11-13, 15"
+	},
+	"Quad2w": {
+		"introitusID": 323,
+		"gradualeID": 296,
+		"tractusID": 425,
+		"offertoriumID": 962,
+		"communioID": 268,
+		"gbid": "lent2wed",
+		"inVerses": "Ps 37: 16, 20",
+		"ofVerses": "Ps 24: 5",
+		"coVerses": "Ps 10: 2-7"
+	},
+	"Quad2h": {
+		"introitusID": 501,
+		"gradualeID": 332,
+		"offertoriumID": 325,
+		"communioID": 798,
+		"gbid": "lent2thu",
+		"inVerses": "Ps 69: 6",
+		"ofVerses": "Exodi 33",
+		"coVerses": "Ps 118: 1-2, 11, 49-50, 72, 103, 105, 162"
+	},
+	"Quad2f": {
+		"introitusID": 830,
+		"gradualeID": 697,
+		"tractusID": 425,
+		"offertoriumID": 993,
+		"communioID": 1159,
+		"gbid": "lent2fri",
+		"inVerses": "Ps 16: 2, 5",
+		"ofVerses": "Ps 39: 1",
+		"coVerses": "Ps 11: 2-7"
+	},
+	"Quad2s": {
+		"introitusID": 1216,
+		"gradualeID": 1338,
+		"offertoriumID": 708,
+		"communioID": 1066,
+		"gbid": "lent2sat",
+		"inVerses": "Ps 18: 2-7",
+		"ofVerses": "Ps 12: 2, 3",
+		"coVerses": "Ps 31: 1-3, 5, 8, 10-11"
+	},
+	"Quad3": {
+		"introitusID": 916,
+		"offertoriumID": 591,
+		"communioID": 1090,
+		"tractusID": 1329,
+		"gradualeID": 1298,
+		"gbid": "lent3",
+		"inVerses": "Ps 24: 2-3, 17-21",
+		"ofVerses": "Ps 18: 9, 10",
+		"coVerses": "Ps 83: 2-3, 9-13"
+	},
+	"Quad3m": {
+		"introitusID": 839,
+		"gradualeID": 118,
+		"tractusID": 425,
+		"offertoriumID": 842,
+		"communioID": 931,
+		"gbid": "lent3mon",
+		"inVerses": "Ps 55: 9, 13",
+		"coVerses": "Ps 13: 1-3, 6"
+	},
+	"Quad3t": {
+		"introitusID": 558,
+		"gradualeID": 1210,
+		"offertoriumID": 47,
+		"communioID": 1340,
+		"gbid": "lent3tue",
+		"inVerses": "Ps 16: 1, 15",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 14: 3-5"
+	},
+	"Quad3w": {
+		"introitusID": 1049,
+		"gradualeID": 562,
+		"tractusID": 425,
+		"offertoriumID": 1369,
+		"communioID": 531,
+		"gbid": "lent3wed",
+		"inVerses": "Ps 30: 2-6, 7-9",
+		"coVerses": "Ps 15: 1-2, 5-10"
+	},
+	"Quad3h": {
+		"introitusID": 389,
+		"gradualeID": 1230,
+		"offertoriumID": 616,
+		"communioID": 479,
+		"gbid": "lent3thu",
+		"inVerses": "Ps 77: 2-3",
+		"ofVerses": "Ps 137: 3",
+		"coVerses": "Ps 118: 1-3, 8-9, 26, 59-60, 134, 168"
+	},
+	"Quad3f": {
+		"introitusID": 733,
+		"gradualeID": 865,
+		"tractusID": 425,
+		"offertoriumID": 293,
+		"communioID": 894,
+		"gbid": "lent3fri",
+		"inVerses": "Ps 85: 2, 6",
+		"coVerses": "Is 12: 1-6"
+	},
+	"Quad3s": {
+		"introitusID": 1248,
+		"gradualeID": 1121,
+		"offertoriumID": 1099,
+		"communioID": 1010,
+		"gbid": "lent3sat",
+		"inVerses": "Ps 5: 5-8, 12-13",
+		"coVerses": "Ps 31: 1-3, 5, 8, 10-11"
+	},
+	"Quad4": {
+		"introitusID": 653,
+		"offertoriumID": 899,
+		"communioID": 1353,
+		"tractusID": 1377,
+		"gradualeID": 1011,
+		"gbid": "lent4",
+		"inVerses": "Ps 121: 2, 7",
+		"ofVerses": "Ps 134: 2, 5",
+		"coVerses": "Ps 121: 1-2, 5-9"
+	},
+	"Quad4m": {
+		"introitusID": 458,
+		"gradualeID": 886,
+		"tractusID": 425,
+		"offertoriumID": 718,
+		"communioID": 1316,
+		"gbid": "lent4mon",
+		"inVerses": "Ps 53: 7-8",
+		"coVerses": "Ps 18: 2-5, 8, 15"
+	},
+	"Quad4t": {
+		"introitusID": 904,
+		"gradualeID": 152,
+		"offertoriumID": 182,
+		"communioID": 1296,
+		"gbid": "lent4tue",
+		"inVerses": "Ps 54: 17-18",
+		"ofVerses": "Ps 39: 3",
+		"coVerses": "Ps 19: 2-5, 7-8"
+	},
+	"Quad4w": {
+		"introitusID": 418,
+		"gradualeID": [
+			1022,
+			1044
+		],
+		"tractusID": 425,
+		"offertoriumID": 860,
+		"communioID": 989,
+		"gbid": "lent4wed",
+		"inVerses": "Ps 33",
+		"ofVerses": "Ps 65: 1, 2",
+		"coVerses": "Ps 33: 1, 3-6, 8"
+	},
+	"Quad4h": {
+		"introitusID": 864,
+		"gradualeID": 1232,
+		"offertoriumID": 731,
+		"communioID": 1318,
+		"gbid": "lent4thu",
+		"inVerses": "Ps 104: 1-5, 43-45",
+		"coVerses": "Ps 70: 1-2, 3, 5-6, 9, 12, 14, 23"
+	},
+	"Quad4f": {
+		"introitusID": 572,
+		"gradualeID": 547,
+		"tractusID": 425,
+		"offertoriumID": 1080,
+		"communioID": 704,
+		"gbid": "lent4fri",
+		"inVerses": "Ps 18: 2-7",
+		"ofVerses": "Ps 17: 7",
+		"coVerses": "Ps 21: 2-3, 22-25"
+	},
+	"Quad4s": {
+		"introitusID": 776,
+		"gradualeID": 818,
+		"offertoriumID": 223,
+		"communioID": 278,
+		"gbid": "lent4sat",
+		"inVerses": "Ps 77: 2, 3",
+		"coVerses": "Ps 22: 3"
+	},
+	"Quad5": {
+		"introitusID": 78,
+		"offertoriumID": 318,
+		"communioID": 726,
+		"tractusID": 742,
+		"gradualeID": 760,
+		"gloriaPatri": false,
+		"gbid": "lent5",
+		"inVerses": "Ps 42: 4-5",
+		"ofVerses": "Ps 118: 1-2",
+		"coVerses": "Ps 115"
+	},
+	"Quad5m": {
+		"introitusID": 138,
+		"gradualeID": 621,
+		"tractusID": 425,
+		"offertoriumID": 848,
+		"communioID": 81,
+		"gloriaPatri": false,
+		"gbid": "lent5mon",
+		"inVerses": "Ps 55: 9, 13",
+		"ofVerses": "Ps 6: 2",
+		"coVerses": "Ps 23: 1-7"
+	},
+	"Quad5t": {
+		"introitusID": 60,
+		"gradualeID": 665,
+		"offertoriumID": 1328,
+		"communioID": 433,
+		"gloriaPatri": false,
+		"gbid": "lent5tue",
+		"inVerses": "Ps 26: 1, 2-3, 9-10, 13-14",
+		"ofVerses": "Ps 9: 5, 6, 9",
+		"coVerses": "Ps 24: 1-3, 17-21"
+	},
+	"Quad5w": {
+		"introitusID": 1054,
+		"gradualeID": 277,
+		"tractusID": 425,
+		"offertoriumID": 245,
+		"communioID": 141,
+		"gloriaPatri": false,
+		"gbid": "lent5wed",
+		"inVerses": "Ps 17: 4, 7",
+		"coVerses": "Ps 25: 1-3, 8-9, 11"
+	},
+	"Quad5h": {
+		"introitusID": 1056,
+		"gradualeID": 282,
+		"offertoriumID": 812,
+		"communioID": 696,
+		"gloriaPatri": false,
+		"gbid": "lent5thu",
+		"inVerses": "Ps 118: 2, 22",
+		"ofVerses": "Ps 136: 2-4",
+		"coVerses": "Ps 118: 1-2, 25, 28, 41, 74, 76, 81-82, 114"
+	},
+	"Quad5f": {
+		"introitusID": 267,
+		"gradualeID": 819,
+		"tractusID": 425,
+		"offertoriumID": 408,
+		"communioID": 1158,
+		"gloriaPatri": false,
+		"gbid": "lent5fri",
+		"inVerses": "Ps 30: 3, 11",
+		"coVerses": "Ps 26: 1, 2-3, 9-10, 13-14"
+	},
+	"Quad5s": {
+		"introitusID": 267,
+		"gradualeID": 819,
+		"offertoriumID": 408,
+		"communioID": 1158,
+		"gloriaPatri": false,
+		"gbid": "lent5fri",
+		"inVerses": "Ps 30: 3, 11",
+		"coVerses": "Ps 26: 1, 2-3, 9-10, 13-14"
+	},
+	"Quad6": {
+		"introitusID": 1171,
+		"offertoriumID": 486,
+		"communioID": 650,
+		"tractusID": 372,
+		"gradualeID": 49,
+		"gloriaPatri": false,
+		"gbid": "lent6",
+		"inVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31",
+		"ofVerses": "Ps 68, 2",
+		"coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 115"
+	},
+	"Quad6_v": {
+		"introitusID": 1171,
+		"offertoriumID": 486,
+		"communioID": 650,
+		"tractusID": 372,
+		"gradualeID": 49,
+		"gloriaPatri": false,
+		"gbid": "lent6",
+		"inVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31",
+		"ofVerses": "Ps 68, 2",
+		"coVerses": "Ps 21: 2-3, 5, 7, 13, 17-18, 22-24, 28, 31; Ps 115"
+	},
+	"Quad6m": {
+		"introitusID": 226,
+		"gradualeID": 783,
+		"tractusID": 425,
+		"offertoriumID": 411,
+		"communioID": 196,
+		"gloriaPatri": false,
+		"gbid": "monday_holy_week",
+		"inVerses": "Ps 34: 4",
+		"coVerses": "Ps 34: 1-5"
+	},
+	"Quad6t": {
+		"introitusID": 374,
+		"gradualeID": 903,
+		"offertoriumID": 1322,
+		"communioID": 397,
+		"gloriaPatri": false,
+		"gbid": "tuesday_holy_week",
+		"inVerses": "Ps 66: 2, 3",
+		"coVerses": "Ps 68: 2-3, 16, 24, 31, 35"
+	},
+	"Quad6w": {
+		"introitusID": 236,
+		"gradualeID": 1239,
+		"tractusID": 824,
+		"offertoriumID": 867,
+		"communioID": 588,
+		"gloriaPatri": false,
+		"gbid": "wednesday_holy_week",
+		"inVerses": "Ps 101: 3",
+		"coVerses": "Ps 101: 2-3, 5, 18"
+	},
+	"Quad6h": {
+		"extraChants": true,
+		"introitusID": 374,
+		"gradualeID": 873,
+		"offertoriumID": 47,
+		"communioID": 140,
+		"credo": false,
+		"gloria": true,
+		"gloriaPatri": false,
+		"ite": "benedicamus",
+		"agnusReplace": [
+			{},
+			"mi$1se$2ré$3re$4 no$5bis.$6"
+		],
+		"gbid": "maundy_thursday",
+		"inVerses": "Ps 66: 2, 3",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
+	},
+	"Quad6h_v": {
+		"extraChants": true,
+		"introitusID": 374,
+		"gradualeID": 873,
+		"offertoriumID": 47,
+		"communioID": 140,
+		"gloria": true,
+		"gloriaPatri": false,
+		"gbid": "maundy_thursday",
+		"inVerses": "Ps 66: 2, 3",
+		"ofVerses": "Ps 117: 5, 7",
+		"coVerses": "Ps 22; Ps 71; Ps 103; Ps 150"
+	},
+	"Quad6f": {
+		"extraChants": true,
+		"ordinary": false,
+		"fromGregorianBooks": []
+	},
+	"Quad6f_v": {
+		"extraChants": true,
+		"ordinary": false,
+		"fromGregorianBooks": []
+	},
+	"Quad6s": {
+		"extraChants": true,
+		"gloria": true,
+		"credo": false,
+		"agnus": false,
+		"ite": false,
+		"asperges": false,
+		"fromGregorianBooks": []
+	},
+	"Quad6s_v": {
+		"extraChants": true,
+		"gloria": true,
+		"credo": false,
+		"agnus": false,
+		"ite": false,
+		"asperges": false,
+		"fromGregorianBooks": []
+	},
+	"Apr11": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_leo_i",
+		"ref": "mass_holy_pope"
+	},
+	"Apr11Quad": {
+		"tractusID": 1085,
+		"communioID": 509,
+		"gradualeID": 1119,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_leo_i",
+		"ref": "mass_holy_pope"
+	},
+	"Apr11Pasch": {
+		"communioID": 509,
+		"gradualeID": 228,
+		"alleluiaID": 548,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_leo_i",
+		"ref": "mass_holy_pope"
+	},
+	"Apr13": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"alleluiaID": 1249,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_hermenegild",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Apr13Quad": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"tractusID": 176,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_hermenegild",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Apr13Pasch": {
+		"communioID": 617,
+		"gradualeID": 762,
+		"alleluiaID": 1249,
+		"introitusID": 340,
+		"offertoriumID": 1382,
+		"gbid": "st_hermenegild",
+		"ref": "mass_one_martyr"
+	},
+	"Apr14": {
+		"communioID": 400,
+		"gradualeID": 1345,
+		"alleluiaID": 289,
+		"introitusID": 831,
+		"offertoriumID": 285,
+		"gbid": "st_justin",
+		"inVerses": "Ps 118: 1-2, 39, 45, 77, 99-100, 143",
+		"coVerses": "Sap 3: 1-3, 5, 8-9"
+	},
+	"Apr14Quad": {
+		"communioID": 400,
+		"gradualeID": 1345,
+		"tractusID": 969,
+		"introitusID": 831,
+		"offertoriumID": 285,
+		"gbid": "st_justin",
+		"inVerses": "Ps 118: 1-2, 39, 45, 77, 99-100, 143",
+		"coVerses": "Sap 3: 1-3, 5, 8-9"
+	},
+	"Apr14Pasch": {
+		"communioID": 400,
+		"gradualeID": 334,
+		"alleluiaID": 289,
+		"introitusID": 831,
+		"offertoriumID": 285,
+		"gbid": "st_justin",
+		"inVerses": "Ps 118: 1-2, 39, 45, 77, 99-100, 143",
+		"coVerses": "Sap 3: 1-3, 5, 8-9"
+	},
+	"Apr17": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_anicetus",
+		"ref": "mass_holy_pope"
+	},
+	"Apr17Quad": {
+		"tractusID": 1085,
+		"communioID": 509,
+		"gradualeID": 1119,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_anicetus",
+		"ref": "mass_holy_pope"
+	},
+	"Apr17Pasch": {
+		"communioID": 509,
+		"gradualeID": 228,
+		"alleluiaID": 548,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_anicetus",
+		"ref": "mass_holy_pope"
+	},
+	"Apr2": {
+		"communioID": 1337,
+		"gradualeID": 511,
+		"alleluiaID": 765,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_francis_of_paula",
+		"ref": "mass_ii_confessor_not_bishop"
+	},
+	"Apr2Quad": {
+		"tractusID": 7670,
+		"communioID": 1337,
+		"gradualeID": 511,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_francis_of_paula",
+		"ref": "mass_ii_confessor_not_bishop"
+	},
+	"Apr2Pasch": {
+		"communioID": 1337,
+		"gradualeID": 765,
+		"alleluiaID": 1207,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_francis_of_paula",
+		"ref": "mass_ii_confessor_not_bishop"
+	},
+	"Apr21": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 14,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_anselm",
+		"ref": "mass_doctors"
+	},
+	"Apr21Pasch": {
+		"communioID": 1008,
+		"gradualeID": 14,
+		"alleluiaID": 1207,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_anselm",
+		"ref": "mass_doctors"
+	},
+	"Apr22": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "ss_soter_caius",
+		"ref": "mass_holy_pope"
+	},
+	"Apr22Pasch": {
+		"communioID": 509,
+		"gradualeID": 228,
+		"alleluiaID": 548,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "ss_soter_caius",
+		"ref": "mass_holy_pope"
+	},
+	"Apr23": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"alleluiaID": 1249,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_george",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Apr23Quad": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"tractusID": 176,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_george",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Apr23Pasch": {
+		"communioID": 617,
+		"gradualeID": 762,
+		"alleluiaID": 1249,
+		"introitusID": 340,
+		"offertoriumID": 1382,
+		"gbid": "st_george",
+		"ref": "mass_one_martyr"
+	},
+	"Apr28": {
+		"communioID": 732,
+		"gradualeID": 476,
+		"alleluiaID": 1073,
+		"introitusID": 775,
+		"offertoriumID": 773,
+		"gbid": "st_paul_cross"
+	},
+	"Apr30": {
+		"communioID": 1301,
+		"gradualeID": 208,
+		"alleluiaID": 406,
+		"introitusID": 629,
+		"offertoriumID": 1333,
+		"gbid": "st_catherine_of_sienna",
+		"ref": "mass_i_virgin_not_martyr"
+	},
+	"Apr4": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 14,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_isidore",
+		"ref": "mass_doctors"
+	},
+	"Apr4Quad": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 511,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_isidore",
+		"ref": "mass_doctors"
+	},
+	"Apr4Pasch": {
+		"communioID": 1008,
+		"gradualeID": 14,
+		"alleluiaID": 1207,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_isidore",
+		"ref": "mass_doctors"
+	},
+	"Apr5": {
+		"communioID": 1154,
+		"gradualeID": 34,
+		"alleluiaID": 724,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_vincent_ferrer",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Apr5Quad": {
+		"tractusID": 7670,
+		"communioID": 1154,
+		"gradualeID": 34,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_vincent_ferrer",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Apr5Pasch": {
+		"communioID": 1154,
+		"gradualeID": 724,
+		"alleluiaID": 14,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_vincent_ferrer",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Aug1": {
+		"communioID": 699,
+		"gradualeID": 614,
+		"alleluiaID": 32,
+		"introitusID": 788,
+		"offertoriumID": 33,
+		"gbid": "holy_machabees",
+		"coVerses": "Ps 118: 1, 78, 84, 86, 95, 150, 153, 157, 161, 173"
+	},
+	"Aug10": {
+		"communioID": 685,
+		"gradualeID": 1027,
+		"alleluiaID": 1122,
+		"introitusID": 956,
+		"offertoriumID": 105,
+		"gbid": "st_lawrence",
+		"inVerses": "Ps 95: 2-3",
+		"coVerses": "Ps 16: 1-4, 9-12, 15"
+	},
+	"Aug11": {
+		"communioID": 1002,
+		"gradualeID": 1009,
+		"alleluiaID": 590,
+		"introitusID": 737,
+		"offertoriumID": 835,
+		"gbid": "ss_tiburtius_suzanna",
+		"ref": "mass_iii_two_or_more_martyr"
+	},
+	"Aug15": {
+		"communioID": 286,
+		"gradualeID": 1000,
+		"alleluiaID": 960,
+		"introitusID": 23,
+		"offertoriumID": 1083,
+		"gbid": "assumption_bvm",
+		"inVerses": "Ps 97: 2-3"
+	},
+	"Aug16": {
+		"communioID": 1008,
+		"gradualeID": 1212,
+		"alleluiaID": 821,
+		"introitusID": 544,
+		"offertoriumID": 407,
+		"gbid": "st_joachim",
+		"inVerses": "Ps 111: 2-3",
+		"coVerses": "Ps 111: 1-9"
+	},
+	"Aug2": {
+		"communioID": 1196,
+		"gradualeID": 73,
+		"alleluiaID": 1094,
+		"introitusID": 214,
+		"offertoriumID": 1116,
+		"gbid": "st_alphonsus_mary_liguori",
+		"coVerses": "Ps 91: 2-3, 5-6, 13-14"
+	},
+	"Aug22": {
+		"communioID": 982,
+		"gradualeID": 778,
+		"alleluiaID": 881,
+		"introitusID": 1110,
+		"offertoriumID": 1045,
+		"gbid": "immaculate_heart_bvm",
+		"coVerses": "Luc 1: 46-55"
+	},
+	"Aug24": {
+		"communioID": 97,
+		"gradualeID": 307,
+		"alleluiaID": 442,
+		"introitusID": 475,
+		"offertoriumID": 499,
+		"gbid": "st_bartholomew",
+		"inVerses": "Ps 138: 2-6",
+		"coVerses": "Ps 138: 1-6, 17-18, 23-24"
+	},
+	"Aug27": {
+		"communioID": 643,
+		"gradualeID": 511,
+		"alleluiaID": 724,
+		"introitusID": 695,
+		"offertoriumID": 1331,
+		"gbid": "st_joseph_calasanctius",
+		"inVerses": "Ps 33",
+		"coVerses": "Ps 33"
+	},
+	"Aug28": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 1350,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_augustine",
+		"ref": "mass_doctors"
+	},
+	"Aug29": {
+		"communioID": 586,
+		"gradualeID": 34,
+		"alleluiaID": 1207,
+		"introitusID": 410,
+		"offertoriumID": 667,
+		"gbid": "beheading_st_john_baptist",
+		"inVerses": "Ps 91: 3, 13",
+		"coVerses": "Ps 20: 2-3, 5-8, 14"
+	},
+	"Aug4": {
+		"communioID": 1008,
+		"gradualeID": 34,
+		"alleluiaID": 1207,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_dominic",
+		"inVerses": "Ps 36: 3, 26",
+		"coVerses": "Ps 111: 1-9"
+	},
+	"Aug6": {
+		"communioID": 885,
+		"gradualeID": 1308,
+		"alleluiaID": 1124,
+		"introitusID": 326,
+		"offertoriumID": 125,
+		"gbid": "transfiguration",
+		"inVerses": "Ps 83: 3-4",
+		"coVerses": "Ps 44: 2-8, 18"
+	},
+	"Dec12": {
+		"communioID": 1133,
+		"gradualeID": 468,
+		"alleluiaID": 232,
+		"introitusID": 1140,
+		"offertoriumID": 7,
+		"gbid": "our_lady_of_guadalupe",
+		"inVerses": "Ps 44: 5, 8",
+		"coVerses": "Ps 147"
+	},
+	"Dec13": {
+		"communioID": 1292,
+		"gradualeID": 394,
+		"alleluiaID": 1076,
+		"introitusID": 629,
+		"offertoriumID": 1107,
+		"gbid": "st_lucy"
+	},
+	"Dec16": {
+		"communioID": 586,
+		"gradualeID": 1206,
+		"alleluiaID": 1118,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_eusebius_bm",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"Dec2": {
+		"communioID": 844,
+		"gradualeID": 1373,
+		"alleluiaID": 500,
+		"introitusID": 938,
+		"offertoriumID": 177,
+		"gbid": "st_bibiana",
+		"ref": "mass_ii_virgin_martyr"
+	},
+	"Dec21": {
+		"communioID": 589,
+		"gradualeID": 148,
+		"alleluiaID": 216,
+		"introitusID": 475,
+		"offertoriumID": 570,
+		"gbid": "st_thomas",
+		"inVerses": "Ps 138: 2-6",
+		"coVerses": "Ps 125"
+	},
+	"Dec26": {
+		"communioID": 920,
+		"gradualeID": 906,
+		"alleluiaID": 561,
+		"introitusID": 1321,
+		"offertoriumID": 462,
+		"gbid": "st_stephen",
+		"inVerses": "Ps 110: 2-10",
+		"coVerses": "Ps 118: 1, 78, 84, 86, 95, 150, 153, 157, 161, 173"
+	},
+	"Dec27": {
+		"communioID": 781,
+		"gradualeID": 702,
+		"alleluiaID": 914,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_john",
+		"inVerses": "Ps 91: 13-14",
+		"ofVerses": "Ps 91: 2",
+		"coVerses": "Ps 88: 2, 4-5, 6, 8, 20-22, 25"
+	},
+	"Dec28": {
+		"communioID": 136,
+		"gradualeID": 432,
+		"alleluiaID": 661,
+		"introitusID": 350,
+		"offertoriumID": 1031,
+		"gbid": "holy_innocents",
+		"inVerses": "Ps 8: 2, 8",
+		"coVerses": "Ps 78: 1-6"
+	},
+	"Dec29": {
+		"communioID": 556,
+		"gradualeID": 235,
+		"alleluiaID": 1220,
+		"introitusID": 74,
+		"offertoriumID": 487,
+		"gbid": "st_thomas_becket",
+		"inVerses": "Ps 32: 2-4, 12-15, 18",
+		"coVerses": "Ps 22"
+	},
+	"Dec3": {
+		"communioID": 1154,
+		"gradualeID": 34,
+		"alleluiaID": 724,
+		"introitusID": 115,
+		"offertoriumID": 630,
+		"gbid": "st_francis_xavier"
+	},
+	"Dec4": {
+		"communioID": 383,
+		"gradualeID": 235,
+		"alleluiaID": 477,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_peter_chrysologus",
+		"inVerses": "Ps 91: 13-14",
+		"ofVerses": "Ps 91: 2",
+		"coVerses": "Ps 118: 1-2, 14, 24, 30, 48, 99-100, 129-130"
+	},
+	"Dec6": {
+		"communioID": 317,
+		"gradualeID": 827,
+		"alleluiaID": 946,
+		"introitusID": 456,
+		"offertoriumID": 630,
+		"gbid": "st_nicholas"
+	},
+	"Dec7": {
+		"communioID": 317,
+		"gradualeID": 235,
+		"alleluiaID": 1187,
+		"introitusID": 233,
+		"offertoriumID": 630,
+		"gbid": "st_ambrose",
+		"inVerses": "Ps 91: 13-14"
+	},
+	"Dec8": {
+		"communioID": 1004,
+		"gradualeID": 713,
+		"alleluiaID": 1057,
+		"introitusID": 622,
+		"offertoriumID": 210,
+		"gbid": "immaculate_conception_bvm",
+		"inVerses": "Ps 29: 4, 5",
+		"coVerses": "Luc 1: 46-55"
+	},
+	"Feb1": {
+		"communioID": 368,
+		"gradualeID": 235,
+		"alleluiaID": 1162,
+		"introitusID": 178,
+		"offertoriumID": 407,
+		"gbid": "st_ignatius",
+		"inVerses": "Ps 131: 9, 16",
+		"coVerses": "Ps 149: 1-6"
+	},
+	"Feb1Quad": {
+		"tractusID": 176,
+		"communioID": 368,
+		"gradualeID": 235,
+		"introitusID": 178,
+		"offertoriumID": 407,
+		"gbid": "st_ignatius",
+		"inVerses": "Ps 131: 9, 16",
+		"coVerses": "Ps 149: 1-6"
+	},
+	"Feb10": {
+		"communioID": 1301,
+		"gradualeID": 174,
+		"alleluiaID": 208,
+		"introitusID": 629,
+		"offertoriumID": 1333,
+		"gbid": "st_scholastica",
+		"ref": "mass_i_virgin_not_martyr"
+	},
+	"Feb10Quad": {
+		"tractusID": 738,
+		"communioID": 1301,
+		"gradualeID": 174,
+		"introitusID": 629,
+		"offertoriumID": 1333,
+		"gbid": "st_scholastica",
+		"ref": "mass_i_virgin_not_martyr"
+	},
+	"Feb11": {
+		"communioID": 80,
+		"gradualeID": 27,
+		"alleluiaID": 1258,
+		"introitusID": 5,
+		"offertoriumID": 234,
+		"gbid": "apparition_lourdes",
+		"inVerses": "Ps 44: 5",
+		"coVerses": "Ps 64: 2-9, 10-14"
+	},
+	"Feb11Quad": {
+		"tractusID": 485,
+		"communioID": 80,
+		"gradualeID": 27,
+		"introitusID": 5,
+		"offertoriumID": 234,
+		"gbid": "apparition_lourdes",
+		"inVerses": "Ps 44: 5",
+		"coVerses": "Ps 64: 2-9, 10-14"
+	},
+	"Feb12": {
+		"communioID": 470,
+		"gradualeID": 1084,
+		"alleluiaID": 706,
+		"introitusID": 312,
+		"offertoriumID": 1275,
+		"gbid": "ss_seven_holy_founders_servites",
+		"coVerses": "Ps 88: 2, 4, 6, 20-22, 25, 29"
+	},
+	"Feb12Quad": {
+		"tractusID": 305,
+		"communioID": 470,
+		"gradualeID": 1084,
+		"introitusID": 312,
+		"offertoriumID": 1275,
+		"gbid": "ss_seven_holy_founders_servites",
+		"coVerses": "Ps 88: 2, 4, 6, 20-22, 25, 29"
+	},
+	"Feb14": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"alleluiaID": 1249,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_valentine",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Feb14Quad": {
+		"tractusID": 176,
+		"communioID": 89,
+		"gradualeID": 153,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_valentine",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Feb15": {
+		"communioID": 1002,
+		"gradualeID": 1009,
+		"alleluiaID": 590,
+		"introitusID": 737,
+		"offertoriumID": 835,
+		"gbid": "ss_faustinus_jovita",
+		"ref": "mass_iii_two_or_more_martyr"
+	},
+	"Feb15Quad": {
+		"tractusID": 305,
+		"communioID": 1002,
+		"gradualeID": 1009,
+		"introitusID": 737,
+		"offertoriumID": 835,
+		"gbid": "ss_faustinus_jovita",
+		"ref": "mass_iii_two_or_more_martyr"
+	},
+	"Feb2": {
+		"communioID": 803,
+		"gradualeID": 50,
+		"alleluiaID": 429,
+		"introitusID": 1254,
+		"offertoriumID": 177,
+		"gbid": "purification_bvm",
+		"inVerses": "Ps 47: 3, 12",
+		"ofVerses": "Ps 44: 5",
+		"coVerses": "Luc 2: 29-32"
+	},
+	"Feb2Quad": {
+		"tractusID": 1346,
+		"communioID": 803,
+		"gradualeID": 50,
+		"introitusID": 1254,
+		"offertoriumID": 177,
+		"gbid": "purification_bvm",
+		"inVerses": "Ps 47: 3, 12",
+		"ofVerses": "Ps 44: 5",
+		"coVerses": "Luc 2: 29-32"
+	},
+	"Feb24or25": {
+		"tractusID": 176,
+		"communioID": 1028,
+		"gradualeID": 148,
+		"introitusID": 475,
+		"offertoriumID": 1319,
+		"gbid": "st_matthias",
+		"inVerses": "Ps 138: 2-6",
+		"ofVerses": "Ps 44: 2",
+		"coVerses": "Ps 125"
+	},
+	"Feb27or28": {
+		"communioID": 164,
+		"gradualeID": 1291,
+		"alleluiaID": 791,
+		"introitusID": 1025,
+		"offertoriumID": 1193,
+		"gbid": "st_gabriel_our_lady_of_sorrows",
+		"inVerses": "Ps 72: 25, 28",
+		"coVerses": "Ps 20: 2-7"
+	},
+	"Feb27or28Quad": {
+		"tractusID": 728,
+		"communioID": 164,
+		"gradualeID": 1291,
+		"introitusID": 1025,
+		"offertoriumID": 1193,
+		"gbid": "st_gabriel_our_lady_of_sorrows",
+		"inVerses": "Ps 72: 25, 28",
+		"coVerses": "Ps 20: 2-7"
+	},
+	"Feb3": {
+		"communioID": 586,
+		"gradualeID": 1206,
+		"alleluiaID": 1118,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_blaise",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"Feb3Quad": {
+		"tractusID": 7670,
+		"communioID": 586,
+		"gradualeID": 1206,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_blaise",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"Feb4": {
+		"communioID": 1008,
+		"gradualeID": 235,
+		"alleluiaID": 477,
+		"introitusID": 456,
+		"offertoriumID": 779,
+		"gbid": "st_andrew_corsini",
+		"ref": "mass_i_confessor_bishop"
+	},
+	"Feb4Quad": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 235,
+		"introitusID": 456,
+		"offertoriumID": 779,
+		"gbid": "st_andrew_corsini",
+		"ref": "mass_i_confessor_bishop"
+	},
+	"Feb5": {
+		"communioID": 454,
+		"gradualeID": 1373,
+		"alleluiaID": 642,
+		"introitusID": 1183,
+		"offertoriumID": 768,
+		"gbid": "st_agatha",
+		"inVerses": "Ps 44: 5",
+		"coVerses": "Ps 108: 2-3, 5, 21, 25-26, 30-31"
+	},
+	"Feb5Quad": {
+		"tractusID": 305,
+		"communioID": 454,
+		"gradualeID": 1373,
+		"introitusID": 1183,
+		"offertoriumID": 768,
+		"gbid": "st_agatha",
+		"inVerses": "Ps 44: 5",
+		"coVerses": "Ps 108: 2-3, 5, 21, 25-26, 30-31"
+	},
+	"Feb7": {
+		"communioID": 1008,
+		"gradualeID": 600,
+		"alleluiaID": 946,
+		"introitusID": 1374,
+		"offertoriumID": 722,
+		"gbid": "st_romuald",
+		"ref": "mass_abbots"
+	},
+	"Feb7Quad": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 600,
+		"introitusID": 1374,
+		"offertoriumID": 722,
+		"gbid": "st_romuald",
+		"ref": "mass_abbots"
+	},
+	"Jan11": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_hyginus",
+		"ref": "mass_holy_pope"
+	},
+	"Jan13": {
+		"communioID": 918,
+		"gradualeID": 205,
+		"alleluiaID": 524,
+		"introitusID": 403,
+		"offertoriumID": 1147,
+		"gbid": "epiphany_baptism",
+		"ref": "epiphany"
+	},
+	"Jan14": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 14,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_hilary",
+		"ref": "mass_doctors"
+	},
+	"Jan15": {
+		"communioID": 617,
+		"gradualeID": 34,
+		"alleluiaID": 1207,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_paul_hermit",
+		"inVerses": "Ps 91: 3, 5",
+		"coVerses": "Ps 63: 2-7"
+	},
+	"Jan17": {
+		"communioID": 1008,
+		"gradualeID": 600,
+		"alleluiaID": 946,
+		"introitusID": 1374,
+		"offertoriumID": 722,
+		"gbid": "st_anthony",
+		"ref": "mass_abbots"
+	},
+	"Jan18": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 456,
+		"offertoriumID": 1234,
+		"gbid": "st_peter_chair_rome"
+	},
+	"Jan18Quad": {
+		"tractusID": 1029,
+		"communioID": 509,
+		"gradualeID": 1119,
+		"introitusID": 456,
+		"offertoriumID": 1234,
+		"gbid": "st_peter_chair_rome"
+	},
+	"Jan20": {
+		"communioID": 902,
+		"gradualeID": 888,
+		"alleluiaID": 106,
+		"introitusID": 261,
+		"offertoriumID": 786,
+		"gbid": "st_fabian_st_sebastian",
+		"inVerses": "Ps 78: 2-3",
+		"coVerses": "Ps 78: 1-4, 10-11"
+	},
+	"Jan20Quad": {
+		"tractusID": 305,
+		"communioID": 902,
+		"gradualeID": 888,
+		"introitusID": 261,
+		"offertoriumID": 786,
+		"gbid": "st_fabian_st_sebastian",
+		"inVerses": "Ps 78: 2-3",
+		"coVerses": "Ps 78: 1-4, 10-11"
+	},
+	"Jan21": {
+		"communioID": 1301,
+		"gradualeID": 947,
+		"alleluiaID": 301,
+		"introitusID": 938,
+		"offertoriumID": 1107,
+		"gbid": "st_agnes",
+		"inVerses": "Ps 118: 2, 39, 45, 77, 99-100, 143"
+	},
+	"Jan21Quad": {
+		"tractusID": 256,
+		"communioID": 1301,
+		"gradualeID": 947,
+		"introitusID": 938,
+		"offertoriumID": 1107,
+		"gbid": "st_agnes",
+		"inVerses": "Ps 118: 2, 39, 45, 77, 99-100, 143"
+	},
+	"Jan22": {
+		"communioID": 658,
+		"gradualeID": 888,
+		"alleluiaID": 1250,
+		"introitusID": 261,
+		"offertoriumID": 919,
+		"gbid": "ss_vincent_anastasius",
+		"ref": "mass_i_two_or_more_martyr"
+	},
+	"Jan22Quad": {
+		"tractusID": 305,
+		"communioID": 658,
+		"gradualeID": 888,
+		"introitusID": 261,
+		"offertoriumID": 919,
+		"gbid": "ss_vincent_anastasius",
+		"ref": "mass_i_two_or_more_martyr"
+	},
+	"Jan23": {
+		"communioID": 1154,
+		"gradualeID": 34,
+		"alleluiaID": 724,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_raymond_of_pennafort",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Jan23Quad": {
+		"tractusID": 7670,
+		"communioID": 1154,
+		"gradualeID": 34,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_raymond_of_pennafort",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Jan24": {
+		"communioID": 317,
+		"gradualeID": 827,
+		"alleluiaID": 477,
+		"introitusID": 456,
+		"offertoriumID": 630,
+		"gbid": "st_timothy",
+		"ref": "mass_i_martyr_bishop"
+	},
+	"Jan24Quad": {
+		"tractusID": 176,
+		"communioID": 317,
+		"gradualeID": 827,
+		"introitusID": 456,
+		"offertoriumID": 630,
+		"gbid": "st_timothy",
+		"ref": "mass_i_martyr_bishop"
+	},
+	"Jan25": {
+		"communioID": 1337,
+		"gradualeID": 1347,
+		"alleluiaID": 466,
+		"introitusID": 1179,
+		"offertoriumID": 499,
+		"gbid": "conversion_st_paul",
+		"inVerses": "Ps 138: 3, 6",
+		"coVerses": "Ps 138: 1-6, 17"
+	},
+	"Jan25Quad": {
+		"tractusID": 884,
+		"communioID": 1337,
+		"gradualeID": 1347,
+		"introitusID": 1179,
+		"offertoriumID": 499,
+		"gbid": "conversion_st_paul",
+		"inVerses": "Ps 138: 3, 6",
+		"coVerses": "Ps 138: 1-6, 17"
+	},
+	"Jan26": {
+		"communioID": 586,
+		"gradualeID": 1206,
+		"alleluiaID": 1118,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_polycarp",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"Jan26Quad": {
+		"tractusID": 7670,
+		"communioID": 586,
+		"gradualeID": 1206,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_polycarp",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"Jan27": {
+		"communioID": 1008,
+		"gradualeID": 235,
+		"alleluiaID": 724,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_john_chrysostom",
+		"inVerses": "Ps 91: 13-14",
+		"ref": "mass_doctors",
+		"ofVerses": "Ps 91: 2"
+	},
+	"Jan27Quad": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 235,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_john_chrysostom",
+		"inVerses": "Ps 91: 13-14",
+		"ref": "mass_doctors",
+		"ofVerses": "Ps 91: 2"
+	},
+	"Jan28": {
+		"communioID": 1337,
+		"gradualeID": 511,
+		"alleluiaID": 765,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_peter_nolasco",
+		"ref": "mass_ii_confessor_not_bishop"
+	},
+	"Jan28Quad": {
+		"tractusID": 7670,
+		"communioID": 1337,
+		"gradualeID": 511,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_peter_nolasco",
+		"ref": "mass_ii_confessor_not_bishop"
+	},
+	"Jan29": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 14,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_francis_de_sales",
+		"ref": "mass_doctors"
+	},
+	"Jan29Quad": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 511,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_francis_de_sales",
+		"ref": "mass_doctors"
+	},
+	"Jan30": {
+		"communioID": 1032,
+		"gradualeID": 394,
+		"alleluiaID": 208,
+		"introitusID": 510,
+		"offertoriumID": 1107,
+		"gbid": "st_martina",
+		"ref": "mass_i_virgin_martyr"
+	},
+	"Jan30Quad": {
+		"tractusID": 256,
+		"communioID": 1032,
+		"gradualeID": 394,
+		"introitusID": 510,
+		"offertoriumID": 1107,
+		"gbid": "st_martina",
+		"ref": "mass_i_virgin_martyr"
+	},
+	"Jan31": {
+		"communioID": 186,
+		"gradualeID": 21,
+		"alleluiaID": 225,
+		"introitusID": 1018,
+		"offertoriumID": 805,
+		"gbid": "st_john_bosco",
+		"inVerses": "Ps 112: 2-3",
+		"coVerses": "Ps 19: 2-5, 7-8"
+	},
+	"Jan31Quad": {
+		"tractusID": 837,
+		"communioID": 186,
+		"gradualeID": 21,
+		"introitusID": 1018,
+		"offertoriumID": 805,
+		"gbid": "st_john_bosco",
+		"inVerses": "Ps 112: 2-3",
+		"coVerses": "Ps 19: 2-5, 7-8"
+	},
+	"Jan5": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_telesphorus",
+		"ref": "mass_holy_pope"
+	},
+	"Jul1": {
+		"communioID": 1019,
+		"gradualeID": 1263,
+		"alleluiaID": 1038,
+		"introitusID": 123,
+		"offertoriumID": 320,
+		"gbid": "precious_blood",
+		"inVerses": "Ps 88: 6, 8",
+		"coVerses": "Ps 115"
+	},
+	"Jul10": {
+		"communioID": 957,
+		"gradualeID": 432,
+		"alleluiaID": 32,
+		"introitusID": 87,
+		"offertoriumID": 1031,
+		"gbid": "ss_seven_brothers",
+		"coVerses": "Ps 33"
+	},
+	"Jul11": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_pius_i",
+		"ref": "mass_holy_pope"
+	},
+	"Jul11a": {
+		"communioID": 317,
+		"gradualeID": 827,
+		"alleluiaID": 477,
+		"introitusID": 456,
+		"offertoriumID": 630,
+		"fromGregorianBooks": [
+			"st_timothy",
+			"mass_i_martyr_bishop"
+		]
+	},
+	"Jul14": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 1187,
+		"introitusID": 233,
+		"offertoriumID": 630,
+		"gbid": "st_bonaventure",
+		"inVerses": "Ps 91: 13-14",
+		"coVerses": "Ps 118: 1-2, 14, 24, 30, 48, 99-100, 129-130"
+	},
+	"Jul16": {
+		"communioID": 1053,
+		"gradualeID": 392,
+		"alleluiaID": 634,
+		"introitusID": 246,
+		"offertoriumID": 787,
+		"gbid": "our_blessed_lady_mount_carmel",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"Jul18": {
+		"communioID": 1126,
+		"gradualeID": 511,
+		"alleluiaID": 765,
+		"introitusID": 785,
+		"offertoriumID": 667,
+		"gbid": "st_camillus_of_lellis",
+		"coVerses": "Ps 33"
+	},
+	"Jul19": {
+		"communioID": 1337,
+		"gradualeID": 511,
+		"alleluiaID": 765,
+		"introitusID": 108,
+		"offertoriumID": 667,
+		"gbid": "st_vincent_de_paul",
+		"ref": "mass_ii_confessor_not_bishop"
+	},
+	"Jul2": {
+		"communioID": 160,
+		"gradualeID": 392,
+		"alleluiaID": 481,
+		"introitusID": 1140,
+		"offertoriumID": 567,
+		"gbid": "visitation_bvm",
+		"inVerses": "Ps 44: 5, 8",
+		"coVerses": "Luc 1: 46-55"
+	},
+	"Jul20": {
+		"communioID": 1014,
+		"gradualeID": 75,
+		"alleluiaID": 569,
+		"introitusID": 1297,
+		"offertoriumID": 1362,
+		"gbid": "st_jerome_aemilian",
+		"coVerses": "Ps 33"
+	},
+	"Jul22": {
+		"communioID": 844,
+		"gradualeID": 394,
+		"alleluiaID": 1076,
+		"introitusID": 938,
+		"offertoriumID": 1333,
+		"gbid": "st_mary_magdalen",
+		"inVerses": "Ps 118: 2, 39, 45, 77, 99-100, 143",
+		"coVerses": "Ps 118: 1, 78, 81, 113, 115, 120, 163, 166"
+	},
+	"Jul23": {
+		"communioID": 383,
+		"gradualeID": 827,
+		"alleluiaID": 1187,
+		"introitusID": 227,
+		"offertoriumID": 630,
+		"gbid": "st_apollinaris",
+		"inVerses": "Dan 3: 58-61",
+		"coVerses": "Ps 131: 1, 9-13, 16-18"
+	},
+	"Jul25": {
+		"communioID": 1028,
+		"gradualeID": 307,
+		"alleluiaID": 1030,
+		"introitusID": 475,
+		"offertoriumID": 570,
+		"gbid": "st_james",
+		"inVerses": "Ps 138: 2-6",
+		"coVerses": "Ps 115"
+	},
+	"Jul26": {
+		"communioID": 900,
+		"gradualeID": 394,
+		"alleluiaID": 1076,
+		"introitusID": 950,
+		"offertoriumID": 1333,
+		"gbid": "st_ann",
+		"inVerses": "Ps 44: 5",
+		"coVerses": "Ps 44: 2, 5, 8, 10-13, 15"
+	},
+	"Jul27": {
+		"communioID": 685,
+		"gradualeID": 764,
+		"alleluiaID": 1201,
+		"introitusID": 251,
+		"offertoriumID": 487,
+		"gbid": "st_pantaleon",
+		"ref": "mass_ii_martyr_not_bishop"
+	},
+	"Jul28": {
+		"communioID": 658,
+		"gradualeID": 888,
+		"alleluiaID": 1250,
+		"introitusID": 261,
+		"offertoriumID": 919,
+		"gbid": "ss_nazarius_celsus_victor_innocent",
+		"ref": "mass_i_two_or_more_martyr"
+	},
+	"Jul3": {
+		"communioID": 703,
+		"gradualeID": 672,
+		"alleluiaID": 1015,
+		"introitusID": 1093,
+		"offertoriumID": 1300,
+		"gbid": "st_irenaeus",
+		"coVerses": "Ps 25: 1-3, 8-9, 11"
+	},
+	"Jul31": {
+		"communioID": 514,
+		"gradualeID": 34,
+		"alleluiaID": 724,
+		"introitusID": 1295,
+		"offertoriumID": 630,
+		"gbid": "st_ignatius_of_loyola",
+		"coVerses": "Ps 20: 2-7"
+	},
+	"Jul5": {
+		"communioID": 201,
+		"gradualeID": 155,
+		"alleluiaID": 96,
+		"introitusID": 1349,
+		"offertoriumID": 662,
+		"gbid": "st_am_zaccaria",
+		"coVerses": "Ps 33: 1, 3-6, 8"
+	},
+	"Jul7": {
+		"communioID": 1002,
+		"gradualeID": 415,
+		"alleluiaID": 1187,
+		"introitusID": 48,
+		"offertoriumID": 919,
+		"gbid": "ss_cyril_methodius",
+		"inVerses": "Ps 131: 16-17",
+		"coVerses": "Ps 125"
+	},
+	"Jun1": {
+		"communioID": 1301,
+		"gradualeID": 174,
+		"alleluiaID": 208,
+		"introitusID": 629,
+		"offertoriumID": 1333,
+		"gbid": "st_angela_merici",
+		"ref": "mass_i_virgin_not_martyr"
+	},
+	"Jun10": {
+		"communioID": 799,
+		"gradualeID": 947,
+		"alleluiaID": 406,
+		"introitusID": 619,
+		"offertoriumID": 177,
+		"gbid": "st_margaret_queen_of_scotland",
+		"ref": "mass_holy_woman_not_martyr"
+	},
+	"Jun11": {
+		"communioID": 1028,
+		"gradualeID": 351,
+		"alleluiaID": 1030,
+		"introitusID": 475,
+		"offertoriumID": 1319,
+		"gbid": "st_barnabas",
+		"inVerses": "Ps 138: 1-6, 17-18, 23-24",
+		"ofVerses": "Ps 44: 2",
+		"coVerses": "Ps 125"
+	},
+	"Jun12": {
+		"communioID": 1154,
+		"gradualeID": 34,
+		"alleluiaID": 724,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_john_of_san_facundo",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Jun14": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 1350,
+		"introitusID": 233,
+		"offertoriumID": 630,
+		"gbid": "st_basil_the_great",
+		"inVerses": "Ps 91: 13-14",
+		"coVerses": "Ps 118: 1-2, 14, 24, 30, 48, 99-100, 129-130"
+	},
+	"Jun19a": {
+		"introitusID": 271,
+		"gradualeID": 888,
+		"alleluiaID": 32,
+		"offertoriumID": 786,
+		"communioID": 184,
+		"gbid": "ss_gervase_protase",
+		"inVerses": "Ps 84: 3, 7",
+		"coVerses": "Ps 78: 1, 3-6, 13"
+	},
+	"Jun21": {
+		"communioID": 711,
+		"gradualeID": 1334,
+		"alleluiaID": 1170,
+		"introitusID": 857,
+		"offertoriumID": 1306,
+		"gbid": "st_aloysius",
+		"inVerses": "Ps 148: 1, 3",
+		"coVerses": "Ps 77: 1-3, 4-5, 7, 23-25, 29, 71-72"
+	},
+	"Jun22": {
+		"communioID": 1008,
+		"gradualeID": 235,
+		"alleluiaID": 477,
+		"introitusID": 48,
+		"offertoriumID": 779,
+		"gbid": "st_paulinus",
+		"inVerses": "Ps 131: 16-17",
+		"coVerses": "Ps 131: 1, 9-13, 16-18"
+	},
+	"Jun24": {
+		"communioID": 133,
+		"gradualeID": 647,
+		"alleluiaID": 847,
+		"introitusID": 659,
+		"offertoriumID": 777,
+		"gbid": "st_john_baptist",
+		"inVerses": "Ps 91: 3, 5",
+		"ofVerses": "Ps 91: 2",
+		"coVerses": "Luc 1: 68-79"
+	},
+	"Jun26": {
+		"communioID": 658,
+		"gradualeID": 614,
+		"alleluiaID": 32,
+		"introitusID": 248,
+		"offertoriumID": 1375,
+		"gbid": "ss_john_paul",
+		"coVerses": "Sap 3: 1-3, 5, 8-9"
+	},
+	"Jun29": {
+		"communioID": 509,
+		"gradualeID": 307,
+		"alleluiaID": 228,
+		"introitusID": 478,
+		"offertoriumID": 1319,
+		"gbid": "ss_peter_paul",
+		"inVerses": "Ps 138: 17-18",
+		"ofVerses": "Ps 44: 2",
+		"coVerses": "Ps 138: 1-6, 13-14, 17-18, 23"
+	},
+	"Jun30": {
+		"communioID": 1337,
+		"gradualeID": 1347,
+		"alleluiaID": 120,
+		"introitusID": 1179,
+		"offertoriumID": 499,
+		"gbid": "st_paul",
+		"coVerses": "Ps 138: 1-6, 17"
+	},
+	"Jun4": {
+		"communioID": 6,
+		"gradualeID": 398,
+		"alleluiaID": 594,
+		"introitusID": 1313,
+		"offertoriumID": 777,
+		"gbid": "st_francis_caracciolo",
+		"ofVerses": "Ps 91: 2",
+		"coVerses": "Ps 30: 2-4, 6, 7-8"
+	},
+	"Jun5": {
+		"communioID": 1190,
+		"gradualeID": 1181,
+		"alleluiaID": 198,
+		"introitusID": 1224,
+		"offertoriumID": 143,
+		"gbid": "st_boniface_bm",
+		"ofVerses": "Ps 15: 1, 2, 5"
+	},
+	"Mar10": {
+		"tractusID": 305,
+		"communioID": 957,
+		"gradualeID": 614,
+		"introitusID": 788,
+		"offertoriumID": 786,
+		"gbid": "forty_martyrs",
+		"coVerses": "Ps 33: 1, 11, 17"
+	},
+	"Mar12": {
+		"tractusID": 1085,
+		"communioID": 509,
+		"gradualeID": 1119,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_gregory_the_great",
+		"ref": "mass_holy_pope"
+	},
+	"Mar17": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 235,
+		"introitusID": 456,
+		"offertoriumID": 779,
+		"gbid": "st_patrick",
+		"ref": "mass_i_confessor_bishop"
+	},
+	"Mar19": {
+		"communioID": 139,
+		"gradualeID": 600,
+		"alleluiaID": 14,
+		"introitusID": 108,
+		"offertoriumID": 630,
+		"fromGregorianBooks": []
+	},
+	"Mar19Quad": {
+		"tractusID": 7670,
+		"communioID": 139,
+		"gradualeID": 600,
+		"introitusID": 108,
+		"offertoriumID": 630,
+		"gbid": "st_joseph",
+		"inVerses": "Ps 91: 3, 5",
+		"coVerses": "Ps 111: 1-9"
+	},
+	"Mar19Pasch": {
+		"communioID": 139,
+		"gradualeID": 14,
+		"alleluiaID": 1207,
+		"introitusID": 108,
+		"offertoriumID": 630,
+		"gbid": "st_joseph",
+		"inVerses": "Ps 91: 3, 5",
+		"coVerses": "Ps 111: 1-9"
+	},
+	"Mar21": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 600,
+		"introitusID": 1374,
+		"offertoriumID": 722,
+		"gbid": "st_benedict",
+		"ref": "mass_abbots"
+	},
+	"Mar24": {
+		"tractusID": 266,
+		"communioID": 1127,
+		"gradualeID": 609,
+		"introitusID": 985,
+		"offertoriumID": 302,
+		"gbid": "st_gabriel",
+		"inVerses": "Ps 102: 21-22",
+		"ofVerses": "Ps 137: 1, 2",
+		"coVerses": "Dan 3: 57, 60-65, 83-87"
+	},
+	"Mar25": {
+		"communioID": 1144,
+		"gradualeID": 947,
+		"alleluiaID": 1209,
+		"introitusID": 124,
+		"offertoriumID": 843,
+		"fromGregorianBooks": []
+	},
+	"Mar25Quad": {
+		"tractusID": 738,
+		"communioID": 1144,
+		"gradualeID": 947,
+		"introitusID": 124,
+		"offertoriumID": 843,
+		"gbid": "annunciation_bvm",
+		"inVerses": "Ps 44: 5, 8",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16; Ps 18: 2-7"
+	},
+	"Mar25Pasch": {
+		"communioID": 1144,
+		"gradualeID": 1209,
+		"alleluiaID": 281,
+		"introitusID": 124,
+		"offertoriumID": 843,
+		"gbid": "annunciation_bvm",
+		"inVerses": "Ps 44: 5, 8",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16; Ps 18: 2-7"
+	},
+	"Mar27": {
+		"tractusID": 35,
+		"communioID": 601,
+		"gradualeID": 306,
+		"introitusID": 656,
+		"offertoriumID": 166,
+		"gbid": "st_john_damascene",
+		"inVerses": "Ps 72: 25, 28",
+		"coVerses": "Ps 36: 1, 3, 16, 18-19, 23, 27-28, 29, 34"
+	},
+	"Mar28": {
+		"tractusID": 250,
+		"communioID": 877,
+		"gradualeID": 370,
+		"introitusID": 52,
+		"offertoriumID": 244,
+		"gbid": "st_john_capistran",
+		"coVerses": "Ps 77: 1, 3, 4, 23-25, 27-28"
+	},
+	"Mar6": {
+		"tractusID": 256,
+		"communioID": 1292,
+		"gradualeID": 394,
+		"introitusID": 938,
+		"offertoriumID": 177,
+		"gbid": "ss_perpetua_felicity",
+		"ref": "mass_holy_woman_martyr"
+	},
+	"Mar7": {
+		"tractusID": 7670,
+		"communioID": 1008,
+		"gradualeID": 511,
+		"introitusID": 233,
+		"offertoriumID": 777,
+		"gbid": "st_thomas_aquinas",
+		"ref": "mass_doctors"
+	},
+	"Mar8": {
+		"tractusID": 7670,
+		"communioID": 1154,
+		"gradualeID": 34,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_john_of_god",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"Mar9": {
+		"tractusID": 256,
+		"communioID": 799,
+		"gradualeID": 947,
+		"introitusID": 619,
+		"offertoriumID": 177,
+		"gbid": "st_frances_of_rome",
+		"ref": "mass_holy_woman_not_martyr"
+	},
+	"May1": {
+		"communioID": 28,
+		"gradualeID": 1344,
+		"alleluiaID": 213,
+		"introitusID": 646,
+		"offertoriumID": 26,
+		"gbid": "st_joseph_workman",
+		"inVerses": "Ps 126: 2",
+		"coVerses": "Ps 103: 1-2, 23-24, 30-31, 33-35"
+	},
+	"May1Quad": {
+		"communioID": 28,
+		"gradualeID": 1344,
+		"tractusID": 444,
+		"introitusID": 646,
+		"offertoriumID": 26,
+		"gbid": "st_joseph_workman",
+		"inVerses": "Ps 126: 2",
+		"coVerses": "Ps 103: 1-2, 23-24, 30-31, 33-35"
+	},
+	"May1Pasch": {
+		"communioID": 28,
+		"gradualeID": 1324,
+		"alleluiaID": 213,
+		"introitusID": 646,
+		"offertoriumID": 26,
+		"gbid": "st_joseph_workman",
+		"inVerses": "Ps 126: 2",
+		"coVerses": "Ps 103: 1-2, 23-24, 30-31, 33-35"
+	},
+	"May10": {
+		"communioID": 1008,
+		"gradualeID": 235,
+		"alleluiaID": 477,
+		"introitusID": 456,
+		"offertoriumID": 779,
+		"gbid": "st_antoninus",
+		"ref": "mass_i_confessor_bishop"
+	},
+	"May11": {
+		"communioID": 921,
+		"gradualeID": 307,
+		"alleluiaID": 1101,
+		"introitusID": 469,
+		"offertoriumID": 1382,
+		"gbid": "ss_philip_james",
+		"inVerses": "Ps 32: 2-4, 12-15, 18",
+		"coVerses": "Ps 32: 1-3, 6, 12-13, 18"
+	},
+	"May11Quad": {
+		"communioID": 921,
+		"gradualeID": 307,
+		"tractusID": 305,
+		"introitusID": 469,
+		"offertoriumID": 1382,
+		"gbid": "ss_philip_james",
+		"inVerses": "Ps 32: 2-4, 12-15, 18",
+		"coVerses": "Ps 32: 1-3, 6, 12-13, 18"
+	},
+	"May11Pasch": {
+		"communioID": 921,
+		"gradualeID": 762,
+		"alleluiaID": 1101,
+		"introitusID": 469,
+		"offertoriumID": 1382,
+		"gbid": "ss_philip_james",
+		"inVerses": "Ps 32: 2-4, 12-15, 18",
+		"coVerses": "Ps 32: 1-3, 6, 12-13, 18"
+	},
+	"May12": {
+		"communioID": 772,
+		"gradualeID": 32,
+		"alleluiaID": 590,
+		"introitusID": 1222,
+		"offertoriumID": 1382,
+		"gbid": "ss_nereus_achilleus_domitia_pancras",
+		"coVerses": "Ps 32: 2-4, 12-15, 18"
+	},
+	"May13": {
+		"communioID": 559,
+		"gradualeID": 235,
+		"alleluiaID": 1189,
+		"introitusID": 233,
+		"offertoriumID": 102,
+		"gbid": "st_robert_bellarmine",
+		"inVerses": "Ps 91: 13-14",
+		"coVerses": "Ps 91: 2-3, 5-6, 13-14"
+	},
+	"May13Quad": {
+		"communioID": 559,
+		"gradualeID": 235,
+		"tractusID": 1063,
+		"introitusID": 233,
+		"offertoriumID": 102,
+		"gbid": "st_robert_bellarmine",
+		"inVerses": "Ps 91: 13-14",
+		"coVerses": "Ps 91: 2-3, 5-6, 13-14"
+	},
+	"May13Pasch": {
+		"communioID": 559,
+		"gradualeID": 1189,
+		"alleluiaID": 231,
+		"introitusID": 233,
+		"offertoriumID": 102,
+		"gbid": "st_robert_bellarmine",
+		"inVerses": "Ps 91: 13-14",
+		"coVerses": "Ps 91: 2-3, 5-6, 13-14"
+	},
+	"May15": {
+		"communioID": 1154,
+		"gradualeID": 34,
+		"alleluiaID": 724,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_john_baptist_de_la_salle",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"May15Pasch": {
+		"communioID": 1154,
+		"gradualeID": 724,
+		"alleluiaID": 14,
+		"introitusID": 1374,
+		"offertoriumID": 630,
+		"gbid": "st_john_baptist_de_la_salle",
+		"ref": "mass_i_confessor_not_bishop"
+	},
+	"May16": {
+		"communioID": 1008,
+		"gradualeID": 235,
+		"alleluiaID": 477,
+		"introitusID": 456,
+		"offertoriumID": 779,
+		"gbid": "st_ubuald",
+		"ref": "mass_i_confessor_bishop"
+	},
+	"May16Pasch": {
+		"communioID": 1008,
+		"gradualeID": 477,
+		"alleluiaID": 1118,
+		"introitusID": 456,
+		"offertoriumID": 779,
+		"gbid": "st_ubuald",
+		"ref": "mass_i_confessor_bishop"
+	},
+	"May2": {
+		"communioID": 1002,
+		"gradualeID": 477,
+		"alleluiaID": 724,
+		"introitusID": 233,
+		"offertoriumID": 779,
+		"gbid": "st_athanasius",
+		"inVerses": "Ps 91: 13-14",
+		"coVerses": "Ps 125"
+	},
+	"May24": {
+		"communioID": 160,
+		"gradualeID": 392,
+		"alleluiaID": 127,
+		"introitusID": 1140,
+		"offertoriumID": 843,
+		"gbid": "mass_bvm",
+		"inVerses": "Ps 44: 5, 8",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"May26": {
+		"communioID": 1367,
+		"gradualeID": 1022,
+		"alleluiaID": 194,
+		"introitusID": 530,
+		"offertoriumID": 1253,
+		"gbid": "st_philip_neri",
+		"coVerses": "Ps 83: 2-3, 9-13"
+	},
+	"May26Pasch": {
+		"communioID": 1367,
+		"gradualeID": 194,
+		"alleluiaID": 237,
+		"introitusID": 530,
+		"offertoriumID": 1253,
+		"gbid": "st_philip_neri",
+		"coVerses": "Ps 83: 2-3, 9-13"
+	},
+	"May28": {
+		"communioID": 1154,
+		"gradualeID": 415,
+		"alleluiaID": 1187,
+		"introitusID": 48,
+		"offertoriumID": 630,
+		"gbid": "st_augustine_of_canterbury",
+		"ref": "mass_ii_confessor_bishop"
+	},
+	"May28Pasch": {
+		"communioID": 1154,
+		"gradualeID": 1187,
+		"alleluiaID": 14,
+		"introitusID": 48,
+		"offertoriumID": 630,
+		"gbid": "st_augustine_of_canterbury",
+		"ref": "mass_ii_confessor_bishop"
+	},
+	"May29": {
+		"communioID": 1301,
+		"gradualeID": 174,
+		"alleluiaID": 208,
+		"introitusID": 629,
+		"offertoriumID": 1333,
+		"gbid": "st_mary_magdalene_pazzi",
+		"ref": "mass_i_virgin_not_martyr"
+	},
+	"May29Pasch": {
+		"communioID": 1301,
+		"gradualeID": 208,
+		"alleluiaID": 406,
+		"introitusID": 629,
+		"offertoriumID": 1333,
+		"gbid": "st_mary_magdalene_pazzi",
+		"ref": "mass_i_virgin_not_martyr"
+	},
+	"May31": {
+		"communioID": 1053,
+		"gradualeID": 1368,
+		"alleluiaID": 717,
+		"introitusID": 61,
+		"offertoriumID": 719,
+		"gbid": "bvm_queen",
+		"inVerses": "Ps 44: 11-12",
+		"coVerses": "Ps 44"
+	},
+	"May31Pasch": {
+		"communioID": 1053,
+		"gradualeID": 734,
+		"alleluiaID": 354,
+		"introitusID": 61,
+		"offertoriumID": 719,
+		"gbid": "bvm_queen",
+		"inVerses": "Ps 44: 11-12",
+		"coVerses": "Ps 44"
+	},
+	"May4": {
+		"communioID": 799,
+		"gradualeID": 406,
+		"alleluiaID": 913,
+		"introitusID": 619,
+		"offertoriumID": 177,
+		"gbid": "st_monica",
+		"ref": "mass_holy_woman_not_martyr"
+	},
+	"May5": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_pius_v",
+		"ref": "mass_holy_pope"
+	},
+	"May5Pasch": {
+		"communioID": 509,
+		"gradualeID": 228,
+		"alleluiaID": 548,
+		"introitusID": 674,
+		"offertoriumID": 358,
+		"gbid": "st_pius_v",
+		"ref": "mass_holy_pope"
+	},
+	"Nov1": {
+		"communioID": 345,
+		"gradualeID": 371,
+		"alleluiaID": 1237,
+		"introitusID": 752,
+		"offertoriumID": 835,
+		"gbid": "all_saints",
+		"coVerses": "Ps 125"
+	},
+	"Nov11": {
+		"communioID": 1154,
+		"gradualeID": 235,
+		"alleluiaID": 988,
+		"introitusID": 456,
+		"offertoriumID": 630,
+		"gbid": "st_martin",
+		"inVerses": "Ps 131: 9, 16",
+		"coVerses": "Ps 19: 2-9"
+	},
+	"Nov14": {
+		"communioID": 556,
+		"gradualeID": 827,
+		"alleluiaID": 1118,
+		"introitusID": 417,
+		"offertoriumID": 401,
+		"gbid": "st_josaphat",
+		"inVerses": "Ps 32: 2-4, 12-15, 18",
+		"coVerses": "Ps 22"
+	},
+	"Nov2": {
+		"ref": "requiem",
+		"gbid": "all_souls"
+	},
+	"Nov5": {
+		"inID": 248,
+		"inRef": "Ps 33: 20-21, 2",
+		"grID": 963,
+		"grRef": "Ps 149: 5, 1",
+		"alID": 896,
+		"alRef": "Ps 67: 4",
+		"ofID": 919,
+		"ofRef": "Ps 67: 36",
+		"coID": 1109,
+		"coRef": "Ps 32: 1",
+		"gbid": "holy_relics"
+	},
+	"Nov21": {
+		"communioID": 160,
+		"gradualeID": 392,
+		"alleluiaID": 127,
+		"introitusID": 1140,
+		"offertoriumID": 843,
+		"gbid": "presentation_bvm",
+		"ref": "mass_bvm"
+	},
+	"Nov22": {
+		"communioID": 1032,
+		"gradualeID": 840,
+		"alleluiaID": 301,
+		"introitusID": 510,
+		"offertoriumID": 1107,
+		"gbid": "st_cecilia",
+		"inVerses": "Ps 118: 2-3, 8-9, 26, 59-60, 134, 168",
+		"coVerses": "Ps 118: 1, 41, 85, 87, 113, 123, 157, 161, 166, 174"
+	},
+	"Nov23": {
+		"communioID": 509,
+		"gradualeID": 1119,
+		"alleluiaID": 228,
+		"introitusID": 409,
+		"offertoriumID": 358,
+		"gbid": "st_clement",
+		"coVerses": "Ps 39: 2-4, 6, 10-11, 14, 17, 18"
+	},
+	"Nov25": {
+		"communioID": 1032,
+		"gradualeID": 394,
+		"alleluiaID": 208,
+		"introitusID": 510,
+		"offertoriumID": 1107,
+		"gbid": "st_catherine",
+		"ref": "mass_i_virgin_martyr"
+	},
+	"Nov26": {
+		"communioID": 1008,
+		"gradualeID": 600,
+		"alleluiaID": 946,
+		"introitusID": 1374,
+		"offertoriumID": 722,
+		"gbid": "st_sylvester",
+		"ref": "mass_abbots"
+	},
+	"Nov27": {
+		"communioID": 1087,
+		"gradualeID": 1174,
+		"alleluiaID": 254,
+		"introitusID": 493,
+		"offertoriumID": 687,
+		"gbid": "our_lady_miraculous_medal"
+	},
+	"Nov30": {
+		"communioID": 552,
+		"gradualeID": 307,
+		"alleluiaID": 984,
+		"introitusID": 475,
+		"offertoriumID": 499,
+		"gbid": "st_andrew",
+		"inVerses": "Ps 138: 2-6",
+		"coVerses": "Ps 118: 1, 20, 40, 48, 65, 103, 167, 174"
+	},
+	"Nov8": {
+		"communioID": 658,
+		"gradualeID": 888,
+		"alleluiaID": 1250,
+		"introitusID": 261,
+		"offertoriumID": 919,
+		"gbid": "four_crowned_martyrs",
+		"ref": "mass_i_two_or_more_martyr"
+	},
+	"Nov9": {
+		"communioID": 43,
+		"gradualeID": 651,
+		"alleluiaID": 242,
+		"introitusID": 923,
+		"offertoriumID": 200,
+		"gbid": "dedication_arch_basilica_our_saviour",
+		"ref": "mass_dedication_church"
+	},
+	"Oct11": {
+		"communioID": 160,
+		"gradualeID": 471,
+		"alleluiaID": 1114,
+		"introitusID": 1372,
+		"offertoriumID": 910,
+		"gbid": "maternity_bvm",
+		"inVerses": "Ps 97: 1-2",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"Oct17": {
+		"communioID": 459,
+		"gradualeID": 790,
+		"alleluiaID": 1307,
+		"introitusID": 1195,
+		"offertoriumID": 618,
+		"gbid": "ste_marguerite_marie_alacoque",
+		"coVerses": "Ps 118: 1, 78, 81, 113, 115, 120, 163, 166"
+	},
+	"Oct18": {
+		"communioID": 1028,
+		"gradualeID": 351,
+		"alleluiaID": 1030,
+		"introitusID": 475,
+		"offertoriumID": 499,
+		"gbid": "st_luke",
+		"inVerses": "Ps 138: 2-6",
+		"coVerses": "Ps 125; Ps 138"
+	},
+	"Oct2": {
+		"communioID": 1127,
+		"gradualeID": 834,
+		"alleluiaID": 784,
+		"introitusID": 985,
+		"offertoriumID": 1270,
+		"gbid": "guardian_angels",
+		"inVerses": "Ps 102: 21-22",
+		"coVerses": "Dan 3: 57, 60-65, 83-87"
+	},
+	"Oct20": {
+		"communioID": 1003,
+		"gradualeID": 971,
+		"alleluiaID": 792,
+		"introitusID": 970,
+		"offertoriumID": 515,
+		"gbid": "st_john_cantius",
+		"coVerses": "Ps 33"
+	},
+	"Oct23": {
+		"communioID": 1154,
+		"gradualeID": 415,
+		"alleluiaID": 1187,
+		"introitusID": 48,
+		"offertoriumID": 630,
+		"gbid": "st_anthony_mary_claret",
+		"ref": "mass_ii_confessor_bishop"
+	},
+	"Oct24": {
+		"communioID": 1127,
+		"gradualeID": 581,
+		"alleluiaID": 814,
+		"introitusID": 985,
+		"offertoriumID": 302,
+		"gbid": "st_raphael",
+		"inVerses": "Ps 102: 21-22",
+		"ofVerses": "Ps 137: 1, 2",
+		"coVerses": "Dan 3: 57, 60-65, 83-87"
+	},
+	"Oct28": {
+		"communioID": 1028,
+		"gradualeID": 307,
+		"alleluiaID": 130,
+		"introitusID": 475,
+		"offertoriumID": 570,
+		"gbid": "ss_simon_jude",
+		"inVerses": "Ps 138: 2-6",
+		"coVerses": "Ps 125; Ps 138"
+	},
+	"Oct3": {
+		"communioID": 162,
+		"gradualeID": 1034,
+		"alleluiaID": 1257,
+		"introitusID": 59,
+		"offertoriumID": 362,
+		"gbid": "ste_therese_ej",
+		"inVerses": "Ps 112: 2-3",
+		"coVerses": "Deut 32: 1-4"
+	},
+	"Oct7": {
+		"communioID": 104,
+		"gradualeID": 807,
+		"alleluiaID": 420,
+		"introitusID": 246,
+		"offertoriumID": 494,
+		"gbid": "most_holy_rosary",
+		"inVerses": "Ps 44: 5",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"Oct9": {
+		"communioID": 991,
+		"gradualeID": 1186,
+		"alleluiaID": 664,
+		"introitusID": 41,
+		"offertoriumID": 1098,
+		"gbid": "st_john_leonardi",
+		"coVerses": "Ps 20: 2-7"
+	},
+	"Sep12": {
+		"communioID": 160,
+		"gradualeID": 392,
+		"alleluiaID": 127,
+		"introitusID": 124,
+		"offertoriumID": 843,
+		"gbid": "most_holy_name_mary",
+		"inVerses": "Ps 44: 5, 8",
+		"ofVerses": "Luc 1: 34, 35",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"Sep14": {
+		"communioID": 346,
+		"gradualeID": 873,
+		"alleluiaID": 859,
+		"introitusID": 359,
+		"offertoriumID": 195,
+		"gbid": "exaltation_holy_cross",
+		"inVerses": "Ps 66: 2, 3",
+		"coVerses": "Ps 17: 2-3, 4, 18, 38-39, 41, 48-50"
+	},
+	"Sep15": {
+		"communioID": 1180,
+		"gradualeID": 1383,
+		"alleluiaID": 853,
+		"introitusID": 149,
+		"offertoriumID": 787,
+		"sequentiaID": 681,
+		"gbid": "seven_dolours_bvm"
+	},
+	"Sep17": {
+		"communioID": 1008,
+		"gradualeID": 511,
+		"alleluiaID": 1200,
+		"introitusID": 849,
+		"offertoriumID": 630,
+		"gbid": "st_francis_stigmata",
+		"coVerses": "Ps 111: 1-9"
+	},
+	"Sep18": {
+		"communioID": 976,
+		"gradualeID": 600,
+		"alleluiaID": 473,
+		"introitusID": 258,
+		"offertoriumID": 607,
+		"gbid": "st_joseph_of_cupertino"
+	},
+	"Sep21": {
+		"communioID": 365,
+		"gradualeID": 153,
+		"alleluiaID": 442,
+		"introitusID": 1374,
+		"offertoriumID": 487,
+		"gbid": "st_matthew",
+		"inVerses": "Ps 36: 3, 26",
+		"coVerses": "Ps 20: 2-5, 7-9, 14"
+	},
+	"Sep27": {
+		"communioID": 184,
+		"gradualeID": 1009,
+		"alleluiaID": 32,
+		"introitusID": 11,
+		"offertoriumID": 1375,
+		"gbid": "ss_cosmas_and_damian",
+		"inVerses": "Ps 32: 2-4, 12-15, 18",
+		"coVerses": "Ps 78: 1, 3-6, 13"
+	},
+	"Sep28": {
+		"communioID": 89,
+		"gradualeID": 153,
+		"alleluiaID": 1249,
+		"introitusID": 316,
+		"offertoriumID": 407,
+		"gbid": "st_wenceslaus",
+		"ref": "mass_i_martyr_not_bishop"
+	},
+	"Sep29": {
+		"communioID": 1127,
+		"gradualeID": 609,
+		"alleluiaID": 1103,
+		"introitusID": 985,
+		"offertoriumID": 302,
+		"gbid": "st_michael",
+		"inVerses": "Ps 102: 21-22",
+		"ofVerses": "Ps 137: 1, 2",
+		"coVerses": "Dan 3: 57, 60-65, 83-87"
+	},
+	"Sep3": {
+		"communioID": 90,
+		"gradualeID": 977,
+		"alleluiaID": 467,
+		"introitusID": 452,
+		"offertoriumID": 805,
+		"gbid": "st_pius_x",
+		"inVerses": "Ps 88: 23, 25",
+		"coVerses": "Ps 77: 1-3, 23-25, 29, 70-72"
+	},
+	"Sep3Quad": {
+		"tractusID": 1281,
+		"communioID": 90,
+		"gradualeID": 977,
+		"introitusID": 452,
+		"offertoriumID": 805,
+		"gbid": "st_pius_x",
+		"inVerses": "Ps 88: 23, 25",
+		"coVerses": "Ps 77: 1-3, 23-25, 29, 70-72"
+	},
+	"Sep3Pasch": {
+		"communioID": 90,
+		"gradualeID": 467,
+		"alleluiaID": 315,
+		"introitusID": 452,
+		"offertoriumID": 805,
+		"gbid": "st_pius_x",
+		"inVerses": "Ps 88: 23, 25",
+		"coVerses": "Ps 77: 1-3, 23-25, 29, 70-72"
+	},
+	"Jan16": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_marcellus_i"
+	},
+	"Feb6": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_titus"
+	},
+	"Feb8": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_john_of_matha"
+	},
+	"Feb9": {
+		"ref": "mass_doctors",
+		"gbid": "st_cyril_alexandria"
+	},
+	"Feb18": {
+		"ref": "mass_i_martyr_bishop",
+		"gbid": "st_simeon"
+	},
+	"Feb22": {
+		"ref": "Jan18",
+		"gbid": "st_peter_chair_rome"
+	},
+	"Feb23": {
+		"ref": "mass_doctors",
+		"gbid": "st_peter_damian"
+	},
+	"Mar4": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_casimir"
+	},
+	"Mar18": {
+		"ref": "mass_doctors",
+		"gbid": "st_cyril_jerusalem"
+	},
+	"Apr24": {
+		"ref": "mass_i_martyr_not_bishop",
+		"gbid": "st_fidelis_of_sigmaringen"
+	},
+	"Apr25": {
+		"ref": "mass_one_martyr",
+		"gbid": "st_mark",
+		"inVerses": "Ps 63: 4, 11",
+		"coVerses": "Ps 63: 2-7"
+	},
+	"Apr26": {
+		"ref": "mass_holy_pope",
+		"gbid": "ss_cletus_marcellinus"
+	},
+	"Apr27": {
+		"ref": "mass_doctors",
+		"gbid": "st_peter_canisius"
+	},
+	"Apr29": {
+		"ref": "mass_one_martyr",
+		"gbid": "st_peter_of_verona"
+	},
+	"May7": {
+		"communioID": 586,
+		"gradualeID": 1206,
+		"alleluiaID": 1118,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_stanislaus",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"May7Quad": {
+		"tractusID": 7670,
+		"communioID": 586,
+		"gradualeID": 1206,
+		"introitusID": 227,
+		"offertoriumID": 779,
+		"gbid": "st_stanislaus",
+		"ref": "mass_ii_martyr_bishop"
+	},
+	"May7Pasch": {
+		"communioID": 617,
+		"gradualeID": 762,
+		"alleluiaID": 1249,
+		"introitusID": 340,
+		"offertoriumID": 1382,
+		"gbid": "st_stanislaus",
+		"ref": "mass_one_martyr"
+	},
+	"May9": {
+		"ref": "mass_doctors",
+		"gbid": "st_gregory_nazianzen"
+	},
+	"May17": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_paschal_baylon"
+	},
+	"May18": {
+		"ref": "mass_i_martyr_not_bishop",
+		"gbid": "st_venantius"
+	},
+	"May19": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_peter_celestine"
+	},
+	"May20": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_bernardine_of_sienna"
+	},
+	"May27": {
+		"ref": "mass_doctors",
+		"gbid": "st_bede_venerable"
+	},
+	"May30": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_felix_i"
+	},
+	"Jun6": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_norbert"
+	},
+	"Jun13": {
+		"ref": "mass_doctors",
+		"gbid": "st_anthony_padua"
+	},
+	"Jun17": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_gregory_barbarigo"
+	},
+	"Jun18": {
+		"ref": "mass_doctors",
+		"gbid": "st_ephraem_syrian"
+	},
+	"Jun19": {
+		"ref": "mass_i_virgin_not_martyr",
+		"gbid": "st_juliana_falconeri"
+	},
+	"Jun20": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_silverius"
+	},
+	"Jun25": {
+		"ref": "mass_abbots",
+		"gbid": "st_william"
+	},
+	"Jul8": {
+		"ref": "mass_holy_woman_not_martyr",
+		"gbid": "st_elizabeth"
+	},
+	"Jul12": {
+		"ref": "mass_abbots",
+		"gbid": "st_john_gualbert"
+	},
+	"Jul15": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_henry",
+		"coVerses": "Ps 71: 2, 4, 10-13"
+	},
+	"Jul17": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_alexius"
+	},
+	"Jul21": {
+		"ref": "mass_doctors",
+		"gbid": "st_lawrence_brindisi"
+	},
+	"Jul29": {
+		"ref": "mass_i_virgin_not_martyr",
+		"gbid": "st_martha"
+	},
+	"Aug5": {
+		"ref": "mass_bvm",
+		"gbid": "lady_of_snow"
+	},
+	"Aug7": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_cajetan"
+	},
+	"Aug8": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_jean_marie_vianney"
+	},
+	"Aug12": {
+		"ref": "mass_i_virgin_not_martyr",
+		"gbid": "st_clare"
+	},
+	"Aug13": {
+		"ref": "mass_iii_two_or_more_martyr",
+		"gbid": "ss_hippolytus_cassian"
+	},
+	"Aug17": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_hyacinth"
+	},
+	"Aug18": {
+		"ref": "mass_ii_martyr_not_bishop",
+		"gbid": "st_agapitus"
+	},
+	"Aug19": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_john_eudes"
+	},
+	"Aug20": {
+		"ref": "mass_doctors",
+		"gbid": "st_bernard"
+	},
+	"Aug21": {
+		"ref": "mass_holy_woman_not_martyr",
+		"gbid": "st_jane_francis_de_chantal"
+	},
+	"Aug23": {
+		"ref": "mass_ii_confessor_not_bishop",
+		"gbid": "st_philip_benizi"
+	},
+	"Aug25": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_louis",
+		"coVerses": "Ps 71: 2, 4, 10-13"
+	},
+	"Aug30": {
+		"ref": "mass_i_virgin_not_martyr",
+		"gbid": "st_rose_of_lima"
+	},
+	"Aug31": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_nonnat"
+	},
+	"Sep2": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_stephen_of_hungary",
+		"coVerses": "Ps 71: 2, 4, 10-13"
+	},
+	"Sep5": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_lawrence_justinian"
+	},
+	"Sep8": {
+		"ref": "Jul2",
+		"gbid": "nativity_bvm",
+		"inVerses": "Ps 44: 5, 8",
+		"coVerses": "Ps 44: 2, 5, 8, 10-16"
+	},
+	"Sep9": {
+		"ref": "mass_ii_martyr_not_bishop",
+		"gbid": "st_gorgonius"
+	},
+	"Sep10": {
+		"ref": "mass_ii_confessor_not_bishop",
+		"gbid": "st_nicholas_of_tolentino"
+	},
+	"Sep11": {
+		"ref": "mass_iii_two_or_more_martyr",
+		"gbid": "ss_protus_hyacinth"
+	},
+	"Sep16": {
+		"ref": "Jul28",
+		"fromGregorianBooks": [
+			"ss_cornelius_cyprian",
+			"ss_euphemia_lucy_geminianus"
+		]
+	},
+	"Sep19": {
+		"ref": "mass_iii_two_or_more_martyr",
+		"gbid": "st_januarius_and_companions"
+	},
+	"Sep22": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_thomas_of_villanova"
+	},
+	"Sep23": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_linus"
+	},
+	"Sep24": {
+		"ref": "mass_bvm",
+		"gbid": "our_lady_of_ransom"
+	},
+	"Sep26": {
+		"ref": "mass_iii_two_or_more_martyr",
+		"gbid": "ss_cyprian_and_justina"
+	},
+	"Sep30": {
+		"ref": "mass_doctors",
+		"gbid": "st_jerome"
+	},
+	"Oct4": {
+		"ref": "st_francis_stigmata",
+		"gbid": "st_francis_assisi",
+		"coVerses": "Ps 111: 1-9"
+	},
+	"Oct5": {
+		"ref": "mass_iii_two_or_more_martyr",
+		"gbid": "st_placid_and_companions"
+	},
+	"Oct6": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_bruno"
+	},
+	"Oct8": {
+		"ref": "mass_holy_woman_not_martyr",
+		"gbid": "st_bridget"
+	},
+	"Oct10": {
+		"ref": "mass_abbots",
+		"gbid": "st_francis_borgia"
+	},
+	"Oct13": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_edward",
+		"coVerses": "Ps 71: 2, 4, 10-13"
+	},
+	"Oct14": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_callistus_i"
+	},
+	"Oct15": {
+		"ref": "mass_i_virgin_not_martyr",
+		"gbid": "st_teresa_avila"
+	},
+	"Oct16": {
+		"ref": "mass_holy_woman_not_martyr",
+		"gbid": "st_hedwig"
+	},
+	"Oct19": {
+		"ref": "mass_ii_confessor_not_bishop",
+		"gbid": "st_peter_of_alcantara"
+	},
+	"Nov4": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_charles_borromeo"
+	},
+	"Nov10": {
+		"ref": "mass_i_confessor_not_bishop",
+		"gbid": "st_andrew_avellino"
+	},
+	"Nov12": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_martin_i"
+	},
+	"Nov13": {
+		"ref": "mass_ii_confessor_not_bishop",
+		"gbid": "st_didacus"
+	},
+	"Nov15": {
+		"ref": "mass_doctors",
+		"gbid": "st_albert_the_great"
+	},
+	"Nov16": {
+		"ref": "mass_i_virgin_not_martyr",
+		"gbid": "st_gertrude"
+	},
+	"Nov17": {
+		"ref": "mass_i_confessor_bishop",
+		"gbid": "st_gregory_wonder_worker"
+	},
+	"Nov18": {
+		"ref": "mass_dedication_church",
+		"gbid": "dedication_basilica_ss_peter_paul"
+	},
+	"Nov19": {
+		"ref": "mass_holy_woman_not_martyr",
+		"gbid": "st_elizabeth_of_hungary"
+	},
+	"Nov20": {
+		"ref": "mass_ii_confessor_not_bishop",
+		"gbid": "st_felix_of_valois"
+	},
+	"Nov24": {
+		"ref": "mass_doctors",
+		"gbid": "st_john_cross"
+	},
+	"Nov29": {
+		"ref": "mass_ii_martyr_not_bishop",
+		"gbid": "st_saturninus"
+	},
+	"Dec5": {
+		"introitusID": 1374,
+		"gradualeID": 600,
+		"alleluiaID": 946,
+		"offertoriumID": 722,
+		"communioID": 1008,
+		"gbid": "st_sabbas",
+		"ref": "mass_abbots"
+	},
+	"Dec10": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_melchiades"
+	},
+	"Dec11": {
+		"ref": "mass_holy_pope",
+		"gbid": "st_damasus"
+	},
+	"mass_holy_pope": {
+		"title": "Mass of a Holy Pope",
+		"href": "http://www.introibo.fr/Commun-des-Souverains-Pontifes",
+		"in": "Si diligis me",
+		"inID": 674,
+		"inRef": "Ioann 21: 15, 16, 17; Ps 29: 2",
+		"inVerses": "Ps 29: 4, 5",
+		"gr": "Exaltent eum",
+		"grID": 1119,
+		"grRef": "Ps 106: 32, 31",
+		"al": "Tu es Petrus",
+		"alID": 228,
+		"alRef": "Matth 16: 18",
+		"trSept": "Annuntiavi",
+		"trSeptID": 1085,
+		"trSeptRef": "Ps 39: 10-11",
+		"trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
+		"alPasch": "Constitues eos",
+		"alPaschID": 548,
+		"alPaschRef": "Ps 44: 17, 18",
+		"alPaschRubric": "In Paschal Time the previous Alleluia is sung, then this one.",
+		"of": "Ecce (dedi)",
+		"ofID": 358,
+		"ofRef": "Jerem 1: 9-10",
+		"co": "Tu es Petrus",
+		"coID": 509,
+		"coRef": "Matth 16: 18",
+		"coVerses": "Ps 39: 2-4, 6, 10-11, 14, 17, 18",
+		"gbid": "mass_holy_pope",
+		"isUsed": true
+	},
+	"mass_i_martyr_not_bishop": {
+		"title": "Mass I of a Martyr not a Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Martyr-hors-du-Temps,323",
+		"in": "In virtute tua",
+		"inID": 316,
+		"inRef": "Ps 20: 2-3, 4",
+		"inVerses": "Ps 20: 6-7",
+		"gr": "Beatus vir (qui timet)",
+		"grID": 153,
+		"grRef": "Ps 111: 1-2",
+		"al": "Posuisti Domine",
+		"alID": 1249,
+		"alRef": "Ps 20: 4",
+		"trSept": "Desiderium",
+		"trSeptID": 176,
+		"trSeptRef": "Ps 20: 3-4",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"of": "Gloria et honore",
+		"ofID": 407,
+		"ofRef": "Ps 8: 6-7",
+		"co": "Qui vult venire",
+		"coID": 89,
+		"coRef": "Matth 16: 24",
+		"coVerses": "Ps 33: 1, 6-7, 15-22",
+		"gbid": "mass_i_martyr_not_bishop",
+		"isUsed": true
+	},
+	"mass_one_martyr": {
+		"title": "Mass of one Martyr (in Paschal Time)",
+		"href": "http://www.introibo.fr/Commun-d-un-Martyr-au-Temps-Pascal",
+		"in": "Protexisti me",
+		"inID": 340,
+		"inRef": "Ps 63: 3, 2",
+		"inVerses": "Ps 63: 4, 11",
+		"al": [
+			"Confitebuntur",
+			"Posuisti Domine"
+		],
+		"alID": [
+			762,
+			1249
+		],
+		"alRef": [
+			"Ps 88: 6",
+			"Ps 20: 4"
+		],
+		"of": "Confitebuntur",
+		"ofID": 1382,
+		"ofRef": "Ps 88: 6",
+		"co": "Laetabitur justus",
+		"coID": 617,
+		"coRef": "Ps 63: 11",
+		"coVerses": "Ps 63: 2-7",
+		"gbid": "mass_one_martyr",
+		"isUsed": true
+	},
+	"mass_ii_confessor_not_bishop": {
+		"title": "Mass II of a Confessor not a Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Confesseur-non-Pontife,333",
+		"in": "Justus ut palma",
+		"inID": 108,
+		"inRef": "Ps 91: 13-14, 2",
+		"inVerses": "Ps 91: 3, 5",
+		"gr": "Os justi",
+		"grID": 511,
+		"grRef": "Ps 36: 30-31",
+		"al": "Beatus vir qui timet",
+		"alID": 765,
+		"alRef": "Ps 111: 1",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"alPasch": "Justus germinabit",
+		"alPaschID": 1207,
+		"alPaschRef": "Osee 14: 6",
+		"alPaschRubric": "In Paschal time the Gradual Os justi--> is omitted. Instead one sings the first Alleluia Beatus vir then this second Alleluia.",
+		"of": "In virtute tua",
+		"ofID": 667,
+		"ofRef": "Ps 20: 2-3",
+		"co": "Amen dico vobis... quod vos",
+		"coID": 1337,
+		"coRef": "Matth 19: 28, 29",
+		"coVerses": "Ps 20: 2-7",
+		"gbid": "mass_ii_confessor_not_bishop",
+		"isUsed": true
+	},
+	"mass_doctors": {
+		"title": "Mass of Doctors",
+		"href": "http://www.introibo.fr/Commun-des-Docteurs",
+		"in": "In medio",
+		"inID": 233,
+		"inRef": "Eccli 15: 5; Ps 91: 2",
+		"inVerses": "Ps 91: 13-14",
+		"gr": "Os justi",
+		"grID": 511,
+		"grRef": "Ps 36: 30-31",
+		"al": "Amavit eum",
+		"alID": 14,
+		"alRef": "Eccli 45: 9",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"alPasch": "Justus germinabit",
+		"alPaschID": 1207,
+		"alPaschRef": "Osee 14: 6",
+		"alPaschRubric": "In Paschal time the Gradual Os justi--> is omitted. Instead one sings the first Alleluia Amavit eum Dominus then this second Alleluia.",
+		"of": "Justus (ut palma)",
+		"ofID": 777,
+		"ofRef": "Ps 91: 13",
+		"ofVerses": "Ps 91: 2",
+		"co": "Fidelis servus",
+		"coID": 1008,
+		"coRef": "Luc 12: 42",
+		"coVerses": "Ps 118: 1-2, 14, 24, 30, 48, 99-100, 129-130",
+		"gbid": "mass_doctors",
+		"isUsed": true
+	},
+	"mass_i_virgin_not_martyr": {
+		"title": "Mass I of a Virgin not a Martyr",
+		"href": "http://www.introibo.fr/Commun-des-Vierges-III-pour-une",
+		"in": "Dilexisti",
+		"inID": 629,
+		"inRef": "Ps 44: 8, 2",
+		"gr": "Specie tua",
+		"grID": 174,
+		"grRef": "Ps 44: 5",
+		"al": "Adducentur regi virgines",
+		"alID": 208,
+		"alRef": "Ps 44: 15, 16",
+		"trSept": "Audi filia",
+		"trSeptID": 738,
+		"trSeptRef": "Ps 44: 11, 12, 13, 10, 15, 16",
+		"trSeptRubric": "Replaces the Alleluia after Septuagesima.",
+		"alPasch": "Specie tua",
+		"alPaschID": 406,
+		"alPaschRef": "Ps 44: 5",
+		"alPaschRubric": "Paschal Time: Alleluia Adducentur regi virgines above, then this Alleluia.",
+		"of": "Filiae regum",
+		"ofID": 1333,
+		"ofRef": "Ps 44: 10",
+		"co": "Quinque prudentes",
+		"coID": 1301,
+		"coRef": "Matth 25: 4, 6",
+		"gbid": "mass_i_virgin_not_martyr",
+		"isUsed": true
+	},
+	"mass_i_confessor_not_bishop": {
+		"title": "Mass I of a Confessor not a Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Confesseur-non-Pontife",
+		"in": "Os justi",
+		"inID": 1374,
+		"inRef": "Ps 36: 30-31, 1",
+		"inVerses": "Ps 36: 3, 26",
+		"gr": "Justus ut palma",
+		"grID": 34,
+		"grRef": "Ps 91: 13, 14, 3",
+		"al": "Beatus vir qui suffert",
+		"alID": 724,
+		"alRef": "Iac 1: 12",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"alPasch": "Amavit eum",
+		"alPaschID": 14,
+		"alPaschRef": "Eccli 45: 9",
+		"alPaschRubric": "In Paschal time the Gradual Justus (ut palma)--> is omitted. Instead one sings the first Alleluia Beatus vir then this second Alleluia.",
+		"of": "Veritas mea",
+		"ofID": 630,
+		"ofRef": "Ps 88: 25",
+		"co": "Beatus servus",
+		"coID": 1154,
+		"coRef": "Matth 24: 46-47",
+		"gbid": "mass_i_confessor_not_bishop",
+		"isUsed": true
+	},
+	"mass_iii_two_or_more_martyr": {
+		"title": "Mass III of two or more Martyrs",
+		"href": "http://www.introibo.fr/Commun-de-plusieurs-Martyrs-hors,327",
+		"in": "Salus autem",
+		"inID": 737,
+		"inRef": "Ps 36: 39, 1",
+		"inVerses": "Ps 36: 29, 40",
+		"gr": "Clamaverunt",
+		"grID": 1009,
+		"grRef": "Ps 33: 18-19",
+		"al": "Te Martyrum",
+		"alID": 590,
+		"trSept": "Qui seminant",
+		"trSeptID": 305,
+		"trSeptRef": "Ps 125: 5-6",
+		"trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
+		"of": "Justorum (animae)",
+		"ofID": 835,
+		"ofRef": "Sap 3: 1, 2, 3",
+		"co": "Quod dico vobis",
+		"coID": 1002,
+		"coRef": "Matth 10: 27",
+		"coVerses": "Ps 125",
+		"gbid": "mass_iii_two_or_more_martyr",
+		"isUsed": true
+	},
+	"mass_ii_martyr_bishop": {
+		"title": "Mass II of a Martyr-Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Martyr-hors-du-Temps,322",
+		"in": "Sacerdotes Dei",
+		"inID": 227,
+		"inRef": "Dan 3: 84, 87, 57",
+		"inVerses": "Dan 3: 58-61",
+		"gr": "Gloria et honore",
+		"grID": 1206,
+		"grRef": "Ps 8: 6-7",
+		"al": "Hic est sacerdos",
+		"alID": 1118,
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"of": "Inveni David",
+		"ofID": 779,
+		"ofRef": "Ps 88: 21-22",
+		"co": "Posuisti Domine",
+		"coID": 586,
+		"coRef": "Ps 20: 4",
+		"coVerses": "Ps 20: 2-3, 5-8, 14",
+		"gbid": "mass_ii_martyr_bishop",
+		"isUsed": true
+	},
+	"mass_ii_virgin_martyr": {
+		"title": "Mass II of a Virgin Martyr",
+		"href": "http://www.introibo.fr/Commun-des-Vierges-II-pour-une",
+		"in": "Me exspectaverunt",
+		"inID": 938,
+		"inRef": "Ps 118: 95-96, 1",
+		"inVerses": "Ps 118: 2, 39, 45, 77, 99-100, 143",
+		"gr": "Adjuvabit (eam Deus)",
+		"grID": 1373,
+		"grRef": "Ps 45: 6, 5",
+		"al": "Haec est virgo",
+		"alID": 500,
+		"of": "Diffusa est",
+		"ofID": 177,
+		"ofRef": "Ps 44: 3",
+		"ofVerses": "Ps 44: 5",
+		"co": "Feci judicium",
+		"coID": 844,
+		"coRef": "Ps 118: 121, 122, 128",
+		"coVerses": "Ps 118: 1, 78, 81, 113, 115, 120, 163, 166",
+		"gbid": "mass_ii_virgin_martyr",
+		"isUsed": true
+	},
+	"mass_i_confessor_bishop": {
+		"title": "Mass I of a Confessor Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Confesseur-Pontife-I",
+		"in": "Statuit",
+		"inID": 456,
+		"inRef": "Eccli 45: 30; Ps 131: 1",
+		"inVerses": "Ps 131: 9, 16",
+		"gr": "Ecce sacerdos",
+		"grID": 235,
+		"grRef": "Eccli 44: 16, 20",
+		"al": "Tu es sacerdos",
+		"alID": 477,
+		"alRef": "Ps 109: 4",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"alPasch": "Hic est sacerdos",
+		"alPaschID": 1118,
+		"alPaschRubric": "In Paschal time the Gradual Ecce (sacerdos magnus)--> is omitted. Instead one sings the first Alleluia Tu es sacerdos then this second Alleluia.",
+		"of": "Inveni David",
+		"ofID": 779,
+		"ofRef": "Ps 88: 21-22",
+		"co": "Fidelis servus",
+		"coID": 1008,
+		"coRef": "Luc 12: 42",
+		"coVerses": "Ps 131: 1, 9-13, 16-18",
+		"gbid": "mass_i_confessor_bishop",
+		"isUsed": true
+	},
+	"mass_abbots": {
+		"title": "Mass of Abbots",
+		"href": "http://www.introibo.fr/Commun-des-Abbes",
+		"in": "Os justi",
+		"inID": 1374,
+		"inRef": "Ps 36: 30-31, 1",
+		"inVerses": "Ps 36: 3, 26",
+		"gr": "Domine (praevenisti)",
+		"grID": 600,
+		"grRef": "Ps 20: 4-5",
+		"al": "Justus ut palma",
+		"alID": 946,
+		"alRef": "Ps 91: 13",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"alPasch": "Justus germinabit",
+		"alPaschID": 1207,
+		"alPaschRef": "Osee 14: 6",
+		"alPaschRubric": "In Paschal time the Gradual Domine (praevenisti)--> is omitted. Instead one sings the first Alleluia Justus ut palma then this second Alleluia.",
+		"of": "Desiderium",
+		"ofID": 722,
+		"ofRef": "Ps 20: 3, 4",
+		"co": "Fidelis servus",
+		"coID": 1008,
+		"coRef": "Luc 12: 42",
+		"coVerses": "Ps 111: 1-9",
+		"gbid": "mass_abbots",
+		"isUsed": true
+	},
+	"epiphany": {
+		"title": "6 Jan - The Epiphany of Our Lord",
+		"date": "Jan6",
+		"href": "http://www.introibo.fr/Epiphanie-du-Seigneur-6-janvier",
+		"in": "Ecce (advenit)",
+		"inID": 403,
+		"inRef": "Malach 3: 1; 1 Par 29: 12; Ps 71: 1",
+		"inVerses": "Ps 71: 10-11",
+		"gr": "Omnes (de Saba)",
+		"grID": 205,
+		"grRef": "Is 60: 6, 1",
+		"al": "Vidimus stellam",
+		"alID": 524,
+		"alRef": "Matth 2: 2",
+		"of": "Reges Tharsis",
+		"ofID": 1147,
+		"ofRef": "Ps 71: 10-11",
+		"co": "Vidimus (stellam)",
+		"coID": 918,
+		"coRef": "Matth 2: 2",
+		"coVerses": "Ps 71: 2-3, 7-8, 10-12, 17-18",
+		"gbid": "epiphany",
+		"isUsed": true
+	},
+	"mass_i_two_or_more_martyr": {
+		"title": "Mass I of two or more Martyrs",
+		"href": "http://www.introibo.fr/Commun-de-plusieurs-Martyrs-hors",
+		"in": "Intret in conspectu",
+		"inID": 261,
+		"inRef": "Ps 78: 11, 12, 10, 1",
+		"inVerses": "Ps 78: 2-3",
+		"gr": "Gloriosus Deus",
+		"grID": 888,
+		"grRef": "Exodi 15: 11, 6",
+		"al": "Corpora sanctorum",
+		"alID": 1250,
+		"alRef": "Eccli 44: 14",
+		"trSept": "Qui seminant",
+		"trSeptID": 305,
+		"trSeptRef": "Ps 125: 5-6",
+		"trSeptRubric": "After Septuagesima the previous Alleluia is omitted and this Tract is sung.",
+		"of": "Mirabilis Deus",
+		"ofID": 919,
+		"ofRef": "Ps 67: 36",
+		"co": "Et si coram",
+		"coID": 658,
+		"coRef": "Sap 3: 4, 5, 6",
+		"coVerses": "Sap 3: 1-3, 5, 8-9",
+		"gbid": "mass_i_two_or_more_martyr",
+		"isUsed": true
+	},
+	"mass_i_martyr_bishop": {
+		"title": "Mass I of a Martyr-Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Martyr-hors-du-Temps",
+		"in": "Statuit",
+		"inID": 456,
+		"inRef": "Eccli 45: 30; Ps 131: 1",
+		"inVerses": "Ps 131: 9, 16",
+		"gr": "Inveni David",
+		"grID": 827,
+		"grRef": "Ps 88: 21-23",
+		"al": "Tu es sacerdos",
+		"alID": 477,
+		"alRef": "Ps 109: 4",
+		"trSept": "Desiderium",
+		"trSeptID": 176,
+		"trSeptRef": "Ps 20: 3-4",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"of": "Veritas mea",
+		"ofID": 630,
+		"ofRef": "Ps 88: 25",
+		"co": "Semel juravi",
+		"coID": 317,
+		"coRef": "Ps 88: 36, 37-38",
+		"gbid": "mass_i_martyr_bishop",
+		"isUsed": true
+	},
+	"mass_i_virgin_martyr": {
+		"title": "Mass I of a Virgin Martyr",
+		"href": "http://www.introibo.fr/Commun-des-Vierges-I-pour-une",
+		"in": "Loquebar... Ps. Beati immaculati",
+		"inID": 510,
+		"inRef": "Ps 118: 46-47, 1",
+		"inVerses": "Ps 118: 2-3, 8-9, 26, 59-60, 134, 168",
+		"gr": "Dilexisti",
+		"grID": 394,
+		"grRef": "Ps 44: 8",
+		"al": "Adducentur regi virgines",
+		"alID": 208,
+		"alRef": "Ps 44: 15, 16",
+		"trSept": "Veni sponsa",
+		"trSeptID": 256,
+		"trSeptRef": "Ps 44: 8, 5",
+		"trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
+		"alPasch": "Specie tua",
+		"alPaschID": 406,
+		"alPaschRef": "Ps 44: 5",
+		"of": "Afferentur... proximae",
+		"ofID": 1107,
+		"ofRef": "Ps 44: 15, 16",
+		"co": "Confundantur superbi",
+		"coID": 1032,
+		"coRef": "Ps 118: 78, 80",
+		"coVerses": "Ps 118: 1, 41, 85, 87, 113, 123, 157, 161, 166, 174",
+		"gbid": "mass_i_virgin_martyr",
+		"isUsed": true
+	},
+	"mass_ii_martyr_not_bishop": {
+		"title": "Mass II of a Martyr not a Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Martyr-hors-du-Temps,324",
+		"in": "Laetabitur (justus)",
+		"inID": 251,
+		"inRef": "Ps 63: 11, 2",
+		"inVerses": "Ps 63: 3, 10",
+		"gr": "Justus (cum ceciderit)",
+		"grID": 764,
+		"grRef": "Ps 36: 24, 26",
+		"al": "Qui sequitur me",
+		"alID": 1201,
+		"alRef": "Ioann 8: 12",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"of": "Posuisti",
+		"ofID": 487,
+		"ofRef": "Ps 20: 4-5",
+		"co": "Qui mihi ministrat",
+		"coID": 685,
+		"coRef": "Joann 12: 26",
+		"gbid": "mass_ii_martyr_not_bishop",
+		"isUsed": true
+	},
+	"mass_holy_woman_not_martyr": {
+		"title": "Mass of a Holy Woman not a Martyr",
+		"href": "http://www.introibo.fr/Commun-des-Saintes-Femmes-II-pour",
+		"in": "Cognovi",
+		"inID": 619,
+		"inRef": "Ps 118: 75, 120, 1",
+		"inVerses": "Ps 118: 2, 22",
+		"gr": "Diffusa est",
+		"grID": 947,
+		"grRef": "Ps 44: 3, 5",
+		"al": "Specie tua",
+		"alID": 406,
+		"alRef": "Ps 44: 5",
+		"trSept": "Veni sponsa",
+		"trSeptID": 256,
+		"trSeptRef": "Ps 44: 8, 5",
+		"trSeptRubric": "Important note: for a Holy Woman not a Martyr the ending words of the first verse are omitted: pro cujus amore sanguinem tuum fudisti = « for the love of whom thou didst shed thy blood ». Obviously.",
+		"alPasch": "Propter veritatem",
+		"alPaschID": 913,
+		"alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
+		"of": "Diffusa est",
+		"ofID": 177,
+		"ofRef": "Ps 44: 3",
+		"co": "Dilexisti",
+		"coID": 799,
+		"coRef": "Ps 44: 8",
+		"coVerses": "Ps 44: 2, 5, 10-12",
+		"gbid": "mass_holy_woman_not_martyr",
+		"isUsed": true
+	},
+	"mass_holy_woman_martyr": {
+		"title": "Mass of a Holy Woman Martyr",
+		"href": "http://www.introibo.fr/Commun-des-Saintes-Femmes-I-pour",
+		"in": "Me exspectaverunt",
+		"inID": 938,
+		"inRef": "Ps 118: 95-96, 1",
+		"inVerses": "Ps 118: 2, 39, 45, 77, 99-100, 143",
+		"gr": "Dilexisti",
+		"grID": 394,
+		"grRef": "Ps 44: 8",
+		"al": "Specie tua",
+		"alID": 406,
+		"alRef": "Ps 44: 5",
+		"trSept": "Veni sponsa",
+		"trSeptID": 256,
+		"trSeptRef": "Ps 44: 8, 5",
+		"trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
+		"alPasch": "Propter veritatem",
+		"alPaschID": 913,
+		"alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
+		"of": "Diffusa est",
+		"ofID": 177,
+		"ofRef": "Ps 44: 3",
+		"co": "Principes",
+		"coID": 1292,
+		"coRef": "Ps 118: 161-162",
+		"gbid": "mass_holy_woman_martyr",
+		"isUsed": true
+	},
+	"mass_ii_confessor_bishop": {
+		"title": "Mass II of a Confessor Bishop",
+		"href": "http://www.introibo.fr/Commun-d-un-Confesseur-Pontife-II",
+		"in": "Sacerdotes tui",
+		"inID": 48,
+		"inRef": "Ps 131: 9-10, 1",
+		"inVerses": "Ps 131: 16-17",
+		"gr": "Sacerdotes (ejus)",
+		"grID": 415,
+		"grRef": "Ps 131: 16-17",
+		"al": "Juravit Dominus",
+		"alID": 1187,
+		"alRef": "Ps 109: 4",
+		"trSept": "Beatus vir",
+		"trSeptID": 7670,
+		"trSeptRef": "Ps 111: 1-3",
+		"trSeptRubric": "Sung after Septuagesima instead of the previous Alleluia.",
+		"alPasch": "Amavit eum",
+		"alPaschID": 14,
+		"alPaschRef": "Eccli 45: 9",
+		"alPaschRubric": "In Paschal time the Gradual is omitted. Instead one sings the first All. Juravit Dominus then this second Alleluia.",
+		"of": "Veritas mea",
+		"ofID": 630,
+		"ofRef": "Ps 88: 25",
+		"co": "Beatus servus",
+		"coID": 1154,
+		"coRef": "Matth 24: 46-47",
+		"gbid": "mass_ii_confessor_bishop",
+		"isUsed": true
+	},
+	"requiem": {
+		"title": "Requiem mass",
+		"href": "http://www.introibo.fr/Le-jour-de-l-enterrement",
+		"in": "Requiem",
+		"inID": 766,
+		"inRef": "4 Esdr 2: 34, 35; Ps 64: 2-3",
+		"gr": "Requiem",
+		"grID": 1261,
+		"grRef": "4 Esdr 2: 34, 35; Ps 111: 7",
+		"tr": "Absolve (Domine)",
+		"trID": 338,
+		"seq": "Dies irae",
+		"seqID": 1198,
+		"of": "Domine Jesu Christe",
+		"ofID": 1199,
+		"co": "Lux aeterna",
+		"coID": 241,
+		"coRef": "4 Esdrae 2: 35, 34",
+		"coVerses": "Ps 129; Ps 120",
+		"gbid": "requiem",
+		"isUsed": true
+	},
+	"mass_bvm": {
+		"title": "Mass of the Blessed Virgin Mary",
+		"href": "http://www.introibo.fr/Commun-des-fetes-de-la-Bse-Vierge",
+		"in": "Salve sancta Parens",
+		"inID": 1140,
+		"inRef": "Ps 44: 2",
+		"inVerses": "Ps 44: 5, 8",
+		"gr": "Benedicta et venerabilis",
+		"grID": 392,
+		"al": "Post partum Virgo",
+		"alID": 127,
+		"alExtra": "Ave Maria",
+		"alExtraID": 1209,
+		"alExtraRef": "Luc 1: 28",
+		"alExtraRubric": "In Advent the previous Alleluia is replaced by this one.",
+		"trSept": "Gaude Maria",
+		"trSeptID": 18,
+		"trSeptRubric": "After Septuagesima this Tract replaces the Alleluia.",
+		"alPasch": "Virga Jesse",
+		"alPaschID": 281,
+		"alPaschRef": "Num 17: 8",
+		"alPaschRubric": "During Paschal Time the Gradual is omitted, this Alleluia is sung then All. Ave Maria.",
+		"of": "Ave Maria... et benedictus",
+		"ofID": 843,
+		"ofRef": "Luc 1: 28, 42",
+		"ofVerses": "Luc 1: 34, 35",
+		"co": "Beata viscera",
+		"coID": 160,
+		"coVerses": "Ps 44: 2, 5, 8, 10-16",
+		"gbid": "mass_bvm",
+		"isUsed": true
+	},
+	"mass_dedication_church": {
+		"title": "Mass of the Dedication of a Church",
+		"href": "http://www.introibo.fr/Commun-de-la-Dedicace-d-une-eglise",
+		"in": "Terribilis est",
+		"inID": 923,
+		"inRef": "Gen 28: 17; Ps 83: 2-3",
+		"inVerses": "Ps 83: 4, 5",
+		"gr": "Locus iste",
+		"grID": 651,
+		"al": "Adorabo",
+		"alID": 242,
+		"alRef": "Ps 137: 2",
+		"trSept": "Qui confidunt",
+		"trSeptID": 1377,
+		"trSeptRef": "Ps 124: 1-2",
+		"trSeptRubric": "After Septuagesima this Tract replaces the previous Alleluia.",
+		"alPasch": "Bene fundata est",
+		"alPaschID": 1343,
+		"alPaschRubric": "In Paschal time the previous Alleluia is sung then this one.",
+		"of": "Domine Deus(Dedication)",
+		"ofID": 200,
+		"ofRef": "1 Paral 29: 17, 18",
+		"co": "Domus mea",
+		"coID": 43,
+		"coRef": "Matth 21: 13",
+		"coVerses": "Ps 83: 2-5, 9-11",
+		"gbid": "mass_dedication_church",
+		"isUsed": true
+	},
+	"st_francis_stigmata": {
+		"title": "17 Sep - Imprinting of the Holy Stigmata on St Francis, Confessor.",
+		"date": "Sep17",
+		"href": "http://www.introibo.fr/17-09-Impression-des-Sts-Stigmates",
+		"in": "Mihi autem absit. Ps. Voce mea",
+		"inID": 849,
+		"inRef": "Gal 6: 14; Ps 141: 2",
+		"gr": "Os justi",
+		"grID": 511,
+		"grRef": "Ps 36: 30-31",
+		"al": "Franciscus pauper",
+		"alID": 1200,
+		"of": "Veritas mea",
+		"ofID": 630,
+		"ofRef": "Ps 88: 25",
+		"co": "Fidelis servus",
+		"coID": 1008,
+		"coRef": "Luc 12: 42",
+		"coVerses": "Ps 111: 1-9",
+		"gbid": "st_francis_stigmata",
+		"isUsed": true
+	}
+}

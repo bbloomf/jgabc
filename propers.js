@@ -64,7 +64,7 @@ $(function(){
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
-      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]);
+      this[curMatch[1]] = (typeof(curMatch[2])=='undefined')? true : decodeURIComponent(curMatch[2]).replace(/\+/g,' ');
     }
     if(Object.keys(this).length == 1 && ('hash' in this)) {
       return new LocationHash(this.hash);
@@ -84,7 +84,7 @@ $(function(){
           if(hash[key].match(/\.\.\.$/) || hash[key].length==0) break;
           // otherwise, fall through to default:
         default:
-          result += '#' + key + '=' + hash[key];
+          result += '#' + key + '=' + hash[key].toString().replace(/\s+/g,'+');
           break;
       }
     });
@@ -262,6 +262,15 @@ $(function(){
     responsorium: "Resp.",
     canticum: "Cant."
   };
+  var partKey = {
+    introitus: 'in',
+    graduale: 'gr',
+    tractus: 'tr',
+    alleluia: 'al',
+    sequentia: 'seq',
+    offertorium: 'of',
+    communio: 'co'
+  };
   var defaultTermination={
     '1':'f',
     '3':'a',
@@ -270,7 +279,8 @@ $(function(){
     '8':'G'
   }
   var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
-  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\).*\(::\)/i;
+  var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
+  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
   var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
@@ -333,21 +343,7 @@ $(function(){
   }
   function runGabcReplaces(gabc, gabcHeader) {
     // TODO: some of these should be run within download-gabc instead...
-    gabc = gabc.replace(/\s+$/,'').replace(/<sp>V\/<\/sp>\./g,'<sp>V/</sp>')
-          // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
-          .replace(/\+(?=[^()]*\()/g,'†')
-          .replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1')
-          .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
-          .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
-          .replace(/(aba|[a-b]c[a-b]|[a-c]d[a-c]|[a-d]e[a-d]|[a-e]f[a-e]|[a-f]g[a-f]|[a-g]h[a-g]|[a-h]i[a-h]|[a-i]j[a-i]|[a-j]k[a-j]|[a-k]l[a-k]|[a-l]m[a-l])\.*__(?!_)/g,'$&_')
-          .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
-          .replace(/<i>\((.*?)\)<\/i>/, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
-          .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-          .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-          .replace(/(\s[^()\w†*]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
-          .replace(/\s*\n\s*/g,'\n')
-          .replace(/\s{2,}/g,' ')
-          .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
+    gabc = gabc.replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1');
     var match = gabc.match(/<sp>V\/<\/sp>(?! \d)/g);
     if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\.?/)) {
       var count = 2;
@@ -495,22 +491,23 @@ $(function(){
             truePart = partType;
         if(!isOrdinaryPart) {
           var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
+          sel[part].responsoryCallbacks = [];
           var plaintext = decompile(gabcWithoutNA,true,sel[part]);
           if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
             truePart = 'alleluia';
             if(isNovus) {
               // in novus ordo, neither ij. nor asterisks are marked.
               // remove ij. if present
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
-                replace(/\*(\(\))?/g,''); // remove asterisks
+              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s]+)\s*(?:<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
+                replace(/(\*|\{\*\})(\(\))?/g,''); // remove asterisks
             } else {
-              var gradualeIsFirstAlleluia = isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0]) && !/non\srep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
+              var gradualeIsFirstAlleluia = ((sel.graduale && sel.graduale.id in chantID.alleluiaById) || isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
               if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
                 // add ij. if not present:
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*|\([^)]+\)\W+\*))(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 <i>ij.</i>');
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 {*} <i>ij.</i>');
               } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
                 // remove ij. if present
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:](?:\s+\*)?\([^)]+\)\W+)(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
+                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\)\s*[^a-z\s]+)\s*(?:<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
               }
             }
             plaintext = decompile(gabc,true,sel[part]);
@@ -568,7 +565,9 @@ $(function(){
         var annotation = partAbbrev[truePart] || partAbbrev[(header.officePart||'').toLowerCase()];
         if(annotation) {
           header.annotation = (partIndex? partIndex + '. ' : '') + annotation;
-          header.annotationArray = [header.annotation, romanMode];
+          if(annotation != 'V/.') {
+            header.annotationArray = [header.annotation, romanMode];
+          }
         } else {
           header.annotation = romanMode;
         }
@@ -594,6 +593,7 @@ $(function(){
           toggleEditMarkings.call($toggleEditMarkings[0],true);
         }
         if(!(sel[part].style||'').match(/^psalm-tone/)) $toggleEditMarkings.hide();
+        $div.find('input.cbVersesAdLibitum').change();
       };
       if(id) {
         if(typeof(id) == 'object') {
@@ -602,6 +602,7 @@ $(function(){
           $div.find('.chant-preview').empty();
         } else {
           $extraChantsPlaceholder.remove();
+          sel[part].id = id;
           $.get('gabc/'+id+'.gabc',updateGabc);
         }
       } else {
@@ -611,7 +612,7 @@ $(function(){
     } else {
       if(isOrdinaryPart) {
         $extraChantsPlaceholder.remove();
-        $div.find('.chant-preview').empty();
+        $div.find('.chant-preview,.commentary').empty();
         if(partType == 'custom') {
           $('#lbl'+capPart+'>a,#include'+capPart+'>span.lbl').text('Ad libitum');
         }
@@ -623,7 +624,7 @@ $(function(){
   }
   var removeMultipleGraduales = function() {
     var i = 1;
-    var $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
+    var $multipleGraduales = $('.multiple-lectiones-extra,.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     while($multipleGraduales.length) {
       $multipleGraduales.remove();
       delete sel['graduale'+i];
@@ -713,15 +714,70 @@ $(function(){
     });
     return $newGraduale;
   }
-  var updateDay = function() {
+  var updateDay = function(gregorianBooksPage) {
+    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
     var match = /^Pent(Epi\d)$/.exec(selDay);
     var lecDay = match? match[1] : selDay;
-    var readings = lectiones[lecDay];
-    var ref = proprium[selDay] && proprium[selDay].ref || selDay;
-    selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus] || proprium[ref];
+    var readings = lectiones[lecDay] || lectiones[ref];
+    if(!readings && /s$/i.test(lecDay)) {
+      readings = lectiones[lecDay.slice(0,-1)];
+      if(readings.length <= 2) {
+        readings = null;
+      } else {
+        readings = [readings[0]].concat(readings.slice(-2));
+      }
+    }
+    selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus];
+    if(!selPropers && proprium[ref]) {
+      selPropers = proprium[ref];
+      if(selTempus && (selDay != ref)) {
+        selPropers = $.extend(true,{},selPropers);
+        if(ref != selDay) {
+          $.extend(true, selPropers, proprium[selDay]);
+          delete selPropers.ref;
+        }
+        var regex;
+        if(selTempus == 'Quad') {
+          delete selPropers.alID;
+          regex = /^(\w{2,3})(?:Quad|Sept)ID$/;
+        } else if(selTempus == 'Pasch' && selPropers.alID) {
+          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.alID;
+          regex = /^(\w{2,3})PaschID$/;
+        }
+        Object.keys(selPropers).forEach(function(key) {
+          var match = regex && regex.exec(key);
+          if(match) {
+            selPropers[match[1]+"ID"] = selPropers[key];
+          }
+        });
+        if(!('grID' in selPropers) && selPropers.alID && selPropers.alID.length > 1) {
+          selPropers.grID = selPropers.alID.shift();
+        }
+      }
+      if(selPropers.alID && selPropers.alID.length == 1) {
+        selPropers.alID = selPropers.alID.pop();
+      }
+    }
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
       selPropers.gloria = false;
+    }
+    if(selPropers) {
+      selPropers = $.extend(true,{},selPropers);
+      gregorianBooksPage = (gregorianBooksPage && selPropers.gbid)? (gregorianBooksPage + "#" + selPropers.gbid) : "";
+      for(var k in partKey) {
+        var key = partKey[k] + 'ID';
+        var ok = k;
+        k += 'ID';
+        if(key in selPropers && !(k in selPropers)) {
+          selPropers[k] = selPropers[key];
+        }
+        var verses = selPropers[ok+"Verses"] || selPropers[partKey[ok]+"Verses"];
+        var $part = $("div[part="+ok+"]");
+        var $defaultVerses = $part.find(".verses-ad-libitum-default");
+        $defaultVerses.text(verses || "").toggleClass('is-empty',!verses);
+        $part.find('div.chant-preview').attr('gregorianBooksId',gregorianBooksPage);
+      }
     }
     $("#extra-chants").empty();
     sel.extraChants = extraChants[selDay] || extraChants[ref];
@@ -733,7 +789,7 @@ $(function(){
     }
 
     $('.ordinary').toggle(!selPropers || (selPropers.ordinary !== false));
-    if(selPropers || selDay=='custom') {
+    if(selPropers || selDay=='custom' || selDay == '') {
       removeMultipleGraduales();
       // remove temporary rubrics
       $('.rubric.temporary').remove();
@@ -742,29 +798,34 @@ $(function(){
           addMultipleGraduales(selPropers.gradualeID.length - 1);
         }
         if(selPropers.rubrics) addTemporaryRubrics(selPropers.rubrics);
-        if(readings) {
-          $lectiones = $('.lectio');
-          if($lectiones.length > readings.length) {
-            $lectiones = $lectiones.not('.lectio-before-tract');
-          }
-          $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
-          readings.forEach(function(reading,i) {
-            [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
-              var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
-              getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
-                $lectio.append(reading);
-              });
-            });
-          });
-          $lectiones.show();
-          var defaultVal = localStorage.showLectionem || ''
-          $('.selectShowLectionem').val(defaultVal).change();
-        }
       } else {
         selPropers = {};
       }
+      $lectiones = $('.lectio');
+      if(readings) {
+        if($lectiones.length > readings.length) {
+          $lectiones = $lectiones.not('.lectio-before-tract');
+        }
+        updateReadings(readings, $lectiones);
+        var defaultVal = localStorage.showLectionem || ''
+        $('.selectShowLectionem').val(defaultVal).change();
+      } else {
+        $lectiones.hide();
+      }
       updateAllParts();
     }
+  }
+  function updateReadings(readings, $lectiones) {
+    $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+    readings.forEach(function(reading,i) {
+      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+        var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
+        getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
+          $lectio.empty().append(reading);
+        });
+      });
+    });
+    $lectiones.show();
   }
   var updateDayNovus = function() {
     $('.lectio').hide();
@@ -800,14 +861,21 @@ $(function(){
       } else {
         var i = 0;
         $.each(sel.extraChants, function(part, extraChants) {
+          var match = /^(before|after)-(.+)$/.exec(part);
+          var hidePart = !match;
+          var beforeAfter = match? match[1] : 'after';
+          beforeAfter = beforeAfter[0].toUpperCase() + beforeAfter.slice(1);
+          if(match) {
+            part = match[2];
+          }
           var $part = $('[part="'+part+'"]');
           if($part.length == 0) {
             console.warn('Part not found:', part, 'placing extra chants at end of page');
             $part = $(document.body).children().last();
-          } else if(!(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
+          } else if(hidePart && !(part + 'ID' in selPropers) && ordinaryParts.indexOf(part) < 0) {
             $part.hide();
           }
-          var $extraChants = $('<div>').addClass('mandatory-extra-chant').insertAfter($part);
+          var $extraChants = $('<div>').addClass('mandatory-extra-chant')["insert"+beforeAfter]($part);
           i = renderExtraChants($extraChants, extraChants, i);
         });
         $('div[part^=graduale]').each(function(){
@@ -892,6 +960,11 @@ $(function(){
         var id = 'graduale'+(selPropers.gradualeID.length - 1);
         selPropers[id+'Replace'] = chant.gabcReplace;
         updatePart(id);
+      } else if(chant.lectio) {
+        var $lectio = $(lectioTemplate.replace(/\$num\b/g,'extra'));
+        $curContainer.append($lectio);
+        updateReadings([chant.lectio], $lectio);
+        $lectio.find('.selectShowLectionem').val('').change();
       } else if(chant.gabc || chant.id) {
         if(chant.sticky === 0) {
           $curContainer = $stickyParent = $('<div>').appendTo($container);
@@ -940,6 +1013,7 @@ $(function(){
         var downloadThisChant = function() {
           if(sel[part].id) {
             $.get('gabc/'+sel[part].id+'.gabc',function(gabc) {
+              sel[part].responsoryCallbacks = null;
               if(chant.gabcReplace) {
                 gabc = runRegexReplaces(gabc, chant.gabcReplace);
               }
@@ -957,15 +1031,19 @@ $(function(){
         if(options) {
           // in case it's sticky, we want the option to be sticky too:
           $curElement = $('<div>').append($curElement);
-          var optionID = 0;
           var optionKeys = Object.keys(options);
+          var optionName = optionKeys.reduce(function(result, k) {
+            result[options[k]] = k;
+            return result;
+          }, {});
           sel[part].id = null;
           var $option = $("<select>"+optionKeys.map(function(key) {
             return "<option value='"+options[key]+"'>"+key+"</option>";
           })+"</select>").change(function() {
-            sel[part].id = $(this).val();
-            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionKeys[optionID])) {
-              sel[part].annotationArray = ['Ant.',optionKeys[optionID]];
+            var val = $(this).val();
+            sel[part].id = val;
+            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionName[val])) {
+              sel[part].annotationArray = ['Ant.',optionName[val]];
             }
             downloadThisChant();
           }).change().prependTo($curElement);
@@ -1022,7 +1100,20 @@ $(function(){
       $this.toggle(match? !negated : negated);
     });
   }
+  var clearSelections = function(e) {
+    $('#btnClearSelections').addClass('hidden');
+    var hash = {};
+    $('#selSunday,#selSaint,#selMass,#selOrdinary,[id^=selCustom]').each(function(){
+      this.selectedIndex = 0;
+      hash[this.id] = false;
+    });
+    selDay = "";
+    clearHash(hash);
+    updateDay();
+    $('#selOrdinary,[id^=selCustom]').change();
+  }
   var selectedDay = function(e){
+    $('#btnClearSelections').removeClass('hidden');
     selDay = $(this).val();
     var hash = {
       sundayNovus: false
@@ -1059,7 +1150,7 @@ $(function(){
       $('.sel-custom').hide();
     }
     $('.lectio').hide();
-    updateDay();
+    updateDay(this.id == 'selSunday'? 'propers.html' : 'saints.html');
   };
   var selectedTempus = function(e){
     selTempus = $(this).val();
@@ -1198,8 +1289,8 @@ $(function(){
     var gabcAfterAsterisks = {};
     var justAppliedAsteriskCallback = false;
     while(match) {
-      if(storeMap && newWord && match[rog.syl] && match[rog.syl].match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i)) {
-        dictionary.wordMap.push(match.index);
+      if(storeMap && newWord && match[rog.gabc] && !/^[,;:`]+$/.test(match[rog.gabc]) && match[rog.syl] && /[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i.test(match[rog.syl])) {
+        dictionary.push(match.index);
         newWord = false
       }
       ws=match[rog.whitespace]||'';
@@ -1234,13 +1325,20 @@ $(function(){
           slice = slice.slice(0, indexFirstSymbol + 2 + indexDoubleBar + 4);
           var firstWord = slice.match(/[*+†](?:\([^)]+\))?\s+([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
           if(firstWord) {
+            var firstWordComplete = firstWord[1];
             firstWord = firstWord[1].replace(/\s?[,;:.!?]\(/g,'(');
             if(firstWord in gabcAfterAsterisks) {
               // if it's in our dictionary, let's replace it with the whole thing:
               var lastIndex = regexOuter.lastIndex,
-                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones),
-                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones);
-              if(sliceText != replaceText) {
+                  sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+/,'');
+              if(sliceText.countSyllables() < 10 && sliceText != replaceText) {
+                if(storeMap && storeMap.responsoryCallbacks) {
+                  var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
+                  if(temp.slice(-1)[0].length == 0) temp.pop();
+                  var regex = firstWordComplete.replace(/\s*[,;:.!?]\(/g,'\\s*[,;:.!?]?(').replace(/[()]/g,'\\$&');
+                  storeMap.responsoryCallbacks.push(new RegExp(regex,'gi'));
+                }
                 console.info('replacing responsory text: "' + sliceText + '" with "' + replaceText + '"');
                 mixed = mixed.slice(0,match.index) + gabcAfterAsterisks[firstWord] + mixed.slice(match.index + slice.length);
                 regexOuter.lastIndex = match.index;
@@ -1375,6 +1473,10 @@ $(function(){
           case '*':
           case '†':
             text += ' * ';
+            break;
+          case '+':
+          case '^':
+            text += ' ^ ';
             break;
           case '℣':
             text += '\n';
@@ -1608,6 +1710,7 @@ $(function(){
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
+    sel[part].overrideTone = sel[part].overrideToneEnding = null;
     var capPart = part[0].toUpperCase() + part.slice(1),
         $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
@@ -1758,6 +1861,36 @@ $(function(){
     gTertium += ' ' + match[1];
     return gTertium;
   }
+
+  var applyAmenTones = function(gabc, gAmenTones, gMediant) {
+    if(gAmenTones){
+      var originalGabc = gAmenTones.input || '',
+          originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
+      originalClef = originalClef? originalClef[1] : clef;
+      if(gabc.mediant && gabc.termination) {
+        // gabc is a tone object
+        var shift = parseInt(gabc.mediant[0],23) - parseInt(gAmenTones[1],23);
+        if(isNaN(shift)) shift = 0;
+        gabc.termination = gabc.termination.replace(/('[a-mA-Mvw._]+(?:\s[a-mA-Mvw._]+)?r)\s+[a-mA-Mvw._]+$/, '$1 '+gAmenTones.slice(3));
+        gabc.termination = gabc.termination.replace(/(\s[a-mA-Mvw._]+){2}$/, ' '+gAmenTones.slice(2).join(' '));
+      } else {
+        // gabc is a string
+        for(var i=3,index=gabc.length; i>1; --i) {
+          index = 1 + gabc.lastIndexOf('(',index-2);
+          if(index>0) {
+            var index2 = gabc.indexOf(')',index);
+            if(index2>=0) {
+              // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
+              var shift = parseInt(gMediant[0],23) - parseInt(gAmenTones[1],23);
+              if(isNaN(shift)) shift = 0;
+              gabc = gabc.slice(0,index) + shiftGabc(gAmenTones[i],shift) + gabc.slice(index2);
+            }
+          }
+        }
+      }
+    }
+    return gabc;
+  }
   
   var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
     var gp = "Glória Patri, et Fílio, † et Spirítui Sancto.\nSicut erat in princípio, † et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
@@ -1787,23 +1920,7 @@ $(function(){
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
-    if(gAmenTones){
-      var originalGabc = gAmenTones.input || '',
-          originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
-      originalClef = originalClef? originalClef[1] : clef;
-      for(var i=3,index=temp.length; i>1; --i) {
-        index = 1 + temp.lastIndexOf('(',index-2);
-        if(index>0) {
-          var index2 = temp.indexOf(')',index);
-          if(index2>=0) {
-            // shift the amen tones so that the psalm tone starting pitch matches the starting pitch of the Glória Patri.
-            var shift = parseInt(gMediant[0],23) - parseInt(gAmenTones[1],23);
-            if(isNaN(shift)) shift = 0;
-            temp = temp.slice(0,index) + shiftGabc(gAmenTones[i],shift) + temp.slice(index2);
-          }
-        }
-      }
-    }
+    temp = applyAmenTones(temp, gAmenTones, gMediant);
     return applyLiquescents(result + temp + " (::)\n");
   }
   
@@ -1882,24 +1999,25 @@ $(function(){
     return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
-  var getPsalmToneForPart = function(part){
+  var getPsalmToneForPart = function(part, tone){
     var text = sel[part].text;
     if(!text) return;
-    var tone;
     var header = getHeader(sel[part].gabc||'');
     var termination = sel[part].termination;
     var mode = sel[part].mode;
     var altTone = sel[part].altTone;
     var solemn = sel[part].solemn;
     var isAl = isAlleluia(part,text);
+    var endOfVerse = sel[part].endOfVerse || '(::)';
+    var startOfVerse = sel[part].startOfVerse || '';
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(part=='introitus' || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
-      tone = g_tones['Introit ' + mode];
+    if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+      tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
-      tone = g_tones[mode + '.' + (altTone? ' alt' : '')];
+      tone = tone || g_tones[mode + '.' + (altTone? ' alt' : '')];
     }
     if(!tone) return;
     var clef = tone.clef;
@@ -1933,8 +2051,10 @@ $(function(){
     var noMediant = getTertiumQuid(gTermination,gMediant);
     var gabc;
     var lines;
-    var useOriginalClef = text.indexOf('@') >= 0;
-    var fullGabc = sel[part].gabc.slice(getHeaderLen(sel[part].gabc));
+    var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
+    var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
+    var header = getHeader(sel[part].gabc||'');
+    var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
       
@@ -1999,7 +2119,9 @@ $(function(){
       lines.splice(0,1);
     } else {
       // not alleluia
-      lines = capitalizeForBigInitial(sel[part].text).split('\n');
+      lines = sel[part].text;
+      if(useBigInitial) lines = capitalizeForBigInitial(lines);
+      lines = lines.split('\n');
       gabc = header;
       if(sel[part].style == 'psalm-tone1') {
         // the first verse is to be full tone.
@@ -2035,10 +2157,10 @@ $(function(){
       return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
     }
     var newClef = null;
-    var countWordsBefore = 0;
+    var countWordsBefore = isAl? 1 : 0;
     for(var i=0; i<lines.length; ++i) {
       var countWordsInVerse = wordsInLine(lines[i]);
-      var fullVerseGabc = sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+      var fullVerseGabc = sel[part].originalWords && sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
       var nextNewClef = regexGabcClef.exec(fullVerseGabc);
       nextNewClef = nextNewClef && nextNewClef[1];
       countWordsBefore += countWordsInVerse;
@@ -2117,7 +2239,7 @@ $(function(){
             flexEqualsTenor: introitTone
           });
         } else {
-          gabc += (italicNote||'') + applyPsalmTone({
+          gabc += (italicNote||'') + (useBigInitial? '' : startOfVerse) + applyPsalmTone({
             text: line[0].trim(),
             gabc: line.length==1? noMediant : gMediant,
             clef: clef,
@@ -2126,7 +2248,8 @@ $(function(){
             onlyVowel: false,
             format: bi_formats.gabc,
             verseNumber: i+1,
-            prefix: !firstVerse && !italicNote,
+            prefix: !(useBigInitial && firstVerse) && !italicNote,
+            firstPrefix: !useBigInitial && !italicNote,
             suffix: false,
             italicizeIntonation: false,
             result: result,
@@ -2149,7 +2272,7 @@ $(function(){
             italicizeIntonation: false,
             favor: 'termination',
             flexEqualsTenor: true
-          })) + " (::)\n";
+          })) + " " + endOfVerse + "\n";
         if(i==0) {
           //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
           flex = (line[0].indexOf(sym_flex) >= 0);
@@ -2273,6 +2396,15 @@ $(function(){
     var ctxt = prop.ctxt;
     var gabc = prop.activeGabc;
     gabc = removeNotApplicableFromGabc(gabc);
+    if(!prop.responsoryCallbacks) {
+      prop.responsoryCallbacks = [];
+      plaintext = decompile(gabc,true,prop);
+    }
+    prop.responsoryCallbacks && prop.responsoryCallbacks.forEach(function(regex) {
+      gabc = gabc.replace(regex,function(match) {
+        return match.replace(/(^|\)\s*)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s*[,;:.!?]?)/gi,'$1^$2^');
+      });
+    });
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
@@ -2283,26 +2415,26 @@ $(function(){
       })
 //      .replace(/\)(\s+)(\d+\.?|[*†])(\s)/g,')$1$2()$3') // add empty parentheses after verse numbers, asterisks, and daggers
       // .replace(/(\s)(<i>[^<()]+<\/i>)\(\)/g,'$1^$2^()') // make all italic text with empty parentheses red
+      .replace(/(v[A-Z]__[A-Z])([^_])/g,'$1_3$2') // episemata over puncta inclinata don't go quite over far enough in a few chants
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
       .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
+      .replace(/(\{[^}(]*}[^{(]*)\{([^}(]*)}/g,'$1$2') // correction for above in case there were already braces indicating where to center the neume
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
-      .replace(/<b><\/b>/g,'')
-      .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
-      .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
+      .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
+      .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
       .replace(/(<b>[^<]+)œ́/g,'$1œ</b>\u0301<b>') // œ́ character doesn't work in the bold version of this font.
-      .replace(/<v>\\greheightstar<\/v>/g,'*')
       .replace(/<\/?sc>/g,'%')
       .replace(/<\/?b>/g,'*')
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
-        .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
-        .replace(/([^c])u([aeiouáéíóú])/g,'$1u{$2}'); // center above vowel after u in cases of ngu[vowel] or qu[vowel]
+        .replace(/<v>[^<]+<\/v>/g,'');  // not currently supported by Exsurge
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
     }
+    prop.commentary = gabcHeader.officePart=='Kyriale'? null : (gabcHeader.commentary || null);
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
     prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
@@ -2334,7 +2466,11 @@ $(function(){
         var annotation;
         if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
         if(annotation) {
-          score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
+          if(annotation == 'V/.') {
+            score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%');
+          } else {
+            score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
+          }
         } else if(gabcHeader.mode) {
           score.annotation = new exsurge.Annotations(ctxt, '%'+romanNumeral[gabcHeader.mode]+'%');
         }
@@ -2370,12 +2506,28 @@ $(function(){
   }
 
   var layoutChant = function(part, synchronous, id) {
-    var isIE11 = navigator.userAgent.match(/Trident\/7\.0/);
+    var isIE11 = /\b(Trident\/7\.0|Chrome\/([1-2]\d|30)\.)/.test(navigator.userAgent);
     var chantContainer = $('#'+part+'-preview');
     chantContainer.attr('gregobase-id', id || null);
     if(!chantContainer.length || !chantContainer.is(':visible')) return;
-    var ctxt = sel[part].ctxt;
-    var score = sel[part].score;
+    var $chantCommentary = chantContainer.prev('.commentary');
+    if($chantCommentary.length == 0) {
+      $chantCommentary = $('<div>').addClass('commentary').insertBefore(chantContainer);
+    }
+    var $cb = $();
+    if(/Verses$/.test(part)) {
+      $cb = chantContainer.parent().find('input.cbVersesAdLibitum');
+    }
+    var prop = sel[part];
+    $chantCommentary.text(prop.commentary || '');
+    if(prop.commentary && parseRef) {
+      ref = parseRef(prop.commentary).slice(-1)[0];
+      if(/^Ps/.test(ref && ref.book)) {
+        $('#div'+part[0].toUpperCase()+part.slice(1)+' select.sel-psalms:not(:visible)').val(('00'+ref.chapter).slice(-3));
+      }
+    }
+    var ctxt = prop.ctxt;
+    var score = prop.score;
     if(!score) return;
     var availableWidth = chantContainer.width();
     if(availableWidth == 0) {
@@ -2383,7 +2535,7 @@ $(function(){
     }
     var newWidth = Math.min(624, availableWidth);
     var useNoMoreThanHalfHeight = false;
-    if(sel[part].sticky) {
+    if(prop.sticky) {
       if(newWidth == availableWidth) {
         newWidth = Math.floor(newWidth / 0.8);
       } else {
@@ -2401,7 +2553,11 @@ $(function(){
         svg.removeAttribute('viewBox');
       } else if(newWidth != availableWidth && svg && svg.hasAttribute('width')) {
         svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
-        if(!isIE11) {
+        if(isIE11) {
+          var ratio = availableWidth / newWidth;
+          svg.setAttribute('width', availableWidth);
+          svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
+        } else {
           svg.removeAttribute('width');
           svg.removeAttribute('height');
         }
@@ -2426,7 +2582,9 @@ $(function(){
       updateTextSize(part);
     } else {
       score.performLayoutAsync(ctxt, function() {
+        if($cb.prop('checked')===false) return;
         score.layoutChantLines(ctxt, ctxt.width, function() {
+          if($cb.prop('checked')===false) return;
           // render the score to svg code
           var svg = score.createSvgNode(ctxt);
           if(useNoMoreThanHalfHeight) {
@@ -2435,7 +2593,11 @@ $(function(){
           if(newWidth == availableWidth) {
             svg.removeAttribute('viewBox');
           } else {
-            if(!isIE11) {
+            if(isIE11) {
+              var ratio = availableWidth / newWidth;
+              svg.setAttribute('width', availableWidth);
+              svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
+            } else {
               svg.removeAttribute('width');
               svg.removeAttribute('height');
             }
@@ -2443,6 +2605,7 @@ $(function(){
           chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
+            if(window.afterChantLayout) window.afterChantLayout();
           };
           queue.push(callback);
           setTimeout(processQueue, 100);
@@ -2515,6 +2678,7 @@ $(function(){
     return result;
   }, {});
   $('#selSunday,#selSaint,#selMass').change(selectedDay);
+  $('#btnClearSelections').click(clearSelections);
   $selSundayNovus.change(selectedDayNovus);
   $selYearNovus.change(function(){
     selYearNovus = $(this).val();
@@ -2627,16 +2791,18 @@ $(function(){
     }
   });
 
-  var i = 1;
+  var i = 0;
   var regexExtraSundayAfterEpiphany = null;
   if(moment() > d.septuagesima) d = Dates(moment().year()+1);
   if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
+  while(++i < sundayKeys.length) {
+    if(regexExtraSundayAfterEpiphany.test(sundayKeys[i].key)) {
+      sundayKeys.splice(i,1);
+    }
+  }
+  var i = 1;
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
-    if(regexExtraSundayAfterEpiphany.test(sunday.key)) {
-      sundayKeys.splice(i,1);
-      continue;
-    }
     var next = sundayKeys[++i];
     if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now))) {
       moveToEnd = sundayKeys.splice(1, i - 1);
@@ -2652,6 +2818,7 @@ $(function(){
   populate(otherKeys,$selMass);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
+  populate(psalmCanticleArray,$(".sel-psalms"));
 
   var ordinaryKeys = massOrdinary.map(function(e,i){
     var name = '';
@@ -2736,6 +2903,7 @@ $(function(){
       sel[part] = {};
       makeChantContextForSel(sel[part]);
     }
+    $('div[part='+part+']').removeClass('modified');
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   });
@@ -2847,6 +3015,13 @@ $(function(){
   populateSelectWithTones($('[part=introitus] select.tones'));
   populateSelectWithTones($selTones, true);
   $('textarea[id^=txt]').autosize().keydown(internationalTextBoxKeyDown).keydown(gabcEditorKeyDown).keyup(editorKeyUp);
+  var removeSolesmes = window.removeSolesmes = function(gabc) {
+    return gabc.replace(/\(([^)]+)\)/g, function(match, inParens) {
+      return '(' +
+        inParens.replace(/[_']+\d?|\.+\d?$/g,'').replace(/(\.+\d?)[/\s]+/ig,' ').replace(/(\.+\d?)!/ig,'/').replace(/(\.+\d?)/ig,'') +
+        ')';
+    });
+  }
   var getAllGabc = window.getAllGabc = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
@@ -2864,6 +3039,8 @@ $(function(){
     }
     var result=[];
     var isFirstChant = true;
+    var shouldRemoveSolesmes = $('#removeSolesmes > span.glyphicon').hasClass('glyphicon-unchecked');
+    var processSolesmes = shouldRemoveSolesmes? removeSolesmes : function(gabc) { return gabc; };
     $('[part]').each(function(){
       var $this = $(this),
           part = $this.attr('part'),
@@ -2872,13 +3049,16 @@ $(function(){
           hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
+          verses = sel[part+"Verses"],
+          gabcVerses = verses && verses.activeGabc,
+          isExtra = /^extra-/.test(part),
           header = getHeader(gabc);
       if($includePart.parent('li').hasClass('disabled') ||
-        includePropers.indexOf(part)<0 ||
+        (!isExtra && includePropers.indexOf(part)<0) ||
         !gabc) return;
       header.name = name || '';
       if(name) {
-        header.commentary = ' ';
+        header.commentary = header.commentary || ' ';
         name = '';
       }
       if(isFirstChant) {
@@ -2894,8 +3074,16 @@ $(function(){
       } else {
         header['%width'] = '7.5';
       }
-      gabc = header + gabc.slice(header.original.length);
+      gabc = header + processSolesmes(gabc.slice(header.original.length).
+        replace(/\^/g,''). // get rid of exsurge specific ^
+        replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
+        replace(/'\d/g,"'"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
+        replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
+        replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
+          return '[<v>' + translation + (whitespace? '' : '-') + '</v>](';
+        })); // use translations instead of multiple lines of lyrics
       result.push(gabc);
+      if(gabcVerses) result.push(gabcVerses);
       isFirstChant = false;
     });
     return result;
@@ -2941,6 +3129,17 @@ $(function(){
     } else {
       //had been included, now it won't be:
       includePropers.splice(i,1);
+      $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+    }
+  }).on('click','a#removeSolesmes',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $span = $(this).find('span.glyphicon').first();
+    if($span.hasClass('glyphicon-unchecked')) {
+      // wasn't included, now it will be:
+      $span.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+    } else {
+      //had been included, now it won't be:
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
   }).on('click','.toggle-page-break', function(e) {
@@ -2993,6 +3192,109 @@ $(function(){
         isShowing = $part.toggleClass('show-gabc').hasClass('show-gabc');
     $this.find('.showHide').text(isShowing?'Hide' : 'Show');
     layoutChant(part);
+  }).on('change','input.cbVersesAdLibitum',function(e,targetState) {
+    var $this = $(this),
+        $part = $this.parents().filter('[part]'),
+        part = $part.attr('part'),
+        versePart = part + "Verses",
+        $verses = $part.find(".verses-ad-libitum.chant-preview"),
+        $versesDefault = $part.find('.verses-ad-libitum-default'),
+        hasDefault = !$versesDefault.hasClass('is-empty'),
+        showingDefault = $part.hasClass('showing-verses-ad-libitum-default'),
+        showingCustom = $part.hasClass('showing-verses-ad-libitum-custom');
+    if(this.checked && !hasDefault && showingDefault) this.checked = false;
+    var cbVersesAdLibitum = this;
+    targetState = targetState || {};
+    var customVerse = targetState.customVerse;
+    targetState = targetState.state;
+    if(targetState || (!this.checked && hasDefault && showingDefault)) this.checked = true;
+    $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
+    $verses.empty();
+    var state = sel[versePart] = sel[versePart] || {};
+    if(!state.ctxt) makeChantContextForSel(state);
+    var versesSelected = this.checked? 1 : 0;
+    var customRef = null;
+    if(this.checked) {
+      showingDefault = hasDefault? (e.isTrigger? showingDefault : !showingDefault) : false;
+      if(targetState) showingDefault = targetState == 1;
+      $part.addClass('showing-verses-ad-libitum-' + (showingDefault? "default" : "custom"));
+      var ref;
+      if(showingDefault) {
+        ref = $versesDefault.text();
+      } else {
+        ++versesSelected;
+        var $selPsalms = $part.find('select.sel-psalms');
+        var $txtPsalmRef = $part.find("input.txtPsalmVerses");
+        if(customVerse) {
+          var cantica = Object.keys(canticumMap).sort().reverse().join('|').replace(/[()+*.[{]/g,'\\$&');
+          var match = new RegExp("(\\d{3}|"+cantica+") (.*)").exec(customVerse);
+          $selPsalms.val(match[1]);
+          $txtPsalmRef.val(match[2]);
+          customRef = customVerse;
+          ref = "Psalm " + customVerse;
+        } else {
+          ref = "Psalm " + $selPsalms.val() + " " + $txtPsalmRef.val();
+          customRef = ref.slice(6);
+        }
+      }
+      $.when.apply($, parseRef(ref).map(function(ref) {
+        return ref.getLinesFromLiber().pipe(function(lines) {
+          if(!ref.verse) lines = lines.slice(0,10);
+          return lines;
+        });
+      })).then(function() {
+        if(!cbVersesAdLibitum.checked) return;
+        var lines = [].concat.apply([], arguments).map(function(l) { return l.replace(/^\d+[a-z]*\.\s+/,''); });
+        // filter out any verses that are completely contained in the text of the antiphon / verse itself
+        // var parentText = sel[part].text.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1');
+        // lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
+        state.text = lines.join('\n');
+        state.mode = sel[part].mode;
+
+        // match clef of antiphon:
+        var clef = sel[part].score.startingClef.mapping.source;
+        state.gabc = "initial-style: 0;\n%%\n" + clef;
+        
+        // add custos at end of each verse
+        var notations = sel[part].score.notations;
+        var lastI = notations.length - 1;
+        var firstNote = '',
+            lastNote = '';
+        for(var i=0; i < 10; ++i) {
+          if(!firstNote && notations[i].isNeume) {
+            firstNote = notations[i].notes[0];
+            firstNote = (16 + firstNote.staffPosition).toString(23);
+          }
+          if(!lastNote && notations[lastI - i].isNeume) {
+            // TODO: this needs to ignore the verse and Gloria Patri in the Introit
+            lastNote = notations[lastI - i].notes.slice(-1)[0];
+            lastNote = (16 + lastNote.staffPosition).toString(23);
+          }
+          if(firstNote && lastNote) break;
+        }
+        var tone = getIntroitTone(state);
+        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc);
+        applyAmenTones(tone, amenTones);
+        var lastNoteMatch = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/.exec(sel[part].gabc);
+        if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
+          console.info(lastNoteMatch[1], lastNote);
+        }
+        lastNote = lastNoteMatch[1].toLowerCase();
+        state.startOfVerse = '('+lastNote+'+) ';
+        state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
+        state.activeGabc = getPsalmToneForPart(versePart, tone);
+        if(!selPropers || selPropers.gloriaPatri !== false) {
+          state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
+        }
+        state.responsoryCallbacks = [];
+        updateExsurge(versePart, null, true);
+      });
+    }
+    addToHash(versePart,versesSelected);
+    addToHash(versePart+'Custom',customRef);
+  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
+    var $part = $(this).parents().filter('[part]');
+    $part.find('.cbVersesAdLibitum').change();
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
     e.preventDefault();
@@ -3123,14 +3425,26 @@ console.info(JSON.stringify(selPropers));
     var hash = localStorage[key];
     if(hash) location.hash = (new LocationHash(hash+location.hash)).toString();
   }
-  function hashChanged() {
+  function hashChanged(isPageLoad) {
     if(lastHandledHash !== location.hash) {
+      window.afterChantLayout = null;
       lastHandledHash = location.hash;
       allowAddToHash = false;
       var hash = parseHash();
       ['sunday', 'sundayNovus', 'saint', 'mass',
        'tempus', 'yearNovus',
        'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).forEach(function(key, i) {
+        if(isPageLoad === true && (key in hash)) {
+          var selector = '#divCustom1';
+          if(key == 'ordinary') {
+            selector = '#divKyrie';
+          } else if(i > 6) {
+            selector = '#div' + key[0].toUpperCase() + key.slice(1);
+          }
+          var element = $(selector)[0];
+          window.afterChantLayout = function() { element.scrollIntoView(); };
+          isPageLoad = false;
+        }
         if(key in hash || (i > 5 && (i <= 10 || !('ordinary' in hash)))) {
           var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1)),
               val = hash[key] || '';
@@ -3150,12 +3464,13 @@ console.info(JSON.stringify(selPropers));
       }
       $('select[id^=selStyle]').each(function(){
         var $this=$(this),
-            capPart = this.id.slice(3),
-            part = capPart[0].toLowerCase() + capPart.slice(1),
-            style = hash[part];
+            capPart = this.id.slice(8),
+            part = capPart.toLowerCase(),
+            style = hash['style'+capPart],
+            verseStyle = hash[part+'Verses'],
+            customVerse = hash[part+'VersesCustom'],
+            $verses = $('#div'+capPart+' input.cbVersesAdLibitum');
         if(style) {
-          capPart = part.slice(5);
-          part = capPart.toLowerCase();
           var pattern = hash[part+'Pattern'];
           if(pattern) {
             pattern = pattern.replace(/V/g,'℣').replace(/\d+/g,function(num) {
@@ -3187,6 +3502,9 @@ console.info(JSON.stringify(selPropers));
             if($selTone.val() != tone) $selTone.val(tone).change();
             if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
           }
+        }
+        if(verseStyle && $verses.length) {
+          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse});
         }
       });
     }
@@ -3306,11 +3624,12 @@ console.info(JSON.stringify(selPropers));
           }
           if(neumeIndex) {
             var nextNeume = note.neume.score.notations[neumeIndex + 1];
-            if(nextNeume.constructor == exsurge.TextOnly) {
+            var efNextNeume = nextNeume.isAccidental? note.neume.score.notations[neumeIndex + 2] : nextNeume;
+            if(efNextNeume.constructor == exsurge.TextOnly) {
               splice.addString = ',';
               splice.index = nextNeume.mapping.sourceIndex + nextNeume.mapping.source.length - 1;
               break;
-            } else if(!nextNeume.hasLyrics() && !nextNeume.isAccidental) {
+            } else if(!efNextNeume.hasLyrics()) {
               splice.addString = ',';
               splice.index = nextNeume.sourceIndex || nextNeume.notes[0].sourceIndex;
               break;
@@ -3531,5 +3850,5 @@ console.info(JSON.stringify(selPropers));
   });
   selTempus = getSeasonForMoment(new moment());
   updateTempus();
-  hashChanged();
+  hashChanged(true);
 });

@@ -13,3 +13,8 @@ res
 icon.png
 douay-rheims/src
 MR1962
+key.properties
+.npmignore
+package-lock.json
+build.json
+show-diffs.sh

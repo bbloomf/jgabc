@@ -1,11 +1,12 @@
 "use strict";
 if(!location.hash) location.hash = 1;
 $(function() {
+  var psalmVersion = "liber";
   var liber = [], vulgate = [], psalmMap = [];
   $.get('../psalmMap.json', function(map) {
     psalmMap = map;
   });
-  $.get('vulgate', function(wholeVulgate) {
+  $.get('../vulgate/Psalmi', function(wholeVulgate) {
     wholeVulgate.trim().split('\n').reduce(function(vulgate, verse) {
       var match = /^(\d+)\s+(\d+)\s+(.*)$/.exec(verse);
       var psalm = match[1] - 1,
@@ -15,23 +16,24 @@ $(function() {
       return vulgate;
     }, vulgate);
     $(window).on('hashchange', function() {
-      var psalm = location.hash.slice(1);
-      $('.title').text('Psalm ' + psalm);
+      var txtRef = decodeURIComponent(window.location.hash.slice(1));
+      if(/^\d/.test(txtRef)) {
+        txtRef = "Psalm " + txtRef;
+      }
+      var refs = parseRef(txtRef);
+      var title = refArrayString(refs);
+      $('.title').text(title);
       $('#psalm').empty();
-      $.get(('00'+psalm).slice(-3), function(result) {
-        liber = result.trim().split('\n');
-        var map = psalmMap[psalm - 1];
-        $('#psalm').append(vulgate[psalm - 1].map(function(verse, index) {
-          var a = map[index],
-              b = map[index + 1],
-              c = map[index - 1];
-          if(typeof a != 'number') a = Infinity;
-          if(c === a) ++a;
-          if(b === a) ++b;
-          return `<div class='vulgate'>${index + 1}. ${verse}</div>
-${liber.slice(a, b||undefined).map(verse => `<div class='liber'>${verse}</div>`).join('')}
-<br>`;
-        }).join(''))
+      var lastRef = null;
+      var result = refs.map(ref => {
+        var obj = {};
+        ref.startInMiddle = lastRef && lastRef.book == ref.book && lastRef.chapter == ref.chapter && lastRef.getEndVerse() == (ref.verse - 1);
+        lastRef = ref;
+        ref.getLinesFromLiber().then(lines => {
+          obj.html = lines.map(l => `<div class='liber'>${l}</div>`).join('');
+          $('#psalm').html(result.map(o => o.html || '').join(''));
+        });
+        return obj;
       });
     }).trigger('hashchange');
   });

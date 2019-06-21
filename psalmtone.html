@@ -1,6 +1,15 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-24502736-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-24502736-2');
+</script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=320, initial-scale=1">
   <title>Psalm Tone Tool</title>
@@ -18,19 +27,11 @@
   <script src="psalmtone.js" type="text/javascript"></script>
   <script src="jszip.js" async type="text/javascript"></script>
   <script src="FileSaver.min.js"></script>
+  <script src="jquery.hypher.js"></script>
+  <script src="patterns/la-hypher.js"></script>
   <script src="psalmtone.html.js"></script>
   <script src="exsurge.min.js"></script>
   <!-- <script src="jszip-deflate.js" async type="text/javascript"></script>-->
-  <script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-24502736-2']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-  </script>
 </head>
 <body class='sans' style='padding:8px'>
 <style>
@@ -58,6 +59,12 @@ tr.bordered>td {
   left: 0;
   right: 0;
   background: white;
+}
+#chant-parent2 .when-no-editor {
+  display: none;
+}
+#chant-parent2.noeditor .when-no-editor {
+  display: block;
 }
 #chant-parent2{
   width:10.3in;
@@ -131,11 +138,15 @@ textarea{
 <label for="versegabc" title="Text of the psalm">Psalm GABC</label><br/><div class="tap"><textarea id="versegabc" spellcheck="false" style="height: 24pt; width: 100%;">g hj jr 'k jr jr 'ih j.&#10;j jr h 'j jr ih..</textarea></div>
 Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preparatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preparatory syllable<span id="sTermPrepS">s</span></span>
-</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select> <input type="checkbox" id="cbUseNovaVulgata"/><label for="cbUseNovaVulgata">Use Nova Vulgata psalms</label> <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Patri</label><br/><div class="tap"><textarea id="versetext" lang="latin" style="height: 96pt; width: 100%;"></textarea></div>
+</td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select>
+  <input type="checkbox" id="cbEnglish"/><label for="cbEnglish">English</label>
+  <input type="checkbox" id="cbUseNovaVulgata"/><label for="cbUseNovaVulgata">Use Nova Vulgata psalms</label>
+  <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Patri</label><br/><div class="tap"><textarea id="versetext" lang="latin" style="height: 96pt; width: 100%;"></textarea></div>
 </td></tr>
 <tr class="bordered">
   <td>
     <label for="selFormat" title="Select a 'gabc' format to format all verses using gabc.&#10;New formats can be created with the 'Create New Format' button, and all formats can be edited using the panel to the right.">Format verses as: </label><select id="selFormat"></select><input type="button" id="btnDelFormat" value="Delete Current Format"/><input type="button" id="btnNewFormat" value="Create New Format"/><br/>
+    <input type="checkbox" checked id="cbFirstVerseGabc"/><label for="cbFirstVerseGabc" id="lblFirstVerseGabc" title="Use GABC for first verse instead of ...">GABC for first verse</label><br/>
     <input type="checkbox" id="cbInitStyle"/><label for="cbInitStyle" title="Use large drop cap for first verse, and ommit verse prefix on first verse.">Use large initial</label><br/>
     <input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels" title="Only apply the formatting to the vowel rather than to the entire syllable, and only to first of any preparatory syllables rather than to all preparatory syllables.">Only format vowels</label><br/>
     <input type="checkbox" id="cbUsePunctaCava"/><label for="cbUsePunctaCava" title="Use a punctum cavum wherever a variable number of notes will be present depending on the specific verse.">Use puncta cava</label><br/>
@@ -197,6 +208,7 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
 </div>
 </div>
 <div id="chant-parent2">
+  <div class='when-no-editor'><a href="#editor">Show Editor</a></div>
   <div id="chant-parent">
     <div id="chant-pad">
       <div id="chant-preview"></div>

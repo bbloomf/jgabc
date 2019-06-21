@@ -1,3 +1,6 @@
+String.prototype.repeat = function(num){return new Array(num+1).join(this);};
+String.prototype.reverse = function(){return this.split('').reverse().join('');};
+var regexLatinLongPenult = /([ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])(?!([bcdgkpt][rl]|qu|[bcdfghjklmnprstvy])[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])((?:[bcdfghjklmnprstvy]{2,}|[xz])(?:[ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])[bcdfghjklmnprstvxyz]*)$/i;
 var linkSelector="";
 var linkDownloadSelector="";
 
@@ -28,9 +31,12 @@ var mapBooks = {
   "Ezech": "Ezechiel",
   "Gal": "Ad Galatas",
   "Gen": "Genesis",
+  "Ha": "Habacuc",
+  "Heb": "Ad Hebræos",
   "Hebr": "Ad Hebræos",
   "Is": "Isaias",
   "Isa": "Isaias",
+  "Isaiae": "Isaias",
   "Jac": "Jacobi",
   "Jas": "Jacobi",
   "Jer": "Jeremias",
@@ -48,18 +54,21 @@ var mapBooks = {
   "Marc": "Marcus",
   "Matt": "Matthæus",
   "Num": "Numeri",
+  "Par": "Paralipomenon",
   "Pet": "Petri",
   "Petri": "Petri",
   "Phil": "Ad Philippenses",
   "Philipp": "Ad Philippenses",
   "Prov": "Proverbia",
+  "Ps": "Psalmi",
   "Reg": "Regum",
   "Rom": "Ad Romanos",
   "Sap": "Sapientia",
   "Thess": "Ad Thessalonicenses",
   "Tim": "Ad Timotheum",
   "Tit": 'Ad Titum',
-  "Tob": 'Tobiæ'
+  "Tob": 'Tobiæ',
+  "Tobias": 'Tobiæ'
 };
 
 if (typeof Object.assign != 'function') {
@@ -96,10 +105,9 @@ function makeExsurgeChantContext() {
   var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
   ctxt.condenseLineAmount = 1;
   ctxt.setGlyphScaling(1/16);
-  ctxt.lyricTextFont = "'Crimson Text', serif";
-  ctxt.lyricTextSize *= 1.2;
-  ctxt.dropCapTextFont = ctxt.lyricTextFont;
-  ctxt.annotationTextFont = ctxt.lyricTextFont;
+  ctxt.setFont("'Crimson Text', serif", 19.2);
+  ctxt.dropCapTextSize = 64;
+  ctxt.annotationTextSize = 12.8;
   ctxt.minLyricWordSpacing *= 0.7;
   ctxt.accidentalSpaceMultiplier = 1.5;
   
@@ -221,7 +229,7 @@ var rog = {
 var regexTag = /<(\/)?(\w+)>/i;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
-var regexHeaderLine = /^([\w-_.]+):\s*([^;\r\n]*)(?:;|$)/i;
+var regexHeaderLine = /^([\w-_.]+):\s*((?:[^;\r\n]|;[ \t])*)(?:;|$)/i;
 var regexHeaderComment = /^%.*/;
 function GabcHeader(text){
   if(typeof(text)!='string') text='';
@@ -494,9 +502,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
            'U':'Ú',
            'Y':'Ý',
            'æ':"ǽ",
-           'œ':"oé",
+           'œ':"œ́",
            'Æ':"Ǽ",
-           'Œ':"Oé"
+           'Œ':"Œ́"
            },
         "true":
           {'a':'ä',
@@ -562,7 +570,9 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
             'Ö':'O',
             'Ü':'U',
             'Ǽ':"Aé",
-            'ǽ':"aé"
+            'ǽ':"aé",
+            'Œ́':'Oé',
+            'œ́':'oé'
           },
         "true":
           {
@@ -629,6 +639,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
     }
     var isEnglish=$("#cbEnglish")[0] && cbEnglish.checked;
     if(e.which == 49 || e.which == 50 || (e.which == 51 && isEnglish)) {
+      if(e.shiftKey) return;
       // swap e.which (49;50;51 => 2;1;0)
       var which = 2 - (e.which - 49),
           start = this.selectionStart,
@@ -674,6 +685,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         // TODO: expand selection to entire word if it isn't currently on a whole word
         var word = this.value.slice(start,end);
         var syllables = word.match(regexLatin);
+        if(!syllables) return;
         if(syllables.length>2) {
           syllables = syllables.reverse();
           word = accentSyllable(syllables,which);
@@ -683,7 +695,7 @@ function makeInternationalTextBoxKeyDown(convertFlexa){
         }
       }
     }
-    if(e.which==9 || (!isEnglish && (e.which == 49 || e.which == 50))) {
+    if(e.which==9 || (!isEnglish && !e.shiftKey && (e.which == 49 || e.which == 50))) {
       if(isEnglish) {
         var selectionEnd = this.selectionEnd;
         while(/\s/.test(this.value[selectionEnd])) {
@@ -782,168 +794,174 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
 }
-
+var Tone;
 if(typeof window=='object') (function(window) {
-  var synth = new Tone.Synth({
-    "oscillator" : {
-        type: "custom",
-        partials: [0.3,0.03,0.05]
-      },
-      "envelope" : {
-        "attack" : 0.05,
-        "decay" : 0.3,
-        "sustain" : 0.4,
-        "release" : 0.8,
+  var synth;
+  if(Tone) {
+    synth = new Tone.Synth({
+      "oscillator" : {
+          type: "custom",
+          partials: [0.3,0.03,0.05]
+        },
+        "envelope" : {
+          "attack" : 0.05,
+          "decay" : 0.3,
+          "sustain" : 0.4,
+          "release" : 0.8,
+        }
+    }).toMaster();
+    Tone.Transport.bpm.value = 165;
+    window.setTempo = function(newTempo) { Tone.Transport.bpm.value = newTempo || 165; }
+    window.setRelativeTempo = function(delta) {
+      var state = Tone.Transport.state;
+      Tone.Transport.stop();
+      var val = Tone.Transport.bpm.value = Math.round(Math.max(0, Tone.Transport.bpm.value + delta)) || 165;
+      if(state === 'started') {
+        Tone.Transport.clear(timeoutNextNote);
+        Tone.Transport.start();
+        timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+8n');
       }
-  }).toMaster();
-  var timeoutNextNote, transpose = 0;
-  Tone.Transport.bpm.value = 165;
-  var _isPlaying=false;
-  window.setTempo = function(newTempo) { Tone.Transport.bpm.value = newTempo || 165; }
-  window.setRelativeTempo = function(delta) {
-    var state = Tone.Transport.state;
-    Tone.Transport.stop();
-    var val = Tone.Transport.bpm.value = Math.round(Math.max(0, Tone.Transport.bpm.value + delta)) || 165;
-    if(state === 'started') {
+      return val;
+    }
+    window.playScore = function(score, firstPitch, startNote){
       Tone.Transport.clear(timeoutNextNote);
       Tone.Transport.start();
-      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+8n');
+      if($('#mediaControls').length == 0) {
+        $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
+      }
+      $('#mediaControls').removeClass('offscreen');
+      if(syllable) {
+        syllable.classList.remove('active');
+        syllable = null;
+      }
+      var originalSvg = score.svg;
+      var dropCap = !startNote && $('text', originalSvg)[0];
+      if(dropCap)
+        dropCap.classList.add('active');
+      var noteId = 0;
+      var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
+      if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
+      if(!firstPitch) firstPitch = score.defaultStartPitch;
+      if(!firstPitch) {
+        var startPitch = notes[0].pitch.toInt(),
+            pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
+            lowPitch = Math.min.apply(null, pitches),
+            highPitch = Math.max.apply(null, pitches);
+        firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
+      }
+      if(firstPitch.toInt) firstPitch = firstPitch.toInt();
+      transpose = firstPitch - notes[0].pitch.toInt();
+      _isPlaying = true;
+      function playNextNote(time){
+        var note = notes[noteId];
+        if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
+        if(originalSvg != score.svg || note == null) {
+          if(syllable) syllable.classList.remove('active');
+          _isPlaying = false;
+        }
+        if(!_isPlaying) {
+          if(dropCap) dropCap.classList.remove('active');
+          $('#mediaControls').addClass('offscreen');
+          return;
+        }
+        var duration = 1;
+        if(note.constructor != exsurge.Note) {
+          while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
+            if(!(note = notes[++noteId])) return;
+          }
+          if(note.isDivider) {
+            if(syllable) syllable.classList.remove('active');
+            if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
+              duration = 2;
+            } // otherwise (for half bar) duration is default of 1.
+          }
+        }
+        noteElem = note.svgNode;
+        if(noteElem) {
+          var href = noteElem.attributes.getNamedItem('href').value;
+          if(href == '#None') {
+            noteElem = noteElem.previousSibling;
+            noteElem.classList.remove('porrectus-left');
+            noteElem.classList.add('porrectus-right');
+          } else if(/^#Porrectus/.test(href)) {
+            noteElem.classList.add('porrectus-left');
+          }
+          noteElem.classList.add('active');
+          var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
+          if(tmpSyllable && tmpSyllable != syllable) {
+            if(dropCap && syllable) dropCap.classList.remove('active');
+            if(syllable) syllable.classList.remove('active');
+            syllable = tmpSyllable;
+            if(syllable) syllable.classList.add('active');
+          }
+        }
+        if(note.constructor === exsurge.Note) {
+          var nextNote = notes[noteId + 1];
+          if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+          var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
+          var prevNote = notes[noteId - 1];
+          if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+          if(note.morae.length) {
+            duration = 2;
+          } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
+            duration = 1.8;
+          } else if(note.episemata.length) {
+            var episemataCount = 1;
+            if(prevNote && prevNote.episemata.length) ++ episemataCount;
+            if(nextNote && nextNote.episemata.length) ++ episemataCount;
+            duration += 0.9 / episemataCount;
+          }
+          var noteNeume = noteElem.parentNode.parentNode.source;
+          var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
+          var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
+          var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
+          // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
+          // var options = { length: durationMS };
+          // tones.play(note.pitch, options, transpose);
+          var noteName = tones.getNoteName(note.pitch, transpose);
+          synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
+        }
+        ++noteId;
+        if(noteId >= notes.length) _isPlaying = false;
+        if(Tone.Transport.state != 'started') return;
+        timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+' + (new Tone.Time("4n").toSeconds()*duration));
+      };
+      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote);
+      window.playNextNote = playNextNote;
+      window.playPauseScore = function() {
+        if(timeoutNextNote) {
+          Tone.Transport.clear(timeoutNextNote);
+          Tone.Transport.pause();
+          timeoutNextNote = null;
+        } else {
+          Tone.Transport.start();
+          playNextNote();
+          return true;
+        }
+      }
+      window.highlightCurrentlyPlayingNote = function() {
+        if(noteElem) {
+          noteElem.classList.add('active');
+        }
+        if(syllable) {
+          syllable.classList.add('active');
+        }
+      }
+    };
+    window.stopScore = function(){
+      Tone.Transport.stop();
+      _isPlaying=false;
+      $('#mediaControls').addClass('offscreen');
     }
-    return val;
+  } else {
+    Tone = {};
+    window.setTempo = window.setRelativeTempo = window.playScore = window.stopScore = function(){};
   }
+  var timeoutNextNote, transpose = 0;
+  var _isPlaying=false;
   var noteElem, syllable;
   window.isPlayingChant = function() {
     return _isPlaying;
-  }
-  window.playScore = function(score, firstPitch, startNote){
-    Tone.Transport.clear(timeoutNextNote);
-    Tone.Transport.start();
-    if($('#mediaControls').length == 0) {
-      $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
-    }
-    $('#mediaControls').removeClass('offscreen');
-    if(syllable) {
-      syllable.classList.remove('active');
-      syllable = null;
-    }
-    var originalSvg = score.svg;
-    var dropCap = !startNote && $('text', originalSvg)[0];
-    if(dropCap)
-      dropCap.classList.add('active');
-    var noteId = 0;
-    var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
-    if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
-    if(!firstPitch) firstPitch = score.defaultStartPitch;
-    if(!firstPitch) {
-      var startPitch = notes[0].pitch.toInt(),
-          pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
-          lowPitch = Math.min.apply(null, pitches),
-          highPitch = Math.max.apply(null, pitches);
-      firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
-    }
-    if(firstPitch.toInt) firstPitch = firstPitch.toInt();
-    transpose = firstPitch - notes[0].pitch.toInt();
-    _isPlaying = true;
-    function playNextNote(time){
-      var note = notes[noteId];
-      if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
-      if(originalSvg != score.svg || note == null) {
-        if(syllable) syllable.classList.remove('active');
-        _isPlaying = false;
-      }
-      if(!_isPlaying) {
-        if(dropCap) dropCap.classList.remove('active');
-        $('#mediaControls').addClass('offscreen');
-        return;
-      }
-      var duration = 1;
-      if(note.constructor != exsurge.Note) {
-        while(note.constructor != exsurge.Note && (!note.isDivider || note.constructor === exsurge.QuarterBar)) {
-          if(!(note = notes[++noteId])) return;
-        }
-        if(note.isDivider) {
-          if(syllable) syllable.classList.remove('active');
-          if(note.constructor === exsurge.FullBar || note.constructor === exsurge.DoubleBar) {
-            duration = 2;
-          } // otherwise (for half bar) duration is default of 1.
-        }
-      }
-      noteElem = note.svgNode;
-      if(noteElem) {
-        var href = noteElem.attributes.getNamedItem('href').value;
-        if(href == '#None') {
-          noteElem = noteElem.previousSibling;
-          noteElem.classList.remove('porrectus-left');
-          noteElem.classList.add('porrectus-right');
-        } else if(/^#Porrectus/.test(href)) {
-          noteElem.classList.add('porrectus-left');
-        }
-        noteElem.classList.add('active');
-        var tmpSyllable = $(noteElem).parent().parent().find('text')[0];
-        if(tmpSyllable && tmpSyllable != syllable) {
-          if(dropCap && syllable) dropCap.classList.remove('active');
-          if(syllable) syllable.classList.remove('active');
-          syllable = tmpSyllable;
-          if(syllable) syllable.classList.add('active');
-        }
-      }
-      if(note.constructor === exsurge.Note) {
-        var nextNote = notes[noteId + 1];
-        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
-        var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
-        var prevNote = notes[noteId - 1];
-        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
-        if(note.morae.length) {
-          duration = 2;
-        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
-          duration = 1.8;
-        } else if(note.episemata.length) {
-          var episemataCount = 1;
-          if(prevNote && prevNote.episemata.length) ++ episemataCount;
-          if(nextNote && nextNote.episemata.length) ++ episemataCount;
-          duration += 0.9 / episemataCount;
-        }
-        var noteNeume = noteElem.parentNode.parentNode.source;
-        var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
-        var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
-        var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
-        // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
-        // var options = { length: durationMS };
-        // tones.play(note.pitch, options, transpose);
-        var noteName = tones.getNoteName(note.pitch, transpose);
-        synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
-      }
-      ++noteId;
-      if(noteId >= notes.length) _isPlaying = false;
-      if(Tone.Transport.state != 'started') return;
-      timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote, '+' + (new Tone.Time("4n").toSeconds()*duration));
-    };
-    timeoutNextNote = Tone.Transport.scheduleOnce(playNextNote);
-    window.playNextNote = playNextNote;
-    window.playPauseScore = function() {
-      if(timeoutNextNote) {
-        Tone.Transport.clear(timeoutNextNote);
-        Tone.Transport.pause();
-        timeoutNextNote = null;
-      } else {
-        Tone.Transport.start();
-        playNextNote();
-        return true;
-      }
-    }
-    window.highlightCurrentlyPlayingNote = function() {
-      if(noteElem) {
-        noteElem.classList.add('active');
-      }
-      if(syllable) {
-        syllable.classList.add('active');
-      }
-    }
-  };
-  window.stopScore = function(){
-    Tone.Transport.stop();
-    _isPlaying=false;
-    $('#mediaControls').addClass('offscreen');
   }
   window.removeChantContextMenus = function() {
     $('svg.ChantScore use[source-index].active,svg.ChantScore text[source-index].active').each(function(){ this.classList.remove('active','porrectus-left','porrectus-right'); });
@@ -1332,6 +1350,7 @@ if(typeof $=='function') $(function($) {
     return null;
   }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
+  var gregorianBooksUrlPrefix = 'http://www.gregorianbooks.com/';
   var stopTone;
   var mouseUpTone = function() {
     stopTone && stopTone();
@@ -1488,10 +1507,14 @@ if(typeof $=='function') $(function($) {
     var $this = $(this);
     var $div = $this.parents('div').first();
     var gregoBaseId = $div.attr('gregobase-id');
+    var gregorianBooksId = $div.attr('gregorianBooksId');
     
     var $toolbar = $('<div>').addClass('chant-context btn-group-vertical');
     if(gregoBaseId) {
       $toolbar.append($('<a>').attr('target','_blak').attr('href',gregobaseUrlPrefix + gregoBaseId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> GregoBase'));
+    }
+    if(gregorianBooksId) {
+      $toolbar.append($('<a>').attr('target','_blak').attr('href',gregorianBooksUrlPrefix + gregorianBooksId).addClass('btn btn-success').html('<span class="glyphicon glyphicon-share-alt"></span> Gregorian Books'));
     }
     addPitchButtonsToToolbar($toolbar, null, $this.parents('svg').prop('source'));
     $toolbar.appendTo(document.body);
@@ -1520,15 +1543,17 @@ function getReading(source, returnText) {
     language = source.language || language;
     source = source.ref;
   }
-  var match = /\s*(?:(\d)\s+)?([A-Z][a-zæœ]+)(.*)/.exec(source),
+  var match = /\s*(?:(\d)\s+)?((?:[A-ZÆŒ][a-zæœ]+(?:\s(?=[A-ZÆŒ])|))+)(.*)/.exec(source),
       bookNumber = match[1],
       book = match[2],
       numbers = match[3];
   if(book in mapBooks) {
     book = mapBooks[book];
   }
+  var bookName = book;
   if(bookNumber) {
     book += ' ' + bookNumber;
+    bookName += ' ' + bookNumber;
   }
   var result = $.Deferred();
   $.get(edition+'/'+book).then(function(book) {
@@ -1557,19 +1582,19 @@ function getReading(source, returnText) {
       var wholeChapter = !verse;
       if(wholeChapter) verse = 1;
       var beginning = (chapter == 1 && verse == 1)? '' : '\n';
-      beginIndex = book.indexOf(`${beginning}${chapter}\t${verse}\t`);
+      beginIndex = book.indexOf(beginning + chapter + '\t' + verse + '\t');
       if(beginIndex < 0) {
-        text += `Verse ${chapter}: ${verse} was not found.\n`;
+        text += 'Verse ' + chapter + ': ' + verse + ' was not found.\n';
         continue;
       }
       if(beginning) beginIndex++;
       var temp = book.slice(beginIndex);
       var endIndex = 0;
       if(wholeChapter) {
-        endIndex = temp.indexOf(`\n${chapter- -1}\t1\t`);
+        endIndex = temp.indexOf('\n' + (chapter- -1) + '\t1\t');
         if(endIndex < 0) endIndex = temp.length-1;
       } else if(endVerse) {
-        endIndex = temp.indexOf(`\n${chapter}\t${endVerse}\t`) + 1;
+        endIndex = temp.indexOf('\n' + chapter + '\t' + endVerse + '\t') + 1;
       }
       endIndex = temp.indexOf('\n',endIndex);
       if(endIndex < 0) endIndex = temp.length;

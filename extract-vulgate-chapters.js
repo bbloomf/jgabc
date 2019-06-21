@@ -8,7 +8,7 @@ require('./patterns/la-hypher.js');
     vulgate = fs.readFileSync('../latin-ecclesiastic-accents/corpus/vulgate/vulgate_with_accents.txt','utf8').replace(/ ([:;.!?])/g,'$1').split('\n'),
     regexBookChapter = /^((?:(\d+)\s+)?([a-zæ]+))\s+(\d+)\s+(\d+)\s+/i,
     regexWord = /[a-záéíóúýäëïöüÿæœǽ]+/ig,
-    regexIVowel = /i[aeiouyáéíóúýäëïöüÿ]/i,
+    regexIVowel = /i[aeiouyáéíóúýäëïöüÿ]|[ií]c[aeiouyáéíóúýäëïöüÿ]/i,
     regexStartIVowel = /^i(?=[aeiouyáéíóúýäëïöüÿ])/ig,
     replaceIJ = {
       i: 'j',
@@ -37,10 +37,11 @@ vulgate.forEach(line => {
     if(regexIVowel.test(word)) {
       syls = latin.hyphenate(word);
       word = syls.map(syl => syl.replace(regexStartIVowel, match => (replaceIJ[match]) )).join('');
+      word = word.replace(/^(s[uú]b|pr[oó]|[rd][eé]|[eé]|[aáoó][bd])([ií]c[eiéíœæǽ])/i,'$1j$2');
       word = word.replace(/([Cc][uú])i(us)/g,'$1j$2');
       word = word.replace(/([Bb][eé]n)i(amin)/i, '$1j$2');
       if(/j/i.test(word)) {
-        if(/^(allelúja|Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajunt|ajo|ajon|gajo|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
+        if(/^(allelúja|Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajunt|ajo|ajon|gaj(o|us)|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
           word = word.replace(/j/g,'i').replace(/J/g,'I');
         } else {
           jWords[word.toLowerCase()] = 1;
