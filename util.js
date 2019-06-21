@@ -852,7 +852,35 @@ if(typeof window=='object') (function(window) {
       if(firstPitch.toInt) firstPitch = firstPitch.toInt();
       transpose = firstPitch - notes[0].pitch.toInt();
       _isPlaying = true;
-      function playNextNote(time){
+
+      function getNoteIdForNote (notes, note) {
+        return notes.findIndex(function (n) { return n === note; });
+      }
+
+      function getNoteDuration (notes, noteId) {
+        var duration = 1;
+        var note = notes[noteId];
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        
+        if(note.morae.length) {
+          duration = 2;
+        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
+          duration = 1.8;
+        } else if(note.episemata.length) {
+          var episemataCount = 1;
+          if(prevNote && prevNote.episemata.length) ++ episemataCount;
+          if(nextNote && nextNote.episemata.length) ++ episemataCount;
+          duration += 0.9 / episemataCount;
+        }
+
+        return duration;
+      }
+
+      function playNextNote (time){
+        window.notes = notes;
         var note = notes[noteId];
         if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
         if(originalSvg != score.svg || note == null) {
@@ -896,30 +924,22 @@ if(typeof window=='object') (function(window) {
           }
         }
         if(note.constructor === exsurge.Note) {
-          var nextNote = notes[noteId + 1];
-          if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
-          var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
-          var prevNote = notes[noteId - 1];
-          if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
-          if(note.morae.length) {
-            duration = 2;
-          } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
-            duration = 1.8;
-          } else if(note.episemata.length) {
-            var episemataCount = 1;
-            if(prevNote && prevNote.episemata.length) ++ episemataCount;
-            if(nextNote && nextNote.episemata.length) ++ episemataCount;
-            duration += 0.9 / episemataCount;
-          }
-          var noteNeume = noteElem.parentNode.parentNode.source;
-          var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
-          var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
-          var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
-          // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
-          // var options = { length: durationMS };
-          // tones.play(note.pitch, options, transpose);
+          duration = getNoteDuration(notes, noteId);
+          
+          var neume = note.neume;
+          var isApostropha = neume.isNeume && neume.notes.length > 1 && !neume.notes.filter(function (n) { return note.pitch.step !== n.pitch.step || note.pitch.octave !== n.pitch.octave; })[0];
           var noteName = tones.getNoteName(note.pitch, transpose);
-          synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
+          if (isApostropha && $('#no-apostropha-repercussion').prop('checked')) {
+            if (neume.notes[0] === note) {
+              var totalDuration = 0;
+              neume.notes.forEach(function (note) {
+                totalDuration += getNoteDuration(notes, getNoteIdForNote(notes, note));
+              });
+              synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*totalDuration, time);
+            }
+          } else {
+            synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
+          }
         }
         ++noteId;
         if(noteId >= notes.length) _isPlaying = false;
