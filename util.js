@@ -853,6 +853,26 @@ if(typeof window=='object') (function(window) {
       transpose = firstPitch - notes[0].pitch.toInt();
       _isPlaying = true;
 
+
+      function getArePitchesEqual () {
+        var pitches = arguments[0] && Array.isArray(arguments[0]) ? arguments[0] : arguments;
+        if(pitches.length <= 1) return true;
+        var pitch = pitches[0];
+        for (var i=0; i < pitches.length; i++) {
+          if(pitches[i].step !== pitch.step || pitches[i].octave !== pitch.octave) {
+            return false;
+          }
+        }
+        return true
+      }
+
+      function getIsLastNoteInNeume (note) {
+        return note === note.neume.notes[note.neume.notes.length-1];
+      }
+      function getIsFirstNoteInNeume (note) {
+        return note === note.neume.notes[0];
+      }
+
       function getNoteIdForNote (notes, note) {
         return notes.findIndex(function (n) { return n === note; });
       }
@@ -877,6 +897,50 @@ if(typeof window=='object') (function(window) {
         }
 
         return duration;
+      }
+
+      function getIsApostropha (note) {
+        var neume = note.neume;
+        return neume.isNeume && 
+               neume.notes.length > 1 &&
+               getArePitchesEqual(neume.notes.map(function (n) { return n.pitch; }));
+      }
+
+      function getPressus (notes, noteId) {
+        var pressus;
+        var note = notes[noteId];
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var noteAfterNext = notes[noteId + 2];
+        if(noteAfterNext && noteAfterNext.constructor != exsurge.Note) noteAfterNext = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        var noteBeforePrev = notes[noteId - 2];
+        if(noteBeforePrev && noteBeforePrev.constructor != exsurge.Note) noteBeforePrev = null;
+
+        if (
+          nextNote && nextNote.morae.length === 0 && note.morae.length === 0 && 
+          getIsLastNoteInNeume(note) && getIsFirstNoteInNeume(nextNote) && 
+          getArePitchesEqual(note.pitch, nextNote.pitch) &&
+          (!prevNote || !getArePitchesEqual(note.pitch, prevNote.pitch)) &&
+          (!noteAfterNext || !getArePitchesEqual(nextNote.pitch, noteAfterNext.pitch)) &&
+          !getIsApostropha(note) && !getIsApostropha(nextNote) &&
+          nextNote.neume.lyrics.length === 0
+        ) {
+          pressus = [note, nextNote];
+        } else if (
+          prevNote && prevNote.morae.length === 0 && note.morae.length === 0 &&
+          getIsLastNoteInNeume(prevNote) && getIsFirstNoteInNeume(note) &&
+          getArePitchesEqual(prevNote.pitch, note.pitch) &&
+          (!noteBeforePrev || !getArePitchesEqual(noteBeforePrev.pitch, prevNote.pitch)) &&
+          (!nextNote || !getArePitchesEqual(nextNote.pitch, note.pitch)) &&
+          !getIsApostropha(prevNote) && !getIsApostropha(note) &&
+          note.neume.lyrics.length === 0
+        ) {
+          pressus = [prevNote, note];
+        }
+
+        return pressus;
       }
 
       function playNextNote (time){
@@ -925,18 +989,22 @@ if(typeof window=='object') (function(window) {
         }
         if(note.constructor === exsurge.Note) {
           duration = getNoteDuration(notes, noteId);
-          
-          var neume = note.neume;
-          var isApostropha = neume.isNeume && neume.notes.length > 1 && !neume.notes.filter(function (n) { return note.pitch.step !== n.pitch.step || note.pitch.octave !== n.pitch.octave; })[0];
+          var isApostropha = getIsApostropha(note);
+          var pressus = getPressus(notes, noteId);
+          var $noApostrophaRepercussion = $('#no-apostropha-repercussion');
           var noteName = tones.getNoteName(note.pitch, transpose);
-          if (isApostropha && $('#no-apostropha-repercussion').prop('checked')) {
-            if (neume.notes[0] === note) {
-              var totalDuration = 0;
-              neume.notes.forEach(function (note) {
+          if ((isApostropha || pressus) && $noApostrophaRepercussion.length && $noApostrophaRepercussion.prop('checked')) {
+            var totalDuration = 0;
+            if (isApostropha && note.neume.notes[0] === note) {
+              note.neume.notes.forEach(function (note) {
                 totalDuration += getNoteDuration(notes, getNoteIdForNote(notes, note));
               });
-              synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*totalDuration, time);
+            } else if (pressus && pressus[0] === note) {
+              totalDuration += getNoteDuration(notes, noteId);
+              totalDuration += getNoteDuration(notes, noteId+1);
             }
+
+            if(totalDuration > 0) synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*totalDuration, time);
           } else {
             synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
           }
