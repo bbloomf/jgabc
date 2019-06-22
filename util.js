@@ -972,7 +972,6 @@ if(typeof window=='object') (function(window) {
       }
 
       function playNextNote (time){
-        window.notes = notes;
         var note = notes[noteId];
         if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
         if(originalSvg != score.svg || note == null) {
