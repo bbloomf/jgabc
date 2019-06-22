@@ -854,11 +854,7 @@ if(typeof window=='object') (function(window) {
       _isPlaying = true;
 
       function getIsUsingSolemnesLengths () {
-        var $ele = $('#use-solemnes-lengths');
-        if($ele && $ele.length) {
-          return $ele.prop('checked');
-        }
-        return false;
+        return !!window.isUsingSolemnesLengths;
       }
 
       function getArePitchesEqual () {
