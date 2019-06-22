@@ -853,6 +853,13 @@ if(typeof window=='object') (function(window) {
       transpose = firstPitch - notes[0].pitch.toInt();
       _isPlaying = true;
 
+      function getIsUsingSolemnesLengths () {
+        var $ele = $('#use-solemnes-lengths');
+        if($ele && $ele.length) {
+          return $ele.prop('checked');
+        }
+        return false;
+      }
 
       function getArePitchesEqual () {
         var pitches = arguments[0] && Array.isArray(arguments[0]) ? arguments[0] : arguments;
@@ -876,6 +883,30 @@ if(typeof window=='object') (function(window) {
       function getNoteIdForNote (notes, note) {
         return notes.findIndex(function (n) { return n === note; });
       }
+      function getIsSalicus (notes, noteId) {
+        var note = notes[noteId];
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        
+        if (
+          note.ictus && prevNote && 
+          (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && 
+          (nextNote.pitch.toInt() - note.pitch.toInt() == 1)
+        ) {
+          return true;
+        } else if (
+          note.ictus && note.ictus.glyphCode === "VerticalEpisemaBelow" &&
+          note.glyphVisualizer.glyphCode === "PodatusLower" && 
+          (note.pitch.toInt() - prevNote.pitch.toInt() > 0) && 
+          (nextNote.pitch.toInt() - note.pitch.toInt() > 0)
+        ) {
+          return true;
+        }
+
+        return false;
+      }
 
       function getNoteDuration (notes, noteId) {
         var duration = 1;
@@ -887,7 +918,7 @@ if(typeof window=='object') (function(window) {
         
         if(note.morae.length) {
           duration = 2;
-        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
+        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || getIsSalicus(notes, noteId))) {
           duration = 1.8;
         } else if(note.episemata.length) {
           var episemataCount = 1;
@@ -989,11 +1020,11 @@ if(typeof window=='object') (function(window) {
         }
         if(note.constructor === exsurge.Note) {
           duration = getNoteDuration(notes, noteId);
+          var isUsingSolemnesLengths = getIsUsingSolemnesLengths();
           var isApostropha = getIsApostropha(note);
           var pressus = getPressus(notes, noteId);
-          var $noApostrophaRepercussion = $('#no-apostropha-repercussion');
           var noteName = tones.getNoteName(note.pitch, transpose);
-          if ((isApostropha || pressus) && $noApostrophaRepercussion.length && $noApostrophaRepercussion.prop('checked')) {
+          if ((isApostropha || pressus) && isUsingSolemnesLengths) {
             var totalDuration = 0;
             if (isApostropha && note.neume.notes[0] === note) {
               note.neume.notes.forEach(function (note) {
