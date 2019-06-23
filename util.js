@@ -853,8 +853,8 @@ if(typeof window=='object') (function(window) {
       transpose = firstPitch - notes[0].pitch.toInt();
       _isPlaying = true;
 
-      function getIsUsingSolemnesLengths () {
-        return !!window.isUsingSolemnesLengths;
+      function getIsUsingSolesmesLengths () {
+        return !!window.isUsingSolesmesLengths;
       }
 
       function getArePitchesEqual () {
@@ -893,7 +893,7 @@ if(typeof window=='object') (function(window) {
         ) {
           return true;
         } else if (
-          getIsUsingSolemnesLengths() &&
+          getIsUsingSolesmesLengths() &&
           note.ictus && note.ictus.glyphCode === "VerticalEpisemaBelow" &&
           note.glyphVisualizer.glyphCode === "PodatusLower" && 
           (note.pitch.toInt() - prevNote.pitch.toInt() > 0) && 
@@ -1016,11 +1016,11 @@ if(typeof window=='object') (function(window) {
         }
         if(note.constructor === exsurge.Note) {
           duration = getNoteDuration(notes, noteId);
-          var isUsingSolemnesLengths = getIsUsingSolemnesLengths();
+          var isUsingSolesmesLengths = getIsUsingSolesmesLengths();
           var isApostropha = getIsApostropha(note);
           var pressus = getPressus(notes, noteId);
           var noteName = tones.getNoteName(note.pitch, transpose);
-          if ((isApostropha || pressus) && isUsingSolemnesLengths) {
+          if ((isApostropha || pressus) && isUsingSolesmesLengths) {
             var totalDuration = 0;
             if (isApostropha && note.neume.notes[0] === note) {
               note.neume.notes.forEach(function (note) {

@@ -33,7 +33,7 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   isNovus = false,
   novusOption={},
   yearArray = ['A','B','C'];
-  window.isUsingSolemnesLengths = (localStorage.isUsingSolemnesLengths === 'true') || false;
+  window.isUsingSolesmesLengths = (localStorage.isUsingSolesmesLengths === 'true') || false;
 $(function(){
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
@@ -3172,11 +3172,11 @@ $(function(){
     $('div[part]').removeClass('page-break-before');
     $(pageBreaks.map(function(part) { return 'div[part=' + part.toLowerCase() + ']'}).join(',')).addClass('page-break-before');
   }
-  $('#use-solemnes-lengths').on('change', function (e) {
-    window.isUsingSolemnesLengths = this.checked;
-    localStorage.isUsingSolemnesLengths = this.checked;
+  $('#use-solesmes-lengths').on('change', function (e) {
+    window.isUsingSolesmesLengths = this.checked;
+    localStorage.isUsingSolesmesLengths = this.checked;
   });
-  $('#use-solemnes-lengths').prop('checked', !!window.isUsingSolemnesLengths);
+  $('#use-solesmes-lengths').prop('checked', !!window.isUsingSolesmesLengths);
   $('.dropdown-paper-size').on('click','li>a', function(e) {
     e.preventDefault();
     var $this = $(this),
