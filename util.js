@@ -939,8 +939,6 @@ if(typeof window=='object') (function(window) {
         var note = notes[noteId];
         var nextNote = notes[noteId + 1];
         if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
-        var noteAfterNext = notes[noteId + 2];
-        if(noteAfterNext && noteAfterNext.constructor != exsurge.Note) noteAfterNext = null;
         var prevNote = notes[noteId - 1];
         if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
         var noteBeforePrev = notes[noteId - 2];
