@@ -950,8 +950,7 @@ if(typeof window=='object') (function(window) {
           nextNote && nextNote.morae.length === 0 && note.morae.length === 0 && 
           getIsLastNoteInNeume(note) && getIsFirstNoteInNeume(nextNote) && 
           getArePitchesEqual(note.pitch, nextNote.pitch) &&
-          (!prevNote || !getArePitchesEqual(note.pitch, prevNote.pitch)) &&
-          (!noteAfterNext || !getArePitchesEqual(nextNote.pitch, noteAfterNext.pitch)) &&
+          (!prevNote || !getPressus(notes, noteId - 1)) &&
           !getIsApostropha(note) && !getIsApostropha(nextNote) &&
           nextNote.neume.lyrics.length === 0
         ) {
@@ -960,8 +959,7 @@ if(typeof window=='object') (function(window) {
           prevNote && prevNote.morae.length === 0 && note.morae.length === 0 &&
           getIsLastNoteInNeume(prevNote) && getIsFirstNoteInNeume(note) &&
           getArePitchesEqual(prevNote.pitch, note.pitch) &&
-          (!noteBeforePrev || !getArePitchesEqual(noteBeforePrev.pitch, prevNote.pitch)) &&
-          (!nextNote || !getArePitchesEqual(nextNote.pitch, note.pitch)) &&
+          (!noteBeforePrev || !getPressus(notes, noteId - 2)) &&
           !getIsApostropha(prevNote) && !getIsApostropha(note) &&
           note.neume.lyrics.length === 0
         ) {
