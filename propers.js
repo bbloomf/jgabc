@@ -1835,9 +1835,13 @@ $(function(){
     var clefI = parseFloat(clef.slice(1),10);
     //if(clef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
-    // minimize Difference: 
-    if(diff < -3.5) diff += 7;
-    if(diff > 3.5) diff -= 7;
+    var pitches = [].concat.apply([],gabc.map(function(g) { return g.match(/[a-m]/gi); })).map(function(letter) { return parseInt(letter, 23) - 10});
+    // pitches are from 0 - 12
+    var maxPitch = diff + Math.max.apply(null, pitches);
+    var minPitch = diff + Math.min.apply(null, pitches);
+    // don't allow overflowing the bounds of the staff:
+    if(minPitch < 0) diff += 7;
+    if(maxPitch > 12) diff -= 7;
     return gabc.map(function(gabc) { return shiftGabc(gabc,diff) });
   }
   
