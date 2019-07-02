@@ -1801,7 +1801,7 @@ $(function(){
   }
 
   var swapDoFaClef = function(gabc, clef) {
-    var c1 = parseInt(clef[1]),
+    var c1 = parseInt(clef.slice(-1),10),
         c = c1 * 2 + 1,
         faTi = c + 3 + 7,
         gabcFaTi = "x",
@@ -1820,19 +1820,27 @@ $(function(){
       }
       if(c < 1) c += 3.5;
       if(c >= 4.5) c-= 3.5;
-      return clef[0] + c;
+      return c - c1;
     }
-    return clef;
+    return 0;
   }
   
   var shiftGabcForClefChange = function(gabc,newClef,clef) {
     if(clef.length < 2)return;
-    if(newClef[0] != clef[0]) {
-      clef = swapDoFaClef(gabc.join(' '), clef);
-    }
-    var baseClefI = parseInt(newClef[1],10);
+    var baseClefI = parseInt(newClef.slice(-1),10);
     //if(newClef[0]=='f') baseClefI += 2;
-    var clefI = parseFloat(clef.slice(1),10);
+    var clefI = parseFloat(clef.slice(-1),10);
+    if(newClef[0] == clef[0]) {
+      if(clefI == 4 && baseClefI == 2) {
+        if(swapDoFaClef(gabc.join(' '), clef) == 0) {
+          clefI = 2.5;
+        } else if(swapDoFaClef(gabc.join(' '), clef.slice(0,-1)+'2') == 0) {
+          clefI = 2;
+        }
+      } 
+    } else {
+      clefI += swapDoFaClef(gabc.join(' '), clef);
+    }
     //if(clef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
     var pitches = [].concat.apply([],gabc.map(function(g) { return g.match(/[a-m]/gi); })).map(function(letter) { return parseInt(letter, 23) - 10});
