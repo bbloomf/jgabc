@@ -3090,6 +3090,7 @@ $(function(){
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
         replace(/(['_])\d/g,"$1"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after ' or _
+        replace(/!\)/g,')').
         replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
         replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
           return '[<v>' + translation + (whitespace? '' : '-') + '</v>](';
