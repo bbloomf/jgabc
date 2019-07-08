@@ -303,3 +303,8 @@ span.start-pitch {
     /* max-width:8in; */
   }
 }
+
+.btn-solesmes-lengths {
+  max-width: 95vw;
+  white-space: normal;
+}
