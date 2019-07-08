@@ -852,7 +852,122 @@ if(typeof window=='object') (function(window) {
       if(firstPitch.toInt) firstPitch = firstPitch.toInt();
       transpose = firstPitch - notes[0].pitch.toInt();
       _isPlaying = true;
-      function playNextNote(time){
+
+      function getIsUsingSolesmesLengths () {
+        return !!window.isUsingSolesmesLengths;
+      }
+
+      function getArePitchesEqual () {
+        var pitches = arguments[0] && Array.isArray(arguments[0]) ? arguments[0] : arguments;
+        if(pitches.length <= 1) return true;
+        var pitch = pitches[0];
+        for (var i=0; i < pitches.length; i++) {
+          if(pitches[i].step !== pitch.step || pitches[i].octave !== pitch.octave) {
+            return false;
+          }
+        }
+        return true
+      }
+
+      function getIsLastNoteInNeume (note) {
+        return note === note.neume.notes[note.neume.notes.length-1];
+      }
+      function getIsFirstNoteInNeume (note) {
+        return note === note.neume.notes[0];
+      }
+
+      function getNoteIdForNote (notes, note) {
+        return notes.findIndex(function (n) { return n === note; });
+      }
+      function getIsSalicus (notes, noteId) {
+        var note = notes[noteId];
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        
+        if (
+          note.ictus && prevNote && 
+          (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && 
+          (nextNote.pitch.toInt() - note.pitch.toInt() == 1)
+        ) {
+          return true;
+        } else if (
+          getIsUsingSolesmesLengths() &&
+          note.ictus && note.ictus.glyphCode === "VerticalEpisemaBelow" &&
+          note.glyphVisualizer.glyphCode === "PodatusLower" && 
+          (note.pitch.toInt() - prevNote.pitch.toInt() > 0) && 
+          (nextNote.pitch.toInt() - note.pitch.toInt() > 0)
+        ) {
+          return true;
+        }
+
+        return false;
+      }
+
+      function getNoteDuration (notes, noteId) {
+        var duration = 1;
+        var note = notes[noteId];
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        
+        if(note.morae.length) {
+          duration = 2;
+        } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || getIsSalicus(notes, noteId))) {
+          duration = 1.8;
+        } else if(note.episemata.length) {
+          var episemataCount = 1;
+          if(prevNote && prevNote.episemata.length) ++ episemataCount;
+          if(nextNote && nextNote.episemata.length) ++ episemataCount;
+          duration += 0.9 / episemataCount;
+        }
+
+        return duration;
+      }
+
+      function getIsApostropha (note) {
+        var neume = note.neume;
+        return neume.isNeume && 
+               neume.notes.length > 1 &&
+               getArePitchesEqual(neume.notes.map(function (n) { return n.pitch; }));
+      }
+
+      function getPressus (notes, noteId) {
+        var pressus;
+        var note = notes[noteId];
+        var nextNote = notes[noteId + 1];
+        if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
+        var prevNote = notes[noteId - 1];
+        if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
+        var noteBeforePrev = notes[noteId - 2];
+        if(noteBeforePrev && noteBeforePrev.constructor != exsurge.Note) noteBeforePrev = null;
+
+        if (
+          nextNote && nextNote.morae.length === 0 && note.morae.length === 0 && 
+          getIsLastNoteInNeume(note) && getIsFirstNoteInNeume(nextNote) && 
+          getArePitchesEqual(note.pitch, nextNote.pitch) &&
+          (!prevNote || !getPressus(notes, noteId - 1)) &&
+          !getIsApostropha(note) && !getIsApostropha(nextNote) &&
+          nextNote.neume.lyrics.length === 0
+        ) {
+          pressus = [note, nextNote];
+        } else if (
+          prevNote && prevNote.morae.length === 0 && note.morae.length === 0 &&
+          getIsLastNoteInNeume(prevNote) && getIsFirstNoteInNeume(note) &&
+          getArePitchesEqual(prevNote.pitch, note.pitch) &&
+          (!noteBeforePrev || !getPressus(notes, noteId - 2)) &&
+          !getIsApostropha(prevNote) && !getIsApostropha(note) &&
+          note.neume.lyrics.length === 0
+        ) {
+          pressus = [prevNote, note];
+        }
+
+        return pressus;
+      }
+
+      function playNextNote (time){
         var note = notes[noteId];
         if(noteElem) noteElem.classList.remove('active','porrectus-left','porrectus-right');
         if(originalSvg != score.svg || note == null) {
@@ -896,30 +1011,26 @@ if(typeof window=='object') (function(window) {
           }
         }
         if(note.constructor === exsurge.Note) {
-          var nextNote = notes[noteId + 1];
-          if(nextNote && nextNote.constructor != exsurge.Note) nextNote = null;
-          var nextNoteIsDivider = nextNote && nextNote.isDivider && !nextNote.constructor == exsurge.QuarterBar;
-          var prevNote = notes[noteId - 1];
-          if(prevNote && prevNote.constructor != exsurge.Note) prevNote = null;
-          if(note.morae.length) {
-            duration = 2;
-          } else if(nextNote && (nextNote.morae.length > 1 || nextNote.shape == exsurge.NoteShape.Quilisma || (note.ictus && prevNote && (note.pitch.toInt() - prevNote.pitch.toInt() == 7) && (nextNote.pitch.toInt() - note.pitch.toInt() == 1)))) {
-            duration = 1.8;
-          } else if(note.episemata.length) {
-            var episemataCount = 1;
-            if(prevNote && prevNote.episemata.length) ++ episemataCount;
-            if(nextNote && nextNote.episemata.length) ++ episemataCount;
-            duration += 0.9 / episemataCount;
-          }
-          var noteNeume = noteElem.parentNode.parentNode.source;
-          var nextNoteNeume = nextNote && nextNote.svgNode.parentNode.parentNode.source;
-          var nextNoteIsForSameSyllable = nextNote && (noteNeume == nextNoteNeume || nextNoteNeume.lyrics.length == 0);
-          var nextNoteIsSamePitchDifferentSyllable = !nextNoteIsForSameSyllable && nextNote && note.pitch.toInt() == nextNote.pitch.toInt();
-          // var durationMS = Math.max(0, duration * 60000 / Tone.Transport.bpm.value - (nextNoteIsForSameSyllable? 0 : 150));
-          // var options = { length: durationMS };
-          // tones.play(note.pitch, options, transpose);
+          duration = getNoteDuration(notes, noteId);
+          var isUsingSolesmesLengths = getIsUsingSolesmesLengths();
+          var isApostropha = getIsApostropha(note);
+          var pressus = getPressus(notes, noteId);
           var noteName = tones.getNoteName(note.pitch, transpose);
-          synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
+          if ((isApostropha || pressus) && isUsingSolesmesLengths) {
+            var totalDuration = 0;
+            if (isApostropha && note.neume.notes[0] === note) {
+              note.neume.notes.forEach(function (note) {
+                totalDuration += getNoteDuration(notes, getNoteIdForNote(notes, note));
+              });
+            } else if (pressus && pressus[0] === note) {
+              totalDuration += getNoteDuration(notes, noteId);
+              totalDuration += getNoteDuration(notes, noteId+1);
+            }
+
+            if(totalDuration > 0) synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*totalDuration, time);
+          } else {
+            synth.triggerAttackRelease(noteName, new Tone.Time("4n").toSeconds()*duration, time);
+          }
         }
         ++noteId;
         if(noteId >= notes.length) _isPlaying = false;
