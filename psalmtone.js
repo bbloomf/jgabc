@@ -219,10 +219,18 @@ var o_g_tones =
                     },
              'irregularis': {clef:"c4",
                       mediant:"f gh hr 'g fr f.",
-                      terminations:{'b': "hr ixi g ixi h.",
-                                    'b2':"hr 'ixi gr gr 'ixi ir h."
+                      terminations:{'a': "hr ixi g ixi h.",
+                                    'a2':"hr 'ixi gr gr 'ixi ir h."
                                    }
                     },
+             'in directum': {clef:"c3",
+                      mediant:"e f hr i 'i fr f.",
+                      termination:"hr e f 'g fr f."
+                    },
+             // 'in directum (alt.)': {clef:"c4",
+             //          mediant:"t[0].word.length==1?f gh hr g h.:f gh hr 'g fr f.",
+             //          termination:"hr f 'g gr g."
+             //        },
              "Introit 1":{"clef":"c4",
                           "mediant":"f gh hr 'hj hr hr 'hg gh..",
                           "termination":"gf gh hr hjh g f fff d."},

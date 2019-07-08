@@ -1508,6 +1508,7 @@ var proprium = {
         "ofID": 843,
         "coID": 1144,
         "gbid": "mass_i_bvm_saturday",
+        "inVerses": "Ps 24: 5-6",
         "ofVerses": "Luc 1: 34, 35",
         "coVerses": "Ps 18: 2-7"
     },
@@ -1518,6 +1519,7 @@ var proprium = {
         "ofID": 280,
         "coID": 160,
         "gbid": "mass_ii_bvm_saturday",
+        "inVerses": "Ps 44: 5, 8",
         "coVerses": "Ps 44: 2, 5, 8, 10-16"
     },
     "SMchristmasQuad": {
@@ -1527,6 +1529,7 @@ var proprium = {
         "ofID": 280,
         "coID": 160,
         "gbid": "mass_ii_bvm_saturday",
+        "inVerses": "Ps 44: 5, 8",
         "coVerses": "Ps 44: 2, 5, 8, 10-16"
     },
     "SMlent": {
@@ -1536,6 +1539,7 @@ var proprium = {
         "ofID": 280,
         "coID": 160,
         "gbid": "mass_iii_bvm_saturday",
+        "inVerses": "Ps 44: 5, 8",
         "coVerses": "Ps 44: 2, 5, 8, 10-16"
     },
     "SMlentQuad": {
@@ -1545,6 +1549,7 @@ var proprium = {
         "ofID": 280,
         "coID": 160,
         "gbid": "mass_iii_bvm_saturday",
+        "inVerses": "Ps 44: 5, 8",
         "coVerses": "Ps 44: 2, 5, 8, 10-16"
     },
     "SMeaster": {
@@ -1554,6 +1559,7 @@ var proprium = {
         "ofID": 567,
         "coID": 160,
         "gbid": "mass_iv_bvm_saturday",
+        "inVerses": "Ps 44: 5, 8",
         "coVerses": "Ps 44: 2, 5, 8, 10-16"
     },
     "SMpentecost": {
@@ -4021,7 +4027,8 @@ var proprium = {
         "grID": 392,
         "ofID": 567,
         "coID": 160,
-        "gbid": "assumption_bvm_vigil"
+        "gbid": "assumption_bvm_vigil",
+        "inVerses": "Ps 44: 5, 8"
     },
     "Aug15": {
         "coID": 286,
@@ -4212,7 +4219,8 @@ var proprium = {
         "alID": 724,
         "inID": 115,
         "ofID": 630,
-        "gbid": "st_francis_xavier"
+        "gbid": "st_francis_xavier",
+        "ref": "mass_i_confessor_not_bishop"
     },
     "Dec4": {
         "coID": 383,
@@ -5578,7 +5586,7 @@ var proprium = {
         "ofID": 630,
         "gbid": "st_martin",
         "inVerses": "Ps 131: 9, 16",
-        "coVerses": "Ps 19: 2-9"
+        "coVerses": "Ps 19: 2-8"
     },
     "Nov14": {
         "coID": 556,
@@ -6503,6 +6511,7 @@ var proprium = {
         "co": "Beatus servus",
         "coID": 1154,
         "coRef": "Matth 24: 46-47",
+        "coVerses": "Psalm 120",
         "gbid": "mass_i_confessor_not_bishop",
         "isUsed": true
     },
@@ -6861,6 +6870,7 @@ var proprium = {
         "co": "Beatus servus",
         "coID": 1154,
         "coRef": "Matth 24: 46-47",
+        "coVerses": "Psalm 19: 2-8",
         "gbid": "mass_ii_confessor_bishop",
         "isUsed": true
     },
