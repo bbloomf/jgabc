@@ -33,7 +33,7 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   isNovus = false,
   novusOption={},
   yearArray = ['A','B','C'];
-  window.isUsingSolesmesLengths = (localStorage.isUsingSolesmesLengths === 'true') || false;
+  window.isUsingSolesmesLengths = (localStorage.isUsingSolesmesLengths !== 'false');
 $(function(){
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
@@ -1802,7 +1802,7 @@ $(function(){
   }
 
   var swapDoFaClef = function(gabc, clef) {
-    var c1 = parseInt(clef[1]),
+    var c1 = parseInt(clef.slice(-1),10),
         c = c1 * 2 + 1,
         faTi = c + 3 + 7,
         gabcFaTi = "x",
@@ -1821,24 +1821,36 @@ $(function(){
       }
       if(c < 1) c += 3.5;
       if(c >= 4.5) c-= 3.5;
-      return clef[0] + c;
+      return c - c1;
     }
-    return clef;
+    return 0;
   }
   
   var shiftGabcForClefChange = function(gabc,newClef,clef) {
     if(clef.length < 2)return;
-    if(newClef[0] != clef[0]) {
-      clef = swapDoFaClef(gabc.join(' '), clef);
-    }
-    var baseClefI = parseInt(newClef[1],10);
+    var baseClefI = parseInt(newClef.slice(-1),10);
     //if(newClef[0]=='f') baseClefI += 2;
-    var clefI = parseFloat(clef.slice(1),10);
+    var clefI = parseFloat(clef.slice(-1),10);
+    if(newClef[0] == clef[0]) {
+      if(clefI == 4 && baseClefI == 2) {
+        if(swapDoFaClef(gabc.join(' '), clef) == 0) {
+          clefI = 2.5;
+        } else if(swapDoFaClef(gabc.join(' '), clef.slice(0,-1)+'2') == 0) {
+          clefI = 2;
+        }
+      } 
+    } else {
+      clefI += swapDoFaClef(gabc.join(' '), clef);
+    }
     //if(clef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
-    // minimize Difference: 
-    if(diff < -3.5) diff += 7;
-    if(diff > 3.5) diff -= 7;
+    var pitches = [].concat.apply([],gabc.map(function(g) { return g.match(/[a-m]/gi); })).map(function(letter) { return parseInt(letter, 23) - 10});
+    // pitches are from 0 - 12
+    var maxPitch = diff + Math.max.apply(null, pitches);
+    var minPitch = diff + Math.min.apply(null, pitches);
+    // don't allow overflowing the bounds of the staff:
+    if(minPitch < 0) diff += 7;
+    if(maxPitch > 12) diff -= 7;
     return gabc.map(function(gabc) { return shiftGabc(gabc,diff) });
   }
   
@@ -3078,7 +3090,8 @@ $(function(){
       gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
-        replace(/'\d/g,"'"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after '
+        replace(/(['_])\d/g,"$1"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after ' or _
+        replace(/!\)/g,')').
         replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
         replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
           return '[<v>' + translation + (whitespace? '' : '-') + '</v>](';
@@ -3800,6 +3813,7 @@ console.info(JSON.stringify(selPropers));
     $lectio.find('.lectio-text').toggle(!!val);
     $lectio.find('.lectio-text > *').hide();
     $lectio.find(selector).show();
+    $lectio.toggleClass('hidden-print',!val);
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();

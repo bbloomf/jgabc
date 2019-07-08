@@ -278,7 +278,7 @@ syl.bold {
 }
 
 .lectio-reference {
-  color: #d00;
+  color: #d00!important;
   font-family: 'Crimson Text';
   font-size: 14pt;
   font-style: italic;
@@ -332,7 +332,8 @@ syl.bold {
   .commentary,
   .verses,
   .extra-verses,
-  .asperges-verses {
+  .asperges-verses,
+  div.lectio {
     max-width: 624px;
     font-size: 19.2px;
     margin: auto;
@@ -342,7 +343,7 @@ syl.bold {
     page-break-after: avoid;
     break-after: avoid-page;
   }
-  div.lectio {
+  div.lectio select {
     display: none!important;
   }
   div[part] {
