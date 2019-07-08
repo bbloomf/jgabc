@@ -33,7 +33,7 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   isNovus = false,
   novusOption={},
   yearArray = ['A','B','C'];
-  window.isUsingSolesmesLengths = (localStorage.isUsingSolesmesLengths === 'true') || false;
+  window.isUsingSolesmesLengths = (localStorage.isUsingSolesmesLengths !== 'false');
 $(function(){
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
