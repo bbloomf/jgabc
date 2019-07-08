@@ -3807,6 +3807,7 @@ console.info(JSON.stringify(selPropers));
     $lectio.find('.lectio-text').toggle(!!val);
     $lectio.find('.lectio-text > *').hide();
     $lectio.find(selector).show();
+    $lectio.toggleClass('hidden-print',!val);
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
     e.stopPropagation();
