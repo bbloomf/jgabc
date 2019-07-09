@@ -304,7 +304,11 @@ span.start-pitch {
   }
 }
 
-.btn-solesmes-lengths {
-  max-width: 95vw;
-  white-space: normal;
+.parent-use-solesmes-lengths {
+  position: relative;
+  height: 30px; 
+}
+.btn-use-solesmes-lengths {
+  position: absolute;
+  right: 1em;
 }

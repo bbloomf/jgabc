@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   class="ChantScore"
+   width="12.5"
+   height="20.394562"
+   viewBox="0 0 12.5 20.394562"
+   id="svg66">
+  <g
+     id="g64"
+     transform="translate(0,-59.443434)">
+    <defs
+       id="defs26">
+      <g
+         id="PunctumQuadratum"
+         class="glyph"
+         transform="scale(0.0625)">
+        <path
+           d="m 0,-60.906 c 33.333,0 50,9.635 50,28.906 V 62.53 C 39.062,51.595 22.396,46.126 0,46.126 c -22.396,0 -39.063,5.47 -50,16.406 V -32 c 0,-19.27 16.667,-28.906 50,-28.906 z"
+           id="path9" />
+      </g>
+      <g
+         id="PodatusLower"
+         class="glyph"
+         transform="scale(0.0625)">
+        <path
+           d="m -4.688,-30.28 c 22.396,0 34.636,-0.262 36.72,-0.782 5.728,-1.563 8.593,-5.21 8.593,-10.938 H 50 v 97.656 c 0,2.604 -1.302,4.167 -3.906,4.688 -5.21,0.52 -21.355,0.78 -48.438,0.78 -23.958,0 -38.54,-0.26 -43.75,-0.78 -2.604,0 -3.906,-1.302 -3.906,-3.906 v -82.032 c 0,-3.646 1.302,-5.468 3.906,-5.468 h 2.344 c 2.604,0.52 15.625,0.78 39.063,0.78 z"
+           id="path12" />
+      </g>
+      <g
+         id="PodatusUpper"
+         class="glyph"
+         transform="scale(0.0625)">
+        <path
+           d="m -46.094,-63.78 c 13.542,0 24.61,2.473 33.203,7.42 C -4.298,-51.41 0,-43.99 0,-34.093 V 62 h -9.375 c 0,-10.938 -2.604,-19.14 -7.812,-24.61 -5.21,-5.468 -14.844,-8.203 -28.907,-8.202 -18.23,0 -33.333,4.166 -45.312,12.5 v -75.782 c 0,-19.79 15.104,-29.687 45.312,-29.687 z"
+           id="path15" />
+      </g>
+      <g
+         id="VerticalEpisemaBelow"
+         class="glyph"
+         transform="scale(0.0625)">
+        <path
+           d="m -8,56 c 2,3 6,4 8,4 2,0 6,-1 8,-4 V 4 C 6,1 2,0 0,0 -2,0 -6,1 -8,4 Z"
+           id="path18" />
+      </g>
+    </defs>
+    <g
+       id="g97"
+       transform="translate(-67.25,19.874997)">
+      <g
+         class="ChantNotationElement e"
+         transform="translate(67.25,31.05475)"
+         id="g60">
+        <g
+           class="Notations"
+           id="g54">
+          <use
+             source-index="27"
+             xlink:href="#PunctumQuadratum"
+             x="3.125"
+             y="25"
+             id="use46"
+             width="100%"
+             height="100%" />
+          <use
+             source-index="28"
+             xlink:href="#PodatusLower"
+             x="9.375"
+             y="18.75"
+             id="use48"
+             width="100%"
+             height="100%" />
+          <use
+             source-index="30"
+             xlink:href="#PodatusUpper"
+             x="12.5"
+             y="12.5"
+             id="use50"
+             width="100%"
+             height="100%" />
+          <use
+             xlink:href="#VerticalEpisemaBelow"
+             x="9.375"
+             y="23.75"
+             id="use52"
+             width="100%"
+             height="100%" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
