@@ -839,7 +839,7 @@ if(typeof window=='object') (function(window) {
         $(document.body).append("<div id='mediaControls'>\
   <div>\
     <div class='parent-use-solesmes-lengths'>\
-      <button title='Use Solesmes length for salicus, pressus, distropha and tristropha' class='btn btn-sm btn-info btn-use-solesmes-lengths'><span class='glyphicon glyphicon-" + (getIsUsingSolesmesLengths()? 'check' : 'unchecked') + "'></span> <img src='salicus.svg' style='height: 16px'></button>\
+      <button title='Use Solesmes length for salicus' class='btn btn-sm btn-info btn-use-solesmes-lengths'><span class='glyphicon glyphicon-" + (getIsUsingSolesmesLengths()? 'check' : 'unchecked') + "'></span> <img src='salicus.svg' style='height: 16px'></button>\
     </div>\
     <div class='btn-group'>\
       <button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button>\
@@ -1037,7 +1037,7 @@ if(typeof window=='object') (function(window) {
           var isApostropha = getIsApostropha(note);
           var pressus = getPressus(notes, noteId);
           var noteName = tones.getNoteName(note.pitch, transpose);
-          if ((isApostropha || pressus) && isUsingSolesmesLengths) {
+          if (isApostropha || pressus) {
             var totalDuration = 0;
             if (isApostropha && note.neume.notes[0] === note) {
               note.neume.notes.forEach(function (note) {
