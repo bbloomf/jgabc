@@ -33,7 +33,6 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   isNovus = false,
   novusOption={},
   yearArray = ['A','B','C'];
-  window.isUsingSolesmesLengths = (localStorage.isUsingSolesmesLengths !== 'false');
 $(function(){
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
   var reHalfBarsWithNoPunctuation = /([^;:,.!?\s])\s*\|/g;
@@ -1332,7 +1331,7 @@ $(function(){
               // if it's in our dictionary, let's replace it with the whole thing:
               var lastIndex = regexOuter.lastIndex,
                   sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
-                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+/,'');
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+|(^\s*|\s+)<i>[^<]*<\/i>(\s+|\s*$)/,'');
               if(sliceText.countSyllables() < 10 && sliceText != replaceText) {
                 if(storeMap && storeMap.responsoryCallbacks) {
                   var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
@@ -1805,14 +1804,17 @@ $(function(){
     var c1 = parseInt(clef.slice(-1),10),
         c = c1 * 2 + 1,
         faTi = c + 3 + 7,
-        gabcFaTi = "x",
+        regexGabcTe = /x/i,
+        gabcFaTi = "",
         charCodeForA = 'a'.charCodeAt(0);
     while(faTi >= 0) {
       if(faTi < 13) gabcFaTi += String.fromCharCode(charCodeForA + faTi);
       faTi -= 7;
     }
-    var regex = new RegExp("[" + gabcFaTi + "]",'i');
-    if(regex.test(gabc)) {
+    var hasTe = regexGabcTe.test(gabc),
+        regex = new RegExp("[" + gabcFaTi + "]",'i'),
+        hasFaTi = regex.test(gabc);
+    if(hasFaTi || hasTe) {
       // the clefs are not equivalent...
       if(clef[0] == 'f') {
         c = c1 - 1.5;
@@ -1821,9 +1823,13 @@ $(function(){
       }
       if(c < 1) c += 3.5;
       if(c >= 4.5) c-= 3.5;
-      return c - c1;
+      var clefShift = c - c1;
+      return {
+        clefShift: clefShift,
+        removeAccidentals: hasTe && ((clef[0] == 'f')? 0 : -0.5)
+      };
     }
-    return 0;
+    return {clefShift: 0};
   }
   
   var shiftGabcForClefChange = function(gabc,newClef,clef) {
@@ -1831,16 +1837,21 @@ $(function(){
     var baseClefI = parseInt(newClef.slice(-1),10);
     //if(newClef[0]=='f') baseClefI += 2;
     var clefI = parseFloat(clef.slice(-1),10);
+    var joinedGabc = gabc.join(' ');
     if(newClef[0] == clef[0]) {
       if(clefI == 4 && baseClefI == 2) {
-        if(swapDoFaClef(gabc.join(' '), clef) == 0) {
+        var swap = swapDoFaClef(joinedGabc, clef);
+        if(swap.clefShift == 0) {
           clefI = 2.5;
-        } else if(swapDoFaClef(gabc.join(' '), clef.slice(0,-1)+'2') == 0) {
+        } else if(typeof swap.removeAccidentals == 'number') {
+          clefI = 2.5 + swap.removeAccidentals;
+          gabc = gabc.map(function(gabc) { return gabc.replace(/[a-m]x/g,''); });
+        } else if(swapDoFaClef(joinedGabc, clef.slice(0,-1)+'2').clefShift == 0) {
           clefI = 2;
         }
       } 
     } else {
-      clefI += swapDoFaClef(gabc.join(' '), clef);
+      clefI += swapDoFaClef(joinedGabc, clef).clefShift;
     }
     //if(clef[0]=='f') clefI += 2;
     var diff = (baseClefI - clefI) * 2;
@@ -3185,11 +3196,6 @@ $(function(){
     $('div[part]').removeClass('page-break-before');
     $(pageBreaks.map(function(part) { return 'div[part=' + part.toLowerCase() + ']'}).join(',')).addClass('page-break-before');
   }
-  $('#use-solesmes-lengths').on('change', function (e) {
-    window.isUsingSolesmesLengths = this.checked;
-    localStorage.isUsingSolesmesLengths = this.checked;
-  });
-  $('#use-solesmes-lengths').prop('checked', !!window.isUsingSolesmesLengths);
   $('.dropdown-paper-size').on('click','li>a', function(e) {
     e.preventDefault();
     var $this = $(this),

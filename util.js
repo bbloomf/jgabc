@@ -823,11 +823,36 @@ if(typeof window=='object') (function(window) {
       }
       return val;
     }
+    window.setIsUsingSolesmesLengths = function(val) {
+      localStorage.isUsingSolesmesLengths = val;
+    }
+    window.getIsUsingSolesmesLengths = function() {
+      return (localStorage.isUsingSolesmesLengths !== 'false');
+    }
+    window.toggleIsUsingSolesmesLengths = function() {
+      return (localStorage.isUsingSolesmesLengths = !getIsUsingSolesmesLengths());
+    }
     window.playScore = function(score, firstPitch, startNote){
       Tone.Transport.clear(timeoutNextNote);
       Tone.Transport.start();
       if($('#mediaControls').length == 0) {
-        $(document.body).append("<div id='mediaControls'><div class='btn-group'><button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button><button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button><button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button><div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'><span id='tempo-number'>165</span> BPM</div><button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button><button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button></div></div>");
+        $(document.body).append("<div id='mediaControls'>\
+  <div>\
+    <div class='parent-use-solesmes-lengths'>\
+      <button title='Use Solesmes length for salicus' class='btn btn-sm btn-info btn-use-solesmes-lengths'><span class='glyphicon glyphicon-" + (getIsUsingSolesmesLengths()? 'check' : 'unchecked') + "'></span> <img src='salicus.svg' style='height: 16px'></button>\
+    </div>\
+    <div class='btn-group'>\
+      <button class='btn btn-sm btn-primary play-pause'><span class='glyphicon glyphicon-pause'></span></button>\
+      <button class='btn btn-sm btn-primary step-forward'><span class='glyphicon glyphicon-step-forward'></span></button>\
+      <button class='btn btn-sm btn-default with-next tempo-minus' style='padding-right:10px'><span class='glyphicon glyphicon-minus'></span></button>\
+      <div class='btn btn-sm btn-default with-next' style='padding-left:2px;padding-right:2px'>\
+        <span id='tempo-number'>165</span> BPM</div>\
+      <button class='btn btn-sm btn-default tempo-plus' style='padding-left:10px'><span class='glyphicon glyphicon-plus'></span></button>\
+      <button class='btn btn-sm btn-danger stop'><span class='glyphicon glyphicon-stop'></span></button>\
+    </div>\
+  </div>\
+</div>");
+
       }
       $('#mediaControls').removeClass('offscreen');
       if(syllable) {
@@ -852,10 +877,6 @@ if(typeof window=='object') (function(window) {
       if(firstPitch.toInt) firstPitch = firstPitch.toInt();
       transpose = firstPitch - notes[0].pitch.toInt();
       _isPlaying = true;
-
-      function getIsUsingSolesmesLengths () {
-        return !!window.isUsingSolesmesLengths;
-      }
 
       function getArePitchesEqual () {
         var pitches = arguments[0] && Array.isArray(arguments[0]) ? arguments[0] : arguments;
@@ -1016,7 +1037,7 @@ if(typeof window=='object') (function(window) {
           var isApostropha = getIsApostropha(note);
           var pressus = getPressus(notes, noteId);
           var noteName = tones.getNoteName(note.pitch, transpose);
-          if ((isApostropha || pressus) && isUsingSolesmesLengths) {
+          if (isApostropha || pressus) {
             var totalDuration = 0;
             if (isApostropha && note.neume.notes[0] === note) {
               note.neume.notes.forEach(function (note) {
@@ -1597,6 +1618,12 @@ if(typeof $=='function') $(function($) {
   $(document).on('click', function() {
     removeChantContextMenus();
     mouseUpTone();
+  }).on('click', '#mediaControls .btn-use-solesmes-lengths', function(e) {
+    e.stopPropagation();
+    var useSolesmesLengths = toggleIsUsingSolesmesLengths();
+    $(this).find('.glyphicon').
+      removeClass('glyphicon-check glyphicon-unchecked').
+      addClass('glyphicon-' + (useSolesmesLengths? 'check' : 'unchecked'));
   }).on('click', '#mediaControls .btn.play-pause', function(e) {
     e.stopPropagation();
     var playing = playPauseScore();

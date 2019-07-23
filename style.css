@@ -303,8 +303,16 @@ span.start-pitch {
     /* max-width:8in; */
   }
 }
-
-.btn-solesmes-lengths {
-  max-width: 95vw;
-  white-space: normal;
+.btn-use-solesmes-lengths {
+  margin-right: 2.5em;
+}
+@media screen and (min-width: 412px) {
+  .parent-use-solesmes-lengths {
+    position: relative;
+    height: 30px; 
+  }
+  .btn-use-solesmes-lengths {
+    position: absolute;
+    right: 0em;
+  }
 }
