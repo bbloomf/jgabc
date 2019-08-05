@@ -261,9 +261,10 @@ var path = 'gabc/',
                       .replace(/(\s[^()\w†*,;:]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
                       .replace(/\s*\n\s*/g,'\n')
                       .replace(/\s{2,}/g,' ')
-                      .replace(/<i>\((.*?)\)<\/i>/, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
+                      .replace(/<i>\((.*?)\)<\/i>/g, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
                       .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
-                      .replace(/\s\*(\([,;:]*\)\s)?\s*<i>(ij\.|non\s+rep[eé]titur\.?)<\/i>([\s{}]*)\(/i,' {*} <i>$2</i>$1(');
+                      .replace(/\s\*(\([,;:]*\)\s)?\s*<i>(ij\.|non\s+rep[eé]titur\.?)<\/i>([\s{}]*)\(/gi,' {*} <i>$2</i>$1(')
+                      .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:');
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
