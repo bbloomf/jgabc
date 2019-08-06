@@ -916,7 +916,7 @@ if(typeof window=='object') (function(window) {
         } else if (
           getIsUsingSolesmesLengths() &&
           note.ictus && note.ictus.glyphCode === "VerticalEpisemaBelow" &&
-          note.glyphVisualizer.glyphCode === "PodatusLower" && 
+          (note.glyphVisualizer.glyphCode === "PodatusLower" || note.glyphVisualizer.glyphCode === "BeginningAscLiquescent") && 
           (note.pitch.toInt() - prevNote.pitch.toInt() > 0) && 
           (nextNote.pitch.toInt() - note.pitch.toInt() > 0)
         ) {
