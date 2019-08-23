@@ -2281,7 +2281,7 @@ $(function(){
             flexEqualsTenor: introitTone
           });
         }
-        gabc += (line.length == 1? "" : bi_formats.gabc.nbsp + gabcStar + "(:) " +
+        gabc += (line.length == 1? "" : bi_formats.gabc.nbsp + "*(:) " +
           applyPsalmTone({
             text: line[1].trim(),
             gabc: gTermination,
