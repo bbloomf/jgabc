@@ -2149,9 +2149,9 @@ $(function(){
       gabc = header;
       if(sel[part].style == 'psalm-tone1') {
         // the first verse is to be full tone.
-        var firstVerse = /^([\s\S]*?\S*)(\([^)]*::[^)]*\))/g.exec(fullGabc);
+        var firstVerse = /^([\s\S]*?\S*)(\([^)]*::[^)]*\))(?:\s+([^(]+(?:\(\))?\s))?/g.exec(fullGabc);
         if(firstVerse) {
-          firstVerse = firstVerse[1] + '(::) ';
+          firstVerse = firstVerse[1] + '(::) ' + (firstVerse[3] || '')
           gabc += firstVerse;
           useOriginalClef = true;
           lines.shift();  // shift away the first verse, since we are using the full tone for it.
@@ -2213,6 +2213,8 @@ $(function(){
       if(italicNote) {
         italicNote = italicNote[0];
         line[0] = line[0].slice(italicNote.length);
+      } else if(isAl && firstVerse) {
+        italicNote = '<sp>V/</sp> ';
       }
       // special case for gloria patri.
       if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
