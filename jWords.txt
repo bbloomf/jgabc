@@ -376,7 +376,6 @@ janthinárum
 janum
 januárum
 japheth
-japhía
 jara
 jare
 jared
@@ -1088,6 +1087,7 @@ jójadæ
 jójarib
 jónadab
 jónatha
+jónatham
 jónathan
 jónathas
 jónathæ
@@ -1171,6 +1171,7 @@ mejárcon
 márajoth
 mérajoth
 najoth
+nábajoth
 objectióne
 objiciébant
 objiciéntes
