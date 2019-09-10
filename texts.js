@@ -1207,7 +1207,7 @@ texts = {
 		"973": "confiteantur domino misericordiæ ejus et mirabilia ejus filiis hominum alleluia",
 		"976": "ego sum pauper et dolens salus tua deus suscepit me laudabo nomen dei cum cantico et magnificabo eum in laude",
 		"981": "non vos relinquam orphanos veniam ad vos iterum alleluia et gaudebit cor vestrum alleluia alleluia",
-		"982": "dixit jesus matri suæ mulier ecce filius tuus de inde dixit discipulo ecce mater tua et ex illa hora accepit eam discipulus in sua alleluia",
+		"982": "dixit jesus matri suæ mulier ecce filius tuus deinde dixit discipulo ecce mater tua et ex illa hora accepit eam discipulus in sua alleluia",
 		"989": "lutum fecit ex sputo dominus et linivit oculos meos et abii et lavi et vidi et credidi deo",
 		"991": "quæ mihi fuerunt lucra hæc arbitratus sum propter christum detrimenta",
 		"995": "florete flores quasi lilium et collaudate canticum et benedicite dominum in operibus suis",
