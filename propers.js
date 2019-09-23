@@ -515,7 +515,8 @@ $(function(){
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });
-          if(!sel[part].pattern) {
+          var ptn = sel[part].pattern;
+          if(!(ptn && ptn.length && ptn[0].length)) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
           text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
