@@ -1356,12 +1356,15 @@ $(function(){
         }
       }
       if(ignoreSyllablesOnDivisiones) {
-        // for matching the bars, we have to make sure they are not between square brackets, as in the notation for a brace above the system.
-        barMatch = match[rog.gabc].match(/(?:^|])[^[\]:;]*(:+|;)/)
-        barMatch = barMatch && barMatch[1];
-        if(barMatch=='::') text += '~';
-        else if(barMatch==':') text += ' % ';
-        else if(barMatch==';') text += ' | ';
+        // first, we have to make sure that that there are no notes attached to the syllable:
+        if(!match[rog.gabc].match(/[A-Ma-m](?![1-4+])/)) {
+          // for matching the bars, we have to make sure they are not between square brackets, as in the notation for a brace above the system.
+          barMatch = match[rog.gabc].match(/(?:^|])[^[\]:;]*(:+|;)/)
+          barMatch = barMatch && barMatch[1];
+          if(barMatch=='::') text += '~';
+          else if(barMatch==':') text += ' % ';
+          else if(barMatch==';') text += ' | ';
+        }
       }
       if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*|i+j?\.?)<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
