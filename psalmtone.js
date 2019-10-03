@@ -480,7 +480,7 @@ var Syl = (function(){
             if(syls.length == 2) {
               syls[0].accent = true;
             } else if(syls.length > 2) {
-              syls = syls.filter(function(syl) { return /[AEIOUYÆŒæœ]/.test(syl.syl); });
+              syls = syls.slice(-3,-1).filter(function(syl) { return /[AEIOUYÆŒæœ]/.test(syl.syl); });
               if(syls.length === 1) syls[0].accent = true;
             }
           }
