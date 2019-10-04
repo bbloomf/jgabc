@@ -2213,6 +2213,10 @@ $(function(){
       }
 
       var line = splitLine(lines[i], introitTone? 3 : 2);
+      if(introitTone && line.length == 3 && Math.min.apply(null,line.slice(0,2).mapSyllableCounts()) < 8) {
+        // if one of the first two segments has less than 8 syllables, use a pause instead:
+        line = [line[0] + ' † ' + line[1], line[2]];
+      }
       var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
       if(italicNote) {
         italicNote = italicNote[0];
@@ -2252,7 +2256,7 @@ $(function(){
             favor: 'intonation',
             flexEqualsTenor: introitTone
           }) + bi_formats.gabc.nbsp + '(:) ' +
-          (italicNote||'') + applyPsalmTone({
+          applyPsalmTone({
             text: left[1].trim(),
             gabc: gTertium,
             clef: clef,
