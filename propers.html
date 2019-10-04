@@ -562,12 +562,12 @@
     <div class='extra-verses'>
       <label class='hide-print'><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
       <div class='right'>
-        <select>
-          <option value='introit'>Introit Tone</option>
+        <select id="selCommunioVerseStyle">
+          <option selected value='introit'>Introit Tone</option>
           <option value='solemn'>Solemn Tone</option>
           <option value='simple'>Simple Tone</option>
         </select>
-        <select id="selToneEndingCommunioVerses" class='sel-style endings communioVerses'></select>
+        <select style="display:none" id="selToneEndingCommunioVerses" class='sel-style endings communioVerses'></select>
       </div>
       <span class="verses-ad-libitum-default rubric hide-print"></span>
       <span class="verses-ad-libitum-custom hide-print"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>

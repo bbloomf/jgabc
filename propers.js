@@ -2041,7 +2041,7 @@ $(function(){
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if(solemn === 'solemn' || /^(introitus)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -3222,6 +3222,19 @@ $(function(){
   });
   $('.dropdown-paper-size li>a[paper='+paperSize+']').click();
   $('a.toggleShowGabc').attr('href','');
+  $('#selCommunioVerseStyle').val(localStorage.communioVerseStyle || 'introit').on('change', function(e) {
+    // localStorage.communioVerseStyle = $(this).val();
+    if(sel.communioVerses) {
+      $(this).parents('.extra-verses').find('input.cbVersesAdLibitum').change();
+    }
+  }).change();
+  $('#selToneEndingCommunioVerses').on('change', function(e) {
+    var val = $(this).val();
+    if(sel.communioVerses && sel.communioVerses.termination != val) {
+      sel.communioVerses.termination = val;
+      $(this).parents('.extra-verses').find('input.cbVersesAdLibitum').change();
+    }
+  });
   $('body').on('click','a.toggleShowGabc',function(e){
     e.preventDefault();
     var $this = $(this),
@@ -3288,6 +3301,24 @@ $(function(){
         // lines = lines.filter(function(l) { return parentText.indexOf(l.replace(/(?:\s+[*+^†]|\s*[,;:.!?])\s*($|\s)/g,'$1')) < 0; })
         state.text = lines.join('\n');
         state.mode = sel[part].mode;
+        if(part == 'communio') {
+          var style = $('#selCommunioVerseStyle').val();
+          var previousSolemn = sel[versePart].solemn;
+          state.solemn = (style == 'solemn') || (style=='introit')? style : false;
+          var $selEnding = $('#selToneEndingCommunioVerses');
+          if(previousSolemn !== state.solemn) {
+            // update display of #selToneEndingCommunioVerses accordingly
+            var endings = getEndings(state.mode + '.');
+            if(endings.length==0 || style == 'introit') {
+              $selEnding.hide();
+            } else {
+              $selEnding.empty().append('<option>' + endings.join('</option><option>') + '</option>');
+              $selEnding.val(defaultTermination[state.mode]);
+              state.termination = $selEnding.val();
+              $selEnding.show();
+            }
+          }
+        }
 
         // match clef of antiphon:
         var clef = sel[part].score.startingClef.mapping.source;
@@ -3320,7 +3351,7 @@ $(function(){
         lastNote = lastNoteMatch[1].toLowerCase();
         state.startOfVerse = '('+lastNote+'+) ';
         state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
-        state.activeGabc = getPsalmToneForPart(versePart, tone);
+        state.activeGabc = getPsalmToneForPart(versePart, (state.solemn === "introit")? tone : null);
         if(!selPropers || selPropers.gloriaPatri !== false) {
           state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
         }
