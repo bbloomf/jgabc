@@ -2041,7 +2041,7 @@ $(function(){
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(solemn === 'solemn' || /^(introitus)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if(solemn === 'introit' || /^(introitus)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -3001,6 +3001,7 @@ $(function(){
   function selEndingsChanged(e){
     var capPart = this.id.match(/[A-Z][a-z]+\d*$/)[0],
         part = capPart.toLowerCase();
+    if(!(part in sel)) return;
     if((sel[part].style||'').match(/^psalm-tone/)) {
       addToHash('style'+capPart, sel[part].style + ((sel[part].mode == sel[part].originalMode && this.value==defaultTermination[sel[part].mode])? '' : ';' + sel[part].mode + (sel[part].altTone? ' alt ' : '') + this.value));
     }
@@ -3226,6 +3227,7 @@ $(function(){
     // localStorage.communioVerseStyle = $(this).val();
     if(sel.communioVerses) {
       $(this).parents('.extra-verses').find('input.cbVersesAdLibitum').change();
+      addToHash('communioVersesStyle',$(this).val());
     }
   }).change();
   $('#selToneEndingCommunioVerses').on('change', function(e) {
@@ -3235,6 +3237,7 @@ $(function(){
       $(this).parents('.extra-verses').find('input.cbVersesAdLibitum').change();
     }
   });
+
   $('body').on('click','a.toggleShowGabc',function(e){
     e.preventDefault();
     var $this = $(this),
