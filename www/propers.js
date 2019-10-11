@@ -515,7 +515,8 @@ $(function(){
           var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });
-          if(!sel[part].pattern) {
+          var ptn = sel[part].pattern;
+          if(!(ptn && ptn.length && ptn[0].length)) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
           text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
@@ -1356,12 +1357,15 @@ $(function(){
         }
       }
       if(ignoreSyllablesOnDivisiones) {
-        // for matching the bars, we have to make sure they are not between square brackets, as in the notation for a brace above the system.
-        barMatch = match[rog.gabc].match(/(?:^|])[^[\]:;]*(:+|;)/)
-        barMatch = barMatch && barMatch[1];
-        if(barMatch=='::') text += '~';
-        else if(barMatch==':') text += ' % ';
-        else if(barMatch==';') text += ' | ';
+        // first, we have to make sure that that there are no notes attached to the syllable:
+        if(!match[rog.gabc].match(/[A-Ma-m](?![1-4+])/)) {
+          // for matching the bars, we have to make sure they are not between square brackets, as in the notation for a brace above the system.
+          barMatch = match[rog.gabc].match(/(?:^|])[^[\]:;]*(:+|;)/)
+          barMatch = barMatch && barMatch[1];
+          if(barMatch=='::') text += '~';
+          else if(barMatch==':') text += ' % ';
+          else if(barMatch==';') text += ' | ';
+        }
       }
       if(syl && (!ignoreSyllablesOnDivisiones || !match[rog.gabc].match(/^(?:(?:[cf]b?[1-4])|[:;,\s])*$/) || syl.match(/<i>(?:Ps\.?|T\.?\s*P\.?\s*|i+j?\.?)<\/i>/))){
         var sylR=syl.replace(/<i>([aeiouy])<\/i>/ig,'($1)');
@@ -2209,6 +2213,10 @@ $(function(){
       }
 
       var line = splitLine(lines[i], introitTone? 3 : 2);
+      if(introitTone && line.length == 3 && Math.min.apply(null,line.slice(0,2).mapSyllableCounts()) < 8) {
+        // if one of the first two segments has less than 8 syllables, use a pause instead:
+        line = [line[0] + ' † ' + line[1], line[2]];
+      }
       var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
       if(italicNote) {
         italicNote = italicNote[0];
@@ -2248,7 +2256,7 @@ $(function(){
             favor: 'intonation',
             flexEqualsTenor: introitTone
           }) + bi_formats.gabc.nbsp + '(:) ' +
-          (italicNote||'') + applyPsalmTone({
+          applyPsalmTone({
             text: left[1].trim(),
             gabc: gTertium,
             clef: clef,
