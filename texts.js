@@ -296,7 +296,7 @@ texts = {
 		"399": "ego dixi domine miserere mei sana animam meam quoniam peccavi tibi ℣ beatus qui intelligit super egenum et pauperem in die mala liberabit eum dominus",
 		"402": "sacrificent domino sacrificium laudis et annuntient opera ejus in exsultatione ℣ et exaltent eum in ecclesia plebis et in cathedra seniorum laudent eum",
 		"414": "da nobis deus auxilium de tribulatione quia vana salus hominis ℣ in deo faciemus virtutem et ipse ad nihilum deducet tribulantes nos",
-		"415": "sacerdotes ejus induam salutari et sancti ejus exsultatione exsultabunt ℣ illus producam cornu david paravi lucernam christo meo",
+		"415": "sacerdotes ejus induam salutari et sancti ejus exsultatione exsultabunt ℣ illuc producam cornu david paravi lucernam christo meo",
 		"416": "hæc dies quam fecit dominus exsultemus et lætemur in ea ℣ dextera domini fecit virtutem dextera domini exaltavit me",
 		"423": "jacta cogitatum tuum in domino et ipse te enutriet ℣ dum clamarem ad dominum exaudivit vocem meam ab his qui appropinquant mihi",
 		"424": "fuit homo missus a deo cui nomen joannes erat hic venit ℣ ut testimonium perhiberet de lumine et parare domino plebem perfectam",
