@@ -78,7 +78,7 @@ texts = {
 		"389": "salus populi ego sum dicit dominus de quacumque tribulatione clamaverint ad me exaudiam eos et ero illorum dominus in perpetuum ℣ attendite popule meus legem meam inclinate aurem vestram in verba oris mei gloria patri",
 		"396": "exaudi domine vocem meam qua clamavi ad te adjutor meus esto ne derelinquas me neque despicias me deus salutaris meus ℣ dominus illuminatio mea et salus mea quem timebo gloria patri",
 		"403": "ecce advenit dominator dominus et regnum in manu ejus et potestas et imperium ℣ deus judicium tuum regi da et justitiam tuam filio regis gloria patri",
-		"409": "dicit dominus sermones mei quos dedi in os tuum non deficient de ore tuo adest enim nomen tuum et nunera tua accepta erunt super altare meum ℣ beatus vir qui timet dominum in mandatus ejus volet nimis gloria patri",
+		"409": "dicit dominus sermones mei quos dedi in os tuum non deficient de ore tuo adest enim nomen tuum et munera tua accepta erunt super altare meum ℣ beatus vir qui timet dominum in mandatis ejus volet nimis gloria patri",
 		"410": "loquebar de testimoniis tuis in conspectu regum et non confundebar et meditabar in mandatis tuis quæ dilexi nimis ℣ bonum est confiteri domino et psallere nomini tuo altissime gloria patri",
 		"417": "gaudeamus omnes in domino diem festum celebrantes sub honore beati josaphat martyris de cujus passione gaudent angeli et collaudant filium dei ℣ exsultate justi in domino rectos decet collaudatio gloria patri",
 		"418": "dum sanctificatus fuero in vobis congregabo vos de universis terris et effundam super vos aquam mundam et mundabimini ab omnibus inquinamentis vestris et dabo vobis spiritum novum alleluia alleluia ℣ benedicam dominum in omni tempore semper laus ejus in ore meo gloria patri",
