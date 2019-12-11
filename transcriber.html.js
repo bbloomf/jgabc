@@ -714,6 +714,12 @@ $(function() {
           exportContext.setGlyphScaling(value);
           ctxt.setGlyphScaling(value);
         }
+      } else if(key == 'staffHeight') {
+        value = parseFloat(value) / (6 * exsurge.Glyphs.PunctumQuadratum.bounds.width);
+        if(value && (value !== ctxt.glyphScaling || value != exportContext.glyphScaling)) {
+          exportContext.setGlyphScaling(value);
+          ctxt.setGlyphScaling(value);
+        }
       } else {
         exportContext[key] = ctxt[key] = value;
       }

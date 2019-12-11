@@ -76,6 +76,13 @@ input[type=checkbox]{
 textarea{
   resize:none;
 }
+@media print {
+  #chant-parent2,
+  #chant-parent {
+      border: 0;
+      overflow-y: visible;
+  }
+}
 </style>
 <form id="pdfForm" target="_blank" method="get" action="https://apps.illuminarepublications.com/gregorio/">
   <!--<input type='hidden' name='pdf' value='1'/>-->
