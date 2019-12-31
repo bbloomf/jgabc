@@ -87,7 +87,7 @@ texts = {
 		"452": "extuli electum de populo oleo sancto meo unxi eum ut manus mea sit semper cum eo et brachium meum confirmet eum ℣ gratias domini in æternum cantabo per omnes generationes annuntiabo fidelitatem tuam ore meo gloria patri",
 		"456": "statuit ei dominus testamentum pacis et principem fecit eum ut sit illi sacerdotii dignitas in æternum ℣ memento domine david et omnis mansuetudinis ejus gloria patri",
 		"458": "deus in nomine tuo salvum me fac et in virtute tua judica me deus exaudi orationem meam ℣ quoniam alieni insurrexerunt adversum me et fortes quæsierunt animam meam gloria patri",
-		"465": "cantemus domino gloriose enim magnificatus est fortutudo mea et laus mea dominus et factus est mihi in salutem alleluia alleluia ℣ cantate domino canticum novum quia mirabilia fecit gloria patri",
+		"465": "cantemus domino gloriose enim magnificatus est fortitudo mea et laus mea dominus et factus est mihi in salutem alleluia alleluia ℣ cantate domino canticum novum quia mirabilia fecit gloria patri",
 		"469": "exclamaverunt ad te domine in tempore afflictionis suæ et tu de cælo exaudisti eos alleluia alleluia ℣ exsultate justi in domino rectos decet collaudatio gloria patri",
 		"475": "mihi autem nimis honorati sunt amici tui deus nimis confortatus est principatus eorum ℣ domine probasti me et cognovisti me tu cognovisti sessionem meam et resurrectionem meam gloria patri",
 		"478": "nunc scio vere quia misit dominus angelum suum et eripuit me de manu herodis et de omni exspectatione plebis judæorum ℣ domine probasti me et cognovisti me tu cognovisti sessionem meam et resurrectionem meam gloria patri",
