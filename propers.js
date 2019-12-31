@@ -2467,6 +2467,7 @@ $(function(){
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
+      .replace(/(?<=\))\s*\(\)/g,""); // replace any worthless empty parentheses.
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
       gabc = gabc.slice(gabcHeader.original.length);
