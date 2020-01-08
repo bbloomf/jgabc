@@ -88,7 +88,7 @@ var callbackOn = {
 }
 ids = ids.concat(miscChantIDs);
 https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages/patterns/la-hypher.js', result => {
-  var file = 'patterns/la-hypher.js';
+  var file = 'patterns/la-hypher.master.js';
   result.setEncoding('utf8');
   var fileData = '';
   result.on('data',function(data){
