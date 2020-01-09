@@ -312,10 +312,11 @@ var path = 'gabc/',
                         checkTextRepeat = 2 * (text.length - 1);
                       }
                       var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
-                      var vowelCount = (word.match(/[aá]u|(qu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
+                      var vowelCount = (word.match(/[aá]u|(qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       if(vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
+                        if(!/^(c[uú]i|euge|ceu|Allelúia)$/i.test(word)) throw 1;
                       }
                       if(syls.length && syls.slice(-1)[0].match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
                         console.error(word, 'accent on final syllable', file, content.slice(index, index + 100));
