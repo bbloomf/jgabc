@@ -1,1 +1,17 @@
-See http://bbloomf.github.io/jgabc/ for a live example.
+Users:
+    See http://bbloomf.github.io/jgabc/ for a live example.
+
+Developers:
+To get started, install Node.js from: https://nodejs.org
+
+On Linux/OSX:
+    Verify node installation from terminal with:
+        node -version
+    Install npm with:
+        sudo npm install npm@latest -g
+    From the jgabc directory run:
+        sudo npm install -g http-server
+        sudo http-server -a localhost -p 80
+    Visit the local directory from your browser:
+        http://127.0.0.1
+

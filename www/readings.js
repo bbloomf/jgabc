@@ -754,6 +754,7 @@ $(function() {
       });
     }
   }
+  $("#btnVulgateLoad").click(updateText);
   $('#vulgateBook').change(loadVulgateReference);
   $('#vulgateChapterVerse').change(loadVulgateReference);
   function layoutChant() {

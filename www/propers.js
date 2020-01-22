@@ -549,7 +549,6 @@ $(function(){
         }
         if(/^(graduale|tractus)/.test(truePart)) {
           $style.append($('<option>').attr('value','psalm-tone1').text('Psalm Toned Verse' + (truePart == 'tractus'? 's':'')));
-          styleVal = $style.val();
           if(/^psalm-tone[^1]/.test(styleVal)) {
             styleVal = 'psalm-tone';
           }
