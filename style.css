@@ -55,14 +55,14 @@ body {
   margin-top: 0;
 }
 .verses > p > span.versenum {
-  color: #d00;
+  color: #d00!important;
   margin-bottom: 0;
   float: left;
   width: 1.5em;
   text-align: right;
 }
 .verses .versiculum {
-  color: #d00;
+  color: #d00!important;
 }
 .open-on-hover>.dropdown-menu {
   margin: 0;
