@@ -1289,7 +1289,7 @@ $(function(){
     var gabcAfterAsterisks = {};
     var justAppliedAsteriskCallback = false;
     while(match) {
-      if(storeMap && newWord && match[rog.gabc] && !/^[,;:`]+$/.test(match[rog.gabc]) && match[rog.syl] && /[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i.test(match[rog.syl])) {
+      if(storeMap && newWord && match[rog.gabc] && !/^[,;:``]+$/.test(match[rog.gabc]) && match[rog.syl] && /[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]/i.test(match[rog.syl])) {
         dictionary.push(match.index);
         newWord = false
       }
@@ -3114,7 +3114,7 @@ $(function(){
       gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
-        replace(/(['_])\d/g,"$1"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after ' or _
+        replace(/(['_.])\d/g,"$1"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after ' or _ or .
         replace(/!\)/g,')').
         replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
         replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
