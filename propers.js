@@ -1042,7 +1042,7 @@ $(function(){
           })+"</select>").change(function() {
             var val = $(this).val();
             sel[part].id = val;
-            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionName[val])) {
+            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?(?:\s|$)/.test(optionName[val])) {
               sel[part].annotationArray = ['Ant.',optionName[val]];
             }
             downloadThisChant();
