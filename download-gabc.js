@@ -293,7 +293,7 @@ var path = 'gabc/',
                       // ignore any words that have no syllables:
                       if(/^[^a-zæœǽœ́áéíóúýäëïöüÿ]*$/i.test(word)) return whole;
                       var accents = whole.match(/[áéíóú]|ǽ|œ́|ý/g);
-                      if(accents && accents.length > 1) throw ids[i] + ": " + whole;
+                      if(accents && accents.length > 1) throw ids[i] + ":" + ids[i] + ": " + whole;
                       if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
                         syls = syls.map(s => s.replace(/(?:(I)|i)(?=[AEIOUYÆŒǼÁÉÍÓÚÝÄËÏÖÜŸaeiouyæœǽœ́áéíóúýäëïöüÿ])/, (all,i) => (i? 'J' : 'j')));
                         if(word != syls.join('')) {
