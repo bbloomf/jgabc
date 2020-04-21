@@ -730,8 +730,14 @@ $(function(){
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus];
     if(!selPropers && proprium[ref]) {
       selPropers = proprium[ref];
+    }
+    if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
+    if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
+      selPropers.gloria = false;
+    }
+    if(selPropers) {
+      selPropers = $.extend(true,{},selPropers);
       if(selTempus && (selDay != ref)) {
-        selPropers = $.extend(true,{},selPropers);
         if(ref != selDay) {
           $.extend(true, selPropers, proprium[selDay]);
           delete selPropers.ref;
@@ -757,13 +763,6 @@ $(function(){
       if(selPropers.alID && selPropers.alID.length == 1) {
         selPropers.alID = selPropers.alID.pop();
       }
-    }
-    if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
-    if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
-      selPropers.gloria = false;
-    }
-    if(selPropers) {
-      selPropers = $.extend(true,{},selPropers);
       gregorianBooksPage = (gregorianBooksPage && selPropers.gbid)? (gregorianBooksPage + "#" + selPropers.gbid) : "";
       for(var k in partKey) {
         var key = partKey[k] + 'ID';
@@ -1042,7 +1041,7 @@ $(function(){
           })+"</select>").change(function() {
             var val = $(this).val();
             sel[part].id = val;
-            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?/.test(optionName[val])) {
+            if (/^([VI]+|[1-8])(\s*[a-gA-G][1-9]?\*?)?(?:\s|$)/.test(optionName[val])) {
               sel[part].annotationArray = ['Ant.',optionName[val]];
             }
             downloadThisChant();
