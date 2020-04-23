@@ -730,6 +730,13 @@ $(function(){
     selPropers = proprium[selDay + selTempus] || proprium[ref + selTempus];
     if(!selPropers && proprium[ref]) {
       selPropers = proprium[ref];
+      if(selTempus && (selDay != ref)) {
+        selPropers = $.extend(true,{},selPropers);
+        if(ref != selDay) {
+          $.extend(true, selPropers, proprium[selDay]);
+          delete selPropers.ref;
+        }
+      }
     }
     if(selPropers && selPropers.ref) selPropers = proprium[selPropers.ref];
     if(selPropers && /^(?:Adv|Quad|[765]a)/.test(selDay) && !('gloria' in selPropers)) {
@@ -738,10 +745,6 @@ $(function(){
     if(selPropers) {
       selPropers = $.extend(true,{},selPropers);
       if(selTempus && (selDay != ref)) {
-        if(ref != selDay) {
-          $.extend(true, selPropers, proprium[selDay]);
-          delete selPropers.ref;
-        }
         var regex;
         if(selTempus == 'Quad') {
           delete selPropers.alID;

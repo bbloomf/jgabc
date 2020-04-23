@@ -19,3 +19,4 @@ package-lock.json
 build.json
 show-diffs.sh
 .tags
+appid-secret.key
