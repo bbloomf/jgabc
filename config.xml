@@ -66,5 +66,4 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.4" />
     <plugin name="com.borismus.webintent" spec="https://github.com/cordova-misc/cordova-webintent.git" />
     <engine name="android" spec="^8.0.0" />
-    <engine name="ios" spec="^5.0.0" />
 </widget>
