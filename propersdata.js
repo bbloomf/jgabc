@@ -2688,7 +2688,6 @@ var proprium = {
         "ref": "Pasc6s",
         "gloria": true,
         "credo": false,
-        "agnus": false,
         "ite": false,
     },
     "Pent0": {
