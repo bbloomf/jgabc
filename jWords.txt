@@ -714,7 +714,6 @@ judicátum
 judicátur
 judicátus
 judicáverint
-judicáverit
 judicávero
 judicávi
 judicávimus
@@ -1004,7 +1003,6 @@ jásiel
 jáspide
 jáspidem
 jáspidis
-jáspis
 jáziel
 jébaar
 jébahar
