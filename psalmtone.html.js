@@ -308,6 +308,9 @@ function getCantica() {
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");
   r.push("Philippians Canticle");
+  r.push("Canticum Isaiæ 33, 2-10");
+  r.push("Canticum Isaiæ 33, 13-18");
+  r.push("Canticum Ecclesiasticæ 36, 14-19");
   return r;
 }
 
