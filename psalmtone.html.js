@@ -311,6 +311,10 @@ function getCantica() {
   r.push("Canticum Isaiæ 33, 2-10");
   r.push("Canticum Isaiæ 33, 13-18");
   r.push("Canticum Ecclesiasticæ 36, 14-19");
+  r.push("Symbolum Athanasianum");
+  r.push("Canticum Isaiæ 40, 10-17");
+  r.push("Canticum Isaiæ 42, 10-16");
+  r.push("Canticum Isaiæ 49, 7-13");
   return r;
 }
 
