@@ -106,7 +106,7 @@ var sundayKeys = [
     {key:"Pent0s",title:"Sabbato IV Temp. Pentecostes",en:"Ember Saturday of Pentecost"},    
     {key:"Pent0ss",title:"Sabbato IV Temporum (forma brevior)",en:"Ember Saturday (shorter form)"},    
     {key:"Pent1",title:"Sanctissimæ Trinitatis",en:"Trinity Sunday"},
-    {key:"Pent1w",title:"  Feria post 1 post Pentecosten",en:"  Feria afetr 1st Sunday after Pentecost"},
+    {key:"Pent1w",title:"  Feria post 1 post Pentecosten",en:"  Feria after 1st Sunday after Pentecost"},
     {key:"CorpusChristi",title:"Corpus Christi",en:"Corpus Christi"},
     {key:"Pent2",title:"Dominica in Octavam Sme Corporis Christi",en:"Sunday within the octave of Corpus Christi (2nd after Pentecost)"},
     {key:"SCJ",title:"Sacratissimum Cor Jesu",en:"Most Sacred Heart of Jesus"},
