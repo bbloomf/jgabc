@@ -1894,6 +1894,7 @@ incipits = {
 		"domine": 3177,
 		"emendemus": 743,
 		"eripe": 22,
+		"homo quidam": 3352,
 		"in monte": 8108,
 		"ingrediente": 606,
 		"libera": 376,
