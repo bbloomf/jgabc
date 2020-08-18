@@ -1689,6 +1689,22 @@ var lectiones = {
  "Dec11": [
   "1 Petri 5: 1-4, 10-11",
   "Matthæus 16: 13-19"
+ ],
+ "Pasch3w": [
+  "Genesis 49: 22-26",
+  "Lucas 3: 21-23"
+ ],
+ "Oct27": [
+  "1 Ad Corinthios 4: 9-14",
+  "Joannes 15: 1-7"
+ ],
+ "Oct31": [
+  "Apocalypsis 5: 6-12",
+  "Lucas 6: 17-23"
+ ],
+ "Nov29a": [
+   "Ecclesiasticus 44: 25-27; 45: 2-4, 6-9",
+   "Joannes 1: 35-51"
  ]
 };
 var mapTitleLectionis = {}

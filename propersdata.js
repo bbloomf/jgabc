@@ -91,6 +91,7 @@ var sundayKeys = [
     {key:"Pasc1",title:"Dominica in Albis (in Oct Paschæ)",en:"Low Sunday (The Octave of Easter)"},
     {key:"Pasc2",title:"II post Pascha",en:"2nd Sunday after Easter"},
     {key:"Pasc3",title:"III post Pascha",en:"3rd Sunday after Easter"},
+    {key:"Pasc3w",title:"S. Joseph Sponsi B. Mariæ V.",en:"Solemnity of St Joseph"},
     {key:"Pasc4",title:"IV post Pascha",en:"4th Sunday after Easter"},
     {key:"Pasc5",title:"V post Pascha",en:"5th Sunday after Easter"},
     {key:"Asc",title:"Ascensio",en:"Ascension Thursday"},
@@ -432,7 +433,9 @@ var saintKeys = [
     {key:"Oct20",title:"Oct 20: St John Cantius",en:"Oct 20: St John Cantius"},
     {key:"Oct23",title:"Oct 23: St Anthony Mary Claret",en:"Oct 23: St Anthony Mary Claret"},
     {key:"Oct24",title:"Oct 24: St Raphael",en:"Oct 24: St Raphael"},
+    {key:"Oct27",title:"Oct 27: Vigil of Ss Simon and Jude",en:"Oct 27: Vigil of Ss Simon and Jude"},
     {key:"Oct28",title:"Oct 28: Ss Simon and Jude",en:"Oct 28: Ss Simon and Jude"},
+    {key:"Oct31",title:"Oct 31: Vigil of All Saints",en:"Oct 31: Vigil of All Saints"},
     {key:"Nov1",title:"Nov 1: The Feast of All Saints",en:"Nov 1: The Feast of All Saints"},
     {key:"Nov2",title:"Nov 2: All Souls' Day",en:"Nov 2: All Souls' Day",class:1,transferIfSunday:true},
     {key:"Nov4",title:"Nov 4: St Charles Borromeo",en:"Nov 4: St Charles Borromeo"},
@@ -458,6 +461,7 @@ var saintKeys = [
     {key:"Nov26",title:"Nov 26: St Sylvester",en:"Nov 26: St Sylvester"},
     {key:"Nov27",title:"Nov 27: Our Lady of the Miraculous Medal",en:"Nov 27: Our Lady of the Miraculous Medal"},
     {key:"Nov29",title:"Nov 29: St Saturninus",en:"Nov 29: St Saturninus"},
+    {key:"Nov29a",title:"Nov 29: In vigilia S. Andreæ Apostoli",en:"Nov 29: Vigil of St Andrew"},
     {key:"Nov30",title:"Nov 30: St Andrew",en:"Nov 30: St Andrew"},
     {key:"Dec2",title:"Dec 2: St Bibiana",en:"Dec 2: St Bibiana"},
     {key:"Dec3",title:"Dec 3: St Francis Xavier",en:"Dec 3: St Francis Xavier"},
@@ -2636,6 +2640,14 @@ var proprium = {
         "inVerses": "Ps 65: 8-9",
         "ofVerses": "Ps 145: 7",
         "coVerses": "Ps 65: 1-2, 4-6, 8-9, 16, 20"
+    },
+    "Pasc3w": {
+        "inID": 385,
+        "grID": 1324,
+        "alID": 213,
+        "ofID": 845,
+        "coID": 534,
+        "gbid": "st_joseph_solemnity"
     },
     "Pasc4": {
         "inID": 42,
@@ -5568,6 +5580,13 @@ var proprium = {
         "gbid": "st_pius_v",
         "ref": "mass_holy_pope"
     },
+    "Oct31": {
+        "inID": 1213,
+        "grID": 963,
+        "ofID": 33,
+        "coID": 209,
+        "gbid": "all_saints_vigil"
+    },
     "Nov1": {
         "coID": 345,
         "grID": 371,
@@ -5668,6 +5687,13 @@ var proprium = {
         "ofID": 687,
         "gbid": "our_lady_miraculous_medal"
     },
+    "Nov29": {
+        "inID": 693,
+        "grID": 148,
+        "ofID": 407,
+        "coID": 1021,
+        "gbid": "st_andrew_vigil"
+    },
     "Nov30": {
         "coID": 552,
         "grID": 307,
@@ -5763,6 +5789,14 @@ var proprium = {
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
         "coVerses": "Dan 3: 57, 60-65, 83-87"
+    },
+    "Oct27": {
+        "inID": 261,
+        "inVerses": "Ps 78: 2-3",
+        "grID": 206,
+        "ofID": 33,
+        "coID": 184,
+        "gbid": "ss_simon_jude_vigil"
     },
     "Oct28": {
         "coID": 1028,
