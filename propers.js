@@ -21,14 +21,14 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
 // Taken from the Chants Abrégés (http://media.musicasacra.com/pdf/chantsabreges.pdf) [They are found throughout the book, wherever Alleluia verses are found]:
   alleluiaChantsAbreges=[
     undefined,
-    "(c4)Al(c)le(d)lu(ixed/hi)ia.(hvhvGE//fd.) (::)",
-    "(f3)Al(ef~)le(f)lu(hf/fe~)ia.(egf.) (::)",
-    "(c4)Al(e/ef)le(dg)lu(gih___!iwj)ia.(ijh'___/ig/ge.) (::)",
-    "(c4)Al(e//ed~)le(e/ghe/fe)lu(de~)ia.(e.) (::)",
-    "(c3)Al(d/f'h~)le(hf__)lu(fh'/ih~)ia.(i.////hiHF'/fd.) (::)",
-    "(c4)Al(f/fg)le(gf)lu(ixf!gi//hig//g)ia.(gf..) (::)",
-    "(c3)Al(ef)le(e)lu(e!f'h/ihi)ia.(ie..) (::)",
-    "(c4)Al(g)le(hvGF/ghg)lu(fh!jvIG'h)ia.(g.) (::)"
+    "(c4)AL(c)le(d)lú(ixed/hi)ia.(hvhvGE'/fd.) (::)",
+    "(f3)AL(ef~)le(f)lú(hf/fe~)ia.(egf.) (::)",
+    "(c4)AL(e/ef)le(dg)lú(gih___!iwj)ia.(ijh'___/ig/ge.) (::)",
+    "(c4)AL(e//ed~)le(e/ghe/fe)lú(de~)ia.(e.) (::)",
+    "(c3)AL(d/f'h~)le(h_f)lú(fh'/ih~)ia.(iv.hiHF'/fd.) (::)",
+    "(c4)AL(f/fg)le(gf)lú(ixf!gi/hig/g)ia.(gf..) (::)",
+    "(c3)AL(ef)le(e)lú(e!f'h/ihi)ia.(ie..) (::)",
+    "(c4)AL(g)le(hvGF/ghg)lú(fh!jvIG'h)ia.(g.) (::)"
   ],
   isNovus = false,
   novusOption={},
@@ -2133,9 +2133,9 @@ $(function(){
           $('#selStyleGraduale').change();
         }
         if(sel[part].style=='psalm-tone-sal') {
-          gabc = alleluiaChantsAbreges[mode];
+          gabc = "mode: " + mode + ";\n%%\n" + alleluiaChantsAbreges[mode];
           if(text.split('\n')[0].match(/ij|bis/)) {
-            gabc = gabc.replace(')ia.(',')ia. <i>ij.</i>(');
+            gabc = gabc.replace(')ia.(',')i{a}. <i>ij.</i>(');
           }
         } else {
           $('[part='+part+']').addClass('full-alleluia');
