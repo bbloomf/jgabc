@@ -113,7 +113,7 @@ function makeExsurgeChantContext() {
   
   ctxt.specialCharProperties['font-family'] = "'Versiculum'";
   ctxt.specialCharProperties['font-variant'] = 'normal';
-  ctxt.specialCharProperties['font-size'] = (1.2 * ctxt.lyricTextSize) + 'px';
+  // ctxt.specialCharProperties['font-size'] = (ctxt.lyricTextSize) + 'px';
   ctxt.specialCharProperties['font-weight'] = '400';
   ctxt.specialCharText = function(char) { return char.toLowerCase(); };
   ctxt.setRubricColor('#d00');

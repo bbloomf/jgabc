@@ -2134,6 +2134,8 @@ $(function(){
         }
         if(sel[part].style=='psalm-tone-sal') {
           gabc = "mode: " + mode + ";\n%%\n" + alleluiaChantsAbreges[mode];
+          originalClef = gabc.match(regexGabcClef);
+          if(originalClef) originalClef = originalClef[1];
           if(text.split('\n')[0].match(/ij|bis/)) {
             gabc = gabc.replace(')ia.(',')i{a}. <i>ij.</i>(');
           }
