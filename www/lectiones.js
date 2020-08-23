@@ -1689,6 +1689,74 @@ var lectiones = {
  "Dec11": [
   "1 Petri 5: 1-4, 10-11",
   "Matthæus 16: 13-19"
+ ],
+ "Pasch3w": [
+  "Genesis 49: 22-26",
+  "Lucas 3: 21-23"
+ ],
+ "Oct27": [
+  "1 Ad Corinthios 4: 9-14",
+  "Joannes 15: 1-7"
+ ],
+ "Oct31": [
+  "Apocalypsis 5: 6-12",
+  "Lucas 6: 17-23"
+ ],
+ "Nov29a": [
+   "Ecclesiasticus 44: 25-27; 45: 2-4, 6-9",
+   "Joannes 1: 35-51"
+ ],
+ "Jan5a": [
+  "Ad Galatas 4: 1-7",
+  "Matthæus 2: 19-23"
+],
+  "May3": [
+    "Ad Philippenses 2: 5-11",
+    "Joannes 3: 1-15"
+  ],
+  May6: [
+    "Sapientia 5: 1-5",
+    "Matthæus 20: 20-23"
+  ],
+  May8: [
+    "Apocalypsis 1: 1-15",
+    "Matthæus 18: 1-10"
+  ],
+  Jul3a: [
+    "1 Petri 5: 1-4, 10-11",
+    "Matthæus 16: 13-19"
+  ],
+  Jul6: [
+    "Ecclesiasticus 44: 10-15",
+    "Matthæus 14: 22-33"
+  ],
+  Jul13: [
+    "1 Petri 5: 1-4, 10-11",
+    "Matthæus 16: 13-19"
+  ],
+  Jul21a: [
+    "1 Ad Corinthios 7: 25-34",
+    "Matthæus 25: 1-13"
+  ],
+  Jul24: [
+    "Ecclesiasticus 44: 25-27; 45: 2-4, 6-9",
+    "John 15: 12-16"
+  ],
+  Aug1a: [
+    "Actus Apostolorum 12: 1-11",
+    "Matthæus 16: 13-19"
+  ],
+  Aug3: [
+    "Actus Apostolorum 6: 8-10; 7: 54-59",
+    "Matthæus 23: 34-39"
+  ],
+  Aug8a: [
+    "1 Ad Thessalonicenses 2: 13-16",
+    "Marcus 16: 15-17"  
+  ],
+  Dec20: [
+    "Ecclesiasticus 44: 25-27; 45: 2-4, 6-9",
+    "Joannes 15: 12-16"
  ]
 };
 var mapTitleLectionis = {}

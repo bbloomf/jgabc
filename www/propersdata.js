@@ -15,6 +15,7 @@ var sundayKeys = [
     {key:"Nat1",title:"Dominica in Oct Nativitatis",en:"Sunday within the octave of Christmas"},
     {key:"Jan1",title:"Octava Nativitatis (Circumcisione Domini)",en:"Octave day of Christmas (Jan 1.)"},
     {key:"Nat2",title:"Sanctissimi Nominis Jesu",en:"Sunday preceding the Epiphany (Holy Name of Jesus)"},
+    {key:"Jan5a",title:"In Vigilia Epiphaniæ",en:"Vigil of Epiphany"},
     {key:"Epi",title:"Epiphania",en:"Epiphany"},
     {key:"Epi1",title:"I post Epiphaniam (Sanctæ Familiæ)",en:"1st Sunday after Epiphany (Holy Family)"},
     {key:"Epi1s",title:"  Feria post I post Epiphaniam",en:"  Feria after 1st Sunday after Epiphany"},
@@ -90,6 +91,7 @@ var sundayKeys = [
     {key:"Pasc0s",title:"Sabbato in Oct Paschæ",en:"Easter Saturday"},
     {key:"Pasc1",title:"Dominica in Albis (in Oct Paschæ)",en:"Low Sunday (The Octave of Easter)"},
     {key:"Pasc2",title:"II post Pascha",en:"2nd Sunday after Easter"},
+    {key:"Pasc2w",title:"S. Joseph Sponsi B. Mariæ V.",en:"Solemnity of St Joseph"},
     {key:"Pasc3",title:"III post Pascha",en:"3rd Sunday after Easter"},
     {key:"Pasc4",title:"IV post Pascha",en:"4th Sunday after Easter"},
     {key:"Pasc5",title:"V post Pascha",en:"5th Sunday after Easter"},
@@ -252,7 +254,7 @@ var saintKeys = [
     {key:"Feb14",title:"Feb 14: St Valentine",en:"Feb 14: St Valentine"},
     {key:"Feb15",title:"Feb 15: Ss Faustinus and Jovita",en:"Feb 15: Ss Faustinus and Jovita"},
     {key:"Feb18",title:"Feb 18: St Simeon",en:"Feb 18: St Simeon"},
-    {key:"Feb22",title:"Feb 22: Chair of St Peter",en:"Feb 22: Chair of St Peter"},
+    {key:"Feb22",title:"Feb 22: Chair of St Peter at Antioch",en:"Feb 22: Chair of St Peter at Antioch"},
     {key:"Feb23",title:"Feb 23: St Peter Damian",en:"Feb 23: St Peter Damian"},
     {key:"Feb24or25",title:"Feb 24 or 25: St Matthias",en:"Feb 24 or 25: St Matthias"},
     {key:"Feb27or28",title:"Feb 27 or 28: St Gabriel of Our Lady of Sorrows",en:"Feb 27 or 28: St Gabriel of Our Lady of Sorrows"},
@@ -290,9 +292,12 @@ var saintKeys = [
     {key:"Apr30",title:"Apr 30: St Catherine of Sienna",en:"Apr 30: St Catherine of Sienna"},
     {key:"May1",title:"May 1: St Joseph the Worker",en:"May 1: St Joseph the Worker",class:1},
     {key:"May2",title:"May 2: St Athanasius",en:"May 2: St Athanasius"},
+    {key:"May3",title:"May 3: In Inventione S Crucis",en:"May 3: Finding of the Holy Cross"},
     {key:"May4",title:"May 4: St Monica",en:"May 4: St Monica"},
     {key:"May5",title:"May 5: St Pius V",en:"May 5: St Pius V"},
+    {key:"May6",title:"May 6: S Joannis: Ap et Ev ante Portam Latinam",en:"May 6: St John before the Latin Gate"},
     {key:"May7",title:"May 7: St Stanislaus",en:"May 7: St Stanislaus"},
+    {key:"May8",title:"May 8: In Apparitione S Michaelis Archangeli",en:"May 8: Apparition of St. Michael the Archangel"},
     {key:"May9",title:"May 9: St Gregory Nazianzen",en:"May 9: St Gregory Nazianzen"},
     {key:"May10",title:"May 10: St Antoninus",en:"May 10: St Antoninus"},
     {key:"May11",title:"May 11: Ss Philip and James",en:"May 11: Ss Philip and James"},
@@ -337,13 +342,16 @@ var saintKeys = [
     {key:"Jul1",title:"Jul 1: The Most Precious Blood of Our Lord",en:"Jul 1: The Most Precious Blood of Our Lord"},
     {key:"Jul2",title:"Jul 2: The Visitation of BVM",en:"Jul 2: The Visitation of BVM"},
     {key:"Jul3",title:"Jul 3: St Irenaeus",en:"Jul 3: St Irenaeus"},
+    {key:"Jul3a",title:"Jul 3: S Leonis II",en:"Jul 3: St Leo II"},
     {key:"Jul5",title:"Jul 5: St Anthony Mary Zaccaria",en:"Jul 5: St Anthony Mary Zaccaria"},
+    {key:"Jul6",title:"Jul 6: In Octava Ss Petri et Pauli App",en:"Jul 6: Octave of Ss Peter and Paul"},
     {key:"Jul7",title:"Jul 7: Ss Cyril and Methodius",en:"Jul 7: Ss Cyril and Methodius"},
     {key:"Jul8",title:"Jul 8: St Elizabeth",en:"Jul 8: St Elizabeth"},
     {key:"Jul10",title:"Jul 10: The Seven Holy Brothers",en:"Jul 10: The Seven Holy Brothers"},
     {key:"Jul11",title:"Jul 11: St Pius I",en:"Jul 11: St Pius I"},
     {key:"Jul11a",title:"Jul 11: St Oliver Plunkett",en:"Jul 11: St Oliver Plunkett"},
     {key:"Jul12",title:"Jul 12: St John Gualbert",en:"Jul 12: St John Gualbert"},
+    {key:"Jul13",title:"Jul 13: S Anacleti Papæ et Mart",en:"Jul 13: St Anacletus"},
     {key:"Jul14",title:"Jul 14: St Bonaventure",en:"Jul 14: St Bonaventure"},
     {key:"Jul15",title:"Jul 15: St Henry",en:"Jul 15: St Henry"},
     {key:"Jul16",title:"Jul 16: Our Lady of Mount Carmel",en:"Jul 16: Our Lady of Mount Carmel"},
@@ -352,8 +360,10 @@ var saintKeys = [
     {key:"Jul19",title:"Jul 19: St Vincent de Paul",en:"Jul 19: St Vincent de Paul"},
     {key:"Jul20",title:"Jul 20: St Jerome Emilian",en:"Jul 20: St Jerome Emilian"},
     {key:"Jul21",title:"Jul 21: St Lawrence of Brindisi",en:"Jul 21: St Lawrence of Brindisi"},
+    {key:"Jul21a",title:"Jul 21: S Praxedis Virginis",en:"Jul 21: St Praxedes"},
     {key:"Jul22",title:"Jul 22: St Mary Magdalen",en:"Jul 22: St Mary Magdalen"},
     {key:"Jul23",title:"Jul 23: St Apollinaris",en:"Jul 23: St Apollinaris"},
+    {key:"Jul24",title:"Jul 24: In Vigilia S Jacobi Apostoli",en:"Jul 24: Vigil of St. James"},
     {key:"Jul25",title:"Jul 25: St James the Greater",en:"Jul 25: St James the Greater"},
     {key:"Jul26",title:"Jul 26: St Anne",en:"Jul 26: St Anne"},
     {key:"Jul27",title:"Jul 27: St Pantaleon",en:"Jul 27: St Pantaleon"},
@@ -361,12 +371,15 @@ var saintKeys = [
     {key:"Jul29",title:"Jul 29: St Martha",en:"Jul 29: St Martha"},
     {key:"Jul31",title:"Jul 31: St Ignatius of Loyola",en:"Jul 31: St Ignatius of Loyola"},
     {key:"Aug1",title:"Aug 1: Holy Machabees",en:"Aug 1: Holy Machabees"},
+    {key:"Aug1a",title:"Aug 1: S Petri Ap ad Vincula",en:"Aug 1: St Peter at the Chains"},
     {key:"Aug2",title:"Aug 2: St Alphonsus Mary de Ligouri",en:"Aug 2: St Alphonsus Mary de Ligouri"},
+    {key:"Aug3",title:"Aug 3: In Inventione S Stephani Protomartyris",en:"Aug 3: The Finding of St Stephen’s Relics"},
     {key:"Aug4",title:"Aug 4: St Dominic",en:"Aug 4: St Dominic"},
     {key:"Aug5",title:"Aug 5: Dedication of the Basilica of St Mary Major",en:"Aug 5: Dedication of the Basilica of St Mary Major"},
     {key:"Aug6",title:"Aug 6: Transfiguration of Our Lord",en:"Aug 6: Transfiguration of Our Lord"},
     {key:"Aug7",title:"Aug 7: St Cajetan",en:"Aug 7: St Cajetan"},
     {key:"Aug8",title:"Aug 8: St John Mary Vianney",en:"Aug 8: St John Mary Vianney"},
+    {key:"Aug8a",title:"Aug 8: Ss Cyriaci, Largi, et Smaragdi Martyrum",en:"Aug 8: Ss Cyriacus, Largus, and Smaragdus"},
     {key:"Aug9",title:"Aug 9: Vigil of St Lawrence",en:"Aug 9: Vigil of St Lawrence"},
     {key:"Aug10",title:"Aug 10: St Lawrence",en:"Aug 10: St Lawrence"},
     {key:"Aug11",title:"Aug 11: St Tiburtius and St Susanna",en:"Aug 11: St Tiburtius and St Susanna"},
@@ -432,7 +445,9 @@ var saintKeys = [
     {key:"Oct20",title:"Oct 20: St John Cantius",en:"Oct 20: St John Cantius"},
     {key:"Oct23",title:"Oct 23: St Anthony Mary Claret",en:"Oct 23: St Anthony Mary Claret"},
     {key:"Oct24",title:"Oct 24: St Raphael",en:"Oct 24: St Raphael"},
+    {key:"Oct27",title:"Oct 27: Vigil of Ss Simon and Jude",en:"Oct 27: Vigil of Ss Simon and Jude"},
     {key:"Oct28",title:"Oct 28: Ss Simon and Jude",en:"Oct 28: Ss Simon and Jude"},
+    {key:"Oct31",title:"Oct 31: Vigil of All Saints",en:"Oct 31: Vigil of All Saints"},
     {key:"Nov1",title:"Nov 1: The Feast of All Saints",en:"Nov 1: The Feast of All Saints"},
     {key:"Nov2",title:"Nov 2: All Souls' Day",en:"Nov 2: All Souls' Day",class:1,transferIfSunday:true},
     {key:"Nov4",title:"Nov 4: St Charles Borromeo",en:"Nov 4: St Charles Borromeo"},
@@ -458,6 +473,7 @@ var saintKeys = [
     {key:"Nov26",title:"Nov 26: St Sylvester",en:"Nov 26: St Sylvester"},
     {key:"Nov27",title:"Nov 27: Our Lady of the Miraculous Medal",en:"Nov 27: Our Lady of the Miraculous Medal"},
     {key:"Nov29",title:"Nov 29: St Saturninus",en:"Nov 29: St Saturninus"},
+    {key:"Nov29a",title:"Nov 29: In vigilia S. Andreæ Apostoli",en:"Nov 29: Vigil of St Andrew"},
     {key:"Nov30",title:"Nov 30: St Andrew",en:"Nov 30: St Andrew"},
     {key:"Dec2",title:"Dec 2: St Bibiana",en:"Dec 2: St Bibiana"},
     {key:"Dec3",title:"Dec 3: St Francis Xavier",en:"Dec 3: St Francis Xavier"},
@@ -471,6 +487,7 @@ var saintKeys = [
     {key:"Dec12",title:"Dec 12: Our Lady of Guadalupe",en:"Dec 12: Our Lady of Guadalupe"},
     {key:"Dec13",title:"Dec 13: St Lucy",en:"Dec 13: St Lucy"},
     {key:"Dec16",title:"Dec 16: St Eusebius",en:"Dec 16: St Eusebius"},
+    {key:"Dec20",title:"Dec 20: In Vigilia S Thomæ Apostoli",en:"Dec 20: Vigil of St Thomas"},
     {key:"Dec21",title:"Dec 21: St Thomas",en:"Dec 21: St Thomas"},
     {key:"Dec26",title:"Dec 26: St Stephen",en:"Dec 26: St Stephen"},
     {key:"Dec27",title:"Dec 27: St John",en:"Dec 27: St John"},
@@ -2626,6 +2643,14 @@ var proprium = {
         "ofVerses": "Ps 62: 2, 3",
         "coVerses": "Ps 22"
     },
+    "Pasc2w": {
+        "inID": 385,
+        "grID": 1324,
+        "alID": 213,
+        "ofID": 845,
+        "coID": 534,
+        "gbid": "st_joseph_solemnity"
+    },
     "Pasc3": {
         "inID": 536,
         "ofID": 668,
@@ -3993,6 +4018,13 @@ var proprium = {
         "gbid": "holy_machabees",
         "coVerses": "Ps 118: 1, 78, 84, 86, 95, 150, 153, 157, 161, 173"
     },
+    Aug1a: {
+        inID: 478,
+        grID: 307,
+        coID: 509,
+        alID: 16,
+        ofID: 1319
+    },
     "Aug9": {
         "inID": 544,
         "grID": 1212,
@@ -4105,6 +4137,13 @@ var proprium = {
         "inVerses": "Ps 91: 3, 13",
         "coVerses": "Ps 20: 2-3, 5-8, 14"
     },
+    Aug3: {
+        inID: 1321,
+        grID: 906,
+        alID: 561,
+        ofID: 462,
+        coID: 920
+    },
     "Aug4": {
         "coID": 1008,
         "grID": 34,
@@ -4160,6 +4199,13 @@ var proprium = {
         "ofID": 177,
         "gbid": "st_bibiana",
         "ref": "mass_ii_virgin_martyr"
+    },
+    Dec20: {
+        inID: 163,
+        grID: 34,
+        ofID: 407,
+        coID: 365,
+        "gbid": "mass_vigil_apostle"
     },
     "Dec21": {
         "coID": 589,
@@ -4795,6 +4841,13 @@ var proprium = {
         "gbid": "st_telesphorus",
         "ref": "mass_holy_pope"
     },
+    "Jan5a": {
+        inID: 564,
+        grID: 1308,
+        ofID: 979,
+        coID: 1282,
+        alID: 714
+    },
     "Jul1": {
         "coID": 1019,
         "grID": 1263,
@@ -4804,6 +4857,15 @@ var proprium = {
         "gbid": "precious_blood",
         "inVerses": "Ps 88: 6, 8",
         "coVerses": "Ps 115"
+    },
+    Jul3a: {
+        coID: 509,
+        grID: 1119,
+        alID: 228,
+        inID: 674,
+        ofID: 358,
+        gbid: "st_pius_i",
+        ref: "mass_holy_pope"
     },
     "Jul10": {
         "coID": 957,
@@ -4911,6 +4973,12 @@ var proprium = {
         "inVerses": "Dan 3: 58-61",
         "coVerses": "Ps 131: 1, 9-13, 16-18"
     },
+    Jul24: {
+        inID: 163,
+        grID: 34,
+        ofID: 407,
+        coID: 365
+    },
     "Jul25": {
         "coID": 1028,
         "grID": 307,
@@ -4975,6 +5043,13 @@ var proprium = {
         "ofID": 662,
         "gbid": "st_am_zaccaria",
         "coVerses": "Ps 33: 1, 3-6, 8"
+    },
+    Jul6: {
+        inID: 11,
+        grID: 98,
+        coID: 209,
+        alID: 440,
+        ofID: 33
     },
     "Jul7": {
         "coID": 1002,
@@ -5541,6 +5616,20 @@ var proprium = {
         "inVerses": "Ps 44: 11-12",
         "coVerses": "Ps 44"
     },
+    May3Pasch: {
+        inID: 359,
+        grID: 627,
+        ofID: 448,
+        coID: 346,
+        alID: 859
+    },
+    May3: {
+        inID: 359,
+        grID: 873,
+        alID: 859,
+        ofID: 448,
+        coID: 346,
+    },
     "May4": {
         "coID": 799,
         "grID": 406,
@@ -5567,6 +5656,20 @@ var proprium = {
         "ofID": 358,
         "gbid": "st_pius_v",
         "ref": "mass_holy_pope"
+    },
+    May6: {
+        inID: 340,
+        grID: 946,
+        ofID: 1382,
+        coID: 617,
+        alID: 1207
+    },
+    "Oct31": {
+        "inID": 1213,
+        "grID": 963,
+        "ofID": 33,
+        "coID": 209,
+        "gbid": "all_saints_vigil"
     },
     "Nov1": {
         "coID": 345,
@@ -5668,6 +5771,13 @@ var proprium = {
         "ofID": 687,
         "gbid": "our_lady_miraculous_medal"
     },
+    "Nov29": {
+        "inID": 693,
+        "grID": 148,
+        "ofID": 407,
+        "coID": 1021,
+        "gbid": "st_andrew_vigil"
+    },
     "Nov30": {
         "coID": 552,
         "grID": 307,
@@ -5763,6 +5873,14 @@ var proprium = {
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
         "coVerses": "Dan 3: 57, 60-65, 83-87"
+    },
+    "Oct27": {
+        "inID": 261,
+        "inVerses": "Ps 78: 2-3",
+        "grID": 206,
+        "ofID": 33,
+        "coID": 184,
+        "gbid": "ss_simon_jude_vigil"
     },
     "Oct28": {
         "coID": 1028,
@@ -6004,6 +6122,13 @@ var proprium = {
         "gbid": "st_stanislaus",
         "ref": "mass_one_martyr"
     },
+    May8: {
+        inID: 985,
+        grID: 1103,
+        ofID: 302,
+        coID: 1127,
+        alID: 1017
+    },      
     "May9": {
         "ref": "mass_doctors",
         "gbid": "st_gregory_nazianzen"
@@ -6068,6 +6193,9 @@ var proprium = {
         "ref": "mass_abbots",
         "gbid": "st_john_gualbert"
     },
+    Jul13: {
+        "ref": "mass_holy_pope"
+    },
     "Jul15": {
         "ref": "mass_i_confessor_not_bishop",
         "gbid": "st_henry",
@@ -6080,6 +6208,13 @@ var proprium = {
     "Jul21": {
         "ref": "mass_doctors",
         "gbid": "st_lawrence_brindisi"
+    },
+    Jul21a: {
+        inID: 510,
+        grID: 394,
+        coID: 944,
+        alID: 406,
+        ofID: 177
     },
     "Jul29": {
         "ref": "mass_i_virgin_not_martyr",
@@ -6096,6 +6231,15 @@ var proprium = {
     "Aug8": {
         "ref": "mass_i_confessor_not_bishop",
         "gbid": "st_jean_marie_vianney"
+    },
+    Aug8a: {
+        "inID": 808,
+        "grID": 371,
+        "alID": 560,
+        "ofID": 786,
+        "coID": 608,
+        "coVerses": "Ps 33: 1, 15, 17",
+        gbid: "ss_cyriacus_largus_smaragdus"
     },
     "Aug12": {
         "ref": "mass_i_virgin_not_martyr",
