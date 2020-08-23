@@ -91,8 +91,8 @@ var sundayKeys = [
     {key:"Pasc0s",title:"Sabbato in Oct Paschæ",en:"Easter Saturday"},
     {key:"Pasc1",title:"Dominica in Albis (in Oct Paschæ)",en:"Low Sunday (The Octave of Easter)"},
     {key:"Pasc2",title:"II post Pascha",en:"2nd Sunday after Easter"},
+    {key:"Pasc2w",title:"S. Joseph Sponsi B. Mariæ V.",en:"Solemnity of St Joseph"},
     {key:"Pasc3",title:"III post Pascha",en:"3rd Sunday after Easter"},
-    {key:"Pasc3w",title:"S. Joseph Sponsi B. Mariæ V.",en:"Solemnity of St Joseph"},
     {key:"Pasc4",title:"IV post Pascha",en:"4th Sunday after Easter"},
     {key:"Pasc5",title:"V post Pascha",en:"5th Sunday after Easter"},
     {key:"Asc",title:"Ascensio",en:"Ascension Thursday"},
@@ -254,7 +254,7 @@ var saintKeys = [
     {key:"Feb14",title:"Feb 14: St Valentine",en:"Feb 14: St Valentine"},
     {key:"Feb15",title:"Feb 15: Ss Faustinus and Jovita",en:"Feb 15: Ss Faustinus and Jovita"},
     {key:"Feb18",title:"Feb 18: St Simeon",en:"Feb 18: St Simeon"},
-    {key:"Feb22",title:"Feb 22: Chair of St Peter",en:"Feb 22: Chair of St Peter"},
+    {key:"Feb22",title:"Feb 22: Chair of St Peter at Antioch",en:"Feb 22: Chair of St Peter at Antioch"},
     {key:"Feb23",title:"Feb 23: St Peter Damian",en:"Feb 23: St Peter Damian"},
     {key:"Feb24or25",title:"Feb 24 or 25: St Matthias",en:"Feb 24 or 25: St Matthias"},
     {key:"Feb27or28",title:"Feb 27 or 28: St Gabriel of Our Lady of Sorrows",en:"Feb 27 or 28: St Gabriel of Our Lady of Sorrows"},
@@ -2643,6 +2643,14 @@ var proprium = {
         "ofVerses": "Ps 62: 2, 3",
         "coVerses": "Ps 22"
     },
+    "Pasc2w": {
+        "inID": 385,
+        "grID": 1324,
+        "alID": 213,
+        "ofID": 845,
+        "coID": 534,
+        "gbid": "st_joseph_solemnity"
+    },
     "Pasc3": {
         "inID": 536,
         "ofID": 668,
@@ -2653,14 +2661,6 @@ var proprium = {
         "inVerses": "Ps 65: 8-9",
         "ofVerses": "Ps 145: 7",
         "coVerses": "Ps 65: 1-2, 4-6, 8-9, 16, 20"
-    },
-    "Pasc3w": {
-        "inID": 385,
-        "grID": 1324,
-        "alID": 213,
-        "ofID": 845,
-        "coID": 534,
-        "gbid": "st_joseph_solemnity"
     },
     "Pasc4": {
         "inID": 42,
