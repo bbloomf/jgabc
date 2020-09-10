@@ -432,7 +432,8 @@ texts = {
 		"1354": "speciosus forma præ filius hominum difusa est gratia in labiis tuis ℣ filiæ regum in honore tuo austitit regina a dextris tuis in vestitu deaurato circumdata varietate",
 		"1368": "ipse habet in vestimento et in femore suo scriptum rex regum et dominus dominantium ℣ regina adstat ad dexteram ejus ornata auro ex ophir",
 		"1373": "adjuvabit eam deus vultu suo deus in medio ejus non commovebitur ℣ fluminis impetus lætificat civitatem dei sanctificavit tabernaculum suum altissimus",
-		"1383": "dolorosa et lacrimabilis es virgo maria stans juxta crucem domini jesu filii tui redemptoris ℣ virgo dei genitrix quem totus non capit orbis hoc crucis fert supplicium auctor vitæ factus homo"
+		"1383": "dolorosa et lacrimabilis es virgo maria stans juxta crucem domini jesu filii tui redemptoris ℣ virgo dei genitrix quem totus non capit orbis hoc crucis fert supplicium auctor vitæ factus homo",
+		"10607": "deus qui præcinxit me virtute et posuit immaculatam viam meam ℣ qui perfecit pedes meos tamquam cervorum et super excelsa statuens me"
 	},
 	"Tractus": {
 		"18": "gaude maria virgo cunctas hæreses sola interemisti ℣ quæ gabrielis archangeli dictis credidisti ℣ dum virgo deum et hominem genuisti et post partum virgo inviolata permansisti ℣ dei genitrix intercede pro nobis",
@@ -1278,7 +1279,8 @@ texts = {
 		"1367": "cor meum et caro mea exsultaverunt in deum vivum alleluia",
 		"1371": "et erat ibi usque ad obitum herodis ut adimpleretur quod dictum est a domino per prophetam dicentem ex ægypto vocavi filium meum",
 		"3314": "ego sum vitis vera et vos palmites qui manet in me et ego in eo hic fert fructum multum alleluia alleluia",
-		"3316": "optimam partem elegit sibi maria quæ non auferetur ab ea in æternum"
+		"3316": "optimam partem elegit sibi maria quæ non auferetur ab ea in æternum",
+		"10604": "venite ad me omnes qui laboratis et onerati estis et ego reficiam vos"
 	},
 	"Antiphona": {
 		"30": "exsurge domine adjuva nos et libera nos propter nomen tuum ℣ deus auribus nostris audivimus patres nostri annuntiaverunt nobis gloria patri",
