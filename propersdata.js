@@ -5791,7 +5791,7 @@ var proprium = {
         "ofID": 687,
         "gbid": "our_lady_miraculous_medal"
     },
-    "Nov29": {
+    "Nov29a": {
         "inID": 693,
         "grID": 148,
         "ofID": 407,

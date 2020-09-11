@@ -28,6 +28,8 @@ gabcRefs["8268"] = "Tob 12: 6; Ps 83: 2-3";
 gabcRefs["606"] = "Joan. 12";
 gabcRefs["1092"] = " ";
 gabcRefs["532"] = " ";
+gabcRefs["10607"] = "Ps 17: 35-36"
+gabcRefs["10604"] = "Matth 11: 28"
 
 window = {Hypher: Hypher};
 Hypher.languages = {};
