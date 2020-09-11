@@ -1849,6 +1849,10 @@ var lectiones = {
   May25: [
     "1 Petri 5: 1-4, 10-11",
     "Matthæus 16: 13-19"
-   ],  
+   ],
+   Feb23or24: [
+    "Ecclesiasticus 44: 25-27; 45: 2-4, 6-9",
+    "Joannes 15: 12-16"
+   ]
 };
 var mapTitleLectionis = {}
