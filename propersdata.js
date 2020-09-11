@@ -227,6 +227,7 @@ var saintKeys = [
     {key:"Jan16",title:"Jan 16: St Marcellus I",en:"Jan 16: St Marcellus I"},
     {key:"Jan17",title:"Jan 17: St Anthony",en:"Jan 17: St Anthony"},
     {key:"Jan18",title:"Jan 18: Chair of St Peter in Rome",en:"Jan 18: Chair of St Peter in Rome"},
+{key:"Jan19",title:"Jan 19: Ss Marius and Companions",en:"Jan 19: Ss Marius and Companions"},
     {key:"Jan20",title:"Jan 20: St Fabian and St Sebastian",en:"Jan 20: St Fabian and St Sebastian"},
     {key:"Jan21",title:"Jan 21: St Agnes",en:"Jan 21: St Agnes"},
     {key:"Jan22",title:"Jan 22: Ss Vincent and Anastasius",en:"Jan 22: Ss Vincent and Anastasius"},
@@ -254,6 +255,7 @@ var saintKeys = [
     {key:"Feb14",title:"Feb 14: St Valentine",en:"Feb 14: St Valentine"},
     {key:"Feb15",title:"Feb 15: Ss Faustinus and Jovita",en:"Feb 15: Ss Faustinus and Jovita"},
     {key:"Feb18",title:"Feb 18: St Simeon",en:"Feb 18: St Simeon"},
+{key:"Feb18a",title:"Feb 18: St Marie Bernadette Soubirous",en:"Feb 18: St Marie Bernadette Soubirous"},
     {key:"Feb22",title:"Feb 22: Chair of St Peter at Antioch",en:"Feb 22: Chair of St Peter at Antioch"},
     {key:"Feb23",title:"Feb 23: St Peter Damian",en:"Feb 23: St Peter Damian"},
     {key:"Feb24or25",title:"Feb 24 or 25: St Matthias",en:"Feb 24 or 25: St Matthias"},
@@ -303,6 +305,7 @@ var saintKeys = [
     {key:"May11",title:"May 11: Ss Philip and James",en:"May 11: Ss Philip and James"},
     {key:"May12",title:"May 12: Ss Nereus, Achilleus, Domitilla, and Pancras",en:"May 12: Ss Nereus, Achilleus, Domitilla, and Pancras"},
     {key:"May13",title:"May 13: St Robert Bellarmine",en:"May 13: St Robert Bellarmine"},
+{key:"May14",title:"May 14: St Boniface",en:"May 14: St Boniface"},
     {key:"May15",title:"May 15: St John Baptist de la Salle",en:"May 15: St John Baptist de la Salle"},
     {key:"May16",title:"May 16: St Ubaldus",en:"May 16: St Ubaldus"},
     {key:"May17",title:"May 17: St Paschal Baylon",en:"May 17: St Paschal Baylon"},
@@ -310,6 +313,7 @@ var saintKeys = [
     {key:"May19",title:"May 19: St Peter Celestine",en:"May 19: St Peter Celestine"},
     {key:"May20",title:"May 20: St Bernardine of Siena",en:"May 20: St Bernardine of Siena"},
     {key:"May24",title:"May 24: Our Lady Help of Christians",en:"May 24: Our Lady Help of Christians"},
+    {key:"May25",title:"May 25: St Gregory VII",en:"May 25: St Gregory VII"},
     {key:"May26",title:"May 26: St Philip Neri",en:"May 26: St Philip Neri"},
     {key:"May27",title:"May 27: St Bede the Venerable",en:"May 27: St Bede the Venerable"},
     {key:"May28",title:"May 28: St Augustine of Canterbury",en:"May 28: St Augustine of Canterbury"},
@@ -317,14 +321,17 @@ var saintKeys = [
     {key:"May30",title:"May 30: St Felix",en:"May 30: St Felix"},
     {key:"May31",title:"May 31: Queenship of BVM",en:"May 31: Queenship of BVM"},
     {key:"Jun1",title:"Jun 1: St Angela Merici",en:"Jun 1: St Angela Merici"},
+{key:"Jun2",title:"Jun 2: Sts Marcellinus, Peter, and Erasmus",en:"Jun 2: Sts Marcellinus, Peter, and Erasmus"},
     {key:"Jun4",title:"Jun 4: St Francis Caracciolo",en:"Jun 4: St Francis Caracciolo"},
     {key:"Jun5",title:"Jun 5: St Boniface",en:"Jun 5: St Boniface"},
     {key:"Jun6",title:"Jun 6: St Norbert",en:"Jun 6: St Norbert"},
+{key:"Jun9",title:"Jun 9: Ss Primus and Felician",en:"Jun 9: Ss Primus and Felician"},
     {key:"Jun10",title:"Jun 10: St Margaret",en:"Jun 10: St Margaret"},
     {key:"Jun11",title:"Jun 11: St Barnabas",en:"Jun 11: St Barnabas"},
     {key:"Jun12",title:"Jun 12: St John of San Facundo",en:"Jun 12: St John of San Facundo"},
     {key:"Jun13",title:"Jun 13: St Anthony of Padua",en:"Jun 13: St Anthony of Padua"},
     {key:"Jun14",title:"Jun 14: St Basil the Great",en:"Jun 14: St Basil the Great"},
+{key:"Jun15",title:"Jun 15: Sts Vitus, Modestus, and Crescentia",en:"Jun 15: Sts Vitus, Modestus, and Crescentia"},
     {key:"Jun17",title:"Jun 17: St Gregory Barbadici",en:"Jun 17: St Gregory Barbadici"},
     {key:"Jun18",title:"Jun 18: St Ephrem",en:"Jun 18: St Ephrem"},
     {key:"Jun19",title:"Jun 19: St Juliana Falconieri",en:"Jun 19: St Juliana Falconieri"},
@@ -343,6 +350,7 @@ var saintKeys = [
     {key:"Jul2",title:"Jul 2: The Visitation of BVM",en:"Jul 2: The Visitation of BVM"},
     {key:"Jul3",title:"Jul 3: St Irenaeus",en:"Jul 3: St Irenaeus"},
     {key:"Jul3a",title:"Jul 3: S Leonis II",en:"Jul 3: St Leo II"},
+{key:"Jul4",title:"Jul 4: Within the octave of the Apostles Peter and Paul",en:"Jul 4: Within the octave of the Apostles Peter and Paul"},
     {key:"Jul5",title:"Jul 5: St Anthony Mary Zaccaria",en:"Jul 5: St Anthony Mary Zaccaria"},
     {key:"Jul6",title:"Jul 6: In Octava Ss Petri et Pauli App",en:"Jul 6: Octave of Ss Peter and Paul"},
     {key:"Jul7",title:"Jul 7: Ss Cyril and Methodius",en:"Jul 7: Ss Cyril and Methodius"},
@@ -369,6 +377,7 @@ var saintKeys = [
     {key:"Jul27",title:"Jul 27: St Pantaleon",en:"Jul 27: St Pantaleon"},
     {key:"Jul28",title:"Jul 28: Ss Nazarius and Celsus",en:"Jul 28: Ss Nazarius and Celsus"},
     {key:"Jul29",title:"Jul 29: St Martha",en:"Jul 29: St Martha"},
+{key:"Jul30",title:"Jul 30: Ss Abdon and Sennen",en:"Jul 30: Ss Abdon and Sennen"},
     {key:"Jul31",title:"Jul 31: St Ignatius of Loyola",en:"Jul 31: St Ignatius of Loyola"},
     {key:"Aug1",title:"Aug 1: Holy Machabees",en:"Aug 1: Holy Machabees"},
     {key:"Aug1a",title:"Aug 1: S Petri Ap ad Vincula",en:"Aug 1: St Peter at the Chains"},
@@ -397,16 +406,19 @@ var saintKeys = [
     {key:"Aug23",title:"Aug 23: St Philip Benizi",en:"Aug 23: St Philip Benizi"},
     {key:"Aug24",title:"Aug 24: St Bartholomew",en:"Aug 24: St Bartholomew"},
     {key:"Aug25",title:"Aug 25: St Louis",en:"Aug 25: St Louis"},
+{key:"Aug26",title:"Aug 26: St Zephyrinus",en:"Aug 26: St Zephyrinus"},
     {key:"Aug27",title:"Aug 27: St Joseph Calasanctius",en:"Aug 27: St Joseph Calasanctius"},
     {key:"Aug28",title:"Aug 28: St Augustine",en:"Aug 28: St Augustine"},
     {key:"Aug29",title:"Aug 29: Beheading of St John the Baptist",en:"Aug 29: Beheading of St John the Baptist"},
     {key:"Aug30",title:"Aug 30: St Rose of Lima",en:"Aug 30: St Rose of Lima"},
     {key:"Aug31",title:"Aug 31: St Raymund Nonnatus",en:"Aug 31: St Raymund Nonnatus"},
+{key:"Sep1",title:"Sep 1: St Giles",en:"Sep 1: St Giles"},
     {key:"Sep2",title:"Sep 2: St Stephen",en:"Sep 2: St Stephen"},
     {key:"Sep3",title:"Sep 3: St Pius X",en:"Sep 3: St Pius X"},
     {key:"Sep5",title:"Sep 5: St Lawrence Justinian",en:"Sep 5: St Lawrence Justinian"},
     {key:"Sep8",title:"Sep 8: Nativity of BVM",en:"Sep 8: Nativity of BVM"},
     {key:"Sep9",title:"Sep 9: St Gorgonius",en:"Sep 9: St Gorgonius"},
+{key:"Sep9a",title:"Sep 9: St Peter Claver",en:"Sep 9: St Peter Claver"},
     {key:"Sep10",title:"Sep 10: St Nicholas of Tolentino",en:"Sep 10: St Nicholas of Tolentino"},
     {key:"Sep11",title:"Sep 11: Ss Protus and Hyacinth",en:"Sep 11: Ss Protus and Hyacinth"},
     {key:"Sep12",title:"Sep 12: Most Holy Name of Mary",en:"Sep 12: Most Holy Name of Mary"},
@@ -416,15 +428,18 @@ var saintKeys = [
     {key:"Sep17",title:"Sep 17: The Stigmata of St Francis",en:"Sep 17: The Stigmata of St Francis"},
     {key:"Sep18",title:"Sep 18: St Joseph of Cupertino",en:"Sep 18: St Joseph of Cupertino"},
     {key:"Sep19",title:"Sep 19: St Januarius",en:"Sep 19: St Januarius"},
+{key:"Sep20",title:"Sep 20: St Eustace and Companions",en:"Sep 20: St Eustace and Companions"},
     {key:"Sep21",title:"Sep 21: St Matthew",en:"Sep 21: St Matthew"},
     {key:"Sep22",title:"Sep 22: St Thomas of Villanova",en:"Sep 22: St Thomas of Villanova"},
     {key:"Sep23",title:"Sep 23: St Linus",en:"Sep 23: St Linus"},
     {key:"Sep24",title:"Sep 24: Our Lady of Ransom",en:"Sep 24: Our Lady of Ransom"},
     {key:"Sep26",title:"Sep 26: Ss Cyprian and Justina",en:"Sep 26: Ss Cyprian and Justina"},
+{key:"Sep26a",title:"Sep 26: Ss Isaac Jogues, John de Brebeuf, and Companions",en:"Sep 26: Ss Isaac Jogues, John de Brebeuf, and Companions"},
     {key:"Sep27",title:"Sep 27: Ss Cosmas and Damian",en:"Sep 27: Ss Cosmas and Damian"},
     {key:"Sep28",title:"Sep 28: St Wenceslaus",en:"Sep 28: St Wenceslaus"},
     {key:"Sep29",title:"Sep 29: St Michael the Archangel",en:"Sep 29: St Michael the Archangel"},
     {key:"Sep30",title:"Sep 30: St Jerome",en:"Sep 30: St Jerome"},
+{key:"Oct1",title:"Oct 1: St Remigius",en:"Oct 1: St Remigius"},
     {key:"Oct2",title:"Oct 2: The Holy Guardian Angels",en:"Oct 2: The Holy Guardian Angels"},
     {key:"Oct3",title:"Oct 3: St Thérèse of the Child Jesus",en:"Oct 3: St Thérèse of the Child Jesus"},
     {key:"Oct4",title:"Oct 4: St Francis of Assisi",en:"Oct 4: St Francis of Assisi"},
@@ -443,8 +458,12 @@ var saintKeys = [
     {key:"Oct18",title:"Oct 18: St Luke",en:"Oct 18: St Luke"},
     {key:"Oct19",title:"Oct 19: St Peter of Alcantara",en:"Oct 19: St Peter of Alcantara"},
     {key:"Oct20",title:"Oct 20: St John Cantius",en:"Oct 20: St John Cantius"},
+{key:"Oct21",title:"Oct 21: St Hilarion",en:"Oct 21: St Hilarion"},
     {key:"Oct23",title:"Oct 23: St Anthony Mary Claret",en:"Oct 23: St Anthony Mary Claret"},
     {key:"Oct24",title:"Oct 24: St Raphael",en:"Oct 24: St Raphael"},
+{key:"Oct25",title:"Oct 25: Ss Chrysanthus and Daria",en:"Oct 25: Ss Chrysanthus and Daria"},
+{key:"Oct25a",title:"Oct 25: St Isidore the Farmer",en:"Oct 25: St Isidore the Farmer"},
+{key:"Oct26",title:"Oct 26: St Evaristus",en:"Oct 26: St Evaristus"},
     {key:"Oct27",title:"Oct 27: Vigil of Ss Simon and Jude",en:"Oct 27: Vigil of Ss Simon and Jude"},
     {key:"Oct28",title:"Oct 28: Ss Simon and Jude",en:"Oct 28: Ss Simon and Jude"},
     {key:"Oct31",title:"Oct 31: Vigil of All Saints",en:"Oct 31: Vigil of All Saints"},
@@ -458,6 +477,7 @@ var saintKeys = [
     {key:"Nov11",title:"Nov 11: St Martin of Tours",en:"Nov 11: St Martin of Tours"},
     {key:"Nov12",title:"Nov 12: St Martin I",en:"Nov 12: St Martin I"},
     {key:"Nov13",title:"Nov 13: St Didacus",en:"Nov 13: St Didacus"},
+    {key:"Nov13a",title:"Nov 13: St Frances Xavier Cabrini",en:"Nov 13: St Frances Xavier Cabrini"},
     {key:"Nov14",title:"Nov 14: St Josaphat",en:"Nov 14: St Josaphat"},
     {key:"Nov15",title:"Nov 15: St Albert the Great",en:"Nov 15: St Albert the Great"},
     {key:"Nov16",title:"Nov 16: St Gertrude",en:"Nov 16: St Gertrude"},
@@ -7121,7 +7141,143 @@ var proprium = {
         "coVerses": "Ps 111: 1-9",
         "gbid": "st_francis_stigmata",
         "isUsed": true
-    }
+    },
+    Jan19: {
+        inID:1339,
+        grID:98,
+        alID:755,
+        ofID:1031,
+        coID:699
+      },
+    Jan19Quad: {
+        inID:1339,
+        grID:98,
+        trID:305,
+        ofID:1031,
+        coID:699
+      },
+      Feb18a: {
+        inID:124,
+        grID:174,
+        trID:738,
+        ofID:8253,
+        coID:104
+      },
+      May14: {
+        ref: "mass_one_martyr"
+      },
+      May25: {
+        ref: "mass_holy_pope"
+      },
+      Jun2: {
+        inID:788,
+        grID:1009,
+        alID:1030,
+        ofID:786,
+        coID:209
+      },
+      Jun2Pasch: {
+        coID:772,
+        alID:207,
+        ofID:870,
+        grID:1030,
+        inID:1231
+      },
+      Jun9: {
+        inID:11,
+        grID:156,
+        ofID:919,
+        coID:470,
+        alID:32
+      },
+      Jun9Pasch: {
+        coID:772,
+        alID:590,
+        ofID:870,
+        grID:32,
+        inID:1231
+      },
+      Jun15: {
+        inID:248,
+        grID:963,
+        coID:209,
+        alID:106,
+        ofID:919
+      },
+      Jun15Pasch: {
+        coID:772,
+        alID:207,
+        ofID:870,
+        grID:800,
+        inID:1231
+      },
+      Jul4: {
+        inID:475,
+        grID:307,
+        alID:8252,
+        ofID:570,
+        coID:1028
+      },
+      Jul30: {
+        inID:261,
+        grID:888,
+        ofID:919,
+        coID:184,
+        alID:836
+      },
+      Aug26: {
+        ref: "mass_holy_pope"
+      },
+      Sep1: {
+        inID:1374,
+        grID:34,
+        coID:1154,
+        alID:724,
+        ofID:630
+      },
+      Sep9a: {
+        inID:573,
+        grID:498,
+        coID:491,
+        alID:1185,
+        ofID:1269
+      },
+      Sep20: {
+        inID:11,
+        grID:432,
+        coID:699,
+        alID:896,
+        ofID:33
+      },
+      Sep26a: {
+        inID:669,
+        grID:432,
+        coID:126,
+        alID:525,
+        ofID:1113
+      },
+      Oct1: {
+        ref: "mass_i_confessor_bishop"
+      },
+      Oct21: {
+        ref: "mass_abbots"
+      },
+      Oct25: {
+        ref: "mass_i_two_or_more_martyr"
+      },
+      Oct25a: {
+        ref: "mass_ii_confessor_not_bishop"
+      },
+      Oct26: {
+        ref: "mass_holy_pope"
+      },
+      Nov13a: {
+        inID:656,
+        grID:10607,
+        alID:170,
+        ofID:102,
+        coID:10604
+      },
 };
 var chantID = {
 introitus:{"gaudeamus... mariae... assumptione":{id:3312},accipite:{incipit:"Accipite",id:1278},adeamus:{psalm:{eructavit:{incipit:"Adeamus. Ps. Eructavit",id:1110},levavi:{incipit:"Adeamus. Ps. Levavi",id:603}}},adjutor:{incipit:"Adjutor",id:385},"adorate deum":{Solesmes:{incipit:"Adorate Deum",id:1123}},"ad te levavi":{Vatican:{incipit:"Ad te levavi",parenthetic:"Vatican",id:1700},Solesmes:{incipit:"Ad te levavi",id:132}},"angelus domini":{incipit:"Angelus Domini",id:69},aperite:{incipit:"Aperite",id:692},"aqua sapientiae":{Solesmes:{incipit:"Aqua sapientiae",id:1135},Vatican:{incipit:"Aqua sapientiae",parenthetic:"Vatican",id:1732}},"audivit dominus":{Solesmes:{incipit:"Audivit Dominus",id:45},Vatican:{incipit:"Audivit Dominus",parenthetic:"Vatican",id:1396}},"benedicite dominum":{incipit:"Benedicite Dominum",id:985},"benedicta sit":{Vatican:{incipit:"Benedicta sit",parenthetic:"Vatican",id:1496},Solesmes:{incipit:"Benedicta sit",id:349}},"cantate domino":{Vatican:{incipit:"Cantate Domino",parenthetic:"Vatican",id:1393},Solesmes:{incipit:"Cantate Domino",id:42}},"cantemus domino":{incipit:"Cantemus Domino",id:465},"caritas dei cum alleluia":{incipit:"Caritas Dei cum Alleluia",id:1228},"caritas dei sine alleluia":{incipit:"Caritas Dei sine Alleluia",id:530},"christo confixus sum":{incipit:"Christo confixus sum",id:775},"cibavit cum alleluia":{incipit:"Cibavit cum Alleluia",id:715},"cibavit sine alleluia":{incipit:"Cibavit sine Alleluia",id:62},"circumdederunt me":{Solesmes:{incipit:"Circumdederunt me",id:1168},Vatican:{incipit:"Circumdederunt me",parenthetic:"Vatican",id:1746}},"clamaverunt justi":{incipit:"Clamaverunt justi",id:788},"cogitationes cordis":{incipit:"Cogitationes Cordis",id:1320},cognovi:{incipit:"Cognovi",id:619},confessio:{incipit:"Confessio",id:956},"confiteantur tibi":{incipit:"Confiteantur tibi",id:381},"congregate illi":{incipit:"Congregate illi",id:826},consummatus:{incipit:"Consummatus",id:610},"cor meum":{incipit:"Cor meum",id:1256},custodivit:{incipit:"Custodivit",id:363},"da nobis, deus":{incipit:"Da nobis, Deus",id:526},"da pacem":{incipit:"Da pacem",id:172},"dedit illi":{incipit:"Dedit illi",id:1018},"dedit mihi dominus":{incipit:"Dedit mihi Dominus",id:1120},"de necessitatibus":{Vatican:{incipit:"De necessitatibus",parenthetic:"Vatican",id:1414},Solesmes:{incipit:"De necessitatibus",id:100}},"deus dum egredereris":{Vatican:{incipit:"Deus dum egredereris",parenthetic:"Vatican",id:1631},Solesmes:{incipit:"Deus dum egredereris",id:822}},"deus in adjutorium":{Solesmes:{incipit:"Deus in adjutorium",id:501},Vatican:{incipit:"Deus in adjutorium",parenthetic:"Vatican",id:1532}},"deus in loco sancto":{Solesmes:{incipit:"Deus in loco sancto",id:1026},Vatican:{incipit:"Deus in loco sancto",parenthetic:"Vatican",id:1698}},"deus in nomine tuo":{Vatican:{incipit:"Deus in nomine tuo",parenthetic:"Vatican",id:1526},Solesmes:{incipit:"Deus in nomine tuo",id:458}},"deus israel":{incipit:"Deus Israel",id:551},"deus meus":{incipit:"Deus meus",id:615},"deus misereatur":{incipit:"Deus misereatur",id:2},"de ventre matris":{incipit:"De ventre matris",id:659},"dicit dominus : ego":{incipit:"Dicit Dominus : Ego",id:735},"dicit dominus : sermones":{incipit:"Dicit Dominus : Sermones",id:409},"dicit dominus petro":{incipit:"Dicit Dominus Petro",id:1366},"dignus est agnus":{incipit:"Dignus est Agnus",id:128},"dilectio dei":{incipit:"Dilectio Dei",id:258},dilexisti:{incipit:"Dilexisti",id:629},dispersit:{incipit:"Dispersit",id:544},"domine deus":{incipit:"Domine Deus",id:1172},"domine in tua misericordia":{Solesmes:{incipit:"Domine in tua misericordia",id:146},Vatican:{incipit:"Domine in tua misericordia",parenthetic:"Vatican",id:1431}},"domine ne longe":{Solesmes:{incipit:"Domine ne longe",id:1171},Vatican:{incipit:"Domine ne longe",parenthetic:"Vatican",id:1748}},"domine refugium":{Solesmes:{incipit:"Domine refugium",id:549},Vatican:{incipit:"Domine refugium",parenthetic:"Vatican",id:1546}},"dominus dixit":{Solesmes:{incipit:"Dominus dixit",id:1175},Vatican:{incipit:"Dominus dixit",parenthetic:"Vatican",id:1750}},"dominus fortitudo":{Vatican:{incipit:"Dominus fortitudo",parenthetic:"Vatican",id:1538},Solesmes:{incipit:"Dominus fortitudo",id:522}},"dominus illuminatio":{Solesmes:{incipit:"Dominus illuminatio",id:874},Vatican:{incipit:"Dominus illuminatio",parenthetic:"Vatican",id:1650}},"dominus implebit":{incipit:"Dominus implebit",id:1259},"dominus secus mare":{incipit:"Dominus secus mare",id:693},"dum clamarem":{Vatican:{incipit:"Dum clamarem",parenthetic:"Vatican",id:1484},Solesmes:{incipit:"Dum clamarem",id:299}},"dum medium silentium":{Vatican:{incipit:"Dum medium silentium",parenthetic:"Vatican",id:1554},Solesmes:{incipit:"Dum medium silentium",id:564}},"dum sanctificatus":{Vatican:{incipit:"Dum sanctificatus",parenthetic:"Vatican",id:1517},Solesmes:{incipit:"Dum sanctificatus",id:418}},"ecce advenit":{Solesmes:{incipit:"Ecce advenit",id:403},Vatican:{incipit:"Ecce advenit",parenthetic:"Vatican",id:1512}},"ecce deus":{Vatican:{incipit:"Ecce Deus",parenthetic:"Vatican",id:1814},Solesmes:{incipit:"Ecce Deus",id:1357}},"ecce elongavi":{incipit:"Ecce elongavi",id:24},"ecce oculi":{incipit:"Ecce oculi",id:1222},"ecce virgo":{incipit:"Ecce Virgo",id:1372},"eduxit dominus":{Solesmes:{incipit:"Eduxit Dominus",id:974},Vatican:{incipit:"Eduxit Dominus",parenthetic:"Vatican",id:1683}},"eduxit eos":{Solesmes:{incipit:"Eduxit eos",id:758},Vatican:{incipit:"Eduxit eos",parenthetic:"Vatican",id:1610}},"effusum est":{incipit:"Effusum est",id:1297},"ego autem cum justitia":{Solesmes:{incipit:"Ego autem cum justitia",id:830},Vatican:{incipit:"Ego autem cum justitia",parenthetic:"Vatican",id:1634}},"ego autem in... gaudebo":{incipit:"Ego autem in... gaudebo",id:52},"ego autem in... speravi":{Solesmes:{incipit:"Ego autem in... speravi",id:1049},Vatican:{incipit:"Ego autem in... speravi",parenthetic:"Vatican",id:1705}},"ego autem sicut":{incipit:"Ego autem sicut",id:163},"ego clamavi":{Vatican:{incipit:"Ego clamavi",parenthetic:"Vatican",id:1551},Solesmes:{incipit:"Ego clamavi",id:558}},"egredimini...":{incipit:"Egredimini...",id:1283},"erit quasi signum":{incipit:"Erit quasi signum",id:493},"esto mihi":{Solesmes:{incipit:"Esto mihi",id:1381},Vatican:{incipit:"Esto mihi",parenthetic:"Vatican",id:1819}},"etenim sederunt":{Vatican:{incipit:"Etenim sederunt",parenthetic:"Vatican",id:1802},Solesmes:{incipit:"Etenim sederunt",id:1321}},"exaudi deus":{Solesmes:{incipit:"Exaudi Deus",id:904},Vatican:{incipit:"Exaudi Deus",parenthetic:"Vatican",id:1659}},"exaudi domine... adjutor":{Solesmes:{incipit:"Exaudi Domine... adjutor",id:396},Vatican:{incipit:"Exaudi Domine... adjutor",parenthetic:"Vatican",id:1509}},"exaudi domine... tibi":{incipit:"Exaudi Domine... tibi",id:990},exaudivit:{Solesmes:{incipit:"Exaudivit",id:451},Vatican:{incipit:"Exaudivit",parenthetic:"Vatican",id:1675}},"exaudivit... alleluia":{incipit:"Exaudivit... alleluia",id:939},exclamaverunt:{incipit:"Exclamaverunt",id:469},"ex ore infantium":{Vatican:{incipit:"Ex ore infantium",parenthetic:"Vatican",id:1497},Solesmes:{incipit:"Ex ore infantium",id:350}},"exspecta dominum":{Solesmes:{incipit:"Exspecta Dominum",id:60},Vatican:{incipit:"Exspecta Dominum",parenthetic:"Vatican",id:1400}},"exsultabo in jerusalem":{incipit:"Exsultabo in Jerusalem",id:1224},"exsultate deo":{incipit:"Exsultate Deo",id:1323},"exsultet gaudio":{incipit:"Exsultet gaudio",id:336},exsurge:{Vatican:{incipit:"Exsurge",parenthetic:"Vatican",id:1540},Solesmes:{incipit:"Exsurge",id:529}},"extuli electum":{incipit:"Extuli electum",id:452},"facies unctionis":{incipit:"Facies unctionis",id:1131},"fac mecum domine":{Solesmes:{incipit:"Fac mecum Domine",id:733},Vatican:{incipit:"Fac mecum Domine",parenthetic:"Vatican",id:1603}},"factum est":{incipit:"Factum est",id:1313},"factus est dominus":{Solesmes:{incipit:"Factus est Dominus",id:1111},Vatican:{incipit:"Factus est Dominus",parenthetic:"Vatican",id:1724}},foderunt:{incipit:"Foderunt",id:948},"gaudeamus... agathae":{incipit:"Gaudeamus... Agathae",id:1183},"gaudeamus... annae":{incipit:"Gaudeamus... Annae",id:950},"gaudeamus... josaphat":{incipit:"Gaudeamus... Josaphat",id:417},"gaudeamus... mariae... boni consilii":{incipit:"Gaudeamus... Mariae... Boni Consilii",id:624},"gaudeamus... mariae... reginae":{incipit:"Gaudeamus... Mariae... Reginae",id:61},"gaudeamus... mariae... solemnitate":{incipit:"Gaudeamus... Mariae... solemnitate",id:246},"gaudeamus... rosae virginis":{incipit:"Gaudeamus... Rosae Virginis",id:347},"gaudeamus... sanctorum omnium":{incipit:"Gaudeamus... Sanctorum omnium",id:752},"gaudeamus... thomae":{Vatican:{incipit:"Gaudeamus... Thomae",parenthetic:"Vatican",id:1404},Solesmes:{incipit:"Gaudeamus... Thomae",id:74}},"gaudens gaudebo":{incipit:"Gaudens gaudebo",id:655},"gaudens gaudebo... quasi":{incipit:"Gaudens gaudebo... quasi",id:622},gaudete:{Solesmes:{incipit:"Gaudete",id:1225},Vatican:{incipit:"Gaudete",parenthetic:"Vatican",id:1767}},"hi sunt qui venerunt":{incipit:"Hi sunt qui venerunt",id:669},"hodie scietis":{Solesmes:{incipit:"Hodie scietis",id:150},Vatican:{incipit:"Hodie scietis",parenthetic:"Vatican",id:1432}},humiliavit:{incipit:"Humiliavit",id:523},"illumina oculos":{incipit:"Illumina oculos",id:1072},illuxerunt:{incipit:"Illuxerunt",id:326},"inclina domine":{incipit:"Inclina Domine",id:1165},"in deo laudabo":{Solesmes:{incipit:"In Deo laudabo",id:839},Vatican:{incipit:"In Deo laudabo",parenthetic:"Vatican",id:1635}},"in excelso throno":{Vatican:{incipit:"In excelso throno",parenthetic:"Vatican",id:1387},Solesmes:{incipit:"In excelso throno",id:20}},"in medio":{incipit:"In medio",id:233},"in nomine domini":{Vatican:{incipit:"In nomine Domini",parenthetic:"Vatican",id:1458},Solesmes:{incipit:"In nomine Domini",id:236}},"in nomine jesu":{psalm:{domine:{incipit:"In nomine Jesu... Ps. Domine",id:1033},gloriabuntur:{incipit:"In nomine Jesu... Ps. Gloriabuntur",id:1295}}},"in sermonibus":{incipit:"In sermonibus",id:41},"intret in conspectu":{incipit:"Intret in conspectu",id:261},"intret oratio":{Vatican:{incipit:"Intret oratio",parenthetic:"Vatican",id:1459},Solesmes:{incipit:"Intret oratio",id:238}},"introduxit vos":{Vatican:{incipit:"Introduxit vos",parenthetic:"Vatican",id:1799},Solesmes:{incipit:"Introduxit vos",id:1315}},"in virtute tua":{incipit:"In virtute tua",id:316},"invocabit me":{Vatican:{incipit:"Invocabit me",parenthetic:"Vatican",id:1491},Solesmes:{incipit:"Invocabit me",id:327}},"in voluntate":{incipit:"In voluntate",id:1047},"jubilate deo":{Solesmes:{incipit:"Jubilate Deo",id:536},Vatican:{incipit:"Jubilate Deo",parenthetic:"Vatican",id:1543}},"judica domine":{Vatican:{incipit:"Judica Domine",parenthetic:"Vatican",id:1455},Solesmes:{incipit:"Judica Domine",id:226}},"judica me":{Solesmes:{incipit:"Judica me",id:78},Vatican:{incipit:"Judica me",parenthetic:"Vatican",id:1406}},"judicant sancti":{incipit:"Judicant sancti",id:1213},"juravit dominus":{incipit:"Juravit Dominus",id:684},"justi decantaverunt":{incipit:"Justi decantaverunt",id:312},"justi epulentur":{incipit:"Justi epulentur",id:1339},"justus es domine":{incipit:"Justus es Domine",id:1284},"justus ut palma":{incipit:"Justus ut palma",id:108},"laetabitur justus":{incipit:"Laetabitur justus",id:251},"laetare jerusalem":{Solesmes:{incipit:"Laetare Jerusalem",id:653},Vatican:{incipit:"Laetare Jerusalem",parenthetic:"Vatican",id:1581}},"laetetur cor":{Solesmes:{incipit:"Laetetur cor",id:864},Vatican:{incipit:"Laetetur cor",parenthetic:"Vatican",id:1646}},"laudate pueri":{incipit:"Laudate pueri",id:87},"lex domini":{Solesmes:{incipit:"Lex Domini",id:1216},Vatican:{incipit:"Lex Domini",parenthetic:"Vatican",id:1761}},"lex veritatis":{incipit:"Lex veritatis",id:1093},"liberator meus":{Vatican:{incipit:"Liberator meus",parenthetic:"Vatican",id:1707},Solesmes:{incipit:"Liberator meus",id:1054}},loquebar:{psalm:{"beati immaculati":{incipit:"Loquebar... Ps. Beati immaculati",id:510},"bonum est":{incipit:"Loquebar... Ps. Bonum est",id:410},laudate:{incipit:"Loquebar... Ps. Laudate",id:115}}},"loquetur dominus":{incipit:"Loquetur Dominus",id:271},"lux fulgebit":{Solesmes:{incipit:"Lux fulgebit",id:917},Vatican:{incipit:"Lux fulgebit",parenthetic:"Vatican",id:1665}},majorem:{incipit:"Majorem",id:785},meditatio:{Solesmes:{incipit:"Meditatio",id:572},Vatican:{incipit:"Meditatio",parenthetic:"Vatican",id:1556}},"me exspectaverunt":{incipit:"Me exspectaverunt",id:938},"memento nostri":{incipit:"Memento nostri",id:165},"mihi absit":{incipit:"Mihi absit",id:1037},"mihi autem absit":{psalm:{memento:{incipit:"Mihi autem absit. Ps. Memento",id:178},"virga tua":{incipit:"Mihi autem absit. Ps. Virga tua",id:1064},voce:{incipit:"Mihi autem absit. Ps. Voce",id:849}}},"mihi autem nimis":{incipit:"Mihi autem nimis",id:475},"minuisti eum":{incipit:"Minuisti eum",id:857},miseratio:{incipit:"Miseratio",id:970},"miserere... ad te":{incipit:"Miserere... ad te",id:335},"miserere... conculcavit":{Vatican:{incipit:"Miserere... conculcavit",parenthetic:"Vatican",id:1427},Solesmes:{incipit:"Miserere... conculcavit",id:138}},"miserere... tribulor":{Solesmes:{incipit:"Miserere... tribulor",id:267},Vatican:{incipit:"Miserere... tribulor",parenthetic:"Vatican",id:1468}},"misereris omnium":{Vatican:{incipit:"Misereris omnium",parenthetic:"Vatican",id:1542},Solesmes:{incipit:"Misereris omnium",id:533}},"misericordia domini":{Vatican:{incipit:"Misericordia Domini",parenthetic:"Vatican",id:1425},Solesmes:{incipit:"Misericordia Domini",id:135}},"multae tribulationes":{incipit:"Multae tribulationes",id:248},narraverunt:{incipit:"Narraverunt",id:831},"ne derelinquas me":{Vatican:{incipit:"Ne derelinquas me",parenthetic:"Vatican",id:1488},Solesmes:{incipit:"Ne derelinquas me",id:323}},"ne timeas":{incipit:"Ne timeas",id:1141},"nos autem":{incipit:"Nos autem",id:359},"nos autem (sine Gloria Patri)":{Vatican:{incipit:"Nos autem",parenthetic:"Vatican",id:1502},Solesmes:{incipit:"Nos autem",id:374}},"nunc scio vere":{incipit:"Nunc scio vere",id:478},"oculi mei":{Vatican:{incipit:"Oculi mei",parenthetic:"Vatican",id:1664},Solesmes:{incipit:"Oculi mei",id:916}},"oculus dei":{incipit:"Oculus Dei",id:1025},"omnes gentes":{Vatican:{incipit:"Omnes gentes",parenthetic:"Vatican",id:1733},Solesmes:{incipit:"Omnes gentes",id:1136}},"omnia quae fecisti":{incipit:"Omnia quae fecisti",id:1056},"omnis terra":{Solesmes:{incipit:"Omnis terra",id:13},Vatican:{incipit:"Omnis terra",parenthetic:"Vatican",id:1385}},"os justi":{incipit:"Os justi",id:1374},"pauperes sion":{incipit:"Pauperes Sion",id:94},"populus sion":{Vatican:{incipit:"Populus Sion",parenthetic:"Vatican",id:1498},Solesmes:{incipit:"Populus Sion",id:356}},"prope es tu":{Solesmes:{incipit:"Prope es tu",id:86},Vatican:{incipit:"Prope es tu",parenthetic:"Vatican",id:1409}},"protector noster":{Solesmes:{incipit:"Protector noster",id:1071},Vatican:{incipit:"Protector noster",parenthetic:"Vatican",id:1712}},"protexisti me":{incipit:"Protexisti me",id:340},"puer natus est":{Solesmes:{incipit:"Puer natus est",id:72},Vatican:{incipit:"Puer natus est",parenthetic:"Vatican",id:1403}},"quasi modo":{Solesmes:{incipit:"Quasi modo",id:25},Vatican:{incipit:"Quasi modo",parenthetic:"Vatican",id:1389}},recordare:{incipit:"Recordare",id:535},"redemisti nos":{incipit:"Redemisti nos",id:123},"redime me":{Vatican:{incipit:"Redime me",parenthetic:"Vatican",id:1798},Solesmes:{incipit:"Redime me",id:1314}},"reliqui domum":{incipit:"Reliqui domum",id:895},reminiscere:{Solesmes:{incipit:"Reminiscere",id:1294},Vatican:{incipit:"Reminiscere",parenthetic:"Vatican",id:1791}},"repleatur os":{Vatican:{incipit:"Repleatur os",parenthetic:"Vatican",id:1550},Solesmes:{incipit:"Repleatur os",id:557}},requiem:{incipit:"Requiem",id:766},"respice domine":{Solesmes:{incipit:"Respice Domine",id:691},Vatican:{incipit:"Respice Domine",parenthetic:"Vatican",id:1588}},"respice in me":{Vatican:{incipit:"Respice in me",parenthetic:"Vatican",id:1772},Solesmes:{incipit:"Respice in me",id:1235}},resurrexi:{Vatican:{incipit:"Resurrexi",parenthetic:"Vatican",id:1703},Solesmes:{incipit:"Resurrexi",id:1043}},rorate:{psalm:{benedixisti:{incipit:"Rorate... Ps. Benedixisti",id:161},"caeli enarrant":{incipit:"Rorate... Ps. Caeli enarrant",id:79},"coeli enarrant":{incipit:"Rorate... Ps. Coeli enarrant",parenthetic:"Vatican",id:1407}}},"sacerdotes dei":{incipit:"Sacerdotes Dei",id:227},"sacerdotes eius":{incipit:"Sacerdotes eius",id:3266},"sacerdotes sion":{incipit:"Sacerdotes Sion",id:605},"sacerdotes tui":{incipit:"Sacerdotes tui",id:48},"salus autem":{incipit:"Salus autem",id:737},"salus populi":{incipit:"Salus populi",id:389},"salve sancta parens":{incipit:"Salve sancta Parens",id:1140},"salvos nos fac":{incipit:"Salvos nos fac",id:575},"sancti tui":{incipit:"Sancti tui",id:1231},"sapientiam sanctorum":{incipit:"Sapientiam sanctorum",id:11},"sapientia reddidit":{incipit:"Sapientia reddidit",id:646},"satiavit dominus":{incipit:"Satiavit Dominus",id:573},"sciens jesus":{incipit:"Sciens Jesus",id:676},"scio cui credidi":{incipit:"Scio cui credidi",id:1179},"sermo meus":{incipit:"Sermo meus",id:1349},"sicut oculi":{Vatican:{incipit:"Sicut oculi",parenthetic:"Vatican",id:1807},Solesmes:{incipit:"Sicut oculi",id:1330}},"si diligis me":{incipit:"Si diligis me",id:674},"signum magnum":{incipit:"Signum magnum",id:23},"si iniquitates":{incipit:"Si iniquitates",id:1271},"sinite parvulos":{incipit:"Sinite parvulos",id:936},sitientes:{Solesmes:{incipit:"Sitientes",id:776},Vatican:{incipit:"Sitientes",parenthetic:"Vatican",id:1615}},"spiritus domini cum alleluia":{incipit:"Spiritus Domini cum Alleluia",id:861},"spiritus domini sine alleluia":{incipit:"Spiritus Domini sine Alleluia",id:636},"spiritus domini super me":{incipit:"Spiritus Domini super me",id:214},"spiritus... super me... praedicare":{incipit:"Spiritus... super me... praedicare",id:806},stabant:{incipit:"Stabant",id:149},statuit:{incipit:"Statuit",id:456},"sub umbra":{incipit:"Sub umbra",id:1195},suscepimus:{Solesmes:{incipit:"Suscepimus",id:1254},Vatican:{incipit:"Suscepimus",parenthetic:"Vatican",id:1781}},suscitabo:{incipit:"Suscitabo",id:1286},"tenuisti manum":{incipit:"Tenuisti manum",id:656},"terribilis est":{incipit:"Terribilis est",id:923},"tibi dixit":{Vatican:{incipit:"Tibi dixit",parenthetic:"Vatican",id:1607},Solesmes:{incipit:"Tibi dixit",id:751}},"timete dominum":{incipit:"Timete Dominum",id:808},"veni de libano":{incipit:"Veni de Libano",id:59},"veni et ostende":{Vatican:{incipit:"Veni et ostende",parenthetic:"Vatican",id:1439},Solesmes:{incipit:"Veni et ostende",id:169}},"venite adoremus":{incipit:"Venite adoremus",id:450},"venite benedicti":{Vatican:{incipit:"Venite benedicti",parenthetic:"Vatican",id:1690},Solesmes:{incipit:"Venite benedicti",id:997}},"venite filii":{incipit:"Venite filii",id:695},"verba mea":{Solesmes:{incipit:"Verba mea",id:1248},Vatican:{incipit:"Verba mea",parenthetic:"Vatican",id:1779}},"victricem manum":{Vatican:{incipit:"Victricem manum",parenthetic:"Vatican",id:1808},Solesmes:{incipit:"Victricem manum",id:1332}},"vidi civitatem":{incipit:"Vidi civitatem",id:5},"virgines laudent":{incipit:"Virgines laudent",id:197},"viri galilaei":{Solesmes:{incipit:"Viri Galilaei",id:1355},Vatican:{incipit:"Viri Galilaei",parenthetic:"Vatican",id:1813}},"vocem jucunditatis":{Vatican:{incipit:"Vocem jucunditatis",parenthetic:"Vatican",id:1563},Solesmes:{incipit:"Vocem jucunditatis",id:585}},"vultum tuum":{incipit:"Vultum tuum",id:124}},
