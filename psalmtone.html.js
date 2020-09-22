@@ -612,10 +612,16 @@ function annotationTextFormat(text,psalmNum,tone,ending){
   return text.format({"psalm":psalmNum,
                        "tone":tone});
 }
-function versesFilename(format,psalmNum,tone,ending,solemn){
-  var tone = tone.replace(/\./g,'');
-  var match = tone.match(/\d+/);
-  if(match)tone=match[0];
+function versesFilename(format,psalmNum,tone,ending,solemn,includeExtra){
+  tone = tone.replace(/\./g,'');
+  if (includeExtra) {
+    tone = tone.trim().replace(/\s+/g,'-');
+  } else {
+    var match = tone.match(/\d+/);
+    if(match)tone=match[0];
+  }
+  if (ending && /\D$/.test(tone)) tone += '-';
+  if (solemn && /^\D/.test(tone)) tone = '-' + tone;
   tone = (solemn?"solemn":"") + tone + (ending? ending.replace(/\*/,"star") : '');
   return format && ((format.versesName) ? format.versesName.format(
     {"psalm":psalmNum,
@@ -635,7 +641,7 @@ function downloadAll(e){
   var clef;
   var addPsalm=function(psalmNum,text,t,ending,gSyl,shortMediant,solemn){
     var texts = updateEditor(true,text,gSyl,shortMediant,clef);
-    var filename = versesFilename(bi_formats[useFormat],psalmNum,t,ending,solemn);
+    var filename = versesFilename(bi_formats[useFormat],psalmNum,t,ending,solemn, true);
     var header = getHeader(localStorage.psalmHeader||'');
     header["initial-style"] = '0';
     header["name"] = filename.replace(/\.[^.]*$/,'');
