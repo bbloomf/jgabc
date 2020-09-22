@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.github.bbloomf.jgabc" version="1.9.37" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.github.bbloomf.jgabc" version="1.9.38" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Chant Tools</name>
     <description>
         GABC Chant Tools available at http://bbloomf.github.io/jgabc/
@@ -25,6 +25,7 @@
         <icon density="xxhdpi" src="res/mipmap-xxhdpi/icon.png" />
         <icon density="xxxhdpi" src="res/mipmap-xxxhdpi/icon.png" />
         <preference name="AndroidLaunchMode" value="singleTask" />
+        <preference name="android-targetSdkVersion" value="29" />
         <config-file parent="/*/application/activity" target="AndroidManifest.xml">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
