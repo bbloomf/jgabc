@@ -1280,7 +1280,8 @@ texts = {
 		"1371": "et erat ibi usque ad obitum herodis ut adimpleretur quod dictum est a domino per prophetam dicentem ex ægypto vocavi filium meum",
 		"3314": "ego sum vitis vera et vos palmites qui manet in me et ego in eo hic fert fructum multum alleluia alleluia",
 		"3316": "optimam partem elegit sibi maria quæ non auferetur ab ea in æternum",
-		"10604": "venite ad me omnes qui laboratis et onerati estis et ego reficiam vos"
+		"10604": "venite ad me omnes qui laboratis et onerati estis et ego reficiam vos",
+		"10950": "quotiescumque manducabitis panem hunc et calicem bibetis mortem domini annuntiabitis donec veniat itaque quicumque manducaverit panem vel biberit calicem domini indigne reus erit corporis et sanguinis domini"
 	},
 	"Antiphona": {
 		"30": "exsurge domine adjuva nos et libera nos propter nomen tuum ℣ deus auribus nostris audivimus patres nostri annuntiaverunt nobis gloria patri",
