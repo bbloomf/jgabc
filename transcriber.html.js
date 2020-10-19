@@ -559,12 +559,12 @@ function updateGabcStar(newStar){
   updateEditor(true);
 }
 function saveAsPng(name, dpi) {
-  saveSvgAsPng(exportChant(), name, {scale: dpi / 96});
+  saveSvgAsPng(exportChant(), name, {scale: dpi / 96, backgroundColor: "#fff"});
 }
 function saveAsPngs(name, dpi) {
   var lines = exportChant(true);
   for(var i = 0; i < lines.length; ++i) {
-    saveSvgAsPng(lines[i], name.replace(/\.png$/,'-' + (i+1) + '.png'), {scale: dpi / 96});
+    saveSvgAsPng(lines[i], name.replace(/\.png$/,'-' + (i+1) + '.png'), {scale: dpi / 96, backgroundColor: "#fff"});
   }
 }
 function currentHeader() {
