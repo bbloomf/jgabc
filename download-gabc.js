@@ -257,7 +257,7 @@ var path = 'gabc/',
                       .replace(/(\s+)(\([a-m]\+[^)]*\))\s+([^(\s][^(]*\(\))/g,'$1$3 $2') // put any lyrics after a manual custos
                       .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
                       .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
-                      // some gregobase chants are encoded this way (two underscores for three note episema), and at least in the version of Gregrio on illuminarepublications.com, this does not work as desired.
+                      // some gregobase chants are encoded this way (two underscores for three note episema), and in Gregorio and Exsurge, this does not work as desired.
                       .replace(/(a'?b'?a|[a-b]'?c'?[a-b]|[a-c]'?d'?[a-c]|[a-d]'?e'?[a-d]|[a-e]'?f'?[a-e]|[a-f]'?g'?[a-f]|[a-g]'?h'?[a-g]|[a-h]'?i'?[a-h]|[a-i]'?j'?[a-i]|[a-j]'?k'?[a-j]|[a-k]'?l'?[a-k]|[a-l]'?m'?[a-l])[.']*__(?!_)/g,'$&_')
                       .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
                       .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason

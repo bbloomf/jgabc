@@ -3118,7 +3118,7 @@ $(function(){
       gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
-        replace(/(['_.])\d/g,"$1"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after ' or _ or .
+        // replace(/(['_.])\d/g,"$1"). // version of Gregorio on sourceandsummit.com currently doesn't support digit after ' or _ or .
         replace(/!\)/g,')').
         replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
         replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
@@ -3135,7 +3135,7 @@ $(function(){
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
-    $('#pdfForm').attr('action','https://apps.illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
+    $('#pdfForm').attr('action','https://editor.sourceandsummit.com/old/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=getAllGabc();

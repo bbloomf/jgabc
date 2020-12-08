@@ -512,7 +512,7 @@ var Syl = (function(){
     },
     updateWords:function(){
       if(this.queue.length>0){
-        $.getScript("//apps.illuminarepublications.com/gregorio/syl.php?txt="+this.queue.join('+'));
+        $.getScript("//editor.sourceandsummit.com/old/syl.php?txt="+this.queue.join('+'));
         this.queue=[];
       } else {
         intUpdate=setTimeout(function(){Syl.updateWords();},5000);
