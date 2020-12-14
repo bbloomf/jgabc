@@ -105,9 +105,10 @@ function makeExsurgeChantContext() {
   var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
   ctxt.condenseLineAmount = 1;
   ctxt.setGlyphScaling(1/16);
-  ctxt.setFont("'Crimson Text', serif", 19.2);
-  ctxt.dropCapTextSize = 64;
-  ctxt.annotationTextSize = 12.8;
+  ctxt.setFont("'Crimson Text', serif", 19.2 / 0.9);
+  ctxt.spaceBetweenSystems = 0;
+  ctxt.textStyles.dropCap.size = 64;
+  ctxt.textStyles.annotation.size = 12.8;
   ctxt.minLyricWordSpacing *= 0.7;
   ctxt.accidentalSpaceMultiplier = 1.5;
   
