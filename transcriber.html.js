@@ -674,16 +674,8 @@ $(function() {
   });
   setGabcLinkSelector("#lnkDownloadGabc");
 
-  var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
-  ctxt.lyricTextFont = "'Crimson Text', serif";
-  ctxt.lyricTextSize *= 1.2;
-  ctxt.dropCapTextFont = ctxt.lyricTextFont;
-  ctxt.annotationTextFont = ctxt.lyricTextFont;
-  var exportContext = new exsurge.ChantContext();
-  exportContext.lyricTextFont = "'Crimson Text', serif";
-  exportContext.lyricTextSize *= 1.2;
-  exportContext.dropCapTextFont = exportContext.lyricTextFont;
-  exportContext.annotationTextFont = exportContext.lyricTextFont;
+  var ctxt = makeExsurgeChantContext();
+  var exportContext = makeExsurgeChantContext();
   var chantContainer = $('#chant-preview')[0];
   var score;
   function gabcToExsurge(gabc) {
