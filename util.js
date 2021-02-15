@@ -116,7 +116,8 @@ function makeExsurgeChantContext() {
   ctxt.specialCharProperties['font-variant'] = 'normal';
   // ctxt.specialCharProperties['font-size'] = (ctxt.lyricTextSize) + 'px';
   ctxt.specialCharProperties['font-weight'] = '400';
-  ctxt.specialCharText = function(char) { return char.toLowerCase(); };
+  const defaultSpecialCharText = ctxt.specialCharText;
+  ctxt.specialCharText = function(char) { return defaultSpecialCharText(char).toLowerCase(); };
   ctxt.setRubricColor('#d00');
   return ctxt;
 }

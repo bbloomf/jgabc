@@ -2820,12 +2820,14 @@ $(function(){
   // Put EmbSatSept and ChristusRex in the proper order
   Object.keys(outoforder).forEach(function(key) {
     var toPlace = outoforder[key];
-    var lastDate = moment('12-31','MM-DD');
+    var year = toPlace.date.year();
+    var lastDate = moment('12-31','MM-DD').year(year);
     var i = 1;
     while(i < sundayKeys.length) {
-      var sunday = sundayKeys[i];
-      var next = sundayKeys[++i];
-      if(!next || (sunday.date.isBefore(toPlace.date) && next.date.isSameOrAfter(toPlace.date))) {
+      var sunday = dateForSundayKey(sundayKeys[i].key, dateCache[year]);
+      var nextSunday = sundayKeys[++i];
+      var next = nextSunday && dateForSundayKey(nextSunday.key, dateCache[year]);
+      if(!next || (sunday.isBefore(toPlace.date) && next.isSameOrAfter(toPlace.date))) {
         sundayKeys.splice(i, 0, toPlace);
         break;
       }
