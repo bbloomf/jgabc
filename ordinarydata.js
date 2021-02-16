@@ -151,7 +151,7 @@ var massOrdinary = [{
   gloria:{id: 7996,name: "Gloria M. R. I"},
   credo:{id: 7997,name: "Credo M. R. I"},
   sanctus:{id: 7998,name: "Sanctus M. R. I"},
-  agnus:{id: 7999,name: "Agnus M. R. I"},
+  agnus:{id: 7937,name: "Agnus M. R. I"},
   ite:{id: 8000,name: "Ite M. R. I"}
 },{season:"Missa pro defunctis",
   kyrie:{id: 541,name: "Kyrie eleison (in Miss. def.)"},

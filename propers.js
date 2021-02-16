@@ -278,7 +278,7 @@ $(function(){
     '7':'a',
     '8':'G'
   }
-  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
   var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
   var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
   var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
@@ -1891,7 +1891,7 @@ $(function(){
     return gTertium;
   }
 
-  var applyAmenTones = function(gabc, gAmenTones, gMediant) {
+  var applyAmenTones = function(gabc, gAmenTones, gMediant, clef) {
     if(gAmenTones){
       var originalGabc = gAmenTones.input || '',
           originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
@@ -1949,7 +1949,7 @@ $(function(){
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
-    temp = applyAmenTones(temp, gAmenTones, gMediant);
+    temp = applyAmenTones(temp, gAmenTones, gMediant, clef);
     return applyLiquescents(result + temp + " (::)\n");
   }
   
@@ -2470,6 +2470,8 @@ $(function(){
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
+      .replace(/<\/?eu>|\[[ou]ll:[01]?[{}][01]?\]/ig,'') // <eu> tags and oll ledger line indications
+      .replace(/(\s\^?\*\^?)(?=\s*[^(])/g,' *()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
