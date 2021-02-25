@@ -269,6 +269,7 @@ var path = 'gabc/',
                       .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
                       .replace(/\s\*(\([,;:]*\)\s)?\s*<i>(ij\.|non\s+rep[eé]titur\.?)<\/i>([\s{}]*)\(/gi,' {*} <i>$2</i>$1(')
                       .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
+                      .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
                       .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2$3$5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
@@ -284,8 +285,10 @@ var path = 'gabc/',
                       // replace...
                       if(psalmMark) text.push("℣");
                       if(whole.match(/<i>|\|/)) return whole;
-                      // ignore any words that have nothing in their parentheses:
-                      if(whole == lastSyl && lastParens.length == 2) return whole;
+                      // ignore any words that have nothing in their parentheses or start with a space:
+                      if(whole == lastSyl && /^\(([Zz\s)]|[a-g]\+)/.test(lastParens)) {
+                        return whole;
+                      }
                       var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)([,.;:!?*+†\s»"'‘’“”]*\([^)]+\))/gi;
                       var match,
                           syls = [];
@@ -321,6 +324,7 @@ var path = 'gabc/',
                       var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       if(vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
+                        console.info({lastParens, whole, lastSyl});
                         if(!/^(c[uú]i|euge|ceu|Allelúia)$/i.test(word)) throw 1;
                       }
                       if(syls.length && syls.slice(-1)[0].match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
