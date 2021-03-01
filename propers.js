@@ -2423,7 +2423,8 @@ $(function(){
       gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
     } else {
       gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
-        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'');
+        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'')
+        .replace(/\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,' ');
     }
     return gabc;
   }
