@@ -559,12 +559,12 @@ function updateGabcStar(newStar){
   updateEditor(true);
 }
 function saveAsPng(name, dpi) {
-  saveSvgAsPng(exportChant(), name, {scale: dpi / 96});
+  saveSvgAsPng(exportChant(), name, {scale: dpi / 96, backgroundColor: "#fff"});
 }
 function saveAsPngs(name, dpi) {
   var lines = exportChant(true);
   for(var i = 0; i < lines.length; ++i) {
-    saveSvgAsPng(lines[i], name.replace(/\.png$/,'-' + (i+1) + '.png'), {scale: dpi / 96});
+    saveSvgAsPng(lines[i], name.replace(/\.png$/,'-' + (i+1) + '.png'), {scale: dpi / 96, backgroundColor: "#fff"});
   }
 }
 function currentHeader() {
@@ -659,7 +659,7 @@ $(function() {
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
-    $('#pdfForm').attr('action','https://apps.illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
+    $('#pdfForm').attr('action','https://editor.sourceandsummit.com/legacy/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=[getGabc()];
@@ -674,16 +674,8 @@ $(function() {
   });
   setGabcLinkSelector("#lnkDownloadGabc");
 
-  var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
-  ctxt.lyricTextFont = "'Crimson Text', serif";
-  ctxt.lyricTextSize *= 1.2;
-  ctxt.dropCapTextFont = ctxt.lyricTextFont;
-  ctxt.annotationTextFont = ctxt.lyricTextFont;
-  var exportContext = new exsurge.ChantContext();
-  exportContext.lyricTextFont = "'Crimson Text', serif";
-  exportContext.lyricTextSize *= 1.2;
-  exportContext.dropCapTextFont = exportContext.lyricTextFont;
-  exportContext.annotationTextFont = exportContext.lyricTextFont;
+  var ctxt = makeExsurgeChantContext();
+  var exportContext = makeExsurgeChantContext();
   var chantContainer = $('#chant-preview')[0];
   var score;
   function gabcToExsurge(gabc) {

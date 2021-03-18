@@ -278,7 +278,7 @@ $(function(){
     '7':'a',
     '8':'G'
   }
-  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?\(([^)]+)\)/i;
+  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
   var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
   var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
   var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
@@ -1891,7 +1891,7 @@ $(function(){
     return gTertium;
   }
 
-  var applyAmenTones = function(gabc, gAmenTones, gMediant) {
+  var applyAmenTones = function(gabc, gAmenTones, gMediant, clef) {
     if(gAmenTones){
       var originalGabc = gAmenTones.input || '',
           originalClef = originalGabc.slice(getHeaderLen(originalGabc)).match(regexGabcClef);
@@ -1949,7 +1949,7 @@ $(function(){
       format: bi_formats.gabc,
       flexEqualsTenor: true
     });
-    temp = applyAmenTones(temp, gAmenTones, gMediant);
+    temp = applyAmenTones(temp, gAmenTones, gMediant, clef);
     return applyLiquescents(result + temp + " (::)\n");
   }
   
@@ -2423,7 +2423,8 @@ $(function(){
       gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
     } else {
       gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
-        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'');
+        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'')
+        .replace(/\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,' ');
     }
     return gabc;
   }
@@ -2470,6 +2471,8 @@ $(function(){
         .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
+      .replace(/<\/?eu>|\[[ou]ll:[01]?[{}][01]?\]/ig,'') // <eu> tags and oll ledger line indications
+      .replace(/(\s\^?\*\^?)(?=\s*[^(])/g,' *()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
@@ -2820,12 +2823,14 @@ $(function(){
   // Put EmbSatSept and ChristusRex in the proper order
   Object.keys(outoforder).forEach(function(key) {
     var toPlace = outoforder[key];
-    var lastDate = moment('12-31','MM-DD');
+    var year = toPlace.date.year();
+    var lastDate = moment('12-31','MM-DD').year(year);
     var i = 1;
     while(i < sundayKeys.length) {
-      var sunday = sundayKeys[i];
-      var next = sundayKeys[++i];
-      if(!next || (sunday.date.isBefore(toPlace.date) && next.date.isSameOrAfter(toPlace.date))) {
+      var sunday = dateForSundayKey(sundayKeys[i].key, dateCache[year]);
+      var nextSunday = sundayKeys[++i];
+      var next = nextSunday && dateForSundayKey(nextSunday.key, dateCache[year]);
+      if(!next || (sunday.isBefore(toPlace.date) && next.isSameOrAfter(toPlace.date))) {
         sundayKeys.splice(i, 0, toPlace);
         break;
       }
@@ -3117,8 +3122,8 @@ $(function(){
       }
       gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
-        replace(/([^()\s]\s+(?:[^()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
-        replace(/(['_.])\d/g,"$1"). // version of Gregorio on illuminarepublications.com currently doesn't support digit after ' or _ or .
+        replace(/([^[\]()\s]\s+(?:[^[\]()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^[\]()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
+        // replace(/(['_.])\d/g,"$1"). // version of Gregorio on sourceandsummit.com currently doesn't support digit after ' or _ or .
         replace(/!\)/g,')').
         replace(/\b([arv]\/)\./ig,'<sp>$1</sp>'). // versicle and response symbols
         replace(/\|([^()|]*[^\s()])(\s)?\(/g,function(m,translation,whitespace) {
@@ -3135,7 +3140,7 @@ $(function(){
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
-    $('#pdfForm').attr('action','https://apps.illuminarepublications.com/gregorio/#' + encodeURI(result)).submit();
+    $('#pdfForm').attr('action','https://editor.sourceandsummit.com/legacy/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=getAllGabc();
