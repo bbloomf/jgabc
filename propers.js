@@ -2456,8 +2456,7 @@ $(function(){
       .replace(/\\emph{([^(}]+)\}/g,'_$1_') //used sometimes in <alt> text
       .replace(/(v[A-Z]__[A-Z])([^_])/g,'$1_3$2') // episemata over puncta inclinata don't go quite over far enough in a few chants
       .replace(/([^)]\s+)([*†]|<i>i+j\.<\/i>)\(/g,'$1^$2^(') // make all asterisks and daggers red
-      .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'{}^$1$2^') // make any italic text containing a space red
-      .replace(/(\{[^}(]*}[^{(]*)\{([^}(]*)}/g,'$1$2') // correction for above in case there were already braces indicating where to center the neume
+      .replace(/\^?(<i>[^(|]*? [^(|]*?<\/i>)\^?([^(|]*)/g,'^$1^$2') // make any italic text containing a space red
       .replace(/\*(\([:;,]+\))\s+(<i>i+j\.<\/i>)\(/g,'{*} $2$1 (')
       .replace(/(\s+)({?<i>i+j\.<\/i>}?)\(/g,'$1^$2^(') // make any italicized ij. syllables red
       .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
@@ -2468,7 +2467,6 @@ $(function(){
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
-        .replace(/<v>[^<]+<\/v>/g,'')  // not currently supported by Exsurge
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
       .replace(/<\/?eu>|\[[ou]ll:[01]?[{}][01]?\]/ig,'') // <eu> tags and oll ledger line indications

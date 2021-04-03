@@ -82,11 +82,16 @@ var write507a = () => {
     fs.writeFileSync(path + '507a.gabc',gabcOf507);
   }
 }
+var write1092 = (gabc) => {
+  gabc = gabc.replace(/\([^:)]*::[^:)]*\)\s*1\.?(\s|\(\))[\s\S]*$/, '(::)');
+  fs.writeFileSync(path + '1092.gabc', gabc);
+};
 var callbackOn = {
   939: gabc => (gabcOf939 = gabc, writeNew451()),
   451: gabc => (gabcOf451 = gabc, writeNew451()),
   507: gabc => (gabcOf507 = gabc, write507a()),
-  "507&elem=2": gabc => (gabcOf507_2 = gabc, write507a())
+  "507&elem=2": gabc => (gabcOf507_2 = gabc, write507a()),
+  1092: write1092,
 }
 ids = ids.concat(miscChantIDs);
 https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages/patterns/la-hypher.js', result => {
@@ -226,6 +231,7 @@ var path = 'gabc/',
                       }
                     }
                     content = content
+                      .replace(/\*{2,}/g,'<v>$&</v>')
                       .replace(/<i>\s+/g,'<i>')
                       .replace(/\s+<\/i>/g,'</i>')
                       .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1$2 *()") // asterisks being kept with the previous word
@@ -237,7 +243,6 @@ var path = 'gabc/',
                       .replace(/<sp>'(?:oe|œ)<\/sp>|oé/g,'œ́')
                       .replace(/<sp>ae<\/sp>/g,'æ')
                       .replace(/<sp>oe<\/sp>/g,'œ')
-                      .replace(/<v>\\greheightstar<\/v>/g,'*')
                       .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)\(\)\s*/gi,' $1 ')
                       .replace(/\s*(<sp>v\/<\/sp>\.?|<i>Ps.<\/i>|(?:<sp>v\/<\/sp>\.?\s*)?\d+\.)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
                       .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)\(\)\s*/gi,' $1 ')
@@ -270,7 +275,7 @@ var path = 'gabc/',
                       .replace(/\s\*(\([,;:]*\)\s)?\s*<i>(ij\.|non\s+rep[eé]titur\.?)<\/i>([\s{}]*)\(/gi,' {*} <i>$2</i>$1(')
                       .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
                       .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
-                      .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2$3$5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
+                      .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2 $5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }

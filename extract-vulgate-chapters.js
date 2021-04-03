@@ -34,6 +34,7 @@ vulgate.forEach(line => {
     flag = 'w';
   }
   line = line.replace(regexBookChapter,'$4\t$5\t').replace(regexWord, (word) => {
+    word = word.replace(/([ao])e/g, '$1ë');
     if(regexIVowel.test(word)) {
       syls = latin.hyphenate(word);
       word = syls.map(syl => syl.replace(regexStartIVowel, match => (replaceIJ[match]) )).join('');

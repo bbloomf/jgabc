@@ -638,7 +638,7 @@ $(function() {
   var cbEnglishChanged = function(){
     selLang = cbEnglish.checked? 'english' : 'latin';
     localStorage.selLang = selLang;
-    getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;
+    getSyllables = cbEnglish.checked? _getEnSyllables : _getLaSyllables;
     $("#selTones").empty().append('<option>' + getPsalmTones(g_tones[selLang]).join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
     var ttones = getPsalmTones(custom_tones[selLang] || []);
     if(ttones.length>0){

@@ -799,7 +799,7 @@ $(function() {
   var cbEnglishChanged = function(){
     selLang = cbEnglish.checked? 'english' : 'latin';
     localStorage.selLang = selLang;
-    getSyllables = cbEnglish.checked? _getEnSyllables : _getSyllables;
+    getSyllables = cbEnglish.checked? _getEnSyllables : _getLaSyllables;
     last_syl = null;
     updateText();
   };
