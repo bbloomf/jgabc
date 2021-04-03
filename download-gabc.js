@@ -231,10 +231,10 @@ var path = 'gabc/',
                       }
                     }
                     content = content
-                      .replace(/\*{2,}/g,'<v>$&</v>')
+                      .replace(/\*{2,}/g,'<c>$&</c>')
                       .replace(/<i>\s+/g,'<i>')
                       .replace(/\s+<\/i>/g,'</i>')
-                      .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1$2 *()") // asterisks being kept with the previous word
+                      .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1 <c>*</c>$2") // asterisks being kept with the previous word
                       .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
                       .replace(/A[éÉ]/g,'Ǽ')
                       .replace(/<b><\/b>/g,'')
@@ -275,7 +275,7 @@ var path = 'gabc/',
                       .replace(/\s\*(\([,;:]*\)\s)?\s*<i>(ij\.|non\s+rep[eé]titur\.?)<\/i>([\s{}]*)\(/gi,' {*} <i>$2</i>$1(')
                       .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
                       .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
-                      .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2 $5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
+                      .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*+\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2 $5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
