@@ -825,7 +825,7 @@ R/. A(e.)men.(e.) (::)"
     }, {
       rubric: "On the return of the Procession, two or four Cantors enter the church, and, closing the door, stand with their faces towards the procession, singing the following:",
       id: 259,
-      rubricAfter: "The Choir outside the Church repeats <Glória, laus.> etc. Then the Cantors inside sing all or some of the following stanzas as they think best, after each of which the Choir outside repeats the first stanra <Glória, Laus.>",
+      rubricAfter: "The Choir outside the Church repeats <Glória, laus.> etc. Then the Cantors inside sing all or some of the following stanzas as they think best, after each of which the Choir outside repeats the first stanza <Glória, Laus.>",
       sticky: 0
     }, {
       id: "259-2"

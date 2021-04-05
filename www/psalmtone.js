@@ -121,7 +121,7 @@ var o_g_tones =
                   solemn:"e fe eh hr hg hi i 'hi hr h.",
                   termination:"hr g 'e fr f."
                  },
-             '2. monasticum':{clef:"f3",
+             '2. monasticus':{clef:"f3",
                   mediant:"e f hr 'i hr h.",
                   solemn:"e fe eh hr hg hi i 'hi hr h.",
                   termination:"hr g er 'ef f."
@@ -226,6 +226,10 @@ var o_g_tones =
              'in directum': {clef:"c3",
                       mediant:"e f hr i 'i fr f.",
                       termination:"hr e f 'g fr f."
+                    },
+             'in dir. monasticus': {clef:"c3",
+                      mediant:"hr g f 'h hr h.",
+                      termination:"hr h."
                     },
              // 'in directum (alt.)': {clef:"c4",
              //          mediant:"t[0].word.length==1?f gh hr g h.:f gh hr 'g fr f.",
