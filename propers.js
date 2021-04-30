@@ -733,6 +733,9 @@ $(function(){
       if(selTempus && (selDay != ref)) {
         selPropers = $.extend(true,{},selPropers);
         if(ref != selDay) {
+          if (selPropers.alPaschID && !selPropers.grPaschID) {
+            selPropers.grPaschID = selPropers.alID;
+          }
           $.extend(true, selPropers, proprium[selDay]);
           delete selPropers.ref;
         }
