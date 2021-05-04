@@ -753,7 +753,7 @@ $(function(){
           delete selPropers.alID;
           regex = /^(\w{2,3})(?:Quad|Sept)ID$/;
         } else if(selTempus == 'Pasch' && selPropers.alID) {
-          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.alID;
+          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.grID;
           regex = /^(\w{2,3})PaschID$/;
         }
         Object.keys(selPropers).forEach(function(key) {
