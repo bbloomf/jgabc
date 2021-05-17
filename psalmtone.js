@@ -1285,6 +1285,8 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
 }
 splitPsalmsMap = {
   "7"   : [10, 8],
+  "9"   : [19, 23],
+  "17"  : [27, 27],
   "30"  : [10, 12, 9],
   "32"  : [11, 11],
   "33"  : [10, 12],
@@ -1295,21 +1297,63 @@ splitPsalmsMap = {
   "102" : [12, 10],
   "106" : [14, 16, 13], 
   "108" : [12, 8, 10],
-  "118" : [16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16],
+  "115&": {
+    "monastic, Monday Vespers": ["116"],
+  },
+  "118" : {
+    "": [16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16],
+    "monastic": [
+      8, 8, 8, 8,
+      8, 8, 8,
+      8, 8, 8,
+      8, 8, 8,
+      8, 8, 8,
+      8, 8, 8,
+      8, 8, 8
+    ]
+  },
   "135" : [9, 18],
-  "138" : [12, 11],
+  "138" : {
+    "": [12, 11],
+    "monastic, Thursday Vespers": [9, 14]
+  },
+  "142" : {
+    "Saturday Lauds, divided on feast days only": [8, 6]
+  },
   "143" : [9, 9],
-  "144" : [7, 6, 9]
+  "144" : {
+    "": [7, 6, 9],
+    "monastic": [9, 13]
+  },
+  "148&" : {
+    "monastic, Lauds": ["149&150"]
+  }
+};
+splitPsalmNames = {
+  "9"  : ["Tuesday Prime", "Wednesday Prime"],
+  "17" : ["Friday Prime", "Saturday Prime"],
+  "144": {
+    "monastic": ["Friday Vespers", "Saturday Vespers"]
+  }
 };
 function slicePsalm(text, psalmNum, psalmPart){
+  var match = /^(\d+)(?:\.(.*))?$/.exec(psalmPart);
+  var psalmDivisonName = '';
+  if (!match) {
+    psalmPart = 0;
+  } else {
+    psalmPart = Number(match[1]);
+    psalmDivisonName = match[2];
+  }
   if(psalmPart>0){
     psalmNum = Number(psalmNum).toString();
     var start = 0;
-    for (var i = 0; i < psalmPart - 1; i ++)
-    {
-      start += splitPsalmsMap[psalmNum][i];
+    let split = splitPsalmsMap[psalmNum];
+    if (!split.length) split = split[psalmDivisonName];
+    for (var i = 0; i < psalmPart - 1; i ++) {
+      start += split[i];
     }
-    var end   = start + splitPsalmsMap[psalmNum][psalmPart-1];
+    var end   = start + split[psalmPart-1];
     text = text.split('\n').slice(start, end).join('\n');
   }
   return text;
@@ -1322,11 +1366,25 @@ var _novaVulgata=null;
 var regexBaseNovaVulgata=["PSALMUS ","[^\\n]*\\n((?:\\S|(\\s+(?!PSALMUS \\d)))+)(?:\\s+PSALMUS|\\s*$)"];
 function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
   psalmNum = String(psalmNum);
-  var dotIdx    = psalmNum.indexOf('.');
+  var match = /^(\d+)(?:\.(\d+))?(?:\s+\(([^)]+)\))?$/.exec(psalmNum);
+  var splits = psalmNum.split(' & ');
   var psalmPart = 0;
-  if (dotIdx > 0){
-    psalmPart = Number(psalmNum.slice(dotIdx+1));
-    psalmNum  = psalmNum.slice(0, dotIdx);
+  if (match){
+    psalmPart = (match[2] || '') + '.' + (match[3] || '');
+    psalmNum  = match[1];
+  } else if (splits.length > 1) {
+    let successCount = 0;
+    let psalms = [];
+    splits.map(function(psalm, i) { getPsalm(psalm, includeGloriaPatri && (i === splits.length - 1), useNovaVulgata,
+      function(psalmText) {
+        ++successCount;
+        psalms[i] = psalmText;
+        if (successCount === splits.length) {
+          success(psalms.join('\n'));
+        }
+      });
+    });
+    return;
   }
   if(useNovaVulgata){
     if(!/^\d+$/.test(psalmNum)) {

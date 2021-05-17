@@ -280,11 +280,26 @@ function getPsalms() {
   var r = [];
   for(var i = 1; i <= 150; i++) {
     r.push(i);
-    if(i.toString() in splitPsalmsMap)
-    {
-      for(var j = 0; j < splitPsalmsMap[i.toString()].length; j++)
-      {
-        r.push(i + '.' + (j+1));
+    if(i.toString() in splitPsalmsMap) {
+      var splits = splitPsalmsMap[i.toString()];
+      if (splits.length) splits = { "": splits };
+      for (key of Object.keys(splits)) {
+        var split = splits[key];
+        for(var j = 0; j < split.length; j++) {
+          var ID = i + '.' + (j+1) + (key ? ' (' + key + ')' : '');
+          r.push(ID);
+        }
+      }
+    }
+    if (i.toString() + '&' in splitPsalmsMap) {
+      var joins = splitPsalmsMap[i.toString() + '&'];
+      if (joins.length) joins = { "": joins };
+      for (key of Object.keys(joins)) {
+        var join = joins[key];
+        for (var j = 0; j < join.length; j++) {
+          var ID = (i + '&' + join[j]).replace(/&/g,' & ') + (key ? ' (' + key + ')' : '');
+          r.push(ID);
+        }
       }
     }
   }
@@ -297,11 +312,13 @@ function getCantica() {
   r.push("Nunc dimittis");
   r.push("Canticum Trium puerorum");
   r.push("Canticum Isaiae");
+  r.push("Canticum Isaiae (alterum)");
+  r.push("Canticum Isaiae 12");
   r.push("Canticum Ezechiae");
   r.push("Canticum Annae");
-  r.push("Canticum Moysis");
   r.push("Canticum Habacuc");
-  //r.push("Canticum Moysis (Deut)");
+  r.push("Canticum Moysis (Deut)");
+  r.push("Canticum Moysis (Exod)");
   r.push("Canticum David");
   r.push("Canticum Ecclesiastici");
   r.push("Canticum Jeremiae");
