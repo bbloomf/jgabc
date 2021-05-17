@@ -321,6 +321,7 @@ function getCantica() {
   r.push("Canticum Moysis (Exod)");
   r.push("Canticum David");
   r.push("Canticum Ecclesiastici");
+  r.push("Canticum Ecclesiastici (monastic)");
   r.push("Canticum Jeremiae");
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");
