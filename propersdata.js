@@ -112,7 +112,7 @@ var sundayKeys = [
     {key:"CorpusChristi",title:"Corpus Christi",en:"Corpus Christi"},
     {key:"Pent2",title:"Dominica in Octavam Sme Corporis Christi",en:"Sunday within the octave of Corpus Christi (2nd after Pentecost)"},
     {key:"SCJ",title:"Sacratissimum Cor Jesu",en:"Most Sacred Heart of Jesus"},
-    {key:"Pent3",title:"Dominica in Octavam Sme Cordis Jesu",en:"3rd Sunday after Pentecost"},
+    {key:"Pent3",title:"Dominica in Octavam Sme Cordis Jesu",en:"Sunday within the octave of Sacred Heart (3rd after Pentecost)"},
     {key:"Pent4",title:"4 post Pentecosten",en:"4th Sunday after Pentecost"},
     {key:"Pent5",title:"5 post Pentecosten",en:"5th Sunday after Pentecost"},
     {key:"Pent6",title:"6 post Pentecosten",en:"6th Sunday after Pentecost"},
