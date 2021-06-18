@@ -64,16 +64,7 @@ miscChantIDs = miscChantIDs.concat(oAntiphons);
 miscChantIDs.forEach(id => {
   if(ids.indexOf(id) >= 0) throw `${id} found in both lists at index ${ids.indexOf(id)}.`;
 });
-var gabcOf939, gabcOf451, gabcOf507, gabcOf507_2;
-var writeNew451 = () => {
-  if(gabcOf939 && gabcOf451) {
-    // take the psalm from 939 and add it to 451:
-    var psalm = "\n" + gabcOf939.match(/\(::\)\s*(.*)/s)[1];
-    if(!/^\n<i>Ps/.test(psalm)) psalm = "\n<i>Ps.</i>" + psalm;
-    gabcOf451 += psalm;
-    fs.writeFileSync(path + '451.gabc',gabcOf451);
-  }
-}
+var gabcOf507, gabcOf507_2;
 var write507a = () => {
   if(gabcOf507 && gabcOf507_2) {
     // take the psalm from 507-2 and tack it onto 507 and write it as 507a.
@@ -87,8 +78,6 @@ var write1092 = (gabc) => {
   fs.writeFileSync(path + '1092.gabc', gabc);
 };
 var callbackOn = {
-  939: gabc => (gabcOf939 = gabc, writeNew451()),
-  451: gabc => (gabcOf451 = gabc, writeNew451()),
   507: gabc => (gabcOf507 = gabc, write507a()),
   "507&elem=2": gabc => (gabcOf507_2 = gabc, write507a()),
   1092: write1092,
@@ -232,7 +221,7 @@ var path = 'gabc/',
                     }
                     content = content
                       .replace(/@/g,'!') // TODO: support @ in Exsurge
-                      .replace(/\[[uo]ll:[^\]]*\]/g, '') // TODO: support in Exsurge
+                      .replace(/\[[uo](?:h|ll):[^\]]*\]/g, '') // TODO: support in Exsurge
                       .replace(/\*{2,}/g,'<c>$&</c>')
                       .replace(/<i>\s+/g,'<i>')
                       .replace(/\s+<\/i>/g,'</i>')
