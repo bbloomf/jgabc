@@ -222,9 +222,11 @@ var path = 'gabc/',
                     content = content
                       .replace(/@/g,'!') // TODO: support @ in Exsurge
                       .replace(/\[[uo](?:h|ll):[^\]]*\]/g, '') // TODO: support in Exsurge
+                      .replace(/<\/?nlba>/g, '') // TODO: support in Exsurge
                       .replace(/\*{2,}/g,'<c>$&</c>')
                       .replace(/<i>\s+/g,'<i>')
                       .replace(/\s+<\/i>/g,'</i>')
+                      .replace(/^([^)]*\)?\s*[A-Z]*)<sc>([\wáéíóúæœǽœ́ýÁÉÍÓÚÆŒǼŒ́Ý]+)<\/sc>/, '$1$2') // get rid of small caps in initial syllable
                       .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1 <c>*</c>$2") // asterisks being kept with the previous word
                       .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
                       .replace(/A[éÉ]/g,'Ǽ')
