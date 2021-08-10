@@ -1,3 +1,7 @@
+Something needs to be done for psalm toning the alleluia verse on the Feast of the Assumption.  The psalm tone needs to be shifted down a fourth (or rather the alleluia up a fourth with the clef shifted and flats added)
+so that the psalm tone starts on the same tone the alleluia starts and ends on
+
+
 Get rid of autosize, at least in certain circumstances, to save time when resizing
 Get rid of forced relayout caused by checking element.width() from within layoutChant.  I think checking document.width should be better (I can't use window.innerWidth because of the case when laying out chant for printing...)
 
