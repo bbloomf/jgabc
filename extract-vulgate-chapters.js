@@ -6,7 +6,7 @@ var fs = require("fs"),
 require('./patterns/la-hypher.js');
     var latin = window.Hypher.languages.la_VA,
     vulgate = fs.readFileSync('../latin-ecclesiastic-accents/corpus/vulgate/vulgate_with_accents.txt','utf8').replace(/ ([:;.!?])/g,'$1').split('\n'),
-    regexBookChapter = /^((?:(\d+)\s+)?([a-zæ]+))\s+(\d+)\s+(\d+)\s+/i,
+    regexBookChapter = /^(?:\[[^\]]+\]\s*)?((?:(\d+)\s+)?([a-zæ]+))\s+(\d+)\s+(\d+)\s+/i,
     regexWord = /[a-záéíóúýäëïöüÿæœǽ]+/ig,
     regexIVowel = /i[aeiouyáéíóúýäëïöüÿ]|[ií]c[aeiouyáéíóúýäëïöüÿ]/i,
     regexStartIVowel = /^i(?=[aeiouyáéíóúýäëïöüÿ])/ig,
@@ -25,6 +25,7 @@ vulgate.forEach(line => {
   if(!line) return;
   var match = regexBookChapter.exec(line);
   var flag = 'a';
+  if (!match) console.info(line);
   if(match[1] != lastAbbrev) {
     lastAbbrev = match[1];
     chapter = books[abbrevs.length];
