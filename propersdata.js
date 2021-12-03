@@ -4285,8 +4285,7 @@ var proprium = {
         "alID": 724,
         "inID": 115,
         "ofID": 630,
-        "gbid": "st_francis_xavier",
-        "ref": "mass_i_confessor_not_bishop"
+        "gbid": "st_francis_xavier"
     },
     "Dec4": {
         "coID": 383,
