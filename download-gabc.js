@@ -221,7 +221,7 @@ var path = 'gabc/',
                     }
                     content = content
                       .replace(/@/g,'!') // TODO: support @ in Exsurge
-                      .replace(/\[[uo](?:h|ll):[^\]]*\]/g, '') // TODO: support in Exsurge
+                      .replace(/\[[uo](?:h|ll)(?::[^\]]*|})?\]/g, '') // TODO: support in Exsurge
                       .replace(/<\/?nlba>/g, '') // TODO: support in Exsurge
                       .replace(/\*{2,}/g,'<c>$&</c>')
                       .replace(/<i>\s+/g,'<i>')
