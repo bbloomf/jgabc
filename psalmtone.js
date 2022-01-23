@@ -1,7 +1,7 @@
 var regexGabc = /(((?:([`,;:]\d*)|([cf]b?[1-4]))+)|(\S+))(?:\s+|$)/ig;
 var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽœ́æœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ]\u0301?)(?:(?:[\wáéíóúýǽæœ]\u0301?)*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]\u0301?|[bcdgptf][lrh][\wáéíóúýǽæœ]\u0301?)|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|((?:[^\w\sáëéíóúýǽæœ\u0301])*(?:\s[:;†\^\*"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
-var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u0100-\u024f\(\)\<!]*\s*"*(?=[a-z\xDF-\xFF\u0100-\u024f(<!]))(!(?:<\w+>.*?<\/\w+>|\S+)|([a-z\xDF-\xFF\u0100-\u024f’'*]*)(?:\(([a-z\xDF-\xFF\u0100-\u024f’'*]+)\)([a-z\xDF-\xFF\u0100-\u024f’'*]*))?)(=?)((?:\s*[-"'“”‘’«»„:;,.\)¿\?¡!])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
+var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323\u4e00-\u9fff\(\)\<!]*\s*"*(?=[a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323\u4e00-\u9fff(<!]))(!(?:<\w+>.*?<\/\w+>|\S+)|([a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323’\u4e00-\u9fff'*]*)(?:\(([a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323’\u4e00-\u9fff'*]+)\)([a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323’\u4e00-\u9fff'*]*))?)(=?)((?:\s*[-"'“”‘’«»„:;,.\)¿\?¡!])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
 var regexAccent = /[áéíóúýǽ\u0301]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
@@ -371,8 +371,10 @@ var Syl = (function(){
         });
         if(forceSyl && (m[2] || m[9]))forceSyl=false;
         if(m[7] || (m[1]=='<v>' && m[2]=='\\')) forceSyl=true;
-        if(forceSyl) {
+        if(forceSyl || lang === 'vi') {
           d=[];
+        } else if (lang === 'zh') {
+          d = w.split('').slice(0,-1).map(syl => syl.length);
         } else if(lang != 'en') {
           if(typeof(Hypher)!='undefined' && Hypher.languages[lang]) {
             d=Hypher.languages[lang].hyphenate(w).slice(0,-1).map(function(syl){return syl.length;})
