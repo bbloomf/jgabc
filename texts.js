@@ -827,7 +827,8 @@ texts = {
 		"1379": "non derelinquet dominus sanctos suos in æternum conservabuntur",
 		"1380": "in exitu israel ex ægypto domus jacob de populo barbaro",
 		"3318": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero",
-		"8252": "rogavi pro te petre ut non deficiat fides tua et tu aliquando conversus confirma fratres tuos"
+		"8252": "rogavi pro te petre ut non deficiat fides tua et tu aliquando conversus confirma fratres tuos",
+		"8297": "laudate dominum omnes gentes et collaudate eum nes populi"
 	},
 	"Sequentia": {
 		"68": "veni sancte spiritus et emitte cælitus lucis tuæ radium veni pater pauperum veni dator munerum veni lumen cordium consolator optime dulcis hospes animæ dulce refrigerium in labore requies in æstu temperies in fletu solatium o lux beatissima reple cordis intima tuorum fidelium sine tuo numine nihil est in homine nihil est innoxium lava quod est sordidum riga quod est aridum sana quod est saucium flecte quod est rigidum fove quod est frigidum rege quod est devium da tuis fidelibus in te confidentibus sacrum septenarium da virtutis meritum da salutis exitum da perenne gaudium amen alleluia",
@@ -1264,6 +1265,7 @@ texts = {
 		"1229": "sedebit dominus rex in æternum dominus benedicet populo suo in pace",
 		"1245": "de fructu operum tuorum domine satiabitur terra ut educas panem de terra et vinum lætificet cor hominis ut exhilaret faciem in oleo et panis cor hominis confirmet",
 		"1260": "data est mihi omnis potestas in cælo et in terra alleluia euntes docete omnes gentes baptizantes eos in nomine patris et filii et spiritus sancti alleluia alleluia",
+		"1267": "multitudo languentium et qui vexabantur a spiritibus immundis veniebant ad eum quia virtus de illo exibat et sanabat omnes",
 		"1282": "tolle puerum et matrem ejus et vade in terram israel defuncti sunt enim qui quærebant animam pueri",
 		"1290": "in salutari tuo anima mea et in verbum tuum speravi quando facies de persequentibus me judicium iniqui persecuti sunt me adjuva me domine deus meus",
 		"1292": "principes persecuti sunt me gratis et a verbis tuis formidavit cor meum lætabor ego super eloquia tua quasi qui invenit spolia multa alleluia",
