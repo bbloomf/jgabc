@@ -191,12 +191,14 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
   if(actuallyUpdate){
     var verses=$("#verses")[0];
     verses.innerHTML = r;
-    vtext=verses.innerText;
+    vtext= (useFormat == 'html') ? r : verses.innerText;
     try {
       var utf8=encode_utf8(vtext);
       var url="data:text/plain;charset=utf8;base64,"+btoa(utf8);
       $("#lnkDownloadVerses")
-        .attr("href",url)
+        .attr("charset","UTF-8")
+        .prop("href",url)
+        .prop("download",filename)
         .attr("data-downloadurl","text/plain:"+filename+":"+url);
     } catch(e) {
       vtext="";
