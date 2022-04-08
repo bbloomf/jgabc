@@ -733,6 +733,9 @@ $(function(){
       if(selTempus && (selDay != ref)) {
         selPropers = $.extend(true,{},selPropers);
         if(ref != selDay) {
+          if (selPropers.alPaschID && !selPropers.grPaschID) {
+            selPropers.grPaschID = selPropers.alID;
+          }
           $.extend(true, selPropers, proprium[selDay]);
           delete selPropers.ref;
         }
@@ -750,7 +753,7 @@ $(function(){
           delete selPropers.alID;
           regex = /^(\w{2,3})(?:Quad|Sept)ID$/;
         } else if(selTempus == 'Pasch' && selPropers.alID) {
-          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.alID;
+          selPropers.grID = selPropers.alID.shift? selPropers.alID.shift() : selPropers.grID;
           regex = /^(\w{2,3})PaschID$/;
         }
         Object.keys(selPropers).forEach(function(key) {

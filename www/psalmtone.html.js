@@ -191,12 +191,14 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
   if(actuallyUpdate){
     var verses=$("#verses")[0];
     verses.innerHTML = r;
-    vtext=verses.innerText;
+    vtext= (useFormat == 'html') ? r : verses.innerText;
     try {
       var utf8=encode_utf8(vtext);
       var url="data:text/plain;charset=utf8;base64,"+btoa(utf8);
       $("#lnkDownloadVerses")
-        .attr("href",url)
+        .attr("charset","UTF-8")
+        .prop("href",url)
+        .prop("download",filename)
         .attr("data-downloadurl","text/plain:"+filename+":"+url);
     } catch(e) {
       vtext="";
@@ -280,11 +282,26 @@ function getPsalms() {
   var r = [];
   for(var i = 1; i <= 150; i++) {
     r.push(i);
-    if(i.toString() in splitPsalmsMap)
-    {
-      for(var j = 0; j < splitPsalmsMap[i.toString()].length; j++)
-      {
-        r.push(i + '.' + (j+1));
+    if(i.toString() in splitPsalmsMap) {
+      var splits = splitPsalmsMap[i.toString()];
+      if (splits.length) splits = { "": splits };
+      for (key of Object.keys(splits)) {
+        var split = splits[key];
+        for(var j = 0; j < split.length; j++) {
+          var ID = i + '.' + (j+1) + (key ? ' (' + key + ')' : '');
+          r.push(ID);
+        }
+      }
+    }
+    if (i.toString() + '&' in splitPsalmsMap) {
+      var joins = splitPsalmsMap[i.toString() + '&'];
+      if (joins.length) joins = { "": joins };
+      for (key of Object.keys(joins)) {
+        var join = joins[key];
+        for (var j = 0; j < join.length; j++) {
+          var ID = (i + '&' + join[j]).replace(/&/g,' & ') + (key ? ' (' + key + ')' : '');
+          r.push(ID);
+        }
       }
     }
   }
@@ -297,13 +314,18 @@ function getCantica() {
   r.push("Nunc dimittis");
   r.push("Canticum Trium puerorum");
   r.push("Canticum Isaiae");
+  r.push("Canticum Isaiae (alterum)");
+  r.push("Canticum Isaiae 12");
   r.push("Canticum Ezechiae");
   r.push("Canticum Annae");
-  r.push("Canticum Moysis");
   r.push("Canticum Habacuc");
-  //r.push("Canticum Moysis (Deut)");
+  r.push("Canticum Moysis (Deut 32, 1-18)");
+  r.push("Canticum Moysis.1 (Deut 32, 1-21)");
+  r.push("Canticum Moysis.2 (Deut 32, 22-43)");
+  r.push("Canticum Moysis (Exod)");
   r.push("Canticum David");
   r.push("Canticum Ecclesiastici");
+  r.push("Canticum Ecclesiastici (monastic)");
   r.push("Canticum Jeremiae");
   r.push("Canticum Judith");
   r.push("Canticum Tobiae");

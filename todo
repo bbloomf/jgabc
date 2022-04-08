@@ -1,3 +1,8 @@
+Something needs to be done for psalm toning the alleluia verse on the Feast of the Assumption.  The psalm tone needs to be shifted down a fourth (or rather the alleluia up a fourth with the clef shifted and flats added)
+so that the psalm tone starts on the same tone the alleluia starts and ends on
+(see p [102] in the liber brevior)
+
+
 Get rid of autosize, at least in certain circumstances, to save time when resizing
 Get rid of forced relayout caused by checking element.width() from within layoutChant.  I think checking document.width should be better (I can't use window.innerWidth because of the case when laying out chant for printing...)
 
@@ -36,3 +41,30 @@ The intonation of the termination of tone 6 changes based on the accentuation:
 
 find unaccented words and add accent:
 (?<=\s)([BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz]*[aeiouy][BCDFGHJ-NP-TVWXZbcdfghj-np-tvwxz\.,;:!?]*\([^\)]*\)){3,}(?=\s)
+
+
+Holy Cross Weather Blessing: (May 3—Sept 14)
+
+V. A fúlgure, grádine et tempestáte.
+R. Líbera nos, Dómine Jesu Christe.
+
+V. Osténde nobis, Dómine, misericórdiam tuam.
+R. Et salutáre tuum da nobis.
+
+V. Dómine exáudi oratiónem meam.
+R. Et clamor meus ad te véniat.
+
+V. Dóminus vobíscum.
+R. Et cum spíritu tuo.
+
+Orémus.  Quaesumus, omnípotens Deus, ut, intercessióne Sanctae Dei Genetrícis Maríae, sanctórum Angelórum, Patriarchárum, Prophetárum, Apostolórum, Mártyrum, Confessórum, Vírginum, Viduárum, et ómnium Sanctórum tuórum, contínuum nobis praestes subsídium, tranquíllam auram permíttas, atque contra fúlgura et tempestátes désuper nobis indígnis tuam salútem effúndas de caelis, et géneri húmano semper aemulas, déxtera poténtiae tuae, aéreas cónteras potestátes.  Per eúndem Christum Dóminum nostrum.
+R. Amen.
+
+V. Sit nomen Dómini benedíctum.
+R. Ex hoc nunc et usque in saeculum.
+
+V. Adjutórium nostrum in nómine Dómini.
+R. Qui fecit caelum et terram.
+
+Benedíctio Dei omnipoténtis, Patris + et Fílii, et Spíritus Sancti, descéndat super vos, locum istum et fructus terrae et máneat semper.
+R. Amen.

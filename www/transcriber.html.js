@@ -191,7 +191,7 @@ function updateEditor() {
   var maxCount = Math.max(gsCount,sCount);
   var header = getHeader(localStorage.transcribeHeader||'');
   header["initial-style"] = (syl[0] && syl[0][0] && !syl[0][0].all.match(/^[A-Z]/))? '0' : '1';
-  if(localStorage.selLanguage == 'en' && !("centering-scheme" in header)) {
+  if((localStorage.selLanguage == 'en' || localStorage.selLanguage == 'vi' || localStorage.selLanguage == 'zh') && !("centering-scheme" in header)) {
     header["centering-scheme"] = 'english';
   } else if(("centering-scheme" in header) && header['centering-scheme'] != 'latin' && /^la/.exec(localStorage.selLanguage)) {
     delete header["centering-scheme"];
@@ -282,6 +282,10 @@ function splitText(text) {
       return Syl.syllabify(text,'pl');
     case 'la-liturgical':
       return Syl.syllabify(text,'la');
+    case 'vi':
+      return Syl.syllabify(text,'vi')
+    case 'zh':
+      return Syl.syllabify(text,'zh')
   }
 
   //for handling parenthesized elisions, we will remove the parentheses but keep track of where they were.
@@ -693,13 +697,16 @@ $(function() {
         .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
   }
   function addHeaderKeyToContext(header, key) {
-    var match = /^exsurge\.(.+)/.exec(key);
+    const textStyleKeys = Object.keys(ctxt.textStyles || {});
+    const regex = new RegExp(`^(?:exsurge\\.|(?:exsurge\\.)?(${textStyleKeys.join('|')})\\.)(.+)`);
+    var match = regex.exec(key);
     if(match) {
       var value = header[key],
           floatVal = parseFloat(value);
       if(!value) return;
       if(floatVal == value) value = floatVal;
-      key = match[1];
+      let textStyleKey = match[1];
+      key = match[2];
       if(key == 'glyphScaling') {
         value = parseFloat(value) / exsurge.Glyphs.PunctumQuadratum.bounds.height;
         if(value && (value !== ctxt.glyphScaling || value != exportContext.glyphScaling)) {
@@ -713,7 +720,11 @@ $(function() {
           ctxt.setGlyphScaling(value);
         }
       } else {
-        exportContext[key] = ctxt[key] = value;
+        if (textStyleKey) {
+          exportContext.textStyles[textStyleKey][key] = ctxt.textStyles[textStyleKey][key] = value;
+        } else {
+          exportContext[key] = ctxt[key] = value;
+        }
       }
     }
   }
@@ -723,7 +734,9 @@ $(function() {
     var header = getHeader(this.value);
     exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
     for(var key in header) {
-      addHeaderKeyToContext(header, key);
+      if (header.hasOwnProperty(key)) {
+        addHeaderKeyToContext(header, key);
+      }
     }
     for(key in header.cValues) {
       addHeaderKeyToContext(header.cValues, key);

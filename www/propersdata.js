@@ -112,7 +112,7 @@ var sundayKeys = [
     {key:"CorpusChristi",title:"Corpus Christi",en:"Corpus Christi"},
     {key:"Pent2",title:"Dominica in Octavam Sme Corporis Christi",en:"Sunday within the octave of Corpus Christi (2nd after Pentecost)"},
     {key:"SCJ",title:"Sacratissimum Cor Jesu",en:"Most Sacred Heart of Jesus"},
-    {key:"Pent3",title:"Dominica in Octavam Sme Cordis Jesu",en:"3rd Sunday after Pentecost"},
+    {key:"Pent3",title:"Dominica in Octavam Sme Cordis Jesu",en:"Sunday within the octave of Sacred Heart (3rd after Pentecost)"},
     {key:"Pent4",title:"4 post Pentecosten",en:"4th Sunday after Pentecost"},
     {key:"Pent5",title:"5 post Pentecosten",en:"5th Sunday after Pentecost"},
     {key:"Pent6",title:"6 post Pentecosten",en:"6th Sunday after Pentecost"},
@@ -185,12 +185,12 @@ var otherKeys = [
     {key:"votiveA",title:"Missa votiva de Angelis",en:"Votive Mass of the Holy Angels"},
     {group:true, title:"Missæ votivæ de Feria IV",en:"Votive Masses on Wednesdays"},
     {key:"votiveJ",title:"Missa votiva de Sancto Joseph",en:"Votive Mass of Saint Joseph"},
-    {key:"votivePP",title:"Missa votiva de SS. Apostolis Petro & Paulo",en:"Votive Mass of Saints Peter and Paul"},
+    {key:"votivePP",title:"Missa votiva de SS. Apostolis Petro et Paulo",en:"Votive Mass of Saints Peter and Paul"},
     {key:"votiveOA",title:"Missa votiva de omnibus SS. Apostolis",en:"Votive Mass of the Apostles"},
     {group:true, title:"Missæ votivæ de Feria V",en:"Votive Masses on Thursdays"},
     {key:"votiveSS",title:"Missa votiva de Spiritu Sancto",en:"Votive Mass of the Holy Ghost"},
     {key:"votiveSES",title:"Missa votiva de Sanctissimo Sacramento",en:"Votive Mass of the Most Holy Sacrament"},
-    {key:"votiveJCSES",title:"Missa votiva de Jesu Christo Summo & Æterno Sacerdote",en:"Votive Mass of Christ the Eternal High Priest"},
+    {key:"votiveJCSES",title:"Missa votiva de Jesu Christo Summo et Æterno Sacerdote",en:"Votive Mass of Christ the Eternal High Priest"},
     {group:true, title:"Missæ votivæ de Feria VI",en:"Votive Masses on Fridays"},
     {key:"votiveSC",title:"Missa votiva de Sancta Cruce",en:"Votive Mass of the Holy Cross"},
     {key:"votivePJC",title:"Missa votiva de Passione D.N. Jesu Christo",en:"Votive Mass of the Passion of Our Lord Jesus Christ"},
@@ -4285,8 +4285,7 @@ var proprium = {
         "alID": 724,
         "inID": 115,
         "ofID": 630,
-        "gbid": "st_francis_xavier",
-        "ref": "mass_i_confessor_not_bishop"
+        "gbid": "st_francis_xavier"
     },
     "Dec4": {
         "coID": 383,

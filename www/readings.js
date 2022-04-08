@@ -49,7 +49,7 @@ function updateEditor(forceGabcUpdate,_syl) {
   for(var i = lines.length - 1; i>=0; --i){
     var line = lines[i][1];
     var punctuation = lines[i][2];
-    punctuation = (punctuation.match(/[+^]/) || punctuation)[0]
+    punctuation = (punctuation.match(/[+^`]/) || punctuation)[0]
     var loop = false;
     do{
       psalmTone = psalmToneStack.pop();
@@ -68,6 +68,7 @@ function updateEditor(forceGabcUpdate,_syl) {
           case '+':
           case '^':
           case ',':
+          case '`':
             if(psalmTone.match(/^[;:,]$/)) break;
             psalmTone = ',';
             break;
@@ -145,6 +146,10 @@ function updateEditor(forceGabcUpdate,_syl) {
           } // otherwise, fall through to next case...
         case '^':
           psalmTone = gPause;
+          gabc = ' (,) ' + gabc;
+          break;
+        case '`':
+          psalmTone = gPause.slice(0, -1);
           gabc = ' (,) ' + gabc;
           break;
         case '~':
@@ -401,7 +406,7 @@ var splitSentences = (function(){
     return (gabc.match(/'[a-m]/g) || ['']).length;
   }
 
-  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^~+.?!;:,])+($|,(?=[,\r\n])|[+^~.?!;:](?:\s*[:+^])?["'“”‘’]*)),?\s*/gi;
+  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^`~+.?!;:,])+($|,(?=[,\r\n])|[+^`~.?!;:](?:\s*[:+^`])?["'“”‘’]*)),?\s*/gi;
   return function(text){
     var question = countAccents($("#txtQuestion").val());
     var mediant = countAccents($("#txtMediant").val());
