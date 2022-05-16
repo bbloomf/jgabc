@@ -274,7 +274,7 @@ var path = 'gabc/',
                     }
                     var text = [];
                     var checkTextRepeat = 0;
-                    content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|([a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+([,.;:!?*+†\s»"'‘’“”]*(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
+                    content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|((?:~+(?:<c>)?\*+(?:<\/c>)?|[a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+)([,.;:!?*+†\s»"'‘’“”]*(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
@@ -287,13 +287,15 @@ var path = 'gabc/',
                       if(whole == lastSyl && /^\(([Zz\s)]|[a-g]\+)/.test(lastParens)) {
                         return whole;
                       }
-                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)([,.;:!?*+†\s»"'‘’“”]*\([^)]+\))/gi;
+                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(?=[,.;:!?*+†\s»"'‘’“”]*(?:<eu>)?\([^)]+\))/gi;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
-                        var braces = match[1].match(/[{}]/g) || [];
-                        if(braces.length % 2 === 0) match[1] = match[1].replace(/[{}]/g,'');
-                        syls.push(match[1].replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ').replace(/O[Ee]/,'Œ'));
+                        let match1 = match[1] || '';
+                        var braces = match1.match(/[{}]/g) || [];
+                        if(braces.length % 2 === 0) match1 = match1.replace(/[{}]/g,'');
+                        let syl = match1.replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ').replace(/O[Ee]/,'Œ');
+                        syls.push(syl);
                       }
                       var word = syls.join('');
                       // ignore any words that have no syllables:
@@ -349,8 +351,8 @@ var path = 'gabc/',
                         if(key != val) sylReplacements[key] = val;
                         var i = 0;
                         //return whole; // don't actually perform the replacement for now
-                        return whole.replace(regex, function(match, first, second){
-                          return otherSyls[i++] + second;
+                        return whole.replace(regex, function(match, first){
+                          return otherSyls[i++];
                         });
                       }
                     });
