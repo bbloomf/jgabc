@@ -2231,7 +2231,6 @@ $(function(){
         italicNote = '<sp>V/</sp> ';
       }
       // special case for gloria patri.
-      if(part=='introitus') debugger;
       if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
           lines[i+1] && removeDiacritics(lines[i+1]).replace(/<eu>/,'').match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
         var gAmenTones;
