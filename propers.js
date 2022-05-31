@@ -2094,7 +2094,9 @@ $(function(){
       if(sel[part].style=='psalm-tone1') {
         lines = text.split('\n');
         var i = lines.length - 1;
-        if(part == 'alleluia') lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
+        if(part == 'alleluia' && !selPropers.seqID && !selPropers.sequentiaID) {
+          lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
+        }
         var line = lines[0];
         gabc = header + '(' + tone.clef + ') ';
         if(line.match(/ij|bis/)) {
