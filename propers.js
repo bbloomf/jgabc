@@ -387,8 +387,10 @@ $(function(){
         var $select = $options.find('select');
         var options = '';
         for(var i in id) {
-          var o = id[i];
-          options += '<option value="' + i + '">' + o.incipit + '</option>';
+          if (id.hasOwnProperty(i)) {
+            var o = id[i];
+            options += '<option value="' + i + '">' + o.incipit + '</option>';
+          }
         }
         $select.empty().append(options);
         $select.val(optionID);

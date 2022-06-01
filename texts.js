@@ -827,6 +827,7 @@ texts = {
 		"1379": "non derelinquet dominus sanctos suos in æternum conservabuntur",
 		"1380": "in exitu israel ex ægypto domus jacob de populo barbaro",
 		"3318": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero",
+		"8041": "emitte spiritum tuum et creabuntur et renovabis faciem terræ",
 		"8252": "rogavi pro te petre ut non deficiat fides tua et tu aliquando conversus confirma fratres tuos",
 		"8297": "laudate dominum omnes gentes et collaudate eum nes populi"
 	},
@@ -1344,7 +1345,7 @@ texts = {
 		"2813": "veni sancte spiritus reple tuorum corda fidelium et tui amoris in eis ignem accende qui per diversitatem linguarum cunctarum gentes in unitate fidei congregasti",
 		"2826": "o quam suavis est domine spiritus tuus qui ut dulcedinem tuam in filios demonstrares pane suavissimo de cælo præstito esurientes reples bonis fastidiosos divites dimittens inanes",
 		"2877": "o clavis david et sceptrum domus israel qui aperis et nemo claudit claudis et nemo aperit veni et educ vinctum de domo carceris sedentem in tenebris et umbra mortis",
-		"2897": "lumen ad revelationem gentium et gloriam plebis tuæ israel ℣ nunc dimittis servum tuum domine secundum verbum tuum in pace lumen ℣ quia viderunt oculi mei salutare tuum ℣ quod parasti ante faciem omnium populorum gloria patri",
+		"2897": "lumen ad revelationem gentium et gloriam plebis tuæ israel ℣ nunc dimittis servum tuum domine secundum verbum tuum in pace lumen quia viderunt oculi mei salutare tuum quod parasti ante faciem omnium populorum gloria patri",
 		"3017": "adoremus in æternum sanctissimum sacramentum ℣ laudate dominum omnes gentes laudate eum omnes populi quoniam confirmata est super nos misericordia ejus et veritas domini manet in æternum adoremus gloria patri et filio et spiritui sancto sicut erat in principio et nunc et semper et in sæcula sæculorum amen adoremus",
 		"3038": "parce domine parce populo tuo ne in æternum irascaris nobis flectamus iram vindicem ploremus ante judicem clamemus ore supplici dicamus omnes cernui nostris malis offendimus tuam deus clementiam effunde nobis desuper remissor indulgentiam dans tempus acceptabile da lacrimarum rivulis lavare cordis victimam quam adurat caritas audi benigne conditor nostras preces cum fletibus in hoc sacro jejunio fusas quadragenario scrutator alme cordium infirma tu scis virium ad te reversis exhibe remissionis gratiam",
 		"3299": "salve regina mater misericordiæ vita dulcedo et spes nostra salve ad te clamamus exsules filii hevæ ad te suspiramus gementes et flentes in hac lacrimarum valle eia ergo advocata nostra illos tuos misericordes oculos ad nos converte et jesum benedictum fructum ventris tui nobis post hoc exsilium ostende o clemens o pia o dulcis virgo maria",
