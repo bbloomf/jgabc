@@ -518,7 +518,7 @@ var Syl = (function(){
     },
     updateWords:function(){
       if(this.queue.length>0){
-        $.getScript("//editor.sourceandsummit.com/legacy/syl.php?txt="+this.queue.join('+'));
+        $.getScript("//www.sourceandsummit.com/editor/legacy/syl.php?txt="+this.queue.join('+'));
         this.queue=[];
       } else {
         intUpdate=setTimeout(function(){Syl.updateWords();},5000);

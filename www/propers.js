@@ -387,8 +387,10 @@ $(function(){
         var $select = $options.find('select');
         var options = '';
         for(var i in id) {
-          var o = id[i];
-          options += '<option value="' + i + '">' + o.incipit + '</option>';
+          if (id.hasOwnProperty(i)) {
+            var o = id[i];
+            options += '<option value="' + i + '">' + o.incipit + '</option>';
+          }
         }
         $select.empty().append(options);
         $select.val(optionID);
@@ -2094,7 +2096,9 @@ $(function(){
       if(sel[part].style=='psalm-tone1') {
         lines = text.split('\n');
         var i = lines.length - 1;
-        if(part == 'alleluia') lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
+        if(part == 'alleluia' && !selPropers.seqID && !selPropers.sequentiaID) {
+          lines[i] = lines[i].replace(/([\.!?:;,]?)\s*$/,function(m,a){ return ', Allelúia' + a; });
+        }
         var line = lines[0];
         gabc = header + '(' + tone.clef + ') ';
         if(line.match(/ij|bis/)) {
@@ -2232,7 +2236,7 @@ $(function(){
       }
       // special case for gloria patri.
       if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
-          lines[i+1] && removeDiacritics(lines[i+1]).match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
+          lines[i+1] && removeDiacritics(lines[i+1]).replace(/<eu>/,'').match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
         var gAmenTones;
         var originalGabc = sel[part].gabc;
         var header;
@@ -3141,7 +3145,7 @@ $(function(){
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
-    $('#pdfForm').attr('action','https://editor.sourceandsummit.com/legacy/#' + encodeURI(result)).submit();
+    $('#pdfForm').attr('action','https://www.sourceandsummit.com/editor/legacy/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=getAllGabc();

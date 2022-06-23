@@ -663,7 +663,7 @@ $(function() {
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
-    $('#pdfForm').attr('action','https://editor.sourceandsummit.com/legacy/#' + encodeURI(result)).submit();
+    $('#pdfForm').attr('action','https://www.sourceandsummit.com/editor/legacy/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=[getGabc()];
