@@ -20,3 +20,4 @@ build.json
 show-diffs.sh
 .tags
 appid-secret.key
+open-new-release.sh
