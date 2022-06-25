@@ -132,6 +132,12 @@ text.aboveLinesText {
   color: #d00!important;
   margin: 0.5em 0 0.25em;
 }
+.ChantNotationElement .rubric {
+  font-family: unset;
+  font-size: unset;
+  font-style: unset;
+  margin: unset;
+}
 .chant-title + *,
 .rubric.after {
   margin-top: 0!important;
