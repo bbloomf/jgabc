@@ -657,9 +657,11 @@ function downloadAll(e){
   $("#lnkCancelZip").show();
   var zip = new JSZip();
   var psalms = getPsalms();
+  var canticles = getCantica();
+  var firstCanticleIndex = psalms.length;
+  psalms = psalms.concat(canticles);
   var includeGloriaPatri = $("#cbIncludeGloriaPatri")[0].checked;
   var useNovaVulgata = $("#cbUseNovaVulgata")[0].checked;
-  var byteArray;
   var clef;
   var addPsalm=function(psalmNum,text,t,ending,gSyl,shortMediant,solemn){
     var texts = updateEditor(true,text,gSyl,shortMediant,clef);
@@ -675,9 +677,9 @@ function downloadAll(e){
                                                 String(psalmNum),
                                                 t,
                                                 ending);
-    
-    if(texts[0]) zip.add(header["name"] + ".gabc",header + texts[0]);
-    if(texts[1].length>0)zip.add(filename,texts[1]);
+    let replaceAsh = function(str) { return str.replace(/æ/g,'ae').replace(/Æ/g, 'Ae') };
+    if(texts[0]) zip.add(replaceAsh(header["name"] + ".gabc"),header + texts[0]);
+    if(texts[1].length>0)zip.add(replaceAsh(filename),texts[1]);
   };
   var getNextPsalm = function(i){
     if(cancelZipping){
@@ -686,7 +688,20 @@ function downloadAll(e){
       $("#lnkDownloadAll").show();
       return;
     }
-    var psalmNum = psalms[i];    
+    var psalmNum = psalms[i];
+    if (i === firstCanticleIndex || !psalmNum) {
+      $("#spnProgressZip").text("Zipping...");
+      var data = zip.generate(true);
+      var byteArray = new Uint8Array(data.length);
+      for (var idx = 0; idx < data.length; idx++) {
+          byteArray[idx] = data.charCodeAt(idx) & 0xff;
+      }
+      var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
+      saveAs(blob, psalmNum ? 'psalms.zip' : 'canticles.zip', true);
+      if (psalmNum) {
+        zip = new JSZip();
+      }
+    }
     if(psalmNum){
       getPsalm(psalmNum,includeGloriaPatri,useNovaVulgata,function(text) {
         text = text.replace(/ \d+ /g,' ');
@@ -711,16 +726,8 @@ function downloadAll(e){
         ++i;
         $("#spnProgressZip").text("Generated " + i + " of " + psalms.length);
         getNextPsalm(i);
-      });
+      }, function() { getNextPsalm(++i); });
     } else {
-      $("#spnProgressZip").text("Zipping...");
-      var data = zip.generate(true);
-      byteArray = new Uint8Array(data.length);
-      for (i = 0; i < data.length; i++) {
-          byteArray[i] = data.charCodeAt(i) & 0xff;
-      }
-      var blob = new Blob([byteArray.buffer], {type: 'application/zip'});
-      saveAs(blob, 'psalms.zip', true);
       $("#spnProgressZip").text("");
       $("#lnkDownloadAll").show();
       $("#lnkCancelZip").hide();
