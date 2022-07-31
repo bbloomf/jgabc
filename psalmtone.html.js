@@ -677,9 +677,9 @@ function downloadAll(e){
                                                 String(psalmNum),
                                                 t,
                                                 ending);
-    
-    if(texts[0]) zip.add(header["name"] + ".gabc",header + texts[0]);
-    if(texts[1].length>0)zip.add(filename,texts[1]);
+    let replaceAsh = function(str) { return str.replace(/æ/g,'ae').replace(/Æ/g, 'Ae') };
+    if(texts[0]) zip.add(replaceAsh(header["name"] + ".gabc"),header + texts[0]);
+    if(texts[1].length>0)zip.add(replaceAsh(filename),texts[1]);
   };
   var getNextPsalm = function(i){
     if(cancelZipping){
