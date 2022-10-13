@@ -3073,6 +3073,27 @@ $(function(){
         ')';
     });
   }
+  var getPaperSize = window.getPaperSize = function() {
+    let fontSize = 20;
+    const a4 = { width: 8.27, height: 11.69 };
+    const letter = { width: 8.5, height: 11 };
+    if(paperSize === 'a4') {
+      width = a4.width - 1; // margin
+      height = a4.height
+      fontSize = 19;
+    } else if(paperSize === 'a4-booklet') {
+      width = (a4.height / 2) - 1;
+      height = a4.width;
+      fontSize = 13;
+    } else if(paperSize === 'letter-booklet') {
+      width = (letter.height / 2) - 1;
+      height = letter.width;
+      fontSize = 12;
+    } else {
+      width = letter.width - 1;
+    }
+    return { fontSize, width, height };
+  }
   var getAllGabc = window.getAllGabc = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
@@ -3112,18 +3133,17 @@ $(function(){
         header.commentary = header.commentary || ' ';
         name = '';
       }
-      if(isFirstChant) {
-        header['%fontsize'] = '20';
-      }
       if(hasPageBreak && !isFirstChant) {
         header['%pageBreak'] = 'true';
       }
+      let size = getPaperSize();
+      if(isFirstChant) {
+        header['%fontsize'] = size.fontSize.toString();
+      }
       header['%font'] = 'GaramondPremierPro';
-      if(paperSize === 'a4') {
-        header['%width'] = '7.27';
-        header['%height'] = '11.69';
-      } else {
-        header['%width'] = '7.5';
+      header['%width'] = size.width.toString();
+      if (size.height) {
+        header['%height'] = size.height.toString();
       }
       gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
@@ -3149,6 +3169,7 @@ $(function(){
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=getAllGabc();
+    var size = getPaperSize();
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
@@ -3156,8 +3177,9 @@ $(function(){
     for(var i=0;i<gabcs.length;++i){
       $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
     }
-    $('#pdff_width').val(paperSize == 'a4'? 7.27 : 7.5);
-    $('#pdff_height').val(paperSize == 'a4'? 11.69 : 11);
+    $('#pdff_width').val(size.width);
+    $('#pdff_height').val(size.height || '11');
+    $('#pdff_fontsize').val(size.fontSize);
     $("#pdfFormDirect").submit();
   });
   $('[id$=-preview]').on('relayout',function(){
@@ -3229,7 +3251,7 @@ $(function(){
         $icon = $this.find('span.glyphicon'),
         lbl = $this.find('.lbl').text();
     $('.dropdown-paper-size li>a').removeClass('b').find('span.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-blank');
-    paperSize = localStorage.paperSize = lbl.toLowerCase();
+    paperSize = localStorage.paperSize = lbl.toLowerCase().replace(/\s+/g, '-');
     $('span.lbl-paper-size').text(lbl);
     $this.addClass('b');
     $icon.addClass('glyphicon-ok').removeClass('glyphicon-blank');
