@@ -1404,7 +1404,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/~+<i>/g, '<i>').replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
+    s = s.replace(/~*(<\/?i>~?)~*/g, '$1').replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   
@@ -3077,6 +3077,7 @@ $(function(){
     let fontSize = 20;
     const a4 = { width: 8.27, height: 11.69 };
     const letter = { width: 8.5, height: 11 };
+    let width, height;
     if(paperSize === 'a4') {
       width = a4.width - 1; // margin
       height = a4.height
