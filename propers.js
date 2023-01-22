@@ -2088,6 +2088,7 @@ $(function(){
     var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
     var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
     var header = getHeader(sel[part].gabc||'');
+    header = String(header).replace(/annotation: [iv]+;/, "annotation: "+romanNumeral[mode]+";").replace(/mode: \d+;/, "mode: "+mode+";");
     var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
