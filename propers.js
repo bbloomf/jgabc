@@ -2088,6 +2088,10 @@ $(function(){
     var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
     var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
     var header = getHeader(sel[part].gabc||'');
+    header.mode = mode;
+    delete header.annotationArray;
+    delete header.annotation;
+
     var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
