@@ -1565,26 +1565,25 @@ $(function(){
         });
       }).join(';').replace(/℣/g,'V'));
   }
-  var tagReplacements = {
-    "*": /<v>\\greheightstar<\/v>/g,
-    "«": /<v>\$\\guillemotleft\$<\/v>/g,
-    "»": /<v>\$\\guillemotright\$<\/v>/g,
-    "$1": /<v>([\[\(\)\]])/g,
-    "$1": /<v>\\large\{(.*?)}<\/v>/g,
+  var tagReplacements = [
+    ["*", /<v>\\greheightstar<\/v>/g],
+    ["«", /<v>\$\\guillemotleft\$<\/v>/g],
+    ["»", /<v>\$\\guillemotright\$<\/v>/g],
+    ["$1", /<v>([\[\(\)\]])/g],
+    ["$1", /<v>\\large\{(.*?)}<\/v>/g],
 
-    "℣": /<sp>V\/<\/sp>/g,
-    "℟": /<sp>R\/<\/sp>/g,
-    "æ": /<sp>ae<\/sp>/g,
-    "ǽ": /<sp>'(ae|æ)<\/sp>/g,
-    "œ": /<sp>'?(oe|œ)<\/sp>/g,
-    "[$1]": /<sp>(.*?)<\/sp>/g,
+    ["℣", /<sp>V\/<\/sp>/g],
+    ["℟", /<sp>R\/<\/sp>/g],
+    ["æ", /<sp>ae<\/sp>/g],
+    ["ǽ", /<sp>'(ae|æ)<\/sp>/g],
+    ["œ", /<sp>'?(oe|œ)<\/sp>/g],
+    ["[$1]", /<sp>(.*?)<\/sp>/g],
 
-    "($1) ": /<alt>(.*?)<\/alt>\s*/g
-  };
+    ["($1) ", /<alt>(.*?)<\/alt>\s*/g]
+  ];
   var replaceGabcTags = function(text) {
-    Object.keys(tagReplacements).forEach(function(replace) {
-      var find = tagReplacements[replace];
-      text = text.replace(find,replace);
+    Object.keys(tagReplacements).forEach(function(pair) {
+      text = text.replace(pair[1],pair[0]);
     });
     return text;
   }
@@ -1660,7 +1659,7 @@ $(function(){
                 return result;
               }).join('');
             }).replace(/\*/,'<span class="red">*</span>'));
-            if(/^allel[uú][ij]a\s*(\*|\*?\s*(<i>)?ij\.(<\/i>)?)/i.test(segment)) {
+            if(/^allel[uú][ij]a\s*(\*|\*?\s*(<i>)?\{?ij\.\}?(<\/i>)?)/i.test(segment)) {
               $span.find('syl[accent]').attr('accent',null);
             } else {
               var syls = $span.find('syl');

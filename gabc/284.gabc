@@ -1,12 +1,13 @@
 name: Prope est Dominus;
 office-part: Graduale;
 mode: 5;
-book: Graduale Romanum, 1961, p. 21 & The Liber Usualis, 1961, p. 354;
+book: Graduale Romanum, 1961, p. 21 & The Liber Usualis, 1961, p. 354 & Graduale Romanum, 1974, p. 35 & Gregorian Missal, 1990, p. 181;
 transcriber: Andrew Hinkley;
 commentary: Ps 144: 18, 21;
 %%
-(c4) PRo(f)pe(f) est(f) Dó(f_)mi(d)nus(d/ffg/fffd,ff/ge'fvDC'fd'/ed/dc.) *(;) óm(f)ni(gh)bus(h) in(h)vo(g)cán(fhg)ti(g)bus(g) (`) e(hg/h!jjjh,jjjvIH'jg/gfg)um:(gf..) (:)
-óm(hj)ni(gf)bus(f) qui(f) ín(f)vo(e)cant(dgf~) e(fge'/fd/dcd)um(dc..) (;) in(e_) ve(c)ri(d!ewf)tá(fgFC'd!fff)te.(f.,ixhhg/hh/gh!ivGFhhiyfh!jkijh.,fg/h!jj/klijh./ixgiHF.1) (z0::c3)
-<sp>V/</sp>. Lau(hh)dem(h) Dó(h)mi(h)ni(ihh'h/h_f,hhf/hhe/gxfgED.gyhhjvIHhvGF.) (:)
-lo(f!h'i)qué(i)tur(ih/jkIH'hf.) (,) os(hf/hhh) me(h)um:(h.f!gwhiv.hi/jhh/iih.0) (:)
-et(d) be(d)ne(fe)dí(eh)cat(h.) (,) om(ih/hg~)nis(i'/jk) ca(i_h)ro(hg/i_h/jvIH'Ghf..) (;) no(f_e)men(gxegf'gvE'D) sanc(fe~)tum(h.) *(,) e(hiH'F)jus.(f./de/f!hh/ijghf.0gxegFD.1) (::)
+(c4) PRo(f)pe(f) est(f) Dó(f_)mi(d)nus(d//ffg/fffd) (,) (ff/ge'fvDC'//fd'/eddc.) *(;)
+óm(f)ni(gh)bus(h) in(h)vo(g)cán(fhg)ti(g)bus(g) (`) e(hg/h!jjjh)(,)(jjjvIH'jggfg)um:(gf..) (:)
+óm(hj)ni(gf)bus(f) qui(f) ín(f)vo(e)cant(dgf~) e(fge'/fddcd)um(dc..) (;) in(e_) ve(c)ri(d!ewf)tá(fgF//C'd!fff)te.(f.) (,) (ixhhg/hh//gh!ivGFhh//iyfh!jkijh.) (,) (fg/h!jj/klijh.ixgiHF.1) (z0::c3)
+<sp>V/</sp>. Lau(hh)dem(h) Dó(h)mi(h)ni(ihh'hh_f) (,) (hhf/hhe//gxfgED./[-3.4]gy/[0.4]hhjvIH//hvGF.) (:)
+lo(f!h'i)qué(i)tur(ih/jkIH'hf.) (,) os(hf/hhh) me(h)um:(h.f!gwh!iv.hi/!jh/!h/iih.0) (:)
+et(d) be(d)ne(fe)dí(eh)cat(h.) (,) om(ihhg~)nis(i'/jk) ca(i_h)ro(hg/i_h//jvIH'Ghf..) (;) no(f_e)men(gxegf'gvE'D) sanc(fe~)tum(h.) *(,) e(hiH'F)jus.(f./de/f!hh/ijghf.0gxegFD.1) (::)
