@@ -1434,7 +1434,7 @@ commentary: Psalm 116;\n\
         rubric: "The antiphon <Allelúia, allelúia, allelúia.> is repeated.",
         rubricAfter: "The celebrant then at once intones the antiphon of the Magnificat, which is continued by the Choir:"
     }, {
-        id: 8187,
+        id: 12662,
         sticky: 0
     }, {
         rubric: " ",
