@@ -1404,7 +1404,7 @@ $(function(){
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/~+<i>/g, '<i>').replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
+    s = s.replace(/~*(<\/?i>~?)~*/g, '$1').replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   
@@ -1565,26 +1565,25 @@ $(function(){
         });
       }).join(';').replace(/℣/g,'V'));
   }
-  var tagReplacements = {
-    "*": /<v>\\greheightstar<\/v>/g,
-    "«": /<v>\$\\guillemotleft\$<\/v>/g,
-    "»": /<v>\$\\guillemotright\$<\/v>/g,
-    "$1": /<v>([\[\(\)\]])/g,
-    "$1": /<v>\\large\{(.*?)}<\/v>/g,
+  var tagReplacements = [
+    ["*", /<v>\\greheightstar<\/v>/g],
+    ["«", /<v>\$\\guillemotleft\$<\/v>/g],
+    ["»", /<v>\$\\guillemotright\$<\/v>/g],
+    ["$1", /<v>([\[\(\)\]])/g],
+    ["$1", /<v>\\large\{(.*?)}<\/v>/g],
 
-    "℣": /<sp>V\/<\/sp>/g,
-    "℟": /<sp>R\/<\/sp>/g,
-    "æ": /<sp>ae<\/sp>/g,
-    "ǽ": /<sp>'(ae|æ)<\/sp>/g,
-    "œ": /<sp>'?(oe|œ)<\/sp>/g,
-    "[$1]": /<sp>(.*?)<\/sp>/g,
+    ["℣", /<sp>V\/<\/sp>/g],
+    ["℟", /<sp>R\/<\/sp>/g],
+    ["æ", /<sp>ae<\/sp>/g],
+    ["ǽ", /<sp>'(ae|æ)<\/sp>/g],
+    ["œ", /<sp>'?(oe|œ)<\/sp>/g],
+    ["[$1]", /<sp>(.*?)<\/sp>/g],
 
-    "($1) ": /<alt>(.*?)<\/alt>\s*/g
-  };
+    ["($1) ", /<alt>(.*?)<\/alt>\s*/g]
+  ];
   var replaceGabcTags = function(text) {
-    Object.keys(tagReplacements).forEach(function(replace) {
-      var find = tagReplacements[replace];
-      text = text.replace(find,replace);
+    Object.keys(tagReplacements).forEach(function(pair) {
+      text = text.replace(pair[1],pair[0]);
     });
     return text;
   }
@@ -1660,7 +1659,7 @@ $(function(){
                 return result;
               }).join('');
             }).replace(/\*/,'<span class="red">*</span>'));
-            if(/^allel[uú][ij]a\s*(\*|\*?\s*(<i>)?ij\.(<\/i>)?)/i.test(segment)) {
+            if(/^allel[uú][ij]a\s*(\*|\*?\s*(<i>)?\{?ij\.\}?(<\/i>)?)/i.test(segment)) {
               $span.find('syl[accent]').attr('accent',null);
             } else {
               var syls = $span.find('syl');
@@ -2088,6 +2087,10 @@ $(function(){
     var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
     var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
     var header = getHeader(sel[part].gabc||'');
+    header.mode = mode;
+    delete header.annotationArray;
+    delete header.annotation;
+
     var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
     if(originalClef) originalClef = originalClef[1];
@@ -3073,6 +3076,28 @@ $(function(){
         ')';
     });
   }
+  var getPaperSize = window.getPaperSize = function() {
+    let fontSize = 20;
+    const a4 = { width: 8.27, height: 11.69 };
+    const letter = { width: 8.5, height: 11 };
+    let width, height;
+    if(paperSize === 'a4') {
+      width = a4.width - 1; // margin
+      height = a4.height
+      fontSize = 19;
+    } else if(paperSize === 'a4-booklet') {
+      width = (a4.height / 2) - 1;
+      height = a4.width;
+      fontSize = 13;
+    } else if(paperSize === 'letter-booklet') {
+      width = (letter.height / 2) - 1;
+      height = letter.width;
+      fontSize = 12;
+    } else {
+      width = letter.width - 1;
+    }
+    return { fontSize, width, height };
+  }
   var getAllGabc = window.getAllGabc = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
@@ -3112,18 +3137,17 @@ $(function(){
         header.commentary = header.commentary || ' ';
         name = '';
       }
-      if(isFirstChant) {
-        header['%fontsize'] = '20';
-      }
       if(hasPageBreak && !isFirstChant) {
         header['%pageBreak'] = 'true';
       }
+      let size = getPaperSize();
+      if(isFirstChant) {
+        header['%fontsize'] = size.fontSize.toString();
+      }
       header['%font'] = 'GaramondPremierPro';
-      if(paperSize === 'a4') {
-        header['%width'] = '7.27';
-        header['%height'] = '11.69';
-      } else {
-        header['%width'] = '7.5';
+      header['%width'] = size.width.toString();
+      if (size.height) {
+        header['%height'] = size.height.toString();
       }
       gabc = header + processSolesmes(gabc.slice(header.original.length).
         replace(/\^/g,''). // get rid of exsurge specific ^
@@ -3149,6 +3173,7 @@ $(function(){
   });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=getAllGabc();
+    var size = getPaperSize();
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
@@ -3156,8 +3181,9 @@ $(function(){
     for(var i=0;i<gabcs.length;++i){
       $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
     }
-    $('#pdff_width').val(paperSize == 'a4'? 7.27 : 7.5);
-    $('#pdff_height').val(paperSize == 'a4'? 11.69 : 11);
+    $('#pdff_width').val(size.width);
+    $('#pdff_height').val(size.height || '11');
+    $('#pdff_fontsize').val(size.fontSize);
     $("#pdfFormDirect").submit();
   });
   $('[id$=-preview]').on('relayout',function(){
@@ -3229,7 +3255,7 @@ $(function(){
         $icon = $this.find('span.glyphicon'),
         lbl = $this.find('.lbl').text();
     $('.dropdown-paper-size li>a').removeClass('b').find('span.glyphicon').removeClass('glyphicon-ok').addClass('glyphicon-blank');
-    paperSize = localStorage.paperSize = lbl.toLowerCase();
+    paperSize = localStorage.paperSize = lbl.toLowerCase().replace(/\s+/g, '-');
     $('span.lbl-paper-size').text(lbl);
     $this.addClass('b');
     $icon.addClass('glyphicon-ok').removeClass('glyphicon-blank');

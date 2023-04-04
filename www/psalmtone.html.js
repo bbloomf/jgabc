@@ -117,7 +117,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
           if(flexI >= 0) {
             var syls = getSyllables(line[0].slice(0,flexI));
             var index = syls.length - 1;
-            syls[index].punctuation += ' ' + sym_flex;
+            syls[index].punctuation += ' ' + gabcFlex;
             syls[index].space = "";
             var sylcount = syls[index].word.length;
             index -= sylcount - 1;
@@ -778,8 +778,16 @@ function updateVerseGabcStar(newStar){
   if(typeof(newStar)!='string') {
     newStar = $(this).val();
   }
-  if(typeof(newStar)!='string' || newStar.length == 0) newStar = '*';
+  if(typeof(newStar)!='string' || newStar.length == 0) newStar = sym_med;
   localStorage.gabcStar = gabcStar = newStar;
+  updateEditor(true);
+}
+function updateVerseGabcFlex(newFlex){
+  if(typeof(newFlex)!='string') {
+    newFlex = $(this).val();
+  }
+  if(typeof(newFlex)!='string' || newFlex.length == 0) newFlex = sym_flex;
+  localStorage.gabcFlex = gabcFlex = newFlex;
   updateEditor(true);
 }
 $(function() {
@@ -800,6 +808,7 @@ $(function() {
     }
   }
   $("#txtGabcStar").val(gabcStar).keyup(updateVerseGabcStar);
+  $('#txtGabcFlex').val(gabcFlex).keyup(updateVerseGabcFlex);
   $("label[title][for]").each(function() {
     var forId = this.getAttribute('for');
     $("#" + forId).attr('title',this.title);

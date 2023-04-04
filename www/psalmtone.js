@@ -11,12 +11,8 @@ var sym_med = '*';
 var gloria_patri = "Glória Patri, et Fílio, * et Spirítui Sancto.\nSicut erat in princípio, et nunc, et semper, * et in sǽcula sæculórum. Amen.";
 var gloria_patri_end_vowels = "E u o* u a* e.";
 var bi_formats;
-var gabcStar;
-if(localStorage.gabcStar) {
-  gabcStar = localStorage.gabcStar;
-} else {
-  gabcStar = '<v>\\greheightstar</v>'
-}
+var gabcStar = localStorage.gabcStar || '<v>\\greheightstar</v>';
+var gabcFlex = localStorage.gabcFlex || sym_flex;
 String.prototype.format = function(keys){
   return this.replace(/\$([a-z]+)/gi,function(e){return keys[e.slice(1)]||e;});
 }
@@ -1268,7 +1264,7 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
       result = s.prepunctuation + result;
       ++donePrep;
     } else if(s.flex) {
-      result = s.prepunctuation + s.prespace + biFlex[2] + s.sylnospace + biFlex[3] + s.punctuation + f.nbsp + sym_flex + result;
+      result = s.prepunctuation + s.prespace + biFlex[2] + s.sylnospace + biFlex[3] + s.punctuation + f.nbsp + gabcFlex + result;
       var j = i - 2
       --i;
       while(!syl[i].accent && i >= j) {
@@ -1499,7 +1495,7 @@ function splitPosition(sylCounts) {
 }
 
 function splitLine(oLine, segments, joinString, maxSyllablesPerSegment) {
-  if(typeof joinString !== 'string') joinString = ' ' + sym_flex + ' ';
+  if(typeof joinString !== 'string') joinString = ' ' + gabcFlex + ' ';
   if(!maxSyllablesPerSegment) maxSyllablesPerSegment = Infinity;
   if(!segments) segments = 2;
   var line = typeof oLine == 'string'? oLine.split(' * ') : oLine;
@@ -1525,7 +1521,7 @@ function splitLine(oLine, segments, joinString, maxSyllablesPerSegment) {
       return result;
     }
     // if there are 3 segments right now, but we're only asking for two, always put the flex in the first segment
-    var i = (line.length == 3 && (joinString == ' ' + sym_flex + ' '))? 2 : splitPosition(sylCounts, maxSyllablesPerSegment);
+    var i = (line.length == 3 && (joinString == ' ' + gabcFlex + ' '))? 2 : splitPosition(sylCounts, maxSyllablesPerSegment);
     if(segments === 2 && Math.max(sylCounts.slice(i).sum(), sylCounts.slice(0,i).sum()) > maxSyllablesPerSegment) {
       segments = 3;
     }

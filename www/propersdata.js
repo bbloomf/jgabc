@@ -201,6 +201,7 @@ var otherKeys = [
     {key:"SMlent",title:"A Purificatione usque ad Pascha",en:"From Candlemas to Easter"},
     {key:"SMeaster",title:"A Pascha usque ad Pentecosten",en:"From Easter to Pentecost"},
     {key:"SMpentecost",title:"A Pentecoste usque ad Adventum",en:"From Pentecost to Advent"},
+    {key:"Aug22",title:"Immaculati Cordis B.M.V.",en:"Of the Immaculate Heart of BVM"},
     {group:true, title:"Missæ votivæ aliæ",en:"Other Votive Masses"},
     {key:"votiveESP", title:"Pro eligendo Summo Pontifice",en:"For electing a pope"},
     {key:"votiveFP", title:"Pro Fidei Propagatione",en:"For the propagation of the faith"},
@@ -1433,7 +1434,7 @@ commentary: Psalm 116;\n\
         rubric: "The antiphon <Allelúia, allelúia, allelúia.> is repeated.",
         rubricAfter: "The celebrant then at once intones the antiphon of the Magnificat, which is continued by the Choir:"
     }, {
-        id: 8187,
+        id: 12662,
         sticky: 0
     }, {
         rubric: " ",
@@ -4114,6 +4115,24 @@ var proprium = {
         "coID": 982,
         "grID": 778,
         "alID": 881,
+        "inID": 1110,
+        "ofID": 1045,
+        "gbid": "immaculate_heart_bvm",
+        "coVerses": "Luc 1: 46-55"
+    },
+    "Aug22Quad": {
+        "coID": 982,
+        "grID": 778,
+        "trID": 793,
+        "inID": 1110,
+        "ofID": 1045,
+        "gbid": "immaculate_heart_bvm",
+        "coVerses": "Luc 1: 46-55"
+    },
+    "Aug22Pasch": {
+        "coID": 982,
+        "grID": 881,
+        "alID": 460,
         "inID": 1110,
         "ofID": 1045,
         "gbid": "immaculate_heart_bvm",
