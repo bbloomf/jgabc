@@ -1036,7 +1036,7 @@ texts = {
 		"3313": "ubi caritas est vera deus ibi est ℣ congregavit nos in unum christi amor ℣ exsultemus et in ipso jucundemur ℣ timeamus et amemus deum vivum ℣ et ex corde diligamus nos sincero ubi caritas est vera deus ibi est ℣ simul ergo cum in unum congregamur ℣ ne nos mente dividamur caveamus ℣ cessent jurgia maligna cessent lites ℣ et in medio nostri sit christus deus ubi caritas est vera deus ibi est ℣ simul quoque cum beatis videamus ℣ glorianter vultum tuum christe deus ℣ gaudium quod est immensum atque probum ℣ sæcula per infinita sæculorum",
 		"3315": "viri galilæi quid admiramini aspicientes in cælum hic jesus qui assumptus est a vobis in cælum sic veniet quemadmodum vidistis eum ascendentem in cælum alleluia",
 		"3317": "assumpta est maria in cælum gaudent angeli collaudantes benedicunt dominum alleluia",
-		"8253": "afferentur regi virgines proximæ ejus afferentur tibi in lætitia et exsultatione adducentur in templum regis pro patribus tuis nati sunt tibi filii contitues eos principes super omnem terram"
+		"8253": "afferentur regi virgines proximæ ejus afferentur tibi in lætitia et exsultatione adducentur in templum regis pro patribus tuis nati sunt tibi filii constitues eos principes super omnem terram"
 	},
 	"Communio": {
 		"6": "quam magna multitudo dulcedinis tuæ domine quam abscondisti timentibus te alleluia",

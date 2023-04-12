@@ -1,7 +1,7 @@
-var https= require('https'),
-    fs  = require('fs'),
+var https  = require('https'),
+    fs     = require('fs'),
     Hypher = require('hypher'),
-    gabc = require('./util.js'),
+    gabc   = require('./util.js'),
     prettier = require("prettier");
 require('./gabc-refs.js');
 gabcRefs["507&elem=2"] = "Ps 117: 1";
@@ -279,7 +279,7 @@ var path = 'gabc/',
                       .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
                       .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
                       .replace(/<v>\s*\\kern[^<]*<\/v>/g,'')
-                      .replace(/\s+([»’”"':;!?.,]+)\s*\(/g,'$1(')
+                      .replace(/\s+([»’”"':;!?.,]+)\s*([(<])/g,'$1$2')
                       .replace(/([«‘“"']+)\s+(?=[a-zæœǽǽœ́áéíóúýäëïöüÿ])/gi,'$1')
                       .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n')
                       .replace(/\/+([a-m]w)/g,'!$1') // don't put space before a quilisma
