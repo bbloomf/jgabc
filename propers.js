@@ -518,7 +518,7 @@ $(function(){
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });
           var ptn = sel[part].pattern;
-          if(!(ptn && ptn.length && ptn[0].length)) {
+          if(truePart.match(/alleluia|graduale|tractus/) || !(ptn && ptn.length && ptn[0].length)) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
           text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
