@@ -94,6 +94,22 @@ $(function(){
     if(!LocationHash) return null;
     return new LocationHash(location.hash);
   }
+  function makeAnnotationArrayFromHeader(gabcHeader) {
+    if(gabcHeader.mode || gabcHeader['office-part']) {
+      var annotation;
+      if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
+      if(annotation) {
+        if(annotation == 'V/.') {
+          return [annotation];
+        } else {
+          return [annotation, romanNumeral[gabcHeader.mode]];
+        }
+      } else if(gabcHeader.mode) {
+        return [romanNumeral[gabcHeader.mode]];
+      }
+    }
+    return
+  }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var $gradualeOptions = $('#selStyleGraduale>option').clone();
   var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
@@ -2090,6 +2106,13 @@ $(function(){
     header.mode = mode;
     delete header.annotationArray;
     delete header.annotation;
+    var annotationArray = makeAnnotationArrayFromHeader(header);
+    if (annotationArray) {
+      if (annotationArray.length > 1) {
+        header.annotationArray = annotationArray;
+      }
+      header.annotation = annotationArray[0];
+    }
 
     var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
