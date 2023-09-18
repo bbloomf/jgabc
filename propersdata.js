@@ -128,7 +128,7 @@ var sundayKeys = [
     {key:"Pent16",title:"16 post Pentecosten",en:"16th Sunday after Pentecost"},
     {key:"Pent17",title:"17 post Pentecosten",en:"17th Sunday after Pentecost"},
     {key:"EmbWedSept",title:"Feria Quarta IV Temporum Septembris",en:"Ember Wednesday in September"},
-    {key:"EmbFriSept",title:"Feia Sexta IV Temporum Septembris",en:"Ember Friday in September"},
+    {key:"EmbFriSept",title:"Feria Sexta IV Temporum Septembris",en:"Ember Friday in September"},
     {key:"EmbSatSept",title:"Sabbato IV Temporum Septembris",en:"Ember Saturday in September"},
     {key:"EmbSatSeptS",title:"Sabbato IV Temporum (forma brevior)",en:"Ember Saturday (shorter form)"},
     {key:"Pent18",title:"18 post Pentecosten",en:"18th Sunday after Pentecost"},
