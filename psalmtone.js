@@ -25,7 +25,7 @@ Array.prototype.mapSyllableCounts = function() {
     return substring.countSyllables();
   })
 }
-var o_bi_formats = 
+var o_bi_formats =
     bi_formats = (function(){
                     return {
                       html: {
@@ -96,7 +96,7 @@ var o_bi_formats =
                       }
                     };
                 })();
-var o_g_tones = 
+var o_g_tones =
     g_tones = {'1.':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h.",
                   solemn:"f gh hr hg ixgi h hr 'hg gh..",
@@ -403,7 +403,7 @@ var Syl = (function(){
                 }
                 startIndex += d[si];
               }
-            } 
+            }
           }
         } else if(w in words){
           d=words[w];
@@ -440,7 +440,7 @@ var Syl = (function(){
           var ts = m[3].slice(wi,di);
           tmp[2] = tmp[3] = tmp[3] + ts;
           //tmp[3] = ts;
-          
+
           tmp.index=index+wi;
           if(wi + tmp[2].length >= ai[0]){
             ai.shift();
@@ -1283,17 +1283,52 @@ function addBoldItalic(text,accents,preparatory,sylsAfterBold,format,onlyVowel,v
 }
 splitPsalmsMap = {
   "7"   : [10, 8],
-  "9"   : [19, 23],
-  "17"  : [27, 27],
+  "9"   : {
+    "": [10, 11, 13, 8],
+    "monastic": [19, 23]
+  },
+  "17"  : {
+    "": [18, 19, 17],
+    "monastic": [27, 27]
+  },
+  "18"  : [7, 9],
+  "21"  : [11, 12, 11],
+  "24"  : [8, 7, 8],
+  "26"  : [11, 9],
   "30"  : [10, 12, 9],
   "32"  : [11, 11],
   "33"  : [10, 12],
+  "34"  : [12, 8, 12],
+  "36"  : [16, 15, 11],
+  "37"  : [10, 13],
+  "39"  : [7, 11, 6],
+  "41"  : [7, 9],
   "43"  : [10, 11, 7],
+  "44"  : [11, 9],
+  "48"  : [12, 9],
+  "49"  : [16, 8],
+  "54"  : [17, 10],
   "58"  : [10, 10],
+  "65"  : [11, 8],
+  "67"  : [11, 14, 13],
+  "68"  : [16, 17, 9],
   "70"  : [13, 13],
+  "71"  : [8, 12],
+  "72"  : [9, 8, 11],
+  "73"  : [10, 8, 6],
+  "75"  : [6, 6],
   "76"  : [12, 8],
+  "77"  : [11, 8, 16, 11, 18, 14],
+  "79"  : [8, 12],
+  "83"  : [7, 6],
+  "88"  : [18, 18, 15],
+  "93"  : [11, 12],
+  "101" : [13, 10, 6],
   "102" : [12, 10],
-  "106" : [14, 16, 13], 
+  "103" : [13, 11, 12],
+  "104" : [15, 11, 18],
+  "105" : [16, 15, 16],
+  "106" : [14, 16, 13],
   "108" : [12, 8, 10],
   "115&": {
     "monastic, Monday Vespers": ["116"],
