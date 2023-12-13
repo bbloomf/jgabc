@@ -70,6 +70,7 @@ Ref.prototype.getLinesFromLiber = function() {
       });
     }
     var book = mapBooks[self.book] || self.book;
+    var text = null;
     if(book in canticumMapByFile) {
       psalm = book;
       map = canticumMapByFile[book].map;
@@ -81,11 +82,12 @@ Ref.prototype.getLinesFromLiber = function() {
       var startVerse = Object.keys(chapterMap).map(function(i) { return parseInt(i); }).filter(function(i) { return i<=self.verse; }).sort().slice(-1)[0];
       map = chapterMap[startVerse];
       psalm = map.file;
+      text = map.text;
       map = map.map;
     }
   }
   
-  return $.get(urlRoot+"psalms/"+psalm).pipe(function(liber) {
+  function produceResult(liber) {
     liber = liber.trim().replace(/\r\n?/g,'\n').split('\n');
     return [].concat.apply([], map.map(function(a, index) {
       var b = map[index + 1],
@@ -105,7 +107,9 @@ Ref.prototype.getLinesFromLiber = function() {
       }
       return [];
     }));
-  });
+  }
+  if (text) return produceResult(text);
+  return $.get(urlRoot+"psalms/"+psalm).pipe(produceResult);
 }
 function refArrayString(array) {
   if(!array.length) return "";

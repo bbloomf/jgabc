@@ -2409,7 +2409,7 @@ var proprium = {
         "grID": 1007,
         "gbid": "advent3",
         "inVerses": "Ps 84: 3-5, 7-8, 10-12, 14",
-        "coVerses": "Isaiae 35: 1, 2-3, 5-7"
+        "coVerses": "Is 35: 1, 2-3, 5-7"
     },
     "Adv3w": {
         "inID": 79,
