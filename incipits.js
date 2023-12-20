@@ -563,9 +563,9 @@ incipits = {
 		"si ambulem": 1121,
 		"sicut": 748,
 		"specie": 174,
-		"speciosus forma præ": {
-			"filiis": 1308,
-			"filius": 1354
+		"speciosus forma præ filiis hominum diffusa est gratia in labiis tuis ℣": {
+			"eructavit": 1308,
+			"filiæ": 1354
 		},
 		"spera": 21,
 		"spiritus": 1016,
@@ -1799,7 +1799,6 @@ incipits = {
 		},
 		"parce": 3038,
 		"per lignum": 940,
-		"popule": 157,
 		"postquam": 649,
 		"pueri hebræorum": {
 			"portantes": 1215,
