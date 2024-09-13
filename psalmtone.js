@@ -270,7 +270,8 @@ var o_g_tones =
                    },
 			
   'V. Solemnior':{clef:"c3",
-         mediant:"hr 'hi hr h_, hr fe 'f_h hr hiHGhih.ghGFE'fggf."
+         mediant:"hr 'hi hr h_,"
+         termination: "hr f e 'f_h hr hiHGhih.ghGFE'fggf."
         }
  }
 			;
