@@ -213,6 +213,10 @@ var o_g_tones =
                      mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"gr d 'f fr ed.."
                     },
+         'per.-alt':{clef:"c4",
+                 mediant:"ixhi hr ixi h 'g fr f.",
+                 termination:"ixhi gr d 'f fr ed.."
+                },
              'irregularis': {clef:"c4",
                       mediant:"f gh hr 'g fr f.",
                       terminations:{'a': "hr ixi g ixi h.",
