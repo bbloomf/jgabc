@@ -213,20 +213,31 @@ var o_g_tones =
                      mediant:"ixhi hr g ixi h 'g fr f.",
                      termination:"gr d 'f fr ed.."
                     },
+         'per.-alt':{clef:"c4",
+                 mediant:"ixhi hr ixi h 'g fr f.",
+                 termination:"ixhi gr d 'f fr ed.."
+                },
              'irregularis': {clef:"c4",
                       mediant:"f gh hr 'g fr f.",
                       terminations:{'a': "hr ixi g ixi h.",
                                     'a2':"hr 'ixi gr gr 'ixi ir h."
                                    }
                     },
-             'in directum': {clef:"c3",
-                      mediant:"e f hr i 'i fr f.",
-                      termination:"hr e f 'g fr f."
-                    },
-             'in dir. monasticus': {clef:"c3",
+         'in dir. romanus': {clef:"c3",
+                  mediant:"hr g f 'h hr h.",
+                  termination:"hr f."
+                },
+          'in dir. monasticus': {clef:"c3",
                       mediant:"hr g f 'h hr h.",
                       termination:"hr h."
                     },
+			'tonus T.P.': {clef:"c3",
+						mediant:"e f hr i 'i fr f.",
+					termination:"hr e f 'g fr f."},
+			'tonus ad Horas 2 nov ad lib.': {clef:"c4",
+						mediant:"f gh hr 'g gr f.",
+					termination:"hr 'g g."},
+					 	
              // 'in directum (alt.)': {clef:"c4",
              //          mediant:"t[0].word.length==1?f gh hr g h.:f gh hr 'g fr f.",
              //          termination:"hr f 'g gr g."
@@ -260,8 +271,14 @@ var o_g_tones =
                    },
              'V.2':{clef:"c4",
                     mediant:"hr h h/hf,fgwhvGFEfg/gf"
-                   }
-            };
+                   },
+			
+  'V. Solemnior':{clef:"c3",
+         mediant:"hr 'hi hr h_,"
+         termination: "hr f e 'f_h hr hiHGhih.ghGFE'fggf."
+        }
+ }
+			;
 var d_tones = {'1.':{clef:"c4",
                   mediant:"f gh hr 'ixi hr 'g hr h",
                   solemn:"f gh hr hg ixgi h hr 'hg gh",
