@@ -3171,6 +3171,7 @@ $(function(){
         header['%height'] = size.height.toString();
       }
       gabc = header + processSolesmes(gabc.slice(header.original.length).
+        replace(/\u0301/g, ''). // combining character isn't working in TeX, so just get rid of it
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^[\]()\s]\s+(?:[^[\]()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^[\]()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
         // replace(/(['_.])\d/g,"$1"). // version of Gregorio on sourceandsummit.com currently doesn't support digit after ' or _ or .
