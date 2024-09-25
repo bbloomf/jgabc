@@ -5327,7 +5327,8 @@ var proprium = {
         "gbid": "st_gabriel",
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Mar25": {
         "coID": 1144,
@@ -5882,7 +5883,8 @@ var proprium = {
         "ofID": 1270,
         "gbid": "guardian_angels",
         "inVerses": "Ps 102: 21-22",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Oct20": {
         "coID": 1003,
@@ -5911,7 +5913,8 @@ var proprium = {
         "gbid": "st_raphael",
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Oct27": {
         "inID": 261,
@@ -6046,7 +6049,8 @@ var proprium = {
         "gbid": "st_michael",
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Sep3": {
         "coID": 90,

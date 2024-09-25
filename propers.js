@@ -3383,7 +3383,7 @@ $(function(){
         state.startOfVerse = '('+lastNote+'+) ';
         state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
         state.activeGabc = getPsalmToneForPart(versePart, tone);
-        if(!selPropers || selPropers.gloriaPatri !== false) {
+        if(!selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false))) {
           state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
         }
         state.responsoryCallbacks = [];

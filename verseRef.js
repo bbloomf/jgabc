@@ -108,7 +108,7 @@ Ref.prototype.getLinesFromLiber = function() {
       return [];
     }));
   }
-  if (text) return produceResult(text);
+  if (text) return $.when(produceResult(text));
   return $.get(urlRoot+"psalms/"+psalm).pipe(produceResult);
 }
 function refArrayString(array) {

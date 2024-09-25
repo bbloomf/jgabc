@@ -51,5 +51,10 @@
     "ref": "Is 35: 1-7",
     "text": "Lætábitur desérta et ínvia: * et exsultábit solitúdo, et florébit quasi lílium.\nGlória Líbani data est ei, * decor Carméli, et Saron.\nIpsi vidébunt glóriam Dómini, * et decórem Dei nostri.\nConfortáte manus dissolútas, * et génua debília roboráte.\nTunc aperiéntur óculi cæcórum, * et aures surdórum patébunt.\nTunc sáliet sicut cervus claudus, * et apérta erit lingua mutórum.\nQuia scissæ sunt in desérto aquæ, et torréntes in solitúdine.\nEt quæ erat árida, erit in stagnum, * et sítiens in fontes aquárum.",
     "map": [0, 1, 3, 3, 4, 5, 6]
+  },
+  "Canticum Danielis": {
+    "ref": "Dan 3: 57, 60-65, 83-87",
+    "text": "Benedícite, ómnia ópera Dómini Dómino: * laudáte et superexaltáte eum in sǽcula.\nBenedícite, aquæ omnes, quæ super cælos sunt, Dómino: * benedícite, omnes virtútes Dómini Dómino.\nBenedícite, sol et luna, Dómino: * benedícite, stellæ cæli, Dómino.\nBenedícite, omnis imber et ros, Dómino: * benedícite, omnes spíritus Dei, Dómino.\nBenedícat Israël Dóminum: * laudet et superexáltet eum in sǽcula.\nBenedícite, sacerdótes Dómini Dómino: * benedícite, servi Dómini, Dómino.\nBenedícite, spíritus et ánimæ justórum, Dómino: * benedícite, sancti et húmiles corde, Dómino.\nBenedicámus Patrem et Fílium cum Sancto Spíritu: * laudémus et superexaltémus eum in sǽcula.",
+    "map": [0, 0, 0, 1, 1, 2, 2, 3, 3,  3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3, 4, 5, 5, 6, 7]
   }
 }
