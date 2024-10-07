@@ -56,5 +56,10 @@
     "ref": "Dan 3: 57, 60-65, 83-87",
     "text": "Benedícite, ómnia ópera Dómini Dómino: * laudáte et superexaltáte eum in sǽcula.\nBenedícite, aquæ omnes, quæ super cælos sunt, Dómino: * benedícite, omnes virtútes Dómini Dómino.\nBenedícite, sol et luna, Dómino: * benedícite, stellæ cæli, Dómino.\nBenedícite, omnis imber et ros, Dómino: * benedícite, omnes spíritus Dei, Dómino.\nBenedícat Israël Dóminum: * laudet et superexáltet eum in sǽcula.\nBenedícite, sacerdótes Dómini Dómino: * benedícite, servi Dómini, Dómino.\nBenedícite, spíritus et ánimæ justórum, Dómino: * benedícite, sancti et húmiles corde, Dómino.\nBenedicámus Patrem et Fílium cum Sancto Spíritu: * laudémus et superexaltémus eum in sǽcula.",
     "map": [0, 0, 0, 1, 1, 2, 2, 3, 3,  3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3, 4, 5, 5, 6, 7]
+  },
+  "Cancitum Sapientiæ": {
+    "ref": "Sap 3: 1-3, 5, 8-9",
+    "text": "Justórum ánimæ in manu Dei sunt, * et non tanget illos torméntum mortis.\nVisi sunt óculis insipiéntium mori: * et æstimáta est afflíctio éxitus illórum.\nEt quod a nobis est iter extermínium: * illi autem sunt in pace.\nEtsi coram homínibus torménta passi sunt, * spes illórum immortalitáte plena est.\nIn paucis vexáti, in multis bene disponéntur: * quóniam Deus tentávit eos, † et invénit illos dignos se.\nTamquam aurum in fornáce probávit illos, † et quasi holocáusti hóstiam accépit illos, * et in témpore erit respéctus illórum.\nFulgébunt justi, * et tamquam scintíllæ in arundinéto discúrrent.\nJudicábunt natiónes et dominabúntur pópulis, * et regnábit Dóminus illórum in perpétuum.\nQui confídunt in illo intélligent veritátem, * et fidéles in dilectióne acquiéscent illi.",
+    "map": [0, 1, 2, 3, 4, 5, 6, 7, 8]
   }
 }
