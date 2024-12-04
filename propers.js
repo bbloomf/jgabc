@@ -665,9 +665,11 @@ $(function(){
   };
   var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
   <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="french">French</option><option value="latin,english">Both</option></select></div>\
+  <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="french">French</option><option value="latin,english">Both</option></select></div>\
   <div class="lectio-text">\
     <div class="lectio-latin"></div>\
     <div class="lectio-english"></div>\
+    <div class="lectio-french"></div></div>\
     <div class="lectio-french"></div></div>\
 </div>\
 '
@@ -842,7 +844,7 @@ $(function(){
   function updateReadings(readings, $lectiones) {
     $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
     readings.forEach(function(reading,i) {
-      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'},{e:'aelf',l:'french'}].forEach(function(edition) {
+      [{e:'vulgate',l:'latin'},{e:'English-douay-rheims',l:'english'},{e:'French-Louis-Segond',l:'french'}].forEach(function(edition) {
         var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
         getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
           $lectio.empty().append(reading);
@@ -850,9 +852,7 @@ $(function(){
       });
     });
     $lectiones.show();
-}
-
-
+  }
   var updateDayNovus = function() {
     $('.lectio').hide();
     selPropers = propriumNoviOrdinis[selDay + selTempus] || propriumNoviOrdinis[selDay];
