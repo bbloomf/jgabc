@@ -180,7 +180,7 @@ correspondance = {
 }
 
 def scrape_all_books():
-    folder = "French-aelf"
+    folder = "aelf"
     os.makedirs(folder, exist_ok=True)
     
     for french_name, (latin_name, relative_url) in correspondance.items():
