@@ -68,9 +68,9 @@ def scrape_book(book_url):
             print(f"Aucun texte trouvé pour le chapitre {chap}")
             continue
 
-        # Extraction des versets
+        # Extraction des versets pour ce chapitre
         for p in reading_div.find_all("p"):
-            verse_number_elem = p.select_one("span.verse_number")
+            verse_number_elem = p.select_one("span.verse_number, span.text-danger")
             verse_text = p.get_text(" ", strip=True)
             verse_text = verse_text.replace("\n", " ")
             verse_text = re.sub(r'\s+', ' ', verse_text).strip()
@@ -79,16 +79,11 @@ def scrape_book(book_url):
                 verse_number_raw = verse_number_elem.get_text(strip=True)
                 try:
                     verse_number_int = int(verse_number_raw)
-                    # Formatage sur 2 caractères (ajoute un espace pour les nombres à un chiffre)
-                    verse_number_formatted = f"{verse_number_int:<2d}"
-                    # Suppression du numéro du verset du texte (autorise les zéros en début)
                     verse_text = re.sub(rf'^0*{verse_number_int}\s*', '', verse_text).strip()
+                    verses.append(f"{chap}\t{verse_number_int}\t{verse_text}")
                 except ValueError:
-                    verse_number_formatted = verse_number_raw
-                verses.append(f"{chap}   {verse_number_formatted}   {verse_text}")
-            else:
-                verses.append(f"{chap}   ?   {verse_text}")
-
+                    print(f"Erreur de conversion du numéro de verset: {verse_number_raw}")
+                    
     return verses
 
 def save_book(latin_name, verses, folder="bible_scraped"):
