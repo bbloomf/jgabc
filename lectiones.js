@@ -779,8 +779,8 @@ var lectiones = {
   "Matthæus 17: 1-9"
  ],
  "Dec12": [
-  "Proverbia 8: 22-35",
-  "Lucas 1: 26-28"
+  "Ecclesiasticus 24: 23-31",
+  "Lucas 1: 39-47"
  ],
  "Dec13": [
   "2 Ad Corinthios 10: 17-18; 11: 1-2",
