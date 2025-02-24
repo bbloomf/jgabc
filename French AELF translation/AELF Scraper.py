@@ -74,8 +74,9 @@ def scrape_book(book_url):
             verse_text = p.get_text(" ", strip=True)
             verse_text = verse_text.replace("\n", " ")
             verse_text = re.sub(r'\s+', ' ', verse_text).strip()
-            # Remplacement des espaces normales par des espaces insécables avant ? ! ; : »
-            verse_text = re.sub(r' (?=[?!;:»])', '\u00A0', verse_text)
+            # Remplacement des espaces normales par des espaces insécables avant ? ! ; : » — - et après — - «
+            verse_text = re.sub(r' (?=[?!;:»—-])', '\u00A0', verse_text)
+            verse_text = re.sub(r'(?<=[—«-]) ', '\u00A0', verse_text)
 
             if verse_number_elem:
                 verse_number_raw = verse_number_elem.get_text(strip=True)
