@@ -848,33 +848,15 @@ $(function(){
     }
   }
   function updateReadings(readings, $lectiones) {
-    // Update the references for each lectio
-    $lectiones.find('.lectio-reference').text(function (i) {
-        return readings[i];
-    });
-
-    // Define the supported editions and languages
-    const editions = {
-        latin: { e: 'vulgate', l: 'latin' },
-        english: { e: 'English-douay-rheims', l: 'english' },
-        french: { e: 'French-Louis-Segond', l: 'french' }
-    };
-
-    // Process each reading
-    readings.forEach(function (reading, i) {
-        // Loop through languages (Latin, English, French)
-        Object.keys(editions).forEach(function (lang) {
-            const edition = editions[lang];
-            const $lectio = $($lectiones[i]).find(`.lectio-text .lectio-${edition.l}`).empty();
-
-            // Fetch and append the correct text for this language
-            getReading({ ref: reading, edition: edition.e, language: edition.l.slice(0, 2) }).then(function (text) {
-                $lectio.empty().append(text);
-            });
+    $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
+    readings.forEach(function(reading,i) {
+      [{e:'vulgate',l:'latin'},{e:'English-douay-rheims',l:'english'},{e:'French-aelf',l:'french'}].forEach(function(edition) {
+        var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
+        getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
+          $lectio.empty().append(reading);
         });
+      });
     });
-
-    // Show the lectiones container
     $lectiones.show();
 }
 
