@@ -842,7 +842,7 @@ $(function(){
   function updateReadings(readings, $lectiones) {
     $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
     readings.forEach(function(reading,i) {
-      [{e:'vulgate',l:'latin'},{e:'English-douay-rheims',l:'english'},{e:'French-Louis-Segond',l:'french'}].forEach(function(edition) {
+      [{e:'vulgate',l:'latin'},{e:'English-douay-rheims',l:'english'},{e:'French-aelf',l:'french'}].forEach(function(edition) {
         var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
         getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
           $lectio.empty().append(reading);

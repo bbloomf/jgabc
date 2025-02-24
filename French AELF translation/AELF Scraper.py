@@ -136,13 +136,13 @@ correspondance = {
     "Livre d'Ezekiel": ("Ezechiel", "/bible/Ez/1"),
     "Livre de Daniel": ("Daniel", "/bible/Dn/1"),
     "Livre d'Osée": ("Osee", "/bible/Os/1"),
-    "Livre de Joël": ("Joannes", "/bible/Jl/1"),
+    "Livre de Joël": ("Joel", "/bible/Jl/1"),  # Correction ici
     "Livre d'Amos": ("Amos", "/bible/Am/1"),
     "Livre d'Abdias": ("Abdias", "/bible/Ab/1"),
     "Livre de Jonas": ("Jonas", "/bible/Jon/1"),
     "Livre de Michée": ("Michæa", "/bible/Mi/1"),
     "Livre de Nahum": ("Nahum", "/bible/Na/1"),
-    "Livre d'Habaquc": ("Habaquq", "/bible/Ha/1"),
+    "Livre d'Habaquc": ("Habacuc", "/bible/Ha/1"),  # Correction ici
     "Livre de Sophonie": ("Sophonias", "/bible/So/1"),
     "Livre d'Aggée": ("Aggæus", "/bible/Ag/1"),
     "Livre de Zacharie": ("Zacharias", "/bible/Za/1"),
@@ -165,18 +165,22 @@ correspondance = {
     "Première lettre à Timothée": ("Ad Timotheum 1", "/bible/1Tm/1"),
     "Deuxième lettre à Timothée": ("Ad Timotheum 2", "/bible/2Tm/1"),
     "Lettre à Tite": ("Ad Titum", "/bible/Tt/1"),
+    "Lettre à Philémon": ("Ad Philemonem", "/bible/Phm/1"),  # Ajout ici
     "Lettre aux Hébreux": ("Ad Hebræos", "/bible/He/1"),
     "Lettre de Jacques": ("Jacobi", "/bible/Jc/1"),
     "Première lettre de Pierre": ("Petri 1", "/bible/1P/1"),
     "Deuxième lettre de Pierre": ("Petri 2", "/bible/2P/1"),
     "Première lettre de Jean": ("Joannis 1", "/bible/1Jn/1"),
+    "Deuxième lettre de Jean": ("Joannis 2", "/bible/2Jn/1"),  # Correction ici
+    "Troisième lettre de Jean": ("Joannis 3", "/bible/3Jn/1"),  # Correction ici
+    "Lettre de Jude": ("Judæ", "/bible/Jude/1"),  # Correction ici
     "Livre de l'Apocalypse": ("Apocalypsis", "/bible/Ap/1"),
 
     "Psaumes": ("Psalmi", "/bible/Ps/1")
 }
 
 def scrape_all_books():
-    folder = "bible_scraped"
+    folder = "French-aelf"
     os.makedirs(folder, exist_ok=True)
     
     for french_name, (latin_name, relative_url) in correspondance.items():
