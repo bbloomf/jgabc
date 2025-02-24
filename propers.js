@@ -666,10 +666,10 @@ $(function(){
   var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
   <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="french">French</option><option value="latin,english">Both</option></select></div>\
   <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="french">French</option><option value="latin,english">Both</option></select></div>\
+  <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="french">French</option><option value="latin,english">Both</option></select></div>\
   <div class="lectio-text">\
     <div class="lectio-latin"></div>\
     <div class="lectio-english"></div>\
-    <div class="lectio-french"></div></div>\
     <div class="lectio-french"></div></div>\
 </div>\
 '
