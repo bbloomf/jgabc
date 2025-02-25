@@ -664,10 +664,11 @@ $(function(){
     }
   };
   var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
-  <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">Both</option></select></div>\
-  <div class="lectio-text">\
-    <div class="lectio-latin"></div>\
-    <div class="lectio-english"></div></div>\
+    <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">English and Latin</option><option value="french">French</option><option value="latin,french">French and Latin</option></select></div>\
+    <div class="lectio-text">\
+      <div class="lectio-latin"></div>\
+      <div class="lectio-english"></div>\
+      <div class="lectio-french"></div></div>\
 </div>\
 '
   var gradualeTemplate = '\
@@ -841,7 +842,8 @@ $(function(){
   function updateReadings(readings, $lectiones) {
     $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
     readings.forEach(function(reading,i) {
-      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+      // Modifier le tableau des éditions/langues pour inclure le français
+      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'},{e:'aelf',l:'french'}].forEach(function(edition) {
         var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
         getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
           $lectio.empty().append(reading);
@@ -3893,7 +3895,7 @@ console.info(JSON.stringify(selPropers));
     var $lectio = $(this).parents('.lectio').first();
     $lectio.find('.lectio-text').toggle(!!val);
     $lectio.find('.lectio-text > *').hide();
-    $lectio.find(selector).show();
+    if(selector) $lectio.find(selector).show();
     $lectio.toggleClass('hidden-print',!val);
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');
