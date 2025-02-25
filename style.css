@@ -1,28 +1,24 @@
 @font-face {
     font-family: 'Crimson Text';
-    src: url('fonts/crimson-bold-webfont.woff2') format('woff2'),
-         url('fonts/crimson-bold-webfont.woff') format('woff');
+    src: url('fonts/CrimsonText-Bold.ttf');
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
     font-family: 'Crimson Text';
-    src: url('fonts/crimson-italic-webfont.woff2') format('woff2'),
-         url('fonts/crimson-italic-webfont.woff') format('woff');
+    src: url('fonts/CrimsonText-Italic.ttf');
     font-weight: normal;
     font-style: italic;
 }
 @font-face {
     font-family: 'Crimson Text';
-    src: url('fonts/crimson-roman-webfont.woff2') format('woff2'),
-         url('fonts/crimson-roman-webfont.woff') format('woff');
+    src: url('fonts/CrimsonText-Regular.ttf');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'Crimson Text';
-    src: url('fonts/crimson-semibold-webfont.woff2') format('woff2'),
-         url('fonts/crimson-semibold-webfont.woff') format('woff');
+    src: url('fonts/CrimsonText-SemiBold.ttf');
     font-weight: 600;
     font-style: normal;
 }
