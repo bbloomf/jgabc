@@ -233,7 +233,7 @@ texts = {
 		"1323": "exsultate deo adjutori nostro jubilate deo jacob sumite psalmum jucundum cum cithara canite initio mensis tuba quia præceptum in israel est et judicium deo jacob ℣ testimonium in joseph posuit illud cum exiret de terra ægypti linguam quam non noverat audivit gloria patri",
 		"1330": "sicut oculi servorum in manibus dominorum suorum ita oculi nostri ad dominum deum nostrum donec misereatur nobis miserere nobis domine miserere nobis ℣ ad te levavi oculos meos qui habitas in cælis gloria patri",
 		"1332": "victricem manum tuam domine laudaverunt pariter alleluia quia sapientia aperuit os mutum et linguas infantium fecit disertas alleluia alleluia ℣ cantate domino canticum novum quia mirabilia fecit gloria patri",
-		"1339": "justi epulentur et exsultent in conspectu dei delectentur in lætitia ℣ exsurgat deus et dissipentur inimici ejus et fugiant qui oderunt eum a facie ejus gloria patri",
+		"1339": "justi epulentur et exsultent in conspectu dei delectentur in lætitia alleluia alleluia ℣ exsurgat deus et dissipentur inimici ejus et fugiant qui oderunt eum a facie ejus gloria patri",
 		"1349": "sermo meus et prædicatio mea non in persuasibilibus humanæ sapientiæ verbis sed in ostensione spiritus et virtutis ℣ confitebor tibi domine in toto corde meo in consilio justorum et congregatione gloria patri",
 		"1355": "viri galilæi quid admiramini aspicientes in cælum alleluia quemadmodum vidistis eum ascendentem in cælum ita veniet alleluia alleluia alleluia ℣ omnes gentes plaudite manibus jubilate deo in voce exsultationis gloria patri",
 		"1357": "ecce deus adjuvat me et dominus susceptor est animæ meæ averte mala inimicis meis in veritate tua disperde illos protector meus domine ℣ deus in nomine tuo salvum me fac et in virtute tua judica me gloria patri",
@@ -829,7 +829,7 @@ texts = {
 		"3318": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero",
 		"8041": "emitte spiritum tuum et creabuntur et renovabis faciem terræ",
 		"8252": "rogavi pro te petre ut non deficiat fides tua et tu aliquando conversus confirma fratres tuos",
-		"8297": "laudate dominum omnes gentes et collaudate eum nes populi"
+		"8297": "laudate dominum omnes gentes et collaudate eum omnes populi"
 	},
 	"Sequentia": {
 		"68": "veni sancte spiritus et emitte cælitus lucis tuæ radium veni pater pauperum veni dator munerum veni lumen cordium consolator optime dulcis hospes animæ dulce refrigerium in labore requies in æstu temperies in fletu solatium o lux beatissima reple cordis intima tuorum fidelium sine tuo numine nihil est in homine nihil est innoxium lava quod est sordidum riga quod est aridum sana quod est saucium flecte quod est rigidum fove quod est frigidum rege quod est devium da tuis fidelibus in te confidentibus sacrum septenarium da virtutis meritum da salutis exitum da perenne gaudium amen alleluia",
@@ -980,7 +980,7 @@ texts = {
 		"951": "o domine quia ego servus tuus ego servus tuus et filius ancillæ tuæ dirupisti vincula mea tibi sacrificabo hostiam laudis",
 		"962": "ad te domine levavi animam meam deus meus in te confido non erubescam neque irrideant me inimici mei etenim universi qui te exspectant non confundentur",
 		"967": "in te speravi domine dixi tu es deus meus in manibus tuis tempora mea alleluia",
-		"979": "deus enim firmavit orbem terræ qui non commovebitur parata sedes tua deus ex tunc a sæculo tues",
+		"979": "deus enim firmavit orbem terræ qui non commovebitur parata sedes tua deus ex tunc a sæculo tu es",
 		"980": "confitebor tibi domine deus meus in toto corde meo et glorificabo nomen tuum in æternum quoniam tu domine suavis et mitis es et multæ misericordiæ omnibus invocantibus te alleluia",
 		"986": "de profundis clamavi ad te domine domine exaudi orationem meam de profundis clamavi ad te domine",
 		"987": "domine deus salutis meæ in die clamavi et nocte coram te intret oratio mea in conspectu tuo domine alleluia",
@@ -1356,8 +1356,8 @@ texts = {
 		"8146": "alma redemptoris mater quæ pervia cæli porta manes et stella maris succurre cadenti surgere qui curat populo tu quæ genuisti natura mirante tuum sanctum genitorem virgo prius ac posterius gabrielis ab ore sumens illud ave peccatorum miserere",
 		"8177": "ante sex dies solemnis paschæ quando venit dominus in civitatem jerusalem occurrerunt ei pueri et in manibus portabant ramos palmarum et clamabant voce magna dicentes hosanna in excelsis benedictus qui venisti in multitudine misericordiæ hosanna in excelsis",
 		"8268": "benedicta sit sancta trinitas atque indivisa unitas confitebimur ei quia fecit nobiscum misericordiam suam ℣ benedicamus patrem et filium cum sancto spiritu ℣ quam dilecta tabernacula tua domine virtutum concupiscit et deficit anima mea in atria domini benedicta sit",
-		"8283": "cum angelis et pueris fideles inveniamur triumphatori mortis clamantes hosanna in excelsis",
-		"8284": "turba multa quæ convenerat ad diem festum clamabat domino benedictus qui venit in nomine domini hosanna in excelsis",
+		"8283": "cum angelis et pueris fideles inveniamur triumphatori mortis clamantes hosanna in excelsis e u o u a e",
+		"8284": "turba multa quæ convenerat ad diem festum clamabat domino benedictus qui venit in nomine domini hosanna in excelsis e u o u a e",
 		"10298": "vidi aquam egredientem de templo a latere dextro alleluia et omnes ad quos pervenit aqua ista salvi facti sunt et dicent alleluia alleluia confitemini domino quoniam bonus quoniam in sæculum misericordia ejus gloria patri",
 		"10358": "vidi aquam egredientem de templo a latere dextro alleluia et omnes ad quos pervenit aqua ista salvi facti sunt et dicent alleluia alleluia confitemini domino quoniam bonus quoniam in sæculum misericordia ejus gloria patri",
 		"12662": "vespere autem sabbati quæ lucescit in prima sabbati venit maria magdalene et altera maria videre sepulcrum alleluia"
@@ -1402,7 +1402,7 @@ texts = {
 		"2209": [
 			"pange lingua gloriosi lauream certaminis et super crucis trophæo dic triumphum nobilem qualiter redemptor orbis immolatus vicerit",
 			"℣ de parentis protoplasti fraude factor condolens quando pomi noxialis in necem morsu ruit ipse lignum tunc notavit damna ut solveret ℣ hoc opus nostræ salutis ordo depoposcerat multiformis proditoris ars ut artem falleret et medelam ferret inde hostis unde læserat ℣ quando venit ergo sacri plenitudo temporis missus est ab arce patris natus orbis conditor atque ventre virginali amictus prodiit ℣ vagit infans inter arcta conditus præsepia membra pannis involuta virgo mater alligat et dei manus pedesque stricta cingit fascia ℣ lustra sex qui jam peregit tempus implens corporis sponte libera redemptor passioni deditus agnus in crucis levatur immolandus stipite ℣ felle potus ecce languet spina clavi lancea mite corpus perforarunt unda manat et cruor terra pontus astra mundus quo lavantur flumine ℣ flecte ramos arbor alta tensa laxa viscera et rigor lentescat ille quem dedit nativitas et superni membra regis tende miti stipite ℣ sola digna tu fuisti ferre mundi victimam atque portum præparare arca mundo naufrago quam sacer cruor perunxit fusus agni corpore",
-			"sempiterna sit beatæ trinitati gloria æqua patri filioque par decus paraclito unius trinique nomen laudet universitas amen"
+			"℣ sempiterna sit beatæ trinitati gloria æqua patri filioque par decus paraclito unius trinique nomen laudet universitas amen"
 		],
 		"2224": "o lux beata cælitum et summa spes mortalium jesu o cui domestica arrisit orto caritas maria dives gratia o sola quæ casto potes fovere jesum pectore cum lacte donans oscula ex vetustis patribus delecte custos virginis dulci patris quem nomine divina proles invocat de stirpe jesse nobili in salutem gentium audite nos qui supplices vestras ad aras sistimus dum sol redux ad vesperum rebus nitorem detrahit nos hic manentes intimo ex corde vota fundimus qua vestra sedes floruit virtutis omnis gratia hanc detur in domesticis referre posse moribus jesu tuis obediens qui factus es parentibus cum patre ac spiritu semper tibi sit gloria amen",
 		"2232": "ave maris stella dei mater alma atque semper virgo felix cæli porta sumens illud ave gabrielis ore funda nos in pace mutans hevæ nomen solve vincla reis profer lumen cæcis mala nostra pelle bona cuncta posce monstra esse matrem sumat per te preces qui pro nobis natus tulit esse tuus virgo singularis inter omnes mitis nos culpis solutos mites fac et castos vitam præsta puram iter para tutum ut videntes jesum semper collætemur sit laus deo patri summo christo decus spiritui sancto tribus honor unus amen",

@@ -102,7 +102,7 @@ var callbackOn = {
   507: gabc => (gabcOf507 = gabc, write507a()),
   "507&elem=2": gabc => (gabcOf507_2 = gabc, write507a()),
   1092: write1092,
-  "2209&elem=1": gabc => writeGabcPart(gabc, 2209, 1),
+  "2209&elem=1": gabc => writeGabcPart(gabc.replace(/\(d\+\)\s*$/, 'Crux fidélis.() (d+) (Z-)'), 2209, 1),
   "2209&elem=2": gabc => writeGabcPart(gabc, 2209, 2),
   "2209&elem=3": gabc => writeGabcPart(gabc, 2209, 3),
   "2719&elem=1": gabc => writeGabcPart(gabc, 2719, 1),
@@ -259,7 +259,10 @@ var path = 'gabc/',
                       .replace(/\*{2,}/g,'<c>$&</c>')
                       .replace(/<i>\s+/g,'<i>')
                       .replace(/\s+<\/i>/g,'</i>')
-                      .replace(/^([^)]*\)?\s*[A-Z]*)<sc>([\wáéíóúæœǽœ́ýÁÉÍÓÚÆŒǼŒ́Ý]+)<\/sc>/, '$1$2') // get rid of small caps in initial syllable
+                      .replace(/^([^)]*\)?\s*[A-Z]*)(<sc>.*?\)\s)/, (_, start, firstWord) =>
+                        // get rid of small caps in initial word
+                        start + firstWord.replace(/<sc>([\wáéíóúæœǽœ́ýÁÉÍÓÚÆŒǼŒ́Ý]+)<\/sc>/g, '$1')
+                      )
                       .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1 <c>*</c>$2") // asterisks being kept with the previous word
                       .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
                       .replace(/A[éÉ]/g,'Ǽ')
