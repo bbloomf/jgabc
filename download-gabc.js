@@ -265,6 +265,7 @@ var path = 'gabc/',
                       )
                       .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1 <c>*</c>$2") // asterisks being kept with the previous word
                       .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
+                      .replace(/\)\(([,;])\)\(/g,'$1')
                       .replace(/A[éÉ]/g,'Ǽ')
                       .replace(/<b><\/b>/g,'')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
