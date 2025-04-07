@@ -899,11 +899,12 @@ $(function() {
   window.onafterprint = layoutChantSync;
 
   windowResized();
-  updateEditor();
   if(location.hash) {
     const gabc = decodeURIComponent(location.hash.slice(1));
     $("#lnkToggleMode").click();
     $('#editor').val(gabc).keyup();
     updateLocalHeader();
+  } else {
+    updateEditor();
   }
 });
