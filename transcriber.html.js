@@ -900,4 +900,10 @@ $(function() {
 
   windowResized();
   updateEditor();
+  if(location.hash) {
+    const gabc = location.hash.slice(1);
+    $("#lnkToggleMode").click();
+    $('#editor').val(gabc).keyup();
+    updateLocalHeader();
+  }
 });
