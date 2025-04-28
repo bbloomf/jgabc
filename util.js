@@ -3,6 +3,7 @@ String.prototype.reverse = function(){return this.split('').reverse().join('');}
 var regexLatinLongPenult = /([ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])(?!([bcdgkpt][rl]|qu|[bcdfghjklmnprstvy])[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])((?:[bcdfghjklmnprstvy]{2,}|[xz])(?:[ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])[bcdfghjklmnprstvxyz]*)$/i;
 var linkSelector="";
 var linkDownloadSelector="";
+var linkCopySelector="";
 
 var utf8_bom=String.fromCharCode(0xEF)+String.fromCharCode(0xBB)+String.fromCharCode(0xBF);
 function encode_utf8( s )
@@ -194,7 +195,13 @@ function onDragStart(e){
 };
 function setGabcLinkSelector(sel){
   linkDownloadSelector=sel;
+  linkCopySelector = linkDownloadSelector.replace('Download', 'Copy');
   $(sel).bind("dragstart",onDragStart);
+  $(linkCopySelector).bind('click', (e) => {
+    e.preventDefault();
+    const gabc = $(e.currentTarget).attr('data-gabc');
+    navigator.clipboard.writeText(gabc);
+  })
 };
 function updateLinks(text){
   var header=getHeader(text);
@@ -217,6 +224,10 @@ function updateLinks(text){
         .prop("href",url)
         .prop("download",filename)
         .attr("data-downloadurl","text/plain:"+filename+":"+url);
+    }
+    if (linkCopySelector) {
+      $(linkCopySelector)
+        .attr('data-gabc', text);
     }
   } catch(e) {
   }

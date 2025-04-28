@@ -2,8 +2,12 @@ var https  = require('https'),
     fs     = require('fs'),
     Hypher = require('hypher'),
     gabc   = require('./util.js'),
-    prettier = require("prettier");
+    prettier = require("prettier"),
+    { addPtAlleluia } = require("./alleluias-in-of-co.js");
 require('./gabc-refs.js');
+
+const addAlleluiasTo = new Set([145, 690, 1286]);
+
 gabcRefs["507&elem=2"] = "Ps 117: 1";
 gabcRefs["2060"] = "Ex 15: 1-2";
 gabcRefs["2075"] = "Is 5: 1-2";
@@ -442,6 +446,9 @@ var path = 'gabc/',
                       function(match, beginning, replacePart){
                         return beginning + replacePart.toUpperCase();
                       });
+                    if (addAlleluiasTo.has(Number(ids[i]))) {
+                      content = addPtAlleluia(content, h);
+                    }
                     if (!(file in skipFile)) {
                       fs.writeFileSync(file,header + content);
                     }
