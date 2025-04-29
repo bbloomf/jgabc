@@ -6,7 +6,8 @@ var https  = require('https'),
     { addPtAlleluia } = require("./alleluias-in-of-co.js");
 require('./gabc-refs.js');
 
-const addAlleluiasTo = new Set([145, 690, 1286]);
+const addAlleluiasTo = new Set([145, 690, 1286, 349, 1303, 391, 523, 426, 84, 529, 1080, 1290, 575, 1272, 147, 1294, 339, 899, 942, 535, 723, 902, 533, 1314, 265, 479, 904, 842, 640, 1072, 1318, 389, 616, 696]);
+const addAlleluias = new Set([1319]);
 
 gabcRefs["507&elem=2"] = "Ps 117: 1";
 gabcRefs["2060"] = "Ex 15: 1-2";
@@ -451,6 +452,10 @@ var path = 'gabc/',
                     }
                     if (!(file in skipFile)) {
                       fs.writeFileSync(file,header + content);
+                    }
+                    if (addAlleluias.has(Number(ids[i]))) {
+                      const alContent = addPtAlleluia(content, h);
+                      fs.writeFileSync(file.slice(0,-5) + '+al.gabc', header + alContent);
                     }
                     console.info(`Processed ${(i+1)} of ${ids.length}: ${file}; ${active} active`);
                     var myCallback = callbackOn[ids[i]];

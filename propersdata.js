@@ -1971,7 +1971,7 @@ var proprium = {
         "inID": 340,
         "grID": 762,
         "alID": 1030,
-        "ofID": 1319,
+        "ofID": "1319+al",
         "coID": 212,
         "gbid": "votive_mass_holy_apostles_pt",
         "inVerses": "Ps 63: 4, 11",
@@ -2233,7 +2233,7 @@ var proprium = {
       "grID": 641,
       "alID": 700,
       "ofID": 899,
-      "coID": 942
+      "coID": 942 // should this be 91 in paschal time?  There seems to be a disagreement between the liber usualis and the graduale
     },
     "votiveVM": {
       "inID": 535,

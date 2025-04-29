@@ -334,11 +334,18 @@ function getTagsFrom(txt){
   return r;
 }
 
+/**
+ * 
+ * @param {string} gabc 
+ * @param {number} offset 
+ * @param {boolean} noParens 
+ * @returns 
+ */
 function transposeGabc(gabc,offset,noParens) {
   var replaceLetter = function(letter, clef) {
     if(clef) return letter;
     var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
-    if(!newLetter.match(/[a-m]/i)) throw true;
+    if(!newLetter.match(/[a-m]/i)) throw `${letter} cannot be transposed by ${offset}: ${newLetter} is invalid`;
     return newLetter;
   };
   var regex = /([cf]b?[1-4])|[a-mA-M]/g;
@@ -1381,6 +1388,7 @@ if(typeof window=='object') (function(window) {
 if(typeof exports=='object') {
   exports.Header = GabcHeader;
   exports.getHeader = getHeader;
+  exports.transposeGabc = transposeGabc;
 }
 if(typeof $=='function') $(function($) {
   /**

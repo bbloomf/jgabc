@@ -1,9 +1,11 @@
+const { transposeGabc } = require('./util');
+
 const alleluia = {
   introit: [
     "(c4)<i>T. P.</i> Al(ixhi)le(h)lú(hgh)ia,(f_d) (,) al(fg)le(e!fg/hf/gvFE)lú(d!ewfef)ia.(ed..) (::)",
     "(f3)<i>T. P.</i> Al(e!f'h~)le(h_g)lú(hih)ia,(hhhf/fe.) (,) al(fh~)le(hghf)lú(fgf___)ia.(f.) (::)",
     "(c4)<i>T. P.</i> Al(e)le(f)lú(gh)ia,(g.) (,) al(gh)le(g.h!iwj/jvIH'G)lú(g_e/fgF~'E~)ia.(e.) (::)",
-    "(c4)<i>T. P.</i> Al(f)le(f)lú(ef!ghF'D/gf)ia,(f.) (,) al(gh~)le(gv.!ffd/gvFE)lú(egff)ia.(fe..) (::)",
+    "(c4)<i>T. P.</i> Al(f)le(f)lú(ef!ghF'D/gf)ia,(f.) (,) al(fg~)le(gv.!ffd/gvFE)lú(egff)ia.(fe..) (::)",
     "(c3)<i>T. P.</i> Al(df~)le(fef)lú(hf/hhh)ia,(hiHF.) (,) al(ef)le(gxfhe___!fwgvFE)lú(de!fvED'/e)ia.(ed..) (::)",
     "(c4)<i>T. P.</i> Al(d)le(f_e)lú(fgf)ia,(fffddc.) (,) al(d)le(ff)lú(fhG~'F)ia.(f.) (::)",
     "(c3)<i>T. P.</i> Al(e)le(fh)lú(hig/hih)ia,(h.) (,) al(hi)le(ijh/hvG'FE)lú(efe___)ia.(e.) (::)",
@@ -26,7 +28,7 @@ const alleluia = {
     "(c4)<i>T. P.</i> Al(f)le(d.!ghG'F/ghg)lú(egff)ia.(fe..) (::)",
     "(c3)<i>T. P.</i> Al(gxdf)le(e/hvhf!gwhvGE'/fwgvFE)lú(de!fvED'/e)ia.(ed..) (::)",
     "(c4)<i>T. P.</i> Al(fg~)le(ixgiHG')lú(hg/gfg)ia.(gf..) (::)",
-    "(c3)<i>T. P.</i> Al(f!gh)le(hih___/gih./fhgh./fge___5)lú(efe___)ia.(e.) (::)",
+    "(c3)<i>T. P.</i> Al(f!gh)le(hih___/gih./fhgh./fge___5)lú(efe___5)ia.(e.) (::)",
     "(c4)<i>T. P.</i> Al(g)le(ghfg)lú(gh/jhi)ia.(hg..) (::)"
   ]
 }
@@ -37,9 +39,20 @@ const getAlleluia = (part, mode) => {
 }
 
 const addPtAlleluia = (gabc, h) => {
-  // for now, we are just throwing out the clef, but we should really check it, and transpose the GABC if necessary
   const al = getAlleluia(h.officePart?.slice(0, 2) || '', Number(h.mode));
-  return gabc.replace(/(::\))\s*(\n|$)/, '$1\n' + al.replace(/^\([cf]b?[1-4]\)/, '') + '$2');
+
+  // now check that the clefs match:
+  const regexClef = /\(([cf])([1-4])\)/;
+  const gabcClef = gabc.match(regexClef);
+  const alClef = al.match(regexClef);
+  let alWithoutClef = al.slice(alClef[0].length);
+  if (gabcClef[2] !== alClef[2]) {
+    // transpose alleluia:
+    const transpose = 2 * (Number(gabcClef[2]) - Number(alClef[2]));
+    alWithoutClef = transposeGabc(alWithoutClef, transpose);
+  }
+
+  return gabc.replace(/(::\))\s*(\n|$)/, '$1\n' + alWithoutClef + '$2');
 };
 
 if(typeof exports=='object') {
