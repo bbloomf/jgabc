@@ -5582,6 +5582,17 @@ var proprium = {
         "ofVerses": "Luc 1: 34, 35",
         "coVerses": "Ps 44: 2, 5, 8, 10-16"
     },
+    "May24Pasch": {
+        "coID": 160,
+        "grID": 281,
+        "alID": 1209,
+        "inID": 1140,
+        "ofID": 843,
+        "gbid": "mass_bvm",
+        "inVerses": "Ps 44: 5, 8",
+        "ofVerses": "Luc 1: 34, 35",
+        "coVerses": "Ps 44: 2, 5, 8, 10-16"
+    },
     "May26": {
         "coID": 1367,
         "grID": 1022,
