@@ -215,7 +215,7 @@ var otherKeys = [
     {key:"votiveMPI", title:"Pro Infirmis",en:"For the Sick"},
     {key:"votiveGBM", title:"Ad postulandam gratiam bene moriendi",en:"To ask for the grace of a happy death"},
     {key:"votiveQN", title:"Pro quacumque necessitate",en:"For any necessity"},
-    {key:"votiveECJ",title:"De Eucharistico Corde Jesu",en:"Of the Eucharistic Heart of Jesus"}
+    {key:"votiveECJ",title:"De Eucharistico Corde Jesu",en:"Of the Eucharistic Heart of Jesus"},
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -430,7 +430,8 @@ var saintKeys = [
     {key:"Sep17",title:"Sep 17: The Stigmata of St Francis",en:"Sep 17: The Stigmata of St Francis"},
     {key:"Sep18",title:"Sep 18: St Joseph of Cupertino",en:"Sep 18: St Joseph of Cupertino"},
     {key:"Sep19",title:"Sep 19: St Januarius",en:"Sep 19: St Januarius"},
-{key:"Sep20",title:"Sep 20: St Eustace and Companions",en:"Sep 20: St Eustace and Companions"},
+    {key:"Sep19laSalette",title:"Sep 19: Our Lady of La Salette, Reconciler of Sinners",en:"Sep 19: Our Lady of La Salette, Reconciler of Sinners"},
+    {key:"Sep20",title:"Sep 20: St Eustace and Companions",en:"Sep 20: St Eustace and Companions"},
     {key:"Sep21",title:"Sep 21: St Matthew",en:"Sep 21: St Matthew"},
     {key:"Sep22",title:"Sep 22: St Thomas of Villanova",en:"Sep 22: St Thomas of Villanova"},
     {key:"Sep23",title:"Sep 23: St Linus",en:"Sep 23: St Linus"},
@@ -2297,6 +2298,13 @@ var proprium = {
       "alID": 292,
       "ofID": 265,
       "coID": 479
+    },
+    "Sep19laSalette": {
+      "inID": 19927,
+      "grID": 19928,
+      "alID": 19929,
+      "ofID": 787,
+      "coID": 1053,
     },
     "Dec24": {
         "inID": 150,

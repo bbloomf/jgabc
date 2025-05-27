@@ -242,7 +242,8 @@ texts = {
 		"1374": "os justi meditabitur sapientiam et lingua ejus loquetur judicium lex dei ejus in corde ipsius alleluia alleluia ℣ noli æmulari in malignantibus neque zelaveris facientes iniquitatem gloria patri",
 		"1381": "esto mihi in deum protectorem et in locum refugii ut salvum me facias quoniam firmamentum meum et refugium meum es tu et propter nomen tuum dux mihi eris et enutries me ℣ in te domine speravi non confundar in æternum in justitia tua libera me gloria patri",
 		"3266": "sacerdotes ejus induant salutare et sancti ejus exsultatione exsultabunt alleluia alleluia ℣ memento domine david et omnis mansuetudinis ejus",
-		"3312": "gaudeamus omnes in domino diem festum celebrantes sub honore mariæ virginis de cujus assumptione gaudent angeli et collaudant filium dei ℣ eructavit cor meum verbum bonum dico ego opera mea regi"
+		"3312": "gaudeamus omnes in domino diem festum celebrantes sub honore mariæ virginis de cujus assumptione gaudent angeli et collaudant filium dei ℣ eructavit cor meum verbum bonum dico ego opera mea regi",
+		"19927": "adeamus cum fiducia ad thronum gratiæ ut misericordiam consequamur et gratiam inveniamus in auxilio opportuno alleluia alleluia ℣ misericordias domini in æternum cantabo in generationem et generationem annuntiabo veritatem tuam in ore meo gloria patri"
 	},
 	"Graduale": {
 		"12": "consummatus in brevi explevit tempora multa ℣ placita enim erat deo anima illius propter hoc properavit educere illum de medio iniquitatum",
@@ -433,7 +434,8 @@ texts = {
 		"1368": "ipse habet in vestimento et in femore suo scriptum rex regum et dominus dominantium ℣ regina adstat ad dexteram ejus ornata auro ex ophir",
 		"1373": "adjuvabit eam deus vultu suo deus in medio ejus non commovebitur ℣ fluminis impetus lætificat civitatem dei sanctificavit tabernaculum suum altissimus",
 		"1383": "dolorosa et lacrimabilis es virgo maria stans juxta crucem domini jesu filii tui redemptoris ℣ virgo dei genitrix quem totus non capit orbis hoc crucis fert supplicium auctor vitæ factus homo",
-		"10607": "deus qui præcinxit me virtute et posuit immaculatam viam meam ℣ qui perfecit pedes meos tamquam cervorum et super excelsa statuens me"
+		"10607": "deus qui præcinxit me virtute et posuit immaculatam viam meam ℣ qui perfecit pedes meos tamquam cervorum et super excelsa statuens me",
+		"19928": "domine in cælo misericordia tua et veritas tua usque ad nubes ℣ multiplicasti misericordiam tuam deus filii autem hominum in tegmine alarum tuarum sperabunt"
 	},
 	"Tractus": {
 		"18": "gaude maria virgo cunctas hæreses sola interemisti ℣ quæ gabrielis archangeli dictis credidisti ℣ dum virgo deum et hominem genuisti et post partum virgo inviolata permansisti ℣ dei genitrix intercede pro nobis",
@@ -829,7 +831,8 @@ texts = {
 		"3318": "lauda anima mea dominum laudabo dominum in vita mea psallam deo meo quamdiu ero",
 		"8041": "emitte spiritum tuum et creabuntur et renovabis faciem terræ",
 		"8252": "rogavi pro te petre ut non deficiat fides tua et tu aliquando conversus confirma fratres tuos",
-		"8297": "laudate dominum omnes gentes et collaudate eum omnes populi"
+		"8297": "laudate dominum omnes gentes et collaudate eum omnes populi",
+		"19929": "hoc erit signum fœderis quod constitui inter me et omnem carnem super terram"
 	},
 	"Sequentia": {
 		"68": "veni sancte spiritus et emitte cælitus lucis tuæ radium veni pater pauperum veni dator munerum veni lumen cordium consolator optime dulcis hospes animæ dulce refrigerium in labore requies in æstu temperies in fletu solatium o lux beatissima reple cordis intima tuorum fidelium sine tuo numine nihil est in homine nihil est innoxium lava quod est sordidum riga quod est aridum sana quod est saucium flecte quod est rigidum fove quod est frigidum rege quod est devium da tuis fidelibus in te confidentibus sacrum septenarium da virtutis meritum da salutis exitum da perenne gaudium amen alleluia",
