@@ -213,7 +213,7 @@
  * @param forceIOSBehavior Optional. Default false. Forces behavior to that which is on iOS. This *could* be used in the event the iOS detection fails (which it shouldn't). It is strongly recommended NOT to use this.
  * @returns An object containing a dispose function which can be used to dispose of the unmute controller.
  */
-export function unmute(
+function unmute(
   context,
   allowBackgroundPlayback = false,
   forceIOSBehavior = false,
