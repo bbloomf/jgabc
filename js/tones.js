@@ -1,7 +1,7 @@
 // https://github.com/bit101/tones
 // this file also includes tones.js
 (function(window) {
-    var context = new (window.AudioContext || window.webkitAudioContext)();
+    var context = (window.Tone && window.Tone.context && window.Tone.context._context) || new (window.AudioContext || window.webkitAudioContext)();
     unmute(context);
     var tones = {
         context: context,
