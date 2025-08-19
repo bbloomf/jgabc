@@ -23,8 +23,7 @@ var app = {
         document.addEventListener("pause", this.onPause, false);
         document.addEventListener("resume", this.onResume, false);
         document.addEventListener("DOMContentLoaded", function(event) {
-            document.getElementById("shareUrl").addEventListener("click", app.shareUrl, false);
-          });
+        });
     },
 
     // pause Event Handler
@@ -75,29 +74,6 @@ var app = {
         } else {
             if(!location.pathname.match(/\/propers\.html$/)) location = 'propers.html';
         }
-    },
-
-    shareUrl: function(e) {
-        e.preventDefault();
-
-        // this is the complete list of currently supported params you can pass to the plugin (all optional)
-        var options = {
-          //message: 'http://bbloomf.github.io/jgabc/propers.html' + location.hash,
-          //subject: 'the subject', // fi. for email
-          url: 'http://bbloomf.github.io/jgabc/propers.html' + location.hash,
-          chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
-        }
-
-        var onSuccess = function(result) {
-          console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-          console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-        }
-
-        var onError = function(msg) {
-          console.log("Sharing failed with message: " + msg);
-        }
-
-        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
     },
 
     // Update DOM on a Received Event

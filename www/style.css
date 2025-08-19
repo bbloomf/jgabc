@@ -312,3 +312,6 @@ span.start-pitch {
     right: 0em;
   }
 }
+.hide-cordova {
+  display: none!important;
+}
