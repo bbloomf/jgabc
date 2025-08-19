@@ -128,7 +128,7 @@ var sundayKeys = [
     {key:"Pent16",title:"16 post Pentecosten",en:"16th Sunday after Pentecost"},
     {key:"Pent17",title:"17 post Pentecosten",en:"17th Sunday after Pentecost"},
     {key:"EmbWedSept",title:"Feria Quarta IV Temporum Septembris",en:"Ember Wednesday in September"},
-    {key:"EmbFriSept",title:"Feia Sexta IV Temporum Septembris",en:"Ember Friday in September"},
+    {key:"EmbFriSept",title:"Feria Sexta IV Temporum Septembris",en:"Ember Friday in September"},
     {key:"EmbSatSept",title:"Sabbato IV Temporum Septembris",en:"Ember Saturday in September"},
     {key:"EmbSatSeptS",title:"Sabbato IV Temporum (forma brevior)",en:"Ember Saturday (shorter form)"},
     {key:"Pent18",title:"18 post Pentecosten",en:"18th Sunday after Pentecost"},
@@ -215,7 +215,7 @@ var otherKeys = [
     {key:"votiveMPI", title:"Pro Infirmis",en:"For the Sick"},
     {key:"votiveGBM", title:"Ad postulandam gratiam bene moriendi",en:"To ask for the grace of a happy death"},
     {key:"votiveQN", title:"Pro quacumque necessitate",en:"For any necessity"},
-    {key:"votiveECJ",title:"De Eucharistico Corde Jesu",en:"Of the Eucharistic Heart of Jesus"}
+    {key:"votiveECJ",title:"De Eucharistico Corde Jesu",en:"Of the Eucharistic Heart of Jesus"},
 ];
 var saintKeys = [
     {title:"Proprium Sanctorum...",en:"Proper of the Saints..."},
@@ -430,7 +430,8 @@ var saintKeys = [
     {key:"Sep17",title:"Sep 17: The Stigmata of St Francis",en:"Sep 17: The Stigmata of St Francis"},
     {key:"Sep18",title:"Sep 18: St Joseph of Cupertino",en:"Sep 18: St Joseph of Cupertino"},
     {key:"Sep19",title:"Sep 19: St Januarius",en:"Sep 19: St Januarius"},
-{key:"Sep20",title:"Sep 20: St Eustace and Companions",en:"Sep 20: St Eustace and Companions"},
+    {key:"Sep19laSalette",title:"Sep 19: Our Lady of La Salette, Reconciler of Sinners",en:"Sep 19: Our Lady of La Salette, Reconciler of Sinners"},
+    {key:"Sep20",title:"Sep 20: St Eustace and Companions",en:"Sep 20: St Eustace and Companions"},
     {key:"Sep21",title:"Sep 21: St Matthew",en:"Sep 21: St Matthew"},
     {key:"Sep22",title:"Sep 22: St Thomas of Villanova",en:"Sep 22: St Thomas of Villanova"},
     {key:"Sep23",title:"Sep 23: St Linus",en:"Sep 23: St Linus"},
@@ -1971,7 +1972,7 @@ var proprium = {
         "inID": 340,
         "grID": 762,
         "alID": 1030,
-        "ofID": 1319,
+        "ofID": "1319+al",
         "coID": 212,
         "gbid": "votive_mass_holy_apostles_pt",
         "inVerses": "Ps 63: 4, 11",
@@ -2233,7 +2234,7 @@ var proprium = {
       "grID": 641,
       "alID": 700,
       "ofID": 899,
-      "coID": 942
+      "coID": 942 // should this be 91 in paschal time?  There seems to be a disagreement between the liber usualis and the graduale
     },
     "votiveVM": {
       "inID": 535,
@@ -2297,6 +2298,13 @@ var proprium = {
       "alID": 292,
       "ofID": 265,
       "coID": 479
+    },
+    "Sep19laSalette": {
+      "inID": 19927,
+      "grID": 19928,
+      "alID": 19929,
+      "ofID": 787,
+      "coID": 1053,
     },
     "Dec24": {
         "inID": 150,
@@ -2409,7 +2417,7 @@ var proprium = {
         "grID": 1007,
         "gbid": "advent3",
         "inVerses": "Ps 84: 3-5, 7-8, 10-12, 14",
-        "coVerses": "Isaiae 35: 1, 2-3, 5-7"
+        "coVerses": "Is 35: 1, 2-3, 5-7"
     },
     "Adv3w": {
         "inID": 79,
@@ -5327,7 +5335,8 @@ var proprium = {
         "gbid": "st_gabriel",
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Mar25": {
         "coID": 1144,
@@ -5574,6 +5583,17 @@ var proprium = {
         "coID": 160,
         "grID": 392,
         "alID": 127,
+        "inID": 1140,
+        "ofID": 843,
+        "gbid": "mass_bvm",
+        "inVerses": "Ps 44: 5, 8",
+        "ofVerses": "Luc 1: 34, 35",
+        "coVerses": "Ps 44: 2, 5, 8, 10-16"
+    },
+    "May24Pasch": {
+        "coID": 160,
+        "grID": 281,
+        "alID": 1209,
         "inID": 1140,
         "ofID": 843,
         "gbid": "mass_bvm",
@@ -5882,7 +5902,8 @@ var proprium = {
         "ofID": 1270,
         "gbid": "guardian_angels",
         "inVerses": "Ps 102: 21-22",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Oct20": {
         "coID": 1003,
@@ -5911,7 +5932,8 @@ var proprium = {
         "gbid": "st_raphael",
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Oct27": {
         "inID": 261,
@@ -6046,7 +6068,8 @@ var proprium = {
         "gbid": "st_michael",
         "inVerses": "Ps 102: 21-22",
         "ofVerses": "Ps 137: 1, 2",
-        "coVerses": "Dan 3: 57, 60-65, 83-87"
+        "coVerses": "Dan 3: 57, 60-65, 83-87",
+        "coVersesGloriaPatri": false
     },
     "Sep3": {
         "coID": 90,

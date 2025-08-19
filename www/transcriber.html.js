@@ -280,6 +280,8 @@ function splitText(text) {
       return Syl.syllabify(text,'en');
     case 'pl':
       return Syl.syllabify(text,'pl');
+    case 'it':
+      return Syl.syllabify(text,'it');
     case 'la-liturgical':
       return Syl.syllabify(text,'la');
     case 'vi':
@@ -899,5 +901,12 @@ $(function() {
   window.onafterprint = layoutChantSync;
 
   windowResized();
-  updateEditor();
+  if(location.hash) {
+    const gabc = decodeURIComponent(location.hash.slice(1));
+    $("#lnkToggleMode").click();
+    $('#editor').val(gabc).keyup();
+    updateLocalHeader();
+  } else {
+    updateEditor();
+  }
 });

@@ -3,6 +3,7 @@ String.prototype.reverse = function(){return this.split('').reverse().join('');}
 var regexLatinLongPenult = /([ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])(?!([bcdgkpt][rl]|qu|[bcdfghjklmnprstvy])[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])((?:[bcdfghjklmnprstvy]{2,}|[xz])(?:[ao]e|au|[aeiouyāēīōūȳăĕĭŏŭäëïöüÿ])[bcdfghjklmnprstvxyz]*)$/i;
 var linkSelector="";
 var linkDownloadSelector="";
+var linkCopySelector="";
 
 var utf8_bom=String.fromCharCode(0xEF)+String.fromCharCode(0xBB)+String.fromCharCode(0xBF);
 function encode_utf8( s )
@@ -194,7 +195,13 @@ function onDragStart(e){
 };
 function setGabcLinkSelector(sel){
   linkDownloadSelector=sel;
+  linkCopySelector = linkDownloadSelector.replace('Download', 'Copy');
   $(sel).bind("dragstart",onDragStart);
+  $(linkCopySelector).bind('click', (e) => {
+    e.preventDefault();
+    const gabc = $(e.currentTarget).attr('data-gabc');
+    navigator.clipboard.writeText(gabc);
+  })
 };
 function updateLinks(text){
   var header=getHeader(text);
@@ -217,6 +224,10 @@ function updateLinks(text){
         .prop("href",url)
         .prop("download",filename)
         .attr("data-downloadurl","text/plain:"+filename+":"+url);
+    }
+    if (linkCopySelector) {
+      $(linkCopySelector)
+        .attr('data-gabc', text);
     }
   } catch(e) {
   }
@@ -323,11 +334,18 @@ function getTagsFrom(txt){
   return r;
 }
 
+/**
+ * 
+ * @param {string} gabc 
+ * @param {number} offset 
+ * @param {boolean} noParens 
+ * @returns 
+ */
 function transposeGabc(gabc,offset,noParens) {
   var replaceLetter = function(letter, clef) {
     if(clef) return letter;
     var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
-    if(!newLetter.match(/[a-m]/i)) throw true;
+    if(!newLetter.match(/[a-m]/i)) throw `${letter} cannot be transposed by ${offset}: ${newLetter} is invalid`;
     return newLetter;
   };
   var regex = /([cf]b?[1-4])|[a-mA-M]/g;
@@ -1370,6 +1388,7 @@ if(typeof window=='object') (function(window) {
 if(typeof exports=='object') {
   exports.Header = GabcHeader;
   exports.getHeader = getHeader;
+  exports.transposeGabc = transposeGabc;
 }
 if(typeof $=='function') $(function($) {
   /**

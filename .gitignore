@@ -22,3 +22,5 @@ show-diffs.sh
 .tags
 appid-secret.key
 open-new-release.sh
+pac.bak*
+psalms and canticles/ps*

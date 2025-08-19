@@ -307,47 +307,6 @@ function getPsalms() {
   }
   return r;
 }
-function getCantica() {
-  var r = [];
-  r.push("Benedictus");
-  r.push("Magnificat");
-  r.push("Nunc dimittis");
-  r.push("Canticum Trium puerorum");
-  r.push("Canticum Isaiae");
-  r.push("Canticum Isaiae (alterum)");
-  r.push("Canticum Isaiae 12");
-  r.push("Canticum Ezechiae");
-  r.push("Canticum Annae");
-  r.push("Canticum Habacuc");
-  r.push("Canticum Moysis (Deut 32, 1-18)");
-  r.push("Canticum Moysis.1 (Deut 32, 1-21)");
-  r.push("Canticum Moysis.2 (Deut 32, 22-43)");
-  r.push("Canticum Moysis (Exod)");
-  r.push("Canticum David");
-  r.push("Canticum Ecclesiastici");
-  r.push("Canticum Ecclesiastici (monastic)");
-  r.push("Canticum Jeremiae");
-  r.push("Canticum Judith");
-  r.push("Canticum Tobiae");
-  r.push("Philippians Canticle");
-  r.push("Canticum Isaiæ 33, 2-10");
-  r.push("Canticum Isaiæ 33, 13-18");
-  r.push("Canticum Ecclesiasticæ 36, 14-19");
-  r.push("Symbolum Athanasianum");
-  r.push("Canticum Isaiæ 40, 10-17");
-  r.push("Canticum Isaiæ 42, 10-16");
-  r.push("Canticum Isaiæ 49, 7-13");
-  r.push("Canticum Isaiæ 63, 1-5");
-  r.push("Canticum Oseæ 6, 1-6");
-  r.push("Canticum Sophoniæ 3, 8-13");
-  r.push("Canticum Habacuc 3, 1-6");
-  r.push("Canticum Habacuc 3, 7-12");
-  r.push("Canticum Habacuc 3, 13-19");
-  r.push("Canticum Jeremiæ 14, 17-21");
-  r.push("Canticum Threni 5, 1-7, 15-17, 19-21");
-  r.push("Canticum Ezechielis 36, 24-28");
-  return r;
-}
 
 function updatePsalm() {
   var psalmNum = $("#selPsalm").val();
@@ -358,6 +317,8 @@ function updatePsalm() {
   localStorage.cbIncludeGloriaPatri = includeGloriaPatri;
   useNovaVulgata = $("#cbUseNovaVulgata")[0].checked;
   localStorage.cbUseNovaVulgata = useNovaVulgata;
+  $(`#selPsalm option.${useNovaVulgata ? '' : 'nova-'}vulgata`).attr('disabled', true);
+  $(`#selPsalm option.${useNovaVulgata ? 'nova-' : ''}vulgata`).attr('disabled', false);
   getPsalm(psalmNum,includeGloriaPatri,useNovaVulgata,function(text) {
     var vt = $("#versetext");
     vt.val(text);
@@ -844,7 +805,9 @@ $(function() {
   $("#cbEnglish").click(cbEnglishChanged);
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<optgroup label="Psalms"><option>' + getPsalms().join('</option><option>') + '</option></optgroup>' +
-                        '<optgroup label="Canticles"><option>' + getCantica().join('</option><option>') + '</option></optgroup>');
+                        '<optgroup label="Canticles">' + getCanticaOptions() + '</optgroup>');
+  $(`#selPsalm option.${useNovaVulgata ? '' : 'nova-'}vulgata`).attr('disabled', true);
+  $(`#selPsalm option.${useNovaVulgata ? 'nova-' : ''}vulgata`).attr('disabled', false);
   $("#selFormat").append('<option>' + Object.keys(bi_formats).join('</option><option>') + '</option>');
   $("#versegabc").keyup(updateVerseGabc);
   $("#versetext").keyup(updateText).keydown(internationalTextBoxKeyDown);

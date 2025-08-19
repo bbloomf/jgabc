@@ -94,6 +94,22 @@ $(function(){
     if(!LocationHash) return null;
     return new LocationHash(location.hash);
   }
+  function makeAnnotationArrayFromHeader(gabcHeader) {
+    if(gabcHeader.mode || gabcHeader['office-part']) {
+      var annotation;
+      if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
+      if(annotation) {
+        if(annotation == 'V/.') {
+          return [annotation];
+        } else {
+          return [annotation, romanNumeral[gabcHeader.mode]];
+        }
+      } else if(gabcHeader.mode) {
+        return [romanNumeral[gabcHeader.mode]];
+      }
+    }
+    return
+  }
   var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
   var $gradualeOptions = $('#selStyleGraduale>option').clone();
   var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
@@ -518,7 +534,7 @@ $(function(){
             return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
           });
           var ptn = sel[part].pattern;
-          if(!(ptn && ptn.length && ptn[0].length)) {
+          if(truePart.match(/alleluia|graduale|tractus/) || !(ptn && ptn.length && ptn[0].length)) {
             sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
           }
           text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
@@ -648,10 +664,11 @@ $(function(){
     }
   };
   var lectioTemplate = '<div class="lectio multiple-lectiones-$num" style="display:none">\
-  <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">Both</option></select></div>\
-  <div class="lectio-text">\
-    <div class="lectio-latin"></div>\
-    <div class="lectio-english"></div></div>\
+    <div><span class="lectio-reference"></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">English and Latin</option><option value="french">French</option><option value="latin,french">French and Latin</option></select></div>\
+    <div class="lectio-text">\
+      <div class="lectio-latin"></div>\
+      <div class="lectio-english"></div>\
+      <div class="lectio-french"></div></div>\
 </div>\
 '
   var gradualeTemplate = '\
@@ -825,7 +842,8 @@ $(function(){
   function updateReadings(readings, $lectiones) {
     $lectiones.find('.lectio-reference').text(function(i) { return readings[i]; });
     readings.forEach(function(reading,i) {
-      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'}].forEach(function(edition) {
+      // Modifier le tableau des éditions/langues pour inclure le français
+      [{e:'vulgate',l:'latin'},{e:'douay-rheims',l:'english'},{e:'aelf',l:'french'}].forEach(function(edition) {
         var $lectio = $($lectiones[i]).find('.lectio-text .lectio-'+edition.l).empty();
         getReading({ref:reading,edition:edition.e,language:edition.l.slice(0,2)}).then(function(reading) {
           $lectio.empty().append(reading);
@@ -2090,6 +2108,13 @@ $(function(){
     header.mode = mode;
     delete header.annotationArray;
     delete header.annotation;
+    var annotationArray = makeAnnotationArrayFromHeader(header);
+    if (annotationArray) {
+      if (annotationArray.length > 1) {
+        header.annotationArray = annotationArray;
+      }
+      header.annotation = annotationArray[0];
+    }
 
     var useBigInitial = header.initialStyle != '0';
     var originalClef = fullGabc.match(regexGabcClef);
@@ -2426,7 +2451,7 @@ $(function(){
         gabc = gabc.replace(/[+†](\([^)]+\)\s?)?[^+†]+?(([+†]|<\/i>)+[^\w()]*(\(:*\)\s*)*)+\s*/,'$1');
       } else {
         // remove the + marker and the second part [the part after the (::)]:
-        gabc = gabc.replace(/[+†](?:\(\))?\s*([^+†]+)(\(::\))[^+†]*[+†][^+†]*\(::\)/,'$1$2');
+        gabc = gabc.replace(/(?:\(\))?[+†](?:\(\))?\s*([^+†]+)(\(::\))[^+†]*[+†][^+†]*\(::\)/,'$1$2');
       }
     }
     if(TP) {
@@ -2472,8 +2497,6 @@ $(function(){
       .replace(/\[([^\]\s-áéíóú]+)\](?=\()/g,'\|$1 ')  // Translations are used as additional lyrics
       .replace(/\[([^\]\s-]+)-?\](?=\()/g,'\|$1')
       .replace(/(<b>[^<]+)œ́/g,'$1œ</b>\u0301<b>') // œ́ character doesn't work in the bold version of this font.
-      .replace(/<\/?sc>/g,'%')
-      .replace(/<\/?b>/g,'*')
         .replace(/(?:{})?<i>\(([^)]+)\)<\/i>/g,'_{}$1_') // There is no way to escape an open parenthesis in Exsurge.
       .replace(/<\/?i>/g,'_')
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
@@ -3150,6 +3173,7 @@ $(function(){
         header['%height'] = size.height.toString();
       }
       gabc = header + processSolesmes(gabc.slice(header.original.length).
+        replace(/\u0301/g, ''). // combining character isn't working in TeX, so just get rid of it
         replace(/\^/g,''). // get rid of exsurge specific ^
         replace(/([^[\]()\s]\s+(?:[^[\]()\s<>]|<[^>]+>)+)([aeiouyæœáéíóýǽ]+)([^[\]()\s<>]*?\()/gi,'$1{$2}$3'). // mark vowel in certain cases
         // replace(/(['_.])\d/g,"$1"). // version of Gregorio on sourceandsummit.com currently doesn't support digit after ' or _ or .
@@ -3361,7 +3385,7 @@ $(function(){
         state.startOfVerse = '('+lastNote+'+) ';
         state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
         state.activeGabc = getPsalmToneForPart(versePart, tone);
-        if(!selPropers || selPropers.gloriaPatri !== false) {
+        if(!selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false))) {
           state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
         }
         state.responsoryCallbacks = [];
@@ -3871,7 +3895,7 @@ console.info(JSON.stringify(selPropers));
     var $lectio = $(this).parents('.lectio').first();
     $lectio.find('.lectio-text').toggle(!!val);
     $lectio.find('.lectio-text > *').hide();
-    $lectio.find(selector).show();
+    if(selector) $lectio.find(selector).show();
     $lectio.toggleClass('hidden-print',!val);
   }).on('click', '[data-toggle="dropdown"]', function(e) {
     $(this).parent('.btn-group').toggleClass('open');

@@ -20,9 +20,9 @@
   <script src="jquery.autosize-min.js"></script>
   <script src="jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
   <script src="js/Tone.min.js"></script>
+  <script src="js/tones.js"></script>
   <script src="util.js"></script>
   <script src="psalmtone.js"></script>
-  <script src="js/tones.js"></script>
   <script src="moment.min.js"></script>
   <script src="moment.easter.js"></script>
   <script src="propersdata.js"></script>
@@ -37,6 +37,7 @@
   <script src="jquery.hypher.js"></script>
   <script src="patterns/la-hypher.js"></script>
   <script src="patterns/en-us.js"></script>
+  <script src="patterns/fr-FR.js"></script>
 </head>
 <body class='sans' style="padding:8px;">
   <form id="pdfForm" target="_blank" method="get" action="https://www.sourceandsummit.com/editor/legacy/">
@@ -61,7 +62,7 @@
       <li role="presentation" class="active"><a href="propers.html">Propers Tool</a></li>
       <li role="presentation"><a href="faq.html">(About)</a></li>
     </ul>
-    <div style="float:right;margin-left:8px" class="btn-group hide-ss" role="group">
+    <div style="float:right;margin-left:8px" class="btn-group" role="group">
       <a class='btn btn-xs btn-primary' href='#' id='lnkPdfDirect'>PDF</a>
       <a class='btn btn-xs btn-default' href='#' id='lnkPdf'>Further PDF options</a>
     </div>
@@ -270,10 +271,11 @@
     </div>
   </div>
   <div id='divLectio' class='lectio' style='display:none'>
-    <div><span class='lectio-reference'></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">Both</option></select></div>
+    <div><span class='lectio-reference'></span><select class="selectShowLectionem"> <option value="">(Hidden)</option> <option value="latin">Latin</option> <option value="english">English</option> <option value="latin,english">English and Latin</option> <option value="french">French</option> <option value="latin,french">French and Latin</option> </select></div>
     <div class='lectio-text'>
       <div class='lectio-latin'></div>
       <div class='lectio-english'></div>
+      <div class='lectio-french'></div>
     </div>
   </div>
   <div id='divGraduale' part='graduale' class='multiple-graduales-0' style='display:none;'>
@@ -311,10 +313,11 @@
     </div>
   </div>
   <div id='divLectioAnteTractu' class='lectio lectio-before-tract' style='display:none'>
-    <div><span class='lectio-reference'></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">Both</option></select></div>
+    <div><span class='lectio-reference'></span><select class="selectShowLectionem"> <option value="">(Hidden)</option> <option value="latin">Latin</option> <option value="english">English</option> <option value="latin,english">English and Latin</option> <option value="french">French</option> <option value="latin,french">French and Latin</option> </select></div>
     <div class='lectio-text'>
       <div class='lectio-latin'></div>
       <div class='lectio-english'></div>
+      <div class='lectio-french'></div>
     </div>
   </div>
   <div id='divTractus' part='tractus' style='display:none;'>
@@ -398,10 +401,11 @@
     </div>
   </div>
   <div id='divEvangelium' class='lectio' style='display:none'>
-    <div><span class='lectio-reference'></span> <select class="selectShowLectionem"><option value="">(Hidden)</option><option value="latin">Latin</option><option value="english">English</option><option value="latin,english">Both</option></select></div>
+    <div><span class='lectio-reference'></span><select class="selectShowLectionem"> <option value="">(Hidden)</option> <option value="latin">Latin</option> <option value="english">English</option> <option value="latin,english">English and Latin</option> <option value="french">French</option> <option value="latin,french">French and Latin</option> </select></div>
     <div class='lectio-text'>
       <div class='lectio-latin'></div>
       <div class='lectio-english'></div>
+      <div class='lectio-french'></div>
     </div>
   </div>
   <div id='divCredo' part='credo' class='ordinary'>
