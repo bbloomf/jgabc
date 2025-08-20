@@ -138,6 +138,7 @@
     };
 
     if (localStorage['pyth'] || new URLSearchParams(location.search).has('pythagorean')) {
+      console.info('Using Pythagorean tuning');
       tones.getNoteName = tones.getPythagoreanFreq;
     }
 
