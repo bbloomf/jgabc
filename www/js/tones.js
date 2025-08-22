@@ -1,5 +1,5 @@
 // https://github.com/bit101/tones
-// this file also includes tones.js
+// this file also includes unmute.js
 (function(window) {
     var context = (window.Tone && window.Tone.context && window.Tone.context._context) || new (window.AudioContext || window.webkitAudioContext)();
     unmute(context);
@@ -77,6 +77,10 @@
             pitch = pitch.transpose(transpose);
             return this.octave[pitch.step] + pitch.octave;
         },
+        getPythagoreanFreq: function(pitch, transpose) {
+          let freq = pythagoreanOctave[pitch.step] * (440 / 64) * (2 << pitch.octave) * Math.pow(2, (transpose + 3) / 12);
+          return freq
+        },
 
         octave: ["c","c#","d","d#","e","f","f#","g","g#","a","a#","b"],
 
@@ -132,6 +136,11 @@
             return map;
         }
     };
+
+    if (localStorage['pyth'] || new URLSearchParams(location.search).has('pythagorean')) {
+      console.info('Using Pythagorean tuning');
+      tones.getNoteName = tones.getPythagoreanFreq;
+    }
 
     const pythagoreanOctave = [
         1,

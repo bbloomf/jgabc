@@ -241,6 +241,10 @@ span.start-pitch {
   max-width: 100%;
 }
 
+@media screen and (min-width: 768px) {
+  .ss-only { display: none!important }
+}
+
 @media screen and (max-width: 768px) {
   .ss-border-bottom {
     border-bottom: 1px solid #ddd;
