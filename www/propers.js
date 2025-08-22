@@ -43,7 +43,11 @@ $(function(){
       var onError = function(msg) {
         console.log("Sharing failed with message: " + msg);
       }
-      navigator.share({ url: 'http://bbloomf.github.io/jgabc/propers.html' + location.hash }).then(onSuccess).catch(onError);
+      if (navigator.share) {
+        navigator.share({ url: 'http://bbloomf.github.io/jgabc/propers.html' + location.hash }).then(onSuccess).catch(onError);
+      } else if (window.plugins) {
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+      }
   });
 
   var reFullBarsWithNoPunctuation = /([^;:,.!?\s])\s*\*/g;
