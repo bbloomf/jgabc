@@ -1,5 +1,5 @@
 #!/bin/bash
-export ORG_GRADLE_PROJECT_cdvMinSdkVersion=19
+export ORG_GRADLE_PROJECT_cdvMinSdkVersion=21
 export ANDROID_HOME=~/Library/Android/sdk
 PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools:$ANDROID_HOME/emulator
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
