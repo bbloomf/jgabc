@@ -43,6 +43,8 @@
         </edit-config> -->
     </platform>
     <platform name="ios">
+        <preference name="scheme" value="app" />
+        <preference name="hostname" value="localhost" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="20" src="res/ios/Icon-App-20x20@1x.png" width="20" />
