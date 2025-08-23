@@ -17,10 +17,13 @@
             "com.borismus.webintent": {},
             "cordova-plugin-x-socialsharing": {}
         },
-        "platforms": []
+        "platforms": [
+            "ios"
+        ]
     },
     "devDependencies": {
         "cordova-android": "^14.0.1",
+        "cordova-ios": "^7.1.1",
         "cordova-plugin-x-socialsharing": "^6.0.4",
         "es6-promise-plugin": "^4.2.2"
     }
