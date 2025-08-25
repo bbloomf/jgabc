@@ -25,6 +25,9 @@
         <icon density="xxxhdpi" src="res/mipmap-xxxhdpi/icon.png" />
         <preference name="AndroidLaunchMode" value="singleTask" />
         <preference name="android-targetSdkVersion" value="35" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splashscreen.xml" />
+        <preference name="SplashScreenBackgroundColor" value="#ffffff" />
+        <preference name="AndroidWindowSplashScreenAnimationDuration" value="0" />
         <config-file parent="/*/application/activity" target="AndroidManifest.xml">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
