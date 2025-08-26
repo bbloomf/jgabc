@@ -48,6 +48,7 @@
     <platform name="ios">
         <preference name="scheme" value="app" />
         <preference name="hostname" value="localhost" />
+        <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="20" src="res/ios/Icon-App-20x20@1x.png" width="20" />
