@@ -2,7 +2,7 @@ var https  = require('https'),
     fs     = require('fs'),
     Hypher = require('hypher'),
     gabc   = require('./util.js'),
-    prettier = require("prettier"),
+    prettier = require("@prettier/sync"),
     { addPtAlleluia } = require("./alleluias-in-of-co.js");
 require('./gabc-refs.js');
 
@@ -573,7 +573,7 @@ modes.forEach(m => m.sort && m.sort((a,b) => a-b));
           fs.writeFileSync('gabc-files.html', gabcUrls);
 
           fs.writeFileSync('miscChants.js', prettier.format(`litanyMap=${JSON.stringify(litanies)};
-miscChants=${JSON.stringify(miscChants)}`));
+miscChants=${JSON.stringify(miscChants)}`, { parser: 'typescript' }));
           fs.writeFileSync('texts.js', `texts = ${JSON.stringify(texts,null, '\t')};`);
           fs.writeFileSync('incipits.js', `pages = ${JSON.stringify(pages)};
 modes = ${JSON.stringify(modes)};
