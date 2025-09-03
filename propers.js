@@ -936,7 +936,7 @@ $(function(){
     var dates = Dates(m.year());
     if(m.isSameOrAfter(dates.septuagesima) && m.isBefore(dates.pascha)) {
       return 'Quad';
-    } else if(m.isSameOrAfter(dates.pascha) && m.isBefore(dates.pentecost)) {
+    } else if(m.isSameOrAfter(dates.pascha) && m.isBefore(moment(dates.pentecost).add(1, 'week'))) {
       return 'Pasch';
     }
     return '';
