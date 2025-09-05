@@ -101,7 +101,7 @@ var mapBooks = {
 for(var psalm=1; psalm <= 150 + Object.keys(cantica).length; ++psalm) {
   psalmMap[psalm - 1] = [];
   var psalmFileName = psalm <= 150? ('00'+psalm).slice(-3) : Object.keys(cantica)[psalm-151];
-  var liberPsalm = fs.readFileSync(`psalms/${psalmFileName}`,'utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
+  var liberPsalm = fs.readFileSync(`psalms/${psalmFileName}.txt`,'utf8').replace(regexNonWord,' ').toLowerCase().split('\n');
   var liberI = 0;
   var liber = liberPsalm[liberI].trim().split(/\s+/);
   var vulgate;

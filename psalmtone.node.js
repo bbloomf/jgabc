@@ -1042,7 +1042,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success) {
     var calledSuccess=false;
     psalmNum = String(psalmNum);
     if(psalmNum.length < 3) psalmNum = ("00" + psalmNum).slice(-3);
-    var t = $.ajax({url:"psalms/" + psalmNum,
+    var t = $.ajax({url:"psalms/" + psalmNum + ".txt",
       type: "GET",
       crossDomain: false,
       success: function(data) {

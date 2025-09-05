@@ -1445,7 +1445,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success, fail) {
   if(useNovaVulgata){
     if(!/^\d+$/.test(psalmNum)) {
       // Canticle...
-      $.get("psalms/NovaVulgata/" + psalmNum).done(function(data){
+      $.get("psalms/NovaVulgata/" + psalmNum + ".txt").done(function(data){
         success(normalizePsalm(data, psalmNum, psalmPart, includeGloriaPatri));
       }).fail(function(jqXHR, textStatus){
         if (fail) {
@@ -1473,7 +1473,7 @@ function getPsalm(psalmNum, includeGloriaPatri, useNovaVulgata, success, fail) {
   } else {
     var calledSuccess=false;
     if(psalmNum.length < 3) psalmNum = ("00" + psalmNum).slice(-3);
-    var t = $.ajax({url:"psalms/" + psalmNum,
+    var t = $.ajax({url:"psalms/" + psalmNum + ".txt",
       type: "GET",
       crossDomain: false,
       success: function(data) {
