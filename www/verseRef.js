@@ -109,7 +109,7 @@ Ref.prototype.getLinesFromLiber = function() {
     }));
   }
   if (text) return $.when(produceResult(text));
-  return $.get(urlRoot+"psalms/"+psalm).pipe(produceResult);
+  return $.get(urlRoot+"psalms/"+psalm+".txt").pipe(produceResult);
 }
 function refArrayString(array) {
   if(!array.length) return "";
