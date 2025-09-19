@@ -201,7 +201,7 @@ miscChants = [
   { name: "Vexilla Regis (Exaltatio Sanctæ Crucis)", id: 10579 },
   { name: "Vexilla Regis (extra Tempus Passionis)", id: 12999 },
   { name: "Vexilla Regis (Inventio Sanctæ Crucis)", id: 10200 },
-  { name: "Vexilla Regis prodeunt", id: 2120 },
+  { name: "Vexilla Regis prodeunt (tempore passionis)", id: 2120 },
   { name: "Virgo Dei Genitrix", id: 3320 },
   { name: "Virgo parens Christi", id: 4072 },
 ];

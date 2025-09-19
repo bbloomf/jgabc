@@ -89,6 +89,34 @@ var write1092 = (gabc) => {
   gabc = gabc.replace(/\([^:)]*::[^:)]*\)\s*1\.?(\s|\(\))[\s\S]*$/, '(::)');
   fs.writeFileSync(path + '1092.gabc', gabc);
 };
+var write12999 = (gabc) => {
+  var regexRubric = /<alt>(Post.*?)<\/alt>(?=\()/;
+  var regexAltText = /<alt>(.*?)<\/alt>/g;
+  const rubric = regexRubric.exec(gabc)[1];
+  gabc = gabc.replace(regexAltText, '');
+  const syls = [
+    'Pas', 'chá', 'le',
+    'quæ',
+    'fers',
+    'gáu', 'di', 'um:',
+  ];
+  const altSyls = [
+    // TODO?:
+    // `<i>${rubric}</i> {I}n`,
+    'In ',
+    'hac ',
+    'tri', 'úm', 'phi',
+    'gló', 'ri', 'a: ',
+  ];
+  const regex = new RegExp(syls.map(s => `(${s})(\\([^)]*\\)\\s*)`).join(''));
+  gabc = gabc.replace(regex, (whole, ...args) => args.map((val, i) => 
+    // even components are words,
+    // odd are parenthetic gabc
+    i /2 >= altSyls.length ? '' : (i % 2) ? val : `${val}|${altSyls[i / 2]}`
+  ).join(''));
+
+  fs.writeFileSync(path + '12999.gabc', gabc);
+}
 let gabcParts = {};
 let writeGabcPart = (gabc, id, i) => {
   if (i > 1) {
@@ -107,6 +135,7 @@ var callbackOn = {
   507: gabc => (gabcOf507 = gabc, write507a()),
   "507&elem=2": gabc => (gabcOf507_2 = gabc, write507a()),
   1092: write1092,
+  12999: write12999,
   "2209&elem=1": gabc => writeGabcPart(gabc.replace(/\(d\+\)\s*$/, 'Crux fidélis.() (d+) (Z-)'), 2209, 1),
   "2209&elem=2": gabc => writeGabcPart(gabc, 2209, 2),
   "2209&elem=3": gabc => writeGabcPart(gabc, 2209, 3),
