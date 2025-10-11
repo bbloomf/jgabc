@@ -1368,8 +1368,9 @@ $(function(){
               // if it's in our dictionary, let's replace it with the whole thing:
               var lastIndex = regexOuter.lastIndex,
                   sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
-                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+|(^\s*|\s+)<i>[^<]*<\/i>(\s+|\s*$)/,'');
-              if(sliceText.countSyllables() < 10 && sliceText != replaceText) {
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim(),
+                  replaceTextWithoutRubrics = replaceText.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+|(^\s*|\s+)<i>[^<]*<\/i>(\s+|\s*$)/,'');
+              if(sliceText.countSyllables() < 10 && sliceText != replaceText && sliceText != replaceTextWithoutRubrics) {
                 if(storeMap && storeMap.responsoryCallbacks) {
                   var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
                   if(temp.slice(-1)[0].length == 0) temp.pop();
