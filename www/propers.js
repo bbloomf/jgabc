@@ -1372,8 +1372,9 @@ $(function(){
               // if it's in our dictionary, let's replace it with the whole thing:
               var lastIndex = regexOuter.lastIndex,
                   sliceText = decompile(slice, ignoreSyllablesOnDivisiones).trim(),
-                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim().replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+|(^\s*|\s+)<i>[^<]*<\/i>(\s+|\s*$)/,'');
-              if(sliceText.countSyllables() < 10 && sliceText != replaceText) {
+                  replaceText = decompile(gabcAfterAsterisks[firstWord], ignoreSyllablesOnDivisiones).trim(),
+                  replaceTextWithoutRubrics = replaceText.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s+|(^\s*|\s+)<i>[^<]*<\/i>(\s+|\s*$)/,'');
+              if(sliceText.countSyllables() < 10 && sliceText != replaceText && sliceText != replaceTextWithoutRubrics) {
                 if(storeMap && storeMap.responsoryCallbacks) {
                   var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
                   if(temp.slice(-1)[0].length == 0) temp.pop();
@@ -2851,10 +2852,11 @@ $(function(){
   var addCount = Math.max(1, d.sundaysAfterPentecost - 23);
   if(d.sundaysAfterPentecost == 23) sundayKeys.splice(-1,1);
   sundayKeys = sundayKeys.concat(ultimaeDominicaePostPentecosten.splice(-addCount));
+  const twoWeeksAgo = moment().add(-2,'weeks');
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
     var m = dateForSundayKey(sunday.key, d);
-    if(m.isBefore(moment().add(-2,'weeks'))) {
+    if(m.isBefore(twoWeeksAgo)) {
       m = dateForSundayKey(sunday.key, dNextYear);
     }
     if(!m.isValid()) console.error(sunday);
@@ -2871,12 +2873,11 @@ $(function(){
   Object.keys(outoforder).forEach(function(key) {
     var toPlace = outoforder[key];
     var year = toPlace.date.year();
-    var lastDate = moment('12-31','MM-DD').year(year);
     var i = 1;
     while(i < sundayKeys.length) {
-      var sunday = dateForSundayKey(sundayKeys[i].key, dateCache[year]);
+      var sunday = dateForSundayKey(sundayKeys[i].key, dateCache[year]).year(year);
       var nextSunday = sundayKeys[++i];
-      var next = nextSunday && dateForSundayKey(nextSunday.key, dateCache[year]);
+      var next = nextSunday && dateForSundayKey(nextSunday.key, dateCache[year]).year(year);
       if(!next || (sunday.isBefore(toPlace.date) && next.isSameOrAfter(toPlace.date))) {
         sundayKeys.splice(i, 0, toPlace);
         break;
@@ -2897,7 +2898,7 @@ $(function(){
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
     var next = sundayKeys[++i];
-    if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now))) {
+    if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now) && next.date.diff(now, 'day') < 14)) {
       moveToEnd = sundayKeys.splice(1, i - 1);
       sundayKeys.push(beginningOfYearEntry);
       sundayKeys = sundayKeys.concat(moveToEnd);
