@@ -124,6 +124,7 @@ text.aboveLinesText {
   font-style: italic;
   line-height: 1;
   color: #d00;
+  margin-top: 0.5em;
 }
 .rubric {
   font-family: 'Crimson Text';
@@ -288,6 +289,7 @@ syl.bold {
   font-family: 'Crimson Text';
   font-size: 14pt;
   font-style: italic;
+  margin-right: 0.5em;
 }
 
 .lectio-text {
@@ -321,6 +323,9 @@ syl.bold {
   .show-gabc .asperges-verses {
     font-size: 1.58vw; /* 3.16 / 2 */
   }
+  select {
+    font-size: 1.505vw; /* 1.58 / 1.05 */
+  }
 }
 @media(min-width: 1262px) {
   body {
@@ -332,6 +337,9 @@ syl.bold {
   .verses,
   .asperges-verses {
     font-size: 39.9px; /* (1262 * 3.16 / 100) */
+  }
+  select {
+    font-size: 19px; /* (1262 * 3.16 / 210) */
   }
 }
 @media print {

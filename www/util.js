@@ -1439,10 +1439,13 @@ if(typeof $=='function') $(function($) {
   }
   window.findChantElementNear = function(svg,pageX,pageY) {
     var $svg = $(svg),
-        x = pageX - $svg.offset().left,
-        $lines = $svg.find('g.chantLine'),
-        score = svg.source,
-        lines = score.lines;
+      $offset = $svg.offset(),
+      svgX = pageX - $offset.left,
+      viewBoxWidth = svg.viewBox.baseVal.width,
+      x = viewBoxWidth ? (svgX * viewBoxWidth / $svg.width()) : svgX,
+      $lines = $svg.find('g.chantLine'),
+      score = svg.source,
+      lines = score.lines;
     for(var i=$lines.length - 1; i >= 0; --i) {
       var top = $($lines[i]).offset().top;
       if(top < pageY) {
