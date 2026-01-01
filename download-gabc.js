@@ -335,7 +335,11 @@ var path = 'gabc/',
                       .replace(/\s{2,}/g,' ')
                       .replace(/<i>\((.*?)\)<\/i>/g, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
                       .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
-                      .replace(/\s\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi,' {*}~<i>$2</i>$1(')
+                      .replace(/\bi[{}]?j[{}]?\.[{}]?(?=\W)/, (whole) => !(whole.includes('{') && whole.includes('}')) ? whole : whole.replace(/[{}]/g, ''));
+if (ids[i] == 863) console.info(content);
+                      content = content
+                      .replace(/(?:\s+(\([,;:]*\)\s)|\s)\s*\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi, ' {*}~<i>$3</i>$2$1(')
+                      // .replace(/\s\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi,' {*}~<i>$2</i>$1(')
                       .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
                       .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
                       .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*+\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2\n$5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
