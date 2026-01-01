@@ -2898,7 +2898,9 @@ $(function(){
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
     var next = sundayKeys[++i];
-    if(next && (sunday.date.isBefore(now) && next.date.isSameOrAfter(now) && next.date.diff(now, 'day') < 14)) {
+    if(next && ((sunday.date.isBefore(now) || sunday.date.diff(now, 'day') > 358) &&
+        next.date.isSameOrAfter(now) && next.date.diff(now, 'day') < 14)
+    ) {
       moveToEnd = sundayKeys.splice(1, i - 1);
       sundayKeys.push(beginningOfYearEntry);
       sundayKeys = sundayKeys.concat(moveToEnd);
