@@ -696,6 +696,13 @@ $(function() {
     }
     $('#pdfForm').attr('action','https://www.sourceandsummit.com/editor/legacy/#' + encodeURI(result)).submit();
   });
+  $('#lnkPdfAlpha').click(function(e){
+    var result=getGabc();    
+    if(e && typeof(e.preventDefault)=="function"){
+      e.preventDefault();
+    }
+    $('#pdfForm').attr('action','https://www.sourceandsummit.com/editor/alpha/#' + encodeURI(result)).submit();
+  });
   $('#lnkPdfDirect').click(function(e){
     var gabcs=[getGabc()];
     if(e && typeof(e.preventDefault)=="function"){
