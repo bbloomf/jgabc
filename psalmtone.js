@@ -652,7 +652,26 @@ function processGabcPrespace(prespace) {
 function processGabcPrespaceForWhitespace(prespace) {
   return prespace.replace(/\S*/g, '');
 }
+function combineToneGabc(tones) {
+  return tones.reduce(
+    (gabc, tone) =>
+      gabc +
+      tone.gabcClosed
+        .replace(/[\(\)]/g, "")
+        .replace(new RegExp("^" + gabc.slice(-1), "i"), ""),
+    "",
+  ).replace(/(.*?)([a-m]{2,})(\.*)/, (_, preNotes, notes, dots) => {
+    const noteCount = notes.length;
+    if (!preNotes && noteCount >= 3 && Array.from(notes).slice(1).every((note, i) => note.charCodeAt(0) < notes.charCodeAt(i))) {
+      notes = notes[0] + 'v' + notes.slice(1).toUpperCase();
+    }
+    dots = dots && (noteCount === 2 ? '..' : '.');
+    return `${preNotes}${notes}${dots}`;
+  });
+}
+            
 function applyPsalmTone(options) {
+  var experimentalOxytones = typeof new URLSearchParams(location.search).get('experimental') === 'string';
   var text = options.text,
       gabc = options.gabc,
       clef = options.clef,
@@ -766,9 +785,20 @@ function applyPsalmTone(options) {
       var s = syl[si];
       if(ti == tones.length - 1 && si == syl.length - 1 && toneList.accents > 0 && s.accent){
         ti = toneList.lastAccentI();
-        if(!toneList.lastAccent().open){
+        if(!tones[ti].open){
           var addDots = /\./g.test(tone.all);
-          tone = tones[ti];
+          var finalTones = tones.slice(ti);
+          tone = finalTones[0];
+
+          if (experimentalOxytones) {
+            // combine tones following
+            tone = $.extend({},tone);
+            var gabc = combineToneGabc(finalTones);
+            tone.gabc = tone.gabcClosed = '(' + gabc + ')';
+            addDots = false;
+            lastOpen = true;
+          }
+
           if(addDots && !/\./.test(tone.all)){
             var dots = '.'.repeat( tone.gabc.match(/[a-m]/gi).length );
             tone = $.extend({},tone);
@@ -840,6 +870,11 @@ function applyPsalmTone(options) {
             si = lastAccentI - 2;
             s = syl[si];
             if(s)s.accent = true;
+          } else if(countToNext === 1 && typeof lastOpen === 'object' && experimentalOxytones) {
+            // combine tones following
+            tone = $.extend({},tone);
+            var gabc = combineToneGabc([tone, lastOpen]);
+            tone.gabc = tone.gabcClosed = '(' + gabc + ')';
           }
           si = originalSi;
           s = syl[si];
