@@ -2885,11 +2885,11 @@ $(function(){
     }
   });
 
-  var i = 0;
+  var i = sundayKeys.length;
   var regexExtraSundayAfterEpiphany = null;
   if(moment() > d.septuagesima) d = Dates(moment().year()+1);
   if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
-  while(++i < sundayKeys.length) {
+  while(--i >= 0) {
     if(regexExtraSundayAfterEpiphany.test(sundayKeys[i].key)) {
       sundayKeys.splice(i,1);
     }
