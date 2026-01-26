@@ -3902,7 +3902,20 @@ console.info(JSON.stringify(selPropers));
   }
   var touchedElement = null;
   var originalTouch = null;
-  $(document).on('change', '.selectShowLectionem', function(e){
+  var wakeLockRequest;
+  $(document).on('scroll', function(e){
+    if (wakeLockRequest) return;
+    try {
+      wakeLockRequest = navigator.wakeLock.request('screen');
+      wakeLockRequest.then(function(wakeLock) {
+        console.info(wakeLock);
+        wakeLock.addEventListener("release", () => {
+          // if the page is scrolled later on, we want to re-acquire a wake lock
+          wakeLockRequest = undefined;
+        });
+      })
+    } catch (e) { console.warn(e)}
+  }).on('change', '.selectShowLectionem', function(e){
     e.preventDefault();
     var val = $(this).val();
     localStorage.showLectionem = val;
