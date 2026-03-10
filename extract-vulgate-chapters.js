@@ -5,7 +5,7 @@ var fs = require("fs"),
     Hypher.languages = {};
 require('./patterns/la-hypher.js');
     var latin = window.Hypher.languages.la_VA,
-    vulgate = fs.readFileSync('../latin-ecclesiastic-accents/corpus/vulgate/vulgate_with_accents.txt','utf8').replace(/ ([:;.!?])/g,'$1').split('\n'),
+    vulgate = fs.readFileSync('../vulgate/vulgate_with_accents.txt','utf8').replace(/ ([:;.!?])/g,'$1').split('\n'),
     regexBookChapter = /^(?:\[[^\]]+\]\s*)?((?:(\d+)\s+)?([a-zæ]+))\s+(\d+)\s+(\d+)\s+/i,
     regexWord = /[a-záéíóúýäëïöüÿæœǽ]+/ig,
     regexIVowel = /i[aeiouyáéíóúýäëïöüÿ]|[ií]c[aeiouyáéíóúýäëïöüÿ]/i,
@@ -43,7 +43,7 @@ vulgate.forEach(line => {
       word = word.replace(/([Cc][uú])i(us)/g,'$1j$2');
       word = word.replace(/([Bb][eé]n)i(amin)/i, '$1j$2');
       if(/j/i.test(word)) {
-        if(/^(allelúja|Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajunt|ajo|ajon|gaj(o|us)|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
+        if(/^(Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajon|gaj(o|us)|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
           word = word.replace(/j/g,'i').replace(/J/g,'I');
         } else {
           jWords[word.toLowerCase()] = 1;

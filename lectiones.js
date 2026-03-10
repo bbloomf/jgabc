@@ -1690,7 +1690,7 @@ var lectiones = {
   "1 Petri 5: 1-4, 10-11",
   "Matthæus 16: 13-19"
  ],
- "Pasch3w": [
+ "Pasc2w": [
   "Genesis 49: 22-26",
   "Lucas 3: 21-23"
  ],

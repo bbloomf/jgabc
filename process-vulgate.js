@@ -37,8 +37,8 @@ var cantica = {
   "Canticum Isaiae (alterum)": "Is 53: 1-5",
   "Canticum Jeremiae": "Jer 31: 10-14",
   "Canticum Judith": "Judith 16: 15-21",
-  "Canticum Moysis": "Exod 15: 1-19",
-  "Canticum Moysis (Deut)": "Deut 32: 1-18",
+  "Canticum Moysis (Exod)": "Exod 15: 1-19",
+  "Canticum Moysis (Deut 32, 1-18)": "Deut 32: 1-18",
   "Canticum Tobiae": "Tob 13: 1-10",
   //"Canticum Trium puerorum": "Dan 3: 57-88"
 }

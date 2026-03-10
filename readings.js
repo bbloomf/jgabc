@@ -520,7 +520,7 @@ $(function() {
       'Prophecy': {
         'clef':'c3',
         'recitingTone':'h',
-        'mediant': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f hg..:'h hr g.",
+        'mediant': "((t[0].word&&t[0].word.length==1)||t[0].accent)?'h gr f hg..:'h hr g.",
         'fullStop': "((t[0].word&&t[0].word.length==1)||t[0].accent)?f g.:(t[1]&&t[1].accent)?h. d.:'h dr d.",
         'question': "h. , gr f g gh..",
         'conclusion': "'i hr 'gxg gr g."
