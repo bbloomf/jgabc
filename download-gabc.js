@@ -396,7 +396,7 @@ if (ids[i] == 863) console.info(content);
                       var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
                       var vowelCount = (word.match(/[aá]u|(qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
                       var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
-                      if(vowelCount !== syls.length && vowelCountIJ !== syls.length) {
+                      if(word.toLowerCase() !== 'cui' && vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
                         console.info({lastParens, whole, lastSyl, file});
                         if(!/^(c[uú]i|euge|ceu|Allelúia)$/i.test(word)) throw 1;
@@ -414,7 +414,7 @@ if (ids[i] == 863) console.info(content);
                       var otherSyls = latin.hyphenate(word);
                       if(otherSyls.length != syls.length ||
                          (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽœ́aeiouyáéíóúýäëïöüÿ]/i)))) {
-                        if(syls.length && (syls.length > 1 || syls[0] != '}')) {
+                        if(syls.length && (syls.length > 1 || syls[0] != '}') && word.toLowerCase() !== 'cui') {
                           console.error(file, syls, otherSyls);
                           errors.push(file + ': ' + JSON.stringify(syls) + '::' + JSON.stringify(otherSyls));
                         }

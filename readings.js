@@ -1,3 +1,28 @@
+var readingIntroductions = {
+  "Lucas": `Se(h)quén(h)ti(h)a(h) sánc(h)ti(f) E(h)van(g)gé(g)li(h)i(h.) (,) se(h)cún(h)dum(h) Lu(g.)cam.(g.) (::) In(f) il(h)lo(g) tém(g)po(h)re:(h.) (;)`,
+  "Marcus": `Se(h)quén(h)ti(h)a(h) sánc(h)ti(f) E(h)van(g)gé(g)li(h)i(h.) (,) se(h)cún(h)dum(h) Mar(g.)cum.(g.) (::) In(f) il(h)lo(g) tém(g)po(h)re:(h.) (;)`,
+  "Joannes": `Se(h)quén(h)ti(h)a(h) sánc(h)ti(f) E(h)van(g)gé(g)li(h)i(h.) (,) se(h)cún(h)dum(h) Jo(h)án(g.)nem.(g.) (::) In(f) il(h)lo(g) tém(g)po(h)re:(h.) (;)`,
+  "Matthæus": `Se(h)quén(h)ti(h)a(h) sánc(h)ti(f) E(h)van(g)gé(g)li(h)i(h.) (,) se(h)cún(h)dum(h) Mat(h)thǽ(g.)um.(g.) (::) In(f) il(h)lo(g) tém(g)po(h)re:(h.) (;)`,
+
+  "Ad Romanos": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hi) Ro(g)má(f.)nos.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Corinthios": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hi) Co(g)rín(f)thi(g)os.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Galatas": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hig) Gá(f)la(g)tas.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Ephesios": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hi) Eph(g)é(f)si(g)os.(g.) (:)  Fra(h)tres:(h.) (,)`,
+  "Ad Philippenses": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(h) Phi(hi)lip(g)pén(f.)ses.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Colossenses": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(h) Co(hi)los(g)sén(f.)ses.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Thessalonicenses": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(h) Thes(h)sa(h)lo(hi)ni(g)cén(f.)ses.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Timotheum": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hi) Ti(g)mó(f)the(g)um.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Titum": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hig) Tí(f.)tum.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Philemonem": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(h) Phi(hi)le(g)mó(f.)nem.(g.) (:) Fra(h)tres:(h.) (,)`,
+  "Ad Hebræos": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(f) Pau(h)li(g) A(g)pós(g)to(h)li(h.) (,) ad(hi) He(g)brǽ(f.)os.(g.) (:) Fra(h)tres:(h.) (,)`,
+
+  "Jacobi": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(h) Ja(h)có(hi)bi(g) A(g)pós(f)to(g)li.(g.) (:) Ca(h)rís(h)si(h)mi:(h.) (,)`,
+  "Petri": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(h) Pe(hi)tri(g) A(g)pós(f)to(g)li.(g.) (:) Ca(h)rís(h)si(h)mi:(h.) (,)`,
+  "Joannis": `Léc(h)ti(h)o(h) E(h)pis(h)tó(h)læ(h) be(h)á(h)ti(h) Jo(h)án(hi)nis(g) A(g)pós(f)to(g)li.(g.) (:) Ca(h)rís(h)si(h)m i:(h.) (,)`,
+
+  "Actus Apostolorum": `Léc(h)ti(h)o(h) Ac(h)tu(h)um(h) A(h)pos(hi)to(g)ló(f.)rum.(g.) (:) In(h) di(f)é(h)bus(g) il(g)lis:(h.) (,)`,
+  "Apocalypsis": `Léc(h)ti(h)o(h) li(h)bri(h) A(f)po(h)ca(g)lýp(g)sis(h.) (,) be(h)á(h)ti(h) Jo(h)án(hi)nis(g) A(g)pós(f)to(g)li.(g.) (:)`
+};
 var selLang = 'english';
 var custom_tones={english:{},latin:{}};
 var gSyl,syl,_clef;
