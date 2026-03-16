@@ -364,6 +364,10 @@ var lectiones = {
   "Ad Romanos 11: 33-36",
   "Matthæus 28: 18-20"
  ],
+ "Pent1w": [
+  "1 Joannis 4: 8-21",
+  "Lucas 6: 36-42"
+ ],
  "Pent2": [
   "1 Joannis 3: 13-18",
   "Lucas 14: 16-24"
