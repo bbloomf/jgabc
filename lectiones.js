@@ -1250,6 +1250,10 @@ var lectiones = {
   "Ecclesiasticus 45: 1-6",
   "Matthæus 19: 27-29"
  ],
+ "Nov27": [
+  "Apocalypsis 12: 1,5,14-16",
+  "Joannes 2: 1-11"
+ ],
  "Nov30": [
   "Ad Romanos 10: 10-18",
   "Matthæus 4: 18-22"
