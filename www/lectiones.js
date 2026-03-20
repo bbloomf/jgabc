@@ -364,6 +364,10 @@ var lectiones = {
   "Ad Romanos 11: 33-36",
   "Matthæus 28: 18-20"
  ],
+ "Pent1w": [
+  "1 Joannis 4: 8-21",
+  "Lucas 6: 36-42"
+ ],
  "Pent2": [
   "1 Joannis 3: 13-18",
   "Lucas 14: 16-24"
@@ -1245,6 +1249,10 @@ var lectiones = {
  "Nov26": [
   "Ecclesiasticus 45: 1-6",
   "Matthæus 19: 27-29"
+ ],
+ "Nov27": [
+  "Apocalypsis 12: 1,5,14-16",
+  "Joannes 2: 1-11"
  ],
  "Nov30": [
   "Ad Romanos 10: 10-18",
