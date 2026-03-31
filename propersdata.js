@@ -515,7 +515,9 @@ var saintKeys = [
     {key:"Dec26",title:"Dec 26: St Stephen",en:"Dec 26: St Stephen"},
     {key:"Dec27",title:"Dec 27: St John",en:"Dec 27: St John"},
     {key:"Dec28",title:"Dec 28: The Holy Innocents",en:"Dec 28: The Holy Innocents"},
-    {key:"Dec29",title:"Dec 29: St Thomas Becket",en:"Dec 29: St Thomas Becket"}
+    {key:"Dec29",title:"Dec 29: St Thomas Becket",en:"Dec 29: St Thomas Becket"},
+    {key:"Dec31",title:"Dec 31: St Sylvester",en:"Dec 31: St Sylvester"},
+    {key:"Dec31_v",title:"Dec 31: St Sylvester (ante 1955)",en:"Dec 31: St Sylvester (pre 1955)"}
     /* END_GEN */
 ];
 var gabcPsalm21 = "initial-style: 0;\n\
@@ -4305,6 +4307,22 @@ var proprium = {
         "gbid": "st_thomas_becket",
         "inVerses": "Ps 32: 2-4, 12-15, 18",
         "coVerses": "Ps 22"
+    },
+    "Dec31": {
+        "coID": 509,
+        "grID": 1119,
+        "alID": 228,
+        "inID": 674,
+        "ofID": 358,
+        "gbid": "st_silvester",
+        "ref": "mass_holy_pope"
+    },
+    "Dec31_v": {
+        "introitusID":"48",
+        "gradualeID":"235",
+        "alleluiaID":"1350",
+        "offertoriumID":"779",
+        "communioID":1154,
     },
     "Dec3": {
         "coID": 1154,
