@@ -29,7 +29,7 @@
         <preference name="SplashScreenBackgroundColor" value="#ffffff" />
         <preference name="AndroidWindowSplashScreenAnimationDuration" value="0" />
         <config-file parent="/*/application/activity" target="AndroidManifest.xml">
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
