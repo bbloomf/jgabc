@@ -818,6 +818,14 @@ var lectiones = {
   "Ad Hebræos 5: 1-6",
   "Joannes 10: 11-16"
  ],
+ "Dec31": [
+  "1 Petri 5: 1-4, 10-11",
+  "Matthæus 16: 13-19"
+ ],
+ "Dec31_v": [
+  "2 Ad Timotheum 4: 1-8",
+  "Lucas 12: 35-40"
+ ],
  "Dec3": [
   "Ad Romanos 10: 10-18",
   "Marcus 16: 15-18"

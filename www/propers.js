@@ -77,6 +77,7 @@ $(function(){
     });
   }
   var LocationHash = function(hash) {
+    hash = hash.replace(/%23/g, '#').replace(/\+/g, ' ');
     var regexKeyVal = /#([^=#]+)(?:=([^#]+))?/g;
     var curMatch;
     while(curMatch = regexKeyVal.exec(hash)) {
@@ -1750,14 +1751,14 @@ $(function(){
   }
   
   var updateStyle = function(part,style){
-    addToHash('style'+part[0].toUpperCase()+part.slice(1), style == 'full' ? '' : style);
+    var capPart = part[0].toUpperCase() + part.slice(1);
+    addToHash('style'+capPart, style == 'full' ? '' : style);
     if(style == 'full') {
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
     sel[part].overrideTone = sel[part].overrideToneEnding = null;
-    var capPart = part[0].toUpperCase() + part.slice(1),
-        $selToneEnding = $('#selToneEnding' + capPart),
+    var $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
         $cbSolemn = $('#cbSolemn' + capPart),
         $right = $selTone.parent(),
@@ -3511,6 +3512,17 @@ console.info(JSON.stringify(selPropers));
       });
     } else {
       hash[removeSelIfPresent(a)] = b || false;
+      // const withSelRemoved = removeSelIfPresent(a);
+      // const currentHash = hash[withSelRemoved];
+      // if (currentHash && b) {
+      //   const hashParts = currentHash.split(';');
+      //   const bParts = b.split(';');
+      //   if (bParts.length > 1 || hashParts[0] !== bParts[0]) {
+      //     hash[withSelRemoved] = b || false;
+      //   }
+      // } else {
+      //   hash[withSelRemoved] = b || false;
+      // }
     }
     if(hash.mass != 'custom') {
       $('input.sel-custom').each(function(){
@@ -3602,7 +3614,7 @@ console.info(JSON.stringify(selPropers));
             });
             sel[part].pattern = pattern;
           }
-          styleParts = style.split(';');
+          var styleParts = style.split(';');
           if($this.val() != styleParts[0]) {
             $this.val(styleParts[0]);
             if(part == 'graduale' && $this.val() != styleParts[0]) {
@@ -3613,16 +3625,18 @@ console.info(JSON.stringify(selPropers));
             $this.change();
           }
           if(styleParts[1]) {
-            var termination = styleParts[1],
-                match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G][-\*\d]?)?/),
-                tone = match[1],
-                ending = match[2],
-                $selToneEnding = $('#selToneEnding' + capPart),
-                $selTone = $('#selTone' + capPart);
-            sel[part].overrideTone = tone;
-            sel[part].overrideToneEnding = ending;
-            if($selTone.val() != tone) $selTone.val(tone).change();
-            if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
+            const termination = styleParts[1];
+            setTimeout(() => {
+              var match = termination.match(/^((?:\d+|per)(?: alt)?)\s*([a-gA-G][-\*\d]?)?/),
+                  tone = match[1],
+                  ending = match[2],
+                  $selToneEnding = $('#selToneEnding' + capPart),
+                  $selTone = $('#selTone' + capPart);
+              sel[part].overrideTone = tone;
+              sel[part].overrideToneEnding = ending;
+              if($selTone.val() != tone) $selTone.val(tone).change();
+              if(ending && $selToneEnding.val() != ending) $selToneEnding.val(ending).change();
+            });
           }
         }
         if(verseStyle && $verses.length) {
@@ -3630,7 +3644,7 @@ console.info(JSON.stringify(selPropers));
         }
       });
     }
-    allowAddToHash = true;
+    setTimeout(() => allowAddToHash = true);
   }
   function isCustomPart(part) {
     return /^custom\d+$/.test(part);
