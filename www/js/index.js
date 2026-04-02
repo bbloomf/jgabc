@@ -55,6 +55,8 @@ var app = {
         window.plugins.webintent.getUri(function(url) {
             if(url) app.handleUrl(url);
             else app.onResume();
+        }, function(failure) {
+            console.warn(failure);
         }); 
         window.plugins.webintent.onNewIntent(function(url) {
             if(url) app.handleUrl(url);
