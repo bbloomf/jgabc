@@ -760,6 +760,9 @@ $(function() {
         score.annotation = new exsurge.Annotations(ctxt, '%'+header.annotation+'%');
       }
     }
+    if (header.staffLineCount) {
+      score.staffLineCount = Number(header.staffLineCount);
+    }
     var language = header['centering-scheme'] == 'english'? exsurgeEnglish : new exsurge.Latin();
     exportContext.defaultLanguage = language;
     ctxt.defaultLanguage = language;
@@ -847,6 +850,9 @@ $(function() {
         header = getHeader(gabc),
         mappings = exsurge.Gabc.createMappingsFromSource(exportContext, code),
         score = new exsurge.ChantScore(exportContext, mappings, header.initialStyle!=='0');
+    if (header.staffLineCount) {
+      score.staffLineCount = Number(header.staffLineCount);
+    }
     if(header.initialStyle!=='0' && header.annotation) {
       var annotationArray = header.annotationArray;
       if(annotationArray) {
