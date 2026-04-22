@@ -1840,14 +1840,17 @@ incipits = {
 		"alleluia": 3031,
 		"auctor": 3988,
 		"audi benigne": 1830,
-		"ave maris": 9733,
+		"ave maris stella dei mater alma atque semper virgo felix cæli porta sumens illud ave gabrielis ore funda nos in pace mutans hevæ nomen solve vincla reis profer lumen cæcis mala nostra pelle bona cuncta posce monstra": {
+			"esse": 9733,
+			"te": 2563
+		},
 		"beate": 1988,
 		"benedictus": 2166,
 		"concordi": 3322,
 		"conditor": 7424,
-		"cor arca legem continens non servitutis veteris sed gratiæ sed veniæ sed et misericordiæ cor sanctuarium novi intemeratum fœderis templum vetusto sanctius velumque utilius te vulneratum caritas ictu patenti voluit amoris invisibilis ut veneremur vulnera hoc sub amoris symbolo passus et mystica utrumque sacrificium christus sacerdos obtulit quis non amantem redamet quis non redemptus diligat et": {
+		"cor arca legem continens non servitutis veteris sed gratiæ sed veniæ sed et misericordiæ cor sanctuarium novi intemeratum fœderis templum vetusto sanctius velumque scisso utilius te vulneratum caritas ictu patenti voluit amoris invisibilis ut veneremur vulnera hoc sub amoris symbolo passus cruenta et mystica utrumque sacrificium christus sacerdos obtulit quis non amantem redamet quis non redemptus diligat et": {
 			"caritate": 8129,
-			"in": 2391
+			"corde": 2391
 		},
 		"creator": 2134,
 		"crudelis": 2129,
@@ -1908,11 +1911,11 @@ incipits = {
 		"vexilla": {
 			"christus": 2588,
 			"regis prodeunt fulget crucis mysterium": {
-				"qua vita mortem pertulit et morte vitam protulit quæ vulnerata lanceæ mucrone diro criminum ut nos lavaret sordibus manavit et sanguine impleta sunt quæ concinit david fideli carmine dicendo nationibus regnavit a ligno deus arbor et fulgida ornata regis purpura electa digno stipite tam sancta membra tangere beata cujus brachiis pependit sæculi statera facta corporis tulitque prædam tartari": {
+				"qua vita mortem pertulit et morte vitam protulit quæ vulnerata lanceæ mucrone diro criminum ut nos lavaret sordibus manavit unda et sanguine impleta sunt quæ concinit david fideli carmine dicendo nationibus regnavit a ligno deus arbor decora et fulgida ornata regis purpura electa digno stipite tam sancta membra tangere beata cujus brachiis pretium pependit sæculi statera facta corporis tulitque prædam tartari": {
 					"hoc": 2120,
 					"o": 12999
 				},
-				"quo carne carnis conditor suspensus est patibulo quo vulneratus insuper mucrone diro lanceæ ut nos lavaret crimine manavit et sanguine impleta sunt quæ concinit david fideli carmine dicens in nationibus regnavit a ligno deus arbor et fulgida ornata regis purpura electa digno stipite tam sancta membra tangere beata cujus brachiis sæcli pependit pretium statera facta corporis prædamque tulit tartari o crux ave spes unica in": {
+				"quo carne carnis conditor suspensus est patibulo quo vulneratus insuper mucrone diro lanceæ ut nos lavaret crimine manavit unda et sanguine impleta sunt quæ concinit david fideli carmine dicens in nationibus regnavit a ligno deus arbor decora et fulgida ornata regis purpura electa digno stipite tam sancta membra tangere beata cujus brachiis sæcli pependit pretium statera facta corporis prædamque tulit tartari o crux ave spes unica in": {
 					"hac": 10579,
 					"hoc": 10200
 				}

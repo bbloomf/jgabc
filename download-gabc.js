@@ -8,6 +8,7 @@ require('./gabc-refs.js');
 
 const addAlleluiasTo = new Set([145, 690, 1286, 349, 1303, 391, 523, 426, 84, 529, 1080, 1290, 575, 1272, 147, 1294, 339, 899, 942, 535, 723, 902, 533, 1314, 265, 479, 904, 842, 640, 1072, 1318, 389, 616, 696]);
 const addAlleluias = new Set([1319]);
+const regexTag = /<\/?[^>]*>/g;
 
 gabcRefs["507&elem=2"] = "Ps 117: 1";
 gabcRefs["2060"] = "Ex 15: 1-2";
@@ -356,12 +357,12 @@ if (ids[i] == 863) console.info(content);
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
                       if(psalmMark) text.push("℣");
-                      if(whole.match(/<i>|\|/)) return whole;
+                      if(whole.match(/\|/)) return whole;
                       // ignore any words that have nothing in their parentheses or start with a space:
                       if(whole == lastSyl && /^\(([Zz\s)]|[a-g]\+)/.test(lastParens)) {
                         return whole;
                       }
-                      var regex = /((?:<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(?=[,.;:!?*+†\s»"'‘’“”]*(?:<\/?eu>)?\([^)]+\))/gi;
+                      var regex = /((?:<i>[^<]*<\/i>|<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(?=[,.;:!?*+†\s»"'‘’“”]*(?:<\/?eu>)?\([^)]*\))/gi;
                       var match,
                           syls = [];
                       while(match = regex.exec(whole)) {
@@ -384,7 +385,7 @@ if (ids[i] == 863) console.info(content);
                         }
                         word = syls.join('');
                       }
-                      if(word) text.push(removeAcuteAccents(word.toLowerCase()));
+                      if(word) text.push(removeAcuteAccents(word.toLowerCase().replace(regexTag, '')));
                       if(checkTextRepeat == text.length) {
                         if(text.slice(0,text.length / 2).join(' ') == text.slice(text.length / 2).join(' ')) {
                           text = text.slice(0, text.length / 2);
@@ -394,14 +395,15 @@ if (ids[i] == 863) console.info(content);
                         checkTextRepeat = 2 * (text.length - 1);
                       }
                       var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
-                      var vowelCount = (word.match(/[aá]u|(qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
-                      var vowelCountIJ  = (word.match(/[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ]/gi)||[]).length;
+                      var vowelCount = (word.match(/(?![^<]*>)(?:[aá]u|(qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ])/gi)||[]).length;
+                      var vowelCountIJ  = (word.match(/(?![^<]*>)(?:[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ])/gi)||[]).length;
                       if(word.toLowerCase() !== 'cui' && vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
                         console.info({lastParens, whole, lastSyl, file});
-                        if(!/^(c[uú]i|euge|ceu|Allelúia)$/i.test(word)) throw 1;
+                        if(!/^(c[uú]i|euge|ceu|Allelúia)$|<[ie]>/i.test(word)) throw 1;
                       }
-                      if(syls.length && syls.slice(-1)[0].match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
+                      const finalSyl = syls.length && syls.slice(-1)[0];
+                      if(finalSyl && !/<[ie]>/.test(finalSyl) && finalSyl.match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
                         console.error(word, 'accent on final syllable', file, content.slice(index, index + 100));
                         throw 1;
                       }
@@ -411,7 +413,7 @@ if (ids[i] == 863) console.info(content);
                       if(syls.length > 2 && (syls.slice(-3,-1).join('').match(/[ǽ́áéíóúýæœǼ́ÁÉÍÓÚÝÆŒAEIOUY]|œ́|Œ́/gi) || []).length == 0) {
                         throw `strangely accented: ${word} (${syls.join('~')})`;
                       }
-                      var otherSyls = latin.hyphenate(word);
+                      var otherSyls = latin.hyphenate(word.replace(regexTag, ''));
                       if(otherSyls.length != syls.length ||
                          (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽœ́aeiouyáéíóúýäëïöüÿ]/i)))) {
                         if(syls.length && (syls.length > 1 || syls[0] != '}') && word.toLowerCase() !== 'cui') {
@@ -422,7 +424,33 @@ if (ids[i] == 863) console.info(content);
                       } else {
                         var key = syls.join('-').toLowerCase(),
                             val = otherSyls.join('-').toLowerCase();
-                        if(key != val) sylReplacements[key] = val;
+                        if(key != val) {
+                          if (regexTag.test(key)) {
+                            if (val === removeAcuteAccents(key.replace(regexTag, ''))) {
+                              val = removeAcuteAccents(key);
+                              otherSyls = syls.map(removeAcuteAccents);
+                            } else if (val === key.replace(regexTag, '')) {
+                              val = key;
+                              otherSyls = syls;
+                            } else {
+                              for (let i = 0; i < syls.length; ++i) {
+                                const sylLen = syls[i].replace(regexTag, '').length;
+                                const otherSylLen = otherSyls[i].length;
+                                const missingSyllables = otherSylLen - sylLen;
+                                if (missingSyllables < 0) {
+                                  syls[i + 1] = syls[i].slice(missingSyllables) + syls[i + 1];
+                                  syls[i] = syls[i].slice(0, missingSyllables);
+                                } else if (missingSyllables > 0) {
+                                  syls[i] = syls[i] + syls[i + 1].slice(0, missingSyllables);
+                                  syls[i + 1] = syls[i + 1].slice(missingSyllables);
+                                }
+                              }
+                              val = syls.join('-').toLowerCase();
+                              otherSyls = syls;
+                            }
+                          }
+                          sylReplacements[key] = val;
+                        }
                         var i = 0;
                         //return whole; // don't actually perform the replacement for now
                         return whole.replace(regex, function(match, first){
