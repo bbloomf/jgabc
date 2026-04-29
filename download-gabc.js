@@ -157,7 +157,7 @@ https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages
     fileData += data;
   });
   result.on('close',function(e) {
-    console.info('socket closed on file: ' + file);
+    // console.info('socket closed on file: ' + file);
   });
   result.on('aborted',function(e) {
     console.info('ABORTED on file: ' + file);
@@ -349,7 +349,7 @@ if (ids[i] == 863) console.info(content);
                     }
                     var text = [];
                     var checkTextRepeat = 0;
-                    content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|((?:~+(?:<c>)?\*+(?:<\/c>)?|[a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+)([,.;:!?*+†\s»"'‘’“”]*(?:<\/eu>)?(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
+                    content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|((?:~+(?:<c>)?\*+(?:<\/c>)?|[a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+)([,.;:!?*+†\s»"'‘’“”]*(?:<\/[a-z]+>)*(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
                       // figure out syllabification...
                       // 1. build word
                       // 2. syllabify
@@ -357,15 +357,17 @@ if (ids[i] == 863) console.info(content);
                       // 4. verify that each syllable has at least one vowel.
                       // replace...
                       if(psalmMark) text.push("℣");
-                      if(whole.match(/\|/)) return whole;
+                      if(whole.match(/\||<\/?alt>/)) return whole;
+                      // for now, just ignore ij marked words.
+                      if (/\bi+j\.?(?=[\s\(<])/.test(whole)) return whole;
                       // ignore any words that have nothing in their parentheses or start with a space:
                       if(whole == lastSyl && /^\(([Zz\s)]|[a-g]\+)/.test(lastParens)) {
                         return whole;
                       }
-                      var regex = /((?:<i>[^<]*<\/i>|<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(?=[,.;:!?*+†\s»"'‘’“”]*(?:<\/?eu>)?\([^)]*\))/gi;
+                      var regex = /((?:<i>[^<]*<\/i>|<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(?=[,.;:!?*+†\s»"'‘’“”]*(?:<\/?[a-z]+>)*\([^)]*\))/gi;
                       var match,
                           syls = [];
-                      while(match = regex.exec(whole)) {
+                      while(match = regex.exec(whole.replace(/<\/?sc>|V\/\.?|℣\.?/g, ''))) {
                         let match1 = match[1] || '';
                         var braces = match1.match(/[{}]/g) || [];
                         if(braces.length % 2 === 0) match1 = match1.replace(/[{}]/g,'');
@@ -400,7 +402,7 @@ if (ids[i] == 863) console.info(content);
                       if(word.toLowerCase() !== 'cui' && vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
                         console.info({lastParens, whole, lastSyl, file});
-                        if(!/^(c[uú]i|euge|ceu|Allelúia)$|<[ie]>/i.test(word)) throw 1;
+                        if(vowelCount && !/<\/?i>/.test(whole) && !/^(c[uú]i|euge|ceu|Allelúia)$|<[ie]>/i.test(word)) throw 1;
                       }
                       const finalSyl = syls.length && syls.slice(-1)[0];
                       if(finalSyl && !/<[ie]>/.test(finalSyl) && finalSyl.match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
