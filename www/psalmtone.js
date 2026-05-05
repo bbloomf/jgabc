@@ -3,6 +3,7 @@ var regexVowel = /(?:[cgq]u|[iy])?([aeiouyáéëíóúýǽæœ]+)/i;
 var regexLatin = /((?:<\w+>)*)(((?:(?:(\s+)|)(?:(?:i(?!i)|(?:n[cg]|q)u)(?=[aeiouyáéëíóúýǽœ́æœ])|[bcdfghjklmnprstvwxz]*)([aá]u|[ao][eé]?|[eiuyáéëíóúýǽæœ]\u0301?)(?:(?:[\wáéíóúýǽæœ]\u0301?)*(?=-)|(?=(?:n[cg]u|sc|[sc][tp]r?|gn|ps)[aeiouyáéëíóúýǽæœ]\u0301?|[bcdgptf][lrh][\wáéíóúýǽæœ]\u0301?)|(?:[bcdfghjklmnpqrstvwxz]+(?=$|[^\wáëéíóúýǽæœ])|[bcdfghjklmnpqrstvwxz](?=[bcdfghjklmnpqrstvwxz]+))?)))(?:([\*-])|((?:[^\w\sáëéíóúýǽæœ\u0301])*(?:\s[:;†\^\*"«»‘’“”„‟‹›‛])*\.?(?=\s|$))?)(?=(\s*|$)))((?:<\/\w+>)*)/gi
 var regexWords = /((?:<\w+>)*)([^a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323\u4e00-\u9fff\)\<!]*\s*"*(?=[a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323\u4e00-\u9fff(<!]))(!(?:<\w+>.*?<\/\w+>|\S+)|([a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323’\u4e00-\u9fff'*]*)(?:\(([a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323’\u4e00-\u9fff'*]+)\)([a-z\xDF-\xFF\u00c0-\u024f\u1e00-\u1eff\u02C6-\u0323’\u4e00-\u9fff'*]*))?)(=?)((?:\s*[-"'“”‘’«»„:;,.\)¿\?¡!])*)(\s+[†*])?((?:<\/\w+>\s*)*)/gi;
 var regexQuoteTernary = /([?:])([^?:]*)(?=$|:)/g;
+var regexTernaryOperands = /\?([^?:]*):([^?:]*)$/;
 var regexAccent = /[áéíóúýǽ\u0301]/i;
 var regexToneGabc = /(')?(([^\sr]+)(r)?)(?=$|\s)/gi;
 var regexVerseNumber = /^(\d+)\.?\s*/;
@@ -225,23 +226,19 @@ var o_g_tones =
                     },
          'in dir. romanus': {clef:"c3",
                   mediant:"hr g f 'h hr h.",
-                  termination:"hr f."
+                  termination:"hr 'h fr f."
                 },
           'in dir. monasticus': {clef:"c3",
                       mediant:"hr g f 'h hr h.",
                       termination:"hr h."
                     },
-			'tonus T.P.': {clef:"c3",
-						mediant:"e f hr i 'i fr f.",
+			'in dir. T.P.': {clef:"c3",
+					mediant:"e f hr i 'i fr f.",
 					termination:"hr e f 'g fr f."},
-			'tonus ad Horas 2 nov ad lib.': {clef:"c4",
-						mediant:"f gh hr 'g gr f.",
-					termination:"hr 'g g."},
-					 	
-             // 'in directum (alt.)': {clef:"c4",
-             //          mediant:"t[0].word.length==1?f gh hr g h.:f gh hr 'g fr f.",
-             //          termination:"hr f 'g gr g."
-             //        },
+			'in dir. ad Horas 2 nov ad lib.': {clef:"c4",
+            mediant:"t[0]?.word?.length==1?f gh hr g h.:f gh hr 'g fr f.",
+            termination:"hr f 'g gr g."
+          },
              "Introit 1":{"clef":"c4",
                           "mediant":"f gh hr 'hj hr hr 'hg gh..",
                           "termination":"gf gh hr hjh g f fff d."},
@@ -1029,8 +1026,12 @@ function applyPsalmTone(options) {
 }
 
 function removeIntonation(t) {
-  t.tones.splice(0,t.intonation);
-  t.intonation = 0;
+  if (t.tones) {
+    t.tones.splice(0,t.intonation);
+    t.intonation = 0;
+  } else {
+    t.removeIntonation = true;
+  }
   return t;
 }
 
@@ -1562,7 +1563,11 @@ Evaluatable.prototype.isString = function(){return false;};
 Evaluatable.prototype.getString = function(){return this.string;};
 Evaluatable.prototype.eval = function(){
   callback=this.callback;
-  return eval(this.string);
+  let result = eval(this.string);
+  if (this.removeIntonation) {
+    result = removeIntonation(result);
+  }
+  return result;
 };
 
 function maxDiff(array) {
