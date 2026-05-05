@@ -1,7 +1,7 @@
 {
     "name": "io.github.bbloomf.jgabc",
     "displayName": "Chant Tools",
-    "version": "1.10.2",
+    "version": "1.10.3",
     "description": "A sample Apache Cordova application that responds to the deviceready event.",
     "main": "index.js",
     "scripts": {
@@ -15,6 +15,7 @@
             "cordova-webintent": {}
         },
         "platforms": [
+            "android",
             "ios"
         ]
     },
