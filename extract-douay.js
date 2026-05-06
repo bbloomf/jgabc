@@ -73,7 +73,7 @@ douay.forEach(line => {
     } else {
       return;
     }
-    fs.writeFileSync('douay-rheims/'+book,line,{encoding: 'utf8', flag});
+    fs.writeFileSync('douay-rheims/'+book+'.txt',line,{encoding: 'utf8', flag});
     lastLine = line;
     flag = 'a';
   });
