@@ -1718,7 +1718,7 @@ function getReading(source, returnText) {
     bookName += ' ' + bookNumber;
   }
   var result = $.Deferred();
-  $.get(edition+'/'+book).then(function(book) {
+  $.get(edition+'/'+book+'.txt').then(function(book) {
     var match = /(\d+)\s*(?:[,:]\s*(\d+)\s*(?:-(\d+))?\s*)?/.exec(numbers);
     var chapter = match[1],
         verse = match[2],
