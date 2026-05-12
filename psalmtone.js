@@ -362,11 +362,11 @@ var Syl = (function(){
       preword = '';
       while((m=regexWords.exec(text)) && m[0]){
         var raw=(m[5]?(m[4]+m[5]+m[6]):m[3]),
+            w=raw.toLowerCase()
             opi=m[4]?m[4].length:0,         // opening parenthesis index
             cpi=m[5]?1+opi+m[5].length:0,   // closing parenthesis index
             ai=w.split('*'),                // accent indices
             wordSyls = [];
-        var w=raw.toLowerCase();
         sylWords.push(wordSyls);
         w = ai.join('');
         if(/^!/.test(m[3])) {
