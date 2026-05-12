@@ -361,11 +361,12 @@ var Syl = (function(){
       // in Polish, sometimes a word does not contain a vowel, and therefore has to be part of first syllable of the following word.
       preword = '';
       while((m=regexWords.exec(text)) && m[0]){
-        var w=(m[5]?(m[4]+m[5]+m[6]):m[3]).toLowerCase(),
+        var raw=(m[5]?(m[4]+m[5]+m[6]):m[3]),
             opi=m[4]?m[4].length:0,         // opening parenthesis index
             cpi=m[5]?1+opi+m[5].length:0,   // closing parenthesis index
             ai=w.split('*'),                // accent indices
             wordSyls = [];
+        var w=raw.toLowerCase();
         sylWords.push(wordSyls);
         w = ai.join('');
         if(/^!/.test(m[3])) {
@@ -394,7 +395,7 @@ var Syl = (function(){
               var stillMoreWords = text.slice(lastIndex).match(regexWords);
               regexWords.lastIndex = lastIndex;
               if(stillMoreWords) {
-                preword = w;
+                preword = raw;
                 continue;
               }
             } else if(d.length) {
