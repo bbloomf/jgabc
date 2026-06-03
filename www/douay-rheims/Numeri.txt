@@ -39,9 +39,9 @@
 1	39	Sixty-two thousand seven hundred.
 1	40	Of the sons of Aser, by their generations and families and houses of their kindreds, were reckoned up by the names of every one from twenty years old and upward, all that were able to go forth to war,
 1	41	Forty-one thousand and five hundred.
-1	42	Of the sons of Nephtali, by their generations and families and houses of their kindreds, were reckoned up by the names of every one from twenty years old and upward, were able to go forth to war,
+1	42	Of the sons of Nephtali, by their generations and families and houses of their kindreds, were reckoned up by the names of every one from twenty years old and upward, all that were able to go forth to war,
 1	43	Fifty-three thousand four hundred.
-1	44	These are they who were numbered by Moses and Aaron, and the twelve princes of Israel, every one by the houses of their kindreds.
+1	44	These era they who were numbered by Moses and Aaron, and the twelve princes of Israel, every one by the houses of their kindreds.
 1	45	And the whole number of the children of Israel by their houses and families, from twenty years old and upward, that were able to go to war,
 1	46	Were six hundred and three thousand five hundred and fifty men.
 1	47	But the Levites in the tribes of their families were not numbered with them.
@@ -54,7 +54,7 @@
 1	54	And the children of Israel did according to all things which the Lord had commanded Moses.
 2	1	And the Lord spoke to Moses and Aaron, saying:
 2	2	All the children of Israel shall camp by their troops, ensigns, and standards, and the houses of their kindreds, round about the tabernacle of the covenant.
-2	3	On the east Juda shall pitch his tents by the bands of his army: and the prince of his sons; shall be Nahasson the son of Aminadab.
+2	3	On the east Juda shall pitch his tents by the bands of his army: and the prince of his sons shall be Nahasson the son of Aminadab.
 2	4	And the whole sum of the fighting men of his stock, were seventy-four thousand six hundred.
 2	5	Next unto him they of the tribe of Issachar encamped, whose prince was Nathanael, the son of Suar.
 2	6	And the whole number of his fighting men were fifty-four thousand four hundred.
@@ -69,13 +69,13 @@
 2	15	And the whole army of his fighting men that were numbered, were forty-five thousand six hundred and fifty.
 2	16	All that were reckoned up in the camp of Ruben, were a hundred and fifty-one thousand four hundred and fifty, by their troops: they shall march in the second place.
 2	17	And the tabernacle of the testimony shall be carried by the officers of the Levites and their troops. As it shall be set up, so shall it be taken down. Every one shall march according to their places, and ranks.
-2	18	On the west side shall be the camp of the sons of Ephraim, whose prince was Elisama the son of Ammiud.
+2	18	On the west side shall be the camp of the sons of Ephraim, whose prince was Elisama, the son of Ammiud.
 2	19	The whole army of his fighting men, that were numbered, were forty thousand five hundred.
 2	20	And with them the tribe of the sons of Manasses, whose prince was Gamaliel the son of Phadassur.
 2	21	And the whole army of his fighting men, that were numbered, were thirty-two thousand two hundred.
 2	22	In the tribe of the sons of Benjamin the prince was Abidan the son of Gedeon.
-2	23	And the whole army of fighting men, that were reckoned up, were thirty-five thousand four hundred.
-2	24	All that were numbered in the camp of Ephraim, were a hundred and eight-thousand one hundred by their troops: they shall march in the third place.
+2	23	And the whole army of his fighting men, that were reckoned up, were thirty-five thousand four hundred.
+2	24	All that were numbered in the camp of Ephraim, were a hundred and eight thousand one hundred by their troops: they shall march in the third place.
 2	25	On the north side camped the sons of Dan: whose prince was Ahiezar the son of Ammisaddai.
 2	26	The whole army of his fighting men, that were numbered, were sixty-two thousand seven hundred.
 2	27	Beside him they of the tribe of Aser pitched their tents: whose prince was Phegiel the son of Ochran.
@@ -102,10 +102,10 @@
 3	14	And the Lord spoke to Moses in the desert of Sinai, saying:
 3	15	Number the sons of Levi by the houses of their fathers and their families, every male from one month and upward.
 3	16	Moses numbered them as the Lord had commanded.
-3	17	And there were found sons of Levi by their names, Gerson and Caath Merari.
+3	17	And there were found sons of Levi by their names, Gerson and Caath and Merari.
 3	18	The sons of Gerson: Lebni and Semei.
 3	19	The sons of Caath: Amram, and Jesaar, Hebron and Oziel:
-3	20	The sons of Merari, Moholi and Musi.
+3	20	The sons of Merari: Moholi and Musi.
 3	21	Of Gerson were two families, the Lebnites, and the Semeites:
 3	22	Of which were numbered, people of the male sex from one month and upward, seven thousand five hundred.
 3	23	These shall pitch behind the tabernacle on the west,
@@ -119,31 +119,31 @@
 3	31	And they shall keep the ark, and the table and the candlestick, the altars, and the vessels of the sanctuary, wherewith they minister, and the veil, and all the furniture of this kind.
 3	32	And the prince of the princes of the Levites, Eleazar, the son of Aaron the priest, shall be over them that watch for the guard of the sanctuary.
 3	33	And of Merari are the families of the Moholites, and Musites, reckoned up by their names:
-3	34	All of the male-kind from one month and upward, six thousand two hundred.
-3	35	Their prince Suriel the son of Abihaiel: their shall camp on the north side.
+3	34	All of the male kind from one month and upward, six thousand two hundred.
+3	35	Their prince Suriel the son of Abihaiel: they shall camp on the north side.
 3	36	Under their custody shall be the boards of the tabernacle, and the bars, and the pillars and their sockets, and all things that pertain to this kind of service:
 3	37	And the pillars of the court round about with their sockets, and the pins with their cords.
-3	38	Before the tabernacle of the covenant, that is to say on the east side shall Moses and Aaron camp, with their sons, having the custody of the sanctuary, in the midst of the children of Israel. What stranger soever cometh unto it, shall be put to death.
-3	39	All the Levites, that I Moses and Aaron numbered according to the precept of the Lord, by their f families, of the male-kind from one month and upward, were twenty-two thousand.
+3	38	Before the tabernacle of the covenant, that is to say on the east side, shall Moses and Aaron camp, with their sons, having the custody of the sanctuary, in the midst of the children of Israel. What stranger soever cometh unto it, shall be put to death.
+3	39	All the Levites, that Moses and Aaron numbered according to the precept of the Lord, by their families, of the male kind from one month and upward, were twenty-two thousand.
 3	40	And the Lord said to Moses: Number the firstborn of the male sex of the children of Israel, from one month and upward, and thou shalt take the sum of them.
 3	41	And thou shalt take the Levites to me for all the firstborn of the children of Israel, I am the Lord: and their cattle for all the firstborn of the cattle of the children of Israel:
 3	42	Moses reckoned up, as the Lord had commanded, the firstborn of the children of Israel:
 3	43	And the males by their names, from one month and upward, were twenty-two thousand two hundred and seventy-three.
-3	44	And the Lord spoke to Moses, saying:
+3	44	And the Lord spoke to Moses, saving:
 3	45	Take the Levites for the firstborn of the children of Israel, and the cattle of the Levites for their cattle, and the Levites shall be mine. I am the Lord.
 3	46	But for the price of the two hundred and seventy-three, of the firstborn of the children of Israel, that exceed the number of the Levites,
-3	47	Thou shalt take five sicles for every bead, according to the weight of the sanctuary. A sicle hath twenty obols.
-3	48	And thou shalt give the money to Aaron and his sons, the price of them that are above.
+3	47	Thou shalt take five sides for every head, according to the weight of the sanctuary. A sicle hath twenty obols.
+3	48	And then shalt give the money to Aaron and his sons, the price of them that are above.
 3	49	Moses therefore took the money of them that were above, and whom they had redeemed from the Levites,
 3	50	For the firstborn of the children of Israel, one thousand three hundred and sixty-five sicles, according to the weight of the sanctuary,
-3	51	And gave it to Aaron and his sons according to the word that the Lord had commanded him.
+3	51	And gave it to Aaron and his sons, according to the word that the Lord had commanded him.
 4	1	And the Lord spoke to Moses, and Aaron, saying:
 4	2	Take the sum of the sons of Caath from the midst of the Levites, by their houses and families.
 4	3	From thirty years old and upward, to fifty years old, of all that go in to stand and to minister in the tabernacle of the covenant.
 4	4	This is the service of the sons of Caath:
-4	5	When the camp is; to set forward, Aaron and his sons shall go into the tabernacle of the covenant, and the holy of holies, and shall take down the veil that hangeth before the door, and shall wrap up the ark of the testimony in it,
+4	5	When the camp is to set forward, Aaron and his sons shall go into the tabernacle of the covenant, and the holy of holies, and shall take down the veil that hangeth before the door, and shall wrap up the ark of the testimony in it,
 4	6	And shall cover it again with a cover of violet skins, and shall spread over it a cloth all of violet, and shall put in the bars.
-4	7	They shall wrap up also the table of proposition in a cloth of violet, and shall put with it the censers and little mortars, the cups and bowls to pour out the libations: the loaves shall be always on it:
+4	7	They shall wrap up also the table of proposition in a cloth of violet, and shall put with it the censers and little mortars, the cups and bowls to pour out the libations: the leaves shall be always on it:
 4	8	And they shall spread over it a cloth of scarlet, which again they shall cover with a covering of violet skins, and shall put in the bars.
 4	9	They shall take also a cloth of violet wherewith they shall cover the candlestick with the lamps and tongs thereof and the snuffers and all the oil vessels, which are necessary for the dressing of the lamps:
 4	10	And over all they shall put a cover of violet skins and put in the bars.
@@ -158,11 +158,11 @@
 4	19	But do this to them, that they may live, and not die, by touching the holies of holies. Aaron and his sons shall go in, and they shall appoint every man his work, and shall divide the burdens that every man is to carry.
 4	20	Let not others by any curiosity see the things that are in the sanctuary before they be wrapped up, otherwise they shall die.
 4	21	And the Lord spoke to Moses, saying:
-4	22	Take the sum of the sons of Gerson also by their houses and families and kindreds.
+4	22	Take the sum of the soils of Gerson also by their houses and families and kindreds.
 4	23	From thirty years old and upward, unto fifty years old. Number them all that go in and minister in the tabernacle of the covenant.
 4	24	This is the office of the family of the Gersonites:
 4	25	To carry the curtains of the tabernacle and the roof of the covenant, the other covering, and the violet covering over all, and the hanging that hangeth in the entry of the tabernacle of the covenant,
-4	26	The curtains of the court, and the veil in the entry that is before tabernacle. All things that pertain to the altar, the cords and the vessels of the ministry,
+4	26	The curtains of the court, and the veil in the entry that is before the tabernacle. All things that pertain to the altar, the cords and the vessels of the ministry,
 4	27	The sons of Gerson shall carry, by the commandment of Aaron and his sons: and each man shall know to what burden he must be assigned.
 4	28	This is the service of the family of the Gersonites in the tabernacle of the covenant, and they shall be under the hand of Ithamar the son of Aaron the priest.
 4	29	Thou shalt reckon up the sons of Merari also by the families and houses of their fathers,
@@ -179,7 +179,7 @@
 4	40	And they were found two thousand six hundred and thirty.
 4	41	This is the people of the Gersonites, whom Moses and Aaron numbered according to the word of the Lord.
 4	42	The sons of Merari also were numbered by the kindreds and houses of their fathers,
-4	43	From thirty years old and upward, unto fifty years old, all that go in to fulfil the rites of the tabernacle of the covenant:
+4	43	From thirty years old and upward, unto fifty years old, all that go in to fulfill the rites of the tabernacle of the covenant:
 4	44	And they were found three thousand two hundred.
 4	45	This is the number of the sons of Merari, whom Moses and Aaron reckoned up according to the commandment of the Lord by the hand of Moses.
 4	46	All that were reckoned up of the Levites, and whom Moses and Aaron and the princes of Israel took by name, by the kindreds and houses of their fathers,
@@ -188,7 +188,7 @@
 4	49	Moses reckoned them up according to the word of the Lord, every one according to their office and burdens, as the Lord had commanded him.
 5	1	And the Lord spoke to Moses, saying:
 5	2	Command the children of Israel, that they cast out of the camp every leper, and whosoever hath an issue of seed, or is defiled by the dead:
-5	3	Whether it be man or woman, cast ye them out of the camp, lest they defile it when I shall dwell with you,
+5	3	Whether it be man or woman, cast ye them out of the camp, lest they defile it when I shall dwell with you.
 5	4	And the children of Israel did so, and they cast them forth without the camp, as the Lord had spoken to Moses.
 5	5	And the Lord spoke to Moses, saying:
 5	6	Say to the children of Israel: When a man or woman shall have committed any of all the sins that men are wont to commit, and by negligence shall have transgressed the commandment of the Lord, and offended,
@@ -203,7 +203,7 @@
 5	15	He shall bring her to the priest, and shall offer an oblation for her, the tenth part of a measure of barley meal: he shall not pour oil thereon, nor put frankincense upon it: because it is a sacrifice of jealousy, and an oblation searching out adultery.
 5	16	The priest therefore shall offer it, and set it before the Lord.
 5	17	And he shall take holy water in an earthen vessel, and he shall cast a little earth of the pavement of the tabernacle into it.
-5	18	And when the woman shall stand before the Lord, he shall uncover her head, and shall put on her hands the sacrifice of remembrance, and the oblation of jealousy: and he himself shall hold the most bitter waters, whereon he hath heaped curses with execration.
+5	18	And when the woman shall stand before the Lord, he shall uncover her head, and shall, put on her hands the sacrifice of remembrance, and the oblation of jealousy: and he himself shall hold the most bitter waters, whereon he hath heaped curses with execration.
 5	19	And he shall adjure her, and shall say: If another man hath not slept with thee, and if thou be not defiled by forsaking thy husband’s bed, these most bitter waters, on which I have heaped curses, shall not hurt thee.
 5	20	But if thou hast gone aside from thy husband, and art defiled, and hast lain with another man:
 5	21	These curses shall light upon thee: The Lord make thee a curse, and an example for all among his people: may he make thy thigh to rot, and may thy belly swell and burst asunder.
@@ -230,7 +230,7 @@
 6	11	And the priest shall offer one for sin, and the other for a holocaust, and shall pray for him, for that he hath sinned by the dead: and he shall sanctify his head that day:
 6	12	And shall consecrate to the Lord the days of his separation, offering a lamb of one year for sin: yet so that the former days be made void, because his sanctification was profaned.
 6	13	This is the law of consecration. When the days which he had determined by vow shall be expired, he shall bring him to the door of the tabernacle of the covenant,
-6	14	And shall offer his oblation to the Lord: one he lamb of a year old without blemish for a holocaust, and one ewe lamb of a year old without blemish for a sin offering, and one ram without blemish for a victim of peace offering,
+6	14	And shall offer his oblation to the Lord: one he lamb of a year old without blemish for a holocaust, and one awe lamb of a year old without blemish for a sin offering, and one ram without blemish for a victim of peace offering,
 6	15	A basket also of unleavened bread, tempered with oil, and wafers without leaven anointed with oil, and the libations of each:
 6	16	And the priest shall present them before the Lord, and shall offer both the sin offering and the holocaust.
 6	17	But the ram he shall immolate for a sacrifice of peace offering to the Lord, offering at the same time the basket of unleavened bread, and the libations that are due by custom.
@@ -257,84 +257,84 @@
 7	11	And the Lord said to Moses: Let each of the princes one day after another offer their gifts for the dedication of the altar.
 7	12	The first day Nahasson the son of Aminadab of the tribe of Juda offered his offering:
 7	13	And his offering was a silver dish weighing one hundred and thirty sicles, a silver bowl of seventy sicles according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	14	A little mortar of ten sicles of gold full of incense:
-7	15	An ox of the herd, and a ram, and lamb of a year old for a holocaust:
+7	14	A little mortar of ten sides of gold full of incense:
+7	15	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	16	And a buck goat for sin:
-7	17	And for the sacrifice of peace offerings, two oxen, five rams, five he-goats, five lambs of a year old. This was the offering of Nahasson the son of Aminadab.
+7	17	And for the sacrifice of peace offerings, two oxen, five rams, five he goats, five lambs of a year old. This was the offering of Nahasson the son of Aminadab.
 7	18	The second day Nathanael the son of Suar, prince of the tribe of Issachar, made his offering,
-7	19	A silver dish weighing one hundred and thirty sicles, a silver bowl of seventy sicles, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	20	A little mortar of gold weighing ten sicles full of incense:
+7	19	A silver dish weighing one hundred and thirty sides, a silver bowl of seventy sides, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	20	A little mortar of gold weighing ten sides full of incense:
 7	21	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	22	And a buck goat for sin:
 7	23	And for the sacrifice of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Nathanael the son of Suar.
 7	24	The third day the prince of the sons of Zabulon, Eliab the son of Helon,
-7	25	Offered a silver dish weighing one hundred and thirty sicles, a silver bowl of seventy sicles by the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	26	A little mortar of gold weighing ten sicles full of incense:
+7	25	Offered a silver dish weighing one hundred and thirty sides, a silver bowl of seventy sides by the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	26	A little mortar of gold weighing ten sides full of incense:
 7	27	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	28	And a buck goat for sin:
 7	29	And for the sacrifice of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This is the oblation of Eliab the son of Helon.
 7	30	The fourth day the prince of the sons of Ruben, Elisur the son of Sedeur,
-7	31	Offered a silver dish weighing one hundred and thirty sicles, a silver bowl of seventy sicles according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	32	A little mortar of gold weighing ten sicles full of incense:
+7	31	Offered a silver dish weighing one hundred and thirty sides, a silver bowl of seventy sides according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	32	A little mortar of gold weighing ten sides full of incense:
 7	33	An ox of the herd, and a ram, and a lamb of a year old, for a holocaust:
 7	34	And a buck goat for sin:
-7	35	And for victims of peace offerings two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Elisur the son of Sedeur.
+7	35	And for victims of peace offerings two oxen, five rams, five buck goats. five lambs of a year old. This was the offering of Elisur the son of Sedeur.
 7	36	The fifth day the prince of the sons of Simeon, Salamiel the son of Surisaddai,
-7	37	Offered a silver dish weighing one hundred and thirty sicles, a silver bowl of seventy sicles after the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	38	A little mortar of gold weighing ten sicles full of incense:
+7	37	Offered a silver dish weighing one hundred and thirty sides, a silver bowl of seventy sides after the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	38	A little mortar of gold weighing ten sides full of incense:
 7	39	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	40	And a buck goat for sin:
 7	41	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Salamiel the son of Surisaddai.
 7	42	The sixth day the prince of the sons of Gad, Eliasaph the son of Duel,
-7	43	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles by the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	44	A little mortar of gold weighing ten sicles full of incense:
+7	43	Offered a silver dish weighing a hundred and thirty sides, a silver bowl of seventy sides by the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	44	A little mortar of gold weighing ten sides full of incense:
 7	45	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	46	And a buck goat for sin:
 7	47	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Eliasaph the son of Duel.
-7	48	The seventh day the prince of the sons of Ephraim, Elisama the son of Ammiud,
-7	49	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	50	A little mortar of gold weighing ten sicles full of incense:
+7	48	The seventh day the prince of the sons of Ephraim, Elisama the son Ammiud,
+7	49	Offered a silver dish weighing a hundred and thirty sides, a silver bowl of seventy sides according to the weight of the sanctuary, both full of hour tempered with oil for a sacrifice:
+7	50	A little mortar of gold weighing ten sides full of incense:
 7	51	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	52	And a buck goat for sin:
 7	53	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Elisama the son of Ammiud.
 7	54	The eighth day the prince of the sons of Manasses, Gamaliel the son of Phadassur,
-7	55	Offered a silver dish, weighing a hundred and thirty sicles, a silver bowl of seventy sicles, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	55	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
 7	56	A little mortar of gold weighing ten sicles full of incense:
 7	57	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	58	And a buck goat for sin:
 7	59	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Gamaliel the son of Phadassur.
 7	60	The ninth day the prince of the sons of Benjamin, Abidan the son of Gedeon,
-7	61	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles by the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	62	A little mortar of gold weighing ten sicles full of incense:
-7	63	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
+7	61	Offered a silver dish weighing a hundred and thirty sides, a silver bowl of seventy sides by the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	62	A little mortar of gold weighing ten sides full of incense:
+7	63	An ox of the herd, and a ram, and a lamb of a year old for a, holocaust:
 7	64	And a buck goat for sin:
 7	65	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Abidan the son of Gedeon.
-7	66	The tenth day the princes of the sons of Dan, Ahiezer the son of Ammisaddai,
-7	67	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	68	A little mortar of gold weighing ten sicles full of incense:
+7	66	The tenth day the prince of the sons of Dan, Ahiezer the son of Ammisaddai,
+7	67	Offered a silver dish weighing a hundred and thirty sides, a silver bowl of seventy sides, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	68	A little mortar of gold weighing ten sides full of incense:
 7	69	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	70	And a buck goat for sin:
 7	71	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Ahiezer the son of Ammisaddai.
 7	72	The eleventh day the prince of the sons of Aser, Phegiel the son of Ochran,
-7	73	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	74	A little mortar of gold weighing ten sicles full of incense:
+7	73	Offered a silver dish weighing a hundred and thirty sides, a silver bowl of seventy sides, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	74	A little mortar of gold weighing ten sides full of incense:
 7	75	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	76	And a buck goat for sin:
 7	77	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Phegiel the son of Ochran.
 7	78	The twelfth day the prince of the sons of Nephtali, Ahira the son of Enan,
-7	79	Offered a silver dish weighing a hundred and thirty sicles, a silver bowl of seventy sicles, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
-7	80	A little mortar of gold weighing ten sicles full of incense:
+7	79	Offered a silver dish weighing a hundred and thirty sides, a silver bowl of seventy sides, according to the weight of the sanctuary, both full of flour tempered with oil for a sacrifice:
+7	80	A little mortar of gold weighing ten sides full of incense:
 7	81	An ox of the herd, and a ram, and a lamb of a year old for a holocaust:
 7	82	And a buck goat for sin:
 7	83	And for sacrifices of peace offerings, two oxen, five rams, five buck goats, five lambs of a year old. This was the offering of Ahira the son of Enan.
 7	84	These were the offerings made by the princes of Israel in the dedication of the altar, in the day wherein it was consecrated. Twelve dishes of silver: twelve silver bowls: twelve little mortars of gold:
-7	85	Each dish weighing a hundred and thirty sicles of silver, and each bowl seventy sicles: that is, putting all the vessels of silver together, two thousand four hundred sicles, by the weight of the sanctuary.
-7	86	Twelve little mortars of gold full of incense, weighing ten sicles apiece, by the weight of the sanctuary: that is, in all a hundred and twenty sicles of gold.
+7	85	Each dish weighing a hundred and thirty sides of silver, and each bowl seventy sides: that is, putting all the vessels of silver together, two thousand four hundred sides, by the weight of the sanctuary.
+7	86	Twelve little mortars of gold full of incense, weighing ten sides apiece, by the weight of the sanctuary: that is, in all a hundred and twenty sides of gold.
 7	87	Twelve oxen out of the herd for a holocaust, twelve rams, twelve lambs of a year old, and their libations: twelve buck goats for sin.
 7	88	And for sacrifices of peace offerings, oxen twenty-four, rams sixty, buck goats sixty, lambs of a year old sixty. These things were offered in the dedication of the altar, when it was anointed.
-7	89	And when Moses entered into the tabernacle of the covenant, to consult the oracle, he heard the voice of one speaking to him from the propitiatory, that is over the ark between the two cherubims, and from this place he spoke to him.
+7	89	And when Moses entered into the tabernacle of the covenant, to consult the oracle, he heard the voice of one speaking to him from the propitiatory, that was over the ark between the two cherubims, and from this place he spoke to him.
 8	1	And the Lord spoke to Moses, saying:
-8	2	Speak to Aaron, and thou shalt say to him: When thou shalt place the seven lamps, let the candlestick be set up on the south side. Give orders therefore that the lamps look over against the north, towards the table of the loaves of proposition, over against that part shall they give light, towards which the candlestick looketh.
+8	2	Speak to Aaron, and thou shalt say to him: When thou shalt place the seven lamps, let the candlestick be set up on the south side. Give orders therefore that the lamps look over against the north, towards the table of the leaves of proposition, over against that part shall they give light, towards which the candlestick looketh.
 8	3	And Aaron did so, and he put the lamps upon the candlestick, as the Lord had commanded Moses.
 8	4	Now this was the work of the candlestick, it was of beaten gold, both the shaft in the middle, and all that came out of both sides of the branches: according to the pattern which the Lord had shewn to Moses, so he made the candlestick.
 8	5	And the Lord spoke to Moses, saying:
@@ -345,7 +345,7 @@
 8	10	And when the Levites are before the Lord, the children of Israel shall put their hands upon them:
 8	11	And Aaron shall offer the Levites, as a gift in the sight of the Lord from the children of Israel, that they may serve in his ministry.
 8	12	The Levites also shall put their hands upon the heads of the oxen, of which thou shalt sacrifice one for sin, and the other for a holocaust to the Lord, to pray for them.
-8	13	And thou shalt set the Levites in the sight of Aaron and of his, and shalt consecrate them being offered to the Lord,
+8	13	And thou shalt set the Levites in the sight of Aaron and of his sons, and shalt consecrate them being offered to the Lord,
 8	14	And shalt separate them from the midst of the children of Israel, to be mine.
 8	15	And afterwards they shall enter into the tabernacle of the covenant, to serve me. And thus shalt thou purify and consecrate them for an oblation of the Lord: for as a gift they were given me by the children of Israel.
 8	16	I have taken them instead of the firstborn that open every womb in Israel,
@@ -370,9 +370,9 @@
 9	9	And the Lord spoke to Moses, saying:
 9	10	Say to the children of Israel: The man that shall be unclean by occasion of one that is dead, or shall be in a journey afar off in your nation, let him make the phase to the Lord.
 9	11	In the second month, on the fourteenth day of the month in the evening, they shall eat it with unleavened bread and wild lettuce:
-9	12	They shall not leave any thing thereof until morning, nor break a bone thereof, they shall observe all the ceremonies of the phase.
+9	12	They shall not leave any thing thereof until morning, a nor break a bone thereof, they shall observe all the ceremonies of the phase.
 9	13	But if any man is clean, and was not on a journey, and did not make the phase, that soul shall be cut off from among his people, because he offered not sacrifice to the Lord in due season: he shall bear his sin.
-9	14	The sojourner also and the stranger if they be among you, shall make the phase to the Lord according to the ceremonies and justifications thereof. The same ordinances shall be with you both for the stranger, and for him that was born in the land.
+9	14	The sojourner also and the stranger if they be among you, shall make the phase to the Lord according to the ceremonies and justifications thereof. The same ordinance shall be with you both for the stranger, and for him that was born in the land.
 9	15	Now on the day that the tabernacle was reared up, a cloud covered it. But from the evening there was over the tabernacle, as it were, the appearance of fire until the morning.
 9	16	So it was always: by day the cloud covered it, and by night as it were the appearance of fire.
 9	17	And when the cloud that covered the tabernacle was taken up, then the children of Israel marched forward: and in the place where the cloud stood still, there they camped.
@@ -401,7 +401,7 @@
 10	17	And the tabernacle was taken down, and the sons of Gerson and Merari set forward, bearing it.
 10	18	And the sons of Ruben also marched, by their troops and ranks, whose prince was Helisur the son of Sedeur.
 10	19	And in the tribe of Simeon, the prince was Salamiel the son of Surisaddai.
-10	20	And in the tribe of Gad, the prince was Eliasaph the son of Duel.
+10	20	And in the tribe of Cad, the prince was Eliasaph the son of Duel.
 10	21	Then the Caathites also marched carrying the sanctuary. So long was the tabernacle carried, till they came to the place of setting it up.
 10	22	The sons of Ephraim also moved their camp by their troops, in whose army the prince was Elisama the son of Ammiud.
 10	23	And in the tribe of the sons of Manasses, the prince was Gamaliel the son of Phadassur.
@@ -422,20 +422,20 @@
 11	2	And when the people cried to Moses, Moses prayed to the Lord, and the fire was swallowed up.
 11	3	And he called the name of that place, The burning: for that the fire of the Lord had been kindled against them.
 11	4	For a mixt multitude of people, that came up with them, burned with desire, sitting and weeping, the children of Israel also being joined with them, and said: Who shall give us flesh to eat?
-11	5	We remember the fish that we ate in Egypt free cost: the cucumbers come into our mind, and the melons, and the leeks, and the onions, and the garlic.
+11	5	We remember the Ash that we ate in Egypt free cost: the cucumbers come into our mind, and the melons, and the leeks, and the onions, and the garlic.
 11	6	Our soul is dry, our eyes behold nothing else but manna.
-11	7	Now the manna was like coriander seed, of the colour of bdellium.
+11	7	A Now the manna was like coriander seed, of the colour of bdellium.
 11	8	And the people went about, and gathering it, ground it in a mill, or beat it in a mortar, and boiled it in a pot, and made cakes thereof of the taste of bread tempered with oil.
 11	9	And when the dew fell in the night upon the camp, the manna also fell with it.
 11	10	Now Moses heard the people weeping by their families, every one at the door of his tent. And the wrath of the Lord was exceedingly enkindled: to Moses also the thing seemed insupportable.
-11	11	And he said to the Lord: Why hast thou afflicted thy servant? Wherefore do I not find favour before thee? And why hast thou laid the weight of all this people upon me?
+11	11	And he said to the Lord: Why hast thou afflicted thy servant? wherefore do I not find favour before thee? and why hast thou laid the weight of all this people upon me?
 11	12	Have I conceived all this multitude, or begotten them, that thou shouldst say to me: Carry them in thy bosom as the nurse is wont to carry the little infant, and bear them into the land, for which thou hast sworn to their fathers?
-11	13	Whence should I have flesh to give to so great a multitude? They weep against me, saying: Give us flesh that we may eat.
+11	13	Whence should I have flesh to give to so great a multitude? they weep against me, saying: Give us flesh that we may eat.
 11	14	I am not able alone to bear all this people, because it is too heavy for me.
 11	15	But if it seem unto thee otherwise, I beseech thee to kill me, and let me find grace in thy eyes, that I be not afflicted with so great evils.
 11	16	And the Lord said to Moses: Gather unto me seventy men of the ancients of Israel, whom thou knowest to be ancients and masters of the people: and thou shalt bring them to the door of the tabernacle of the covenant, and shalt make them stand there with thee,
 11	17	That I may come down and speak with thee: and I will take of thy spirit, and will give to them, that they may bear with thee the burden of the people, and thou mayest not be burthened alone.
-11	18	And thou shalt say to the people: Be ye sanctified: to morrow you shall eat flesh: for I have heard you say: Who will give us flesh to eat? It was well with us in Egypt. That the Lord may give you flesh, and you may eat:
+11	18	And thou shalt say to the people: Be ye sanctified: to morrow you shall eat flesh: for I have heard you say: Who will give us flesh to eat? it was well with us in Egypt. That the Lord may give you flesh, and you may eat:
 11	19	Not for one day, nor two, nor five, nor ten, no nor for twenty.
 11	20	But even for a month of days, till it come out at your nostrils, and become loathsome to you, because you have cast off the Lord, who is in the midst of you, and have wept before him, saying: Why came we out of Egypt?
 11	21	And Moses said: There are six hundred thousand footmen of this people, and sayest thou: I will give them flesh to eat a whole month?
@@ -453,26 +453,26 @@
 11	33	As yet the flesh was between their teeth, neither had that kind of meat failed: when behold the wrath of the Lord being provoked against the people, struck them with an exceeding great plague.
 11	34	And that place was called, The graves of lust: for there they buried the people that had lusted. And departing from the graves of lust, they came unto Haseroth, and abode there.
 12	1	And Mary and Aaron spoke against Moses, because of his wife the Ethiopian,
-12	2	And they said: Hath the Lord spoken by Moses only? Hath he not also spoken to us in like manner? And when the Lord heard this,
+12	2	And they said: Hath the Lord spoken by Moses only? hath he not also spoken to us in like manner? And when the Lord heard this,
 12	3	(For Moses was a man exceeding meek above all men that dwelt upon earth)
 12	4	Immediately he spoke to him, and to Aaron and Mary: Come out you three only to the tabernacle of the covenant. And when they were come out,
 12	5	The Lord came down in a pillar of the cloud, and stood in the entry of the tabernacle calling to Aaron and Mary. And when they were come,
 12	6	He said to them: Hear my words: if there be among you a prophet of the Lord, I will appear to him in a vision, or I will speak to him in a dream.
-12	7	But it is not so with my servant Moses who is most faithful in all my house:
+12	7	But it is not so with my servant Moses a who is most faithful in all my house:
 12	8	For I speak to him mouth to mouth: and plainly, and not by riddles and figures doth he see the Lord. Why then were you not afraid to speak ill of my servant Moses?
 12	9	And being angry with them he went away:
 12	10	The cloud also that was over the tabernacle departed: and behold Mary appeared white as snow with a leprosy. And when Aaron had looked on her, and saw her all covered with leprosy,
 12	11	He said to Moses: I beseech thee, my lord, lay not upon us this sin, which we have foolishly committed:
 12	12	Let her not be as one dead, and as an abortive that is cast forth from the mother’s womb. Lo, now one half of her flesh is consumed with the leprosy.
-12	13	And Moses cried to the Lord, saying O God, I beseech thee heal her.
-12	14	And the Lord answered him: If her father had spitten upon her face, ought she not to have been ashamed for seven days at least? Let her be separated seven days without the camp, and afterwards she shall be called again.
+12	13	And Moses cried to the Lord, saying: O God, I beseech thee heal her.
+12	14	And the Lord answered him: If her father had spitten upon her face, ought she not to have been ashamed for seven days at least? Let her be separated seven days without the camp, and after wards she shall be called again.
 12	15	Mary therefore was put out of the camp seven days: and the people moved not from that place until Mary was called again.
 13	1	And the people marched from Haseroth, and pitched their tents in the desert of Pharan.
-13	2	And there the Lord spoke to Moses, saying.
+13	2	And there the Lord spoke to Moses, saying:
 13	3	Send men to view the land of Chanaan, which I will give to the children of Israel, one of every tribe, of the rulers.
 13	4	Moses did what the Lord had commanded, sending from the desert of Pharan, principal men, whose names are these:
 13	5	Of the tribe of Ruben, Sammua the son of Zechur.
-13	6	Of the tribe of Simeon, Saphat the son of Huri.
+13	6	Of the tribe of Simeon, Saphat the son of Hurl.
 13	7	Of the tribe of Juda, Caleb the son of Jephone.
 13	8	Of the tribe of Issachar, Igal the son of Joseph.
 13	9	Of the tribe of Ephraim, Osee the son of Nun.
@@ -485,12 +485,12 @@
 13	16	Of the tribe of Gad, Guel the son of Machi.
 13	17	These are the names of the men, whom Moses sent to view the land: and he called Osee the son of Nun, Josue.
 13	18	And Moses sent them to view the land of Chanaan, and said to them: Go you up by the south side. And when you shall come to the mountains,
-13	19	View the land, of what sort it is, and the people that are the inhabitants thereof, whether they be strong or weak: few in number or many:
+13	19	View the land, of what sort it is: and the people that are the inhabitants thereof, whether they be strong or weak: few in number or many:
 13	20	The land itself, whether it be good or bad: what manner of cities, walled or without walls:
-13	21	The ground, fat or barren, woody or without trees. Be of good courage, and bring us of the fruits of the land. Now it was the time when the firstripe grapes are fit to be eaten.
+13	21	The ground, fat or barren, woody or without trees. Be of good courage, and bring us of the fruits of the land. Now it was the time when the first ripe grapes are fit to be eaten.
 13	22	And when they were gone up, they viewed the land from the desert of Sin, unto Rohob as you enter into Emath.
 13	23	And they went up at the south side, and came to Hebron, where were Achiman and Sisai and Tholmai the sons of Enac. For Hebron was built seven years before Tanis the city of Egypt.
-13	24	And forward as far as the torrent of the cluster of grapes, they cut off a branch with its cluster of grapes, which two men carried upon a lever. They took also of the pomegranates and of the figs of that place:
+13	24	And going forward as far as the torrent of the cluster of grapes, they cut off a branch with its cluster of grapes, which two men carried upon a lever. They took also of the pomegranates and of the figs of that place:
 13	25	Which was called Nehelescol, that is to say, the torrent of the cluster of grapes, because from thence the children of Israel had carried a cluster of grapes.
 13	26	And they that went to spy out the land returned after forty days, having gone round all the country,
 13	27	And came to Moses and Aaron and to all the assembly of the children of Israel to the desert of Pharan, which is in Cades. And speaking to them and to all the multitude, they shewed them the fruits of the land:
@@ -499,11 +499,11 @@
 13	30	Amalec dwelleth in the south, the Hethite and the Jebusite and the Amorrhite in the mountains: but the Chanaanite abideth by the sea and near the streams of the Jordan.
 13	31	In the mean time Caleb, to still the murmuring of the people that rose against Moses, said: Let us go up and possess the land, for we shall be able to conquer it.
 13	32	But the others, that had been with him, said: No, we are not able to go up to this people, because they are stronger than we.
-13	33	And they spoke ill of the land, which they had viewed, before the children of Israel, saying: The land which we have viewed, devoureth its inhabitants: the people, that we beheld are of a tall stature.
+13	33	And they spoke ill of the land, which they had viewed, before the children of Israel, saying: The land which we have viewed, devoureth its inhabitants: the people, that we beheld, are of a tall stature.
 13	34	There we saw certain monsters of the sons of Enac, of the giant kind: in comparison of whom, we seemed like locusts.
-14	1	Therefore the whole multitude crying wept that night.
+14	1	Wherefore the whole multitude crying wept that night.
 14	2	And all the children of Israel murmured against Moses and Aaron, saying:
-14	3	Would God that we had died in Egypt: and would God we may die in this vast wilderness, and that the Lord may not bring us into this land, lest we fall by the sword, and our wives and children be led away captives. Is it not better to return into Egypt?
+14	3	Would God that we had died in Egypt and would God we may die in this vast wilderness, and that the Lord may not bring us into this land, lest we fall by the sword, and our wives and children be led away captives. Is it not better to return into Egypt?
 14	4	And they said one to another: Let us appoint a captain, and let us return into Egypt.
 14	5	And when Moses and Aaron heard this, they fell down flat upon the ground before the multitude of the children of Israel.
 14	6	But Josue the son of Nun, and Caleb the son of Jephone, who themselves also had viewed the land, rent their garments,
@@ -517,28 +517,28 @@
 14	14	And the inhabitants of this land, (who have heard that thou, O Lord, art among this people, and art seen face to face, and thy cloud protecteth them, and thou goest before them in a pillar of a cloud by day, and in a pillar of fire by night,)
 14	15	May hear that thou hast killed so great a multitude as it were one man and may say:
 14	16	He could not bring the people into the land for which he had sworn, therefore did he kill them in the wilderness.
-14	17	Let then the strength of the Lord be magnified, as thou hast sworn, saying:
-14	18	The Lord is patient and full of mercy, by taking away iniquity and wickedness, and leaving no man clear, who visitest the sins of the fathers upon the children unto the third and fourth generation.
+14	17	Let their the strength of the Lord be magnified, as thou hast sworn, saying:
+14	18	The Lord is patient and full of mercy, taking away iniquity and wickedness, and leaving no man clear, who visitest the sins of the fathers upon the children unto the third and fourth generation.
 14	19	Forgive, I beseech thee, the sins of this people, according to the greatness of thy mercy, as thou hast been merciful to them from their going out of Egypt unto this place.
 14	20	And the Lord said: I have forgiven according to thy word.
 14	21	As I live: and the whole earth shall be filled with the glory of the Lord.
 14	22	But yet all the men that have seen my majesty, and the signs that I have done in Egypt, and in the wilderness, and have tempted me now ten times, and have not obeyed my voice,
-14	23	Shall not see the land for which I swore to their fathers, neither shall any one of them that hath detracted me behold it.
+14	23	Shall not see the land for which I aware to their fathers, neither shall any one of them that hath detracted me behold it.
 14	24	My servant Caleb, who being full of another spirit hath followed me, I will bring into this land which he hath gone round: and his seed shall possess it.
 14	25	For the Amalecite and the Chanaanite dwell in the valleys. To morrow remove the camp, and return into the wilderness by the way of the Red Sea.
 14	26	And the Lord spoke to Moses and Aaron, saying:
 14	27	How long doth this wicked multitude murmur against me? I have heard the murmurings of the children of Israel.
 14	28	Say therefore to them: As I live, saith the Lord: According as you have spoken in my hearing, so will I do to you.
 14	29	In the wilderness shall your carcasses lie. All you that were numbered from twenty years old and upward, and have murmured against me,
-14	30	Shall not enter into the land, over which I lifted up my hand to make you dwell therein, except Caleb the son of Jephone, and Josue the son of Nun.
+14	30	Shall not enter into the land, over which I lifted up my bend to make you dwell therein, except Caleb the son of Jephone, and Josue the son of Nun.
 14	31	But your children, of whom you said, that they should be a prey to the enemies, will I bring in: that they may see the land which you have despised.
 14	32	Your carcasses shall lie in the wilderness.
-14	33	Your children shall wander in the desert forty years, and shall bear your fornication, until the carcasses of their fathers be consumed in the desert,
-14	34	According to the number of the forty days, wherein you viewed the land: a year shall be counted for a day. And forty years you shall receive your iniquities, and shall know my revenge:
+14	33	Your children shall wander in the desert forty years, and shall bear your fornication, until the carcasses of their fathers be consumed ill the desert,
+14	34	According to the number of the forty days, wherein you viewed the land: year shall be counted for a day. And forty years you shall receive your iniquities, and shall know my revenge:
 14	35	For as I have spoken, so will I do to all this wicked multitude, that hath risen up together against me: in this wilderness shall it faint away and die.
 14	36	Therefore all the men, whom Moses had sent to view the land, and who at their return had made the whole multitude to murmur against him, speaking ill of the land that it was naught,
 14	37	Died and were struck in the sight of the Lord.
-14	38	But Josue the son of Nun, and Caleb had gone to view the land.
+14	38	But Josue the son of Nun, and Caleb the son of Jephone lived, of all them that had gone to view the land.
 14	39	And Moses spoke all these words to all the children of Israel, and the people mourned exceedingly.
 14	40	And behold rising up very early in the morning, they went up to the top of the mountain, and said: We are ready to go up to the place, of which the Lord hath spoken: for we have sinned.
 14	41	And Moses said to them: Why transgress you the word of the Lord, which shall not succeed prosperously with you?
@@ -547,13 +547,13 @@
 14	44	But they being blinded went up to the top of the mountain. But the ark of the testament of the Lord and Moses departed not from the camp.
 14	45	And the Amalecite came down, and the Chanaanite that dwelt in the mountain: and smiting and slaying them pursued them as far as Horma.
 15	1	And the Lord spoke to Moses, saying:
-15	2	Speak to the children of Israel and thou shalt say to them: When you shall be come unto the land of your habitation, which I will give you,
+15	2	Speak to the children of Israel and thou shalt say to them: When you shall be come into the land of your habitation, which I will give you,
 15	3	And shall make an offering to the Lord, for a holocaust, or a victim, paying your vows, or voluntarily offering gifts, or in your solemnities burning a sweet savour unto the Lord, of oxen or of sheep:
 15	4	Whosoever immolateth the victim, shall offer a sacrifice of fine flour, the tenth part of an ephi, tempered with the fourth part of a hin of oil:
 15	5	And he shall give the same measure of wine to pour out in libations for the holocaust or for the victim. For every lamb,
-15	6	And for every ram there shall be a sacrifice of flour of two tenths, which shall be tempered with the third part of a hin of oil:
-15	7	And he shall offer the third part the same measure of wine for the libation, for a sweet savour to the Lord.
-15	8	But when thou offerest a holocaust or sacrifice of oxen, to fulfil thy vow or for victims of peace offerings,
+15	6	And for every ram there shall be a sacrifice of hour of two tenths, which shall be tempered with the third part of a hin of oil:
+15	7	And he shall offer the third part of the same measure of wine for the libation, for a sweet savour to the Lord.
+15	8	But when thou offerest a holocaust or sacrifice of oxen, to fulfill thy vow or for victims of peace offerings,
 15	9	Thou shalt give for every ox three tenths of flour tempered with half a hin of oil,
 15	10	And wine for libations of the same measure, for an offering of most sweet savour to the Lord.
 15	11	Thus shalt thou do
@@ -568,22 +568,22 @@
 15	20	Of the things you eat. As you separate firstfruits of your barnfloors:
 15	21	So also shall you give firstfruits of your dough to the Lord.
 15	22	And if through ignorance you omit any of these things, which the Lord hath spoken to Moses,
-15	23	And by him hath commanded you from the day that he began to command and thenceforward,
+15	23	And by him hath commanded you, from the day that he began to command and thenceforward,
 15	24	And the multitude have forgotten to do it: they shall offer a calf out of the herd, a holocaust for a most sweet savour to the Lord, and the sacrifice and libations thereof, as the ceremonies require, and a buck goat for sin:
-15	25	And the priest shall pray for all the multitude of the children of Israel: and it shall be forgiven them, because they sinned ignorantly, offering notwithstanding a burnt offering to the Lord for themselves and for their sin and their Ignorance:
+15	25	And the priest shall pray for all the multitude of the children of Israel: and it shall be forgiven them, because they sinned ignorantly, offering notwithstanding a burnt offering to the Lord for themselves and for their sin and their ignorance:
 15	26	And it shall be forgiven all the people of the children of Israel: and the strangers that sojourn among them: because it is the fault of all the people through ignorance.
-15	27	But if one soul shall sin ignorantly, he shall offer a she-goat of a year old for his sin.
+15	27	But if one soul shall sin ignorantly, he shall offer a she goat of a year old for his sin.
 15	28	And the priest shall pray for him, because he sinned ignorantly before the Lord: and he shall obtain his pardon, and it shall be forgiven him.
 15	29	The same law shall be for all that sin by ignorance, whether they be natives or strangers.
 15	30	But the soul that committeth any thing through pride, whether he be born in the land or a stranger (because he hath been rebellious against the Lord) shall be cut off from among his people:
-15	31	For he hath contemned the word of the Lord, and made void his precept: therefore shall he be destroyed, and shall bear his iniquity.
+15	31	For he hath contemned the word the Lord, and made void his precept: therefore shall he be destroyed, and shall bear his iniquity.
 15	32	And it came to pass, when the children of Israel were in the wilderness, and had found a man gathering sticks on the sabbath day,
 15	33	That they brought him to Moses and Aaron and the whole multitude.
 15	34	And they put him into prison, not knowing what they should do with him.
 15	35	And the Lord said to Moses: Let that man die, let all the multitude stone him without the camp.
 15	36	And when they had brought him out, they stoned him, and he died as the Lord had commanded.
 15	37	The Lord also said to Moses:
-15	38	Speak to the children of Israel, and thou shalt tell them to make to themselves fringes in the corners of their garments, putting in them ribands of blue:
+15	38	Speak to the children of Israel, and thou shalt tell them I to make to themselves fringes in the corners of their garments, putting in them ribands of blue:
 15	39	That when they shall see them, they may remember all the commandments of the Lord, and not follow their own thoughts and eyes going astray after divers things,
 15	40	But rather being mindful of the precepts of the Lord, may do them and be holy to their God.
 15	41	I am the Lord your God, who brought you out of the land of Egypt, that I might be your God.
@@ -619,17 +619,17 @@
 16	30	But if the Lord do a new thing, and the earth opening her mouth swallow them down, and all things that belong to them, and they go down alive into hell, you shall know that they have blasphemed the Lord.
 16	31	And immediately as he had made an end of speaking, the earth broke asunder under their feet:
 16	32	And opening her mouth, devoured them with their tents and all their substance.
-16	33	And they went down alive into hell, the ground closing upon them, and they perished from among the people.
+16	33	And they went down alive into hell the ground closing upon them, and they perished from among the people.
 16	34	But all Israel, that was standing round about, fled at the cry of them that were perishing: saying: Lest perhaps the earth swallow us up also.
 16	35	And a fire coming out from the Lord, destroyed the two hundred and fifty men that offered the incense.
 16	36	And the Lord spoke to Moses, saying:
 16	37	Command Eleazar the son of Aaron the priest to take up the censers that lie in the burning, and to scatter the fire of one side and the other: because they are sanctified
 16	38	In the deaths of the sinners: and let him beat them into plates, and fasten them to the altar, because incense hath been offered in them to the Lord, and they are sanctified, that the children of Israel may see them for a sign and a memorial.
 16	39	Then Eleazar the priest took the brazen censers, wherein they had offered, whom the burning fire had devoured, and beat them into plates, fastening them to the altar:
-16	40	That the children of Israel might have for the time to come wherewith they should be admonished, that no stranger or any one that is not of the seed of Aaron should come near to offer incense to the Lord, lest he should suffer as Core suffered, and all his congregation, according as the Lord spoke to Moses.
+16	40	That the children of Israel might have for the time to come wherewith they should be admonished, that no stranger or any one that is not of seed of Aaron should come near to offer incense to the Lord, lest he should suffer as Core suffered, and all his congregation, according as the Lord spoke to Moses.
 16	41	The following day all the multitude of the children of Israel murmured against Moses and Aaron, saying: You have killed the people of the Lord.
 16	42	And when there arose a sedition, and the tumult increased,
-16	43	Moses and Aaron fled to the tabernacle of the covenant. And when they were gone into it, the cloud covered it, and the glory of the Lord appeared.
+16	43	Moses and Aaron fled to the tabernacle of the covenant. And when the were gone into it, the cloud covered it, and the glory of the Lord appeared.
 16	44	And the Lord said to Moses:
 16	45	Get you out from the midst of this multitude, this moment will I destroy them. And as they were lying on the ground,
 16	46	Moses said to Aaron: Take the censer, and putting fire in it from the altar, put incense upon it, and go quickly to the people to pray for them: for already wrath is gone out from the Lord, and the plague rageth.
@@ -643,8 +643,8 @@
 17	4	And thou shalt lay them up in the tabernacle of the covenant before the testimony, where I will speak to thee.
 17	5	Whomsoever of these I shall choose, his rod shall blossom: and I will make to cease from me the murmurings of the children of Israel, wherewith they murmur against you.
 17	6	And Moses spoke to the children of Israel: and all the princes gave him rods one for every tribe: and there were twelve rods besides the rod of Aaron.
-17	7	And when Moses had Laid them up before the Lord in the tabernacle of the testimony:
-17	8	He returned on the following day, and found that the rod of Aaron for the house of Levi, was budded: and that the buds swelling it hid bloomed blossoms, which spreading the leaves, were formed into almonds.
+17	7	And when Moses had laid them up before the Lord in the tabernacle of the testimony:
+17	8	He returned on the following day, and found that the rod of Aaron for the house of Levi, was budded: and that the buds swelling it had bloomed blossoms, which spreading the leaves, were formed into almonds.
 17	9	Moses therefore brought out all the rods from before the Lord to all the children of Israel: and they saw, and every one received their rods.
 17	10	And the Lord said to Moses: Carry back the rod of Aaron into the tabernacle of the testimony, that it may be kept there for a token of the rebellious children of Israel, and that their complaints may cease from me lest they die.
 17	11	And Moses did as the Lord had commanded.
@@ -666,11 +666,11 @@
 18	14	Every thing that the children of Israel shall give by vow, shall be thine.
 18	15	Whatsoever is firstborn of all flesh, which they offer to the Lord, whether it be of men, or of beasts, shall belong to thee: only for the firstborn of man thou shalt take a price, and every beast that is unclean thou shalt cause to be redeemed,
 18	16	And the redemption of it shall be after one month, for five sicles of silver, by the weight of the sanctuary. A sicle hath twenty obols.
-18	17	But the firstling of a cow, and of a sheep and of a goat thou shalt not cause to be redeemed, because they are sanctified to the Lord. Their blood only thou shalt pour upon the altar, and their fat thou shalt burn for a most sweet odour to the Lord.
+18	17	But the firstling of a cow and of a sheep and of a goat thou shalt not cause to be redeemed, because they are sanctified to the Lord. Their blood only thou shalt pour upon the altar, and their fat thou shalt burn for a most sweet odour to the Lord.
 18	18	But the flesh shall fall to thy use, as the consecrated breast, and the right shoulder shall be thine.
 18	19	All the firstfruits of the sanctuary which the children of Israel offer to the Lord, I have given to thee and to thy sons and daughters, by a perpetual ordinance. It is a covenant of salt for ever before the Lord, to thee and to thy sons.
 18	20	And the Lord said to Aaron: You shall possess nothing in their land, neither shall you have a portion among them: I am thy portion and inheritance in the midst of the children of Israel.
-18	21	And I have given to the sons of Levi all the tithes of Israel for a possession, for the ministry wherewith they serve me in the tabernacle of the covenant:
+18	21	And I have given to the sons of Levi all the tithes of Israel for a possession for the ministry wherewith they serve me in the tabernacle of the covenant:
 18	22	That the children of Israel may not approach any more to the tabernacle, nor commit deadly sin,
 18	23	But only the sons of Levi may serve me in the tabernacle, and bear the sins of the people. It shall be an everlasting ordinance in your generations. They shall not possess any other thing,
 18	24	But be content with the oblation or tithes, which I have separated for their uses and necessities.
@@ -686,7 +686,7 @@
 19	2	This is the observance of the victim, which the Lord hath ordained. Command the children of Israel, that they bring unto thee a red cow of full age, in which there is no blemish, and which hath not carried the yoke:
 19	3	And you shall deliver her to Eleazar the priest, who shall bring her forth without the camp, and shall immolate her in the sight of all:
 19	4	And dipping his finger in her blood, shall sprinkle it over against the door of the tabernacle seven times,
-19	5	And shall burn her in the sight of all delivering up to the fire her skin, and her flesh, and her blood, and her dung.
+19	5	And shall burn her in the sight of all, delivering up to the fire her skin, and her flesh, and her blood, and her dung.
 19	6	The priest shall also take cedar wood, and hyssop, and scarlet twice dyed, and cast it into the flame, with which the cow is consumed.
 19	7	And then after washing his garments, and body, he shall enter into the camp, and shall be unclean until the evening.
 19	8	He also that hath burned her, shall wash his garments, and his body, and shall be unclean until the evening.
@@ -694,7 +694,7 @@
 19	10	And when he that carried the ashes of the cow, hath washed his garments, he shall be unclean until the evening. The children of Israel, and the strangers that dwell among them, shall observe this for a holy thing by a perpetual ordinance.
 19	11	He that toucheth the corpse of a man, and is therefore unclean seven days,
 19	12	Shall be sprinkled with this water on the third day, and on the seventh, and so shall be cleansed. If he were not sprinkled on the third day, he cannot be cleansed on the seventh.
-19	13	Every one that toucheth the corpse of a man, and is not sprinkled with this mixture, shall profane the tabernacle of the Lord, and shall perish out of Israel: because he was not sprinkled with the water of expiation, he shall be unclean, and his uncleanness shall remain upon him.
+19	13	Every one that toucheth the corpse of a man, and is not sprinkled with mixture, shall profane the tabernacle of the Lord, and shall perish out of Israel: because he was not sprinkled with the water of expiation, he shall be unclean, and his uncleanness shall remain upon him.
 19	14	This is the law of a man that dieth in a tent: All that go into his tent and all the vessels that are there, shall be unclean seven days.
 19	15	The vessel that hath no cover, nor binding over it, shall be unclean.
 19	16	If any man in the field touch the corpse of a man that was slain, or that died of himself, or his bone, or his grave, he shall be unclean seven days.
@@ -709,12 +709,12 @@
 20	3	And making a sedition, they said: Would God we had perished among our brethren before the Lord.
 20	4	Why have you brought out the church of the Lord into the wilderness, that both we and our cattle should die?
 20	5	Why have you made us come up out of Egypt, and have brought us into this wretched place which cannot be sowed, nor bringeth forth figs, nor vines, nor pomegranates, neither is there any water to drink?
-20	6	And Moses and Aaron leaving the multitude, went into the tabernacle of the covenant, and fell flat upon the ground, and cried to the Lord, and said. O Lord God, hear the cry of this people, and open to them thy treasure, a fountain of living water, that being satisfied, they may cease to murmur. And the glory of the Lord appeared over them.
+20	6	And Moses and Aaron leaving the multitude, went into the tabernacle of the covenant, and fell flat upon the ground, and cried to the Lord, and said: O Lord God, hear the cry of this people, and open to them thy treasure, a fountain of living water, that being satisfied, they may cease to murmur. And the glory of the Lord appeared over them.
 20	7	And the Lord spoke to Moses, saying:
 20	8	Take the rod, and assemble the people together, thou and Aaron thy brother, and speak to the rock before them, and it shall yield waters. And when thou hast brought forth water out of the rock, all the multitude and their cattle shall drink.
 20	9	Moses therefore took the rod, which was before the Lord, as he had commanded him,
 20	10	And having gathered together the multitude before the rock, he said to them: Hear, ye rebellious and incredulous: Can we bring you forth water out of this rock?
-20	11	And when Moses bad lifted up his hand, and struck the rock twice with the rod, there came forth water in great abundance, so that the people and their cattle drank,
+20	11	And when Moses had lifted up his hand, and struck the rock twice with the rod, there came forth water in great abundance, so that the people and their cattle drank,
 20	12	And the Lord said to Moses and Aaron: Because you have not believed me, to sanctify me before the children of Israel, you shall not bring these people into the land, which I will give them.
 20	13	This is the Water of contradiction, where the children of Israel strove with words against the Lord, and he was sanctified in them.
 20	14	In the mean time Moses sent messengers from Cades to the king of Edom, to say: Thus saith thy brother Israel: Thou knowest all the labour that hath come upon us:
@@ -725,7 +725,7 @@
 20	19	And the children of Israel said: We will go by the beaten way: and if we and our cattle drink of thy waters, we will give thee what is just: there shall be no difficulty in the price, only let us pass speedily.
 20	20	But he answered: Thou shalt not pass. And immediately he came forth to meet them with an infinite multitude, and a strong hand,
 20	21	Neither would he condescend to their desire to grant them passage through his borders. Wherefore Israel turned another way from him.
-20	22	And when they had removed the camp from Cades, they came to mount Hor, which is in the borders of the land of Edom:
+20	22	And when they had removed the camp from Cades, they came to mount Her, which is in the borders of the land of Edom:
 20	23	Where the Lord spoke to Moses:
 20	24	Let Aaron, saith he, go to his people: for he shall not go into the land which I have given the children of Israel, because he was incredulous to my words, at the waters of contradiction.
 20	25	Take Aaron and his son with him, and bring them up into mount Hor:
@@ -735,19 +735,19 @@
 20	29	And Aaron being dead in the top of the mountain, he came down with Eleazar.
 20	30	And all the multitude seeing that Aaron was dead, mourned for him thirty days throughout all their families.
 21	1	And when king Arad the Chanaanite, who dwelt towards the south, had heard this, to wit, that Israel was come by the way of the spies, he fought against them, and overcoming them carried off their spoils.
-21	2	But Israel binding himself by vow to the Lord, said: If thou wilt deliver thus people into my hand, I will utterly destroy their cities.
+21	2	But Israel binding himself by vow to the Lord, said: It thou wilt deliver this people into my hand, I will utterly destroy their cities.
 21	3	And the Lord heard the prayers of Israel, and delivered up the Chanaanite, and they cut them off and destroyed their cities: and they called the name of that place Horma, that is to say, Anathema.
 21	4	And they marched from mount Hor, by the way that leadeth to the Red Sea, to compass the land of Edom. And the people began to be weary of their journey and labour:
 21	5	And speaking against God and Moses, they said: Why didst thou bring us out of Egypt, to die in the wilderness? There is no bread, nor have we any waters: our soul now loatheth this very light food.
 21	6	Wherefore the Lord sent among the people fiery serpents, which bit them and killed many of them.
-21	7	Upon which they came to Moses, and said; We have sinned, because we have spoken against the Lord and thee: pray that he may take away these serpents from us. And Moses prayed for the people.
-21	8	And the Lord said to him: Make a brazen serpent, and set it up for a sign: whosoever being struck shall look on it, shall live.
+21	7	Upon which they came to Moses, and said: We have sinned, because we have spoken against the Lord and thee: pray that he may take away these serpents from us. And Moses prayed for the people.
+21	8	And the Lord said to him: Make brazen serpent, and set it up for a sign: whosoever being struck shall look on it, shall live.
 21	9	Moses therefore made a brazen serpent, and set it up for a sign: which when they that were bitten looked upon, they were healed.
 21	10	And the children of Israel setting forwards camped in Oboth.
 21	11	And departing thence they pitched their tents in Jeabarim, in the wilderness, that faceth Moab toward the east.
 21	12	And removing from thence, they came to the torrent Zared:
 21	13	Which they left and encamped over against Arnon, which is in the desert and standeth out on the borders of the Amorrhite. For Arnon is the border of Moab, dividing the Moabites and the Amorrhites.
-21	14	Wherefore it is said in the book of the wars of the Lord: As he did in the Red Sea, so will he do in the streams of Arnon.
+21	14	Wherefore it is said in the book of the wars of the Lord: As he did in the Red Sea, so will he do in the streams of Amen.
 21	15	The rocks of the torrents were bowed down that they might rest in Ar, and lie down in the borders of the Moabites.
 21	16	When they went from that place, the well appeared whereof the Lord said to Moses: Gather the people together, and I will give them water.
 21	17	Then Israel sung this song: Let the well spring up. They sung thereto:
@@ -756,10 +756,10 @@
 21	20	From Bamoth, is a valley in the country of Moab, to the top of Phasga, which looked towards the desert.
 21	21	And Israel sent messengers to Sehon king of the Amorrhites, saying:
 21	22	I beseech thee that I may have leave to pass through thy land: we will not go aside into the fields or the vineyards, we will not drink waters of the wells, we will go the king’s highway, till we be past thy borders.
-21	23	And he would not grant that Israel should pass by his borders: but rather gathering an army, went forth to meet them in the desert, and came to Jasa and fought against them.
+21	23	And he would not grant that Israel should pass by his borders: but rather gathering an army, went forth to meet them in the desert, and came to Jasa, and fought against them.
 21	24	And he was slain by them with the edge of the sword, and they possessed his land from the Arnon unto the Jeboc, and to the confines of the children of Ammon: for the borders of the Ammonites, were kept with a strong garrison.
 21	25	So Israel took all his cities, and dwelt in the cities of the Amorrhite, to wit, in Hesebon, and in the villages thereof.
-21	26	Hesebon was the city of Sehon the king of the Amorrhites, who fought against the king of Moab: and took all the land, that had been of his dominion, as far as the Arnon.
+21	26	Hesebon was the city of Sehon the king of the Amorrhites, who fought against the king of Moab: and took all the land, that had been of his dominions, as far as the Arnon.
 21	27	Therefore it is said in the proverb: Come into Hesebon, let the city of Sehon be built and set up:
 21	28	A fire is gone out of Hesebon, a flame from the city of Sehon, and hath consumed Ar of the Moabites, and the inhabitants of the high places of the Arnon.
 21	29	Woe to thee Moab: thou art undone, O people of Chamos. He hath given his sons to flight, and his daughters into captivity to Sehon the king of the Amorrhites.
@@ -773,10 +773,10 @@
 22	2	And Balac the son of Sephor, seeing all that Israel had done to the Amorrhite,
 22	3	And that the Moabites were in great fear of him, and were not able to sustain his assault,
 22	4	He said to the elders of Madian: So will this people destroy all that dwell in our borders, as the ox is wont to eat the grass to the very roots. Now he was at that time king in Moab.
-22	5	He sent therefore messengers to Balaam the son of Beor, a soothsayer, who dwelt by the river of the land of the children of Ammon, to call him, and to say: Behold a people is come out of Egypt, that hath covered the face of the earth, sitting over against me.
+22	5	He sent therefore messengers to Balaam the son of Beer, a soothsayer, who dwelt by the river of the land of the children of Ammon, to call him, and to say: Behold a people is come out of Egypt, that hath covered the face of the earth, sitting over against me.
 22	6	Come therefore, and curse this people, because it is mightier than I: if by any means I may beat them and drive them out of my land: for I know that he whom thou shalt bless is blessed, and he whom thou shalt curse is cursed.
-22	7	And the ancients of Moab, and the elders of Madian, went with the price of divination in their hands. And where they were come to Balaam, and had told him all the words of Balac:
-22	8	He answered: Tarry here this night and I will answer whatsoever the Lord shall say to me. And while they stayed with Balaam, God came and said to him:
+22	7	And the ancients of Moab, and the elders of Madian, went with the price of divination in their hands. And when they were come to Balaam, and had told him all the words of Balac:
+22	8	He answered: Tarry here this night, and I will answer whatsoever the Lord shall say to me. And while they stayed with Balaam, God came and said to him:
 22	9	What mean these men that are with thee?
 22	10	He answered: Balac the son of Sephor king of the Moabites hath sent to me,
 22	11	Saying: Behold a people that is come out of Egypt, hath covered the face of the land: come and curse them, if by any means I may fight with them and drive them away.
@@ -788,7 +788,7 @@
 22	17	For I am ready to honour thee, and will give thee whatsoever thou wilt: come and curse this people.
 22	18	Balaam answered: If Balac would give me his house full of silver and gold, I cannot alter the word of the Lord my God, to speak either more or less.
 22	19	I pray you to stay here this night also, that I may know what the Lord will answer me once more.
-22	20	God therefore came to Balaam in the night, and said to him: If these men be come to call thee, arise and go with them: yet so, that thou do what I shall command thee.
+22	20	God therefore came to Balaam in the night, and said to him: It these men be come to call thee, arise and go with them: yet so, that thou do what I shall command thee.
 22	21	Balaam arose in the morning, and saddling his ass went with them.
 22	22	And God was angry. And an angel of the Lord stood in the way against Balaam, who sat on the ass, and had two servants with him.
 22	23	The ass seeing the angel standing in the way, with a drawn sword, turned herself out of the way, and went into the field. And when Balaam beat her, and had a mind to bring her again to the way,
@@ -821,14 +821,14 @@
 23	9	I shall see him from the tops of the rocks, and shall consider him from the hills. This people shall dwell alone, and shall not be reckoned among the nations.
 23	10	Who can count the dust of Jacob, and know the number of the stock of Israel? Let my soul die the death of the just, and my last end be like to them.
 23	11	And Balac said to Balaam: What is this that thou dost? I sent for thee to curse my enemies: and thou contrariwise blessest them.
-23	12	He answered him: Can I speak any thing else but what the Lord commandeth?
+23	12	He answered him: Call I speak any thing else but what the Lord commandeth?
 23	13	Balac therefore said: Come with me to another place from whence thou mayest see part of Israel, and canst not see them all: curse them from thence.
 23	14	And when he had brought him to a high place, upon the top of mount Phasga, Balaam built seven altars, and laying on every one a calf and a ram,
 23	15	He said to Balac: Stand here by thy burnt offering while I go to meet him.
 23	16	And when the Lord had met him, and had put the word in his mouth, he said: Return to Balac, and thus shalt thou say to him.
 23	17	Returning he found him standing by his burnt sacrifice, and the princes of the Moabites with him. And Balac said to him: What hath the Lord spoken?
 23	18	But he taking up his parable, said: Stand, O Balac, and give ear: hear, thou son of Sephor:
-23	19	God is not a man, that he should lie, nor is the son of man, that he should be changed. Hath he said then, and will he not do? hath he spoken, and will he not fulfil?
+23	19	God is not a man, that he should lie, nor as the son of man, that he should be changed. Hath he said then, and will he not do? hath he spoken, and will he not fulfill?
 23	20	I was brought to bless, the blessing I am not able to hinder.
 23	21	There is no idol in Jacob, neither is there an image god to be seen in Israel. The Lord his God is with him, and the sound of the victory of the king in him.
 23	22	God hath brought him out of Egypt, whose strength is like to the rhinoceros.
@@ -840,13 +840,13 @@
 23	28	And when he had brought him upon the top of mount Phogor, which looketh towards the wilderness,
 23	29	Balaam said to him: Build me here seven altars, and prepare as many calves, and the same number of rams.
 23	30	Balac did as Balaam had said: and he laid on every altar, a calf and a ram.
-24	1	And when Balaam saw that it pleased the Lord that he should bless Israel, he went not as he had gone before, to seek divination: but setting his face towards the desert,
+24	1	And when Balaam saw that it pleased the Lord that he should bless Israel. he went not as he had gone before, to seek divination: but setting his face towards the desert,
 24	2	And lifting up his eyes, he saw Israel abiding in their tents by their tribes: and the spirit of God rushing upon him,
-24	3	He took up his parable and said: Balaam the son of Beor hath said: The man hath said, whose eye is stopped up:
-24	4	The bearer of the words of God hath said, he that hath beheld the vision of the Almighty, he that falleth, and so his eyes are opened:
-24	5	How beautiful are thy tabernacles O Jacob, and thy tents, O Israel!
+24	3	He took up his parable and said: Balaam the son of Beor hath said: The man hath said, whose eye ire stopped up:
+24	4	The hearer of the words of God hath said, he that hath beheld the vision of the Almighty, he that falleth, and so his eyes are opened:
+24	5	How beautiful are thy tabernacles, O Jacob, and thy tents, O Israel!
 24	6	As woody valleys, as watered gardens near the rivers, as tabernacles which the Lord hath pitched, as cedars by the waterside.
-24	7	Water shall flow out of his bucket, and his seed shall be in many waters. For Agag his king shall be removed, and his kingdom shall be taken away.
+24	7	Water shall flow out of his bucket, and his seed shall be in many waters. For Agag his king shall be removed, and his kingdom shall be taken awry.
 24	8	God hath brought him out of Egypt, whose strength is like to the rhinoceros. They shall devour the nations that are his enemies, and break their bones, and pierce them with arrows.
 24	9	Lying down he hath slept as a lion, and as a lioness, whom none shall dare to rouse. He that blesseth thee, shall also himself be blessed: he that curseth thee shall be reckoned accursed.
 24	10	And Balac being angry against Balaam, clapped his hands together and said: I called thee to curse my enemies, and thou on the contrary hast blessed them three times.
@@ -856,7 +856,7 @@
 24	14	But yet going to my people, I will give thee counsel, what this people shall do to thy people in the latter days.
 24	15	Therefore taking up his parable, again he said: Balaam the son of Beor hath said: The man whose eye is stopped up, hath said:
 24	16	The hearer of the words of God hath said, who knoweth the doctrine of the Highest, and seeth the visions of the Almighty, who falling hath his eyes opened:
-24	17	I shall see him, but not now: I shall behold him, but not near. A STAR SHALL RISE out of Jacob and a sceptre shall spring up from Israel: and shall strike the chiefs of Moab, and shall waste all the children of Seth
+24	17	I shall see him, but not now: I shall behold him, but not near. A STAR SHALL RISE out of Jacob and a sceptre shall spring up from Israel: and shall strike the chiefs of Moab, and shall waste all the children of Seth.
 24	18	And he shall possess Idumea: the inheritance of Seir shall come to their enemies, but Israel shall do manfully.
 24	19	Out of Jacob shall he come that shall rule, and shall destroy the remains of the city.
 24	20	And when he saw Amalec, he took up his parable, and said: Amalec the beginning of nations, whose latter ends shall be destroyed.
@@ -870,19 +870,19 @@
 25	3	And Israel was initiated to Beelphegor: upon which the Lord being angry,
 25	4	Said to Moses: Take all the princes of the people, and hang them up on gibbets against the sun: that my fury may be turned away from Israel.
 25	5	And Moses said to the judges of Israel: Let every man kill his neighbours, that have been initiated to Beelphegor.
-25	6	And behold one of the children of Israel went in before his brethren to a harlot of Madian, in the sight of Moses and of all the children of Israel, who were weeping before the door of the tabernacle.
-25	7	And when Phinees the son of Eleazar the son of Aaron the priest saw it, he rose up from the midst of the multitude, and taking a dagger,
-25	8	Went in after the Israelite into the brothel house, and thrust both of them through together, to wit, the man and the woman in the genital parts. And the scourge ceased from the children of Israel.
+25	6	And behold one of the children of Israel went in before his brethren to a harlot of Madian, in the sight of Moses, and of all the children of Israel, who were weeping before the door of the tabernacle.
+25	7	And when Phinees the son of Eleazar the son of Aaron the priest saw it, he rose up from the midst; of the multitude, and taking a dagger,
+25	8	Went in after the Israelite into the brothel house, and thrust both of them through together, to wit, the man and the woman in the genital parts. And the scourge ceased from the children of Israel:
 25	9	And there were slain four and twenty thousand men.
 25	10	And the Lord said to Moses:
 25	11	Phinees the son of Eleazar the son of Aaron the priest, hath turned away my wrath from the children of Israel: because he was moved with my zeal against them, that I myself might not destroy the children of Israel in my zeal.
-25	12	Therefore say to him: behold I give him the peace of my covenant,
+25	12	Therefore say to him: Behold I give him the peace of my covenant,
 25	13	And the covenant of the priesthood for ever shall be both to him and his seed, because he hath been zealous for his God, and hath made atonement for the wickedness of the children of Israel.
-25	14	And the name of the Israelite, that was slain with the woman of Madian, was Zambri the son of Salu, a prince of the kindred and tribe of Simeon.
+25	14	And the name of the Israelite, was slain with the woman of Madian, was Zambri the son of Salu, a prince the kindred and tribe of Simeon.
 25	15	And the Madianite woman, that was slain with him, was called Cozbi the daughter of Sur, a most noble prince among the Madianites.
 25	16	And the Lord spoke to Moses, saying:
-25	17	Let the Madianites find you their enemies, and slay you them:
-25	18	Because they also have acted like enemies against you, and have guilefully deceived you by the idol Phogor, and Cozbi their sister, a daughter of a prince of Madian, who was slain in the day of the plague for the sacrilege of Phogor.
+25	17	Let the Madianites find you enemies, and slay you them:
+25	18	Because they also have acted like enemies against you, and have guilefully deceived you by the idol Phogor, and Cozbi their sister, a daughter of a prince of Madian, who was slain in the day the plague for the sacrilege of Phogor.
 26	1	After the blood of the guilty was shed, the Lord said to Moses and to Eleazar the son of Aaron, the priest:
 26	2	Number the whole sum of the children of Israel from twenty years old and upward, by their houses and kindreds, all that are able to go forth to war.
 26	3	Moses therefore and Eleazar the priest, being in the plains of Moab upon the Jordan over against Jericho, spoke to them that were
@@ -894,10 +894,10 @@
 26	9	His sons, were Namuel and Dathan and Abiron. These are Dathan and Abiron the princes of the people, that rose against Moses and Aaron in the sedition of Core, when they rebelled against the Lord:
 26	10	And the earth opening her mouth swallowed up Core, many others dying, when the fire burned two hundred and fifty men. And there was a great miracle wrought,
 26	11	That when Core perished, his sons did not perish.
-26	12	The sons of Simeon by their kindreds: Namuel, of him is the family of the Namuelites: Jamin, of him is the family of the Jaminites: Jachim, of him is the family of the Jachimites:
+26	12	The sons of Simeon by their kindreds: Namuel, of him is the family of the Namuelites: Jamin, of him is the family of the Jaminites: Jachin, of him is the family of the Jachinites:
 26	13	Zare, of him is the family of the Zarites: Saul, of him is the family of the Saulites.
 26	14	These are the families of the stock of Simeon, of which the whole number was twenty-two thousand two hundred.
-26	15	The sons of Gad by their kindreds: Sephon, of him is the family of the Sephonites: Aggi, of him is the family of the Aggites: Suni, of him is the family of the Sunites:
+26	15	The sons of Gad by their kindreds: Sephon, of hin; Is the family of the Sephonites: Aggi, of him is the family of the Aggites: Suni, of him is the family of the Sunites:
 26	16	Ozni, of him is the family of the Oznites: Her, of him is the family of the Herites:
 26	17	Arod, of him is the family of the Arodites: Ariel, of him is the family of the Arielites.
 26	18	These are the families of Gad, of which the whole number was forty thousand five hundred.
@@ -905,13 +905,13 @@
 26	20	And the sons of Juda by their kindreds were: Sela, of whom is the family of the Selaites: Phares, of whom is the family of the Pharesites: Zare, of whom is the family of the Zarites.
 26	21	Moreover the sons of Phares were: Hesron, of whom is the family of the Hesronites: and Hamul, of whom is the family of the Hamulites.
 26	22	These are the families of Juda, of which the whole number was seventy-six thousand five hundred.
-26	23	The sons of Issachar, by their kindreds: Thola of whom is the family of the Tholaites: Phua, of whom is the family of the Phuaites:
+26	23	The sons of Issachar, by their kindreds: Thola, of whom is the family of the Tholaites: Phua, of whom is the family of the Phuaites:
 26	24	Jasub, of whom is the family of the Jasubites: Semran, of whom is the family of the Semranites.
 26	25	These are the kindreds of Issachar, whose number was sixty-four thousand three hundred.
 26	26	The sons of Zabulon by their kindreds: Sared, of whom is the family of the Saredites: Elon, of whom is the family of the Elonites: Jalel, of whom is the family of the Jalelites.
 26	27	These are the kindreds of Zabulon, whose number was sixty thousand five hundred.
 26	28	The sons of Joseph by their kindred, Manasses and Ephraim.
-26	29	Of Manasses was born Machir, of whom is the family of the Machirites. Machir begot Galaad, of whom is the family of the Galaadites.
+26	29	Of Manasses was born Machir, of whom is the family of the Machirites. Machir beget Galaad, of whom is the family of the Galaadites.
 26	30	Galaad had sons: Jezer, of whom is the family of the Jezerites: and Helec, of whom is the family of the Helecites:
 26	31	And Asriel, of whom is the family of the Asrielites: and Sechem, of whom is the family of the Sechemites:
 26	32	And Semida, of whom is the family of the Semidaites: and Hepher, of whom is the family of the Hepherites.
@@ -922,7 +922,7 @@
 26	37	These are the kindreds of the sons of Ephraim: whose number was thirty-two thousand five hundred.
 26	38	These are the sons of Joseph by their families. The sons of Benjamin in their kindreds: Bela, of whom is the family of the Belaites: Asbel, of whom is the family of the Asbelites: Ahiram, of whom is the family of the Ahiramites:
 26	39	Supham, of whom is the family of the Suphamites: Hupham, of whom is the family of the Huphamites.
-26	40	The sons of Bela: Hered, and Noeman. Of Hered, is the family of the Heredites: of Noeman, the family of the Noemanites.
+26	40	The sons of Bela: Hered, and Noeman. Of Hered, is the family of the Heredites: of Noeman, the family of tile Noemanites.
 26	41	These are the sons of Benjamin by their kindreds, whose number was forty-five thousand six hundred.
 26	42	The sons of Dan by their kindreds: Suham, of whom is the family of the Suhamites: These are the kindreds of Dan by their families.
 26	43	All were Suhamites, whose number was sixty-four thousand four hundred.
@@ -940,8 +940,8 @@
 26	55	Yet so that by lot the land be divided to the tribe and families.
 26	56	Whatsoever shall fall by lot, that shall be taken by the more, or the fewer.
 26	57	This also is the number of the sons of Levi by their families: Gerson, of whom is the family of the Gersonites: Caath, of whom is the family of the Caathites: Merari, of whom is the family of the Merarites.
-26	58	These are the families of Levi: The family of Lobni, the family of Hebroni, the family of Core. Now Caath begot Amram:
-26	59	Who had to wife Jochabed the daughter of Levi, who was born to him in Egypt. She bore to her husband Amram sons, Aaron and Moses, and Mary their sister.
+26	58	These are the families of Levi: The family of Lobni, the family of Hebroni, the family of Moholi, the family of Musi, the family of Core. Now Caath beget Amram:
+26	59	Who had to wife Jochabed the daughter of Levi, who was horn to him in Egypt. She bore to her husband Amram sons, Aaron and Moses, and Mary their sister.
 26	60	Of Aaron were born Nadab and Abiu, and Eleazar and Ithamar:
 26	61	Of whom Nadab and Abiu died, when they had offered the strange fire before the Lord.
 26	62	And all that were numbered, were twenty-three thousand males from one month old and upward: for they were not reckoned up among the children of Israel, neither was a possession given to them with the rest.
@@ -965,20 +965,20 @@
 27	15	And Moses answered him:
 27	16	May the Lord the God of the spirits of all flesh provide a man, that may be over this multitude:
 27	17	And may go out and in before them, and may lead them out, or bring them in: lest the people of the Lord be as sheep without a shepherd.
-27	18	And the Lord said to him: take Josue the son of Nun, a man in whom is the Spirit, and put thy hand upon him.
+27	18	And the Lord said to him: Take Josue the son of Nun, a man in whom is the Spirit, and put thy hand upon him.
 27	19	And he shall stand before Eleazar the priest and all the multitude:
 27	20	And thou shalt give him precepts in the sight of all, and part of thy glory, that all the congregation of the children of Israel may hear him.
 27	21	If any thing be to be done, Eleazar the priest shall consult the Lord for him. He and all the children of Israel with him, and the rest of the multitude shall go out and go in at his word.
-27	22	Moses did as the Lord had commanded. And, when he had taken Josue, he set him before Eleazar the priest, and all the assembly of the people,
+27	22	Moses did as the Lord had commanded. And when he had taken Josue, he set him before Eleazar the priest, and all the assembly of the people,
 27	23	And laying his hands on his head, he repeated all things that the Lord had commanded.
 28	1	The Lord also said to Moses:
 28	2	Command the children of Israel, and thou shalt say to them: Offer ye my oblation and my bread, and burnt sacrifice of most sweet odour, in their due seasons.
 28	3	These are the sacrifices which you shall offer: Two lambs of a year old without blemish every day for the perpetual holocaust:
-28	4	One you shall offer in the mornings, and the other in the evening:
-28	5	And the tenth part of an ephi of flour, which shall be tempered with the, purest oil, of the measure of the fourth part of a hin.
-28	6	It is the continual holocaust which you offered in mount Sinai for a most sweet odour of a sacrifice by fire to the Lord.
+28	4	One you shall offer in the morning, and the other in the evening:
+28	5	And the tenth part of an ephi of flour, which shall be tempered with the purest oil, of the measure of the fourth part of a hin.
+28	6	It is the continual holocaust which you offered in mount Sinai for a most sweet. odour of a sacrifice by fire to the Lord.
 28	7	And for a libation you shall offer of wine the fourth part of a hin for every lamb in the sanctuary of the Lord.
-28	8	And you shall offer the other lamb in like manner in the evening according to all the rites of the morning sacrifice, and of the libations thereof, an oblation of most sweet odour to the Lord.
+28	8	And you shall offer the other lamb in like manner ill the evening according to all the rites of the morning sacrifice, and of the libations thereof, an oblation of most sweet odour to the Lord.
 28	9	And on the sabbath day you shall offer two lambs of a year old without blemish, and two tenths of flour tempered with oil in sacrifice, and the libations,
 28	10	Which regularly are poured out every sabbath for the perpetual holocaust.
 28	11	And on the first day of the month you shall offer a holocaust to the Lord, two calves of the herd, one ram, and seven lambs of a year old, without blemish,
@@ -986,16 +986,16 @@
 28	13	And the tenth of a tenth of flour tempered with oil in sacrifice for every lamb. It is a holocaust of most sweet odour and an offering by fire to the Lord.
 28	14	And these shall be the libations of wine that are to be poured out for every victim: Half a hin for every calf, a third for a ram, and a fourth for a lamb. This shall be the holocaust for every month, as they succeed one another in the course of the year.
 28	15	A buck goat also shall be offered to the Lord for a sin offering over and above the perpetual holocaust with its libations.
-28	16	And in the first month, on the four tenth day of the month, shall be the phase of the Lord,
+28	16	And in the first month, on the fourteenth day of the month, shall be the phase of the Lord,
 28	17	And on the fifteenth day the solemn feast: seven days shall they eat unleavened bread.
 28	18	And the first day of them shall be venerable and holy: you shall not do any servile work therein.
 28	19	And you shall offer a burnt sacrifice a holocaust to the Lord, two calves of the herd, one ram, seven lambs of a year old, without blemish:
-28	20	And for the sacrifice of every one three tenths of flour which shall be tempered with oil to every calf, and two tenths to every ram,
+28	20	And for the sacrifices of every one three tenths of flour which shall be tempered with oil to every calf, and two tenths to every ram,
 28	21	And the tenth of a tenth, to every lamb, that is to say, to all the seven lambs:
 28	22	And one buck goat for sin, to make atonement for you,
 28	23	Besides the morning holocaust which you shall always offer.
 28	24	So shall you do every day of the seven days for the food of the fire, and for a most sweet odour to the Lord, which shall rise from the holocaust, and from the libations of each.
-28	25	The seventh day also shall be most solemn and holy unto you, you shall do no servile work therein.
+28	25	The seventh day also shall be most solemn and holy unto you: you shall do no servile work therein.
 28	26	The day also of firstfruits, when after the weeks are accomplished, you shall offer new fruits to the Lord, shall be venerable and holy: you shall do no servile work therein.
 28	27	And you shall offer a holocaust for a most sweet odour to the Lord, two calves of the herd, one ram, and seven lambs of a year old, without blemish:
 28	28	And in the sacrifices of them three tenths of flour tempered with oil to every calf, two to every ram,
@@ -1008,7 +1008,7 @@
 29	4	One tenth to a lamb, which in all are seven lambs:
 29	5	And a buck goat for sin, which is offered for the expiation of the people,
 29	6	Besides the holocaust of the first day of the month with the sacrifices thereof, and the perpetual holocaust with the accustomed libations. With the same ceremonies you shall offer a burnt sacrifice for a most sweet odour to the Lord.
-29	7	The tenth day also of this seventh month shall be holy and venerable unto you, and you shall afflict your souls; you shall do no servile work therein.
+29	7	The tenth day also of this seventh month shall be holy and venerable unto you, and you shall afflict your souls: you shall do no servile work therein.
 29	8	And you shall offer a holocaust to the Lord for a most sweet odour, one calf of the herd, one ram, and seven lambs of a year old, without blemish:
 29	9	And for their sacrifices, three tenths of flour tempered with oil to every calf, two tenths to a ram,
 29	10	The tenth of a tenth to every lamb, which are in all seven lambs:
@@ -1024,7 +1024,7 @@
 29	20	The third day you shall offer eleven calves, two rams, and fourteen lambs of a year old, without blemish:
 29	21	And the sacrifices and the libations of every one for the calves and for the rams and for the lambs you shall offer according to the rite:
 29	22	And a buck goat for sin, besides the perpetual holocaust, and the sacrifice, and the libation thereof.
-29	23	The fourth day you shall offer ten calves, two rams, and fourteen lambs of a year old, without blemish:
+29	23	The fourth day you shall offer tell calves, two rams, and fourteen lambs of a year old, without blemish:
 29	24	And the sacrifices and the libations of every one for the calves and for the rams and for the lambs you shall celebrate in right manner:
 29	25	And a buck goat for sin, besides the perpetual holocaust, and the sacrifice and the libation thereof.
 29	26	The fifth day you shall offer nine calves, two rams, and fourteen lambs of a year old, without blemish:
@@ -1036,26 +1036,26 @@
 29	32	The seventh day you shall offer seven calves and two rams, and fourteen lambs of a year old, without blemish:
 29	33	And the sacrifices and the libations of every one for the calves and for the rams and for the lambs you shall celebrate according to the rite:
 29	34	And a buck goat for sin, besides the perpetual holocaust, and the sacrifice and the libation thereof.
-29	35	On the eighth day, which is most solemn, you shall do no servile work:
+29	35	On the eighth day, which is moat solemn, you shall do no servile work:
 29	36	But you shall offer a holocaust for a most sweet odour to the Lord, one calf, one ram, and seven lambs of a year old, without blemish:
 29	37	And the sacrifices and the libations of every one for the calves and for the rams and for the lambs you shall celebrate according to the rite:
 29	38	And a buck goat for sin, besides the perpetual holocaust, and the sacrifice and the libation thereof.
 29	39	These things shall you offer to the Lord in your solemnities: besides your vows and voluntary oblations for holocaust, for sacrifice, for libation, and for victims of peace offerings.
 30	1	And Moses told the children of Israel all that the Lord had commanded him:
 30	2	And he said to the princes of the tribes of the children of Israel: This is the word that the Lord hath commanded:
-30	3	If any man make a vow to the Lord, or bind himself by an oath: he shall not make his word void but shall fulfil all that he promised.
+30	3	If any man make a vow to the Lord, or bind himself by an oath: he shall not make his word void but shall fulfill all that he promised.
 30	4	If a woman vow any thing, and bind herself by an oath, being in her father’s house, and but yet a girl in age: if her father knew the vow that she hath promised, and the oath wherewith she hath bound her soul, and held his peace, she shall be bound by the vow:
-30	5	Whatsoever she promised and swore, she shall fulfil in deed.
+30	5	Whatsoever she promised and swore, she shall fulfill in deed.
 30	6	But if her father, immediately as soon as he heard it, gainsaid it, both her vows and her oaths shall be void, neither shall she be bound to what she promised, because her father hath gainsaid it.
-30	7	If she have a husband, and shall vow any thing, and the word once going out of her mouth shall bind her soul by an oath,
+30	7	If she have a husband, and shall vow any thing, and the word once going out of her mouth shall bind her soul by an oath:
 30	8	The day that her husband shall hear it, and not gainsay it, she shall be bound to the vow, and shall give whatsoever she promised.
 30	9	But if as soon as he heareth he gainsay it, and make her promises and the words wherewith she had bound her soul of no effect: the Lord will forgive her.
-30	10	The widow, and she that is divorced, shall fulfil whatsoever they vow.
+30	10	The widow, and she that is divorced, shall fulfill whatsoever they vow.
 30	11	If the wife in the house of her husband, hath bound herself by vow and by oath,
 30	12	If her husband hear, and hold his peace, and doth not disallow the promise, she shall accomplish whatsoever she had promised.
 30	13	But if forthwith he gainsay it, she shall not be bound by the promise: because her husband gainsaid it, and the Lord will be merciful to her.
 30	14	If she vow and bind herself by oath, to afflict her soul by fasting, or abstinence from other things, it shall depend on the will of her husband, whether she shall do it, or not do it.
-30	15	But if the husband hearing it hold his peace, and defer the declaring his mind till another day: whatsoever she had vowed and promised, she shall fulfil: because immediately as he heard it, he held his peace.
+30	15	But if the husband hearing it hold his peace, and defer the declaring his mind till another day: whatsoever she had vowed and promised, she shall fulfill: because immediately as he heard it, he held his peace.
 30	16	But if he gainsay it after that he knew it, he shall bear her iniquity.
 30	17	These are the laws which the Lord appointed to Moses between the husband and the wife, between the father and the daughter that is as yet but a girl in age, or that abideth in her father’s house.
 31	1	And the Lord spoke to Moses, saying:
@@ -1065,7 +1065,7 @@
 31	5	And they gave a thousand of every tribe, that is to say, twelve thousand men well appointed for battle.
 31	6	And Moses sent them with Phinees the son of Eleazar the priest, and he delivered to him the holy vessels, and the trumpets to sound.
 31	7	And when they had fought against the Madianites and had overcome them, they slew all the men.
-31	8	And their kings Evi, and Recem, and Sur, and Hur, and Rebe, five princes of the nation: Balaam also the son of Beor they killed with the sword.
+31	8	And their kings Evi, and Recem, and Sur, and Hur, and Rebe, five princes of the nation: Balaam also the son of Beer they killed with the sword.
 31	9	And they took their women, and their children captives, and all their cattle, and all their goods: and all their possessions they plundered:
 31	10	And all their cities, and their villages, and castles, they burned.
 31	11	And they carried away the booty, and all that they had taken both of men and of beasts.
@@ -1079,7 +1079,7 @@
 31	19	And stay without the camp seven days. He that hath killed a man, or touched one that is killed, shall be purified the third day and the seventh day.
 31	20	And of all the spoil, every garment, or vessel, or any thing made for use, of the skins, or hair of goats, or of wood, shall be purified.
 31	21	Eleazar also the priest spoke to the men of the army, that had fought, in this manner: This is the ordinance of the law, which the Lord hath commanded Moses:
-31	22	Gold, and silver, and brass, and iron, and lead, and tin,
+31	22	Gold, and silver, and brass, and iron, and lend, and tin,
 31	23	And all that may pass through the fire, shall be purified by fire, but whatsoever cannot abide the fire, shall be sanctified with the water of expiation:
 31	24	And you shall wash your garments the seventh day, and being purified, you shall afterwards enter into the camp.
 31	25	And the Lord said to Moses:
@@ -1094,7 +1094,7 @@
 31	34	Sixty-one thousand asses:
 31	35	And thirty-two thousand persons of the female sex, that had not known men.
 31	36	And one half was given to them that had been in the battle, to wit, three hundred thirty-seven thousand five hundred sheep:
-31	37	Out of which, for the portion of the Lord, were reckoned six hundred seventy five sheep.
+31	37	Out of which, for the portion of the Lord, were reckoned six hundred seventy-five sheep.
 31	38	And out of the thirty-six thousand oxen, seventy-two oxen:
 31	39	Out of the thirty thousand five hundred asses, sixty-one asses:
 31	40	Out of the sixteen thousand persons, there fell to the portion of the Lord, thirty-two souls.
@@ -1144,8 +1144,8 @@
 32	30	But if they will not pass armed with you into the land of Chanaan, let them receive places to dwell in among you.
 32	31	And the children of Gad, and the children of Ruben answered: As the Lord hath spoken to his servants, so will we do:
 32	32	We will go armed before the Lord into the land of Chanaan, and we confess that we have already received our possession beyond the Jordan.
-32	33	Moses therefore gave to the children of Gad and of Ruben, and to the half tribe of Manasses the son of Joseph, the kingdom of Sehon king of the Amorrhites, and the kingdom of Og king of Basan, and their land and the cities thereof round about.
-32	34	And the sons of Gad built Dibon, and Ataroth, and Aroer,
+32	33	Moses therefore gave to the children of Cad and of Ruben, and to the half tribe of Manasses the son of Joseph, the kingdom of Sehon king of the Amorrhites, and the kingdom of Og king of Basan, and their land and the cities thereof round about.
+32	34	And the sons of Cad built Dibon, and Ataroth, and Aroer,
 32	35	And Etroth, and Sophan, and Jazer, and Jegbaa,
 32	36	And Bethnemra, and Betharan, fenced cities, and folds for their cattle.
 32	37	But the children of Ruben built Hesebon, and Eleale, and Cariathaim,
@@ -1156,7 +1156,7 @@
 32	42	Nobe also went, and took Canath with the villages thereof: and he called it by his own name, Nobe.
 33	1	These are the mansions of the children of Israel, who went out of Egypt by their troops under the conduct of Moses and Aaron,
 33	2	Which Moses wrote down according to the places of their encamping, which they changed by the commandment of the Lord.
-33	3	Now the children of Israel departed from Ramesses the first month, on the fifteenth day of the first month, the day after the phase, with a mighty hand, in the sight of all the Egyptians,
+33	3	Now the children of Israel departed from Ramesses the first month, on the fifteenth day of the first month, the day after the phase, with a mighty hand, in the eight of all the Egyptians,
 33	4	Who were burying their firstborn, whom the Lord had slain (upon their gods also he had executed vengeance,)
 33	5	And they camped in Soccoth.
 33	6	And from Soccoth they came into Etham, which is in the uttermost borders of the wilderness.
@@ -1177,7 +1177,7 @@
 33	21	Removing from Lebna they camped in Ressa.
 33	22	And departing from Ressa, they came to Ceelatha.
 33	23	And they removed from thence and camped in the mountain Sepher.
-33	24	Departing from the mountain Sepher, they came to Arada,
+33	24	Departing from the mountain Sepher, they came to Arada.
 33	25	From thence they went and camped in Maceloth.
 33	26	And departing from Maceloth, they came to Thahath.
 33	27	Removing from Thahath they camped in Thare.
@@ -1190,11 +1190,11 @@
 33	34	And from Jetebatha they came to Hebrona.
 33	35	And departing from Hebrona, they camped in Asiongaber.
 33	36	They removed from thence and came into the desert of Sin, which is Cades.
-33	37	And departing from Cades, they camped in mount Hor, in the uttermost borders of the land of Edom.
+33	37	And departing from Cades, they camped in mount Her, in the uttermost borders of the land of Edom.
 33	38	And Aaron the priest went up into mount Hor at the commandment of the Lord: and there he died in the fortieth year of the coming forth of the children of Israel out of Egypt, the fifth month, the first day of the month,
 33	39	When he was a hundred and twenty-three years old.
 33	40	And king Arad the Chanaanite, who dwelt towards the south, heard that the children of Israel were come to the land of Chanaan.
-33	41	And they departed from mount Hor, and camped in Salmona.
+33	41	And they departed from mount Her, and camped in Salmona.
 33	42	From whence they removed and came to Phunon.
 33	43	And departing from Phunon, they camped in Oboth.
 33	44	And from Oboth they came to Ijeabarim, which is in the borders of the Moabites.
@@ -1202,16 +1202,16 @@
 33	46	From thence they went and camped in Helmondeblathaim.
 33	47	And departing from Helmondeblathaim, they came to the mountains of Abarim over against Nabo.
 33	48	And departing from the mountains of Abarim, they passed to the plains of Moab, by the Jordan, over against Jericho.
-33	49	And there they camped from Bethsimoth even to Ablesatim in the plains of the Moabites,
+33	49	And there they camped from Bethsi moth even to Ablesatim in the plains of the Moabites,
 33	50	Where the Lord said to Moses:
 33	51	Command the children of Israel, and say to them: When you shall have passed over the Jordan, entering into the land of Chanaan,
-33	52	Destroy all the inhabitants of that land: Beat down their pillars, and break in pieces their statues, and waste all their high places,
+33	52	Destroy all the inhabitants of that land: beat down their pillars, and break in pieces their statues, and waste all their high places,
 33	53	Cleansing the land, and dwelling in it. For I have given it you for a possession.
 33	54	And you shall divide it among you by lot. To the more you shall give a larger part, and to the fewer a lesser. To every one as the lot shall fall, so shall the inheritance be given. The possession shall be divided by the tribes and the families.
 33	55	But if you will not kill the inhabitants of the land: they that remain, shall be unto you as nails in your eyes, and spears in your sides, and they shall be your adversaries in the land of your habitation.
 33	56	And whatsoever I had thought to do to them, I will do to you.
 34	1	And the Lord spoke to Moses, saying:
-34	2	Command the children of Israel, and thou shalt say to them: When you are entered into the land of Chanaan, and it shall be fallen into your possession by lot, it shall be bounded by these limits:
+34	2	Command the children of Israel, and then shalt say to them: When you are entered into the land of Chanaan, and it shall be fallen into your possession by lot, it shall be bounded by these limits:
 34	3	The south side shall begin from the wilderness of Sin, which is by Edom: and shall have the most salt sea for its furthest limits eastward:
 34	4	Which limits shall go round on the south side by the ascent of the Scorpion and so into Senna, and reach toward the south as far as Cadesbarne, from whence the frontiers shall go out to the town called Adar, and shall reach as far as Asemona.
 34	5	And the limits shall fetch a compass from Asemona to the torrent of Egypt, and shall end in the shore of the great sea.
@@ -1219,7 +1219,7 @@
 34	7	But toward the north side the borders shall begin from the great sea, reaching to the most high mountain,
 34	8	From which they shall come to Emath, as far as the borders of Sedada:
 34	9	And the limits shall go as far as Zephrona, and the village of Enan. These shall be the borders on the north side.
-34	10	From thence they shall mark out the grounds towards the east side from the village of Enan unto Sephama.
+34	10	From thence they shall mark out the bounds towards the east side from the village of Enan unto Sephama.
 34	11	And from Sephama the bounds shall go down to Rebla over against the fountain of Daphnis: from thence they shall come eastward to the sea of Cenereth,
 34	12	And shall reach as far as the Jordan, and at the last shall be closed in by the most salt sea. This shall be your land with its borders round about.
 34	13	And Moses commanded the children of Israel, saying: This shall be the land which you shall possess by lot, and which the Lord hath commanded to be given to the nine tribes, and to the half tribe.
@@ -1238,10 +1238,10 @@
 34	26	Of the tribe of Issachar, Phaltiel the prince, the son of Ozan.
 34	27	Of the tribe of Aser, Ahiud the son of Salomi.
 34	28	Of the tribe of Nephtali: Phedael the son of Ammiud.
-34	29	These are they Whom the Lord hath commanded to divide the land of Chanaan to the children of Israel.
+34	29	These are they whom the Lord hath commanded to divide the land of Chanaan to the children of Israel.
 35	1	And the Lord spoke these things also to Moses in the plains of Moab by the Jordan, over against Jericho:
 35	2	Command the children of Israel that they give to the Levites out of their possessions,
-35	3	Cities to dwell in, and their suburbs round about: that they may abide in the towns, and the suburbs may be for them cattle and beasts:
+35	3	Cities to dwell in, and their suburbs round about: that they may abide in the towns, and the suburbs may be for their cattle and beasts:
 35	4	Which suburbs shall reach from the walls of the cities outward, a thousand paces on every side:
 35	5	Toward the east shall be two thousand cubits: and toward the south in like manner shall be two thousand cubits: toward the sea also, which looketh to the west, shall be the same extent: and the north side shall be bounded with the like limits. And the cities shall be in the midst, and the suburbs without.
 35	6	And among the cities, which you shall give to the Levites, six shall be separated for refuge to fugitives, that he who hath shed blood may flee to them: and besides these there shall be other forty-two cities,
@@ -1259,7 +1259,7 @@
 35	18	If he that is struck with wood die: he shall be revenged by the blood of him that struck him.
 35	19	The kinsman of him that was slain, shall kill the murderer: as soon as he apprehendeth him, he shall kill him.
 35	20	If through hatred any one push a man, or fling any thing at him with ill design:
-35	21	Or being his enemy, strike him with his hand, and he die: the striker shall be guilty of murder: the kinsman of him that was slain as soon as he findeth him, shall kill him.
+35	21	Or being his enemy, strike; him with his hand, and he die: the striker shall be guilty of murder: the kinsman of him that was slain as soon as he findeth him, shall kill him.
 35	22	But if by chance medley, and without hatred,
 35	23	And enmity, he do any of these things,
 35	24	And this be proved in the hearing of the people, and the cause be debated between him that struck, and the next of kin:
@@ -1272,17 +1272,17 @@
 35	31	You shall not take money of him that is guilty of blood, but he shall die forthwith.
 35	32	The banished and fugitives before the death of the high priest may by no means return into their own cities.
 35	33	Defile not the land of your habitation, which is stained with the blood of the innocent: neither can it otherwise be expiated, but by his blood that hath shed the blood of another.
-35	34	And thus shall your possession be cleansed, myself abiding with you. For I am the Lord that dwell among the children of Israel.
-36	1	And the princes of the families of Galaad, the son of Machir, the son of Manasses, of the stock of the children of Joseph, came and spoke to Moses before the princes of Israel, and said:
+35	34	And thus shall your possession he cleansed, myself abiding with you. For I am the Lord that dwell among the children of Israel.
+36	1	And the princes of the families of Galaad, the son of Machir, the son of Manasses, of the stock Of the children of Joseph, came and spoke to Moses before the princes of Israel, and said:
 36	2	The Lord hath commanded thee, my lord, that thou shouldst divide the land by lot to the children of Israel, and that thou shouldst give to the daughters of Salphaad our brother the possession due to their father:
 36	3	Now if men of another tribe take them to wives, their possession will follow them, and being transferred to another tribe, will be a diminishing of our inheritance.
-36	4	And so it shall come to pass, that when the jubilee, the is, the fiftieth year of remission, is come, the distribution made by the lots shall be confounded, and the possession of the one shall pass to the others.
+36	4	And so it shall come to pass, that when the jubilee, that is, the fiftieth year of remission, is come, the distribution made by the lots shall be confounded, and the possession of the one shall pass to the others.
 36	5	Moses answered the children of Israel, and said by the command of the Lord: The tribe of the children of Joseph hath spoken rightly.
 36	6	And this is the law promulgated by the Lord touching the daughters of Salphaad: Let them marry to whom they will, only so that it be to men of their own tribe.
 36	7	Lest the possession of the children of Israel be mingled from tribe to tribe. For all men shall marry wives of their own tribe and kindred:
-36	8	And all women shall take husbands of the same tribe: that the inheritance may remain in the families.
+36	8	And all women shall take husbands of the same tribe: that the inheritance may remain in the families,
 36	9	And that the tribes be not mingled one with another, but remain so
 36	10	As they were separated by the Lord. And the daughters of Salphaad did as was commanded:
 36	11	And Maala, and Thersa, and Hegla, and Melcha, and Noa were married to the sons of their uncle by their father
 36	12	Of the family of Manasses, who was the son of Joseph: and the possession that had been allotted to them, remained in the tribe and family of their father.
-36	13	These are the commandments and judgment, which the Lord commanded by the hand of Moses to the children of Israel, in the plains of Moab upon the Jordan over against Jericho.
+36	13	These are the commandments and judgments, which the Lord commanded by the hand of Moses to the children of Israel, in the plains of Moab upon the Jordan over against Jericho.

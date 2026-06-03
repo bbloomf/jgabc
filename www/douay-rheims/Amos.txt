@@ -1,4 +1,4 @@
-1	1	The words of Amos, who was among the herdsmen of Thecua: which he saw concerning Israel in the days of Ozias king of Juda, and in the days of Jeroboam the son of Joas king of Israel two years before the earthquake.
+1	1	The words of Amos, who was among herdsmen of Thecua: which he saw concerning Israel in the days of Ozias king of Juda, and in the days of Jeroboam the son of Joas king of Israel two years before the earthquake.
 1	2	And he said: The Lord will roar from Sion, and utter his voice from Jerusalem: and the beautiful places of the shepherds have mourned, and the top of Carmel is withered.
 1	3	Thus saith the Lord: For three crimes of Damascus, and for four I will not convert it: because they have thrashed Galaad with iron wains.
 1	4	And I will send a fire into the house of Azael, and it shall devour the houses of Benadad.
@@ -8,7 +8,7 @@
 1	8	And I will cut off the inhabitant from Azotus, and him that holdeth the sceptre from Ascalon: and I will turn my hand against Accaron, and the rest of the Philistines shall perish, saith the Lord God.
 1	9	Thus saith the Lord: For three crimes of Tyre, and for four I will not convert it: because they have shut up an entire captivity in Edom, and have not remembered the covenant of brethren.
 1	10	And I will send a fire upon the wall of Tyre, and it shall devour the houses thereof.
-1	11	Thus saith the Lord: For three crimes of Edom, and for four I will not convert him: because he hath pursued his brother with the sword, and hath carried on his fury, and hath kept his wrath to the end.
+1	11	Thus saith the Lord: For three crimes of Edom, and for four I will not convert him: because he hath pursued his brother with the sword, and hath cast off all pity, and hath carried on his fury, and hath kept his wrath to the end.
 1	12	I will send a fire into Theman: and it shall devour the houses of Bosra.
 1	13	Thus saith the Lord: For three crimes of the children of Ammon, and for four I will not convert him: because he hath ripped up the women with child of Galaad to enlarge his border.
 1	14	And I will kindle a fire in the wall of Rabba: and it shall devour the houses thereof with shouting in the day of battle, and with a whirlwind in the day of trouble.
@@ -40,7 +40,7 @@
 3	9	Publish it in the houses of Azotus, and in the houses of the land of Egypt, and say: Assemble yourselves upon the mountains of Samaria, and behold the many follies in the midst thereof, and them that suffer oppression in the inner rooms thereof.
 3	10	And they have not known to do the right thing, saith the Lord, storing up iniquity, and robberies in their houses.
 3	11	Therefore thus saith the Lord God: The land shall be in tribulation, and shall be compassed about: and thy strength shall be taken away from thee, and thy houses shall be spoiled.
-3	12	Thus saith the Lord: As if a shepherd should get out of the lion’s mouth two legs, or the tip of the ear: so shall the children of Israel be taken out that dwell in Samaria, in a place of a bed, and in the couch of Damascus.
+3	12	Thus saith the Lord: As if a shepherd should get out of the lion’s mouth two legs, or the tip of the ear: so shall the children of Israel be taken out that dwell in Samaria, in a piece of a bed, and in the couch of Damascus.
 3	13	Hear ye, and testify in the house of Jacob, saith the Lord the God of hosts:
 3	14	That in the day when I shall begin to visit the transgressions of Israel, I will visit upon him, and upon the altars of Bethel: and the horns of the altars shall be cut off, and shall fall to the ground.
 3	15	And I will strike the winter house with the summer house: and the houses of ivory shall perish, and many houses shall be destroyed, saith the Lord.
@@ -50,7 +50,7 @@
 4	4	Come ye to Bethel, and do wickedly: to Galgal, and multiply transgressions: and bring in the morning your victims, your tithes in three days.
 4	5	And offer a sacrifice of praise with leaven: and call free offerings, and proclaim it: for so you would do, O children of Israel, saith the Lord God.
 4	6	Whereupon I also have given you dulness of teeth in all your cities, and want of bread in all your places: yet you have not returned to me, saith the Lord.
-4	7	I also have withholden the rain from you, when there were yet three months to the harvest: and I caused it to rain upon on city, and caused it not to rain upon another city: one piece was rained upon: and the piece whereupon I rained not, withered.
+4	7	I also have withholden the rain from you, when there were yet three months to the harvest: and I caused it to rain upon one city, and caused it not to rain upon another city: one piece was rained upon: and the piece whereupon I rained not, withered.
 4	8	And two and three cities went to one city to drink water, and were not filled: yet you returned not to me, saith the Lord.
 4	9	I struck you with a burning wind, and with mildew, the palmerworm hath eaten up your many gardens, and your vineyards: your olive groves, and fig groves: yet you returned not to me, saith the Lord.
 4	10	I sent death upon you in the way of Egypt, I slew your young men with the sword, even to the captivity of your horses: and I made the stench of your camp to come up into your nostrils: yet you returned not to me, saith the Lord.
@@ -72,7 +72,7 @@
 5	13	Therefore the prudent shall keep silence at that time, for it is an evil time.
 5	14	Seek ye good, and not evil, that you may live: and the Lord the God of hosts will be with you, as you have said.
 5	15	Hate evil, and love good, and establish judgment in the gate: it may be the Lord the God of hosts may have mercy on the remnant of Joseph.
-5	16	Therefore thus saith the Lord the God of hosts the sovereign Lord: In every street there shall be wailing: and in all places that are without, they shall say: Alas, alas! and they shall call the husbandman to mourning, and such as are skilful in lamentation to lament.
+5	16	Therefore thus saith the Lord the God of hosts the sovereign Lord: In every street there shall be wailing: and in all places that are without, they shall say: Alas, alas! and they shall call the husbandman to mourning, and such as are skillful in lamentation to lament.
 5	17	And in all vineyards there shall be wailing: because I will pass through in the midst of thee, saith the Lord.
 5	18	Woe to them that desire the day of the Lord: to what end is it for you? the day of the Lord is darkness, and not light.
 5	19	As if a man should flee from the face of a lion, and a bear should meet him: or enter into the house, and lean with his hand upon the wall, and a serpent should bite him.

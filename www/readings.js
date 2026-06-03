@@ -431,7 +431,7 @@ var splitSentences = (function(){
     return (gabc.match(/'[a-m]/g) || ['']).length;
   }
 
-  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’]?|[^\^`~+.?!;:,])+($|,(?=[,\r\n])|[+^`~.?!;:](?:\s*[:+^`])?["'“”‘’]*)),?\s*/gi;
+  var sentenceRegex = /((?:,(?![,\r\n])["'“”‘’«»‹›]?|[^\^`~+.?!;:,])+($|,(?=[,\r\n])|[+^`~.?!;:](?:\s*[:+^`])?["'“”‘’«»‹›]*)),?\s*/gi;
   return function(text){
     var question = countAccents($("#txtQuestion").val());
     var mediant = countAccents($("#txtMediant").val());
