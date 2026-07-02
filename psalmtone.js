@@ -891,8 +891,9 @@ function applyPsalmTone(options) {
             --si;
             s = syl[si];
           }
-          if(s && useOpenNotes && openCount <= 1) {
-            r=processGabcPrespaceForWhitespace(syl[si+1].prespace)+lastOpen.gabc+r;
+          if(s && useOpenNotes && openCount <= 1 && typeof lastOpen === 'object') {
+            var nextSyl = syl[si + 1];
+            r=processGabcPrespaceForWhitespace((nextSyl && nextSyl.prespace) || "")+lastOpen.gabc+r;
           }
           lastOpen = undefined;
         } else if(!s.accent) {
