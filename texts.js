@@ -1363,7 +1363,7 @@ texts = {
 		"8284": "turba multa quæ convenerat ad diem festum clamabat domino benedictus qui venit in nomine domini hosanna in excelsis e u o u a e",
 		"10298": "vidi aquam egredientem de templo a latere dextro alleluia et omnes ad quos pervenit aqua ista salvi facti sunt et dicent alleluia alleluia confitemini domino quoniam bonus quoniam in sæculum misericordia ejus gloria patri",
 		"10358": "vidi aquam egredientem de templo a latere dextro alleluia et omnes ad quos pervenit aqua ista salvi facti sunt et dicent alleluia alleluia confitemini domino quoniam bonus quoniam in sæculum misericordia ejus gloria patri",
-		"12662": "vespere autem sabbati quæ lucescit in prima sabbati venit maria magdalene et altera maria videre sepulcrum alleluia"
+		"12662": "vespere autem sabbati quæ lucescit in prima sabbati venit maria magdalene et altera maria videre sepulcrum alleluia e u o u a e"
 	},
 	"Canticum": {
 		"943": "sicut cervus desiderat ad fontes aquarum ita desiderat anima mea ad te deus ℣ sitivit anima mea ad deum vivum quando veniam et apparebo ante faciem dei mei ℣ fuerunt mihi lacrimæ meæ panes die ac nocte dum dicitur mihi per singulos dies ubi est deus tuus",
