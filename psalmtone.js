@@ -669,7 +669,7 @@ function combineToneGabc(tones) {
 }
             
 function applyPsalmTone(options) {
-  var experimentalOxytones = typeof new URLSearchParams(location.search).get('experimental') === 'string';
+  var experimentalOxytones = new URLSearchParams(location.search).get('experimental') !== 'false';
   var text = options.text,
       gabc = options.gabc,
       clef = options.clef,
