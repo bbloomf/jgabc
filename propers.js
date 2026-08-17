@@ -1179,6 +1179,10 @@ $(function(){
     if(selDay == "custom" || (ref + 'Pasch') in proprium || (ref + 'Quad') in proprium || (selDay + 'Pasch') in proprium || (selDay + 'Quad') in proprium) {
       $selTempus.show();
       $selTempus.val(selTempus);
+      for (let val of ['Quad', 'Pasch']) {
+        const isAvailable = selDay === 'custom' || (ref + val) in proprium || (selDay + val) in proprium;
+        $selTempus.children('[value=' + val + ']').prop('disabled', !isAvailable);
+      }
     } else {
       $selTempus.prop('selectedIndex',0).hide();
       addToHash('tempus', false, true);
