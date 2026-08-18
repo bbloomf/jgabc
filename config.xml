@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.github.bbloomf.jgabc" version="1.11.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="io.github.bbloomf.jgabc" version="1.11.3" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Chant Tools</name>
     <description>
         GABC Chant Tools available at http://bbloomf.github.io/jgabc/
@@ -46,7 +46,7 @@
         </edit-config> -->
     </platform>
     <platform name="ios">
-        <preference name="deployment-target" value="13.0" />
+        <preference name="deployment-target" value="15.0" />
         <preference name="scheme" value="app" />
         <preference name="hostname" value="localhost" />
         <splash src="res/screen/ios/Default@2x~universal~anyany.png" />
