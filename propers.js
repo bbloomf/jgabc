@@ -754,7 +754,7 @@ $(function(){
     var readings = lectiones[lecDay] || lectiones[ref];
     if(!readings && /s$/i.test(lecDay)) {
       readings = lectiones[lecDay.slice(0,-1)];
-      if(readings.length <= 2) {
+      if(!readings || readings.length <= 2) {
         readings = null;
       } else {
         readings = [readings[0]].concat(readings.slice(-2));
@@ -927,7 +927,7 @@ $(function(){
     selDay = $(this).val();
     if(!isNovus) {
       isNovus = true;
-      $('#selSunday,#selSaint,#selMass,#selTempus').hide();
+      $('#selSunday,#selSaint,#selMass,#selCommon,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
       $('#btnCalendar').text('Novus Ordo');
     }
@@ -1142,7 +1142,7 @@ $(function(){
   var clearSelections = function(e) {
     $('#btnClearSelections').addClass('hidden');
     var hash = {};
-    $('#selSunday,#selSaint,#selMass,#selOrdinary,[id^=selCustom]').each(function(){
+    $('#selSunday,#selSaint,#selMass,#selCommon,#selOrdinary,[id^=selCustom]').each(function(){
       this.selectedIndex = 0;
       hash[this.id] = false;
     });
@@ -1159,7 +1159,7 @@ $(function(){
     };
     hash[this.id] = selDay;
     var self = this;
-    $('#selSunday,#selSaint,#selMass').each(function(){
+    $('#selSunday,#selSaint,#selMass,#selCommon').each(function(){
       if(this != self) {
         this.selectedIndex = 0;
         hash[this.id] = false;
@@ -2763,6 +2763,7 @@ $(function(){
   var $selSunday = $('#selSunday');
   var $selSaint = $('#selSaint');
   var $selMass = $('#selMass');
+  var $selCommon = $('#selCommon');
   var $selTempus = $('#selTempus');
   var $selSundayNovus = $('#selSundayNovus');
   var $selYearNovus = $('#selYearNovus');
@@ -2771,7 +2772,7 @@ $(function(){
     result[saint.key] = saint;
     return result;
   }, {});
-  $('#selSunday,#selSaint,#selMass').change(selectedDay);
+  $('#selSunday,#selSaint,#selMass,#selCommon').change(selectedDay);
   $('#btnClearSelections').click(clearSelections);
   $selSundayNovus.change(selectedDayNovus);
   $selYearNovus.change(function(){
@@ -2914,6 +2915,7 @@ $(function(){
   populate(sundaysNovusOrdo,$selSundayNovus);
   populate(saintKeys,$selSaint);
   populate(otherKeys,$selMass);
+  populate(commonsKeys,$selCommon);
   populate(tempusKeys,$selTempus);
   populate(yearArray,$selYearNovus);
   populate(psalmCanticleArray,$(".sel-psalms"));
@@ -3009,12 +3011,12 @@ $(function(){
     var $this = $(this);
     isNovus = !isNovus;
     if(isNovus) {
-      $('#selSunday,#selSaint,#selMass,#selTempus').hide();
+      $('#selSunday,#selSaint,#selMass,#selCommon,#selTempus').hide();
       $('#selSundayNovus,#selYearNovus').show();
       $this.text('Novus Ordo');
       $('#selSundayNovus').prop('selectedIndex',0).change();
     } else {
-      $('#selSunday,#selSaint,#selMass,#selTempus').show();
+      $('#selSunday,#selSaint,#selMass,#selCommon,#selTempus').show();
       $('#selSundayNovus,#selYearNovus').hide();
       $this.text('Traditional');
       $('#selSunday').prop('selectedIndex',0).change();
@@ -3533,7 +3535,7 @@ console.info(JSON.stringify(selPropers));
       });
     }
     location.hash = hash;
-    var key = ['sunday','saint','mass','sundayNovus'].reduce(function(result, key){
+    var key = ['sunday','saint','mass','common','sundayNovus'].reduce(function(result, key){
       return result || (hash[key] && key);
     },'');
     if(key && !dontStore) {
@@ -3565,21 +3567,21 @@ console.info(JSON.stringify(selPropers));
       lastHandledHash = location.hash;
       allowAddToHash = false;
       var hash = parseHash();
-      ['sunday', 'sundayNovus', 'saint', 'mass',
+      ['sunday', 'sundayNovus', 'saint', 'mass', 'common',
        'tempus', 'yearNovus',
        'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).forEach(function(key, i) {
         if(isPageLoad === true && (key in hash)) {
           var selector = '#divCustom1';
           if(key == 'ordinary') {
             selector = '#divKyrie';
-          } else if(i > 6) {
+          } else if(i > 7) {
             selector = '#div' + key[0].toUpperCase() + key.slice(1);
           }
           var element = $(selector)[0];
           window.afterChantLayout = function() { element.scrollIntoView(); };
           isPageLoad = false;
         }
-        if(key in hash || (i > 5 && (i <= 10 || !('ordinary' in hash)))) {
+        if(key in hash || (i > 6 && (i <= 11 || !('ordinary' in hash)))) {
           var $elem = $('#sel' + key[0].toUpperCase() + key.slice(1)),
               val = hash[key] || '';
           if($elem.val() != val) $elem.val(val).change();
