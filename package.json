@@ -11,19 +11,16 @@
     "license": "Apache-2.0",
     "cordova": {
         "plugins": {
-            "cordova-plugin-x-socialsharing": {},
             "cordova-webintent": {}
         },
         "platforms": [
-            "android",
-            "ios"
+            "ios",
+            "android"
         ]
     },
     "devDependencies": {
-        "cordova-android": "^14.0.1",
+        "cordova-android": "^15.1.0",
         "cordova-ios": "^7.1.1",
-        "cordova-plugin-x-socialsharing": "^6.0.4",
-        "cordova-webintent": "github:cordova-misc/cordova-webintent",
-        "es6-promise-plugin": "^4.2.2"
+        "cordova-webintent": "github:cordova-misc/cordova-webintent"
     }
 }

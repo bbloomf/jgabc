@@ -51,17 +51,21 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-        
-        window.plugins.webintent.getUri(function(url) {
-            if(url) app.handleUrl(url);
-            else app.onResume();
-        }, function(failure) {
-            console.warn(failure);
-        }); 
-        window.plugins.webintent.onNewIntent(function(url) {
-            if(url) app.handleUrl(url);
-            else app.onResume();
-        });
+        // The webintent plugin is Android-only; fall back to resume handling elsewhere.
+        if (window.plugins && window.plugins.webintent) {
+            window.plugins.webintent.getUri(function(url) {
+                if(url) app.handleUrl(url);
+                else app.onResume();
+            }, function(failure) {
+                console.warn(failure);
+            });
+            window.plugins.webintent.onNewIntent(function(url) {
+                if(url) app.handleUrl(url);
+                else app.onResume();
+            });
+        } else {
+            app.onResume();
+        }
     },
 
     handleUrl: function(url) {
@@ -69,10 +73,14 @@ var app = {
             app.onResume();
             return;
         }
-        var urlRegex = /\/\/bbloomf.github.io\/jgabc\/(.*)$/i;
+        var urlRegex = /\/\/bbloomf\.github\.io\/jgabc\/([^#?]*)([#?].*)?$/i;
         var match = urlRegex.exec(url);
         if(match) {
-            location = match[1];
+            // The website serves extensionless URLs (e.g. /jgabc/propers), but the
+            // bundled assets are only reachable with the .html extension.
+            var page = match[1] || 'propers.html';
+            if(!/\.html$/i.test(page)) page += '.html';
+            location = page + (match[2] || '');
         } else {
             if(!location.pathname.match(/\/propers\.html$/)) location = 'propers.html';
         }

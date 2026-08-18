@@ -36,17 +36,13 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
 $(function(){
   $("#shareUrl").click(function (e) {
       e.preventDefault();
-      var onSuccess = function(result) {
-        console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
-        console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
-      }
-      var onError = function(msg) {
-        console.log("Sharing failed with message: " + msg);
-      }
+      var url = 'http://bbloomf.github.io/jgabc/propers.html' + location.hash;
       if (navigator.share) {
-        navigator.share({ url: 'http://bbloomf.github.io/jgabc/propers.html' + location.hash }).then(onSuccess).catch(onError);
-      } else if (window.plugins) {
-        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+        navigator.share({ url: url }).catch(function(msg) {
+          console.log("Sharing failed with message: " + msg);
+        });
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url);
       }
   });
 
