@@ -287,6 +287,8 @@ var path = 'gabc/',
                     }
                     content = content
                       .replace(/@/g,'!') // TODO: support @ in Exsurge
+                      .replace(/([A-M])[0-2]/g, '$1') // TODO?: right now 0 in this exsurge shifts the vertical position, and it doesn't support https://gregorio-project.github.io/tips/inclinatum.html
+                      .replace(/\/\[-[^\]]+\]/g, '!') // TODO: support variable neumatic cuts, for now, any negatives must be removed
                       .replace(/\[[uo](?:h|ll)(?::[^\]]*|})?\]/g, '') // TODO: support in Exsurge
                       .replace(/<\/?nlba>/g, '') // TODO: support in Exsurge
                       .replace(/(<\/?)e>/g, '$1i>') // TODO: support in Exsurge
