@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["V368Z9JNH2.io.github.bbloomf.jgabc"],
+        "components": [
+          { "/": "/jgabc/*" }
+        ]
+      }
+    ]
+  }
+}
