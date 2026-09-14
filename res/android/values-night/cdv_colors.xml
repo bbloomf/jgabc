@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Overrides cordova-android's night colors (copied over app/src/main/res/values-night*/cdv_colors.xml
+  by the <resource-file> entries in config.xml).  The web app renders pure black in dark mode
+  (see www/theme.css), so the splash screen, window background and system bars use black too
+  instead of Cordova's default #121318 / system_background_dark.
+-->
+<resources>
+    <color name="cdv_background_color">#000000</color>
+    <color name="cdv_splashscreen_background">@color/cdv_background_color</color>
+</resources>

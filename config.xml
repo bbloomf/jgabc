@@ -26,8 +26,11 @@
         <preference name="AndroidLaunchMode" value="singleTask" />
         <preference name="android-targetSdkVersion" value="36" />
         <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen/android/splashscreen.xml" />
-        <preference name="SplashScreenBackgroundColor" value="#ffffff" />
         <preference name="AndroidWindowSplashScreenAnimationDuration" value="0" />
+        <!-- Dark mode: pure-black night colors and a white splash icon, matching www/theme.css -->
+        <resource-file src="res/android/values-night/cdv_colors.xml" target="app/src/main/res/values-night/cdv_colors.xml" />
+        <resource-file src="res/android/values-night-v34/cdv_colors.xml" target="app/src/main/res/values-night-v34/cdv_colors.xml" />
+        <resource-file src="res/screen/android/splashscreen-night.xml" target="app/src/main/res/drawable-night/ic_cdv_splashscreen.xml" />
         <config-file parent="/*/application/activity" target="AndroidManifest.xml">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
