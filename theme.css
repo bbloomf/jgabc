@@ -1,0 +1,208 @@
+/*
+ * Light/dark theme support shared by all pages.
+ *
+ * js/theme.js puts class "dark" on <html> when the device prefers a dark color
+ * scheme and the user has not turned dark mode off (app-only setting stored in
+ * localStorage.disableDarkMode).  Everything dark-specific is keyed on that
+ * class and limited to screen media so printing stays black on white.
+ *
+ * Chant rendered by exsurge draws in `currentColor` (see makeExsurgeChantContext
+ * in util.js), so the rules below only have to set `color` on the SVG root.
+ * Rubric red everywhere (CSS and the chant) comes from --rubric-color, which is
+ * #d00 normally and #f66 in dark mode.
+ * Rules that match elements *inside* svg.Exsurge are deliberately theme
+ * neutral: saveSvgAsPng copies every matching CSS rule into exported SVGs, and
+ * a standalone export must still come out black on white.
+ */
+:root {
+  --rubric-color: #d00;
+}
+svg.Exsurge {
+  color: #000;
+  --exsurge-negative-fill: #fff;
+}
+:where(svg.Exsurge) use {
+  fill: currentColor;
+}
+/* "negative" glyph paths (e.g. the hollow of a punctum cavum) hide what is behind them */
+:where(svg.Exsurge) path[fill="#fff"] {
+  fill: var(--exsurge-negative-fill, #fff);
+}
+
+/* icon-only button sharing the row with the PDF button group */
+.dark-mode-toggle {
+  float: right;
+  margin: 0 0 0 8px;
+}
+/* lay the icon out as a block so the button is exactly one text line tall,
+   without baseline mixing between the icon font and the button font */
+.dark-mode-toggle > .glyphicon {
+  display: block;
+  top: 0;
+  line-height: inherit;
+}
+/* Bootstrap's .btn display rule would otherwise beat the hidden attribute */
+.dark-mode-toggle[hidden] {
+  display: none !important;
+}
+
+@media screen {
+  html.dark {
+    color-scheme: dark;
+    background-color: #000;
+    --rubric-color: #f66;
+  }
+  html.dark body {
+    background-color: #000;
+    color: #fff;
+  }
+  html.dark svg.Exsurge {
+    color: #fff;
+    --exsurge-negative-fill: #000;
+  }
+
+  /* text that is explicitly black in the light theme */
+  html.dark a:not([href]),
+  html.dark a:not([href]):hover {
+    color: #fff;
+  }
+  html.dark .rubric .quote {
+    color: #fff !important;
+  }
+
+  /* white surfaces */
+  html.dark .sticky,
+  html.dark div[part] > div.block:first-child,
+  html.dark #chant-parent2.noeditor {
+    background: #000;
+  }
+
+  /* borders and rules */
+  html.dark hr {
+    border-top-color: #333;
+  }
+  html.dark .sticky,
+  html.dark .ss-border-bottom {
+    border-bottom-color: #333;
+  }
+  html.dark .show-gabc .chant-parent,
+  html.dark #chant-parent,
+  html.dark .psalm-editor,
+  html.dark tr.bordered > td {
+    border-color: #555;
+  }
+  html.dark div.columns {
+    column-rule-color: #555;
+  }
+
+  /* page-break toggles in the "Include in PDF" menu */
+  html.dark .toggle-page-break,
+  html.dark #toggle-all-page-break {
+    color: #666;
+  }
+  html.dark .toggle-page-break.has-page-break-before,
+  html.dark #toggle-all-page-break.has-page-break-before {
+    color: #ddd;
+  }
+  html.dark #toggle-all-page-break.mixed {
+    color: #999;
+  }
+
+  /* links */
+  html.dark a {
+    color: #6cb4f0;
+  }
+  html.dark a:hover,
+  html.dark a:focus {
+    color: #9dd0ff;
+  }
+
+  /* Bootstrap 3 */
+  html.dark .btn-primary,
+  html.dark .btn-success,
+  html.dark .btn-info,
+  html.dark .btn-warning,
+  html.dark .btn-danger {
+    color: #fff;
+  }
+  html.dark .btn-default {
+    color: #eee;
+    background-color: #222;
+    border-color: #555;
+  }
+  html.dark .btn-default:hover,
+  html.dark .btn-default:focus,
+  html.dark .btn-default.focus,
+  html.dark .btn-default:active,
+  html.dark .btn-default.active,
+  html.dark .open > .dropdown-toggle.btn-default,
+  html.dark .btn-default:active:hover,
+  html.dark .btn-default.active:hover,
+  html.dark .open > .dropdown-toggle.btn-default:hover,
+  html.dark .btn-default:active:focus,
+  html.dark .btn-default.active:focus,
+  html.dark .open > .dropdown-toggle.btn-default:focus,
+  html.dark .btn-default:active.focus,
+  html.dark .btn-default.active.focus,
+  html.dark .open > .dropdown-toggle.btn-default.focus {
+    color: #fff;
+    background-color: #3a3a3a;
+    border-color: #777;
+  }
+  html.dark .btn-default.disabled:hover,
+  html.dark .btn-default[disabled]:hover,
+  html.dark .btn-default.disabled:focus,
+  html.dark .btn-default[disabled]:focus,
+  html.dark .btn-default.disabled.focus,
+  html.dark .btn-default[disabled].focus {
+    background-color: #222;
+    border-color: #555;
+  }
+  html.dark .nav > li > a:hover,
+  html.dark .nav > li > a:focus {
+    background-color: #222;
+  }
+  html.dark .dropdown-menu {
+    background-color: #1a1a1a;
+    border-color: #444;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+  }
+  html.dark .dropdown-menu > li > a {
+    color: #eee;
+  }
+  html.dark .dropdown-menu > li > a:hover,
+  html.dark .dropdown-menu > li > a:focus {
+    color: #fff;
+    background-color: #333;
+  }
+  html.dark .dropdown-menu .divider {
+    background-color: #333;
+  }
+  html.dark .progress {
+    background-color: #333;
+  }
+
+  /* jQuery UI (autocomplete menus) */
+  html.dark .ui-widget-content {
+    background: #1a1a1a;
+    border-color: #555;
+    color: #eee;
+  }
+  html.dark .ui-widget-content a {
+    color: #eee;
+  }
+  html.dark .ui-state-hover,
+  html.dark .ui-state-focus,
+  html.dark .ui-widget-content .ui-state-hover,
+  html.dark .ui-widget-content .ui-state-focus,
+  html.dark .ui-widget-header .ui-state-hover,
+  html.dark .ui-widget-header .ui-state-focus {
+    background: #333;
+    border-color: #777;
+    color: #fff;
+  }
+  html.dark .ui-state-hover a,
+  html.dark .ui-state-focus a {
+    color: #fff;
+  }
+}

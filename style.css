@@ -51,14 +51,14 @@ body {
   margin-top: 0;
 }
 .verses > p > span.versenum {
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
   margin-bottom: 0;
   float: left;
   width: 1.5em;
   text-align: right;
 }
 .verses .versiculum {
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
 }
 .open-on-hover>.dropdown-menu {
   margin: 0;
@@ -127,7 +127,7 @@ text.dropCap {
   cursor: pointer!important;
 }
 text.dropCap:hover {
-  fill: #d00!important;
+  fill: var(--rubric-color, #d00)!important;
 }
 [part].show-gabc use[source-index]:hover,
 #chant-preview.clickable use[source-index]:hover,
@@ -298,9 +298,6 @@ span.start-pitch {
   }
   .hide-print {
     display:none;
-  }
-  body{
-    /* max-width:8in; */
   }
 }
 .btn-use-solesmes-lengths {
