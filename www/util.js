@@ -106,6 +106,10 @@ function makeExsurgeChantContext() {
   var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
   ctxt.condenseLineAmount = 1;
   ctxt.setGlyphScaling(1/16);
+  // Draw in the inherited CSS `color` (see theme.css) so the chant follows light/dark
+  // mode without re-rendering; a standalone/exported SVG still falls back to black.
+  ctxt.textColor = 'currentColor';
+  ctxt.staffLineColor = ctxt.neumeLineColor = ctxt.dividerLineColor = 'currentColor';
   ctxt.setFont("'Crimson Text', serif", 19.2 / 0.9);
   ctxt.spaceBetweenSystems = 0;
   ctxt.textStyles.dropCap.size = 64;
@@ -119,7 +123,8 @@ function makeExsurgeChantContext() {
   ctxt.specialCharProperties['font-weight'] = '400';
   const defaultSpecialCharText = ctxt.specialCharText;
   ctxt.specialCharText = function(char) { return defaultSpecialCharText(char).toLowerCase(); };
-  ctxt.setRubricColor('#d00');
+  // Rubric red follows --rubric-color (theme.css); the fallback keeps exported SVGs red.
+  ctxt.setRubricColor('var(--rubric-color, #d00)');
   return ctxt;
 }
 

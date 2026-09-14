@@ -544,6 +544,7 @@ var saintKeys = [
     {key:"Dec12",title:"Dec 12: Our Lady of Guadalupe",en:"Dec 12: Our Lady of Guadalupe"},
     {key:"Dec13",title:"Dec 13: St Lucy",en:"Dec 13: St Lucy"},
     {key:"Dec16",title:"Dec 16: St Eusebius",en:"Dec 16: St Eusebius"},
+    {key:"Dec18",title:"Dec 18: Exspectationis Partus BVM",en:"Dec 18: The Expectation of BVM"},
     {key:"Dec20",title:"Dec 20: In Vigilia S Thomæ Apostoli",en:"Dec 20: Vigil of St Thomas"},
     {key:"Dec21",title:"Dec 21: St Thomas",en:"Dec 21: St Thomas"},
     {key:"Dec26",title:"Dec 26: St Stephen",en:"Dec 26: St Stephen"},
@@ -4274,6 +4275,17 @@ var proprium = {
         "ofID": 779,
         "gbid": "st_eusebius_bm",
         "ref": "mass_ii_martyr_bishop"
+    },
+    "Dec18": {
+        "inID": 161,
+        "grID": 756,
+        "alID": 482,
+        "ofID": 843,
+        "coID": 1144,
+        "gbid": "mass_i_bvm_saturday",
+        "inVerses": "Ps 24: 5-6",
+        "ofVerses": "Luc 1: 34, 35",
+        "coVerses": "Ps 18: 2-7"
     },
     "Dec2": {
         "coID": 844,

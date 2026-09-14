@@ -741,7 +741,7 @@ $(function() {
     updateLinks(this.value);
     var gabc = gabcToExsurge(this.value)
     var header = getHeader(this.value);
-    exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || '#000';
+    exportContext.staffLineColor = ctxt.staffLineColor = header.staffLineColor || header.cValues.staffLineColor || 'currentColor';
     for(var key in header) {
       if (header.hasOwnProperty(key)) {
         addHeaderKeyToContext(header, key);

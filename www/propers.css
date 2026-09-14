@@ -88,17 +88,17 @@ textarea {
   text-align: justify;
 }
 .red {
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
 }
 .asperges-verses .versiculum {
   font-size: 120%;
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
   line-height: 0;
 }
 .asperges-verses .rubric {
   font-size: inherit;
   font-style: italic;
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
 }
 .chant-title {
   text-align: center;
@@ -117,20 +117,20 @@ div[part] > div.block:first-child {
   padding: 1px 0 0;
 }
 text.aboveLinesText {
-  fill: #d00!important;
+  fill: var(--rubric-color, #d00)!important;
 }
 .commentary {
   text-align: right;
   font-style: italic;
   line-height: 1;
-  color: #d00;
+  color: var(--rubric-color, #d00);
   margin-top: 0.5em;
 }
 .rubric {
   font-family: 'Crimson Text';
   font-size: 120%;
   font-style: italic;
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
   margin: 0.5em 0 0.25em;
 }
 .ChantNotationElement .rubric {
@@ -238,7 +238,7 @@ div.chant-context {
   cursor: pointer;
 }
 button.toggle-mediant {
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
 }
 button.toggle-mediant::before {
   content: '\a0';
@@ -285,7 +285,7 @@ syl.bold {
 }
 
 .lectio-reference {
-  color: #d00!important;
+  color: var(--rubric-color, #d00)!important;
   font-family: 'Crimson Text';
   font-size: 14pt;
   font-style: italic;
