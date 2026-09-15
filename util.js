@@ -110,6 +110,11 @@ function makeExsurgeChantContext() {
   // mode without re-rendering; a standalone/exported SVG still falls back to black.
   ctxt.textColor = 'currentColor';
   ctxt.staffLineColor = ctxt.neumeLineColor = ctxt.dividerLineColor = 'currentColor';
+  // The hollow of a punctum cavum has to match the background rather than the
+  // chant.  Glyphs are shared through <use>, whose shadow tree stylesheet rules
+  // cannot reach, so the colour has to travel with the glyph: exsurge writes it
+  // as a fill attribute, and the variable resolves per theme (see theme.css).
+  ctxt.negativeFillColor = 'var(--exsurge-negative-fill, #fff)';
   ctxt.setFont("'Crimson Text', serif", 19.2 / 0.9);
   ctxt.spaceBetweenSystems = 0;
   ctxt.textStyles.dropCap.size = 64;
