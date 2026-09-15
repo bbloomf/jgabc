@@ -3,16 +3,15 @@
  * <head> (after the stylesheets) so <html> already carries the right class
  * before the first paint.
  *
- * Dark mode is on when the device prefers a dark color scheme, unless the user
- * has turned it off with the in-app toggle (persisted in
- * localStorage.disableDarkMode).  The toggle itself is only shown while the
- * device is in dark mode, since that is the only time the setting changes
- * anything.
+ * Dark mode follows the device's preferred color scheme until the user picks a
+ * side with the toggle.  Only a choice that disagrees with the device is
+ * stored (localStorage.darkMode, "true" or "false"); toggling back to what the
+ * device asks for clears it, so the page follows the device again.
  */
 (function (window, document) {
   'use strict';
 
-  var STORAGE_KEY = 'disableDarkMode';
+  var STORAGE_KEY = 'darkMode';
   var root = document.documentElement;
   var media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
@@ -20,22 +19,25 @@
     return !!(media && media.matches);
   }
 
-  function isDarkModeDisabled() {
+  // "true"/"false" when the user has overridden the device, otherwise null.
+  function storedChoice() {
     try {
-      return window.localStorage.getItem(STORAGE_KEY) === 'true';
+      var stored = window.localStorage.getItem(STORAGE_KEY);
+      return stored === 'true' || stored === 'false' ? stored : null;
     } catch (e) {
-      return false;
+      return null;
     }
   }
 
   function isDark() {
-    return systemPrefersDark() && !isDarkModeDisabled();
+    var stored = storedChoice();
+    return stored === null ? systemPrefersDark() : stored === 'true';
   }
 
-  function setDarkModeDisabled(disabled) {
+  function setDark(dark) {
     try {
-      if (disabled) window.localStorage.setItem(STORAGE_KEY, 'true');
-      else window.localStorage.removeItem(STORAGE_KEY);
+      if (dark === systemPrefersDark()) window.localStorage.removeItem(STORAGE_KEY);
+      else window.localStorage.setItem(STORAGE_KEY, dark ? 'true' : 'false');
     } catch (e) {
       // storage unavailable: the change still applies for this page load
     }
@@ -44,11 +46,11 @@
 
   function updateToggles() {
     var toggles = document.querySelectorAll('.dark-mode-toggle');
-    var show = systemPrefersDark();
     var dark = isDark();
     for (var i = 0; i < toggles.length; ++i) {
       var toggle = toggles[i];
-      toggle.hidden = !show;
+      // the markup ships hidden so the button never shows without this script
+      toggle.hidden = false;
       toggle.classList.toggle('active', dark);
       toggle.setAttribute('aria-pressed', dark ? 'true' : 'false');
       toggle.title = 'Dark mode: ' + (dark ? 'On' : 'Off');
@@ -81,7 +83,7 @@
 
   function onToggleClick(e) {
     e.preventDefault();
-    setDarkModeDisabled(isDark());
+    setDark(!isDark());
   }
 
   // Before the body exists: just get the class right so there is no flash.
@@ -105,8 +107,7 @@
   window.jgabcTheme = {
     isDark: isDark,
     systemPrefersDark: systemPrefersDark,
-    isDarkModeDisabled: isDarkModeDisabled,
-    setDarkModeDisabled: setDarkModeDisabled,
+    setDark: setDark,
     refresh: applyTheme
   };
 })(window, document);

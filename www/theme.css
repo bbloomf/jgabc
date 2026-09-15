@@ -2,9 +2,9 @@
  * Light/dark theme support shared by all pages.
  *
  * js/theme.js puts class "dark" on <html> when the device prefers a dark color
- * scheme and the user has not turned dark mode off (app-only setting stored in
- * localStorage.disableDarkMode).  Everything dark-specific is keyed on that
- * class and limited to screen media so printing stays black on white.
+ * scheme, or when the toggle overrides that (stored in localStorage.darkMode).
+ * Everything dark-specific is keyed on that class and limited to screen media
+ * so printing stays black on white.
  *
  * Chant rendered by exsurge draws in `currentColor` (see makeExsurgeChantContext
  * in util.js), so the rules below only have to set `color` on the SVG root.
@@ -19,14 +19,14 @@
 }
 svg.Exsurge {
   color: #000;
+  /* read by the fill attribute exsurge puts on "negative" glyph paths, such as
+     the hollow of a punctum cavum: those have to match the background, and a
+     stylesheet cannot reach them because glyphs are shared through <use>.
+     See ctxt.negativeFillColor in makeExsurgeChantContext (util.js). */
   --exsurge-negative-fill: #fff;
 }
 :where(svg.Exsurge) use {
   fill: currentColor;
-}
-/* "negative" glyph paths (e.g. the hollow of a punctum cavum) hide what is behind them */
-:where(svg.Exsurge) path[fill="#fff"] {
-  fill: var(--exsurge-negative-fill, #fff);
 }
 
 /* icon-only button sharing the row with the PDF button group */
@@ -205,4 +205,8 @@ svg.Exsurge {
   html.dark .ui-state-focus a {
     color: #fff;
   }
+}
+
+code {
+  background-color: transparent;
 }
