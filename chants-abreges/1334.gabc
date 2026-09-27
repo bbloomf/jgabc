@@ -3,11 +3,12 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [190–191];
+book: Chants abrégés, Solesmes, 1930, pp. [190]–[191];
+commentary: Ps 70: 5-6; Ps 40: 13;
 %%
-(c4) Dó(ffg)mi(f)ne,(f) *() spes(g) mé(h)a(f) a(f) ju(f)ven(gvFD)tú(fg)te(gh) mé(gf)a:(f.) (:)
+(c4) DO(ffg)mi(f)ne,(f) *() spes(g) me(h)a(f) a(f) ju(f)ven(gvFD)tú(fg)te(gh) me(gf)a:(f.) (:)
 in(c) te(d) con(f)fir(f)má(f)tus(f) sum(f) ex(f) ú(fg)te(f)ro:(f.) (,)
-de(f) vén(g)tre(f) má(g)tris(h) mé(f)æ(f.) (,)
-tu(f) es(f) pro(fe)téc(g)tor(ghg) mé(fg/hf)us.(f.) (z0::c3)
-<sp>V/</sp>. Me(d) au(f)tem(h) prop(h)ter(h) in(h)no(h)cén(h)ti(h)am(h) sus(i)ce(h)pí(i)sti:(f.) (:)
-et(f) con(h)fir(h)má(h)sti(h) me(h) in(h) con(h)spéc(h)tu(h) tú(h)o(hh) in(e) æ(f)tér(ed)num.(d.) (::)
+de(f) ven(g)tre(f) ma(g)tris(h) me(f)æ(f.) (,)
+tu(f) es(f) pro(fe)téc(g)tor(ghg) me(fg/hf)us.(f.) (z0::c3)
+<sp>V/</sp>. Me(d) au(f)tem(h) prop(h)ter(h) in(h)no(h)cén(h)ti(h)am(h) su(i)sce(h)pís(i)ti:(f.) (:)
+et(f) con(h)fir(h)más(h)ti(h) me(h) in(h) con(h)spéc(h)tu(h) tu(h)o(hh) in(e) æ(f)tér(ed)num.(d.) (::)

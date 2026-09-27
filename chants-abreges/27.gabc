@@ -3,9 +3,10 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [150];
+book: Chants abrégés, Solesmes, 1930, p. [150];
+commentary: Cant 2: 12, 10, 14;
 %%
-(c4) Fló(ffg)res(f) *() ap(f)pa(f)ru(f)é(g)runt(f) in(gvFD) tér(fg)ra(gh) nós(gf)tra,(f.) (:)
-tém(f)pus(f) pu(f)ta(f)ti(g)ó(f)nis(g) ad(h)vé(f.)nit,(f.) (;) vox(c) túr(d)tu(f)ris(f) au(f)dí(f)ta(f) est(f) in(fe) tér(g)ra(ghg) nó(fg/hf)stra.(f.) (z0::c3)
-<sp>V/</sp>. Súr(d)ge,(f) a(h)mí(h)ca(h) mé(h)a,(h.) (,) spe(h)ci(h)ó(h)sa(h) mé(hg)a,(i) et(iji) vé(hi/jh)ni:(h.) (:)
-co(f)lúm(h)ba(h) mé(h)a(h) in(h) fo(h)ra(h)mí(h)ni(h)bus(f) pé(hi)træ,(h.) (,) in(h) ca(h)vér(h)na(hh) ma(e)cé(f)ri(ed)æ.(d.) (::)
+(c4) FLo(ffg)res(f) *() ap(f)pa(f)ru(f)é(g)runt(f) in(gvFD) ter(fg)ra(gh) nos(gf)tra,(f.) (:)
+tem(f)pus(f) pu(f)ta(f)ti(g)ó(f)nis(g) ad(h)vé(f.)nit,(f.) (;) vox(c) túr(d)tu(f)ris(f) au(f)dí(f)ta(f) est(f) in(fe) ter(g)ra(ghg) nos(fg/hf)tra.(f.) (z0::c3)
+<sp>V/</sp>. Sur(d)ge,(f) a(h)mí(h)ca(h) me(h)a,(h.) (,) spe(h)ci(h)ó(h)sa(h) me(hg)a,(i) et(iji) ve(hi/jh)ni:(h.) (:)
+co(f)lúm(h)ba(h) me(h)a(h) in(h) fo(h)ra(h)mí(h)ni(h)bus(f) pe(hi)træ,(h.) (,) in(h) ca(h)vér(h)na(hh) ma(e)cé(f)ri(ed)æ.(d.) (::)

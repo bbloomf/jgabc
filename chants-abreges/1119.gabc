@@ -3,10 +3,11 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [138];
+book: Chants abrégés, Solesmes, 1930, p. [138];
+commentary: Ps 106: 32, 31;
 %%
-(c4) Ex(d)ál(ffg)tent(f) é(gh)um(h) *() in(g) ec(f)clé(gvFD)si(fg)a(gh) plé(gf)bis:(f.) (:)
-et(f) in(g) cá(h)the(g)dra(f) se(f)ni(f)ó(g)rum(fe) láu(g)dent(ghg) é(fg/hf)um.(f.) (z0::c3)
-<sp>V/</sp>. Con(d)fi(f)te(h)án(h)tur(h) Dó(h)mi(h)no(h) mi(h)se(h)ri(h)cór(hg)di(i)ae(iji) é(hi/jh)jus:(h.) (:)
-et(f) mi(h)ra(h)bí(h)li(h)a(h) é(hi)jus(h.) (;)
+(c4) EX(d)ál(ffg)tent(f) e(gh)um(h) *() in(g) ec(f)clé(gvFD)si(fg)a(gh) ple(gf)bis:(f.) (:)
+et(f) in(g) cá(h)the(g)dra(f) se(f)ni(f)ó(g)rum(fe) lau(g)dent(ghg) e(fg/hf)um.(f.) (z0::c3)
+<sp>V/</sp>. Con(d)fi(f)te(h)án(h)tur(h) Dó(h)mi(h)no(h) mi(h)se(h)ri(h)cór(hg)di(i)æ(iji) e(hi/jh)jus:(h.) (:)
+et(f) mi(h)ra(h)bí(h)li(h)a(h) e(hi)jus(h.) (;)
 fí(h)li(h)is(e) hó(f)mi(ed)num.(d.) (::)

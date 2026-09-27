@@ -3,9 +3,10 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [40–41];
+book: Chants abrégés, Solesmes, 1930, pp. [40]–[41];
+commentary: Ps 117: 8-9;
 %%
-(c4) Bo(f)num(gh) est(h) *() con(h)fí(h)de(g)re(gvFD) in(fg) Dó(gh)mi(gf)no,(f.) (;)
+(c4) BO(f)num(gh) est(h) *() con(h)fí(h)de(g)re(gvFD) in(fg) Dó(gh)mi(gf)no,(f.) (;)
 quam(d) con(f)fí(g)de(fe)re(g) in(ghg) hó(gf)mi(fg/hf)ne.(f.) (z0::c3)
-<sp>V/</sp>. Bó(d)num(f) est(h) spe(h)rá(h)re(i) in(i) Dó(h)mi(g)no,(h!ighf.) (:)
+<sp>V/</sp>. Bo(d)num(f) est(h) spe(h)rá(h)re(i) in(i) Dó(h)mi(g)no,(h!ighf.) (:)
 quam(d) spe(ef)rá(f)re(f) in(gxfg) prin(e)cí(f)pi(ed)bus.(d.) (::)

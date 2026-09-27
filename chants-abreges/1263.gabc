@@ -3,9 +3,12 @@ office-part: Graduale;
 mode: 3;
 annotation: Grad.;
 annotation: 3;
-book: Chants abrégés, Solesmes, 1930, pp. [196–197];
+book: Chants abrégés, Solesmes, 1930, pp. [196]–[197];
+commentary: 1 Joann 5: 6, 7-8;
 %%
-(c4) Hic(e) est(ed) *() qui(g) vé(hi)nit(i) per(i) á(j)quam(i) et(i) sán(h)gui(g)nem,(hih.) (,) Jé(hiwj)sus(ig) Chrí(hg)stus:(e.) (:)
-non(h) in(i) á(hg)qua(f) so(g)lum,(g_0h) (,) sed(g) in(g) á(g)qua(g) et(g) sán(f)gui(de)ne.(e.) (::)
-<sp>V/</sp>. Tres(ed) sunt,(g) qui(hi) te(i)sti(i)mó(i)ni(i)um(i) dant(j) in(i) cǽ(hij)lo:(g.) (:) Pá(g)ter,(hi) Vér(i)bum,(i) et(i) Spí(jvIH/ij)ri(h)tus(g) Sán(h)ctus:(g.) (,) et(h) hi(g) tres(hiwj) ú(g)num(gg) sunt.(e.) (:)
-Et(e) tres(ed) sunt(g) qui(hi) te(i)sti(i)mó(i)ni(i)um(i) dant(j) in(i) tér(hij)ra:(g.) (:) Spí(g)ri(hi)tus,(i) A(jvIH/ij)qua,(h) et(g) Sán(h)guis:(g.) (,) et(h) hi(g) tres(hiwj) ú(g)num(gg) sunt.(e.) (::)
+(c4) HIC(e) est(ed) *() qui(g) ve(hi)nit(i) per(i) a(j)quam(i) et(i) sán(h)gui(g)nem,(hih.) (,) Je(hiwj)sus(ig) Chris(hg)tus:(e.) (:)
+non(h) in(i) a(hg)qua(f) so(g)lum,(g_0h) (,) sed(g) in(g) a(g)qua(g) et(g) sán(f)gui(de)ne.(e.) (::)
+<sp>V/</sp>. Tres(ed) sunt,(g) qui(hi) tes(i)ti(i)mó(i)ni(i)um(i) dant(j) in(i) cæ(hij)lo:(g.) (:)
+Pa(g)ter,(hi) Ver(i)bum,(i) et(i) Spí(jvIH/ij)ri(h)tus(g) Sanc(h)tus:(g.) (,) et(h) hi(g) tres(hiwj) u(g)num(gg) sunt.(e.) (:)
+Et(e) tres(ed) sunt(g) qui(hi) tes(i)ti(i)mó(i)ni(i)um(i) dant(j) in(i) ter(hij)ra:(g.) (:)
+Spí(g)ri(hi)tus,(i) A(jvIH/ij)qua,(h) et(g) San(h)guis:(g.) (,) et(h) hi(g) tres(hiwj) u(g)num(gg) sunt.(e.) (::)

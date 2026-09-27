@@ -3,10 +3,11 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [14];
+book: Chants abrégés, Solesmes, 1930, p. [14];
+commentary: Eccli 44: 16, 20;
 %%
-(c4) Ec(f)ce(gh) sa(h)cér(g)dos(f) má(g)gnus,(f.) *() (,)
-qui(f) in(f) di(fe)é(g)bus(ghg) sú(fg/hf)is(f.) (;)
-plá(f)cu(g)it(fd) Dé(fg!hvGF'g)o.(g.f.) (z0::c3)
-<sp>V/</sp>. Non(d) est(f) in(h)vén(h)tus(h) sí(h)mi(h)lis(h) íl(ivHF)li,(f.) (:)
-qui(f) con(h)ser(h)vá(h)ret(h) lé(hh)gem(e) ex(f)cél(ed)si.(d.) (::)
+(c4) EC(f)ce(gh) sa(h)cér(g)dos(f) ma(g)gnus,(f.) *() (,)
+qui(f) in(f) di(fe)é(g)bus(ghg) su(fg/hf)is(f.) (;)
+plá(f)cu(g)it(fd) De(fg!hvGF'g)o.(g.f.) (z0::c3)
+<sp>V/</sp>. Non(d) est(f) in(h)vén(h)tus(h) sí(h)mi(h)lis(h) il(ivHF)li,(f.) (:)
+qui(f) con(h)ser(h)vá(h)ret(h) le(hh)gem(e) ex(f)cél(ed)si.(d.) (::)

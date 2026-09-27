@@ -3,9 +3,10 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [83];
+book: Chants abrégés, Solesmes, 1930, p. [83];
+commentary: Ps 91: 2-3;
 %%
-(c4) Bo(f)num(gh) est(h) *() con(h)fi(g)té(gvFD)ri(fg) Dó(gh)mi(gf)no:(f.) (;)
-et(d) psál(f)le(f)re(f) nó(f)mi(f)ni(f) tú(g)o,(fe) Al(ghg)tís(f)si(fg/hf)me.(f.) (z0::c3)
-<sp>V/</sp>. Ad(d) an(f)nun(h)ti(h)án(h)dum(h) ma(h)ne(h) mi(h)se(h)ri(h)cór(h)di(h)am(h) tú(ivHF)am,(f.) (:)
-et(f) ve(h)ri(h)tá(h)tem(h) tú(hhf)am(gxg) per(fe) nóc(f)tem.(e.d.) (::)
+(c4) BO(f)num(gh) est(h) *() con(h)fi(g)té(gvFD)ri(fg) Dó(gh)mi(gf)no:(f.) (;)
+et(d) psál(f)le(f)re(f) nó(f)mi(f)ni(f) tu(g)o,(fe) Al(ghg)tís(f)si(fg/hf)me.(f.) (z0::c3)
+<sp>V/</sp>. Ad(d) an(f)nun(h)ti(h)án(h)dum(h) ma(h)ne(h) mi(h)se(h)ri(h)cór(h)di(h)am(h) tu(ivHF)am,(f.) (:)
+et(f) ve(h)ri(h)tá(h)tem(h) tu(hhf)am(gxg) per(fe) noc(f)tem.(e.d.) (::)

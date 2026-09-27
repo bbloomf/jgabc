@@ -3,10 +3,11 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [39];
+book: Chants abrégés, Solesmes, 1930, p. [39];
+commentary: Ps 30: 3; Ps 70: 1;
 %%
-(c4) E(f)sto(fefDC) mí(ffg)hi(f) *() in(f) Dé(f)um(f) pro(f)tec(g)tó(gvFD)rem,(d.) (;)
-et(d) in(d) ló(f)cum(f) re(fg)fú(gh)gi(gf)i,(f.) (:)
-ut(f) sál(fe)vum(g) me(ghg) fá(f)ci(fg/hf)as.(f.) (z0::c3)
-<sp>V/</sp>. Dé(d)us(f) in(h) te(i) spe(h)rá(i)vi:(f.) (:)
-Dó(f)mi(h)ne,(h) non(h) con(h)fún(h)dar(hhf) in(gxg) ae(fe)tér(f)num.(e.d.) (::)
+(c4) ES(f)to(fefDC) mi(ffg)hi(f) *() in(f) De(f)um(f) pro(f)tec(g)tó(gvFD)rem,(d.) (;)
+et(d) in(d) lo(f)cum(f) re(fg)fú(gh)gi(gf)i,(f.) (:)
+ut(f) sal(fe)vum(g) me(ghg) fá(f)ci(fg/hf)as.(f.) (z0::c3)
+<sp>V/</sp>. De(d)us(f) in(h) te(i) spe(h)rá(i)vi:(f.) (:)
+Dó(f)mi(h)ne,(h) non(h) con(h)fún(h)dar(hhf) in(gxg) æ(fe)tér(f)num.(e.d.) (::)

@@ -3,10 +3,11 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [93];
+book: Chants abrégés, Solesmes, 1930, p. [93];
+commentary: Ps 36: 24, 26;
 %%
-(c4) Ju(ffg)stus(f) *() cum(f) ce(gh)cí(h)de(g)rit,(f.) (,)
+(c4) JUs(ffg)tus(f) *() cum(f) ce(gh)cí(h)de(g)rit,(f.) (,)
 non(gvFD) col(fg)li(gh)dé(gf)tur:(f.) (:)
-qui(c)a(d) Dó(f)mi(f)nus(f) sup(f)pó(f)nit(fe) má(g)num(ghg) sú(fg/hf)am.(f.) (z0::c3)
-<sp>V/</sp>. Tó(d)ta(f) dí(h)e(h) mi(h)se(h)ré(h)tur,(i) et(i) cóm(h)mo(g)dat:(h!ighf.) (:)
-et(f) sé(h)men(h) é(h)jus(h) in(h) be(h)ne(h)díc(h)ti(hhf)ó(gxg)ne(fe) é(f)rit.(e.d.) (::)
+qui(c)a(d) Dó(f)mi(f)nus(f) sup(f)pó(f)nit(fe) ma(g)num(ghg) su(fg/hf)am.(f.) (z0::c3)
+<sp>V/</sp>. To(d)ta(f) di(h)e(h) mi(h)se(h)ré(h)tur,(i) et(i) cóm(h)mo(g)dat:(h!ighf.) (:)
+et(f) se(h)men(h) e(h)jus(h) in(h) be(h)ne(h)dic(h)ti(hhf)ó(gxg)ne(fe) e(f)rit.(e.d.) (::)

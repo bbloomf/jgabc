@@ -3,9 +3,10 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [188];
+book: Chants abrégés, Solesmes, 1930, p. [188];
+commentary: Ps 78: 10, 2;
 %%
-(c4) Vín(f)di(f)ca,(fefDC) *() Dó(fg)mi(f)ne,(f) sán(f)gui(f)nem(f) san(f)ctó(gvFD)rum(fg) tu(gh)ó(gf)rum,(f.) (:)
+(c4) VIn(f)di(f)ca,(fefDC) *() Dó(fg)mi(f)ne,(f) sán(f)gui(f)nem(f) sanc(f)tó(gvFD)rum(fg) tu(gh)ó(gf)rum,(f.) (:)
 qui(g) ef(ghg)fú(f)sus(fg/hf) est.(f.) (z0::c3)
-<sp>V/</sp>. Po(d)su(f)é(h)runt(h) mor(h)tá(h)li(h)a(h) ser(h)vó(h)rum(h) tu(f)ó(hi)rum(h.) (,) és(h)cas(h) vo(h)la(h)tí(h)li(h)bus(h) cǽ(ivHF)li:(f.) (:)
-cár(f)nes(h) san(h)ctó(h)rum(h) tu(h)ó(h)rum(h.) (,) bé(hh)sti(e)is(f) tér(ed)ræ.(d.) (::)
+<sp>V/</sp>. Po(d)su(f)é(h)runt(h) mor(h)tá(h)li(h)a(h) ser(h)vó(h)rum(h) tu(f)ó(hi)rum(h.) (,) es(h)cas(h) vo(h)la(h)tí(h)li(h)bus(h) cæ(ivHF)li:(f.) (:)
+car(f)nes(h) sanc(h)tó(h)rum(h) tu(h)ó(h)rum(h.) (,) bés(hh)ti(e)is(f) ter(ed)ræ.(d.) (::)

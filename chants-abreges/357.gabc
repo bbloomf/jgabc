@@ -3,9 +3,10 @@ office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés, Solesmes, 1930, pp. [176];
+book: Chants abrégés, Solesmes, 1930, p. [176];
+commentary: Judic 5: 8, 11;
 %%
-(c4) No(f)va(gh) bél(g)la(f) *() e(g)lé(gvFD)git(fg) Dó(gh)mi(gf)nus,(f.) (:)
-et(c) pór(d)tas(f) hós(fg)ti(f)um(f) íp(fe)se(g) sub(ghg)vér(fg/hf)tit.(f.) (z0::c3)
-<sp>V/</sp>. U(d)bi(f) col(h)lí(h)si(h) sunt(f) cúr(hi)rus,(h.) (,) et(f) hó(h)sti(h)um(h) suf(h)fo(h)cá(h)tus(h) est(h) ex(h)ér(i)ci(hg)tus,(h!ighf.) (:)
-i(d)bi(f) nar(h)rén(h)tur(h) ju(h)stí(hg)ti(i)æ(iji) Dó(h)mi(hi/jh)ni,(h.) (;) et(h) cle(h)mén(h)ti(h)a(h) in(h) fór(hh)tes(e) Is(f)ra(ed)el.(d.) (::)
+(c4) NO(f)va(gh) bel(g)la(f) *() e(g)lé(gvFD)git(fg) Dó(gh)mi(gf)nus,(f.) (:)
+et(c) por(d)tas(f) hós(fg)ti(f)um(f) ip(fe)se(g) sub(ghg)vér(fg/hf)tit.(f.) (z0::c3)
+<sp>V/</sp>. U(d)bi(f) col(h)lí(h)si(h) sunt(f) cur(hi)rus,(h.) (,) et(f) hós(h)ti(h)um(h) suf(h)fo(h)cá(h)tus(h) est(h) ex(h)ér(i)ci(hg)tus,(h!ighf.) (:)
+i(d)bi(f) nar(h)rén(h)tur(h) jus(h)tí(hg)ti(i)æ(iji) Dó(h)mi(hi/jh)ni,(h.) (;) et(h) cle(h)mén(h)ti(h)a(h) in(h) for(hh)tes(e) Is(f)ra(ed)el.(d.) (::)

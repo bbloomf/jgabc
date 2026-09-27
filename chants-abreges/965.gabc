@@ -1,10 +1,12 @@
 name: Benedictus es;
+office-part: Graduale;
 mode: 5;
 annotation: Grad.;
 annotation: 5;
-book: Chants abrégés (1930), p. [71];
+book: Chants abrégés, Solesmes, 1930, p. [71];
+commentary: Dan 3: 55-56;
 %%
-(c3) Be(d)ne(f)díc(h)tus(h) es,(h) *() Dó(h)mi(h)ne(h) qui(h) in(h)tu(h)é(h)ris(h) a(i)býs(ijIH'i)sos,(i.h.) (:)
-et(d) sé(ef)des(f) su(f)per(fe) Ché(fg/he)ru(efED)bim.(d.) (::)
-<sp>V/</sp>. Be(d)ne(f)díc(h)tus(h) es,(h) Dó(h)mi(h)ne,(h) in(h) fir(h)ma(hg)mén(i)to(iji) caé(hi/jh)li,(h.) (:)
-et(f) lau(f)dá(hvGF/gh)bi(f)lis(f) in(f) saé(fg/he)cu(efE'D)la.(d.) (::)
+(c3) BE(d)ne(f)díc(h)tus(h) es,(h) *() Dó(h)mi(h)ne(h) qui(h) in(h)tu(h)é(h)ris(h) a(i)býs(ijIH'i)sos,(i.h.) (:)
+et(d) se(ef)des(f) su(f)per(fe) Ché(fg/he)ru(efED)bim.(d.) (::)
+<sp>V/</sp>. Be(d)ne(f)díc(h)tus(h) es,(h) Dó(h)mi(h)ne,(h) in(h) fir(h)ma(hg)mén(i)to(iji) cæ(hi/jh)li,(h.) (:)
+et(f) lau(f)dá(hvGF/gh)bi(f)lis(f) in(f) sǽ(fg/he)cu(efE'D)la.(d.) (::)
