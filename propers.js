@@ -385,6 +385,30 @@ $(function(){
     return gabc;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
+  // chantsAbreges (from miscChants.js) maps Graduale IDs to their Chants Abrégés versions in gabc/chants-abreges/
+  var getChantsAbregesFile = function(part, id) {
+    return /^graduale\d*$/.test(part) && id && chantsAbreges[id];
+  };
+  var getGabcPathForPart = function(part) {
+    var abregesFile = sel[part].style == 'chants-abreges' && getChantsAbregesFile(part, sel[part].id);
+    return abregesFile? 'gabc/chants-abreges/' + abregesFile : 'gabc/' + sel[part].id + '.gabc';
+  };
+  // true if the loaded gabc is not the version (full or Chants Abrégés) that the selected style needs
+  var needsGabcReload = function(part) {
+    return !!sel[part].gabcPath && sel[part].gabcPath != getGabcPathForPart(part);
+  };
+  // adds the Chants Abrégés style option if the part's chant has a Chants Abrégés version, or removes it if not
+  var updateChantsAbregesOption = function(part) {
+    var $style = $('#selStyle' + part[0].toUpperCase() + part.slice(1)),
+        $option = $style.children('option[value=chants-abreges]'),
+        hasAbreges = !!getChantsAbregesFile(part, sel[part].id);
+    if(!hasAbreges) {
+      $option.remove();
+    } else if(!$option.length) {
+      $('<option>').attr('value','chants-abreges').text('Chants Abrégés').insertAfter($style.children('option[value=full]'));
+    }
+    return hasAbreges;
+  };
   var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries,selCustom);
     var id;
@@ -459,6 +483,7 @@ $(function(){
       var $sel = $('#sel'+capPart);
       var selValue = $sel.val();
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
+      sel[part].gabcPath = null;
       var updateGabc = function(gabc){
         var header = getHeader(gabc);
         gabc = gabc.slice(header.original.length);
@@ -571,6 +596,9 @@ $(function(){
               styleVal = 'psalm-tone';
             }
           }
+          if(!updateChantsAbregesOption(part) && styleVal == 'chants-abreges') {
+            styleVal = 'full';
+          }
           $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
@@ -634,7 +662,12 @@ $(function(){
         } else {
           $extraChantsPlaceholder.remove();
           sel[part].id = id;
-          $.get('gabc/'+id+'.gabc',updateGabc);
+          updateChantsAbregesOption(part);
+          var gabcPath = sel[part].gabcPath = getGabcPathForPart(part);
+          $.get(gabcPath,function(gabc) {
+            // ignore this response if another version of the chant has been requested since
+            if(gabcPath == sel[part].gabcPath) updateGabc(gabc);
+          });
         }
       } else {
         $extraChantsPlaceholder.remove();
@@ -1753,7 +1786,7 @@ $(function(){
   var updateStyle = function(part,style){
     var capPart = part[0].toUpperCase() + part.slice(1);
     addToHash('style'+capPart, style == 'full' ? '' : style);
-    if(style == 'full') {
+    if(style == 'full' || style == 'chants-abreges') {
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
@@ -1827,6 +1860,10 @@ $(function(){
       }
     }
     $selTone.change();
+    if(needsGabcReload(part)) {
+      // switching to or from the Chants Abrégés version, which is in a different file
+      updatePart(part);
+    }
   }
   
   var capitalizeForBigInitial = function(text) {
@@ -2415,8 +2452,11 @@ $(function(){
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
         $txt = $('#txt'+capPart);
+    // the right version will be rendered once it has loaded
+    if(needsGabcReload(part)) return;
     switch(sel[part].style) {
       case 'full':
+      case 'chants-abreges':
         $txt.val((gabc = sel[part].gabc));
         if(isAlleluia(part,sel[part].text)) {
           if(part.match(/^graduale/)) {
@@ -3082,7 +3122,7 @@ $(function(){
     if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
       updateTextAndChantForPart(part, true);
-    } else if(sel[part].style == 'full' && sel[part].gabc != this.value) {
+    } else if((sel[part].style == 'full' || sel[part].style == 'chants-abreges') && sel[part].gabc != this.value) {
       sel[part].gabc = this.value;
       updateTextAndChantForPart(part, true);
     }
@@ -3617,6 +3657,10 @@ console.info(JSON.stringify(selPropers));
             sel[part].pattern = pattern;
           }
           var styleParts = style.split(';');
+          if(styleParts[0] == 'chants-abreges' && !$this.children('option[value=chants-abreges]').length) {
+            // this chant has no Chants Abrégés version
+            styleParts[0] = 'full';
+          }
           if($this.val() != styleParts[0]) {
             $this.val(styleParts[0]);
             if(part == 'graduale' && $this.val() != styleParts[0]) {
@@ -3662,6 +3706,10 @@ console.info(JSON.stringify(selPropers));
     });
     return gabc;
   }
+  // modifications to the Chants Abrégés version are kept apart from those to the full version, since splices are index-based
+  function getSpliceHashKey(part) {
+    return part + (sel[part].style == 'chants-abreges'? 'AbregesSplice' : 'Splice');
+  }
   function getSpliceForPart(part) {
     var style = (sel[part].style||'');
     if((sel[part].isAlleluia && style.match(/^psalm-tone(1|-sal)$/)) ||
@@ -3676,7 +3724,7 @@ console.info(JSON.stringify(selPropers));
       var customId = selCustom[part + 'ID'];
       currentSplice = localStorage[customId+'Splice'];
     } else {
-      currentSplice = parseHash()[part+'Splice'];
+      currentSplice = parseHash()[getSpliceHashKey(part)];
     }
     currentSplice = (currentSplice && currentSplice.split)? currentSplice.replace(/&/g,' ').split('|') : [];
     return currentSplice.map(function(s){
@@ -3697,7 +3745,7 @@ console.info(JSON.stringify(selPropers));
       var customId = selCustom[part + 'ID'];
       localStorage[customId+'Splice'] = splices;
     } else {
-      addToHash(part+'Splice',splices);
+      addToHash(getSpliceHashKey(part),splices);
     }
   }
   function removeSplicesForPart(part) {
@@ -3708,7 +3756,7 @@ console.info(JSON.stringify(selPropers));
       var customId = selCustom[part + 'ID'];
       delete localStorage[customId+'Splice'];
     } else {
-      addToHash(part+'Splice',false);
+      addToHash(getSpliceHashKey(part),false);
     }
     updateExsurge(part, null, true);
   }

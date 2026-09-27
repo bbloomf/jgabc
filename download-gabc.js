@@ -72,7 +72,11 @@ var latin,
     oAntiphons = [2169,2596,2203,2877,2371,2133,2483],
     count = ids.length,
     litanyDir = 'gabc/litanies/',
-    litanies = fs.readdirSync(litanyDir);
+    litanies = fs.readdirSync(litanyDir),
+    chantsAbregesDir = 'gabc/chants-abreges/',
+    chantsAbregesFiles = fs.readdirSync(chantsAbregesDir).filter(f => /\.gabc$/.test(f)).sort((a, b) => a.localeCompare(b, 'en', {numeric: true})),
+    // maps each Graduale ID to its Chants Abrégés file; for now, each file is named by the ID of its Graduale
+    chantsAbreges = chantsAbregesFiles.reduce((result, f) => (result[f.slice(0, -5)] = f, result), {});
 miscChantIDs = miscChantIDs.concat(oAntiphons);
 miscChantIDs.forEach(id => {
   if(ids.indexOf(id) >= 0) throw `${id} found in both lists at index ${ids.indexOf(id)}.`;
@@ -199,6 +203,7 @@ var path = 'gabc/',
     errors = [],
     timeA = new Date(),
     gabcUrls = litanies.map(l => `<a href='${litanyDir+l}'>litanies/${l}</a>
+`).join('') + chantsAbregesFiles.map(f => `<a href='${chantsAbregesDir+f}'>chants-abreges/${f}</a>
 `).join(''),
     oAntiphonChants = [],
     miscChants = [{name: 'O Antiphons', children: oAntiphonChants}],
@@ -638,7 +643,8 @@ modes.forEach(m => m.sort && m.sort((a,b) => a-b));
           fs.writeFileSync('gabc-files.html', gabcUrls);
 
           fs.writeFileSync('miscChants.js', prettier.format(`litanyMap=${JSON.stringify(litanies)};
-miscChants=${JSON.stringify(miscChants)}`, { parser: 'typescript' }));
+miscChants=${JSON.stringify(miscChants)};
+chantsAbreges=${JSON.stringify(chantsAbreges)}`, { parser: 'typescript' }));
           fs.writeFileSync('texts.js', `texts = ${JSON.stringify(texts,null, '\t')};`);
           fs.writeFileSync('incipits.js', `pages = ${JSON.stringify(pages)};
 modes = ${JSON.stringify(modes)};
