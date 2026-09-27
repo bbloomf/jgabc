@@ -434,6 +434,8 @@ texts = {
 		"1368": "ipse habet in vestimento et in femore suo scriptum rex regum et dominus dominantium ℣ regina adstat ad dexteram ejus ornata auro ex ophir",
 		"1373": "adjuvabit eam deus vultu suo deus in medio ejus non commovebitur ℣ fluminis impetus lætificat civitatem dei sanctificavit tabernaculum suum altissimus",
 		"1383": "dolorosa et lacrimabilis es virgo maria stans juxta crucem domini jesu filii tui redemptoris ℣ virgo dei genitrix quem totus non capit orbis hoc crucis fert supplicium auctor vitæ factus homo",
+		"3445": "sapientia ædificavit sibi domum excidit columnas septem ℣ fundamenta ejus in montibus sanctis diligit dominus portas sion super omnia tabernacula jacob",
+		"8287": "juravit dominus et non pænitebit eum tu es sacerdos in æternum secundum ordinem melchisedech ℣ dixit dominus domino me sede a dextris meis",
 		"10607": "deus qui præcinxit me virtute et posuit immaculatam viam meam ℣ qui perfecit pedes meos tamquam cervorum et super excelsa statuens me",
 		"19928": "domine in cælo misericordia tua et veritas tua usque ad nubes ℣ multiplicasti misericordiam tuam deus filii autem hominum in tegmine alarum tuarum sperabunt"
 	},
