@@ -385,6 +385,83 @@ $(function(){
     return gabc;
   }
   var romanNumeral = ['','i','ii','iii','iv','v','vi','vii','viii'];
+  // chantsAbreges (from miscChants.js) maps Graduale IDs to their Chants Abrégés versions in gabc/chants-abreges/
+  var getChantsAbregesFile = function(part, id) {
+    return /^graduale\d*$/.test(part) && id && chantsAbreges[id];
+  };
+  // the gabc files that the selected style is rendered from; the Chants Abrégés Verse style needs both the full version (for the respond) and the Chants Abrégés version (for the verse)
+  var getGabcPathsForPart = function(part) {
+    var fullPath = 'gabc/' + sel[part].id + '.gabc',
+        abregesFile = /^chants-abreges/.test(sel[part].style) && getChantsAbregesFile(part, sel[part].id);
+    if(!abregesFile) return [fullPath];
+    var abregesPath = 'gabc/chants-abreges/' + abregesFile;
+    return sel[part].style == 'chants-abreges-verse'? [fullPath, abregesPath] : [abregesPath];
+  };
+  // true if the loaded gabc is not the version (full, Chants Abrégés, or both spliced together) that the selected style needs
+  var needsGabcReload = function(part) {
+    return !!sel[part].gabcPaths && sel[part].gabcPaths != getGabcPathsForPart(part).join(' ');
+  };
+  // adds the Chants Abrégés style options if the part's chant has a Chants Abrégés version, or removes them if not
+  var updateChantsAbregesOptions = function(part) {
+    var $style = $('#selStyle' + part[0].toUpperCase() + part.slice(1)),
+        hasAbreges = !!getChantsAbregesFile(part, sel[part].id);
+    if(!hasAbreges) {
+      $style.children('option[value^=chants-abreges]').remove();
+    } else if(!$style.children('option[value=chants-abreges]').length) {
+      $style.children('option[value=full]').after(
+        $('<option>').attr('value','chants-abreges').text('Chants Abrégés'),
+        $('<option>').attr('value','chants-abreges-verse').text('Chants Abrégés Verse'));
+    }
+    return hasAbreges;
+  };
+  var getLastClef = function(gabc) {
+    var regex = /\((?:[^()]*::)?([cf]b?[1-4])\)/g,
+        clef = null,
+        match;
+    while((match = regex.exec(gabc))) clef = match[1];
+    return clef;
+  };
+  // the notes of a gabc snippet, without its lyrics, clefs, or anything in brackets
+  var getGabcNotes = function(gabc) {
+    return (gabc.match(/\([^()]*\)/g) || []).filter(function(group) {
+      return !/^\((?:[^()]*::)?[cf]b?[1-4]\)$/.test(group);
+    }).join('').replace(/\[[^\]]*\]/g, '');
+  };
+  var getLastNote = function(gabc) {
+    return (getGabcNotes(gabc).match(/[a-m]/gi) || []).pop();
+  };
+  // the scale degree (0 for do, 1 for re, etc.) of a note under a clef such as c4 or f3
+  var getScaleDegree = function(note, clef) {
+    var degree = note.toLowerCase().charCodeAt(0) - 'a'.charCodeAt(0) - 2 * parseInt(clef.slice(-1),10) - 1 + (clef[0] == 'f'? 3 : 0);
+    return (degree % 7 + 7) % 7;
+  };
+  // true if the Chants Abrégés verse can be kept in the clef of the full respond without changing any of its notes:
+  // the clefs must be a do clef and a fa clef on the same line, and the verse must not use a flat or the note that is fa in one clef and si in the other,
+  // so that it is the same melody a fourth or fifth away, and read in the respond's clef it must end on the same note as the full verse
+  var canKeepRespondClefForVerse = function(verse, verseClef, respondClef, fullVerse) {
+    var lastNote = getLastNote(verse),
+        fullLastNote = getLastNote(fullVerse);
+    return verseClef.slice(-1) == respondClef.slice(-1) && verseClef[0] != respondClef[0] &&
+        swapDoFaClef(getGabcNotes(verse), verseClef).clefShift == 0 &&
+        !!lastNote && !!fullLastNote &&
+        getScaleDegree(lastNote, respondClef) == getScaleDegree(fullLastNote, getLastClef(fullVerse) || respondClef);
+  };
+  // the respond (up to the ℣) from the full version of a Graduale, followed by the verse from its Chants Abrégés version
+  var spliceChantsAbregesVerse = function(fullGabc, abregesGabc) {
+    var fullVerseIndex = fullGabc.indexOf('<sp>V/</sp>'),
+        abregesVerseIndex = abregesGabc.indexOf('<sp>V/</sp>');
+    if(fullVerseIndex < 0 || abregesVerseIndex < 0) return fullGabc;
+    var respond = fullGabc.slice(0, fullVerseIndex),
+        verse = abregesGabc.slice(abregesVerseIndex),
+        respondClef = getLastClef(respond),
+        verseClef = getLastClef(abregesGabc.slice(0, abregesVerseIndex));
+    if(verseClef && respondClef && verseClef != respondClef &&
+        !canKeepRespondClefForVerse(verse, verseClef, respondClef, fullGabc.slice(fullVerseIndex))) {
+      // change to the clef of the Chants Abrégés verse at the double bar that ends the respond
+      respond = respond.replace(/\([^()]*::[^()]*\)(\s*)$/, '(z0::' + verseClef + ')$1');
+    }
+    return respond + verse;
+  };
   var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries,selCustom);
     var id;
@@ -459,6 +536,7 @@ $(function(){
       var $sel = $('#sel'+capPart);
       var selValue = $sel.val();
       sel[part].overrideTone = sel[part].overrideToneEnding = null;
+      sel[part].gabcPaths = null;
       var updateGabc = function(gabc){
         var header = getHeader(gabc);
         gabc = gabc.slice(header.original.length);
@@ -571,6 +649,9 @@ $(function(){
               styleVal = 'psalm-tone';
             }
           }
+          if(!updateChantsAbregesOptions(part) && /^chants-abreges/.test(styleVal)) {
+            styleVal = 'full';
+          }
           $style.val(styleVal);
         } else if(part == 'asperges') {
           truePart = decompile(removeDiacritics(gabc),true).match(/\w+\s+\w+/)[0];
@@ -634,7 +715,14 @@ $(function(){
         } else {
           $extraChantsPlaceholder.remove();
           sel[part].id = id;
-          $.get('gabc/'+id+'.gabc',updateGabc);
+          updateChantsAbregesOptions(part);
+          var gabcPaths = getGabcPathsForPart(part),
+              gabcPathsKey = sel[part].gabcPaths = gabcPaths.join(' ');
+          Promise.all(gabcPaths.map(function(path) { return $.get(path); })).then(function(gabcs) {
+            // ignore these responses if another version of the chant has been requested since
+            if(gabcPathsKey != sel[part].gabcPaths) return;
+            updateGabc(gabcs.length > 1? spliceChantsAbregesVerse(gabcs[0], gabcs[1]) : gabcs[0]);
+          });
         }
       } else {
         $extraChantsPlaceholder.remove();
@@ -1753,7 +1841,7 @@ $(function(){
   var updateStyle = function(part,style){
     var capPart = part[0].toUpperCase() + part.slice(1);
     addToHash('style'+capPart, style == 'full' ? '' : style);
-    if(style == 'full') {
+    if(style == 'full' || /^chants-abreges/.test(style)) {
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
@@ -1827,6 +1915,10 @@ $(function(){
       }
     }
     $selTone.change();
+    if(needsGabcReload(part)) {
+      // switching to or from a Chants Abrégés style, which uses a different file
+      updatePart(part);
+    }
   }
   
   var capitalizeForBigInitial = function(text) {
@@ -2415,8 +2507,12 @@ $(function(){
         capPart = part[0].toUpperCase()+part.slice(1),
         $div = $('#div'+capPart),
         $txt = $('#txt'+capPart);
+    // the right version will be rendered once it has loaded
+    if(needsGabcReload(part)) return;
     switch(sel[part].style) {
       case 'full':
+      case 'chants-abreges':
+      case 'chants-abreges-verse':
         $txt.val((gabc = sel[part].gabc));
         if(isAlleluia(part,sel[part].text)) {
           if(part.match(/^graduale/)) {
@@ -3082,7 +3178,7 @@ $(function(){
     if((sel[part].style||'').match(/^psalm-tone/) && sel[part].text != this.value) {
       sel[part].text = this.value;
       updateTextAndChantForPart(part, true);
-    } else if(sel[part].style == 'full' && sel[part].gabc != this.value) {
+    } else if((sel[part].style == 'full' || /^chants-abreges/.test(sel[part].style)) && sel[part].gabc != this.value) {
       sel[part].gabc = this.value;
       updateTextAndChantForPart(part, true);
     }
@@ -3617,6 +3713,10 @@ console.info(JSON.stringify(selPropers));
             sel[part].pattern = pattern;
           }
           var styleParts = style.split(';');
+          if(/^chants-abreges/.test(styleParts[0]) && !$this.children('option[value=' + styleParts[0] + ']').length) {
+            // this chant has no Chants Abrégés version
+            styleParts[0] = 'full';
+          }
           if($this.val() != styleParts[0]) {
             $this.val(styleParts[0]);
             if(part == 'graduale' && $this.val() != styleParts[0]) {
@@ -3662,6 +3762,13 @@ console.info(JSON.stringify(selPropers));
     });
     return gabc;
   }
+  // modifications to each Chants Abrégés style are kept apart from those to the full version, since splices are index-based
+  function getSpliceHashKey(part) {
+    return part + ({
+      'chants-abreges': 'AbregesSplice',
+      'chants-abreges-verse': 'AbregesVerseSplice'
+    }[sel[part].style] || 'Splice');
+  }
   function getSpliceForPart(part) {
     var style = (sel[part].style||'');
     if((sel[part].isAlleluia && style.match(/^psalm-tone(1|-sal)$/)) ||
@@ -3676,7 +3783,7 @@ console.info(JSON.stringify(selPropers));
       var customId = selCustom[part + 'ID'];
       currentSplice = localStorage[customId+'Splice'];
     } else {
-      currentSplice = parseHash()[part+'Splice'];
+      currentSplice = parseHash()[getSpliceHashKey(part)];
     }
     currentSplice = (currentSplice && currentSplice.split)? currentSplice.replace(/&/g,' ').split('|') : [];
     return currentSplice.map(function(s){
@@ -3697,7 +3804,7 @@ console.info(JSON.stringify(selPropers));
       var customId = selCustom[part + 'ID'];
       localStorage[customId+'Splice'] = splices;
     } else {
-      addToHash(part+'Splice',splices);
+      addToHash(getSpliceHashKey(part),splices);
     }
   }
   function removeSplicesForPart(part) {
@@ -3708,7 +3815,7 @@ console.info(JSON.stringify(selPropers));
       var customId = selCustom[part + 'ID'];
       delete localStorage[customId+'Splice'];
     } else {
-      addToHash(part+'Splice',false);
+      addToHash(getSpliceHashKey(part),false);
     }
     updateExsurge(part, null, true);
   }
