@@ -240,7 +240,7 @@ var path = 'gabc/',
                     fileData += data;
                   });
                   result.on('close',function(e) {
-                    console.info('socket closed on file: ' + file);
+                    // console.info('socket closed on file: ' + file);
                   });
                   result.on('aborted',function(e) {
                     console.info('ABORTED on file: ' + file);
@@ -291,6 +291,13 @@ var path = 'gabc/',
                       }
                     }
                     content = content
+                      // a ~ in the lyrics is a non-breaking space, so keep a single one that joins a word to what is next to it (as in *~Quam, +~in, o~: and <i>Ps.~50.</i>),
+                      // and remove the rest, which only add space (as in ~~~<i>T. P.</i>, ~*, {~} and <v>~</v>) and keep the regexes here and in propers.js from finding things
+                      .replace(/(?<=(.?))(?:<v>~+<\/v>|~+)(?=([^()]?)[^()]*\()/g, (tildes, before, after) =>
+                        (tildes == '~' && /[^\s)]/.test(before) && /\S/.test(after) && /[a-zæœǽœ́áéíóúýäëïöüÿ\d]/i.test(before + after)) ? tildes : '')
+                      // remove empty {}; an asterisk before them becomes its own syllable, as in the other Kyries, or goes before the bar it follows, as in the other Alleluias (only in 1266.gabc)
+                      .replace(/(\([,;:]+\)\s+)?\*\{\s*\}(?=\()/g, (_, bar) => bar ? `*${bar}` : '*() ')
+                      .replace(/\{\s*\}(?=[^()]*\()/g, '')
                       .replace(/@/g,'!') // TODO: support @ in Exsurge
                       .replace(/([A-M])[0-2]/g, '$1') // TODO?: right now 0 in this exsurge shifts the vertical position, and it doesn't support https://gregorio-project.github.io/tips/inclinatum.html
                       .replace(/\/\[-[^\]]+\]/g, '!') // TODO: support variable neumatic cuts, for now, any negatives must be removed
@@ -344,13 +351,21 @@ var path = 'gabc/',
                       .replace(/<i>\((.*?)\)<\/i>/g, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
                       .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
                       .replace(/\bi[{}]?j[{}]?\.[{}]?(?=\W)/, (whole) => !(whole.includes('{') && whole.includes('}')) ? whole : whole.replace(/[{}]/g, ''));
-if (ids[i] == 863) console.info(content);
                       content = content
                       .replace(/(?:\s+(\([,;:]*\)\s)|\s)\s*\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi, ' {*}~<i>$3</i>$2$1(')
                       // .replace(/\s\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi,' {*}~<i>$2</i>$1(')
                       .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
                       .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
                       .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*+\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2\n$5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
+                    if(h.officePart == 'Alleluia') {
+                      // some Alleluias from the Graduale Romanum, 1974 have no asterisk after the opening Allelúia (nor does the book),
+                      // so put one at the first bar after its ia syllable, if there is one before the first double bar
+                      var doubleBarIndex = content.search(/\([^):]*::/),
+                          opening = content.slice(0, doubleBarIndex);
+                      if(doubleBarIndex >= 0 && opening.indexOf('*') < 0) {
+                        content = opening.replace(/^(\s*\([cf]b?[1-4]\)\s*al\([^)]*\)le\([^)]*\)l[uú]\([^)]*\)\{?[ij]a\}?[.,;:]?\([^)]*\)(?:\s*\([^)]*\))*?\s*)(\([,;:]\))/i, '$1*$2') + content.slice(doubleBarIndex);
+                      }
+                    }
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
@@ -406,10 +421,11 @@ if (ids[i] == 863) console.info(content);
                       var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
                       var vowelCount = (word.match(/(?![^<]*>)(?:[aá]u|(qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ])/gi)||[]).length;
                       var vowelCountIJ  = (word.match(/(?![^<]*>)(?:[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ])/gi)||[]).length;
-                      if(word.toLowerCase() !== 'cui' && vowelCount !== syls.length && vowelCountIJ !== syls.length) {
+                      // words with <i> are elisions or rubrics, so a vowel count mismatch is expected
+                      if(word.toLowerCase() !== 'cui' && !/<\/?i>/.test(whole) && vowelCount !== syls.length && vowelCountIJ !== syls.length) {
                         console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
                         console.info({lastParens, whole, lastSyl, file});
-                        if(vowelCount && !/<\/?i>/.test(whole) && !/^(c[uú]i|euge|ceu|Allelúia)$|<[ie]>/i.test(word)) throw 1;
+                        if(vowelCount && !/^(c[uú]i|euge|ceu|Allelúia)$|<[ie]>/i.test(word)) throw 1;
                       }
                       const finalSyl = syls.length && syls.slice(-1)[0];
                       if(finalSyl && !/<[ie]>/.test(finalSyl) && finalSyl.match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
@@ -527,7 +543,7 @@ if (ids[i] == 863) console.info(content);
                       const alContent = addPtAlleluia(content, h);
                       fs.writeFileSync(file.slice(0,-5) + '+al.gabc', header + alContent);
                     }
-                    console.info(`Processed ${(i+1)} of ${ids.length}: ${file}; ${active} active`);
+                    // console.info(`Processed ${(i+1)} of ${ids.length}: ${file}; ${active} active`);
                     var myCallback = callbackOn[ids[i]];
                     if(myCallback) myCallback(header + content, header, content);
                     callback(true);

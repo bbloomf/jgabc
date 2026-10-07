@@ -33,6 +33,44 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   isNovus = false,
   novusOption={},
   yearArray = ['A','B','C'];
+// These regular expressions and removeNotApplicableFromGabc() are run against the gabc files, so they are kept outside of $(function(){...}),
+// where tests/propers-gabc.test.js can check them against every gabc file.
+var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
+var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
+var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
+var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
+// the opening Allelúia and its asterisk, when they are not already followed by ij. or non repetitur
+var regexAlleluiaAsteriskWithoutIj = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!~?(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|~|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i;
+// the opening Allelúia followed by ij.
+var regexAlleluiaIj = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\)\s*[^a-z\s~]+)\s*(?:~?<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i;
+// the opening Allelúia followed by ij. or non repetitur
+var regexAlleluiaIjOrNonRepetitur = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s~]+)\s*(?:~?<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i;
+// the first double bar, which ends the opening Allelúia of an Alleluia
+var regexGabcFirstDoubleBar = /\([^):]*::[^)]*\)/;
+// the last note of an antiphon, before the double bar at the end of the chant or before a rubric such as <i>Ps.</i>
+var regexGabcAntiphonLastNote = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/;
+// this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
+function removeNotApplicableFromGabc(gabc) {
+  var TP = selTempus == 'Pasch';
+  if(gabc.match(/[+†][^)]*\(/) && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>|<i>.*?extra\s+T\.\s+P\./i)) {
+    // if it has a + (†) that marks T.P or extra T.P
+    if((TP && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>/i)) || ((!TP && gabc.match(/<i>.*?extra\s+T\.\s+P\./i)))) {
+      // remove the part that is not marked second (the part before _T. P._ or _Extra T. P._)
+      gabc = gabc.replace(/[+†](\([^)]+\)\s?)?[^+†]+?(([+†]|<\/i>)+[^\w()]*(\(:*\)\s*)*)+\s*/,'$1');
+    } else {
+      // remove the + marker and the second part [the part after the (::)]:
+      gabc = gabc.replace(/(?:\(\))?[+†](?:\(\))?\s*([^+†]+)(\(::\))[^+†]*[+†][^+†]*\(::\)/,'$1$2');
+    }
+  }
+  if(TP) {
+    gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
+  } else {
+    gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
+      .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'')
+      .replace(/\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,' ');
+  }
+  return gabc;
+}
 $(function(){
   $("#shareUrl").click(function (e) {
       e.preventDefault();
@@ -307,10 +345,6 @@ $(function(){
     '7':'a',
     '8':'G'
   }
-  var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
-  var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
-  var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
-  var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
   var removeDiacritics=function(string) {
     if(typeof(string) != 'string') return '';
     return string.replace(/á/g,'a').replace(/é|ë/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ý/g,'y').replace(/æ|ǽ/g,'ae').replace(/œ/g,'oe').replace(/[,.;?“”‘’"':]/g,'');
@@ -607,16 +641,16 @@ $(function(){
             if(isNovus) {
               // in novus ordo, neither ij. nor asterisks are marked.
               // remove ij. if present
-              gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s~]+)\s*(?:~?<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i,'$1$2').
+              gabc = gabc.replace(regexAlleluiaIjOrNonRepetitur,'$1$2').
                 replace(/(\*|\{\*\})(\(\))?/g,''); // remove asterisks
             } else {
               var gradualeIsFirstAlleluia = ((sel.graduale && sel.graduale.id in chantID.alleluiaById) || isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
               if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
                 // add ij. if not present:
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!~?(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|~|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i,'$1 {*} <i>ij.</i>');
+                gabc = gabc.replace(regexAlleluiaAsteriskWithoutIj,'$1 {*} <i>ij.</i>');
               } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
                 // remove ij. if present
-                gabc = gabc.replace(/(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\)\s*[^a-z\s~]+)\s*(?:~?<i>)?ij\.?(?:<\/i>)?([^\)]*\()/i,'$1$2');
+                gabc = gabc.replace(regexAlleluiaIj,'$1$2');
               }
             }
             plaintext = decompile(gabc,true,sel[part]);
@@ -2287,7 +2321,7 @@ $(function(){
           }
         } else {
           $('[part='+part+']').addClass('full-alleluia');
-          var match = sel[part].gabc.match(/\([^):]*::[^)]*\)/);
+          var match = sel[part].gabc.match(regexGabcFirstDoubleBar);
           gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
         }
         useOriginalClef = true
@@ -2555,29 +2589,6 @@ $(function(){
   $.each(sel,function(){
     makeChantContextForSel(this);
   });
-
-  // this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
-  function removeNotApplicableFromGabc(gabc) {
-    var TP = selTempus == 'Pasch';
-    if(gabc.match(/[+†][^)]*\(/) && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>|<i>.*?extra\s+T\.\s+P\./i)) {
-      // if it has a + (†) that marks T.P or extra T.P
-      if((TP && gabc.match(/<i>\s*T\.\s*P\.\s*<\/i>/i)) || ((!TP && gabc.match(/<i>.*?extra\s+T\.\s+P\./i)))) {
-        // remove the part that is not marked second (the part before _T. P._ or _Extra T. P._)
-        gabc = gabc.replace(/[+†](\([^)]+\)\s?)?[^+†]+?(([+†]|<\/i>)+[^\w()]*(\(:*\)\s*)*)+\s*/,'$1');
-      } else {
-        // remove the + marker and the second part [the part after the (::)]:
-        gabc = gabc.replace(/(?:\(\))?[+†](?:\(\))?\s*([^+†]+)(\(::\))[^+†]*[+†][^+†]*\(::\)/,'$1$2');
-      }
-    }
-    if(TP) {
-      gabc = gabc.replace(/(?:\(::\)\s+)?<i>\s*T\.\s*P\.\s*<\/i>(?:\(::\))?/,'(:)');
-    } else {
-      gabc = gabc.replace(/\(::\)\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,'')
-        .replace(/<i>\s*T\.\s*P\.\s*<\/i>\(::\)[\s\S]*?(?=[^\s(]*\(::\))/,'')
-        .replace(/\s+<i>\s*T\.\s*P\.\s*<\/i>[\s\S]*?(?=\(::\))/,' ');
-    }
-    return gabc;
-  }
 
   var updateExsurge = function(part, id, updateFromOldScore) {
     var prop = sel[part];
@@ -3496,7 +3507,7 @@ $(function(){
         var tone = getIntroitTone(state);
         var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc);
         applyAmenTones(tone, amenTones);
-        var lastNoteMatch = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/.exec(sel[part].gabc);
+        var lastNoteMatch = regexGabcAntiphonLastNote.exec(sel[part].gabc);
         if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
           console.info(lastNoteMatch[1], lastNote);
         }
