@@ -1,26 +1,40 @@
 {
-    "name": "io.github.bbloomf.jgabc",
-    "displayName": "Chant Tools",
-    "version": "1.13.0",
-    "description": "A sample Apache Cordova application that responds to the deviceready event.",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "jgabc",
+  "version": "1.13.0",
+  "description": "Chant Tools",
+  "homepage": "https://github.com/bbloomf/jgabc#readme",
+  "bugs": {
+    "url": "https://github.com/bbloomf/jgabc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbloomf/jgabc.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Benjamin Bloomfield",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-webintent": {}
     },
-    "author": "Apache Cordova Team",
-    "license": "Apache-2.0",
-    "cordova": {
-        "plugins": {
-            "cordova-webintent": {}
-        },
-        "platforms": [
-            "android",
-            "ios"
-        ]
-    },
-    "devDependencies": {
-        "cordova-android": "^15.1.0",
-        "cordova-ios": "^8.1.1",
-        "cordova-webintent": "github:cordova-misc/cordova-webintent"
-    }
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@prettier/sync": "^0.6.1",
+    "cordova-android": "^15.1.0",
+    "cordova-ios": "^8.1.1",
+    "cordova-webintent": "github:cordova-misc/cordova-webintent",
+    "hypher": "^0.2.5",
+    "prettier": "^3.6.2"
+  }
 }

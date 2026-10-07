@@ -16,7 +16,6 @@ douay-rheims/src
 MR1962
 .npmignore
 key.properties
-package-lock.json
 build.json
 show-diffs.sh
 .tags

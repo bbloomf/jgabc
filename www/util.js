@@ -349,19 +349,26 @@ function getTagsFrom(txt){
  * @param {string} gabc 
  * @param {number} offset 
  * @param {boolean} noParens 
+ * @param {number} [start] only transpose notes at or after this index of gabc
+ * @param {number} [end] only transpose notes before this index of gabc
  * @returns 
  */
-function transposeGabc(gabc,offset,noParens) {
-  var replaceLetter = function(letter, clef) {
-    if(clef) return letter;
+function transposeGabc(gabc,offset,noParens,start,end) {
+  if(start == null) start = 0;
+  if(end == null) end = gabc.length;
+  var replaceLetter = function(letter, skip, index) {
+    if(skip || index < start || index >= end) return letter;
     var newLetter = String.fromCharCode(offset + letter.charCodeAt(0));
     if(!newLetter.match(/[a-m]/i)) throw `${letter} cannot be transposed by ${offset}: ${newLetter} is invalid`;
     return newLetter;
   };
-  var regex = /([cf]b?[1-4])|[a-mA-M]/g;
+  // clefs and anything in square brackets, e.g., [ll:1] or [alt:text], are left as is
+  var regex = /([cf]b?[1-4]|\[[^\]]*\]?)|[a-mA-M]/g;
   if(noParens) return gabc.replace(regex, replaceLetter);
-  return gabc.replace(/\(([^)]+)\)/g, function(whole,gabc) {
-    return '(' + gabc.replace(regex, replaceLetter) + ')';
+  return gabc.replace(/\(([^)]+)\)/g, function(whole,gabc,parenIndex) {
+    return '(' + gabc.replace(regex, function(letter, skip, index) {
+      return replaceLetter(letter, skip, parenIndex + 1 + index);
+    }) + ')';
   });
 }
 
@@ -477,37 +484,23 @@ function gabcEditorKeyDown(e) {
       if(e.altKey) {
         var up = e.which === 38;
         e.preventDefault();
-        var allGabc = this.value
+        var allGabc = this.value,
             header = getHeader(allGabc),
             selectionStart = this.selectionStart,
             selectionEnd = this.selectionEnd,
-            gabc = allGabc = allGabc.slice(header.original.length);
+            gabc = allGabc.slice(header.original.length),
+            startIndex, endIndex;
         if(selectionStart != selectionEnd) {
-          var startIndex = Math.max(0,selectionStart - header.original.length),
-              endIndex = Math.max(0,selectionEnd - header.original.length),
-              lastOpenParen = allGabc.lastIndexOf('(',startIndex),
-              lastCloseParen = allGabc.lastIndexOf(')',startIndex),
-              firstOpenParen = allGabc.indexOf('(',endIndex),
-              firstCloseParen = allGabc.indexOf(')',endIndex);
-          if(firstOpenParen < 0) firstOpenParen = Infinity;
-          if(firstCloseParen < 0) firstCloseParen = Infinity;
-          gabc = gabc.slice(startIndex, endIndex);
-          if(lastOpenParen > lastCloseParen) gabc = '(' + gabc;
-          if(firstCloseParen < firstOpenParen) gabc += ')';
+          startIndex = selectionStart - header.original.length;
+          endIndex = selectionEnd - header.original.length;
         }
         var offset = up? 1 : -1;
         try {
-          gabc = transposeGabc(gabc, offset)
+          gabc = transposeGabc(gabc, offset, false, startIndex, endIndex);
         } catch(e) {
           return;
         }
-        if(selectionStart == selectionEnd) {
-          this.value = header.original + gabc;
-        } else {
-          if(lastOpenParen > lastCloseParen) gabc = gabc.slice(1);
-          if(firstCloseParen < firstOpenParen) gabc = gabc.slice(0,-1);
-          this.value = header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex);
-        }
+        this.value = header.original + gabc;
         this.setSelectionRange(selectionStart, selectionEnd);
       }
       break;

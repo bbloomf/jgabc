@@ -373,29 +373,19 @@ function shiftGabc(e) {
         header = getHeader(allGabc),
         selectionStart = this.selectionStart,
         selectionEnd = this.selectionEnd,
-        gabc = allGabc = allGabc.slice(header.original.length);
+        gabc = allGabc.slice(header.original.length),
+        startIndex, endIndex;
     if(selectionStart != selectionEnd) {
-      var startIndex = Math.max(0,selectionStart - header.original.length),
-          endIndex = Math.max(0,selectionEnd - header.original.length);
-      gabc = gabc.slice(startIndex, endIndex);
+      startIndex = selectionStart - header.original.length;
+      endIndex = selectionEnd - header.original.length;
     }
     var addendum = up? 1 : -1;
-    var replaceLetter = function(letter, clef) {
-      if(clef) return letter;
-      if((!up && letter.match(/a/i)) || (up && letter.match(/m/i))) throw true;
-      return String.fromCharCode(addendum + letter.charCodeAt(0));
-    };
-    var regex = /([cf]b?[1-4])|[a-mA-M]/g;
     try {
-      gabc = gabc.replace(regex, replaceLetter);
+      gabc = transposeGabc(gabc, addendum, true, startIndex, endIndex);
     } catch(e) {
       return;
     }
-    if(selectionStart == selectionEnd) {
-      $this.val(header.original + gabc);
-    } else {
-      $this.val(header.original + allGabc.slice(0,startIndex) + gabc + allGabc.slice(endIndex));
-    }
+    $this.val(header.original + gabc);
     this.setSelectionRange(selectionStart, selectionEnd);
   }
 }
