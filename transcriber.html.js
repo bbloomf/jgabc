@@ -675,6 +675,17 @@ $(function() {
     }
     $("#pdfFormDirect").submit();
   });
+  $('#lnkPdfQuick').click(function(e){
+    e.preventDefault();
+    ChantPdf.download(this, function() {
+      var header = getHeader($('#editor').val());
+      return {
+        title: header.name,
+        paper: ChantPdf.getPaper(header, { fontSize: 20 }),
+        chants: [{ score: makeExportScore(), ctxt: exportContext, commentary: header.commentary }]
+      };
+    });
+  });
   setGabcLinkSelector("#lnkDownloadGabc");
 
   var ctxt = makeExsurgeChantContext();
@@ -834,7 +845,8 @@ $(function() {
     ctxt.setGlyphScaling(ctxt.glyphScaling);
     exportContext.setGlyphScaling(exportContext.glyphScaling);
   }
-  window.exportChant = function(eachLine) {
+  // a new score of the editor's chant with exportContext, for saving as an image or PDF
+  function makeExportScore() {
     var gabc = $('#editor').val(),
         code = gabcToExsurge(gabc),
         header = getHeader(gabc),
@@ -843,15 +855,20 @@ $(function() {
     if (header.staffLineCount) {
       score.staffLineCount = Number(header.staffLineCount);
     }
+    // in small caps, as on the page
     if(header.initialStyle!=='0' && header.annotation) {
       var annotationArray = header.annotationArray;
       if(annotationArray) {
-        score.annotation = new exsurge.Annotations(exportContext, annotationArray[0], annotationArray[1]);
+        score.annotation = new exsurge.Annotations(exportContext, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
       } else if(header.annotation) {
-        score.annotation = new exsurge.Annotations(exportContext, header.annotation);
+        score.annotation = new exsurge.Annotations(exportContext, '%'+header.annotation+'%');
       }
     }
-    
+    return score;
+  }
+  window.exportChant = function(eachLine) {
+    var header = getHeader($('#editor').val()),
+        score = makeExportScore();
     var width = getWidthInPixels(header) || 6 * 96;
     score.performLayout(exportContext);
     score.layoutChantLines(exportContext, width);

@@ -2647,7 +2647,6 @@ $(function(){
     var ctxt = prop.ctxt;
     var score = prop.score;
     var gabc = prop.activeExsurge;
-    var gabcHeader = prop.gabcHeader;
     if(score && updateFromOldScore) {
       exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, gabc);
       score.updateNotations(ctxt);
@@ -2657,27 +2656,35 @@ $(function(){
     }
     ctxt.width = 0;
     prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
+    var annotation = makeAnnotation(part, ctxt);
+    if(annotation) score.annotation = annotation;
+    layoutChant(part, false, id);
+  }
+  // the annotation above the drop cap, e.g. Int. IV
+  function makeAnnotation(part, ctxt) {
+    var prop = sel[part];
+    var gabcHeader = prop.gabcHeader;
     if(gabcHeader.original) {
-      var annotationArray = sel[part].annotationArray || gabcHeader.annotationArray;
+      var annotationArray = prop.annotationArray || gabcHeader.annotationArray;
       if(annotationArray) {
-        score.annotation = new exsurge.Annotations(ctxt, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
+        return new exsurge.Annotations(ctxt, '%'+annotationArray[0]+'%', '%'+annotationArray[1]+'%');
       } else if(gabcHeader.annotation) {
-        score.annotation = new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
+        return new exsurge.Annotations(ctxt, '%'+gabcHeader.annotation+'%');
       } else if(!prop.noDropCap && (gabcHeader.mode || gabcHeader['office-part'])) {
         var annotation;
         if(gabcHeader['office-part']) annotation = partAbbrev[gabcHeader['office-part'].toLowerCase()];
         if(annotation) {
           if(annotation == 'V/.') {
-            score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%');
+            return new exsurge.Annotations(ctxt, '%'+annotation+'%');
           } else {
-            score.annotation = new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
+            return new exsurge.Annotations(ctxt, '%'+annotation+'%', '%'+romanNumeral[gabcHeader.mode]+'%');
           }
         } else if(gabcHeader.mode) {
-          score.annotation = new exsurge.Annotations(ctxt, '%'+romanNumeral[gabcHeader.mode]+'%');
+          return new exsurge.Annotations(ctxt, '%'+romanNumeral[gabcHeader.mode]+'%');
         }
       }
     }
-    layoutChant(part, false, id);
+    return null;
   }
   var queue = [];
   function processQueue() {
@@ -3251,7 +3258,8 @@ $(function(){
     }
     return { fontSize, width, height };
   }
-  var getAllGabc = window.getAllGabc = function() {
+  // The name of the Mass and the chants to print, in page order, as chosen in the "Include in PDF" menu
+  var getPdfParts = function() {
     var hash = parseHash();
     var name = ["sunday","sundayNovus","saint","mass"].reduce(function(result,id) {
       return result || ((id in hash) && id);
@@ -3266,10 +3274,7 @@ $(function(){
         name = name.replace(/^\w{3}\s+\d+\:\s+(.+)$/,'$1');
       }
     }
-    var result=[];
-    var isFirstChant = true;
-    var shouldRemoveSolesmes = $('#removeSolesmes > span.glyphicon').hasClass('glyphicon-unchecked');
-    var processSolesmes = shouldRemoveSolesmes? removeSolesmes : function(gabc) { return gabc; };
+    var parts = [];
     $('[part]').each(function(){
       var $this = $(this),
           part = $this.attr('part'),
@@ -3278,23 +3283,38 @@ $(function(){
           hasPageBreak = $includePart.find('.toggle-page-break').hasClass('has-page-break-before'),
           proper = sel[part],
           gabc = proper && (proper.activeGabc || proper.gabc || proper.effectiveGabc),
-          verses = sel[part+"Verses"],
-          gabcVerses = verses && verses.activeGabc,
-          isExtra = /^extra-/.test(part),
-          header = getHeader(gabc);
+          isExtra = /^extra-/.test(part);
       if($includePart.parent('li').hasClass('disabled') ||
         (!isExtra && includePropers.indexOf(part)<0) ||
         !gabc) return;
+      parts.push({ part: part, gabc: gabc, pageBreak: hasPageBreak && parts.length > 0 });
+    });
+    return { name: name || '', parts: parts };
+  };
+  var getProcessSolesmes = function() {
+    var shouldRemoveSolesmes = $('#removeSolesmes > span.glyphicon').hasClass('glyphicon-unchecked');
+    return shouldRemoveSolesmes? removeSolesmes : function(gabc) { return gabc; };
+  };
+  var getAllGabc = window.getAllGabc = function() {
+    var pdfParts = getPdfParts();
+    var name = pdfParts.name;
+    var result=[];
+    var processSolesmes = getProcessSolesmes();
+    pdfParts.parts.forEach(function(pdfPart, i){
+      var gabc = pdfPart.gabc,
+          verses = sel[pdfPart.part+"Verses"],
+          gabcVerses = verses && verses.activeGabc,
+          header = getHeader(gabc);
       header.name = name || '';
       if(name) {
         header.commentary = header.commentary || ' ';
         name = '';
       }
-      if(hasPageBreak && !isFirstChant) {
+      if(pdfPart.pageBreak) {
         header['%pageBreak'] = 'true';
       }
       let size = getPaperSize();
-      if(isFirstChant) {
+      if(i == 0) {
         header['%fontsize'] = size.fontSize.toString();
       }
       header['%font'] = 'GaramondPremierPro';
@@ -3314,9 +3334,28 @@ $(function(){
         })); // use translations instead of multiple lines of lyrics
       result.push(gabc);
       if(gabcVerses) result.push(gabcVerses);
-      isFirstChant = false;
     });
     return result;
+  };
+  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width
+  var getPdfOptions = window.getPdfOptions = function() {
+    var pdfParts = getPdfParts();
+    var processSolesmes = getProcessSolesmes();
+    var chants = [];
+    pdfParts.parts.forEach(function(pdfPart) {
+      var verses = sel[pdfPart.part+"Verses"];
+      [pdfPart.part, verses && verses.activeGabc && pdfPart.part+"Verses"].forEach(function(part, i) {
+        var prop = part && sel[part];
+        if(!prop || !prop.activeExsurge) return;
+        var ctxt = makeExsurgeChantContext();
+        var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.activeExsurge));
+        var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
+        var annotation = makeAnnotation(part, ctxt);
+        if(annotation) score.annotation = annotation;
+        chants.push({ score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: i == 0 && pdfPart.pageBreak });
+      });
+    });
+    return { title: pdfParts.name, paper: getPaperSize(), chants: chants };
   };
   $('#lnkPdf').click(function(e){
     var result=getAllGabc().join('\n\n');    
@@ -3339,6 +3378,10 @@ $(function(){
     $('#pdff_height').val(size.height || '11');
     $('#pdff_fontsize').val(size.fontSize);
     $("#pdfFormDirect").submit();
+  });
+  $('#lnkPdfQuick').click(function(e){
+    e.preventDefault();
+    ChantPdf.download(this, getPdfOptions);
   });
   $('[id$=-preview]').on('relayout',function(){
       var part = this.id.match(/^([a-z]+)-preview$/)[1];

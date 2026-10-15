@@ -19,7 +19,8 @@
   },
   "scripts": {
     "test": "bun test",
-    "download-gabc": "node download-gabc.js && bun test"
+    "download-gabc": "node download-gabc.js && bun test",
+    "vendor:pdf": "cp node_modules/jspdf/dist/jspdf.umd.min.js node_modules/svg2pdf.js/dist/svg2pdf.umd.min.js js/"
   },
   "devDependencies": {
     "@prettier/sync": "^0.6.1",
@@ -27,6 +28,8 @@
     "cordova-ios": "^8.1.1",
     "cordova-webintent": "github:cordova-misc/cordova-webintent",
     "hypher": "^0.2.5",
-    "prettier": "^3.9.9"
+    "jspdf": "^4.2.1",
+    "prettier": "^3.9.9",
+    "svg2pdf.js": "^2.8.1"
   }
 }
