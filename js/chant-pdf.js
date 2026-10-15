@@ -56,6 +56,20 @@ var ChantPdf = (function() {
     }
     return loading;
   }
+  // fonts: [{ url, family, style }], more TrueType fonts, as in fontFiles; resolves to [{ font, data }], leaving out
+  // any that can't be loaded, whose text svg2pdf then draws in Times
+  function loadMoreFonts(fonts) {
+    return Promise.all((fonts || []).map(function(font) {
+      return fetchBase64(font.url).then(function(data) {
+        return { font: font, data: data };
+      }, function(error) {
+        console.warn(error);
+        return null;
+      });
+    })).then(function(loaded) {
+      return loaded.filter(Boolean);
+    });
+  }
 
   // The sizes, in PDF points, that the sourceandsummit.com server's GregorioTeX PDFs use (see process.php in
   // gregoriophp): the lyrics are set at the font size, and the staff size is fontsize * 17 / 13.333, or 17 at 12pt.
@@ -372,12 +386,16 @@ var ChantPdf = (function() {
   //   title: printed at the top of the first page and used for the file name,
   //   paper: see getLayout,
   //   chants: [{ score, ctxt, commentary, pageBreak }]; create() lays each score out again at the paper's sizes
-  //     and width, and puts ctxt back afterwards
+  //     and width, and puts ctxt back afterwards,
+  //   fonts: [{ url, family, style }], TrueType fonts that the chants' text uses besides Crimson Text, where family
+  //     is the name in the chant's font-family and style is normal, bold, italic or bolditalic
   // }
   // Resolves to the jsPDF document.
   function create(options) {
-    return load().then(function(fontData) {
-      var layout = getLayout(options.paper || {}),
+    return Promise.all([load(), loadMoreFonts(options.fonts)]).then(function(results) {
+      var fontData = results[0],
+          moreFonts = results[1],
+          layout = getLayout(options.paper || {}),
           sizes = layout.sizes,
           pageWidth = layout.pageWidth,
           pageHeight = layout.pageHeight,
@@ -391,6 +409,11 @@ var ChantPdf = (function() {
         var fileName = font[0].replace(/^.*\//, '');
         doc.addFileToVFS(fileName, fontData[i]);
         doc.addFont(fileName, font[1], font[2]);
+      });
+      moreFonts.forEach(function(loaded, i) {
+        var fileName = 'font-' + i + '.ttf';
+        doc.addFileToVFS(fileName, loaded.data);
+        doc.addFont(fileName, loaded.font.family, loaded.font.style);
       });
       doc.setProperties({ title: options.title || '', creator: 'Chant Tools' });
 

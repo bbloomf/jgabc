@@ -682,7 +682,8 @@ $(function() {
       return {
         title: header.name,
         paper: ChantPdf.getPaper(header, { fontSize: 20 }),
-        chants: [{ score: makeExportScore(), ctxt: exportContext, commentary: header.commentary }]
+        chants: [{ score: makeExportScore(), ctxt: exportContext, commentary: header.commentary }],
+        fonts: pdfFonts
       };
     });
   });
@@ -788,18 +789,35 @@ $(function() {
     width *= 96;
     return width;
   }
+  // whether the header sets a text style's own font or color (lyric.font: ...; or exsurge.lyric.font: ...;), which
+  // addHeaderKeyToContext has already put in the contexts
+  function headerSetsTextStyle(header, textStyleKey, key) {
+    return ['', 'exsurge.'].some(function(prefix) {
+      var name = prefix + textStyleKey + '.' + key;
+      return header[name] || header.cValues[name];
+    });
+  }
+  // the format() names @font-face takes for each kind of font file
+  var cssFontFormats = { ttf: 'truetype', otf: 'opentype', woff: 'woff', woff2: 'woff2' };
+  // the header's TrueType fonts, for ChantPdf.create(), which can only embed those
+  var pdfFonts = [];
   function setupFontFromHeader(header) {
     var customFont = '';
+    var customFaces = []; // for document.fonts.load()
+    pdfFonts = [];
     var fontFamilies = {};
+    var textColors = {};
     ['','lyric','al','dropCap','annotation'].forEach(function(fontType){
       var prefix = fontType + (fontType? 'Font':'font');
       var key = prefix + 'Family';
       var font = header[key] || header.cValues[key];
+      // the text styles this font type sets; translations follow the lyrics
+      var textStyleKeys = fontType == 'lyric'? ['lyric', 'translation'] : [fontType];
       // text color:
       if(fontType) {
         var colorKey = fontType+'TextColor';
         var textColor = header[colorKey] || header.cValues[colorKey];
-        if(textColor) exportContext[colorKey] = ctxt[colorKey] = textColor;
+        if(textColor) textStyleKeys.forEach(function(textStyleKey) { textColors[textStyleKey] = textColor; });
       }
     
       ['','Bold','Italic','BoldItalic'].forEach(function(style) {
@@ -807,41 +825,58 @@ $(function() {
         var val = header[key] || header.cValues[key];
         var match = val && val.match(/\.([ot]tf|woff2?)/);
         var format = header.fontFormat || header.cValues.fontFormat;
-        if(format && !format.match(/^([ot]f|woff2?)$/)) format = '';
+        if(format && !format.match(/^([ot]tf|woff2?)$/)) format = '';
         if(val && (match || format)) {
-          format = format || match[1];
+          format = cssFontFormats[format || match[1]];
           font = font || "'Custom Exsurge Font'";
+          var familyName = font.replace(/^(['"])(.*)\1$/, '$2'),
+              family = "'" + familyName + "'";
+          if(format == 'truetype') pdfFonts.push({ url: val, family: familyName, style: style.toLowerCase() || 'normal' });
           customFont += "\
 @font-face {\
-  font-family: '" + (font) + "';\
+  font-family: " + (family) + ";\
   src: url('" + (val) + "') format('" + (format) + "');\
   " + (style.match(/Bold/)? 'font-weight: bold;' : '') + "\
   font-style: " + (style.match(/Italic/)? 'italic': 'normal') + ";\
 }";
+          customFaces.push((style.match(/Italic/)? 'italic ' : '') + (style.match(/Bold/)? 'bold ' : '') + '16px ' + family);
         }
         if(fontType) {
-          if(font) fontFamilies[fontType] = font;
+          if(font) textStyleKeys.forEach(function(textStyleKey) { fontFamilies[textStyleKey] = font; });
         } else {
+          // the font for all of the text, unless a font type below has its own
           font = font || "'Crimson Text'";
-          fontFamilies.lyric = fontFamilies.al = fontFamilies.dropCap = fontFamilies.annotation = font;
+          Object.keys(ctxt.textStyles).forEach(function(textStyleKey) { fontFamilies[textStyleKey] = font; });
         }
       });
     });
-    if(customFont) {
-      var fontStyle = document.querySelector('#customFontStyle');
-      if(fontStyle) {
-        fontStyle.removeChild(fontStyle.firstChild);
-      } else {
+    var fontStyle = document.querySelector('#customFontStyle');
+    // (only when it changes, as new @font-face rules have to load again)
+    if(customFont && (!fontStyle || fontStyle.textContent != customFont)) {
+      if(!fontStyle) {
         fontStyle = document.createElement('style');
         fontStyle.id = 'customFontStyle';
+        document.head.appendChild(fontStyle);
       }
-      fontStyle.appendChild(document.createTextNode(customFont));
-      document.head.appendChild(fontStyle);
+      fontStyle.textContent = customFont;
+      // The text was measured before the browser had the new fonts, so the chant is made again once they load
+      if(document.fonts) {
+        Promise.all(customFaces.map(function(face) { return document.fonts.load(face); })).then(function() {
+          $('#editor').keyup();
+        }, function() {});
+      }
     }
-    exportContext.lyricTextFont = ctxt.lyricTextFont = fontFamilies.lyric + ", serif";
-    exportContext.dropCapTextFont = ctxt.dropCapTextFont = fontFamilies.dropCap + ", serif";
-    exportContext.annotationTextFont = ctxt.annotationTextFont = fontFamilies.annotation + ", serif";
-    exportContext.alTextFont = ctxt.alTextFont = fontFamilies.al + ", serif";
+    // exsurge keeps each kind of text's font and color in ctxt.textStyles; the sizes are left as
+    // makeExsurgeChantContext set them
+    [ctxt, exportContext].forEach(function(context) {
+      Object.keys(context.textStyles).forEach(function(textStyleKey) {
+        var textStyle = context.textStyles[textStyleKey];
+        if(!headerSetsTextStyle(header, textStyleKey, 'font')) textStyle.font = fontFamilies[textStyleKey] + ", serif";
+        if(!headerSetsTextStyle(header, textStyleKey, 'color')) {
+          textStyle.color = textColors[textStyleKey] || context.textColor;
+        }
+      });
+    });
     ctxt.setGlyphScaling(ctxt.glyphScaling);
     exportContext.setGlyphScaling(exportContext.glyphScaling);
   }
