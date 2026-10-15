@@ -1,6 +1,6 @@
 {
   "name": "jgabc",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "description": "Chant Tools",
   "homepage": "https://github.com/bbloomf/jgabc#readme",
   "bugs": {
@@ -29,7 +29,8 @@
   "scripts": {
     "test": "bun test",
     "download-gabc": "node download-gabc.js && bun test",
-    "vendor:pdf": "cp node_modules/jspdf/dist/jspdf.umd.min.js node_modules/svg2pdf.js/dist/svg2pdf.umd.min.js js/"
+    "vendor:pdf": "cp node_modules/jspdf/dist/jspdf.umd.min.js node_modules/svg2pdf.js/dist/svg2pdf.umd.min.js js/",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "@prettier/sync": "^0.6.1",
