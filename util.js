@@ -311,6 +311,8 @@ GabcHeader.prototype.toString = function(){
   }
   for(key in this.cValues){
     if(key.length==0 || !this.cValues.hasOwnProperty(key))continue;
+    var alternateKey = key.replace(/[A-Z]/g,function(letter) { return '-'+letter.toLowerCase(); });
+    if(alternateKey != key && alternateKey in this.cValues) continue;
     result .push('%'+key + ': ' + this.cValues[key] + ';');
   }
   for(i in this.comments){
