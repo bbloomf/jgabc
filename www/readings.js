@@ -739,6 +739,18 @@ $(function() {
     }
     $("#pdfFormDirect").submit();
   });
+  $('#lnkPdfQuick').click(function(e){
+    e.preventDefault();
+    ChantPdf.download(this, function() {
+      var header = getHeader($('#txtGabc').val()),
+          pdfContext = makeExsurgeChantContext();
+      return {
+        title: header.name,
+        paper: ChantPdf.getPaper(header, { fontSize: parseFloat($('#pdff_fontsize').val()) }),
+        chants: [{ score: makeScore(pdfContext), ctxt: pdfContext, commentary: header.commentary }]
+      };
+    });
+  });
   localStorage.removeItem("cbTeX");
   if(localStorage.customReadingTones){
     custom_tones=JSON.parse(localStorage.customReadingTones);
@@ -757,7 +769,13 @@ $(function() {
   var chantContainer = $('#chant-preview')[0];
   var score;
   $('#txtGabc').keyup(function(){
-    var gabc = this.value.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
+    score = makeScore(ctxt);
+    layoutChant();
+  }).keyup();
+  // a new score of the chant in #txtGabc
+  function makeScore(ctxt) {
+    var text = $('#txtGabc').val();
+    var gabc = text.replace(/(<b>[^<]+)<sp>'(?:oe|œ)<\/sp>/g,'$1œ</b>\u0301<b>') // character doesn't work in the bold version of this font.
       .replace(/<b><\/b>/g,'')
       .replace(/<sp>'(?:ae|æ)<\/sp>/g,'ǽ')
       .replace(/<sp>'(?:oe|œ)<\/sp>/g,'œ́')
@@ -768,14 +786,14 @@ $(function() {
       .replace(/<\/?i>/g,'_')
         .replace(/(\s)_([^\s*]+)_(\(\))?(\s)/g,"$1^_$2_^$3$4")
         .replace(/(\([cf][1-4]\)|\s)(\d+\.)(\s\S)/g,"$1^$2^$3");
-    var header = getHeader(this.value);
+    var header = getHeader(text);
     var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
-    score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
+    var score = new exsurge.ChantScore(ctxt, mappings, header['initial-style']!=='0');
     if(header['initial-style']!=='0' && header.annotation) {
       score.annotation = new exsurge.Annotation(ctxt, header.annotation);
     }
-    layoutChant();
-  }).keyup();
+    return score;
+  }
   function loadVulgateReference() {
     var book = $('#vulgateBook').val(),
         chapterVerse = $('#vulgateChapterVerse').val();
