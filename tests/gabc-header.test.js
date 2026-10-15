@@ -37,4 +37,8 @@ describe('header values', () => {
     expect(String(h)).toBe('name: Puer;\ncommentary: Is. 9:6;Ps. 97:1;\n%%\n');
     expect(context.getHeader(String(h)).commentary).toBe('Is. 9:6;Ps. 97:1');
   });
+  test('toString writes a hyphenated key once, not again in camelCase', () => {
+    const lines = ['initial-style: 0;', '%staff-line-count: 4;', '%width: 4.5;'];
+    expect(String(header(lines))).toBe(lines.join('\n') + '\n%%\n');
+  });
 });
