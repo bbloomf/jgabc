@@ -252,7 +252,8 @@ var rog = {
 var regexTag = /<(\/)?(\w+)>/i;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
-var regexHeaderLine = /^([\w-_.]+):\s*((?:[^;\r\n]|;[ \t])*)(?:;|$)/i;
+// only a semicolon at the end of the line ends the value, so a value may contain semicolons
+var regexHeaderLine = /^([\w-_.]+):\s*(.*?);?\s*$/i;
 var regexHeaderComment = /^%.*/;
 function GabcHeader(text){
   if(typeof(text)!='string') text='';
