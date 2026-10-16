@@ -252,7 +252,8 @@ var rog = {
 var regexTag = /<(\/)?(\w+)>/i;
 var regexOuter = /((([^\(\r\n]+)($|\())|\()([^\)]*)($|\))(?:(\s+)|(?=(?:\([^\)]*\))+(\s*))|)/g;
 var regexHeaderEnd=/(?:^|\n)%%\s?\n/;
-var regexHeaderLine = /^([\w-_.]+):\s*((?:[^;\r\n]|;[ \t])*)(?:;|$)/i;
+// only a semicolon at the end of the line ends the value, so a value may contain semicolons
+var regexHeaderLine = /^([\w-_.]+):\s*(.*?);?\s*$/i;
 var regexHeaderComment = /^%.*/;
 function GabcHeader(text){
   if(typeof(text)!='string') text='';
@@ -310,6 +311,8 @@ GabcHeader.prototype.toString = function(){
   }
   for(key in this.cValues){
     if(key.length==0 || !this.cValues.hasOwnProperty(key))continue;
+    var alternateKey = key.replace(/[A-Z]/g,function(letter) { return '-'+letter.toLowerCase(); });
+    if(alternateKey != key && alternateKey in this.cValues) continue;
     result .push('%'+key + ': ' + this.cValues[key] + ';');
   }
   for(i in this.comments){
