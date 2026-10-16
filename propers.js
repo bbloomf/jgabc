@@ -3381,7 +3381,7 @@ $(function(){
   });
   $('#lnkPdfQuick').click(function(e){
     e.preventDefault();
-    ChantPdf.download(this, getPdfOptions);
+    ChantPdf.show(this, getPdfOptions);
   });
   $('[id$=-preview]').on('relayout',function(){
       var part = this.id.match(/^([a-z]+)-preview$/)[1];

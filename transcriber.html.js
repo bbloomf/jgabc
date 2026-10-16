@@ -677,7 +677,7 @@ $(function() {
   });
   $('#lnkPdfQuick').click(function(e){
     e.preventDefault();
-    ChantPdf.download(this, function() {
+    ChantPdf.show(this, function() {
       var header = getHeader($('#editor').val());
       return {
         title: header.name,
