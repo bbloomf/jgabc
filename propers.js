@@ -564,7 +564,7 @@ $(function(){
     $('#lbl'+capPart).find('a').attr('href',(id && typeof(id)!='object')? gregobaseUrlPrefix+id : null);
     $div.toggleClass('showing-chant', !!(id && id != 'no'));
     if(id || (selDay=='custom' && !isOrdinaryPart)) {
-      $includePart.parent('li').removeClass('disabled');
+      setPartIncludable($includePart, true);
       var $txt = $('#txt'+capPart);
       $div.show();
       var $sel = $('#sel'+capPart);
@@ -772,8 +772,15 @@ $(function(){
       } else {
         $div.hide();
       }
-      $includePart.parent('li').addClass('disabled');
+      // forget the chant that is no longer shown, so it can't be printed if this part's next chant fails to load
+      if(sel[part]) sel[part].activeExsurge = null;
+      setPartIncludable($includePart, false);
     }
+  }
+  // enables or disables a part in the "Include in PDF" menu, which decides whether the PDF buttons have anything to print
+  function setPartIncludable($includePart, includable) {
+    $includePart.parent('li').toggleClass('disabled', !includable);
+    updateQuickPdf();
   }
   var removeMultipleGraduales = function() {
     var i = 1;
@@ -784,6 +791,7 @@ $(function(){
       ++i;
       $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     }
+    updateQuickPdf();
   };
   var setGradualeId = function(id) {
     var appendId = function(i,val) {
@@ -867,6 +875,7 @@ $(function(){
     $('a[id^=include]').each(function(){
       includePropers.push(this.id.slice(7).toLowerCase());
     });
+    updateQuickPdf();
     return $newGraduale;
   }
   var updateDay = function(gregorianBooksPage) {
@@ -2658,6 +2667,7 @@ $(function(){
     prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
     var annotation = makeAnnotation(part, ctxt);
     if(annotation) score.annotation = annotation;
+    updateQuickPdf();
     layoutChant(part, false, id);
   }
   // the annotation above the drop cap, e.g. Int. IV
@@ -3274,6 +3284,10 @@ $(function(){
         name = name.replace(/^\w{3}\s+\d+\:\s+(.+)$/,'$1');
       }
     }
+    return { name: name || '', parts: getPdfPartList() };
+  };
+  // The chants to print, in page order, without the name of the Mass
+  var getPdfPartList = function() {
     var parts = [];
     $('[part]').each(function(){
       var $this = $(this),
@@ -3289,7 +3303,7 @@ $(function(){
         !gabc) return;
       parts.push({ part: part, gabc: gabc, pageBreak: hasPageBreak && parts.length > 0 });
     });
-    return { name: name || '', parts: parts };
+    return parts;
   };
   var getProcessSolesmes = function() {
     var shouldRemoveSolesmes = $('#removeSolesmes > span.glyphicon').hasClass('glyphicon-unchecked');
@@ -3337,39 +3351,67 @@ $(function(){
     });
     return result;
   };
+  // The parts Quick PDF prints, in page order: each chant in getPdfPartList that has been loaded, and its verses
+  var getPdfChantParts = function(pdfParts) {
+    var result = [];
+    pdfParts.forEach(function(pdfPart) {
+      var verses = sel[pdfPart.part+"Verses"];
+      [pdfPart.part, verses && verses.activeGabc && pdfPart.part+"Verses"].forEach(function(part, i) {
+        var prop = part && sel[part];
+        if(prop && prop.activeExsurge) result.push({ part: part, pageBreak: i == 0 && pdfPart.pageBreak });
+      });
+    });
+    return result;
+  };
   // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width
   var getPdfOptions = window.getPdfOptions = function() {
     var pdfParts = getPdfParts();
     var processSolesmes = getProcessSolesmes();
-    var chants = [];
-    pdfParts.parts.forEach(function(pdfPart) {
-      var verses = sel[pdfPart.part+"Verses"];
-      [pdfPart.part, verses && verses.activeGabc && pdfPart.part+"Verses"].forEach(function(part, i) {
-        var prop = part && sel[part];
-        if(!prop || !prop.activeExsurge) return;
-        var ctxt = makeExsurgeChantContext();
-        var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.activeExsurge));
-        var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
-        var annotation = makeAnnotation(part, ctxt);
-        if(annotation) score.annotation = annotation;
-        chants.push({ score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: i == 0 && pdfPart.pageBreak });
-      });
+    var chants = getPdfChantParts(pdfParts.parts).map(function(chantPart) {
+      var prop = sel[chantPart.part];
+      var ctxt = makeExsurgeChantContext();
+      var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.activeExsurge));
+      var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
+      var annotation = makeAnnotation(chantPart.part, ctxt);
+      if(annotation) score.annotation = annotation;
+      return { score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: chantPart.pageBreak };
     });
     return { title: pdfParts.name, paper: getPaperSize(), chants: chants };
   };
+  // The PDF buttons are disabled while there are no chants for them to print, with a title that says why.
+  // This waits for the current changes to finish, which also lets it be called while the page is still being set up.
+  function updateQuickPdf() {
+    clearTimeout(updateQuickPdf.timeout);
+    updateQuickPdf.timeout = setTimeout(function() {
+      var parts = getPdfPartList();
+      enablePdfButton($('#lnkPdfQuick'), getPdfChantParts(parts).length > 0);
+      enablePdfButton($('#lnkPdfDirect'), parts.length > 0);
+      enablePdfButton($('#lnkPdf'), parts.length > 0);
+    });
+  }
+  function enablePdfButton($button, enabled) {
+    if($button.data('title') === undefined) $button.data('title', $button.attr('title') || null);
+    $button.toggleClass('disabled', !enabled).attr({
+      'aria-disabled': !enabled,
+      tabindex: enabled? null : -1,
+      title: enabled? $button.data('title') : 'Choose a Mass or chant, and check it in "Include in PDF", to make a PDF'
+    });
+  }
   $('#lnkPdf').click(function(e){
-    var result=getAllGabc().join('\n\n');    
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
+    if($(this).hasClass('disabled')) return;
+    var result=getAllGabc().join('\n\n');
     $('#pdfForm').attr('action','https://www.sourceandsummit.com/editor/legacy/#' + encodeURI(result)).submit();
   });
   $('#lnkPdfDirect').click(function(e){
-    var gabcs=getAllGabc();
-    var size = getPaperSize();
     if(e && typeof(e.preventDefault)=="function"){
       e.preventDefault();
     }
+    if($(this).hasClass('disabled')) return;
+    var gabcs=getAllGabc();
+    var size = getPaperSize();
     $('#pdfFormDirect [name="gabc[]"]').remove();
     for(var i=0;i<gabcs.length;++i){
       $('#pdfFormDirect').append($('<input type="hidden" name="gabc[]"/>').val(gabcs[i]));
@@ -3381,6 +3423,7 @@ $(function(){
   });
   $('#lnkPdfQuick').click(function(e){
     e.preventDefault();
+    if($(this).hasClass('disabled')) return;
     ChantPdf.show(this, getPdfOptions);
   });
   $('[id$=-preview]').on('relayout',function(){
@@ -3406,6 +3449,7 @@ $(function(){
       includePropers.splice(i,1);
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
+    updateQuickPdf();
   }).on('click','a#removeSolesmes',function(e){
     e.preventDefault();
     e.stopPropagation();
@@ -4164,4 +4208,5 @@ console.info(JSON.stringify(selPropers));
   selTempus = getSeasonForMoment(new moment());
   updateTempus();
   hashChanged(true);
+  updateQuickPdf();
 });
