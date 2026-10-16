@@ -446,19 +446,78 @@ var ChantPdf = (function() {
     return (title || 'Chant').replace(/[\\/:*?"<>|]+/g, '-').trim() + '.pdf';
   }
 
-  // Makes and saves the PDF for a button click; getOptions is called once the libraries have loaded and returns
-  // the options for create().
-  function download(button, getOptions) {
+  // The tab the PDF will open in.  It has to be opened during the click, before the PDF is made, or the browser
+  // blocks it.  Returns null if it was blocked anyway.
+  function openTab() {
+    var tab = window.open('', '_blank');
+    if(tab) {
+      tab.document.title = 'Making PDF…';
+      tab.document.body.textContent = 'Making PDF…';
+    }
+    return tab;
+  }
+
+  // The app's web views (Android's WebView and iOS's WKWebView) ignore downloads, so the PDF is written to the app's
+  // cache and opened in the phone's PDF viewer, with cordova-plugin-file and cordova-plugin-file-opener2.
+  function openInApp(blob, name) {
+    function failed(reject, what) {
+      return function(error) {
+        var detail = error && (error.message || error.code != null && 'error ' + error.code);
+        reject(new Error(what + (detail? ' (' + detail + ')' : '')));
+      };
+    }
+    return new Promise(function(resolve) {
+      document.addEventListener('deviceready', resolve, false);
+    }).then(function() {
+      if(!window.resolveLocalFileSystemURL || !(window.cordova.plugins && window.cordova.plugins.fileOpener2)) {
+        throw new Error("this version of the app can't open PDFs");
+      }
+      return new Promise(function(resolve, reject) {
+        var saveFailed = failed(reject, 'the phone could not save it');
+        window.resolveLocalFileSystemURL(window.cordova.file.cacheDirectory, function(dir) {
+          dir.getFile(name, { create: true }, function(file) {
+            file.createWriter(function(writer) {
+              // an earlier, longer PDF of the same name is cut short first
+              var truncated = false;
+              writer.onwriteend = function() {
+                if(truncated) return resolve(file.nativeURL);
+                truncated = true;
+                writer.write(blob);
+              };
+              writer.onerror = saveFailed;
+              writer.truncate(0);
+            }, saveFailed);
+          }, saveFailed);
+        }, saveFailed);
+      });
+    }).then(function(url) {
+      return new Promise(function(resolve, reject) {
+        window.cordova.plugins.fileOpener2.open(url, 'application/pdf', {
+          success: resolve,
+          error: failed(reject, 'no app could open it')
+        });
+      });
+    });
+  }
+
+  // Makes the PDF for a button click and shows it: in a new tab on the web, or in the phone's PDF viewer in the app.
+  // getOptions is called once the libraries have loaded and returns the options for create().
+  function show(button, getOptions) {
     var $button = $(button);
     if($button.hasClass('disabled')) return Promise.resolve();
-    var label = $button.text();
+    var label = $button.text(),
+        tab = window.cordova? null : openTab();
     $button.addClass('disabled').attr('aria-busy', 'true').text('Making PDF…');
     return load().then(function() {
       var options = getOptions();
       return create(options).then(function(doc) {
-        doc.save(fileName(options.title));
+        var name = fileName(options.title);
+        if(window.cordova) return openInApp(doc.output('blob'), name);
+        if(!tab) return doc.save(name);
+        if(!tab.closed) tab.location.replace(doc.output('bloburl'));
       });
     }).catch(function(error) {
+      if(tab) tab.close();
       console.error(error);
       alert('Sorry, the PDF could not be made: ' + (error && error.message || error));
     }).then(function() {
@@ -467,5 +526,5 @@ var ChantPdf = (function() {
   }
 
   return { load: load, getPaper: getPaper, getSizes: getSizes, getLayout: getLayout, paginate: paginate, create: create,
-    download: download };
+    show: show };
 })();
