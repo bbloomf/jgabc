@@ -7,6 +7,7 @@
     <author email="bhb123+jgabc@gmail.com" href="http://github.com/bbloomf">
         Benjamin Bloomfield
     </author>
+    <hook type="before_prepare" src="hooks/sync-config-version.js" />
     <content src="propers.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
