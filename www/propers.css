@@ -23,6 +23,10 @@ label {
 select[disabled] {
   color: #8c8c8c;
 }
+/* the PDF buttons keep their hover while disabled so their title can say why; propers.js ignores their clicks */
+a.btn.disabled[id^=lnkPdf] {
+  pointer-events: auto;
+}
 a:not([href]),
 a:not([href]):hover {
   color: #000;
