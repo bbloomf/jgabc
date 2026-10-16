@@ -741,7 +741,7 @@ $(function() {
   });
   $('#lnkPdfQuick').click(function(e){
     e.preventDefault();
-    ChantPdf.download(this, function() {
+    ChantPdf.show(this, function() {
       var header = getHeader($('#txtGabc').val()),
           pdfContext = makeExsurgeChantContext();
       return {

@@ -27,6 +27,8 @@
     "@prettier/sync": "^0.6.1",
     "cordova-android": "^15.1.0",
     "cordova-ios": "^8.1.1",
+    "cordova-plugin-file": "^8.1.3",
+    "cordova-plugin-file-opener2": "^4.0.0",
     "cordova-webintent": "github:cordova-misc/cordova-webintent",
     "hypher": "^0.2.5",
     "jspdf": "^4.2.1",
