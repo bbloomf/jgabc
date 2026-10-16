@@ -773,6 +773,7 @@ $(function(){
         $div.hide();
       }
       $includePart.parent('li').addClass('disabled');
+      updateQuickPdf();
     }
   }
   var removeMultipleGraduales = function() {
@@ -784,6 +785,7 @@ $(function(){
       ++i;
       $multipleGraduales = $('.multiple-graduales-'+i+',.multiple-lectiones-'+i);
     }
+    updateQuickPdf();
   };
   var setGradualeId = function(id) {
     var appendId = function(i,val) {
@@ -867,6 +869,7 @@ $(function(){
     $('a[id^=include]').each(function(){
       includePropers.push(this.id.slice(7).toLowerCase());
     });
+    updateQuickPdf();
     return $newGraduale;
   }
   var updateDay = function(gregorianBooksPage) {
@@ -2659,6 +2662,7 @@ $(function(){
     var annotation = makeAnnotation(part, ctxt);
     if(annotation) score.annotation = annotation;
     layoutChant(part, false, id);
+    updateQuickPdf();
   }
   // the annotation above the drop cap, e.g. Int. IV
   function makeAnnotation(part, ctxt) {
@@ -3337,26 +3341,41 @@ $(function(){
     });
     return result;
   };
-  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width
-  var getPdfOptions = window.getPdfOptions = function() {
-    var pdfParts = getPdfParts();
-    var processSolesmes = getProcessSolesmes();
-    var chants = [];
+  // The parts Quick PDF prints, in page order: each chant in getPdfParts that has been loaded, and its verses
+  var getPdfChantParts = function(pdfParts) {
+    var result = [];
     pdfParts.parts.forEach(function(pdfPart) {
       var verses = sel[pdfPart.part+"Verses"];
       [pdfPart.part, verses && verses.activeGabc && pdfPart.part+"Verses"].forEach(function(part, i) {
         var prop = part && sel[part];
-        if(!prop || !prop.activeExsurge) return;
-        var ctxt = makeExsurgeChantContext();
-        var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.activeExsurge));
-        var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
-        var annotation = makeAnnotation(part, ctxt);
-        if(annotation) score.annotation = annotation;
-        chants.push({ score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: i == 0 && pdfPart.pageBreak });
+        if(prop && prop.activeExsurge) result.push({ part: part, pageBreak: i == 0 && pdfPart.pageBreak });
       });
+    });
+    return result;
+  };
+  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width
+  var getPdfOptions = window.getPdfOptions = function() {
+    var pdfParts = getPdfParts();
+    var processSolesmes = getProcessSolesmes();
+    var chants = getPdfChantParts(pdfParts).map(function(chantPart) {
+      var prop = sel[chantPart.part];
+      var ctxt = makeExsurgeChantContext();
+      var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.activeExsurge));
+      var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
+      var annotation = makeAnnotation(chantPart.part, ctxt);
+      if(annotation) score.annotation = annotation;
+      return { score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: chantPart.pageBreak };
     });
     return { title: pdfParts.name, paper: getPaperSize(), chants: chants };
   };
+  // Quick PDF is disabled while there are no chants for it to print.
+  // This waits for the current changes to finish, which also lets it be called while the page is still being set up.
+  function updateQuickPdf() {
+    clearTimeout(updateQuickPdf.timeout);
+    updateQuickPdf.timeout = setTimeout(function() {
+      $('#lnkPdfQuick').toggleClass('disabled', !getPdfChantParts(getPdfParts()).length);
+    });
+  }
   $('#lnkPdf').click(function(e){
     var result=getAllGabc().join('\n\n');    
     if(e && typeof(e.preventDefault)=="function"){
@@ -3406,6 +3425,7 @@ $(function(){
       includePropers.splice(i,1);
       $span.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     }
+    updateQuickPdf();
   }).on('click','a#removeSolesmes',function(e){
     e.preventDefault();
     e.stopPropagation();
