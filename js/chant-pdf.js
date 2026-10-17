@@ -559,21 +559,9 @@ var ChantPdf = (function() {
     return (title || 'Chant').replace(/[\\/:*?"<>|]+/g, '-').trim() + '.pdf';
   }
 
-  // The tab the PDF will open in.  It has to be opened during the click, before the PDF is made, or the browser
-  // blocks it.  Returns null if it was blocked anyway.
-  function openTab() {
-    var tab = window.open('', '_blank');
-    if(tab) {
-      tab.document.title = 'Making PDF…';
-      tab.document.body.textContent = 'Making PDF…';
-    }
-    return tab;
-  }
-
-  // for when the tab was blocked
-  function download(blob, name) {
-    var url = URL.createObjectURL(blob),
-        link = document.createElement('a');
+  // for when even the tab opened by a click was blocked
+  function download(url, name) {
+    var link = document.createElement('a');
     link.href = url;
     link.download = name;
     document.body.appendChild(link);
@@ -628,26 +616,45 @@ var ChantPdf = (function() {
   // Makes the PDF for a button click and shows it: in a new tab on the web, or in the phone's PDF viewer in the app.
   // getOptions is called once the libraries have loaded and returns the options for create().
   function show(button, getOptions) {
-    var $button = $(button);
+    var $button = $(button),
+        made = takePdf($button);
     if($button.hasClass('disabled')) return Promise.resolve();
-    var label = $button.text(),
-        tab = window.cordova? null : openTab();
+    if(made) {
+      if(!window.open(made.url, '_blank')) download(made.url, made.name);
+      return Promise.resolve();
+    }
+    var label = $button.text();
     $button.addClass('disabled').attr('aria-busy', 'true').text('Making PDF…');
     return load().then(function() {
       var options = getOptions();
       return create(options).then(function(pdf) {
         var name = fileName(options.title);
         if(window.cordova) return openInApp(pdf, name);
-        if(!tab) return download(pdf, name);
-        if(!tab.closed) tab.location.replace(URL.createObjectURL(pdf));
+        // The tab is opened once the PDF is made, so that the page stays in front while it's made: browsers slow down
+        // the pages behind other tabs.  But they only allow a tab for a short time after the click (about a second in
+        // Safari, and five in Chrome), so if it was blocked, the button opens the PDF instead.
+        var url = URL.createObjectURL(pdf);
+        if(!window.open(url, '_blank')) made = { url: url, name: name, label: label };
       });
     }).catch(function(error) {
-      if(tab) tab.close();
       console.error(error);
       alert('Sorry, the PDF could not be made: ' + (error && error.message || error));
     }).then(function() {
-      $button.removeClass('disabled').removeAttr('aria-busy').text(label);
+      $button.removeClass('disabled').removeAttr('aria-busy').text(made? 'Open PDF' : label);
+      if(!made) return;
+      $button.data('pdf', made);
+      // until something on the page changes, which would make a different PDF
+      $(document).one('change input', function() {
+        var stale = takePdf($button);
+        if(stale) URL.revokeObjectURL(stale.url);
+      });
     });
+  }
+  // Puts back the label of a button that was offering a PDF whose tab was blocked, and returns that PDF.
+  function takePdf($button) {
+    var made = $button.data('pdf');
+    if(made) $button.removeData('pdf').text(made.label);
+    return made;
   }
 
   return { load: load, getPaper: getPaper, getSizes: getSizes, getLayout: getLayout, paginate: paginate, create: create,
