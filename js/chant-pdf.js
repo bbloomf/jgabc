@@ -355,11 +355,14 @@ var ChantPdf = (function() {
   // - svg2pdf ignores textLength on a tspan, which exsurge uses to squeeze a hyphen into a tight gap; see fitTextLengths.
   // - svg2pdf works out where text goes by measuring it, which the worker can't do as the page does; see placeText.
   // - svg2pdf reads the <style> rules through the CSSOM, which the worker hasn't got; see inlineStyleSheets.
-  // The SVG has to be in the document for getComputedStyle to see its <style>.
+  // The SVG has to be in the document for getComputedStyle to see its <style>.  It goes in a shadow root, so that the
+  // page's styles, which svg2pdf doesn't see, don't move the text that placeText measures, and so that its <style>
+  // doesn't apply to the page: its rules are for svg.Exsurge, like those of the page's own chants, so every chant on
+  // the page would be restyled and laid out again, twice for each line of the PDF.
   function prepareSvg(svg) {
     var host = document.createElement('div');
     host.style.cssText = 'position:absolute;left:-10000px;top:0;visibility:hidden';
-    host.appendChild(svg);
+    (host.attachShadow? host.attachShadow({ mode: 'open' }) : host).appendChild(svg);
     document.body.appendChild(host);
     try {
       [].forEach.call(svg.querySelectorAll('style'), function(style) {
@@ -403,7 +406,7 @@ var ChantPdf = (function() {
       inlineStyleSheets(svg);
     } finally {
       document.body.removeChild(host);
-      host.removeChild(svg);
+      svg.parentNode.removeChild(svg);
     }
     return svg;
   }
