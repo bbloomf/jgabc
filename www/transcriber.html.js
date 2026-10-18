@@ -537,7 +537,7 @@ function windowResized(){
   $cp.height(totalHeight - edHeight);
   $ed.height(edHeight);
   $("#blankSpace").height(Math.max($("#oneBox").height(),$("#twoBoxes").height()));
-  exsurge.layoutMyChant();
+  exsurge.layoutMyChant(true);
 }
 
 function toggleMode(e){
@@ -913,14 +913,20 @@ $(function() {
       return score.createSvgNode(exportContext);
     }
   }
-  function layoutChant() {
+  // the width the chant was last laid out at, so that a resize that doesn't
+  // change the width (e.g. a mobile URL bar showing or hiding) can skip it.
+  var layoutWidth;
+  function layoutChant(onlyIfWidthChanged) {
     if(!score) return;
-    setupFontFromHeader(currentHeader());
+    var header = currentHeader();
+    var width = getWidthInPixels(header);
+    var responsiveSVG = !!width;
+    if(!width) width = chantContainer.clientWidth;
+    if(onlyIfWidthChanged === true && width === layoutWidth) return;
+    layoutWidth = width;
+    setupFontFromHeader(header);
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
-      var width = getWidthInPixels(currentHeader());
-      var responsiveSVG = !!width;
-      if(!width) width = chantContainer.clientWidth;
       score.layoutChantLines(ctxt, width, function() {
         // render the score to svg code
         var svg = score.createSvgNode(ctxt);
@@ -935,6 +941,7 @@ $(function() {
     });
   }
   function layoutChantSync() {
+    layoutWidth = undefined;
     // perform layout on the chant
     score.performLayout(ctxt);
     score.layoutChantLines(ctxt, chantContainer.clientWidth);

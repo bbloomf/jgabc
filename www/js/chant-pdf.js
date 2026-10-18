@@ -1,5 +1,7 @@
 // Quick PDF: makes a PDF in the browser from exsurge's SVG (with jsPDF and svg2pdf.js) instead of sending the
-// gabc to the sourceandsummit.com server.  The libraries and fonts are only downloaded the first time.
+// gabc to the sourceandsummit.com server.  The page lays the chant out, as that needs exsurge and the browser's
+// fonts, and a web worker draws the PDF (see chant-pdf-render.js).  The libraries and fonts are only downloaded the
+// first time.
 var ChantPdf = (function() {
   // [url, jsPDF font name, style]; the names match the font-family values in exsurge's SVG, apart from the
   // semibold face, which only the title uses
@@ -16,7 +18,7 @@ var ChantPdf = (function() {
     'italic bold 16px "Crimson Text"', '16px Versiculum'];
   // small caps are drawn as capitals at this fraction of the font size
   var smallCapsSize = 0.7;
-  var loading = null;
+  var renderer = null, loading = null;
 
   function loadScript(src) {
     return new Promise(function(resolve, reject) {
@@ -27,47 +29,102 @@ var ChantPdf = (function() {
       document.head.appendChild(script);
     });
   }
-  function fetchBase64(url) {
-    return fetch(url).then(function(response) {
-      if(!response.ok) throw new Error('Could not load ' + url);
-      return response.arrayBuffer();
-    }).then(function(buffer) {
-      var bytes = new Uint8Array(buffer), binary = '';
-      for(var i = 0; i < bytes.length; i += 0x8000) {
-        binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
-      }
-      return btoa(binary);
+  // fonts: [{ url, family, style }]; the worker's URLs are relative to js/, so they're made absolute
+  function absoluteFonts(fonts) {
+    return (fonts || []).map(function(font) {
+      return { url: new URL(font.url, document.baseURI).href, family: font.family, style: font.style };
     });
   }
-  // resolves to the base64 data of fontFiles
+  function getFontFiles() {
+    return absoluteFonts(fontFiles.map(function(font) { return { url: font[0], family: font[1], style: font[2] }; }));
+  }
+  // Resolves to a function that calls one of ChantPdfRender's functions in the worker, and resolves to its result.
+  // Fails if the worker can't start, or can't load the fonts.
+  function startWorker() {
+    return new Promise(function(resolve, reject) {
+      var worker = new Worker('js/chant-pdf-render.js'),
+          calls = {},
+          nextId = 0,
+          ready = false;
+      function call(method, argument) {
+        return new Promise(function(resolve, reject) {
+          calls[++nextId] = { resolve: resolve, reject: reject };
+          worker.postMessage({ id: nextId, method: method, argument: argument });
+        });
+      }
+      worker.onmessage = function(event) {
+        var message = event.data;
+        if(message.ready) {
+          ready = true;
+          return call('loadFonts', getFontFiles()).then(function() { resolve(call); }, function(error) {
+            worker.terminate();
+            reject(error);
+          });
+        }
+        var pending = calls[message.id];
+        delete calls[message.id];
+        if(message.error) pending.reject(new Error(message.error));
+        else pending.resolve(message.result);
+      };
+      worker.onerror = function(event) {
+        var error = new Error(event.message || 'The PDF worker failed');
+        if(!ready) {
+          worker.terminate();
+          return reject(error);
+        }
+        Object.keys(calls).forEach(function(id) { calls[id].reject(error); });
+        calls = {};
+      };
+    });
+  }
+  // Where there's no worker (as perhaps in the iOS app, whose pages come from its own URL scheme), the PDF is drawn
+  // on the page, which then freezes while it's made.
+  function startOnPage() {
+    return loadScript('js/jspdf.umd.min.js').then(function() {
+      return loadScript('js/svg2pdf.umd.min.js');
+    }).then(function() {
+      return loadScript('js/chant-pdf-render.js');
+    }).then(function() {
+      return window.ChantPdfRender.loadFonts(getFontFiles());
+    }).then(function() {
+      return function(method, argument) {
+        return window.ChantPdfRender[method](argument);
+      };
+    });
+  }
+  // resolves to the function startWorker resolves to, or the like for the page
+  function startRenderer() {
+    if(!renderer) {
+      renderer = Promise.resolve().then(startWorker).catch(function(error) {
+        console.warn('Making the PDF on the page, as the worker could not start:', error);
+        return startOnPage();
+      });
+      renderer.catch(function() { renderer = null; }); // try again next time
+    }
+    return renderer;
+  }
+  // resolves to the function startRenderer resolves to, once the browser has the fonts to lay the chant out with
   function load() {
     if(!loading) {
-      loading = loadScript('js/jspdf.umd.min.js').then(function() {
-        return loadScript('js/svg2pdf.umd.min.js');
-      }).then(function() {
-        return Promise.all([
-          Promise.all(fontFiles.map(function(font) { return fetchBase64(font[0]); })),
-          document.fonts? Promise.all(browserFonts.map(function(font) { return document.fonts.load(font); })) : null
-        ]);
-      }).then(function(results) {
+      loading = Promise.all([
+        startRenderer(),
+        document.fonts? Promise.all(browserFonts.map(function(font) { return document.fonts.load(font); })) : null
+      ]).then(function(results) {
         return results[0];
       });
       loading.catch(function() { loading = null; }); // try again next time
     }
     return loading;
   }
-  // fonts: [{ url, family, style }], more TrueType fonts, as in fontFiles; resolves to [{ font, data }], leaving out
-  // any that can't be loaded, whose text svg2pdf then draws in Times
-  function loadMoreFonts(fonts) {
-    return Promise.all((fonts || []).map(function(font) {
-      return fetchBase64(font.url).then(function(data) {
-        return { font: font, data: data };
-      }, function(error) {
-        console.warn(error);
-        return null;
+  // Lets the page handle input and repaint, if it's been a while since the last pause.
+  var lastPause = 0;
+  function pause() {
+    if(Date.now() - lastPause < 30) return Promise.resolve();
+    return new Promise(function(resolve) {
+      setTimeout(function() {
+        lastPause = Date.now();
+        resolve();
       });
-    })).then(function(loaded) {
-      return loaded.filter(Boolean);
     });
   }
 
@@ -226,6 +283,68 @@ var ChantPdf = (function() {
     });
   }
 
+  // svg2pdf puts each tspan after the one before, and centres text, by measuring it.  The worker can only measure it
+  // in the PDF's fonts, which aren't always the page's (the page's Versiculum makes v. into ℣., much narrower than
+  // the PDF's), so each piece of text is given the x where the browser starts it, and starts there.
+  function placeText(svg) {
+    [].forEach.call(svg.querySelectorAll('text'), function(text) {
+      if(text.getNumberOfChars()) {
+        text.setAttribute('x', text.getStartPositionOfChar(0).x);
+        text.removeAttribute('dx');
+      }
+      text.setAttribute('text-anchor', 'start');
+      [].forEach.call(text.querySelectorAll('tspan'), function(tspan) {
+        tspan.removeAttribute('text-anchor');
+        if(tspan.childElementCount || !tspan.getNumberOfChars()) return;
+        // (in the text's own coordinates, as the tspan has none of its own)
+        tspan.setAttribute('x', tspan.getStartPositionOfChar(0).x);
+        tspan.removeAttribute('dx');
+      });
+    });
+  }
+
+  // Copies the declarations of the SVG's <style> rules onto the elements they match, where the element's own style
+  // doesn't set them, and removes the <style>s, as the worker can't parse them.  Where rules disagree the later one
+  // wins, which is enough for exsurge's rules, which each set the style of one class.
+  function inlineStyleSheets(svg) {
+    var elements = [svg].concat([].slice.call(svg.querySelectorAll('*'))),
+        fromRules = elements.map(function() { return {}; });
+    [].forEach.call(svg.querySelectorAll('style'), function(style) {
+      [].forEach.call(style.sheet? style.sheet.cssRules : [], function(rule) {
+        if(!rule.selectorText) return;
+        elements.forEach(function(el, i) {
+          if(!el.matches(rule.selectorText)) return;
+          for(var j = 0; j < rule.style.length; ++j) {
+            var name = rule.style[j];
+            fromRules[i][name] = rule.style.getPropertyValue(name);
+          }
+        });
+      });
+      style.parentNode.removeChild(style);
+    });
+    elements.forEach(function(el, i) {
+      Object.keys(fromRules[i]).forEach(function(name) {
+        if(!el.style.getPropertyValue(name)) el.style.setProperty(name, fromRules[i][name]);
+      });
+    });
+  }
+
+  // The SVG as plain objects that can be posted to the worker: { name, attributes: { name: value }, children },
+  // where each child is another of these, or a string of text.
+  function toTree(el) {
+    var attributes = {};
+    [].forEach.call(el.attributes, function(attr) {
+      attributes[attr.name] = attr.value;
+    });
+    return {
+      name: el.nodeName,
+      attributes: attributes,
+      children: [].map.call(el.childNodes, function(node) {
+        return node.nodeType == 1? toTree(node) : node.nodeType == 3? node.nodeValue : null;
+      }).filter(function(child) { return child !== null; })
+    };
+  }
+
   // Fixes the parts of exsurge's SVG that svg2pdf and jsPDF can't draw:
   // - The page's chant colours are CSS variables (see makeExsurgeChantContext), which svg2pdf can't read, so each
   //   one is replaced by its fallback; currentColor is drawn black.
@@ -234,6 +353,8 @@ var ChantPdf = (function() {
   // - svg2pdf ignores font-variant and percentage font sizes, so small caps become smaller capitals, and every
   //   percentage size is resolved.
   // - svg2pdf ignores textLength on a tspan, which exsurge uses to squeeze a hyphen into a tight gap; see fitTextLengths.
+  // - svg2pdf works out where text goes by measuring it, which the worker can't do as the page does; see placeText.
+  // - svg2pdf reads the <style> rules through the CSSOM, which the worker hasn't got; see inlineStyleSheets.
   // The SVG has to be in the document for getComputedStyle to see its <style>.
   function prepareSvg(svg) {
     var host = document.createElement('div');
@@ -278,31 +399,13 @@ var ChantPdf = (function() {
           el.parentNode.removeChild(el);
         }
       });
+      placeText(svg);
+      inlineStyleSheets(svg);
     } finally {
       document.body.removeChild(host);
       host.removeChild(svg);
     }
     return svg;
-  }
-
-  // jsPDF has no small caps, so the lower-case runs of text are drawn as smaller capitals, as prepareSvg does.
-  // x is where the text is aligned to.
-  function drawText(doc, text, x, y, font, fontSize, align, smallCaps) {
-    doc.setFont(font[0], font[1]);
-    var runs = (smallCaps? text.split(/(\p{Ll}+)/u) : [text]).map(function(run, i) {
-      var size = i % 2? fontSize * smallCapsSize : fontSize;
-      run = i % 2? run.toUpperCase() : run;
-      doc.setFontSize(size);
-      return { text: run, size: size, width: doc.getTextWidth(run) };
-    });
-    var width = runs.reduce(function(sum, run) { return sum + run.width; }, 0);
-    x -= align == 'center'? width / 2 : align == 'right'? width : 0;
-    runs.forEach(function(run) {
-      if(!run.text) return;
-      doc.setFontSize(run.size);
-      doc.text(run.text, x, y);
-      x += run.width;
-    });
   }
 
   // TeX keeps the lyrics lyricDrop below the bottom staff line, and only moves them down for a note, or a mark below
@@ -390,78 +493,65 @@ var ChantPdf = (function() {
   //   fonts: [{ url, family, style }], TrueType fonts that the chants' text uses besides Crimson Text, where family
   //     is the name in the chant's font-family and style is normal, bold, italic or bolditalic
   // }
-  // Resolves to the jsPDF document.
+  // Resolves to the PDF, as a Blob.
   function create(options) {
-    return Promise.all([load(), loadMoreFonts(options.fonts)]).then(function(results) {
-      var fontData = results[0],
-          moreFonts = results[1],
-          layout = getLayout(options.paper || {}),
-          sizes = layout.sizes,
-          pageWidth = layout.pageWidth,
-          pageHeight = layout.pageHeight,
-          doc = new window.jspdf.jsPDF({
-            unit: 'pt',
-            format: [pageWidth, pageHeight],
-            orientation: pageWidth > pageHeight? 'landscape' : 'portrait',
-            compress: true
-          });
-      fontFiles.forEach(function(font, i) {
-        var fileName = font[0].replace(/^.*\//, '');
-        doc.addFileToVFS(fileName, fontData[i]);
-        doc.addFont(fileName, font[1], font[2]);
-      });
-      moreFonts.forEach(function(loaded, i) {
-        var fileName = 'font-' + i + '.ttf';
-        doc.addFileToVFS(fileName, loaded.data);
-        doc.addFont(fileName, loaded.font.family, loaded.font.style);
-      });
-      doc.setProperties({ title: options.title || '', creator: 'Chant Tools' });
-
-      // TeX adds no space between chants: a chant's commentary goes just below the lyrics before it
-      var items = [];
-      if(options.title) {
-        items.push({ text: options.title, font: ['Crimson Text SemiBold', 'normal'], fontSize: sizes.title.size,
-          align: 'center', smallCaps: true, baseline: sizes.title.baseline, height: sizes.title.height,
-          keepWithNext: true });
-      }
-      (options.chants || []).forEach(function(chant) {
-        var lines = getLines(chant, layout);
-        if(!lines.length) return;
-        if(chant.commentary) {
-          lines.unshift({ text: chant.commentary, font: ['Crimson Text', 'italic'], fontSize: sizes.commentary.size,
-            align: 'right', baseline: sizes.commentary.baseline, height: sizes.commentary.height, keepWithNext: true });
-        }
-        lines[0].pageBreak = !!chant.pageBreak;
-        items = items.concat(lines);
-      });
-
-      var placements = paginate(items, pageHeight - 2 * layout.margin),
-          left = layout.margin,
-          right = pageWidth - left,
-          page = 0;
-      return items.reduce(function(previous, item, i) {
-        return previous.then(function() {
-          var placement = placements[i],
-              top = layout.margin + placement.y;
-          for(; page < placement.page; ++page) doc.addPage();
-          doc.setTextColor(0, 0, 0);
-          if(item.svg) {
-            // svg2pdf only sets the font style when it differs from its own default, so start from that default
-            doc.setFont('times', 'normal');
-            prepareSvg(item.svg);
-            return doc.svg(item.svg, {
-              x: left,
-              y: top,
-              width: parseFloat(item.svg.getAttribute('width')),
-              height: parseFloat(item.svg.getAttribute('height'))
+    var layout = getLayout(options.paper || {}),
+        sizes = layout.sizes,
+        // TeX adds no space between chants: a chant's commentary goes just below the lyrics before it
+        items = [];
+    if(options.title) {
+      items.push({ text: options.title, font: ['Crimson Text SemiBold', 'normal'], fontSize: sizes.title.size,
+        align: 'center', smallCaps: true, baseline: sizes.title.baseline, height: sizes.title.height,
+        keepWithNext: true });
+    }
+    return load().then(function(render) {
+      // the chants are laid out one by one, and each line's SVG fixed up for the worker, pausing now and then so
+      // the page stays responsive
+      return (options.chants || []).reduce(function(previous, chant) {
+        return previous.then(pause).then(function() {
+          var lines = getLines(chant, layout);
+          if(!lines.length) return;
+          return lines.reduce(function(previous, line) {
+            return previous.then(pause).then(function() {
+              var svg = prepareSvg(line.svg);
+              line.width = parseFloat(svg.getAttribute('width'));
+              line.svg = toTree(svg);
             });
-          }
-          drawText(doc, item.text, item.align == 'center'? pageWidth / 2 : right, top + item.baseline, item.font,
-            item.fontSize, item.align, item.smallCaps);
+          }, Promise.resolve()).then(function() {
+            if(chant.commentary) {
+              lines.unshift({ text: chant.commentary, font: ['Crimson Text', 'italic'],
+                fontSize: sizes.commentary.size, align: 'right', baseline: sizes.commentary.baseline,
+                height: sizes.commentary.height, keepWithNext: true });
+            }
+            lines[0].pageBreak = !!chant.pageBreak;
+            items = items.concat(lines);
+          });
         });
       }, Promise.resolve()).then(function() {
-        return doc;
+        var placements = paginate(items, layout.pageHeight - 2 * layout.margin),
+            left = layout.margin,
+            right = layout.pageWidth - left;
+        return render('render', {
+          title: options.title,
+          pageWidth: layout.pageWidth,
+          pageHeight: layout.pageHeight,
+          smallCapsSize: smallCapsSize,
+          fonts: getFontFiles(),
+          moreFonts: absoluteFonts(options.fonts),
+          items: items.map(function(item, i) {
+            var top = layout.margin + placements[i].y;
+            if(item.svg) {
+              return { page: placements[i].page, x: left, y: top, svg: item.svg, width: item.width,
+                height: parseFloat(item.svg.attributes.height) };
+            }
+            return { page: placements[i].page, x: item.align == 'center'? layout.pageWidth / 2 : right,
+              y: top + item.baseline, text: item.text, font: item.font, fontSize: item.fontSize, align: item.align,
+              smallCaps: item.smallCaps };
+          })
+        });
       });
+    }).then(function(pdf) {
+      return new Blob([pdf], { type: 'application/pdf' });
     });
   }
 
@@ -469,15 +559,15 @@ var ChantPdf = (function() {
     return (title || 'Chant').replace(/[\\/:*?"<>|]+/g, '-').trim() + '.pdf';
   }
 
-  // The tab the PDF will open in.  It has to be opened during the click, before the PDF is made, or the browser
-  // blocks it.  Returns null if it was blocked anyway.
-  function openTab() {
-    var tab = window.open('', '_blank');
-    if(tab) {
-      tab.document.title = 'Making PDF…';
-      tab.document.body.textContent = 'Making PDF…';
-    }
-    return tab;
+  // for when even the tab opened by a click was blocked
+  function download(url, name) {
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(function() { URL.revokeObjectURL(url); }, 60000);
   }
 
   // The app's web views (Android's WebView and iOS's WKWebView) ignore downloads, so the PDF is written to the app's
@@ -526,26 +616,45 @@ var ChantPdf = (function() {
   // Makes the PDF for a button click and shows it: in a new tab on the web, or in the phone's PDF viewer in the app.
   // getOptions is called once the libraries have loaded and returns the options for create().
   function show(button, getOptions) {
-    var $button = $(button);
+    var $button = $(button),
+        made = takePdf($button);
     if($button.hasClass('disabled')) return Promise.resolve();
-    var label = $button.text(),
-        tab = window.cordova? null : openTab();
+    if(made) {
+      if(!window.open(made.url, '_blank')) download(made.url, made.name);
+      return Promise.resolve();
+    }
+    var label = $button.text();
     $button.addClass('disabled').attr('aria-busy', 'true').text('Making PDF…');
     return load().then(function() {
       var options = getOptions();
-      return create(options).then(function(doc) {
+      return create(options).then(function(pdf) {
         var name = fileName(options.title);
-        if(window.cordova) return openInApp(doc.output('blob'), name);
-        if(!tab) return doc.save(name);
-        if(!tab.closed) tab.location.replace(doc.output('bloburl'));
+        if(window.cordova) return openInApp(pdf, name);
+        // The tab is opened once the PDF is made, so that the page stays in front while it's made: browsers slow down
+        // the pages behind other tabs.  But they only allow a tab for a short time after the click (about a second in
+        // Safari, and five in Chrome), so if it was blocked, the button opens the PDF instead.
+        var url = URL.createObjectURL(pdf);
+        if(!window.open(url, '_blank')) made = { url: url, name: name, label: label };
       });
     }).catch(function(error) {
-      if(tab) tab.close();
       console.error(error);
       alert('Sorry, the PDF could not be made: ' + (error && error.message || error));
     }).then(function() {
-      $button.removeClass('disabled').removeAttr('aria-busy').text(label);
+      $button.removeClass('disabled').removeAttr('aria-busy').text(made? 'Open PDF' : label);
+      if(!made) return;
+      $button.data('pdf', made);
+      // until something on the page changes, which would make a different PDF
+      $(document).one('change input', function() {
+        var stale = takePdf($button);
+        if(stale) URL.revokeObjectURL(stale.url);
+      });
     });
+  }
+  // Puts back the label of a button that was offering a PDF whose tab was blocked, and returns that PDF.
+  function takePdf($button) {
+    var made = $button.data('pdf');
+    if(made) $button.removeData('pdf').text(made.label);
+    return made;
   }
 
   return { load: load, getPaper: getPaper, getSizes: getSizes, getLayout: getLayout, paginate: paginate, create: create,

@@ -733,7 +733,7 @@ function windowResized(){
   var totalHeight = $(window).height() - $cp.position().top - 10;
   totalHeight = Math.max(120,totalHeight);
   $cp.height(totalHeight);
-  if(exsurge.layoutMyChant) exsurge.layoutMyChant();
+  if(exsurge.layoutMyChant) exsurge.layoutMyChant(true);
 }
 function updateVerseGabcStar(newStar){
   if(typeof(newStar)!='string') {
@@ -964,10 +964,16 @@ $(function() {
     }
     return score;
   }
-  function layoutChant() {
+  // the width the chant was last laid out at, so that a resize that doesn't
+  // change the width (e.g. a mobile URL bar showing or hiding) can skip it.
+  var layoutWidth;
+  function layoutChant(onlyIfWidthChanged) {
+    var width = chantContainer.clientWidth;
+    if(onlyIfWidthChanged === true && width === layoutWidth) return;
+    layoutWidth = width;
     // perform layout on the chant
     score.performLayoutAsync(ctxt, function() {
-      score.layoutChantLines(ctxt, chantContainer.clientWidth, function() {
+      score.layoutChantLines(ctxt, width, function() {
         // render the score to svg code
         var svg = score.createSvgNode(ctxt);
         svg.removeAttribute('viewBox');
@@ -976,6 +982,7 @@ $(function() {
     });
   }
   function layoutChantSync() {
+    layoutWidth = undefined;
     // perform layout on the chant
     score.performLayout(ctxt);
     score.layoutChantLines(ctxt, chantContainer.clientWidth);
