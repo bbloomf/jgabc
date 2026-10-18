@@ -2702,6 +2702,31 @@ $(function(){
     while(callback = queue.shift()) {
       callback();
     }
+    rememberReadingPosition();
+  }
+  var requestFrame = window.requestAnimationFrame?
+      function(callback) { return window.requestAnimationFrame(callback); } :
+      function(callback) { return setTimeout(callback, 16); };
+
+  // The height of the viewport with the browser's toolbars hidden (100lvh), so
+  // that the sticky chant doesn't change size whenever a mobile URL bar shows or hides.
+  var largeViewportProbe = null;
+  function getLargeViewportHeight() {
+    if(largeViewportProbe === null) {
+      largeViewportProbe = false;
+      if(window.CSS && CSS.supports && CSS.supports('height', '100lvh')) {
+        largeViewportProbe = $('<div>').css({
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: 0,
+          height: '100lvh',
+          visibility: 'hidden',
+          pointerEvents: 'none'
+        }).appendTo(document.body)[0];
+      }
+    }
+    return (largeViewportProbe && largeViewportProbe.offsetHeight) || window.innerHeight;
   }
 
   function makeSvgNoMoreThanHalfWindowHeight(svg,parent) {
@@ -2716,25 +2741,25 @@ $(function(){
     }
     if(width && height) {
       var availableWidth = (parent || svg.parentElement).clientWidth;
-      var scale = Math.max(0.8, (window.innerHeight * 0.4) / height);
+      var scale = Math.max(0.8, (getLargeViewportHeight() * 0.4) / height);
       scale = Math.min(scale, availableWidth / width);
-      svg.style.width = width * scale;
-      svg.style.marginLeft = (availableWidth - (width * scale)) / 2;
+      svg.style.width = (width * scale) + 'px';
+      svg.style.marginLeft = ((availableWidth - (width * scale)) / 2) + 'px';
     }
   }
 
-  var layoutChant = function(part, synchronous, id) {
-    var isIE11 = /\b(Trident\/7\.0|Chrome\/([1-2]\d|30)\.)/.test(navigator.userAgent);
-    var chantContainer = $('#'+part+'-preview');
-    chantContainer.attr('gregobase-id', id || null);
-    if(!chantContainer.length || !chantContainer.is(':visible')) return;
+  function getAvailableWidth(chantContainer) {
+    var availableWidth = chantContainer.width();
+    if(availableWidth == 0) {
+      availableWidth = $(document.body).width() - 16;
+    }
+    return availableWidth;
+  }
+
+  function updateCommentary(part, chantContainer) {
     var $chantCommentary = chantContainer.prev('.commentary');
     if($chantCommentary.length == 0) {
       $chantCommentary = $('<div>').addClass('commentary').insertBefore(chantContainer);
-    }
-    var $cb = $();
-    if(/Verses$/.test(part)) {
-      $cb = chantContainer.parent().find('input.cbVersesAdLibitum');
     }
     var prop = sel[part];
     $chantCommentary.text(prop.commentary || '');
@@ -2744,16 +2769,57 @@ $(function(){
         $('#div'+part[0].toUpperCase()+part.slice(1)+' select.sel-psalms:not(:visible)').val(('00'+ref.chapter).slice(-3));
       }
     }
+  }
+
+  // Catches width changes that don't come with a window resize, such as a
+  // scrollbar appearing, and reports the final width during an iOS rotation.
+  var chantResizeObserver = window.ResizeObserver && new ResizeObserver(function(entries) {
+    var widthChanged = false;
+    entries.forEach(function(entry) {
+      var width = entry.contentRect.width;
+      if(entry.target.observedWidth !== width) {
+        entry.target.observedWidth = width;
+        widthChanged = true;
+      }
+    });
+    if(widthChanged) scheduleRelayout();
+  });
+  // The page's own width too, which a scrollbar can change without changing the
+  // width of any chant (e.g. when the body's width is capped), so that the
+  // reading position is still kept up to date afterwards.
+  if(chantResizeObserver) chantResizeObserver.observe(document.documentElement);
+
+  // relayout, when given, comes from relayoutChangedChant(), which has already
+  // measured the container: {availableWidth, viewportHeight, session}.  The
+  // session collects the changes so that they all happen in the same frame.
+  var layoutChant = function(part, synchronous, id, relayout) {
+    var isIE11 = /\b(Trident\/7\.0|Chrome\/([1-2]\d|30)\.)/.test(navigator.userAgent);
+    var chantContainer = $('#'+part+'-preview');
+    if(id !== undefined) chantContainer.attr('gregobase-id', id || null);
+    if(!chantContainer.length) return;
+    if(!relayout) {
+      if(!chantContainer.is(':visible')) return;
+      updateCommentary(part, chantContainer);
+    }
+    var $cb = $();
+    if(/Verses$/.test(part)) {
+      $cb = chantContainer.parent().find('input.cbVersesAdLibitum');
+    }
+    var prop = sel[part];
     var ctxt = prop.ctxt;
     var score = prop.score;
     if(!score) return;
-    var availableWidth = chantContainer.width();
-    if(availableWidth == 0) {
-      availableWidth = $(document.body).width() - 16;
+    if(chantResizeObserver && prop.observedContainer !== chantContainer[0]) {
+      prop.observedContainer = chantContainer[0];
+      chantResizeObserver.observe(chantContainer[0]);
     }
+    var session = relayout && relayout.session;
+    var availableWidth = relayout? relayout.availableWidth : getAvailableWidth(chantContainer);
+    prop.lastAvailableWidth = availableWidth;
     var newWidth = Math.min(624, availableWidth);
     var useNoMoreThanHalfHeight = false;
     if(prop.sticky) {
+      prop.lastViewportHeight = relayout? relayout.viewportHeight : getLargeViewportHeight();
       if(newWidth == availableWidth) {
         newWidth = Math.floor(newWidth / 0.8);
       } else {
@@ -2761,65 +2827,70 @@ $(function(){
       }
     }
 
-    var allSvg = chantContainer.find('svg'),
-        svg = allSvg[0];
+    var allSvg = chantContainer.find('svg');
     if(!synchronous && allSvg.length == 1 && ctxt.width == newWidth) {
-      if(newWidth == availableWidth && svg && svg.hasAttribute('viewBox')) {
-        var match = svg.getAttribute('viewBox').match(/0 0 ([0-9.]+) ([0-9.]+)/);
-        svg.setAttribute('width',match[1]);
-        svg.setAttribute('height',match[2]);
-        svg.removeAttribute('viewBox');
-      } else if(newWidth != availableWidth && svg && svg.hasAttribute('width')) {
-        svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
-        if(isIE11) {
-          var ratio = availableWidth / newWidth;
-          svg.setAttribute('width', availableWidth);
-          svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
-        } else {
-          svg.removeAttribute('width');
-          svg.removeAttribute('height');
+      var resizeSvg = function() {
+        var svg = chantContainer.find('svg')[0];
+        if(!svg) return;
+        if(newWidth == availableWidth && svg.hasAttribute('viewBox')) {
+          var match = svg.getAttribute('viewBox').match(/0 0 ([0-9.]+) ([0-9.]+)/);
+          svg.setAttribute('width',match[1]);
+          svg.setAttribute('height',match[2]);
+          svg.removeAttribute('viewBox');
+        } else if(newWidth != availableWidth && svg.hasAttribute('width')) {
+          svg.setAttribute('viewBox','0 0 ' + svg.getAttribute('width') + ' ' + svg.getAttribute('height'));
+          if(isIE11) {
+            var ratio = availableWidth / newWidth;
+            svg.setAttribute('width', availableWidth);
+            svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
+          } else {
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+          }
         }
+        svg.style.width = '';
+        svg.style.marginLeft = '';
+        if(useNoMoreThanHalfHeight) {
+          makeSvgNoMoreThanHalfWindowHeight(svg);
+        }
+      };
+      if(session) {
+        session.updates.push({part: part, generation: prop.layoutGeneration, apply: resizeSvg});
+      } else {
+        resizeSvg();
+        updateTextSize(part);
       }
-      svg.style.width = '';
-      svg.style.marginLeft = '';
-      if(useNoMoreThanHalfHeight) {
-        makeSvgNoMoreThanHalfWindowHeight(svg);
-      }
-      updateTextSize(part);
       return;
     }
     ctxt.width = newWidth;
+    // any layout still in progress for this part is now out of date
+    var generation = prop.layoutGeneration = (prop.layoutGeneration || 0) + 1;
     // perform layout on the chant
     if(synchronous) {
-      if(ctxt.width != newWidth) {
+      if(prop.linesWidth != newWidth || score.needsLayout) {
         score.performLayout(ctxt);
-        score.layoutChantLines(ctxt, ctxt.width);
+        score.layoutChantLines(ctxt, newWidth);
+        prop.linesWidth = newWidth;
       }
       // render the score to svg code
       chantContainer.empty().append(score.createSvgNodeForEachLine(ctxt));
       updateTextSize(part);
     } else {
-      score.performLayoutAsync(ctxt, function() {
-        if($cb.prop('checked')===false) return;
-        score.layoutChantLines(ctxt, ctxt.width, function() {
-          if($cb.prop('checked')===false) return;
-          // render the score to svg code
-          var svg = score.createSvgNode(ctxt);
-          if(useNoMoreThanHalfHeight) {
-            makeSvgNoMoreThanHalfWindowHeight(svg,chantContainer[0]);
+      if(session) session.pending++;
+      // called exactly once, even if the layout fails, so that the session
+      // doesn't wait for it forever.
+      var done = false;
+      var finished = function(svg) {
+        if(done) return;
+        done = true;
+        if(session) {
+          if(svg) {
+            session.updates.push({part: part, generation: generation, apply: function() {
+              chantContainer.empty().append(svg);
+            }});
           }
-          if(newWidth == availableWidth) {
-            svg.removeAttribute('viewBox');
-          } else {
-            if(isIE11) {
-              var ratio = availableWidth / newWidth;
-              svg.setAttribute('width', availableWidth);
-              svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
-            } else {
-              svg.removeAttribute('width');
-              svg.removeAttribute('height');
-            }
-          }
+          finishRelayoutStep(session);
+        } else if(svg) {
           chantContainer.empty().append(svg);
           var callback = function() {
             updateTextSize(part);
@@ -2827,25 +2898,186 @@ $(function(){
           };
           queue.push(callback);
           setTimeout(processQueue, 100);
+        }
+      };
+      var layoutFinished = function() {
+        if(prop.layoutGeneration !== generation || $cb.prop('checked')===false) return finished(null);
+        score.layoutChantLines(ctxt, newWidth);
+        prop.linesWidth = newWidth;
+        // render the score to svg code
+        var svg = score.createSvgNode(ctxt);
+        if(useNoMoreThanHalfHeight) {
+          makeSvgNoMoreThanHalfWindowHeight(svg,chantContainer[0]);
+        }
+        if(newWidth == availableWidth) {
+          svg.removeAttribute('viewBox');
+        } else {
+          if(isIE11) {
+            var ratio = availableWidth / newWidth;
+            svg.setAttribute('width', availableWidth);
+            svg.setAttribute('height', parseInt(svg.getAttribute('height')) * ratio);
+          } else {
+            svg.removeAttribute('width');
+            svg.removeAttribute('height');
+          }
+        }
+        finished(svg);
+      };
+      try {
+        score.performLayoutAsync(ctxt, function() {
+          try {
+            layoutFinished();
+          } finally {
+            finished(null);
+          }
         });
+      } catch(e) {
+        finished(null);
+        throw e;
+      }
+    }
+  }
+
+  // Where the reader is on the page: the chant at the top of the viewport and
+  // how far through it the top edge is, or else the next chant down and how far
+  // below the top it is.  It is kept up to date while scrolling, so that after
+  // the width changes it still says where the reader was beforehand.
+  var readingPosition = null;
+  function captureReadingPosition() {
+    if(!(window.pageYOffset > 0)) return null;
+    var inside = null, below = null;
+    $.each(sel, function(part) {
+      var element = document.getElementById(part+'-preview');
+      if(!element || $(element).closest('.sticky').length) return;
+      var rect = element.getBoundingClientRect();
+      if(!rect.height) return;
+      if(rect.top <= 0 && rect.bottom > 0) {
+        inside = {element: element, fraction: -rect.top / rect.height};
+      } else if(rect.top > 0 && (!below || rect.top < below.top)) {
+        below = {element: element, top: rect.top};
+      }
+    });
+    return inside || below;
+  }
+  function rememberReadingPosition(force) {
+    var width = document.documentElement.clientWidth;
+    // after the width changes, keep the old position until the chant has been laid out again
+    if(force || !readingPosition || readingPosition.width === width) {
+      readingPosition = {width: width, anchor: captureReadingPosition()};
+    }
+  }
+  function restoreReadingPosition(anchor) {
+    if(!anchor || !$.contains(document.documentElement, anchor.element)) return;
+    var rect = anchor.element.getBoundingClientRect();
+    var offset = ('fraction' in anchor)? rect.top + anchor.fraction * rect.height : rect.top - anchor.top;
+    if(Math.abs(offset) >= 1) window.scrollBy(0, Math.round(offset));
+  }
+  var scrollFramePending = false;
+  window.addEventListener('scroll', function() {
+    if(scrollFramePending) return;
+    scrollFramePending = true;
+    requestFrame(function() {
+      scrollFramePending = false;
+      rememberReadingPosition();
+    });
+  });
+
+  var relayoutSession = null;
+  function finishRelayoutStep(session) {
+    if(--session.pending === 0) {
+      requestFrame(function() {
+        applyRelayoutSession(session);
       });
     }
   }
+  function applyRelayoutSession(session) {
+    if(session.pending || session.applied) return;
+    session.applied = true;
+    if(relayoutSession === session) relayoutSession = null;
+    var updatedParts = {};
+    session.updates.forEach(function(update) {
+      if(sel[update.part] && sel[update.part].layoutGeneration === update.generation) {
+        update.apply();
+        updatedParts[update.part] = true;
+      }
+    });
+    $.each(updatedParts, function(part) {
+      updateTextSize(part);
+    });
+    restoreReadingPosition(session.anchor);
+    rememberReadingPosition(true);
+  }
+  // Lays out again only the chant whose container has changed width (or, for
+  // sticky chant, whose viewport height has changed).  Returns whether it did anything.
+  function relayoutChangedChant() {
+    var viewportHeight = getLargeViewportHeight();
+    var changed = [];
+    // measure everything before changing anything, so that the page reflows only once
+    $.each(sel, function(part, prop) {
+      if(!prop || !prop.score) return;
+      var chantContainer = $('#'+part+'-preview');
+      if(!chantContainer.length || !chantContainer.is(':visible')) return;
+      var availableWidth = getAvailableWidth(chantContainer);
+      if(availableWidth !== prop.lastAvailableWidth || (prop.sticky && viewportHeight !== prop.lastViewportHeight)) {
+        changed.push({part: part, availableWidth: availableWidth});
+      }
+    });
+    if(!changed.length) {
+      if(!readingPosition || readingPosition.width !== document.documentElement.clientWidth) {
+        rememberReadingPosition(true);
+      }
+      return false;
+    }
+    var session = relayoutSession;
+    if(!session) {
+      session = relayoutSession = {
+        pending: 0,
+        updates: [],
+        anchor: readingPosition && readingPosition.anchor
+      };
+    }
+    session.pending++;
+    try {
+      changed.forEach(function(change) {
+        layoutChant(change.part, false, undefined, {
+          availableWidth: change.availableWidth,
+          viewportHeight: viewportHeight,
+          session: session
+        });
+      });
+    } finally {
+      // the parts that only needed resizing can be updated right away, in this frame
+      if(--session.pending === 0) applyRelayoutSession(session);
+    }
+    return true;
+  }
+  // at most one relayout per animation frame, and no more than one every 100ms
+  // while the width keeps changing, e.g. while a window is being dragged.
+  var relayoutTimer = null, lastRelayoutTime = 0;
+  function scheduleRelayout() {
+    if(relayoutTimer !== null) return;
+    relayoutTimer = setTimeout(function() {
+      requestFrame(function() {
+        relayoutTimer = null;
+        if(relayoutChangedChant()) lastRelayoutTime = Date.now();
+      });
+    }, Math.max(0, lastRelayoutTime + 100 - Date.now()));
+  }
   var relayoutAllChant = function(synchronous) {
-    $('.first-showing-chant').removeClass('first-showing-chant');
-    $('div[part].showing-chant').first().addClass('first-showing-chant');
-    updateStoredPageBreaks();
     $.each(sel, function(part) {
       layoutChant(part, synchronous);
     });
   };
   var relayoutAllChantSync = function() {
+    $('.first-showing-chant').removeClass('first-showing-chant');
+    $('div[part].showing-chant').first().addClass('first-showing-chant');
+    updateStoredPageBreaks();
     relayoutAllChant(true);
   };
   var relayoutAllChantAsync = function() {
     relayoutAllChant(false);
   };
-  $(window).on('resize', relayoutAllChantAsync);
+  $(window).on('resize', scheduleRelayout);
   
   var updateTextSize = function(part){
     var capPart = part[0].toUpperCase()+part.slice(1),
