@@ -2784,6 +2784,10 @@ $(function(){
     });
     if(widthChanged) scheduleRelayout();
   });
+  // The page's own width too, which a scrollbar can change without changing the
+  // width of any chant (e.g. when the body's width is capped), so that the
+  // reading position is still kept up to date afterwards.
+  if(chantResizeObserver) chantResizeObserver.observe(document.documentElement);
 
   // relayout, when given, comes from relayoutChangedChant(), which has already
   // measured the container: {availableWidth, viewportHeight, session}.  The
@@ -2873,7 +2877,12 @@ $(function(){
       updateTextSize(part);
     } else {
       if(session) session.pending++;
+      // called exactly once, even if the layout fails, so that the session
+      // doesn't wait for it forever.
+      var done = false;
       var finished = function(svg) {
+        if(done) return;
+        done = true;
         if(session) {
           if(svg) {
             session.updates.push({part: part, generation: generation, apply: function() {
@@ -2891,7 +2900,7 @@ $(function(){
           setTimeout(processQueue, 100);
         }
       };
-      score.performLayoutAsync(ctxt, function() {
+      var layoutFinished = function() {
         if(prop.layoutGeneration !== generation || $cb.prop('checked')===false) return finished(null);
         score.layoutChantLines(ctxt, newWidth);
         prop.linesWidth = newWidth;
@@ -2913,7 +2922,19 @@ $(function(){
           }
         }
         finished(svg);
-      });
+      };
+      try {
+        score.performLayoutAsync(ctxt, function() {
+          try {
+            layoutFinished();
+          } finally {
+            finished(null);
+          }
+        });
+      } catch(e) {
+        finished(null);
+        throw e;
+      }
     }
   }
 
@@ -3016,15 +3037,18 @@ $(function(){
       };
     }
     session.pending++;
-    changed.forEach(function(change) {
-      layoutChant(change.part, false, undefined, {
-        availableWidth: change.availableWidth,
-        viewportHeight: viewportHeight,
-        session: session
+    try {
+      changed.forEach(function(change) {
+        layoutChant(change.part, false, undefined, {
+          availableWidth: change.availableWidth,
+          viewportHeight: viewportHeight,
+          session: session
+        });
       });
-    });
-    // the parts that only needed resizing can be updated right away, in this frame
-    if(--session.pending === 0) applyRelayoutSession(session);
+    } finally {
+      // the parts that only needed resizing can be updated right away, in this frame
+      if(--session.pending === 0) applyRelayoutSession(session);
+    }
     return true;
   }
   // at most one relayout per animation frame, and no more than one every 100ms
