@@ -2262,7 +2262,8 @@ $(function(){
     header.mode = mode;
     delete header.annotationArray;
     delete header.annotation;
-    var annotationArray = makeAnnotationArrayFromHeader(header);
+    // verses ad libitum follow their antiphon, so they get no annotation
+    var annotationArray = !/Verses$/.test(part) && makeAnnotationArrayFromHeader(header);
     if (annotationArray) {
       if (annotationArray.length > 1) {
         header.annotationArray = annotationArray;
