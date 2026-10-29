@@ -1,6 +1,6 @@
 {
   "name": "jgabc",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "description": "Chant Tools",
   "homepage": "https://github.com/bbloomf/jgabc#readme",
   "bugs": {
@@ -34,7 +34,8 @@
     "test": "bun test",
     "download-gabc": "node download-gabc.js && bun test",
     "vendor:pdf": "cp node_modules/jspdf/dist/jspdf.umd.min.js node_modules/svg2pdf.js/dist/svg2pdf.umd.min.js js/",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "update-cordova": "bash tools/update-cordova.sh"
   },
   "devDependencies": {
     "@prettier/sync": "^0.6.1",
