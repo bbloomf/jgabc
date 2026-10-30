@@ -1040,7 +1040,7 @@ if(typeof window=='object') (function(window) {
         }
         noteElem = note.svgNode;
         if(noteElem) {
-          var href = noteElem.attributes.getNamedItem('href').value;
+          var href = noteElem.getAttributeNS('http://www.w3.org/1999/xlink', 'href') || noteElem.getAttribute('href') || '';
           if(href == '#None') {
             noteElem = noteElem.previousSibling;
             noteElem.classList.remove('porrectus-left');
