@@ -3,7 +3,8 @@ var https  = require('https'),
     Hypher = require('hypher'),
     gabc   = require('./util.js'),
     prettier = require("@prettier/sync"),
-    { addPtAlleluia } = require("./alleluias-in-of-co.js");
+    { addPtAlleluia } = require("./alleluias-in-of-co.js"),
+    { wrapRepeatCueInNlba } = require("./repeat-cue.js");
 require('./gabc-refs.js');
 
 const addAlleluiasTo = new Set([145, 690, 1286, 349, 1303, 391, 523, 426, 84, 529, 1080, 1290, 575, 1272, 147, 1294, 339, 899, 942, 535, 723, 902, 533, 1314, 265, 479, 904, 842, 640, 1072, 1318, 389, 616, 696]);
@@ -533,6 +534,7 @@ var path = 'gabc/',
                       function(match, beginning, replacePart){
                         return beginning + replacePart.toUpperCase();
                       });
+                    content = wrapRepeatCueInNlba(content);
                     if (addAlleluiasTo.has(Number(ids[i]))) {
                       content = addPtAlleluia(content, h);
                     }
