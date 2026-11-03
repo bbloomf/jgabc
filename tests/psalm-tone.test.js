@@ -203,4 +203,24 @@ describe('the repeat of an earlier part of a chant', () => {
     }
     expect(failures).toEqual([]);
   });
+
+  test('keeps the asterisk before the cue at the end red', () => {
+    const failures = [];
+    for (const { file, text, header } of [...chantsWithRepeats, ...variantsOf1199]) {
+      for (const part of Object.keys(partsByOfficePart[header.officePart])) {
+        try {
+          const prop = loadPart(part, text);
+          const gabc = formatForExsurge(part, prop.gabc) || '';
+          // Exsurge draws an asterisk red as a syllable of its own, as *() or *(::), but not one joined to the words after it,
+          // as <nlba>*~Quam(f), which stays in the black of the cue
+          const asterisks = [...gabc.matchAll(/(?<=^|\s|>)\^?\*\^?(.)/g)];
+          const last = asterisks[asterisks.length - 1];
+          if (!last || last[1] != '(') failures.push(`${file} (${part}): ${excerpt(gabc, last ? last.index : 0)}`);
+        } catch (e) {
+          failures.push(`${file} (${part}): ${e.message}`);
+        }
+      }
+    }
+    expect(failures).toEqual([]);
+  });
 });

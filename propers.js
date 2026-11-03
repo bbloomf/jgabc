@@ -2651,7 +2651,7 @@ $(function(){
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
       .replace(/<\/?eu>|\[[ou]ll:[01]?[{}][01]?\]/ig,'') // <eu> tags and oll ledger line indications
-      .replace(/(\s\^?\*\^?)(?=\s*[^(])/g,' *()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)
+      .replace(/\s(<nlba>)?\^?\*\^?(?=\s*[^(])/g,' $1*()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)  It may start a no line break area, as before the cue of a repeat.
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
