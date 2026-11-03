@@ -105,6 +105,8 @@ if (typeof Object.assign != 'function') {
 function makeExsurgeChantContext() {
   var ctxt = new exsurge.ChantContext(exsurge.TextMeasuringStrategy.Canvas);
   ctxt.condenseLineAmount = 1;
+  // Choose the line breaks of the whole score together, as Gregorio does, rather than filling each line in turn.
+  ctxt.lineBreaking = 'optimal';
   ctxt.setGlyphScaling(1/16);
   // Draw in the inherited CSS `color` (see theme.css) so the chant follows light/dark
   // mode without re-rendering; a standalone/exported SVG still falls back to black.

@@ -31,7 +31,7 @@ const alleluias = chantsOf('Alleluia').filter(chant => !easterVigilAlleluia.incl
 const introits = chantsOf('Introitus');
 const regexGloriaPatri = /Gl[oó]\([^)]*\)ri\([^)]*\)a\([^)]*\)\s*P[aá]\([^)]*\)tri/i;
 // a Gloria Patri that stops after "Patri" and is followed by E u o u a e, rather than written out in full
-const regexAbbreviatedGloriaPatri = /P[aá]\([^)]*\)tri\.?\([^)]*\)\s*\(::\)/i;
+const regexAbbreviatedGloriaPatri = /P[aá]\([^)]*\)tri\.?(?:<\/nlba>)?\([^)]*\)\s*\(::\)/i;
 const regexTP = /T\.\s*P\./;
 
 // the gabc around index, on one line, to show where a check failed
@@ -92,8 +92,10 @@ describe('Introitus', () => {
   test('the Gloria Patri can be removed (as in Passiontide)', () => {
     const failures = [];
     for (const { file, gabc } of introits) {
-      const index = gabc.search(regexGloriaPatri);
-      if (index >= 0 && regexGloriaPatri.test(gabc.replace(context.regexGabcGloriaPatriEtFilio, ''))) {
+      const index = gabc.search(regexGloriaPatri),
+            removed = gabc.replace(context.regexGabcGloriaPatriEtFilio, '');
+      // (nor may it leave the <nlba> before it, which would keep everything after it from being broken onto another line)
+      if (index >= 0 && (regexGloriaPatri.test(removed) || /<nlba>(?![\s\S]*<\/nlba>)/.test(removed))) {
         failures.push(`${file}: ${excerpt(gabc, index)}`);
       }
     }
@@ -130,6 +132,9 @@ describe('T. P.', () => {
         const result = removeNotApplicableFromGabc(gabc, tempus),
               index = result.search(regexTP);
         if (index >= 0) failures.push(`${file}: ${excerpt(result, index)}`);
+        // (nor may it leave an <nlba> without its </nlba>, which would keep everything after it from being broken onto another line)
+        const unclosed = result.search(/<nlba>(?![\s\S]*<\/nlba>)/);
+        if (unclosed >= 0) failures.push(`${file}: ${excerpt(result, unclosed)}`);
       }
       expect(failures).toEqual([]);
     });
