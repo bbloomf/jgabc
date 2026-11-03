@@ -35,9 +35,9 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   yearArray = ['A','B','C'];
 // These regular expressions and removeNotApplicableFromGabc() are run against the gabc files, so they are kept outside of $(function(){...}),
 // where tests/propers-gabc.test.js can check them against every gabc file.
-var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
+var regexGabcGloriaPatri = /(?:<nlba>)?Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?(?:<\/nlba>)?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
 var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
-var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
+var regexGabcGloriaPatriEtFilio = /(?:<nlba>)?Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?(?:<\/nlba>)?\([^)]+\)[^`]*\(::\)/i;
 var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
 // the opening Allelúia and its asterisk, when they are not already followed by ij. or non repetitur
 var regexAlleluiaAsteriskWithoutIj = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!~?(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|~|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i;
@@ -1566,7 +1566,7 @@ $(function(){
     });
 
     //gSyl = splitGabc(gs);
-    var s = text.replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]/g,'');
+    var s = text.replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]|<\/?(?:eu|nlba)>/g,''); // (Gregorio's <eu> and <nlba> are not part of the text)
     var index=s.indexOf(' ');
     if(index>1) {
       // make the rest of the first word minuscule
@@ -2638,7 +2638,7 @@ $(function(){
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
-      .replace(/<\/?eu>|\[[ou]ll:[01]?[{}][01]?\]/ig,'') // <eu> tags and oll ledger line indications
+      .replace(/\[[ou]ll:[01]?[{}][01]?\]/ig,'') // oll ledger line indications
       .replace(/(\s\^?\*\^?)(?=\s*[^(])/g,' *()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
     var gabcHeader = getHeader(gabc);

@@ -49,7 +49,11 @@ Hypher.languages = {};
 var latin,
     countAll = 0,
     countWithRef = 0,
-    regexGabcGloriaPatri = /\s*[eæ]\([^)]+\)\s*u\([^)]+\)\s*[oó]\([^)]+\)\s*u\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*e\.?\(([^)]+)\)\s*\(::\)\s*/i,
+    regexGabcGloriaPatri = /\s*(?:<eu>)?[eæ]\([^)]+\)\s*u\([^)]+\)\s*[oó]\([^)]+\)\s*u\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*e\.?(?:<\/eu>)?\(([^)]+)\)\s*\(::\)\s*/i,
+    // an introit's Glória Patri., which is kept on one line (Gregorio's <nlba>), and its E u o u a e (or sæculórum. Amen. after a double bar, as in 132), which is a euouae area (<eu>), as GregoBase marks most of them;
+    // the first group is the text that goes in the tags, and the second the notes of the last syllable, which go after them
+    regexIntroitGloriaPatri = /(?:<nlba>)?(Gl[oó]\([^)]*\)\s*ri\([^)]*\)\s*a\([^)]*\)\s*Pa\([^)]*\)\s*tri\.)(?:<\/nlba>)?(\([^)]*\))/g,
+    regexIntroitEuouae = /(?<![a-zæœǽœ́áéíóúý])(?:<eu>)?([EÆ]\([^)]*\)\s*u\([^)]*\)\s*[oó]\([^)]*\)\s*u\.?\([^)]*\)\s*[aá]\([^)]*\)\s*e\.?|(?<=\(::\)\s*(?:<eu>)?)s[æǽ]\([^)]*\)\s*cu\([^)]*\)\s*l[oó]\([^)]*\)\s*rum\.?\([^)]*\)\s*A\([^)]*\)\s*men\.?)(?:<\/eu>)?(\([^)]*\))/gi,
     texts = {
       Introitus: {},
       Graduale: {},
@@ -302,7 +306,7 @@ var path = 'gabc/',
                       .replace(/([A-M])[0-2]/g, '$1') // TODO?: right now 0 in this exsurge shifts the vertical position, and it doesn't support https://gregorio-project.github.io/tips/inclinatum.html
                       .replace(/\/\[-[^\]]+\]/g, '!') // TODO: support variable neumatic cuts, for now, any negatives must be removed
                       .replace(/\[[uo](?:h|ll)(?::[^\]]*|})?\]/g, '') // TODO: support in Exsurge
-                      .replace(/<\/?nlba>/g, '') // TODO: support in Exsurge
+                      .replace(/<\/?nlba>/g, '') // GregoBase's no-line-break areas keep the line breaks of a printed page, which a page of any width doesn't need (an introit's Glória Patri gets its own below)
                       .replace(/(<\/?)e>/g, '$1i>') // TODO: support in Exsurge
                       .replace(/<clear>/g, '') // TODO: what does this even do in Exsurge?
                       .replace(/\*{2,}/g,'<c>$&</c>')
@@ -357,6 +361,16 @@ var path = 'gabc/',
                       .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
                       .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
                       .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*+\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2\n$5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
+                    if(h.officePart == 'Introitus') {
+                      content = content
+                        .replace(regexIntroitGloriaPatri, '<nlba>$1</nlba>$2')
+                        .replace(regexIntroitEuouae, '<eu>$1</eu>$2');
+                      var gloriaPatriCount = (content.match(regexIntroitGloriaPatri) || []).length,
+                          euouaeCount = (content.match(regexIntroitEuouae) || []).length;
+                      if(gloriaPatriCount != euouaeCount) {
+                        errors.push(`${file}: ${gloriaPatriCount} Glória Patri but ${euouaeCount} E u o u a e`);
+                      }
+                    }
                     if(h.officePart == 'Alleluia') {
                       // some Alleluias from the Graduale Romanum, 1974 have no asterisk after the opening Allelúia (nor does the book),
                       // so put one at the first bar after its ia syllable, if there is one before the first double bar
