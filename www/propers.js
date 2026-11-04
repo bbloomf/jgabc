@@ -35,9 +35,9 @@ pageBreaks=(localStorage.pageBreaks || "").split(','),
   yearArray = ['A','B','C'];
 // These regular expressions and removeNotApplicableFromGabc() are run against the gabc files, so they are kept outside of $(function(){...}),
 // where tests/propers-gabc.test.js can check them against every gabc file.
-var regexGabcGloriaPatri = /Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
+var regexGabcGloriaPatri = /(?:<nlba>)?Gl[oó]\([^)a-mA-M]*([a-m])[^)]*\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri\.?(?:<\/nlba>)?\([^)]+\)\s*\(::\)\s*(?:<eu>)?s?[aeæ]+\([^)]+\)\s*c?u\([^)]+\)\s*l?[oó]\([^)]+\)\s*r?um?\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*m?en?\.?(?:<\/eu>)?\(([^)]+)\)/i;
 var regexAmenTones = /<i>[^<]+<\/i>\s*[^(]+\([^)a-m]*([a-m])[^)]*\)[^@]*\*\(:\)\s+.*\(([^)]+)\)[^(]+\(([^)]+)\)\s+\(::\)/i;
-var regexGabcGloriaPatriEtFilio = /Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?\([^)]+\)[^`]*\(::\)/i;
+var regexGabcGloriaPatriEtFilio = /(?:<nlba>)?Gl[oó]\([^)]+\)ri\([^)]+\)a\([^)]+\)\s+P[aá]\([^)]+\)tri[.,]?(?:<\/nlba>)?\([^)]+\)[^`]*\(::\)/i;
 var regexGabcClef = /\([^)]*([cf]b?[1-4])/;
 // the opening Allelúia and its asterisk, when they are not already followed by ij. or non repetitur
 var regexAlleluiaAsteriskWithoutIj = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+\))\s+(?:\*|\{\*\})(?!~?(\([^)]+\)\s*)*\s*(?:\([;:,]+\))?\s*[{}]*(<i>)?{?ij\.?[{}]*(<\/i>)?}?)(?!(?:\([,;:]\)|\s+|~|<i>|[{}(_^]+)*non\s+rep[eé]titur)/i;
@@ -496,6 +496,42 @@ $(function(){
     }
     return respond + verse;
   };
+  // Sets the lines, pattern, and text of sel[part] from its gabc, adding or removing the ij. of an Alleluia,
+  // and returns that gabc along with the part it turns out to be
+  var loadProperText = function(part, partType, gabc) {
+    var truePart = partType;
+    var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
+    sel[part].responsoryCallbacks = [];
+    var plaintext = decompile(gabcWithoutNA,true,sel[part]);
+    if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
+      truePart = 'alleluia';
+      if(isNovus) {
+        // in novus ordo, neither ij. nor asterisks are marked.
+        // remove ij. if present
+        gabc = gabc.replace(regexAlleluiaIjOrNonRepetitur,'$1$2').
+          replace(/(\*|\{\*\})(\(\))?/g,''); // remove asterisks
+      } else {
+        var gradualeIsFirstAlleluia = ((sel.graduale && sel.graduale.id in chantID.alleluiaById) || isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
+        if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
+          // add ij. if not present:
+          gabc = gabc.replace(regexAlleluiaAsteriskWithoutIj,'$1 {*} <i>ij.</i>');
+        } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
+          // remove ij. if present
+          gabc = gabc.replace(regexAlleluiaIj,'$1$2');
+        }
+      }
+      plaintext = decompile(gabc,true,sel[part]);
+    }
+    var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
+      return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
+    });
+    var ptn = sel[part].pattern;
+    if(truePart.match(/alleluia|graduale|tractus/) || !(ptn && ptn.length && ptn[0].length)) {
+      sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
+    }
+    sel[part].text = versifyByPattern(lines, sel[part].pattern);
+    return {gabc: gabc, truePart: truePart};
+  };
   var updatePart = function(part, ordinaryName) {
     var selPO = $.extend({},selPropers,selOrdinaries,selCustom);
     var id;
@@ -630,39 +666,11 @@ $(function(){
         }
     
         //if(gabcStar) gabc = gabc.replace(/\*/g,gabcStar);
-        var text,
-            truePart = partType;
+        var truePart = partType;
         if(!isOrdinaryPart) {
-          var gabcWithoutNA = removeNotApplicableFromGabc(gabc);
-          sel[part].responsoryCallbacks = [];
-          var plaintext = decompile(gabcWithoutNA,true,sel[part]);
-          if((sel[part].isAlleluia = isAlleluia(part,plaintext))) {
-            truePart = 'alleluia';
-            if(isNovus) {
-              // in novus ordo, neither ij. nor asterisks are marked.
-              // remove ij. if present
-              gabc = gabc.replace(regexAlleluiaIjOrNonRepetitur,'$1$2').
-                replace(/(\*|\{\*\})(\(\))?/g,''); // remove asterisks
-            } else {
-              var gradualeIsFirstAlleluia = ((sel.graduale && sel.graduale.id in chantID.alleluiaById) || isAlleluia('graduale',(sel.graduale.lines||[[]])[0][0])) && !/non\s+rep[eé]titur/i.exec((sel.graduale.lines||[[]])[0][1]);
-              if(part=='graduale' || (part=='alleluia' && !gradualeIsFirstAlleluia)) {
-                // add ij. if not present:
-                gabc = gabc.replace(regexAlleluiaAsteriskWithoutIj,'$1 {*} <i>ij.</i>');
-              } else if((part=='alleluia' && gradualeIsFirstAlleluia) || /^graduale[1-9]/.test(part)) {
-                // remove ij. if present
-                gabc = gabc.replace(regexAlleluiaIj,'$1$2');
-              }
-            }
-            plaintext = decompile(gabc,true,sel[part]);
-          }
-          var lines = sel[part].lines = plaintext.split(/\n/).map(function(line) {
-            return reduceStringArrayBy(line.split(reFullOrHalfBarsOrFullStops),3);
-          });
-          var ptn = sel[part].pattern;
-          if(truePart.match(/alleluia|graduale|tractus/) || !(ptn && ptn.length && ptn[0].length)) {
-            sel[part].pattern = deducePattern(plaintext, lines, !truePart.match(/alleluia|graduale|tractus/));
-          }
-          text = sel[part].text = versifyByPattern(lines, sel[part].pattern);
+          var loaded = loadProperText(part, partType, gabc);
+          gabc = loaded.gabc;
+          truePart = loaded.truePart;
         }
         if(/^(graduale|tractus)/.test(part)) {
           var $style = $('#selStyle'+capPart),
@@ -1442,7 +1450,8 @@ $(function(){
   var decompile = function(mixed,ignoreSyllablesOnDivisiones,storeMap) {
     regexOuter.exec('');
     var header = getHeader(mixed);
-    mixed = mixed.slice(header.original.length).replace(/<sp>[vra]\/<\/sp>\s*/gi,'');
+    // a no line break area, as around the cue of a repeat (from repeat-cue.js), has nothing to do with the text
+    mixed = mixed.slice(header.original.length).replace(/<sp>[vra]\/<\/sp>\s*/gi,'').replace(/<\/?nlba>/g,'');
     var dictionary = new Dictionary(mixed);
     if(storeMap) storeMap.originalWords = dictionary;
     var curClef;
@@ -1488,16 +1497,17 @@ $(function(){
       }
       if(justAppliedAsteriskCallback) {
         justAppliedAsteriskCallback = false;
-      } else if(syl === '*' || syl === '+' || syl === sym_flex) {
+      } else if(/^[*+†](?:~|$)/.test(syl)) {
         // These symbols may indicate returning to an earlier part of the chant, so we must determine if this is the case, and use the entire text if so.
+        // They may be joined to the first syllable after them by a ~, as in *~Quam(f) o(f)lim(ec~)
         var slice = mixed.slice(match.index),
-            regexSymbol = syl === '*'? /\*/ : /[+†]/,
+            regexSymbol = syl[0] === '*'? /\*/ : /[+†]/,
             indexFirstSymbol = slice.search(regexSymbol),
             indexSymbol = slice.slice(indexFirstSymbol+1).search(regexSymbol),
             indexDoubleBar = slice.slice(indexFirstSymbol+2).indexOf('(::)');
         if(indexDoubleBar >= 0 && (indexSymbol < 0 || indexDoubleBar < (indexFirstSymbol + 1 + indexSymbol))) {
           slice = slice.slice(0, indexFirstSymbol + 2 + indexDoubleBar + 4);
-          var firstWord = slice.match(/[*+†](?:\([^)]+\))?\s+([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
+          var firstWord = slice.match(/[*+†](?:\([^)]+\))?(?:\s+|~)([^(]+\([^)]+\)[^(]+.*?\))(?=\s)/);
           if(firstWord) {
             var firstWordComplete = firstWord[1];
             firstWord = firstWord[1].replace(/\s?[,;:.!?]\(/g,'(');
@@ -1511,7 +1521,8 @@ $(function(){
                 if(storeMap && storeMap.responsoryCallbacks) {
                   var temp = slice.replace(/^[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ()\s]+|[^a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+$/gi,'').split(/\([^)]*\)?/);
                   if(temp.slice(-1)[0].length == 0) temp.pop();
-                  var regex = firstWordComplete.replace(/\s*[,;:.!?]\(/g,'\\s*[,;:.!?]?(').replace(/[()]/g,'\\$&');
+                  // the notes may contain characters special to a regex, as in (f+) or (f[ll:1{])
+                  var regex = firstWordComplete.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s*\\?[,;:.!?]\\\(/g,'\\s*[,;:.!?]?\\(');
                   storeMap.responsoryCallbacks.push(new RegExp(regex,'gi'));
                 }
                 console.info('replacing responsory text: "' + sliceText + '" with "' + replaceText + '"');
@@ -1566,13 +1577,14 @@ $(function(){
     });
 
     //gSyl = splitGabc(gs);
-    var s = text.replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]/g,'');
+    var s = text.replace(/\s+/g,' ').replace(/^\s+|\s+$|[*{}-]|<\/?(?:eu|nlba)>/g,''); // (Gregorio's <eu> and <nlba> are not part of the text)
     var index=s.indexOf(' ');
     if(index>1) {
       // make the rest of the first word minuscule
       s=s[0] + s.slice(1,index).toLowerCase() + s.slice(index);
     }
-    s = s.replace(/~*(<\/?i>~?)~*/g, '$1').replace(/\s*~\s*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
+    // a ~ joining a syllable to what comes before it, as in <sp>V/</sp>~Hós(e), must not add another line after a double bar
+    s = s.replace(/~*(<\/?i>~?)~*/g, '$1').replace(/\s*~[\s~]*/g,'\n').replace(/%/g,'*').replace(/\s*\|\s*\n/g,'\n').replace(/(\|\s*)*(\*\s*)+(\|\s*)*/g,'* ').replace(/(\| *)+/g,'| ').replace(/\s*[*|]?\s*$/,'');
     return s;
   };
   
@@ -2611,7 +2623,7 @@ $(function(){
     }
     prop.responsoryCallbacks && prop.responsoryCallbacks.forEach(function(regex) {
       gabc = gabc.replace(regex,function(match) {
-        return match.replace(/(^|\)\s*)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+\s*[,;:.!?]?)/gi,'$1^$2^');
+        return match.replace(/(^|\)\s*)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ\u0301]+\s*[,;:.!?]?)/gi,'$1<b>$2</b>');
       });
     });
     gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
@@ -2638,8 +2650,8 @@ $(function(){
       .replace(/(\)\s+(?:\([^)]*\))*)(\s*[^(^|]+)(?=\(\))/g,'$1^$2^') // make all text with empty parentheses red
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
-      .replace(/<\/?eu>|\[[ou]ll:[01]?[{}][01]?\]/ig,'') // <eu> tags and oll ledger line indications
-      .replace(/(\s\^?\*\^?)(?=\s*[^(])/g,' *()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)
+      .replace(/\[[ou]ll:[01]?[{}][01]?\]/ig,'') // oll ledger line indications
+      .replace(/\s(<nlba>)?\^?\*\^?(?=\s*[^(])/g,' $1*()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)  It may start a no line break area, as before the cue of a repeat.
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
     var gabcHeader = getHeader(gabc);
     if(gabcHeader.original) {
