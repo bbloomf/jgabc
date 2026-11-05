@@ -1,10 +1,19 @@
 if(location.search.match(/dominican/i))g_tones=d_tones;
 var selLang = 'latin';
+function selectPsalmLanguage(language) {
+  var syllabifiers = { la: _getSyllables, 'la-liturgical': _getLaSyllables, en: _getEnSyllables };
+  if(!syllabifiers[language]) language = 'la-liturgical';
+  getSyllables = syllabifiers[language];
+  selLang = language == 'en'? 'english' : 'latin';
+  localStorage.psalmLanguage = language;
+  $("#selPsalmLanguage").val(language);
+  last_syl = null;
+}
 var custom_tones={};
 var gSyl,syl,_clef;
 var last_syl,last_gSyl,gShortMediant;
 var last_lines,last_terTones,last_medTones;
-var useFormat,useInitStyle,onlyVowels,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
+var useFormat,useInitStyle,onlyVowels,formatPunctuation,gabcFormat,usePunctaCava,repeatIntonation,italicizeIntonation,useNovaVulgata;
 var includeGloriaPatri;
 function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
   var actuallyUpdate=(typeof(_syl)=="undefined");
@@ -83,6 +92,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
           useBoldItalic: true,
           firstPrefix: (!useInitStyle),
           onlyVowel: onlyVowels,
+          formatPunctuation: formatPunctuation,
           format: gabcFormat,
           verseNumber: useNovaVulgata?"":i+1,
           prefix: true,
@@ -99,6 +109,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
             useBoldItalic: true,
             firstPrefix: (!useInitStyle),
             onlyVowel: onlyVowels,
+            formatPunctuation: formatPunctuation,
             format: gabcFormat,
             verseNumber: useNovaVulgata?"":i+1,
             prefix: false,
@@ -134,14 +145,15 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
               useBoldItalic: false,
               firstPrefix: true,
               onlyVowel: onlyVowels,
+              formatPunctuation: formatPunctuation,
               format: gabcFormat
             });
             gabc = gabc.slice(0,-1) + new Array(4).join(" " + medTones.toneTenor) + "  ::)";
             flex = true;
           }
         }
-        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true,false,i)
-            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true,i));
+        var tempString=addBoldItalic(line[0], medTones.accents, medTones.preparatory, medTones.afterLastAccent, useFormat, onlyVowels, useNovaVulgata?"":i+1,true,false,i,formatPunctuation)
+            + (line.length == 1? "" : ((((useFormat in bi_formats)&&bi_formats[useFormat])||bi_formats.gabc).nbsp) + "* " + addBoldItalic(line[1], terTones.accents, terTones.preparatory, terTones.afterLastAccent, useFormat, onlyVowels,useNovaVulgata?"":i+1,false,true,i,formatPunctuation));
         vr += tempString + '\n';
         r += "<p style='line-height:100%;margin: 6pt 0px;'>"
           + tempString
@@ -162,6 +174,7 @@ function updateEditor(forceGabcUpdate,_syl,_gSyl,_gShortMediant,clef) {
             useBoldItalic: false,
             firstPrefix: true,
             onlyVowel: onlyVowels,
+            formatPunctuation: formatPunctuation,
             format:gabcFormat,
             favor: 'termination'
           })+" (::)";
@@ -553,6 +566,16 @@ function updateInitStyle() {
 }
 function updateOnlyVowels() {
   localStorage.cbOnlyVowels = onlyVowels = $("#cbOnlyVowels")[0].checked;
+  if(onlyVowels) {
+    $("#cbFormatPunctuation")[0].checked = localStorage.cbFormatPunctuation = formatPunctuation = false;
+  }
+  updateEditor(true);
+}
+function updateFormatPunctuation() {
+  localStorage.cbFormatPunctuation = formatPunctuation = $("#cbFormatPunctuation")[0].checked;
+  if(formatPunctuation) {
+    $("#cbOnlyVowels")[0].checked = localStorage.cbOnlyVowels = onlyVowels = false;
+  }
   updateEditor(true);
 }
 function updateUsePunctaCava() {
@@ -795,14 +818,11 @@ $(function() {
     if(hash.editor && hash.noeditor) delete hash.noeditor;
     $('#chant-parent2').toggleClass('noeditor',hash.noeditor?true:false);
   });
-  var cbEnglishChanged = function(){
-    selLang = cbEnglish.checked? 'english' : 'latin';
-    localStorage.selLang = selLang;
-    getSyllables = cbEnglish.checked? _getEnSyllables : _getLaSyllables;
-    last_syl = null;
+  selectPsalmLanguage(localStorage.psalmLanguage || (localStorage.selLang == 'english'? 'en' : 'la-liturgical'));
+  $("#selPsalmLanguage").change(function(){
+    selectPsalmLanguage($(this).val());
     updateText();
-  };
-  $("#cbEnglish").click(cbEnglishChanged);
+  });
   $("#selTones").append('<option>' + getPsalmTones().join('</option><option>') + '</option><optgroup label="Custom"></optgroup>');
   $("#selPsalm").append('<optgroup label="Psalms"><option>' + getPsalms().join('</option><option>') + '</option></optgroup>' +
                         '<optgroup label="Canticles">' + getCanticaOptions() + '</optgroup>');
@@ -816,6 +836,7 @@ $(function() {
   $("#cbSolemn").change(updateEnding);
   $("#cbInitStyle").change(updateInitStyle);
   $("#cbOnlyVowels").change(updateOnlyVowels);
+  $("#cbFormatPunctuation").change(updateFormatPunctuation);
   $("#cbRepeatIntonation").change(updateRepeatIntonation);
   $("#cbItalicizeIntonation").change(updateItalicizeIntonation);
   $("#cbUsePunctaCava").change(updateUsePunctaCava);
@@ -839,6 +860,7 @@ $(function() {
   $("#selPsalm").keyup(updatePsalm);
   $("#cbSolemn")[0].checked = ((hash.solemn || localStorage.cbSolemn) == "true");
   $("#cbOnlyVowels")[0].checked = onlyVowels = (localStorage.cbOnlyVowels == "true");
+  $("#cbFormatPunctuation")[0].checked = formatPunctuation = !onlyVowels && (localStorage.cbFormatPunctuation == "true");
   $("#cbInitStyle")[0].checked = useInitStyle = (localStorage.cbInitStyle != "false");
   $("#cbUsePunctaCava")[0].checked = usePunctaCava = (localStorage.cbUsePunctaCava != "false");
   $("#cbRepeatIntonation")[0].checked = repeatIntonation = (localStorage.cbRepeatIntonation == "true");
