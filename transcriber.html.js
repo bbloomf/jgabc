@@ -275,6 +275,18 @@ function splitGabc(gabc,offset) {
 
 var _regexParens=/\(([^\s\)]*[aeiouyáéëíóúý?æœǽœ́][^\s\)]*)\)/;
 function splitText(text) {
+  if (/^la(?:-liturgical)?$/.test($("#selLanguage").val()) &&
+      $("#cbAccenteur").prop('checked') && window.Accenteur) {
+    var accented = LatinAccents.apply(text);
+    var result = splitTextWithoutAccents(accented.text);
+    result.forEach(function(syllable) {
+      syllable.index = accented.indexes[syllable.index];
+    });
+    return result;
+  }
+  return splitTextWithoutAccents(text);
+}
+function splitTextWithoutAccents(text) {
   switch($("#selLanguage").val()) {
     case 'en':
       return Syl.syllabify(text,'en');
@@ -403,15 +415,67 @@ function updateSyl(txt) {
     });
 }
 
-function updateText() {
+function accentTextBox(event) {
+  if (!$("#oneBox").is(':hidden') ||
+      !/^la(?:-liturgical)?$/.test($("#selLanguage").val()) ||
+      !$("#cbAccenteur").prop('checked') || !window.Accenteur) return;
+  var textarea = $("#hymntext")[0];
+  var originalEvent = event && (event.originalEvent || event);
+  // Defer new words until complete, but recalculate our own accents whenever
+  // their word is edited (explicit accents remain untouched).
+  var typing = event && (event.type === 'keyup' ||
+    (event.type === 'input' && !/^(insertFromPaste|insertFromDrop)$/.test(originalEvent.inputType)));
+  if (!textarea.accenteurEditor) textarea.accenteurEditor = LatinAccents.createEditor();
+  var accented = textarea.accenteurEditor.apply(textarea.value, typing ? textarea.selectionEnd : undefined);
+  if (accented.text === textarea.value) return;
+  function mapPosition(position) {
+    var mapped = position;
+    for (var i = 0; i < accented.indexes.length && accented.indexes[i] <= position; ++i) {
+      if (accented.indexes[i] === position) mapped = i;
+    }
+    return mapped;
+  }
+  var start = mapPosition(textarea.selectionStart);
+  var end = mapPosition(textarea.selectionEnd);
+  var direction = textarea.selectionDirection;
+  var scrollTop = textarea.scrollTop, scrollLeft = textarea.scrollLeft;
+  textarea.value = accented.text;
+  textarea.setSelectionRange(start, end, direction);
+  textarea.scrollTop = scrollTop;
+  textarea.scrollLeft = scrollLeft;
+}
+
+function updateText(event) {
   if(!$("#oneBox").is(':hidden')) return;
+  if(event && (event.originalEvent || event).isComposing) return;
+  accentTextBox(event);
   updateSyl();
   updateEditor();
 }
 
 function selLanguageChanged() {
   localStorage.selLanguage = $(this).val();
+  updateAccenteurOption();
+  accentTextBox();
+  updateSyl();
   updateEditor();
+}
+
+var accenteurLoading = false;
+function updateAccenteurOption() {
+  var latin = /^la(?:-liturgical)?$/.test($("#selLanguage").val());
+  $("#accenteurOption").toggle(latin);
+  if (!latin || !$("#cbAccenteur").prop('checked') || window.Accenteur || accenteurLoading) return;
+  accenteurLoading = true;
+  $("#accenteurStatus").text(' (loading…)');
+  $.getScript('js/accenteur/engine.js').done(function() {
+    accenteurLoading = false;
+    $("#accenteurStatus").text('');
+    updateText();
+  }).fail(function() {
+    accenteurLoading = false;
+    $("#accenteurStatus").text(' (unavailable; toggle to retry)');
+  });
 }
 
 function decompile(mixed) {
@@ -598,11 +662,18 @@ $(function() {
   $("#lnkToggleMode").click(toggleMode);
   $(window).resize(windowResized);
   $("#hymngabc").keyup(updateGabcSide).keydown(shiftGabc);
-  $("#hymntext").keyup(updateText).keydown(internationalTextBoxKeyDown);
+  $("#hymntext").on("input compositionend", updateText).keyup(updateText).keydown(internationalTextBoxKeyDown);
   $("#editor").keyup(updateBoth).keydown(gabcEditorKeyDown).keydown(internationalTextBoxKeyDown);
   $("#cbElisionHasNote").click(updateEditor)[0].checked=localStorage.elisionHasNote!="false";
   $("#cbMultipleVerses").click(updateText);
   $("#selLanguage").change(selLanguageChanged);
+  $("#cbAccenteur").prop('checked', localStorage.useAccenteur !== 'false').change(function() {
+    localStorage.useAccenteur = this.checked;
+    $("#accenteurStatus").text('');
+    updateAccenteurOption();
+    updateText();
+  });
+  updateAccenteurOption();
   $("#lnkDownloadPng").click(savePng);
   $("#lnkDownloadSvg").click(saveAsSvg);
   function selectSourceIndex(index, e) {
