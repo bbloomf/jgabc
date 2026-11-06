@@ -52,7 +52,9 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         // The webintent plugin is Android-only; fall back to resume handling elsewhere.
-        if (window.plugins && window.plugins.webintent) {
+        // Its JS shim is installed on iOS too, even though it has no iOS native implementation.
+        if (window.cordova && window.cordova.platformId === 'android' &&
+            window.plugins && window.plugins.webintent) {
             window.plugins.webintent.getUri(function(url) {
                 if(url) app.handleUrl(url);
                 else app.onResume();
