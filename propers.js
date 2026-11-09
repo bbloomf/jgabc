@@ -3224,7 +3224,7 @@ $(function(){
   var addCount = Math.max(1, d.sundaysAfterPentecost - 23);
   if(d.sundaysAfterPentecost == 23) sundayKeys.splice(-1,1);
   sundayKeys = sundayKeys.concat(ultimaeDominicaePostPentecosten.splice(-addCount));
-  const twoWeeksAgo = moment().add(-2,'weeks');
+  const twoWeeksAgo = moment(now).add(-2,'weeks');
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
     var m = dateForSundayKey(sunday.key, d);
@@ -3257,27 +3257,36 @@ $(function(){
     }
   });
 
+  // Remove Sundays after Epiphany that don't occur in the year they are dated for (each entry is
+  // dated either this year or next, depending on whether it is more than two weeks past).
+  // The 1st through 3rd are always listed, but are not chosen as the upcoming entry in years
+  // when they don't occur.
   var i = sundayKeys.length;
-  var regexExtraSundayAfterEpiphany = null;
-  if(moment() > d.septuagesima) d = Dates(moment().year()+1);
-  if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
   while(--i >= 0) {
-    if(regexExtraSundayAfterEpiphany.test(sundayKeys[i].key)) {
-      sundayKeys.splice(i,1);
+    var sunday = sundayKeys[i];
+    var match = sunday.key && sunday.key.match(/^Epi(\d)$/);
+    if(match && match[1] > Dates(sunday.date.year()).sundaysAfterEpiphany) {
+      if(match[1] > 3) {
+        sundayKeys.splice(i,1);
+      } else {
+        sunday.doesNotOccur = true;
+      }
     }
   }
-  var i = 1;
-  while(i < sundayKeys.length) {
-    var sunday = sundayKeys[i];
-    var next = sundayKeys[++i];
-    if(next && ((sunday.date.isBefore(now) || sunday.date.diff(now, 'day') > 358) &&
-        next.date.isSameOrAfter(now) && next.date.diff(now, 'day') < 14)
-    ) {
-      moveToEnd = sundayKeys.splice(1, i - 1);
-      sundayKeys.push(beginningOfYearEntry);
-      sundayKeys = sundayKeys.concat(moveToEnd);
-      break;
+  // Rotate the list so that the earliest upcoming entry is at the top.  This doesn't rely on
+  // neighboring entries being in date order, since an out-of-order entry (e.g., ChristusRex
+  // moved to next year's date) may have been placed just before the upcoming Sunday.
+  var upcoming = 0;
+  for(i = 1; i < sundayKeys.length; ++i) {
+    var date = sundayKeys[i].date;
+    if(!sundayKeys[i].doesNotOccur && date.isSameOrAfter(now) && (!upcoming || date.isBefore(sundayKeys[upcoming].date))) {
+      upcoming = i;
     }
+  }
+  if(upcoming > 1) {
+    moveToEnd = sundayKeys.splice(1, upcoming - 1);
+    sundayKeys.push(beginningOfYearEntry);
+    sundayKeys = sundayKeys.concat(moveToEnd);
   }
 
   populate(sundayKeys,$selSunday);
