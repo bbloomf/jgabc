@@ -11,7 +11,7 @@ const root = path.join(__dirname, '..');
 // $(function(){...}) never calls its function here, so none of the page is set up.
 const context = vm.createContext({ console, localStorage: {}, $: () => {} });
 context.window = context;
-for (const file of ['util.js', 'propers.js']) {
+for (const file of ['exsurge.min.js', 'util.js', 'propers.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
 }
 
@@ -104,10 +104,29 @@ describe('Introitus', () => {
 });
 
 describe('Introitus and Communio', () => {
-  test('the last note of the antiphon is found (for the custos of the verses ad libitum)', () => {
-    const failures = chantsOf('Introitus', 'Communio')
-      .filter(({ gabc }) => !context.regexGabcAntiphonLastNote.test(gabc))
-      .map(({ file, gabc }) => `${file}: ${excerpt(gabc, gabc.length - 100)}`);
+  // the notes written in the gabc, leaving out clefs, custodes, accidentals and anything in brackets, braces or nabc
+  const notesOf = gabc => (gabc.match(/\(([^)]*)\)/g) || []).flatMap(group => (
+    group.slice(1, -1).split('|')[0]
+      .replace(/\[[^\]]*\]|\{[^}]*\}|<[^>]*>/g, '')
+      .replace(/[cf]b?[1-4]|[a-m]\+|z0|[a-m][xy#]/gi, '')
+      .match(/[a-m]/gi) || []
+  ).map(note => note.toLowerCase()));
+
+  test('the custodes of the verses ad libitum are the first and last notes of the antiphon', () => {
+    const failures = [];
+    for (const { file, officePart, gabc } of chantsOf('Introitus', 'Communio')) {
+      const isIntroit = officePart == 'Introitus';
+      // (the antiphon of an Introit ends at its first double bar, where its verse starts)
+      const doubleBar = isIntroit ? gabc.search(/\([^)]*::/) : -1;
+      const notes = notesOf(doubleBar >= 0 ? gabc.slice(0, doubleBar) : gabc);
+      const ctxt = new context.exsurge.ChantContext();
+      const score = new context.exsurge.ChantScore(ctxt, context.exsurge.Gabc.createMappingsFromSource(ctxt, gabc), false);
+      const custodes = context.getVersesAdLibitumCustodes(score, isIntroit);
+      // (none of these antiphons changes clef, so the notes written in the gabc are in the starting clef)
+      if (custodes.firstNote != notes[0] || custodes.lastNote != notes[notes.length - 1]) {
+        failures.push(`${file}: ${custodes.firstNote}…${custodes.lastNote}, but the gabc has ${notes[0]}…${notes[notes.length - 1]}`);
+      }
+    }
     expect(failures).toEqual([]);
   });
 });
