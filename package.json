@@ -33,7 +33,7 @@
     "cordova-webintent": "github:cordova-misc/cordova-webintent",
     "hypher": "^0.2.5",
     "jspdf": "^4.2.1",
-    "prettier": "^3.9.9",
-    "svg2pdf.js": "^2.8.1"
+    "prettier": "^3.9.10",
+    "svg2pdf.js": "^2.9.0"
   }
 }
