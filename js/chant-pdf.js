@@ -488,11 +488,97 @@ var ChantPdf = (function() {
     });
   }
 
+  // The words of a pointed verse (html from propers.js, with <b>, <i>, red spans and the versiculum): each word is
+  // [{ text, font: [jsPDF font name, style], color }], one run for each part of it in a different style.
+  function getWords(html) {
+    var words = [],
+        word = null,
+        element = document.createElement('div');
+    element.innerHTML = html;
+    (function walk(node, style) {
+      if(node.nodeType == 3) {
+        // (jsPDF can't place a combining accent over its letter, as for the chant; see prepareSvg)
+        node.nodeValue.normalize('NFC').replace(/́/g, '').split(/(\s+)/).forEach(function(text, i) {
+          if(i % 2) {
+            word = null;
+          } else if(text) {
+            if(!word) words.push(word = []);
+            word.push({
+              text: text,
+              font: style.versiculum? ['Versiculum', 'normal'] :
+                ['Crimson Text', (style.bold? 'bold' : '') + (style.italic? 'italic' : '') || 'normal'],
+              color: style.red? '#dd0000' : '#000000'
+            });
+          }
+        });
+      } else if(node.nodeType == 1) {
+        var classes = node.classList;
+        style = {
+          bold: style.bold || node.nodeName == 'B',
+          italic: style.italic || node.nodeName == 'I',
+          red: style.red || classes.contains('red'),
+          versiculum: style.versiculum || classes.contains('versiculum')
+        };
+        [].forEach.call(node.childNodes, function(child) { walk(child, style); });
+      }
+    })(element, {});
+    return words;
+  }
+
+  // Pointed verses ad libitum, set as the page sets them (see .verses-pointed in propers.css): at the size of the
+  // lyrics, justified, with each verse's number hanging in front of its other lines.  The page breaks them into lines,
+  // measuring the words with the browser's fonts; the renderer spaces the words out to the width with the PDF's.
+  function getPointedVerseLines(verses, layout) {
+    var size = layout.sizes.lyric,
+        lineHeight = size * 1.25,
+        indent = size * 1.2,
+        context = document.createElement('canvas').getContext('2d');
+    function measure(run) {
+      var style = run.font[1];
+      context.font = (/italic/.test(style)? 'italic ' : '') + (/bold/.test(style)? 'bold ' : '') + size + 'px "' +
+        run.font[0] + '"';
+      return context.measureText(run.text).width;
+    }
+    var space = measure({ text: ' ', font: ['Crimson Text', 'normal'] }),
+        items = [];
+    verses.forEach(function(html) {
+      var lines = [],
+          line = null;
+      getWords(html).forEach(function(word) {
+        var width = word.reduce(function(sum, run) { return sum + measure(run); }, 0);
+        // (every line after the first is indented)
+        if(line && line.width + space + width > layout.width - (lines.length > 1? indent : 0)) line = null;
+        if(!line) {
+          lines.push(line = { words: [], width: -space });
+        }
+        line.words.push(word);
+        line.width += space + width;
+      });
+      lines.forEach(function(line, i) {
+        items.push({
+          words: line.words,
+          indent: i? indent : 0,
+          width: layout.width - (i? indent : 0),
+          justify: i < lines.length - 1,
+          fontSize: size,
+          baseline: size,
+          height: lineHeight,
+          // (the page puts 0.4em between verses, and so between the chant and the first verse)
+          gap: i? 0 : size * 0.4,
+          // keep the first two lines of a verse together, and the last two
+          keepWithNext: i < lines.length - 1 && (i === 0 || i === lines.length - 2)
+        });
+      });
+    });
+    return items;
+  }
+
   // options: {
   //   title: printed at the top of the first page and used for the file name,
   //   paper: see getLayout,
-  //   chants: [{ score, ctxt, commentary, pageBreak }]; create() lays each score out again at the paper's sizes
-  //     and width, and puts ctxt back afterwards,
+  //   chants: [{ score, ctxt, commentary, pageBreak, pointedVerses }]; create() lays each score out again at the
+  //     paper's sizes and width, and puts ctxt back afterwards; pointedVerses, if any, are the html of verses that
+  //     follow the score as pointed text (see getPointedVerseLines),
   //   fonts: [{ url, family, style }], TrueType fonts that the chants' text uses besides Crimson Text, where family
   //     is the name in the chant's font-family and style is normal, bold, italic or bolditalic
   // }
@@ -527,6 +613,11 @@ var ChantPdf = (function() {
                 height: sizes.commentary.height, keepWithNext: true });
             }
             lines[0].pageBreak = !!chant.pageBreak;
+            if(chant.pointedVerses && chant.pointedVerses.length) {
+              // the last line of the score stays with the first verse after it
+              lines[lines.length - 1].keepWithNext = true;
+              lines = lines.concat(getPointedVerseLines(chant.pointedVerses, layout));
+            }
             items = items.concat(lines);
           });
         });
@@ -546,6 +637,10 @@ var ChantPdf = (function() {
             if(item.svg) {
               return { page: placements[i].page, x: left, y: top, svg: item.svg, width: item.width,
                 height: parseFloat(item.svg.attributes.height) };
+            }
+            if(item.words) {
+              return { page: placements[i].page, x: left + item.indent, y: top + item.baseline, words: item.words,
+                width: item.width, justify: item.justify, fontSize: item.fontSize };
             }
             return { page: placements[i].page, x: item.align == 'center'? layout.pageWidth / 2 : right,
               y: top + item.baseline, text: item.text, font: item.font, fontSize: item.fontSize, align: item.align,

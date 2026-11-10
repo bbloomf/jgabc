@@ -189,11 +189,39 @@ var ChantPdfRender = (function() {
     });
   }
 
+  // A line of pointed text: words, each made of runs of text in their own font and colour, from x along the baseline
+  // at y.  When item.justify is set, the space between the words is stretched (or squeezed) so that the line is
+  // item.width wide, as the PDF's fonts measure it; otherwise the words are a space apart.
+  function drawWords(doc, item) {
+    doc.setFontSize(item.fontSize);
+    function width(run) {
+      doc.setFont(run.font[0], run.font[1]);
+      return doc.getTextWidth(run.text);
+    }
+    var widths = item.words.map(function(word) { return word.map(width); }),
+        total = widths.reduce(function(sum, runs) {
+          return runs.reduce(function(sum, runWidth) { return sum + runWidth; }, sum);
+        }, 0),
+        space = width({ text: ' ', font: ['Crimson Text', 'normal'] });
+    if(item.justify && item.words.length > 1) space = (item.width - total) / (item.words.length - 1);
+    var x = item.x;
+    item.words.forEach(function(word, i) {
+      word.forEach(function(run, j) {
+        doc.setFont(run.font[0], run.font[1]);
+        doc.setTextColor(run.color);
+        doc.text(run.text, x, item.y);
+        x += widths[i][j];
+      });
+      x += space;
+    });
+  }
+
   // job: {
   //   title, pageWidth, pageHeight (in points), smallCapsSize,
   //   fonts: [{ url, family, style }], the fonts the PDF needs, and moreFonts, the fonts it can do without,
   //   items: [{ page, x, y, svg: tree, width, height }], each line of chant, where x and y are its top left corner,
-  //     or [{ page, x, y, text, font: [name, style], fontSize, align, smallCaps }], where y is the baseline
+  //     or [{ page, x, y, text, font: [name, style], fontSize, align, smallCaps }], where y is the baseline,
+  //     or [{ page, x, y, words, width, justify, fontSize }], a line of pointed text (see drawWords)
   // }
   // Resolves to the PDF, as an ArrayBuffer.
   function render(job) {
@@ -226,6 +254,7 @@ var ChantPdfRender = (function() {
             doc.setFont('times', 'normal');
             return doc.svg(new Element(item.svg), { x: item.x, y: item.y, width: item.width, height: item.height });
           }
+          if(item.words) return drawWords(doc, item);
           drawText(doc, item, job.smallCapsSize);
         });
       }, Promise.resolve()).then(function() {

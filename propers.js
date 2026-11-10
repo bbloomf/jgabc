@@ -47,8 +47,35 @@ var regexAlleluiaIj = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+
 var regexAlleluiaIjOrNonRepetitur = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s~]+)\s*(?:~?<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i;
 // the first double bar, which ends the opening Allelúia of an Alleluia
 var regexGabcFirstDoubleBar = /\([^):]*::[^)]*\)/;
-// the last note of an antiphon, before the double bar at the end of the chant or before a rubric such as <i>Ps.</i>
-var regexGabcAntiphonLastNote = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/;
+// The gabc pitches of the custodes of the verses ad libitum of an antiphon, from its Exsurge score:
+// the custos at the start of each verse (lastNote) is the last note of the antiphon, which for an Introit is the last note
+// before its first double bar (where its own verse starts), and the custos at the end of each verse (firstNote) is the
+// antiphon's first note.  Both are in the antiphon's starting clef, which the verses are written in.
+function getVersesAdLibitumCustodes(score, isIntroit) {
+  var notations = score.notations,
+      startingClef = score.startingClef;
+  var noteInStartingClef = function(note) {
+    return String.fromCharCode('c'.charCodeAt(0) + startingClef.pitchToStaffPosition(note.pitch));
+  };
+  var antiphonEnd = notations.length;
+  if(isIntroit) {
+    for(var i=0; i < notations.length; ++i) {
+      if(notations[i] instanceof exsurge.DoubleBar) {
+        antiphonEnd = i;
+        break;
+      }
+    }
+  }
+  var firstNote = '',
+      lastNote = '';
+  for(var i=0; i < antiphonEnd && !firstNote; ++i) {
+    if(notations[i].isNeume) firstNote = noteInStartingClef(notations[i].notes[0]);
+  }
+  for(var i=antiphonEnd - 1; i >= 0 && !lastNote; --i) {
+    if(notations[i].isNeume) lastNote = noteInStartingClef(notations[i].notes.slice(-1)[0]);
+  }
+  return { firstNote: firstNote, lastNote: lastNote };
+}
 // this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
 function removeNotApplicableFromGabc(gabc) {
   var TP = selTempus == 'Pasch';
@@ -2675,6 +2702,12 @@ $(function(){
       default:
         return;
     }
+    // while the Introit's verses ad libitum are showing and end with the Glória Patri, the Introit doesn't show its own
+    // (only in the chant, not in the gabc that can be edited)
+    sel[part].hidingGloriaPatri = !!sel[part].hideGloriaPatri;
+    if(gabc && sel[part].hidingGloriaPatri) {
+      gabc = gabc.replace(regexGabcGloriaPatriEtFilio, '');
+    }
     sel[part].activeGabc = gabc;
     if(gabc) {
       updateExsurge(part, null, updateFromOldScore);
@@ -2699,13 +2732,6 @@ $(function(){
     prop.commentary = gabcHeader.officePart=='Kyriale'? null : (gabcHeader.commentary || null);
     prop.gabcHeader = gabcHeader;
     prop.activeExsurge = splicePartGabc(part, gabc);
-    // pointed verses ad libitum are still written out in full in PDFs
-    if(prop.pdfGabc) {
-      var pdfGabc = exsurgeGabc(prop, prop.pdfGabc);
-      prop.pdfExsurge = pdfGabc.slice(getHeaderLen(pdfGabc));
-    } else {
-      delete prop.pdfExsurge;
-    }
     prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
     updateFromActiveExsurge(part, id, updateFromOldScore);
   }
@@ -3670,7 +3696,7 @@ $(function(){
     pdfParts.parts.forEach(function(pdfPart, i){
       var gabc = pdfPart.gabc,
           verses = sel[pdfPart.part+"Verses"],
-          gabcVerses = verses && (verses.pdfGabc || verses.activeGabc), // pointed verses are written out in full
+          gabcVerses = verses && (verses.pdfGabc || verses.activeGabc), // pointed verses are written out in full, as gabc can't have the pointed text
           header = getHeader(gabc);
       header.name = name || '';
       if(name) {
@@ -3716,18 +3742,21 @@ $(function(){
     });
     return result;
   };
-  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width
+  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width,
+  // except that pointed verses ad libitum are printed as they are shown, with only the first one in the score
   var getPdfOptions = window.getPdfOptions = function() {
     var pdfParts = getPdfParts();
     var processSolesmes = getProcessSolesmes();
     var chants = getPdfChantParts(pdfParts.parts).map(function(chantPart) {
       var prop = sel[chantPart.part];
       var ctxt = makeExsurgeChantContext();
-      var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.pdfExsurge || prop.activeExsurge));
+      var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, processSolesmes(prop.activeExsurge));
       var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
       var annotation = makeAnnotation(chantPart.part, ctxt);
       if(annotation) score.annotation = annotation;
-      return { score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: chantPart.pageBreak };
+      // pointed verses ad libitum: the first verse is in the score, and the rest follow it as text
+      return { score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: chantPart.pageBreak,
+        pointedVerses: prop.pointedVersesHtml };
     });
     return { title: pdfParts.name, paper: getPaperSize(), chants: chants };
   };
@@ -3896,6 +3925,12 @@ $(function(){
     }
     var state = sel[versePart] = sel[versePart] || {};
     if(!state.ctxt) makeChantContextForSel(state);
+    if(!this.checked) {
+      // so that the PDFs leave them out too
+      ['activeGabc', 'activeExsurge', 'pdfGabc', 'pointedVersesHtml', 'score'].forEach(function(key) {
+        delete state[key];
+      });
+    }
     var $selVersesTone = $part.find('select.sel-verses-tone');
     if(verseTone) $selVersesTone.val(verseTone);
     state.verseTone = $selVersesTone.val();
@@ -3946,6 +3981,8 @@ $(function(){
           customRef = ref.slice(6);
         }
       }
+      // the verses end with the Glória Patri, unless it isn't sung, or the Mass's own verses are shown and it isn't sung after them
+      var useGloriaPatri = !selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false));
       $.when.apply($, parseRef(ref).map(function(ref) {
         return ref.getLinesFromLiber().pipe(function(lines) {
           if(!ref.verse) lines = lines.slice(0,10);
@@ -3964,37 +4001,17 @@ $(function(){
         var clef = sel[part].score.startingClef.mapping.source;
         state.gabc = "initial-style: 0;\n%%\n" + clef;
         
-        // add custos at end of each verse
-        var notations = sel[part].score.notations;
-        var lastI = notations.length - 1;
-        var firstNote = '',
-            lastNote = '';
-        for(var i=0; i < 10; ++i) {
-          if(!firstNote && notations[i].isNeume) {
-            firstNote = notations[i].notes[0];
-            firstNote = (16 + firstNote.staffPosition).toString(23);
-          }
-          if(!lastNote && notations[lastI - i].isNeume) {
-            // TODO: this needs to ignore the verse and Gloria Patri in the Introit
-            lastNote = notations[lastI - i].notes.slice(-1)[0];
-            lastNote = (16 + lastNote.staffPosition).toString(23);
-          }
-          if(firstNote && lastNote) break;
-        }
+        var custodes = getVersesAdLibitumCustodes(sel[part].score, part == 'introitus'),
+            firstNote = custodes.firstNote,
+            lastNote = custodes.lastNote;
         var tone = getIntroitTone(state, state.verseTone);
         var usePsalmTone = isPsalmVerseTone(state.verseTone);
         var amenTones = !usePsalmTone && (regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc));
         if(amenTones) applyAmenTones(tone, amenTones);
-        var lastNoteMatch = regexGabcAntiphonLastNote.exec(sel[part].gabc);
-        if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
-          console.info(lastNoteMatch[1], lastNote);
-        }
-        lastNote = lastNoteMatch[1].toLowerCase();
         state.startOfVerse = '('+lastNote+'+) ';
         // the custos goes before "Ant.", so that Exsurge can put "Ant." below the lyrics of the line when it doesn't fit
         // (a custos can't start a system, so after "Ant." it would take "Ant." with it onto a system of its own)
         state.endOfVerse = '(::'+firstNote+'+) <i>Ant.</i>() (Z)';
-        var useGloriaPatri = !selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false));
         var getGloriaPatri = function(useBoldItalic) {
           return usePsalmTone?
             psalmToneGloriaPatri(tone.mediant,tone.termination,tone.clef,state.repeatIntonation,useBoldItalic) :
@@ -4018,9 +4035,12 @@ $(function(){
               return pointedHtmlFromGabc((i == 0? '<sp>V/</sp> ' : '') + verse);
             }));
           }
+          // (the Quick PDF prints these too, but the PDF from the server can only have the verses written out in full)
+          state.pointedVersesHtml = pointedHtml;
           pointedHtml = pointedHtml.map(function(verse) { return '<p>' + verse + '</p>'; }).join('');
           state.pdfGabc = getVersesGabc(false);
         } else {
+          delete state.pointedVersesHtml;
           delete state.pdfGabc;
         }
         // the pointed verses change along with the chant, once it has been laid out
@@ -4030,6 +4050,11 @@ $(function(){
         state.responsoryCallbacks = [];
         updateExsurge(versePart, null, true);
       });
+    }
+    // so the Introit doesn't show its own Glória Patri while they are showing
+    if(part == 'introitus') {
+      sel[part].hideGloriaPatri = !!(this.checked && useGloriaPatri);
+      if(sel[part].hidingGloriaPatri != sel[part].hideGloriaPatri && sel[part].activeGabc) updateTextAndChantForPart(part, true);
     }
     addToHash(versePart,versesSelected);
     addToHash(versePart+'Custom',customRef);
