@@ -47,8 +47,35 @@ var regexAlleluiaIj = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?\([^)]+
 var regexAlleluiaIjOrNonRepetitur = /(al\([^)]+\)le\([^)]+\)l[uú]\([^)]+\)[ij]a[.,;:]?(?:\s+\{?\*\}?)?\([^)]+\)\s*[^a-z\s~]+)\s*(?:~?<i>)?(?:ij|non\s+rep[eé]titur)\.?(?:<\/i>)?([^\)]*\()/i;
 // the first double bar, which ends the opening Allelúia of an Alleluia
 var regexGabcFirstDoubleBar = /\([^):]*::[^)]*\)/;
-// the last note of an antiphon, before the double bar at the end of the chant or before a rubric such as <i>Ps.</i>
-var regexGabcAntiphonLastNote = /([a-mA-M])[^a-mA-M]*\)\s*\(::\)\s*($|<i>)/;
+// The gabc pitches of the custodes of the verses ad libitum of an antiphon, from its Exsurge score:
+// the custos at the start of each verse (lastNote) is the last note of the antiphon, which for an Introit is the last note
+// before its first double bar (where its own verse starts), and the custos at the end of each verse (firstNote) is the
+// antiphon's first note.  Both are in the antiphon's starting clef, which the verses are written in.
+function getVersesAdLibitumCustodes(score, isIntroit) {
+  var notations = score.notations,
+      startingClef = score.startingClef;
+  var noteInStartingClef = function(note) {
+    return String.fromCharCode('c'.charCodeAt(0) + startingClef.pitchToStaffPosition(note.pitch));
+  };
+  var antiphonEnd = notations.length;
+  if(isIntroit) {
+    for(var i=0; i < notations.length; ++i) {
+      if(notations[i] instanceof exsurge.DoubleBar) {
+        antiphonEnd = i;
+        break;
+      }
+    }
+  }
+  var firstNote = '',
+      lastNote = '';
+  for(var i=0; i < antiphonEnd && !firstNote; ++i) {
+    if(notations[i].isNeume) firstNote = noteInStartingClef(notations[i].notes[0]);
+  }
+  for(var i=antiphonEnd - 1; i >= 0 && !lastNote; --i) {
+    if(notations[i].isNeume) lastNote = noteInStartingClef(notations[i].notes.slice(-1)[0]);
+  }
+  return { firstNote: firstNote, lastNote: lastNote };
+}
 // this function removes the entire alleluia of a T.P. Alleluia when outside of paschal time and removes the "T.P" direction when in it.
 function removeNotApplicableFromGabc(gabc) {
   var TP = selTempus == 'Pasch';
@@ -2109,17 +2136,20 @@ $(function(){
     return gabc;
   }
   
-  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef) {
+  // useBoldItalic marks the accents and preparatory syllables, for pointed verses
+  var psalmToneIntroitGloriaPatri = function(gMediant,gTermination,gAmenTones,clef,useBoldItalic) {
     var gp = "Glória Patri, et Fílio, † et Spirítui Sancto.\nSicut erat in princípio, † et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
     var result = applyPsalmTone({
       text: gp[0],
       gabc: gMediant,
       clef: clef,
       format: bi_formats.gabc,
+      useBoldItalic: useBoldItalic,
+      italicizeIntonation: useBoldItalic,
       flexEqualsTenor: true
     });
     result = result + ' *(:) ';
-    
+
     var gTertium = getTertiumQuid(gMediant,gTermination);
     gp[1] = gp[1].split('*');
     var temp = applyPsalmTone({
@@ -2127,6 +2157,8 @@ $(function(){
       gabc: gTertium,
       clef: clef,
       format: bi_formats.gabc,
+      useBoldItalic: useBoldItalic,
+      italicizeIntonation: useBoldItalic,
       flexEqualsTenor: true
     });
     result += temp + ' (:) ';
@@ -2135,22 +2167,85 @@ $(function(){
       gabc: gTermination,
       clef: clef,
       format: bi_formats.gabc,
+      useBoldItalic: useBoldItalic,
+      italicizeIntonation: useBoldItalic,
       flexEqualsTenor: true
     });
     temp = applyAmenTones(temp, gAmenTones, gMediant, clef);
     return applyLiquescents(result + temp + " (::)\n");
+  }
+
+  // Glória Patri in a regular psalm tone, after other verses: it only has the intonation if the intonation is repeated in every verse.
+  // useBoldItalic marks the accents and preparatory syllables, for pointed verses
+  var psalmToneGloriaPatri = function(gMediant,gTermination,clef,repeatIntonation,useBoldItalic) {
+    var gp = "Glória Patri, et Fílio, * et Spirítui Sancto.\nSicut erat in princípio, et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
+    return applyLiquescents(gp.map(function(verse, i) {
+      verse = verse.split('*');
+      var mediant = gMediant;
+      if(!repeatIntonation) {
+        mediant = removeIntonation(getGabcTones(gMediant,undefined,false,clef));
+      }
+      return applyPsalmTone({
+        text: verse[0].trim(),
+        gabc: mediant,
+        clef: clef,
+        format: bi_formats.gabc,
+        useBoldItalic: useBoldItalic,
+        italicizeIntonation: useBoldItalic,
+        favor: ''
+      }) + bi_formats.gabc.nbsp + '*(:) ' + applyPsalmTone({
+        text: verse[1].trim(),
+        gabc: gTermination,
+        clef: clef,
+        format: bi_formats.gabc,
+        useBoldItalic: useBoldItalic,
+        italicizeIntonation: useBoldItalic,
+        favor: 'termination',
+        flexEqualsTenor: true
+      });
+    }).join(' (::) ') + " (::)\n");
+  }
+
+  // Turns psalm-toned gabc that has bold and italics into html text, for verses that are pointed instead of written out in full.
+  // A bar with no asterisk or dagger before it is a division of the verse, so it gets an asterisk; a comma bar is a flex.
+  var pointedHtmlFromGabc = function(gabc) {
+    return gabc.replace(/<v>\(<\/v>/g, '\u0001') // an open parenthesis in the text, which isn't the start of notes
+      .replace(/\s*\(,\)/g, ' †')
+      .replace(/(\S?)\s*\(:\)/g, function(match, before) {
+        return (before == '*' || before == '†')? before : before + ' *';
+      })
+      .replace(/\([^)]*\)/g, '')
+      .replace(/\u0001/g, '(')
+      .replace(/<sp>V\/<\/sp>\.?/g, "<span class='versiculum red'>v</span>")
+      .replace(/\s+/g, ' ')
+      .replace(/<\/(b|i)><\1>/g, '') // join the syllables of a word that are both bold or both italic
+      .trim()
+      .replace(/^(\d+\.)/, "<span class='red'>$1</span>")
+      .replace(/(^|\s)([*†])(?=\s|$)/g, "$1<span class='red'>$2</span>");
   }
   
   var isAlleluia = function(part,text){
     return part=='alleluia' || (part.match(/^graduale/) && removeDiacritics(text).match(/^allelu[ij]a/i));
   }
 
-  var getIntroitTone = function(part) {
+  // verseTone may be 'simple' or 'solemn' to use the regular psalm tone of the mode instead of the Introit verse tone
+  var getIntroitTone = function(part, verseTone) {
     var gabc = part.gabc;
     if(!gabc) return;
-    var tone = g_tones['Introit ' + part.mode];
-    var mediant = tone.mediant;
-    var termination = tone.termination;
+    var tone = isPsalmVerseTone(verseTone) && g_tones[part.mode + '.'];
+    var mediant, termination;
+    if(tone) {
+      mediant = (verseTone == 'solemn' && tone.solemn) || tone.mediant;
+      termination = tone.termination;
+      if(!termination) {
+        termination = tone.terminations[defaultTermination[part.mode]];
+        if(!termination) for(var i in tone.terminations) { termination = tone.terminations[i]; break; }
+      }
+    } else {
+      tone = g_tones['Introit ' + part.mode];
+      mediant = tone.mediant;
+      termination = tone.termination;
+    }
     if(!termination) {
       termination = mediant;
     }
@@ -2168,6 +2263,9 @@ $(function(){
       mediant: mediant,
       termination: termination,
     };
+  }
+  var isPsalmVerseTone = function(verseTone) {
+    return verseTone == 'simple' || verseTone == 'solemn';
   }
 
   var getAspergesVerseAndGloriaPatriGabc = function(part) {
@@ -2216,7 +2314,9 @@ $(function(){
     return gabc.slice(0,amenTones.index) + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
   }
   
-  var getPsalmToneForPart = function(part, tone){
+  // when pointed is set, only the first verse is in the gabc (with bold, italics and open notes), and the rest of the verses
+  // are left in sel[part].pointedHtml as html text with bold and italics
+  var getPsalmToneForPart = function(part, tone, pointed){
     var text = sel[part].text;
     if(!text) return;
     var header = getHeader(sel[part].gabc||'');
@@ -2230,7 +2330,7 @@ $(function(){
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if((/^(introitus|communioVerses)/.test(part) && !isPsalmVerseTone(sel[part].verseTone)) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -2385,7 +2485,9 @@ $(function(){
     
 
     var firstVerse = true;
-    var asGabc = true;      // Right now this is hard coded, but perhaps I could add an option to only do the first verse, and just point the rest.
+    var asGabc = true;
+    var wroteFullVerse = false;
+    var pointedHtml = sel[part].pointedHtml = [];
     var wordsInLine = function(line) {
       return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
     }
@@ -2442,76 +2544,78 @@ $(function(){
         ++i;
       } else if(firstVerse || asGabc) {
         var result={shortened:false};
-        if(introitTone && line.length == 3) { //TODO: Make this optional perhaps
-          var left = [line[0], line[1]];
+        // when the verses are pointed, only the first one is written out in full (with open notes), and the rest become html text
+        var asHtml = pointed && wroteFullVerse;
+        var toneOptions = {
+          clef: clef,
+          useOpenNotes: !!pointed && !asHtml,
+          useBoldItalic: !!pointed,
+          onlyVowel: false,
+          format: bi_formats.gabc,
+          verseNumber: i+1,
+          italicizeIntonation: !!pointed,
+          flexEqualsTenor: introitTone
+        };
+        // the gabc of each segment of the verse, without the bars between them
+        var segments;
+        var threeSegments = introitTone && line.length == 3; //TODO: Make this optional perhaps
+        if(threeSegments) {
+          segments = [
+            applyPsalmTone($.extend({}, toneOptions, {
+              text: line[0].trim(),
+              gabc: gMediant,
+              prefix: !firstVerse && !italicNote,
+              suffix: false,
+              result: result,
+              favor: 'intonation'
+            })),
+            applyPsalmTone($.extend({}, toneOptions, {
+              text: line[1].trim(),
+              gabc: gTertium,
+              prefix: false,
+              suffix: false,
+              result: result,
+              favor: 'intonation'
+            }))
+          ];
           line.splice(1,1);
-          gabc += (italicNote||'') + applyPsalmTone({
-            text: left[0].trim(),
-            gabc: gMediant,
-            clef: clef,
-            useOpenNotes: false,
-            useBoldItalic: false,
-            onlyVowel: false,
-            format: bi_formats.gabc,
-            verseNumber: i+1,
-            prefix: !firstVerse && !italicNote,
-            suffix: false,
-            italicizeIntonation: false,
-            result: result,
-            favor: 'intonation',
-            flexEqualsTenor: introitTone
-          }) + bi_formats.gabc.nbsp + '(:) ' +
-          applyPsalmTone({
-            text: left[1].trim(),
-            gabc: gTertium,
-            clef: clef,
-            useOpenNotes: false,
-            useBoldItalic: false,
-            onlyVowel: false,
-            format: bi_formats.gabc,
-            verseNumber: i+1,
-            prefix: false,
-            suffix: false,
-            italicizeIntonation: false,
-            result: result,
-            favor: 'intonation',
-            flexEqualsTenor: introitTone
-          });
         } else {
-          gabc += (italicNote||'') + (useBigInitial? '' : startOfVerse) + applyPsalmTone({
+          var mediant = gMediant;
+          if(!firstVerse && !introitTone && sel[part].repeatIntonation === false) {
+            // only the first verse has the intonation
+            mediant = removeIntonation(getGabcTones(gMediant,undefined,false,clef));
+          }
+          segments = [applyPsalmTone($.extend({}, toneOptions, {
             text: line[0].trim(),
-            gabc: line.length==1? noMediant : gMediant,
-            clef: clef,
-            useOpenNotes: false,
-            useBoldItalic: false,
-            onlyVowel: false,
-            format: bi_formats.gabc,
-            verseNumber: i+1,
+            gabc: line.length==1? noMediant : mediant,
             prefix: !(useBigInitial && firstVerse) && !italicNote,
             firstPrefix: !useBigInitial && !italicNote,
             suffix: false,
-            italicizeIntonation: false,
             result: result,
-            favor: i == 0? 'intonation' : '',
-            flexEqualsTenor: introitTone
-          });
+            favor: i == 0? 'intonation' : ''
+          }))];
         }
-        gabc += (line.length == 1? "" : bi_formats.gabc.nbsp + "*(:) " +
-          applyPsalmTone({
+        if(line.length > 1) {
+          segments.push(applyPsalmTone($.extend({}, toneOptions, {
             text: line[1].trim(),
             gabc: gTermination,
-            clef: clef,
-            useOpenNotes: false,
-            useBoldItalic: false,
-            onlyVowel: false,
-            format: bi_formats.gabc,
-            verseNumber: i+1,
             prefix: false,
             suffix: true,
-            italicizeIntonation: false,
             favor: 'termination',
             flexEqualsTenor: true
-          })) + " " + endOfVerse + "\n";
+          })));
+        }
+        if(asHtml) {
+          pointedHtml.push(pointedHtmlFromGabc((italicNote||'') + segments.reduce(function(html, segment, j) {
+            return html + ((threeSegments && j == 1)? ' † ' : ' * ') + segment;
+          })));
+        } else {
+          gabc += (italicNote||'') + ((threeSegments || useBigInitial)? '' : startOfVerse) + segments[0] +
+            (threeSegments? bi_formats.gabc.nbsp + '(:) ' + segments[1] : '') +
+            (line.length == 1? "" : bi_formats.gabc.nbsp + "*(:) " + segments[segments.length - 1]) +
+            " " + endOfVerse + "\n";
+          wroteFullVerse = true;
+        }
         if(i==0) {
           //if(!repeatIntonation)gMediant=removeIntonation($.extend(true,{},gMediant));
           flex = (line[0].indexOf(sym_flex) >= 0);
@@ -2598,6 +2702,12 @@ $(function(){
       default:
         return;
     }
+    // while the Introit's verses ad libitum are showing and end with the Glória Patri, the Introit doesn't show its own
+    // (only in the chant, not in the gabc that can be edited)
+    sel[part].hidingGloriaPatri = !!sel[part].hideGloriaPatri;
+    if(gabc && sel[part].hidingGloriaPatri) {
+      gabc = gabc.replace(regexGabcGloriaPatriEtFilio, '');
+    }
     sel[part].activeGabc = gabc;
     if(gabc) {
       updateExsurge(part, null, updateFromOldScore);
@@ -2614,8 +2724,19 @@ $(function(){
 
   var updateExsurge = function(part, id, updateFromOldScore) {
     var prop = sel[part];
-    var ctxt = prop.ctxt;
-    var gabc = prop.activeGabc;
+    var gabc = exsurgeGabc(prop, prop.activeGabc);
+    var gabcHeader = getHeader(gabc);
+    if(gabcHeader.original) {
+      gabc = gabc.slice(gabcHeader.original.length);
+    }
+    prop.commentary = gabcHeader.officePart=='Kyriale'? null : (gabcHeader.commentary || null);
+    prop.gabcHeader = gabcHeader;
+    prop.activeExsurge = splicePartGabc(part, gabc);
+    prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
+    updateFromActiveExsurge(part, id, updateFromOldScore);
+  }
+  // the gabc as Exsurge needs it to render it
+  var exsurgeGabc = function(prop, gabc) {
     gabc = removeNotApplicableFromGabc(gabc);
     if(!prop.responsoryCallbacks) {
       prop.responsoryCallbacks = [];
@@ -2626,7 +2747,7 @@ $(function(){
         return match.replace(/(^|\)\s*)([a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ\u0301]+\s*[,;:.!?]?)/gi,'$1<b>$2</b>');
       });
     });
-    gabc = gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
+    return gabc.replace(/<v>\\([VRA])bar<\/v>/g,function(match,barType) {
         return barType + '/.';
       }).replace(/<sp>([VRA])\/<\/sp>\.?/g,function(match,barType) {
         return barType + '/.';
@@ -2653,15 +2774,6 @@ $(function(){
       .replace(/\[[ou]ll:[01]?[{}][01]?\]/ig,'') // oll ledger line indications
       .replace(/\s(<nlba>)?\^?\*\^?(?=\s*[^(])/g,' $1*()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)  It may start a no line break area, as before the cue of a repeat.
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
-    var gabcHeader = getHeader(gabc);
-    if(gabcHeader.original) {
-      gabc = gabc.slice(gabcHeader.original.length);
-    }
-    prop.commentary = gabcHeader.officePart=='Kyriale'? null : (gabcHeader.commentary || null);
-    prop.gabcHeader = gabcHeader;
-    prop.activeExsurge = splicePartGabc(part, gabc);
-    prop.noDropCap = ('initialStyle' in gabcHeader)? gabcHeader.initialStyle === '0' : (id && id.match && id.match(/-/));
-    updateFromActiveExsurge(part, id, updateFromOldScore);
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
     var chantContainer = $('#'+part+'-preview')[0];
@@ -2802,6 +2914,16 @@ $(function(){
   // reading position is still kept up to date afterwards.
   if(chantResizeObserver) chantResizeObserver.observe(document.documentElement);
 
+  // runs prop.afterRender once, as soon as the new rendering of the chant is on the page,
+  // so that anything shown with it (such as pointed verses) changes at the same time
+  function afterChantRendered(prop) {
+    var callback = prop.afterRender;
+    if(callback) {
+      delete prop.afterRender;
+      callback();
+    }
+  }
+
   // relayout, when given, comes from relayoutChangedChant(), which has already
   // measured the container: {availableWidth, viewportHeight, session}.  The
   // session collects the changes so that they all happen in the same frame.
@@ -2887,6 +3009,7 @@ $(function(){
       }
       // render the score to svg code
       chantContainer.empty().append(score.createSvgNodeForEachLine(ctxt));
+      afterChantRendered(prop);
       updateTextSize(part);
     } else {
       if(session) session.pending++;
@@ -2900,11 +3023,13 @@ $(function(){
           if(svg) {
             session.updates.push({part: part, generation: generation, apply: function() {
               chantContainer.empty().append(svg);
+              afterChantRendered(prop);
             }});
           }
           finishRelayoutStep(session);
         } else if(svg) {
           chantContainer.empty().append(svg);
+          afterChantRendered(prop);
           var callback = function() {
             updateTextSize(part);
             if(window.afterChantLayout) window.afterChantLayout();
@@ -3224,7 +3349,7 @@ $(function(){
   var addCount = Math.max(1, d.sundaysAfterPentecost - 23);
   if(d.sundaysAfterPentecost == 23) sundayKeys.splice(-1,1);
   sundayKeys = sundayKeys.concat(ultimaeDominicaePostPentecosten.splice(-addCount));
-  const twoWeeksAgo = moment().add(-2,'weeks');
+  const twoWeeksAgo = moment(now).add(-2,'weeks');
   while(i < sundayKeys.length) {
     var sunday = sundayKeys[i];
     var m = dateForSundayKey(sunday.key, d);
@@ -3257,27 +3382,36 @@ $(function(){
     }
   });
 
+  // Remove Sundays after Epiphany that don't occur in the year they are dated for (each entry is
+  // dated either this year or next, depending on whether it is more than two weeks past).
+  // The 1st through 3rd are always listed, but are not chosen as the upcoming entry in years
+  // when they don't occur.
   var i = sundayKeys.length;
-  var regexExtraSundayAfterEpiphany = null;
-  if(moment() > d.septuagesima) d = Dates(moment().year()+1);
-  if(d.sundaysAfterEpiphany < 6) regexExtraSundayAfterEpiphany = new RegExp('^Epi[' + (1+Math.max(3,d.sundaysAfterEpiphany)) + '-6]$');
   while(--i >= 0) {
-    if(regexExtraSundayAfterEpiphany.test(sundayKeys[i].key)) {
-      sundayKeys.splice(i,1);
+    var sunday = sundayKeys[i];
+    var match = sunday.key && sunday.key.match(/^Epi(\d)$/);
+    if(match && match[1] > Dates(sunday.date.year()).sundaysAfterEpiphany) {
+      if(match[1] > 3) {
+        sundayKeys.splice(i,1);
+      } else {
+        sunday.doesNotOccur = true;
+      }
     }
   }
-  var i = 1;
-  while(i < sundayKeys.length) {
-    var sunday = sundayKeys[i];
-    var next = sundayKeys[++i];
-    if(next && ((sunday.date.isBefore(now) || sunday.date.diff(now, 'day') > 358) &&
-        next.date.isSameOrAfter(now) && next.date.diff(now, 'day') < 14)
-    ) {
-      moveToEnd = sundayKeys.splice(1, i - 1);
-      sundayKeys.push(beginningOfYearEntry);
-      sundayKeys = sundayKeys.concat(moveToEnd);
-      break;
+  // Rotate the list so that the earliest upcoming entry is at the top.  This doesn't rely on
+  // neighboring entries being in date order, since an out-of-order entry (e.g., ChristusRex
+  // moved to next year's date) may have been placed just before the upcoming Sunday.
+  var upcoming = 0;
+  for(i = 1; i < sundayKeys.length; ++i) {
+    var date = sundayKeys[i].date;
+    if(!sundayKeys[i].doesNotOccur && date.isSameOrAfter(now) && (!upcoming || date.isBefore(sundayKeys[upcoming].date))) {
+      upcoming = i;
     }
+  }
+  if(upcoming > 1) {
+    moveToEnd = sundayKeys.splice(1, upcoming - 1);
+    sundayKeys.push(beginningOfYearEntry);
+    sundayKeys = sundayKeys.concat(moveToEnd);
   }
 
   populate(sundayKeys,$selSunday);
@@ -3562,7 +3696,7 @@ $(function(){
     pdfParts.parts.forEach(function(pdfPart, i){
       var gabc = pdfPart.gabc,
           verses = sel[pdfPart.part+"Verses"],
-          gabcVerses = verses && verses.activeGabc,
+          gabcVerses = verses && (verses.pdfGabc || verses.activeGabc), // pointed verses are written out in full, as gabc can't have the pointed text
           header = getHeader(gabc);
       header.name = name || '';
       if(name) {
@@ -3608,7 +3742,8 @@ $(function(){
     });
     return result;
   };
-  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width
+  // Quick PDF: the same chants as getAllGabc, as new scores for js/chant-pdf.js to lay out at the paper's width,
+  // except that pointed verses ad libitum are printed as they are shown, with only the first one in the score
   var getPdfOptions = window.getPdfOptions = function() {
     var pdfParts = getPdfParts();
     var processSolesmes = getProcessSolesmes();
@@ -3619,7 +3754,9 @@ $(function(){
       var score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
       var annotation = makeAnnotation(chantPart.part, ctxt);
       if(annotation) score.annotation = annotation;
-      return { score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: chantPart.pageBreak };
+      // pointed verses ad libitum: the first verse is in the score, and the rest follow it as text
+      return { score: score, ctxt: ctxt, commentary: prop.commentary, pageBreak: chantPart.pageBreak,
+        pointedVerses: prop.pointedVersesHtml };
     });
     return { title: pdfParts.name, paper: getPaperSize(), chants: chants };
   };
@@ -3770,12 +3907,55 @@ $(function(){
     var cbVersesAdLibitum = this;
     targetState = targetState || {};
     var customVerse = targetState.customVerse;
+    var verseTone = targetState.verseTone;
+    var versesPointed = targetState.pointed;
+    // true or false when restoring from the hash; undefined to keep the checkbox as it is
+    var repeatIntonation = targetState.repeatIntonation;
     targetState = targetState.state;
     if(targetState || (!this.checked && hasDefault && showingDefault)) this.checked = true;
     $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
-    $verses.empty();
+    var $pointedVerses = $part.find('.verses-pointed');
+    if(this.checked) {
+      // the current verses stay, grayed out, until the new ones replace them, so that the page doesn't jump around
+      // (jQuery 1.7 can't add a class to an svg element, so this sets the opacity directly)
+      $verses.children().add($pointedVerses.children()).css('opacity', 0.35);
+    } else {
+      $verses.empty();
+      $pointedVerses.empty();
+    }
     var state = sel[versePart] = sel[versePart] || {};
     if(!state.ctxt) makeChantContextForSel(state);
+    if(!this.checked) {
+      // so that the PDFs leave them out too
+      ['activeGabc', 'activeExsurge', 'pdfGabc', 'pointedVersesHtml', 'score'].forEach(function(key) {
+        delete state[key];
+      });
+    }
+    var $selVersesTone = $part.find('select.sel-verses-tone');
+    if(verseTone) $selVersesTone.val(verseTone);
+    state.verseTone = $selVersesTone.val();
+    var $cbPointed = $part.find('input.cbVersesPointed');
+    if(versesPointed) $cbPointed.prop('checked', true);
+    // the termination of the Introit tone of mode 6 depends on the number of syllables before its accent, so it can't be pointed
+    var canPoint = isPsalmVerseTone(state.verseTone) || sel[part].mode != 6;
+    $cbPointed.prop('disabled', !canPoint).parent().toggleClass('disabled', !canPoint).attr('title', canPoint?
+      'Only the first verse is written out in full; the rest are pointed with bold and italics' :
+      'The Introit tone of mode 6 has to be written out in full');
+    // the Introit tone always repeats its intonation, so the checkbox shows it checked while that tone is chosen,
+    // and goes back to what was chosen for the other tones afterwards
+    var $cbRepeatIntonation = $part.find('input.cbVersesRepeatIntonation');
+    var canChooseIntonation = isPsalmVerseTone(state.verseTone);
+    if(repeatIntonation !== undefined) {
+      $cbRepeatIntonation.data('choice', repeatIntonation);
+    } else if(!$cbRepeatIntonation.prop('disabled')) {
+      $cbRepeatIntonation.data('choice', $cbRepeatIntonation.prop('checked'));
+    }
+    $cbRepeatIntonation.prop('checked', !canChooseIntonation || $cbRepeatIntonation.data('choice') !== false);
+    $cbRepeatIntonation.prop('disabled', !canChooseIntonation).parent().toggleClass('disabled', !canChooseIntonation).attr('title', canChooseIntonation?
+      'Sing the intonation at the start of every verse, instead of only the first one' :
+      'The Introit tone always repeats its intonation');
+    state.pointed = canPoint && $cbPointed.prop('checked');
+    state.repeatIntonation = $cbRepeatIntonation.prop('checked');
     var versesSelected = this.checked? 1 : 0;
     var customRef = null;
     if(this.checked) {
@@ -3801,6 +3981,8 @@ $(function(){
           customRef = ref.slice(6);
         }
       }
+      // the verses end with the Glória Patri, unless it isn't sung, or the Mass's own verses are shown and it isn't sung after them
+      var useGloriaPatri = !selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false));
       $.when.apply($, parseRef(ref).map(function(ref) {
         return ref.getLinesFromLiber().pipe(function(lines) {
           if(!ref.verse) lines = lines.slice(0,10);
@@ -3819,46 +4001,73 @@ $(function(){
         var clef = sel[part].score.startingClef.mapping.source;
         state.gabc = "initial-style: 0;\n%%\n" + clef;
         
-        // add custos at end of each verse
-        var notations = sel[part].score.notations;
-        var lastI = notations.length - 1;
-        var firstNote = '',
-            lastNote = '';
-        for(var i=0; i < 10; ++i) {
-          if(!firstNote && notations[i].isNeume) {
-            firstNote = notations[i].notes[0];
-            firstNote = (16 + firstNote.staffPosition).toString(23);
-          }
-          if(!lastNote && notations[lastI - i].isNeume) {
-            // TODO: this needs to ignore the verse and Gloria Patri in the Introit
-            lastNote = notations[lastI - i].notes.slice(-1)[0];
-            lastNote = (16 + lastNote.staffPosition).toString(23);
-          }
-          if(firstNote && lastNote) break;
-        }
-        var tone = getIntroitTone(state);
-        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc);
-        applyAmenTones(tone, amenTones);
-        var lastNoteMatch = regexGabcAntiphonLastNote.exec(sel[part].gabc);
-        if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
-          console.info(lastNoteMatch[1], lastNote);
-        }
-        lastNote = lastNoteMatch[1].toLowerCase();
+        var custodes = getVersesAdLibitumCustodes(sel[part].score, part == 'introitus'),
+            firstNote = custodes.firstNote,
+            lastNote = custodes.lastNote;
+        var tone = getIntroitTone(state, state.verseTone);
+        var usePsalmTone = isPsalmVerseTone(state.verseTone);
+        var amenTones = !usePsalmTone && (regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc));
+        if(amenTones) applyAmenTones(tone, amenTones);
         state.startOfVerse = '('+lastNote+'+) ';
-        state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
-        state.activeGabc = getPsalmToneForPart(versePart, tone);
-        if(!selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false))) {
-          state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
+        // the custos goes before "Ant.", so that Exsurge can put "Ant." below the lyrics of the line when it doesn't fit
+        // (a custos can't start a system, so after "Ant." it would take "Ant." with it onto a system of its own)
+        state.endOfVerse = '(::'+firstNote+'+) <i>Ant.</i>() (Z)';
+        var getGloriaPatri = function(useBoldItalic) {
+          return usePsalmTone?
+            psalmToneGloriaPatri(tone.mediant,tone.termination,tone.clef,state.repeatIntonation,useBoldItalic) :
+            psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef,useBoldItalic);
         }
+        // the verses written out in full, followed by the Glória Patri
+        var getVersesGabc = function(pointed) {
+          var gabc = getPsalmToneForPart(versePart, tone, pointed);
+          if(useGloriaPatri && !pointed) {
+            // the Glória Patri ends with its own double bar, which endOfVerse replaces; the trailing newline goes too, since the closing "Ant." would not be red if it followed a line break
+            gabc += state.startOfVerse + '<sp>V/</sp> ' + getGloriaPatri().replace(/\s*\(::\)\s*$/,'') + ' ' + state.endOfVerse;
+          }
+          return gabc;
+        }
+        state.activeGabc = getVersesGabc(state.pointed);
+        if(state.pointed) {
+          var pointedHtml = state.pointedHtml;
+          if(useGloriaPatri) {
+            var gloriaPatri = getGloriaPatri(true).replace(/\s*\(::\)\s*$/,'').split(/\s*\(::\)\s*/);
+            pointedHtml = pointedHtml.concat(gloriaPatri.map(function(verse, i) {
+              return pointedHtmlFromGabc((i == 0? '<sp>V/</sp> ' : '') + verse);
+            }));
+          }
+          // (the Quick PDF prints these too, but the PDF from the server can only have the verses written out in full)
+          state.pointedVersesHtml = pointedHtml;
+          pointedHtml = pointedHtml.map(function(verse) { return '<p>' + verse + '</p>'; }).join('');
+          state.pdfGabc = getVersesGabc(false);
+        } else {
+          delete state.pointedVersesHtml;
+          delete state.pdfGabc;
+        }
+        // the pointed verses change along with the chant, once it has been laid out
+        state.afterRender = function() {
+          $pointedVerses.html(pointedHtml || '');
+        };
         state.responsoryCallbacks = [];
         updateExsurge(versePart, null, true);
       });
     }
+    // so the Introit doesn't show its own Glória Patri while they are showing
+    if(part == 'introitus') {
+      sel[part].hideGloriaPatri = !!(this.checked && useGloriaPatri);
+      if(sel[part].hidingGloriaPatri != sel[part].hideGloriaPatri && sel[part].activeGabc) updateTextAndChantForPart(part, true);
+    }
     addToHash(versePart,versesSelected);
     addToHash(versePart+'Custom',customRef);
-  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
+    if($selVersesTone.length) addToHash(versePart+'Tone',versesSelected && isPsalmVerseTone(state.verseTone)? state.verseTone : null);
+    if($cbPointed.length) addToHash(versePart+'Pointed',versesSelected && $cbPointed.prop('checked')? 1 : null);
+    // only kept in the hash when it is turned off, since it is on by default
+    if($cbRepeatIntonation.length) addToHash(versePart+'RepeatIntonation',versesSelected && $cbRepeatIntonation.data('choice') === false? '0' : null);
+  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses, select.sel-verses-tone, input.cbVersesPointed, input.cbVersesRepeatIntonation',function(e){
     var $part = $(this).parents().filter('[part]');
     $part.find('.cbVersesAdLibitum').change();
+  }).on('click','button.verses-ad-libitum-settings',function(e){
+    var $options = $(this).parents().filter('[part]').find('.verses-ad-libitum-options').toggleClass('open');
+    $(this).toggleClass('active', $options.hasClass('open')).attr('aria-expanded', $options.hasClass('open'));
   });
   $('a.toggleShowChantPreview').attr('href','').click(function(e){
     e.preventDefault();
@@ -4085,7 +4294,8 @@ console.info(JSON.stringify(selPropers));
           }
         }
         if(verseStyle && $verses.length) {
-          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse});
+          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse, verseTone: hash[part+'VersesTone'], pointed: hash[part+'VersesPointed'],
+            repeatIntonation: hash[part+'VersesRepeatIntonation'] != '0'});
         }
       });
     }

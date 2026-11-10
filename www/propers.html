@@ -229,7 +229,12 @@
       <label class='hide-print'><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
       <span class="verses-ad-libitum-default rubric hide-print"></span>
       <span class="verses-ad-libitum-custom hide-print"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>
+      <button type="button" class="btn btn-xs btn-default verses-ad-libitum-settings hide-print" title="Verse options" aria-label="Verse options" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></button>
+      <div class="verses-ad-libitum-options hide-print">
+        <label title="Only the first verse is written out in full; the rest are pointed with bold and italics"><input type="checkbox" class="cbVersesPointed"> Pointed</label>
+      </div>
       <div id="introitusVerses-preview" class="verses verses-ad-libitum chant-preview"></div>
+      <div class="verses verses-pointed"></div>
     </div>
   </div>
   <div id='divKyrie' part='kyrie' class='ordinary'>
@@ -569,7 +574,14 @@
       <label class='hide-print'><input type="checkbox" class="cbVersesAdLibitum"> Verses ad libitum:</label>
       <span class="verses-ad-libitum-default rubric hide-print"></span>
       <span class="verses-ad-libitum-custom hide-print"><label>Psalm <select class='sel-psalms'></select></label> <input type="text" class="txtPsalmVerses" placeholder="Verses"></span>
+      <button type="button" class="btn btn-xs btn-default verses-ad-libitum-settings hide-print" title="Verse options" aria-label="Verse options" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></button>
+      <div class="verses-ad-libitum-options hide-print">
+        <label>Tone: <select class='sel-verses-tone'><option value='introit'>Introit Verse Tone</option><option value='simple'>Simple Tone</option><option value='solemn'>Solemn Tone</option></select></label>
+        <label title="Only the first verse is written out in full; the rest are pointed with bold and italics"><input type="checkbox" class="cbVersesPointed"> Pointed</label>
+        <label><input type="checkbox" class="cbVersesRepeatIntonation" checked> Repeat intonation</label>
+      </div>
       <div id="communioVerses-preview" class="verses verses-ad-libitum chant-preview"></div>
+      <div class="verses verses-pointed"></div>
     </div>
   </div>
   <div id='divIte' part='ite' class='ordinary'>

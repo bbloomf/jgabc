@@ -140,7 +140,11 @@ textarea{
 Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><span id="sMedPrepOuter"> with <span id="sMedPrep"></span> preparatory syllable<span id="sMedPrepS">s</span></span>
 <br/>Termination of <span id="sTermAccent"></span> accent<span id="sTermAccentS">s</span><span id="sTermPrepOuter"> with <span id="sTermPrep"></span> preparatory syllable<span id="sTermPrepS">s</span></span>
 </td><td><label for="selPsalm">Psalm </label><select id="selPsalm"></select>
-  <input type="checkbox" id="cbEnglish"/><label for="cbEnglish">English</label>
+  <label for="selPsalmLanguage">Language: </label><select id="selPsalmLanguage">
+    <option value="la">Latin</option>
+    <option value="la-liturgical" selected="selected">Liturgical Latin</option>
+    <option value="en">English</option>
+  </select>
   <input type="checkbox" id="cbUseNovaVulgata"/><label for="cbUseNovaVulgata">Use Nova Vulgata psalms</label>
   <input type="checkbox" id="cbIncludeGloriaPatri"/><label for="cbIncludeGloriaPatri">Include Glória Patri</label><br/><div class="tap"><textarea id="versetext" lang="latin" style="height: 96pt; width: 100%;"></textarea></div>
 </td></tr>
@@ -150,6 +154,7 @@ Mediant of <span id="sMedAccent"></span> accent<span id="sMedAccentS">s</span><s
     <input type="checkbox" checked id="cbFirstVerseGabc"/><label for="cbFirstVerseGabc" id="lblFirstVerseGabc" title="Use GABC for first verse instead of ...">GABC for first verse</label><br/>
     <input type="checkbox" id="cbInitStyle"/><label for="cbInitStyle" title="Use large drop cap for first verse, and ommit verse prefix on first verse.">Use large initial</label><br/>
     <input type="checkbox" id="cbOnlyVowels"/><label for="cbOnlyVowels" title="Only apply the formatting to the vowel rather than to the entire syllable, and only to first of any preparatory syllables rather than to all preparatory syllables.">Only format vowels</label><br/>
+    <input type="checkbox" id="cbFormatPunctuation"/><label for="cbFormatPunctuation" title="Include punctuation immediately following a formatted syllable inside its formatting.">Also format punctuation</label><br/>
     <input type="checkbox" id="cbUsePunctaCava"/><label for="cbUsePunctaCava" title="Use a punctum cavum wherever a variable number of notes will be present depending on the specific verse.">Use puncta cava</label><br/>
     <input type="checkbox" id="cbRepeatIntonation"/><label for="cbRepeatIntonation" title="Repeat the intonation in each verse rather than just in the first verse (only affects the gabc output)">Repeat intonation</label><br/>
     <label for="txtGabcFlex" title="Text to use at the flex if not a simple dagger (†)">Dagger Text:</label>&nbsp;<input type="text" id="txtGabcFlex"/><br/>
