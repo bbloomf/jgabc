@@ -59,17 +59,52 @@ textarea {
 [part] .verses-ad-libitum,
 [part] .verses-ad-libitum-custom,
 [part] .verses-ad-libitum-default,
-[part] .verses-ad-libitum-tone {
+[part] .verses-ad-libitum-settings,
+[part] .verses-ad-libitum-options {
   display: none;
 }
-[part].showing-verses-ad-libitum-default .verses-ad-libitum-tone,
-[part].showing-verses-ad-libitum-custom .verses-ad-libitum-tone {
-  display: inline;
+/* the gear shows while the verses are, and opens the verse options */
+[part].showing-verses-ad-libitum-default .verses-ad-libitum-settings,
+[part].showing-verses-ad-libitum-custom .verses-ad-libitum-settings {
+  display: inline-block;
   margin-left: 0.5em;
+  vertical-align: baseline;
+}
+[part] .verses-ad-libitum-settings.active {
+  box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+[part].showing-verses-ad-libitum-default .verses-ad-libitum-options.open,
+[part].showing-verses-ad-libitum-custom .verses-ad-libitum-options.open {
+  display: block;
+  margin: 2px 0 4px;
+}
+.verses-ad-libitum-options label {
+  margin: 0 1em 0 0;
+}
+.verses-ad-libitum-options label.disabled {
+  color: #8c8c8c;
 }
 [part].showing-verses-ad-libitum-default div.verses-ad-libitum,
 [part].showing-verses-ad-libitum-custom div.verses-ad-libitum {
   display: block;
+}
+/* the verses ad libitum after the first one, pointed with bold and italics instead of written out in full */
+.verses-pointed {
+  display: none;
+}
+[part].showing-chant.showing-verses-ad-libitum-default .verses-pointed,
+[part].showing-chant.showing-verses-ad-libitum-custom .verses-pointed {
+  display: block;
+}
+.hide-chant .verses-pointed {
+  display: none!important;
+}
+.verses-pointed p {
+  margin: 0.4em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+  text-align: justify;
+  line-height: 1.25;
 }
 [part].showing-verses-ad-libitum-default span.verses-ad-libitum-default,
 [part].showing-verses-ad-libitum-custom span.verses-ad-libitum-custom {
