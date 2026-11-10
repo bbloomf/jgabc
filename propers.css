@@ -58,8 +58,14 @@ textarea {
 }
 [part] .verses-ad-libitum,
 [part] .verses-ad-libitum-custom,
-[part] .verses-ad-libitum-default {
+[part] .verses-ad-libitum-default,
+[part] .verses-ad-libitum-tone {
   display: none;
+}
+[part].showing-verses-ad-libitum-default .verses-ad-libitum-tone,
+[part].showing-verses-ad-libitum-custom .verses-ad-libitum-tone {
+  display: inline;
+  margin-left: 0.5em;
 }
 [part].showing-verses-ad-libitum-default div.verses-ad-libitum,
 [part].showing-verses-ad-libitum-custom div.verses-ad-libitum {

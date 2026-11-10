@@ -2140,17 +2140,55 @@ $(function(){
     temp = applyAmenTones(temp, gAmenTones, gMediant, clef);
     return applyLiquescents(result + temp + " (::)\n");
   }
+
+  // Glória Patri in a regular psalm tone; the simple tone omits the intonation in the second verse, but the solemn tone repeats it.
+  var psalmToneGloriaPatri = function(gMediant,gTermination,clef,repeatIntonation) {
+    var gp = "Glória Patri, et Fílio, * et Spirítui Sancto.\nSicut erat in princípio, et nunc, et semper, * et in sǽcula sæculórum. Amen.".split('\n');
+    return applyLiquescents(gp.map(function(verse, i) {
+      verse = verse.split('*');
+      var mediant = gMediant;
+      if(i > 0 && !repeatIntonation) {
+        mediant = removeIntonation(getGabcTones(gMediant,undefined,false,clef));
+      }
+      return applyPsalmTone({
+        text: verse[0].trim(),
+        gabc: mediant,
+        clef: clef,
+        format: bi_formats.gabc,
+        favor: i == 0? 'intonation' : ''
+      }) + bi_formats.gabc.nbsp + '*(:) ' + applyPsalmTone({
+        text: verse[1].trim(),
+        gabc: gTermination,
+        clef: clef,
+        format: bi_formats.gabc,
+        favor: 'termination',
+        flexEqualsTenor: true
+      });
+    }).join(' (::) ') + " (::)\n");
+  }
   
   var isAlleluia = function(part,text){
     return part=='alleluia' || (part.match(/^graduale/) && removeDiacritics(text).match(/^allelu[ij]a/i));
   }
 
-  var getIntroitTone = function(part) {
+  // verseTone may be 'simple' or 'solemn' to use the regular psalm tone of the mode instead of the Introit verse tone
+  var getIntroitTone = function(part, verseTone) {
     var gabc = part.gabc;
     if(!gabc) return;
-    var tone = g_tones['Introit ' + part.mode];
-    var mediant = tone.mediant;
-    var termination = tone.termination;
+    var tone = isPsalmVerseTone(verseTone) && g_tones[part.mode + '.'];
+    var mediant, termination;
+    if(tone) {
+      mediant = (verseTone == 'solemn' && tone.solemn) || tone.mediant;
+      termination = tone.termination;
+      if(!termination) {
+        termination = tone.terminations[defaultTermination[part.mode]];
+        if(!termination) for(var i in tone.terminations) { termination = tone.terminations[i]; break; }
+      }
+    } else {
+      tone = g_tones['Introit ' + part.mode];
+      mediant = tone.mediant;
+      termination = tone.termination;
+    }
     if(!termination) {
       termination = mediant;
     }
@@ -2168,6 +2206,9 @@ $(function(){
       mediant: mediant,
       termination: termination,
     };
+  }
+  var isPsalmVerseTone = function(verseTone) {
+    return verseTone == 'simple' || verseTone == 'solemn';
   }
 
   var getAspergesVerseAndGloriaPatriGabc = function(part) {
@@ -2230,7 +2271,7 @@ $(function(){
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if(/^(introitus|communioVerses)/.test(part) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if((/^(introitus|communioVerses)/.test(part) && !isPsalmVerseTone(sel[part].verseTone)) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -3779,12 +3820,16 @@ $(function(){
     var cbVersesAdLibitum = this;
     targetState = targetState || {};
     var customVerse = targetState.customVerse;
+    var verseTone = targetState.verseTone;
     targetState = targetState.state;
     if(targetState || (!this.checked && hasDefault && showingDefault)) this.checked = true;
     $part.removeClass('showing-verses-ad-libitum-default showing-verses-ad-libitum-custom');
     $verses.empty();
     var state = sel[versePart] = sel[versePart] || {};
     if(!state.ctxt) makeChantContextForSel(state);
+    var $selVersesTone = $part.find('select.sel-verses-tone');
+    if(verseTone) $selVersesTone.val(verseTone);
+    state.verseTone = $selVersesTone.val();
     var versesSelected = this.checked? 1 : 0;
     var customRef = null;
     if(this.checked) {
@@ -3845,19 +3890,26 @@ $(function(){
           }
           if(firstNote && lastNote) break;
         }
-        var tone = getIntroitTone(state);
-        var amenTones = regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc);
-        applyAmenTones(tone, amenTones);
+        var tone = getIntroitTone(state, state.verseTone);
+        var usePsalmTone = isPsalmVerseTone(state.verseTone);
+        var amenTones = !usePsalmTone && (regexGabcGloriaPatri.exec(sel[part].gabc) || regexAmenTones.exec(sel[part].gabc));
+        if(amenTones) applyAmenTones(tone, amenTones);
         var lastNoteMatch = regexGabcAntiphonLastNote.exec(sel[part].gabc);
         if(lastNoteMatch[1].toLowerCase() != lastNote[0]) {
           console.info(lastNoteMatch[1], lastNote);
         }
         lastNote = lastNoteMatch[1].toLowerCase();
         state.startOfVerse = '('+lastNote+'+) ';
-        state.endOfVerse = '(::) <i>Ant.</i>() ('+firstNote+'+Z)';
+        // the custos goes before "Ant.", so that Exsurge can put "Ant." below the lyrics of the line when it doesn't fit
+        // (a custos can't start a system, so after "Ant." it would take "Ant." with it onto a system of its own)
+        state.endOfVerse = '(::'+firstNote+'+) <i>Ant.</i>() (Z)';
         state.activeGabc = getPsalmToneForPart(versePart, tone);
         if(!selPropers || (selPropers.gloriaPatri !== false && (!showingDefault || selPropers[part.slice(0,2)+'VersesGloriaPatri'] !== false))) {
-          state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef) + state.endOfVerse.slice(4);
+          var gloriaPatri = usePsalmTone?
+            psalmToneGloriaPatri(tone.mediant,tone.termination,tone.clef,state.verseTone == 'solemn') :
+            psalmToneIntroitGloriaPatri(tone.mediant,tone.termination,amenTones,tone.clef);
+          // the Glória Patri ends with its own double bar, which endOfVerse replaces; the trailing newline goes too, since the closing "Ant." would not be red if it followed a line break
+          state.activeGabc += state.startOfVerse + '<sp>V/</sp> ' + gloriaPatri.replace(/\s*\(::\)\s*$/,'') + ' ' + state.endOfVerse;
         }
         state.responsoryCallbacks = [];
         updateExsurge(versePart, null, true);
@@ -3865,7 +3917,8 @@ $(function(){
     }
     addToHash(versePart,versesSelected);
     addToHash(versePart+'Custom',customRef);
-  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses',function(e){
+    if($selVersesTone.length) addToHash(versePart+'Tone',versesSelected && isPsalmVerseTone(state.verseTone)? state.verseTone : null);
+  }).on('change','.verses-ad-libitum-custom select.sel-psalms, .verses-ad-libitum-custom input.txtPsalmVerses, select.sel-verses-tone',function(e){
     var $part = $(this).parents().filter('[part]');
     $part.find('.cbVersesAdLibitum').change();
   });
@@ -4094,7 +4147,7 @@ console.info(JSON.stringify(selPropers));
           }
         }
         if(verseStyle && $verses.length) {
-          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse});
+          $verses.trigger('change', {state: parseInt(verseStyle), customVerse: customVerse, verseTone: hash[part+'VersesTone']});
         }
       });
     }
