@@ -1,4 +1,4 @@
-1	1	Paulus, Apóstolus Jesu Christi per voluntátem Dei, et Timótheus frater, ecclésiæ Dei, quæ est Corínthi cum ómnibus sanctis, qui sunt in univérsa Acháia.
+1	1	Paulus, Apóstolus Jesu Christi per voluntátem Dei, et Timótheus frater, ecclésiæ Dei, quæ est Corínthi cum ómnibus sanctis, qui sunt in univérsa Achája.
 1	2	Grátia vobis, et pax a Deo Patre nostro, et Dómino Jesu Christo.
 1	3	Benedíctus Deus et Pater Dómini nostri Jesu Christi, Pater misericordiárum, et Deus totíus consolatiónis,
 1	4	qui consolátur nos in omni tribulatióne nostra: ut possímus et ipsi consolári eos, qui in omni pressúra sunt, per exhortatiónem, qua exhortámur et ipsi a Deo.
@@ -154,7 +154,7 @@
 8	23	sive pro Tito, qui est sócius meus, et in vos adjútor, sive fratres nostri, Apóstoli ecclesiárum, glória Christi.
 8	24	Ostensiónem ergo, quæ est caritátis vestræ, et nostræ glóriæ pro vobis, in illos osténdite in fáciem ecclesiárum.
 9	1	Nam de ministério, quod fit in sanctos, ex abundánti est mihi scríbere vobis.
-9	2	Scio enim promptum ánimum vestrum: pro quo de vobis glórior apud Macédones. Quóniam et Acháia paráta est ab anno prætérito, et vestra æmulátio provocávit plúrimos.
+9	2	Scio enim promptum ánimum vestrum: pro quo de vobis glórior apud Macédones. Quóniam et Achája paráta est ab anno prætérito, et vestra æmulátio provocávit plúrimos.
 9	3	Misi autem fratres: ut ne quod gloriámur de vobis, evacuétur in hac parte, ut (quemádmodum dixi) paráti sitis:
 9	4	ne cum vénerint Macédones mecum, et invénerint vos imparátos, erubescámus nos (ut non dicámus vos) in hac substántia.
 9	5	Necessárium ergo existimávi rogáre fratres, ut prævéniant ad vos, et prǽparent repromíssam benedictiónem hanc parátam esse sic, quasi benedictiónem, non tamquam avarítiam.
@@ -195,7 +195,7 @@
 11	7	Aut numquid peccátum feci, meípsum humílians, ut vos exaltémini? quóniam gratis Evangélium Dei evangelizávi vobis?
 11	8	Alias ecclésias exspoliávi, accípiens stipéndium ad ministérium vestrum.
 11	9	Et cum essem apud vos, et egérem, nulli onerósus fui: nam quod mihi déerat, supplevérunt fratres, qui venérunt a Macedónia: et in ómnibus sine ónere me vobis servávi, et servábo.
-11	10	Est véritas Christi in me, quóniam hæc gloriátio non infringétur in me in regiónibus Acháiæ.
+11	10	Est véritas Christi in me, quóniam hæc gloriátio non infringétur in me in regiónibus Achájæ.
 11	11	Quare? quia non díligo vos? Deus scit.
 11	12	Quod autem fácio, et fáciam: ut ámputem occasiónem eórum, qui volunt occasiónem, ut in quo gloriántur, inveniántur sicut et nos.
 11	13	Nam ejúsmodi pseudoapóstoli sunt operárii súbdoli, transfigurántes se in apóstolos Christi.

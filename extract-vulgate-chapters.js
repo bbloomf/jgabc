@@ -8,7 +8,7 @@ require('./patterns/la-hypher.js');
     vulgate = fs.readFileSync('../vulgate/vulgate_with_accents.txt','utf8').replace(/ ([:;.!?])/g,'$1').split('\n'),
     regexBookChapter = /^(?:\[[^\]]+\]\s*)?((?:(\d+)\s+)?([a-zæ]+))\s+(\d+)\s+(\d+)\s+/i,
     regexWord = /[a-záéíóúýäëïöüÿæœǽ]+/ig,
-    regexIVowel = /i[aeiouyáéíóúýäëïöüÿ]|[ií]c[aeiouyáéíóúýäëïöüÿ]/i,
+    regexIVowel = /i[aeiouyáéíóúýäëïöüÿæœǽ]|[ií]c[aeiouyáéíóúýäëïöüÿ]/i,
     regexStartIVowel = /^i(?=[aeiouyáéíóúýäëïöüÿ])/ig,
     replaceIJ = {
       i: 'j',
@@ -42,6 +42,9 @@ vulgate.forEach(line => {
       word = word.replace(/^(s[uú]b|pr[oó]|[rd][eé]|[eé]|[aáoó][bd])([ií]c[eiéíœæǽ])/i,'$1j$2');
       word = word.replace(/([Cc][uú])i(us)/g,'$1j$2');
       word = word.replace(/([Bb][eé]n)i(amin)/i, '$1j$2');
+      // the hyphenator splits Acháia as A-chá-i-a, so regexStartIVowel never sees its i before a vowel
+      // (Acháia, Acháiam, Acháiæ => Achája, Achájam, Achájæ; but Acháici is left alone)
+      word = word.replace(/^(Ach[aá])i(?=[aæ])/i, '$1j');
       if(/j/i.test(word)) {
         if(/^(Abju|Abjud|abjí[st].*|Adiel|adjerúntque|adjérunt|ajon|gaj(o|us)|injerúntque|injére|injérunt|injísset|interjérunt|jérunt)$/i.test(word)) {
           word = word.replace(/j/g,'i').replace(/J/g,'I');
