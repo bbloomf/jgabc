@@ -1,11 +1,12 @@
 var https  = require('https'),
     fs     = require('fs'),
-    Hypher = require('hypher'),
     gabc   = require('./util.js'),
     prettier = require("@prettier/sync"),
     { addPtAlleluia } = require("./alleluias-in-of-co.js"),
     { wrapRepeatCueInNlba } = require("./repeat-cue.js");
 require('./gabc-refs.js');
+const { normalizeLatinLyrics } = require('./gabc-latin-normalization');
+const { consonantalJ, hyphenateLatin } = require('./gabc-latin-syllables');
 
 const addAlleluiasTo = new Set([145, 690, 1286, 349, 1303, 391, 523, 426, 84, 529, 1080, 1290, 575, 1272, 147, 1294, 339, 899, 942, 535, 723, 902, 533, 1314, 265, 479, 904, 842, 640, 1072, 1318, 389, 616, 696]);
 const addAlleluias = new Set([1319]);
@@ -45,10 +46,7 @@ const skipFile = {
   'gabc/2719.gabc': true,
   'gabc/3031.gabc': true,
 };
-window = {Hypher: Hypher};
-Hypher.languages = {};
-var latin,
-    countAll = 0,
+var countAll = 0,
     countWithRef = 0,
     regexGabcGloriaPatri = /\s*(?:<eu>)?[eæ]\([^)]+\)\s*u\([^)]+\)\s*[oó]\([^)]+\)\s*u\.?\([^)]+\)\s*[aá]\(([^)]+)\)\s*e\.?(?:<\/eu>)?\(([^)]+)\)\s*\(::\)\s*/i,
     // an introit's Glória Patri., which is kept on one line (Gregorio's <nlba>), and its E u o u a e (or sæculórum. Amen. after a double bar, as in 132), which is a euouae area (<eu>), as GregoBase marks most of them;
@@ -175,9 +173,8 @@ https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages
     console.info('ERROR on file: ' + file);
   });
   result.on('end', () => {
+    // hyphenateLatin() in gabc-latin-syllables.js reads these patterns
     fs.writeFileSync(file, fileData);
-    require('./patterns/la-hypher.js');
-    latin = window.Hypher.languages.la_VA;
     callback();
   });
 });
@@ -295,7 +292,7 @@ var path = 'gabc/',
                         mode.push(ids[i]);
                       }
                     }
-                    content = content
+                    content = normalizeLatinLyrics(content)
                       // a ~ in the lyrics is a non-breaking space, so keep a single one that joins a word to what is next to it (as in *~Quam, +~in, o~: and <i>Ps.~50.</i>),
                       // and remove the rest, which only add space (as in ~~~<i>T. P.</i>, ~*, {~} and <v>~</v>) and keep the regexes here and in propers.js from finding things
                       .replace(/(?<=(.?))(?:<v>~+<\/v>|~+)(?=([^()]?)[^()]*\()/g, (tildes, before, after) =>
@@ -320,13 +317,8 @@ var path = 'gabc/',
                       .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1 <c>*</c>$2") // asterisks being kept with the previous word
                       .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
                       .replace(/\)\(([,;])\)\(/g,'$1')
-                      .replace(/A[éÉ]/g,'Ǽ')
                       .replace(/<b><\/b>/g,'')
                       .replace(/<v>\\greheightstar<\/v>/g,'*')
-                      .replace(/<sp>'(?:ae|æ)<\/sp>|aé/g,'ǽ')
-                      .replace(/<sp>'(?:oe|œ)<\/sp>|oé/g,'œ́')
-                      .replace(/<sp>ae<\/sp>/g,'æ')
-                      .replace(/<sp>oe<\/sp>/g,'œ')
                       .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)\(\)\s*/gi,' $1 ')
                       .replace(/\s*(<sp>v\/<\/sp>\.?|<i>Ps.<\/i>|(?:<sp>v\/<\/sp>\.?\s*)?\d+\.)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
                       .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)\(\)\s*/gi,' $1 ')
@@ -347,7 +339,6 @@ var path = 'gabc/',
                       .replace(/(\s+)(\([a-m]\+[^)]*\))\s+([^(\s][^(]*\(\))/g,'$1$3 $2') // put any lyrics after a manual custos
                       // some gregobase chants are encoded this way (two underscores for three note episema), and in Gregorio and Exsurge, this does not work as desired.
                       .replace(/(a'?b'?a|[a-b]'?c'?[a-b]|[a-c]'?d'?[a-c]|[a-d]'?e'?[a-d]|[a-e]'?f'?[a-e]|[a-f]'?g'?[a-f]|[a-g]'?h'?[a-g]|[a-h]'?i'?[a-h]|[a-i]'?j'?[a-i]|[a-j]'?k'?[a-j]|[a-k]'?l'?[a-k]|[a-l]'?m'?[a-l])[.']*__(?!_)/g,'$&_')
-                      .replace(/ae/g,'æ').replace(/oe/g,'œ').replace(/aé/g,'ǽ').replace(/A[Ee]/g,'Æ').replace(/O[Ee]/g,'Œ')
                       .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
                       .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
                       .replace(/(\s[^()\w†*,;:]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
@@ -417,7 +408,7 @@ var path = 'gabc/',
                       var accents = whole.match(/[áéíóú]|ǽ|œ́|ý/g);
                       if(accents && accents.length > 1) throw ids[i] + ":" + ids[i] + ": " + whole;
                       if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
-                        syls = syls.map(s => s.replace(/(?:(I)|i)(?=[AEIOUYÆŒǼÁÉÍÓÚÝÄËÏÖÜŸaeiouyæœǽœ́áéíóúýäëïöüÿ])/, (all,i) => (i? 'J' : 'j')));
+                        syls = consonantalJ(syls);
                         if(word != syls.join('')) {
                           console.info(word, file);
                           errors.push(file + ': ' + word + '; replaced with ' + JSON.stringify(syls));
@@ -453,7 +444,7 @@ var path = 'gabc/',
                       if(syls.length > 2 && (syls.slice(-3,-1).join('').match(/[ǽ́áéíóúýæœǼ́ÁÉÍÓÚÝÆŒAEIOUY]|œ́|Œ́/gi) || []).length == 0) {
                         throw `strangely accented: ${word} (${syls.join('~')})`;
                       }
-                      var otherSyls = latin.hyphenate(word.replace(regexTag, ''));
+                      var otherSyls = hyphenateLatin(word.replace(regexTag, ''));
                       if(otherSyls.length != syls.length ||
                          (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽœ́aeiouyáéíóúýäëïöüÿ]/i)))) {
                         if(syls.length && (syls.length > 1 || syls[0] != '}') && word.toLowerCase() !== 'cui') {

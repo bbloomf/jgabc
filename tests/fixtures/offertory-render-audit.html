@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Offertory corpus rendering audit</title>
+<link rel="stylesheet" href="../../style.css"><link rel="stylesheet" href="../../theme.css">
+<style>body{padding:16px;font-family:system-ui}table{border-collapse:collapse}td,th{padding:4px 8px;border:1px solid #bbb}#preview{max-height:250px;overflow:auto;border:1px solid #ccc}#progress{position:sticky;top:0;background:white;padding:8px}button{padding:8px} .fail{color:#b00}</style>
+<h1>Offertory corpus rendering audit</h1>
+<p>Real Exsurge layout of every generated selection at 360 and 1100 pixels. This checks SVG generation and rendered verse symbols; it does not certify musical transcription or PDF fidelity.</p>
+<button id="run">Run complete render audit</button> <button id="download" disabled>Download audit results</button>
+<p id="progress">Ready. Generate inputs with node tools/build-offertory-feature-fixture.js.</p><div id="preview"></div>
+<table><thead><tr><th>Antiphon</th><th>Setting</th><th>Count</th><th>Width</th><th>Result</th></tr></thead><tbody id="results"></tbody></table>
+<script src="../../jquery.min.js"></script><script src="../../exsurge.min.js"></script><script src="../../util.js"></script>
+<script>
+const results=[];
+document.getElementById('download').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({checkedAt:new Date().toISOString(),results},null,2)],{type:'application/json'}));a.download='offertory-render-audit.json';a.click();};
+document.getElementById('run').onclick=async function(){
+ this.disabled=true;await document.fonts.ready;
+ let inputs=await (await fetch('offertory-feature-inputs.json')).json();
+ if(new URLSearchParams(location.search).has('unlinked'))inputs=inputs.filter(input=>input.id.startsWith('unlinked-'));
+ let failures=0;
+ for(const input of inputs)for(const width of [360,1100]){
+  const result={id:input.id,sourceId:input.sourceId,style:input.style,count:input.count,width};
+  try{
+   const ctxt=makeExsurgeChantContext(),mappings=exsurge.Gabc.createMappingsFromSource(ctxt,input.gabc),score=new exsurge.ChantScore(ctxt,mappings,true);
+   updateOffertoryPlaybackSections(score,input.gabc,input.count > 0);
+   score.performLayout(ctxt);score.layoutChantLines(ctxt,width);
+   const svg=score.createSvgNode(ctxt);document.getElementById('preview').replaceChildren(svg);
+   const xml=svg.outerHTML,rect=svg.getBoundingClientRect();
+   if(/(?:NaN|Infinity)/.test(xml))throw Error('Non-finite SVG coordinate');
+   if(!rect.width||!rect.height)throw Error('Empty SVG');
+   const verseSymbols=[...svg.querySelectorAll('tspan')].filter(e=>/^v\.?$/.test(e.textContent)&&/Versiculum/i.test(e.getAttribute('style')||''));
+   // Versiculum font renders the literal v as the versicle sign.
+   result.versicles=verseSymbols.length;result.expectedVersicles=input.verses;
+   if(result.versicles!==input.verses)throw Error('Rendered verse symbols '+result.versicles+'; expected '+input.verses);
+   result.height=rect.height;result.lines=score.lines.length;result.ok=true;
+  }catch(e){result.ok=false;result.error=e.message;failures++;}
+  results.push(result);const tr=document.createElement('tr');if(!result.ok)tr.className='fail';
+  for(const text of [input.id+' '+input.name,input.style,input.count,width,result.ok?'PASS':result.error]){const td=document.createElement('td');td.textContent=text;tr.append(td);}document.getElementById('results').append(tr);
+  document.getElementById('progress').textContent=results.length+' / '+inputs.length*2+' layouts; '+failures+' failures';
+  if(results.length%10===0)await new Promise(resolve=>setTimeout(resolve,0));
+ }
+ document.getElementById('progress').textContent='COMPLETE: '+results.length+' layouts; '+failures+' failures';document.getElementById('download').disabled=false;
+};
+</script></html>

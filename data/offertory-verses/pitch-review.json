@@ -1,0 +1,178 @@
+{
+  "date": "2026-11-17",
+  "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "method": "Read each pitch against its local staff in the source strips. Reference j/h/f/d correspond to the four staff lines; include intervening spaces and ledger positions. Interpret the active C clef and flat/natural scope separately. Review all printed continuation systems; compare individual neume positions rather than assuming a regular scalar descent.",
+  "scope": "All notes of the four new manual verse transcriptions. Reused openings were preserved.",
+  "chants": [
+    {
+      "bookNumber": 39,
+      "manualFileSha256": "dc4bce9d1bbc9b21b84836c57eae843e30ee9d5f7146f032b206cdee81bcb127",
+      "checkedSourceSystems": [
+        {
+          "page": 64,
+          "systems": [
+            9
+          ]
+        },
+        {
+          "page": 65,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "scope": [
+        "every notated syllable in both verses",
+        "repeated notes",
+        "inclinata and skipped steps",
+        "porrectus endpoints",
+        "clef changes",
+        "flat and natural effects"
+      ],
+      "corrections": [
+        {
+          "page": 65,
+          "system": 5,
+          "syllable": "pi in verse 2 Lapidem",
+          "before": "i/k/kvJI/iji",
+          "after": "i/k/kvIH/iji",
+          "finding": "The two inclinata after the k virga occupy i and h, not j and i. The source descends from k by a third, then a step. The following iji group is unchanged.",
+          "sourceStrip": "s65-4.png",
+          "sourceInclinataCentersApprox": [
+            {
+              "x": 170,
+              "y": 50,
+              "pitch": "i"
+            },
+            {
+              "x": 185,
+              "y": 64,
+              "pitch": "h"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bookNumber": 41,
+      "manualFileSha256": "ed334d5847cc1a91000a45162a2e5f9449e9d9fdd7f21f48424a414b710a29fe",
+      "checkedSourceSystems": [
+        {
+          "page": 67,
+          "systems": [
+            7,
+            8
+          ]
+        },
+        {
+          "page": 68,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "page": 69,
+          "systems": [
+            1,
+            2
+          ]
+        }
+      ],
+      "scope": [
+        "every notated syllable in both verses",
+        "repeated notes",
+        "inclinata and skipped steps",
+        "porrectus endpoints",
+        "clef changes",
+        "flat and natural effects"
+      ],
+      "corrections": []
+    },
+    {
+      "bookNumber": 44,
+      "manualFileSha256": "5a9d64022cd6b9dcf39b5486a8441c634fd5ec6d7e7313d8b4f43081aef7f2df",
+      "checkedSourceSystems": [
+        {
+          "page": 74,
+          "systems": [
+            8
+          ]
+        },
+        {
+          "page": 75,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "scope": [
+        "every notated syllable in both verses",
+        "repeated notes",
+        "inclinata and skipped steps",
+        "porrectus endpoints",
+        "clef changes",
+        "flat and natural effects"
+      ],
+      "corrections": []
+    },
+    {
+      "bookNumber": 48,
+      "manualFileSha256": "ecc4e29e3c8597beccbd3d28abedffd4147a5a439fb403ef679107f0be8bb0c6",
+      "checkedSourceSystems": [
+        {
+          "page": 81,
+          "systems": [
+            7,
+            8
+          ]
+        },
+        {
+          "page": 82,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "scope": [
+        "every notated syllable in both verses",
+        "repeated notes",
+        "inclinata and skipped steps",
+        "porrectus endpoints",
+        "clef changes",
+        "flat and natural effects"
+      ],
+      "corrections": []
+    }
+  ]
+}

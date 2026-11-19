@@ -1,0 +1,1472 @@
+{
+  "date": "2026-11-17",
+  "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "coordinateMethod": "2100px-high source pages; x origin 230px; strips start 40px above top staff line. j/h/f/d at strip y40/69/99/128. Bare strokes identified separately from note stems and custodes. Measured union within ±5px (±12px for double strokes), bridging scanned ink gaps up to3px. Quarter ≈29px; half ≈58px; whole ≈90px.",
+  "chants": [
+    {
+      "bookNumber": 50,
+      "manualFileSha256": "2a5dba6019bc63caffd8ee24f650c2bd719cf7e4bd3a8e50f9d417e4336d803f",
+      "checkedSourceSystems": [
+        {
+          "page": 84,
+          "systems": [
+            8,
+            9
+          ]
+        },
+        {
+          "page": 85,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      "passes": [
+        "text and verse/cue boundaries",
+        "every pitch against staff, including individual inclinata and porrectus endpoints",
+        "clefs, flats, naturals and their scope",
+        "explicit virgas, postfix quilismas, liquescents and note-head counts",
+        "bar-only physical-stroke pass",
+        "horizontal gaps and touching neume shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 84,
+          "system": 8,
+          "sourcePageX": 888,
+          "sourcePageYRange": [
+            1541,
+            1570
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 84,
+          "system": 8,
+          "sourcePageX": 1207,
+          "sourcePageYRange": [
+            1570,
+            1628
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 84,
+          "system": 9,
+          "sourcePageX": 916,
+          "sourcePageYRange": [
+            1757,
+            1848
+          ],
+          "inkHeightPx": 92,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 85,
+          "system": 1,
+          "sourcePageX": 478,
+          "sourcePageYRange": [
+            190,
+            247
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 85,
+          "system": 1,
+          "sourcePageX": 876,
+          "sourcePageYRange": [
+            173,
+            264
+          ],
+          "inkHeightPx": 92,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 85,
+          "system": 2,
+          "sourcePageX": 478,
+          "sourcePageYRange": [
+            381,
+            438
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 85,
+          "system": 2,
+          "sourcePageX": 968,
+          "sourcePageYRange": [
+            364,
+            454
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 85,
+          "system": 3,
+          "sourcePageX": 369,
+          "sourcePageYRange": [
+            566,
+            623
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 85,
+          "system": 3,
+          "sourcePageX": 710,
+          "sourcePageYRange": [
+            566,
+            623
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 85,
+          "system": 4,
+          "sourcePageX": 506,
+          "sourcePageYRange": [
+            755,
+            812
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 85,
+          "system": 4,
+          "sourcePageX": 746,
+          "sourcePageYRange": [
+            755,
+            812
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 85,
+          "system": 4,
+          "sourcePageX": 1136,
+          "sourcePageYRange": [
+            755,
+            812
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 13,
+          "page": 85,
+          "system": 4,
+          "sourcePageX": 1324,
+          "sourcePageYRange": [
+            725,
+            755
+          ],
+          "inkHeightPx": 31,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 85,
+          "system": 5,
+          "sourcePageX": 520,
+          "sourcePageYRange": [
+            897,
+            926
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 85,
+          "system": 5,
+          "sourcePageX": 969,
+          "sourcePageYRange": [
+            911,
+            1000
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 85,
+          "system": 5,
+          "sourcePageX": 1273,
+          "sourcePageYRange": [
+            911,
+            1001
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "notes": "Opening antiphons preserved. Source review precedes rendering; rendering validates encoding and integration, not musical correctness.",
+      "sourceSystems": [
+        {
+          "page": 84,
+          "system": 8,
+          "topStaffLineY": 1556,
+          "stripSha256": "3db367c252f91029a4fed3b3bf41420032fbffa5c0726df85fdd5ce3916d4c36"
+        },
+        {
+          "page": 84,
+          "system": 9,
+          "topStaffLineY": 1760,
+          "stripSha256": "c343ae55ed9036284baced8d522cb307725fca9ec9c9f776f7698503c37dc089"
+        },
+        {
+          "page": 85,
+          "system": 1,
+          "topStaffLineY": 175,
+          "stripSha256": "3b0a22c20f9b0d7f65204b2881b35382417ad9e92ca0e8f5e0cddd4693aa5ea2"
+        },
+        {
+          "page": 85,
+          "system": 2,
+          "topStaffLineY": 366,
+          "stripSha256": "419d98a5e87cb4b50050624b6b2be1759f8510bc2373e74ad1d80d97329cde5e"
+        },
+        {
+          "page": 85,
+          "system": 3,
+          "topStaffLineY": 551,
+          "stripSha256": "d0052238a52bdac63b8ae058e7cd064f081c4548e1a68c0fffe18f978aa3a5e1"
+        },
+        {
+          "page": 85,
+          "system": 4,
+          "topStaffLineY": 740,
+          "stripSha256": "e6723ddb26797ff9ad1b1c57dd3bfc477c924fa1c929313186fb710bebe382f4"
+        },
+        {
+          "page": 85,
+          "system": 5,
+          "topStaffLineY": 912,
+          "stripSha256": "eb7b76f396b691984dc370d42b13f53e64f01fbb81affd5c898cf5b0d5b89b63"
+        }
+      ],
+      "pitchCount": 220,
+      "shapeCounts": {
+        "explicitVirgas": 7,
+        "quilismas": 1
+      },
+      "findings": [
+        "Initial mi is fhGF: a pes with two inclinata, without an added v; tua is fgf then fg.",
+        "Neque begins fhg; tuo is dec. The os repeat sequence and the long h–e–f porrectus are corrected; final me is ehf/fd.",
+        "Sunt retains its printed f–e diminished liquescent. All other pitches in both verses re-read."
+      ],
+      "supersededReviews": [
+        {
+          "manualFileSha256": "a3585cd995f252ca7b4da6224d0d6d8932aaa3d96bc421ca94d3de3f17f3d543",
+          "pitchCount": 225,
+          "shapeCounts": {
+            "explicitVirgas": 9,
+            "quilismas": 1
+          },
+          "findings": [
+            "Quarter inside initial Dó; half bar beside C4-to-C3 change distinguished from its long custos.",
+            "Os climacus checked note by note: ascending ik and following j virga remain separate without added gap (ik!jvIH).",
+            "The book supplies no return after verse 1; only the shortened selection adds one."
+          ],
+          "status": "superseded",
+          "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+        }
+      ],
+      "renewedReview": "batch-2-user-corrections.json",
+      "renewedPasses": [
+        "each pitch against its local staff",
+        "connected pes with inclinata versus separate virga",
+        "missing clivis and repeated head counts",
+        "porrectus head and ribbon endpoint positions",
+        "liquescent pitches and accidental staff positions"
+      ]
+    },
+    {
+      "bookNumber": 67,
+      "manualFileSha256": "c60d0daf7b06b12fa12755da0ebdfbccd86e72663fbdafba7f3cc4f62a02adab",
+      "checkedSourceSystems": [
+        {
+          "page": 112,
+          "systems": [
+            8,
+            9
+          ]
+        },
+        {
+          "page": 113,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "page": 114,
+          "systems": [
+            1,
+            2
+          ]
+        }
+      ],
+      "passes": [
+        "text and verse/cue boundaries",
+        "every pitch against staff, including individual inclinata and porrectus endpoints",
+        "clefs, flats, naturals and their scope",
+        "explicit virgas, postfix quilismas, liquescents and note-head counts",
+        "bar-only physical-stroke pass",
+        "horizontal gaps and touching neume shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 112,
+          "system": 8,
+          "sourcePageX": 898,
+          "sourcePageYRange": [
+            1586,
+            1645
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 112,
+          "system": 9,
+          "sourcePageX": 528,
+          "sourcePageYRange": [
+            1756,
+            1846
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 112,
+          "system": 9,
+          "sourcePageX": 992,
+          "sourcePageYRange": [
+            1772,
+            1831
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 113,
+          "system": 1,
+          "sourcePageX": 488,
+          "sourcePageYRange": [
+            173,
+            263
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 113,
+          "system": 1,
+          "sourcePageX": 1214,
+          "sourcePageYRange": [
+            174,
+            264
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 113,
+          "system": 2,
+          "sourcePageX": 526,
+          "sourcePageYRange": [
+            364,
+            421
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 113,
+          "system": 2,
+          "sourcePageX": 787,
+          "sourcePageYRange": [
+            364,
+            420
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 113,
+          "system": 2,
+          "sourcePageX": 1307,
+          "sourcePageYRange": [
+            349,
+            438
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 113,
+          "system": 3,
+          "sourcePageX": 532,
+          "sourcePageYRange": [
+            523,
+            612
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        },
+        {
+          "sequence": 10,
+          "page": 113,
+          "system": 3,
+          "sourcePageX": 1258,
+          "sourcePageYRange": [
+            540,
+            597
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 113,
+          "system": 4,
+          "sourcePageX": 426,
+          "sourcePageYRange": [
+            716,
+            773
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 113,
+          "system": 4,
+          "sourcePageX": 592,
+          "sourcePageYRange": [
+            714,
+            773
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 13,
+          "page": 113,
+          "system": 4,
+          "sourcePageX": 860,
+          "sourcePageYRange": [
+            698,
+            789
+          ],
+          "inkHeightPx": 92,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 113,
+          "system": 5,
+          "sourcePageX": 555,
+          "sourcePageYRange": [
+            862,
+            889
+          ],
+          "inkHeightPx": 28,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 113,
+          "system": 5,
+          "sourcePageX": 737,
+          "sourcePageYRange": [
+            890,
+            949
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 113,
+          "system": 5,
+          "sourcePageX": 962,
+          "sourcePageYRange": [
+            890,
+            949
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 17,
+          "page": 113,
+          "system": 6,
+          "sourcePageX": 354,
+          "sourcePageYRange": [
+            1068,
+            1126
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 18,
+          "page": 113,
+          "system": 6,
+          "sourcePageX": 816,
+          "sourcePageYRange": [
+            1051,
+            1143
+          ],
+          "inkHeightPx": 93,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 19,
+          "page": 113,
+          "system": 6,
+          "sourcePageX": 1322,
+          "sourcePageYRange": [
+            1068,
+            1127
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 20,
+          "page": 113,
+          "system": 7,
+          "sourcePageX": 717,
+          "sourcePageYRange": [
+            1246,
+            1304
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 21,
+          "page": 113,
+          "system": 7,
+          "sourcePageX": 1316,
+          "sourcePageYRange": [
+            1229,
+            1319
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 22,
+          "page": 113,
+          "system": 8,
+          "sourcePageX": 978,
+          "sourcePageYRange": [
+            1421,
+            1479
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 23,
+          "page": 113,
+          "system": 9,
+          "sourcePageX": 538,
+          "sourcePageYRange": [
+            1597,
+            1656
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 24,
+          "page": 113,
+          "system": 10,
+          "sourcePageX": 364,
+          "sourcePageYRange": [
+            1759,
+            1850
+          ],
+          "inkHeightPx": 92,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 25,
+          "page": 113,
+          "system": 10,
+          "sourcePageX": 725,
+          "sourcePageYRange": [
+            1775,
+            1835
+          ],
+          "inkHeightPx": 61,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 26,
+          "page": 113,
+          "system": 10,
+          "sourcePageX": 1224,
+          "sourcePageYRange": [
+            1775,
+            1834
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 27,
+          "page": 114,
+          "system": 1,
+          "sourcePageX": 406,
+          "sourcePageYRange": [
+            188,
+            245
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 28,
+          "page": 114,
+          "system": 1,
+          "sourcePageX": 681,
+          "sourcePageYRange": [
+            188,
+            245
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 29,
+          "page": 114,
+          "system": 1,
+          "sourcePageX": 1013,
+          "sourcePageYRange": [
+            187,
+            245
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 30,
+          "page": 114,
+          "system": 1,
+          "sourcePageX": 1331,
+          "sourcePageYRange": [
+            188,
+            246
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 31,
+          "page": 114,
+          "system": 2,
+          "sourcePageX": 486,
+          "sourcePageYRange": [
+            369,
+            425
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 32,
+          "page": 114,
+          "system": 2,
+          "sourcePageX": 666,
+          "sourcePageYRange": [
+            338,
+            367
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 33,
+          "page": 114,
+          "system": 2,
+          "sourcePageX": 1012,
+          "sourcePageYRange": [
+            351,
+            441
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 34,
+          "page": 114,
+          "system": 2,
+          "sourcePageX": 1170,
+          "sourcePageYRange": [
+            352,
+            441
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "notes": "Opening antiphons preserved. Source review precedes rendering; rendering validates encoding and integration, not musical correctness.",
+      "sourceSystems": [
+        {
+          "page": 112,
+          "system": 8,
+          "topStaffLineY": 1572,
+          "stripSha256": "a75f3b6cbafe08fb7177cece2ce11ae3b805148ffabacff6fb5c5a389f0c9c68"
+        },
+        {
+          "page": 112,
+          "system": 9,
+          "topStaffLineY": 1758,
+          "stripSha256": "0c2b41407f01c5636597186c81695282180d57b8b7a147e41ca6a09386015ba8"
+        },
+        {
+          "page": 113,
+          "system": 1,
+          "topStaffLineY": 174,
+          "stripSha256": "2d9456e5a27de5c90035ec2fcf3cfc8431ab745f083f348663b5e5bacc641e2a"
+        },
+        {
+          "page": 113,
+          "system": 2,
+          "topStaffLineY": 350,
+          "stripSha256": "151e131ef5ec10ed4ec1d07ceabda38e87858d0e0f6e5ab690db7fef533e64dc"
+        },
+        {
+          "page": 113,
+          "system": 3,
+          "topStaffLineY": 524,
+          "stripSha256": "5f6859f7901abbd05f0385759fef9bad4f7f4a88d9bc3f12758b513b86addd30"
+        },
+        {
+          "page": 113,
+          "system": 4,
+          "topStaffLineY": 700,
+          "stripSha256": "3240e80bbe16b65ea85a34f96e53a9ece8f4fa368560f59997b2f85764e7e588"
+        },
+        {
+          "page": 113,
+          "system": 5,
+          "topStaffLineY": 875,
+          "stripSha256": "d192913c93b81cc37330022233ad5c3fb406a7d1817a02faa3d0df279bfe5f9a"
+        },
+        {
+          "page": 113,
+          "system": 6,
+          "topStaffLineY": 1052,
+          "stripSha256": "55e882a5a2ee9a821128cf019ebfc1f3539aa8c3f2afc409efb71293e123eb15"
+        },
+        {
+          "page": 113,
+          "system": 7,
+          "topStaffLineY": 1230,
+          "stripSha256": "7ff87e95cd770dc45fccc9f09c8bb634599e448b0531472227270935c5e96e73"
+        },
+        {
+          "page": 113,
+          "system": 8,
+          "topStaffLineY": 1406,
+          "stripSha256": "48c34b9b3af441df20bc71140504408bea35c46a3fd36aa4709ca185a58079a4"
+        },
+        {
+          "page": 113,
+          "system": 9,
+          "topStaffLineY": 1582,
+          "stripSha256": "9aa3f67f01d8028f082b7267bc4185b4e35f761bcd3b1463754b2ebad77f7991"
+        },
+        {
+          "page": 113,
+          "system": 10,
+          "topStaffLineY": 1761,
+          "stripSha256": "6a57292172d9f8703fd58a0ce0eabfb4ec7d25b70c4ea8eab8e31b72707f8623"
+        },
+        {
+          "page": 114,
+          "system": 1,
+          "topStaffLineY": 173,
+          "stripSha256": "9c9c31c60bf3c9b6715d69ab47f4d9ccdc6416c7762a9339f192a48c4496d81a"
+        },
+        {
+          "page": 114,
+          "system": 2,
+          "topStaffLineY": 352,
+          "stripSha256": "a2723712efd1bd88023729666680c56abc58d16c3919b337f86181598ff76faa"
+        }
+      ],
+      "pitchCount": 498,
+      "shapeCounts": {
+        "explicitVirgas": 21,
+        "quilismas": 12
+      },
+      "findings": [
+        "Inclina cli is hi/ih; tuam is fiHG; initial Domine is hiHF then f!gwhe. The omitted clivis and corrected pes/inclinata forms are now encoded.",
+        "Corrected pitches, repeated heads and connected groups through both later verses, including the Juventute quilisma at g, and the restored hhh/ih continuation near the final page turn.",
+        "The printed flat in verse 2 is gx in C3; the following gf, g climacus and ef pes are corrected. Porrectus endpoints, diminished liquescents, and every remaining inclinatum checked individually."
+      ],
+      "supersededReviews": [
+        {
+          "manualFileSha256": "e77b8f66f5a3bd354cff6268d57a44a54faf0535bad418349c166d7e2b955c39",
+          "pitchCount": 491,
+          "shapeCounts": {
+            "explicitVirgas": 33,
+            "quilismas": 12
+          },
+          "findings": [
+            "Three complete verses, ending at Intret on p. 114; verse 2 goes directly to verse 3.",
+            "Precem has three k heads, not l; the praeveniet descent is H–F–E.",
+            "The last melisma includes non-stepwise descents, two porrectus/quilisma sequences and a genuine quarter bar; both porrectus endpoints checked.",
+            "Syllables crossing systems are joined in extracted psalm text; all three complete verse texts checked."
+          ],
+          "status": "superseded",
+          "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+        }
+      ],
+      "renewedReview": "batch-2-user-corrections.json",
+      "renewedPasses": [
+        "each pitch against its local staff",
+        "connected pes with inclinata versus separate virga",
+        "missing clivis and repeated head counts",
+        "porrectus head and ribbon endpoint positions",
+        "liquescent pitches and accidental staff positions"
+      ]
+    },
+    {
+      "bookNumber": 77,
+      "manualFileSha256": "08e37ccaef3b2328cc89a27396f68b31d5d673bfaf0fba0bf05d667e7d1a33ea",
+      "checkedSourceSystems": [
+        {
+          "page": 134,
+          "systems": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "page": 135,
+          "systems": [
+            1,
+            2
+          ]
+        }
+      ],
+      "passes": [
+        "text and verse/cue boundaries",
+        "every pitch against staff, including individual inclinata and porrectus endpoints",
+        "clefs, flats, naturals and their scope",
+        "explicit virgas, postfix quilismas, liquescents and note-head counts",
+        "bar-only physical-stroke pass",
+        "horizontal gaps and touching neume shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 134,
+          "system": 2,
+          "sourcePageX": 702,
+          "sourcePageYRange": [
+            383,
+            440
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 134,
+          "system": 2,
+          "sourcePageX": 940,
+          "sourcePageYRange": [
+            383,
+            441
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 134,
+          "system": 2,
+          "sourcePageX": 1236,
+          "sourcePageYRange": [
+            383,
+            441
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 134,
+          "system": 3,
+          "sourcePageX": 686,
+          "sourcePageYRange": [
+            565,
+            655
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 134,
+          "system": 3,
+          "sourcePageX": 1324,
+          "sourcePageYRange": [
+            581,
+            638
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 134,
+          "system": 4,
+          "sourcePageX": 868,
+          "sourcePageYRange": [
+            780,
+            837
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 134,
+          "system": 5,
+          "sourcePageX": 504,
+          "sourcePageYRange": [
+            963,
+            1053
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 134,
+          "system": 5,
+          "sourcePageX": 1208,
+          "sourcePageYRange": [
+            978,
+            1037
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 134,
+          "system": 6,
+          "sourcePageX": 746,
+          "sourcePageYRange": [
+            1173,
+            1231
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 134,
+          "system": 6,
+          "sourcePageX": 1014,
+          "sourcePageYRange": [
+            1173,
+            1230
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 134,
+          "system": 6,
+          "sourcePageX": 1316,
+          "sourcePageYRange": [
+            1155,
+            1245
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 134,
+          "system": 7,
+          "sourcePageX": 556,
+          "sourcePageYRange": [
+            1358,
+            1448
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        },
+        {
+          "sequence": 13,
+          "page": 134,
+          "system": 7,
+          "sourcePageX": 1201,
+          "sourcePageYRange": [
+            1373,
+            1431
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 134,
+          "system": 8,
+          "sourcePageX": 514,
+          "sourcePageYRange": [
+            1575,
+            1632
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 134,
+          "system": 8,
+          "sourcePageX": 868,
+          "sourcePageYRange": [
+            1575,
+            1632
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 134,
+          "system": 8,
+          "sourcePageX": 1172,
+          "sourcePageYRange": [
+            1575,
+            1631
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 17,
+          "page": 134,
+          "system": 8,
+          "sourcePageX": 1324,
+          "sourcePageYRange": [
+            1545,
+            1574
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 18,
+          "page": 134,
+          "system": 9,
+          "sourcePageX": 527,
+          "sourcePageYRange": [
+            1758,
+            1848
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 19,
+          "page": 134,
+          "system": 9,
+          "sourcePageX": 1114,
+          "sourcePageYRange": [
+            1773,
+            1832
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 20,
+          "page": 134,
+          "system": 9,
+          "sourcePageX": 1316,
+          "sourcePageYRange": [
+            1758,
+            1848
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 21,
+          "page": 135,
+          "system": 1,
+          "sourcePageX": 885,
+          "sourcePageYRange": [
+            196,
+            253
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 22,
+          "page": 135,
+          "system": 1,
+          "sourcePageX": 1144,
+          "sourcePageYRange": [
+            195,
+            253
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 23,
+          "page": 135,
+          "system": 2,
+          "sourcePageX": 544,
+          "sourcePageYRange": [
+            394,
+            451
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 24,
+          "page": 135,
+          "system": 2,
+          "sourcePageX": 774,
+          "sourcePageYRange": [
+            378,
+            467
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 25,
+          "page": 135,
+          "system": 2,
+          "sourcePageX": 1063,
+          "sourcePageYRange": [
+            379,
+            468
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "notes": "Opening antiphons preserved. Source review precedes rendering; rendering validates encoding and integration, not musical correctness.",
+      "sourceSystems": [
+        {
+          "page": 134,
+          "system": 2,
+          "topStaffLineY": 368,
+          "stripSha256": "7ae147d4e9aef9f4afce96487ec35e3d8f044f7a505efe1937dd342ccb7dafa7"
+        },
+        {
+          "page": 134,
+          "system": 3,
+          "topStaffLineY": 566,
+          "stripSha256": "cadde45c464d25d1d398c2a6339dc449a42e0be5044d0d3d1d2c5c829b218dbb"
+        },
+        {
+          "page": 134,
+          "system": 4,
+          "topStaffLineY": 765,
+          "stripSha256": "a5ee1e985403a7a165d491bf06507ebfc335b8abd0342e0f17acab3dda856373"
+        },
+        {
+          "page": 134,
+          "system": 5,
+          "topStaffLineY": 964,
+          "stripSha256": "faadb4b4071644fc2a874ab5eb6552cde7302c6e2facf970742dd0fbd2e79d25"
+        },
+        {
+          "page": 134,
+          "system": 6,
+          "topStaffLineY": 1158,
+          "stripSha256": "040a45529ac18b9c206d3b1ffcd2d4490e153303634dcd8b6f6aa1fbd0a07890"
+        },
+        {
+          "page": 134,
+          "system": 7,
+          "topStaffLineY": 1358,
+          "stripSha256": "37a04497ab5fc730f6e2da6d9bd248f5598062f57e6ebc959f1829fde3c1154e"
+        },
+        {
+          "page": 134,
+          "system": 8,
+          "topStaffLineY": 1560,
+          "stripSha256": "9c753b6a84da0d9e01fbc06228dd1bf3e8637cb193da652cdea55137ee13273d"
+        },
+        {
+          "page": 134,
+          "system": 9,
+          "topStaffLineY": 1759,
+          "stripSha256": "63e6f83a6c0d70df8d5263b64e8e72aa4eb618e3ba8338b49fd8c07c86413e33"
+        },
+        {
+          "page": 135,
+          "system": 1,
+          "topStaffLineY": 180,
+          "stripSha256": "73709316cca97ec163e4e04c543aef457c422c97be1274737a02ba85fd8232dc"
+        },
+        {
+          "page": 135,
+          "system": 2,
+          "topStaffLineY": 380,
+          "stripSha256": "efa079480b2071c94e7aa687d874068f79f17d4b0c09a7a16711c6afb4448f20"
+        }
+      ],
+      "pitchCount": 361,
+      "shapeCounts": {
+        "explicitVirgas": 13,
+        "quilismas": 9
+      },
+      "findings": [
+        "Removed added v from printed pes/inclinata groups; corrected related pitches and omitted/extra heads in both verses.",
+        "Domine porrectus is hgh in the repeated quilisma figure; noster ends hg/gfg. Quid est homo, hominis and visitas have corrected staff positions and groups.",
+        "Final eum descends to c in ec, not b. The low reading in the earlier review was wrong."
+      ],
+      "supersededReviews": [
+        {
+          "manualFileSha256": "5343d3d6bf80f16c69f3831d4a320d176636a82ebf82d84fd807f6d01cb08f6c",
+          "pitchCount": 357,
+          "shapeCounts": {
+            "explicitVirgas": 26,
+            "quilismas": 9
+          },
+          "findings": [
+            "Repeated quilismas in homo continuation retained separately; naturals and renewed flats retained in Domine and Quid.",
+            "Elevata rises k–l before descending j–i; the ending eum reaches b in eb.",
+            "The final syllable jus has its own h, and the bar within hominis is retained without introducing a word break."
+          ],
+          "status": "superseded",
+          "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+        }
+      ],
+      "renewedReview": "batch-2-user-corrections.json",
+      "renewedPasses": [
+        "each pitch against its local staff",
+        "connected pes with inclinata versus separate virga",
+        "missing clivis and repeated head counts",
+        "porrectus head and ribbon endpoint positions",
+        "liquescent pitches and accidental staff positions"
+      ]
+    }
+  ]
+}

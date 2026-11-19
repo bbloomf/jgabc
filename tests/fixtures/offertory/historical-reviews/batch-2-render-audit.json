@@ -1,0 +1,312 @@
+{
+  "date": "2026-11-17",
+  "method": "Isolated headless Chrome, same embedded Exsurge as application. Ordered rendered bars, visible quilisma and virga counts, exact source fingerprints, and text/SVG bounds. Source-reading evidence remains separate in batch-2-review.json. Renewed source reading and structural pes/clivis checks supersede the initial shape counts; count agreement alone did not establish a correct reading.",
+  "chants": [
+    {
+      "number": 50,
+      "sourceSha256": "2a5dba6019bc63caffd8ee24f650c2bd719cf7e4bd3a8e50f9d417e4336d803f",
+      "expectedBars": [
+        "QuarterBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "DoubleBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "QuarterBar",
+        "QuarterBar",
+        "DoubleBar",
+        "DoubleBar"
+      ],
+      "renderedBars": [
+        "QuarterBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "DoubleBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "QuarterBar",
+        "QuarterBar",
+        "DoubleBar",
+        "DoubleBar"
+      ],
+      "expectedQuilismas": 1,
+      "renderedQuilismas": 1,
+      "expectedVirgas": 7,
+      "renderedVirgas": 7,
+      "bounds": {
+        "svgBottom": 1315.234375,
+        "maxTextBottom": 1276.6995849609375,
+        "svgRight": 1545,
+        "maxTextRight": 1502.8394775390625
+      },
+      "views": [
+        "body",
+        "integrated",
+        "one",
+        "antiphon"
+      ],
+      "visuallyInspected": true,
+      "sourceReading": "../batch-2-user-corrections.json",
+      "superseded": {
+        "sourceSha256": "a3585cd995f252ca7b4da6224d0d6d8932aaa3d96bc421ca94d3de3f17f3d543",
+        "expectedVirgas": 9,
+        "expectedQuilismas": 1,
+        "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+      }
+    },
+    {
+      "number": 67,
+      "sourceSha256": "c60d0daf7b06b12fa12755da0ebdfbccd86e72663fbdafba7f3cc4f62a02adab",
+      "expectedBars": [
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "FullBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "DoubleBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "QuarterBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "QuarterBar",
+        "DoubleBar",
+        "DoubleBar"
+      ],
+      "renderedBars": [
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "FullBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "DoubleBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "QuarterBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "QuarterBar",
+        "DoubleBar",
+        "DoubleBar"
+      ],
+      "expectedQuilismas": 12,
+      "renderedQuilismas": 12,
+      "expectedVirgas": 21,
+      "renderedVirgas": 21,
+      "bounds": {
+        "svgBottom": 3219.953125,
+        "maxTextBottom": 3181.418212890625,
+        "svgRight": 1545,
+        "maxTextRight": 1507.101318359375
+      },
+      "views": [
+        "body",
+        "integrated",
+        "two",
+        "one",
+        "antiphon",
+        "seasonal"
+      ],
+      "visuallyInspected": true,
+      "sourceReading": "../batch-2-user-corrections.json",
+      "superseded": {
+        "sourceSha256": "e77b8f66f5a3bd354cff6268d57a44a54faf0535bad418349c166d7e2b955c39",
+        "expectedVirgas": 33,
+        "expectedQuilismas": 12,
+        "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+      }
+    },
+    {
+      "number": 77,
+      "sourceSha256": "08e37ccaef3b2328cc89a27396f68b31d5d673bfaf0fba0bf05d667e7d1a33ea",
+      "expectedBars": [
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "DoubleBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "QuarterBar",
+        "FullBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "DoubleBar"
+      ],
+      "renderedBars": [
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "DoubleBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "QuarterBar",
+        "FullBar",
+        "HalfBar",
+        "FullBar",
+        "HalfBar",
+        "HalfBar",
+        "HalfBar",
+        "DoubleBar",
+        "DoubleBar"
+      ],
+      "expectedQuilismas": 9,
+      "renderedQuilismas": 9,
+      "expectedVirgas": 13,
+      "renderedVirgas": 13,
+      "bounds": {
+        "svgBottom": 5446.734375,
+        "maxTextBottom": 5408.302734375,
+        "svgRight": 1545,
+        "maxTextRight": 1507.2381591796875
+      },
+      "views": [
+        "body",
+        "integrated",
+        "one",
+        "antiphon"
+      ],
+      "visuallyInspected": true,
+      "sourceReading": "../batch-2-user-corrections.json",
+      "superseded": {
+        "sourceSha256": "5343d3d6bf80f16c69f3831d4a320d176636a82ebf82d84fd807f6d01cb08f6c",
+        "expectedVirgas": 26,
+        "expectedQuilismas": 9,
+        "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+      }
+    }
+  ],
+  "correctedNeumeChecks": [
+    {
+      "word": "Domine convertere mi",
+      "notes": "fhGF",
+      "required": "PesSubpunctis",
+      "renderedClasses": [
+        "DoClef",
+        "PesSubpunctis"
+      ],
+      "requiredCount": 1,
+      "climacusCount": 0
+    },
+    {
+      "word": "Inclina cli",
+      "notes": "hi/ih",
+      "required": "Clivis",
+      "renderedClasses": [
+        "DoClef",
+        "Podatus",
+        "Clivis"
+      ],
+      "requiredCount": 1,
+      "climacusCount": 0
+    },
+    {
+      "word": "tuam",
+      "notes": "fiHG",
+      "required": "PesSubpunctis",
+      "renderedClasses": [
+        "DoClef",
+        "PesSubpunctis"
+      ],
+      "requiredCount": 1,
+      "climacusCount": 0
+    },
+    {
+      "word": "Domine salutis Do",
+      "notes": "hiHF",
+      "required": "PesSubpunctis",
+      "renderedClasses": [
+        "DoClef",
+        "PesSubpunctis"
+      ],
+      "requiredCount": 1,
+      "climacusCount": 0
+    },
+    {
+      "word": "Domine salutis later Do",
+      "notes": "ehFE",
+      "required": "PesSubpunctis",
+      "renderedClasses": [
+        "DoClef",
+        "PesSubpunctis"
+      ],
+      "requiredCount": 1,
+      "climacusCount": 0
+    }
+  ]
+}

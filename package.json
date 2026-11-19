@@ -19,10 +19,13 @@
   },
   "scripts": {
     "test": "bun test",
+    "download-offertory-verses": "node download-offertory-verses.js",
     "download-gabc": "node download-gabc.js && bun test",
     "vendor:pdf": "cp node_modules/jspdf/dist/jspdf.umd.min.js node_modules/svg2pdf.js/dist/svg2pdf.umd.min.js js/",
     "postversion": "git push && git push --tags",
-    "update-cordova": "bash tools/update-cordova.sh"
+    "update-cordova": "bash tools/update-cordova.sh",
+    "review:offertory": "node tools/serve-offertory-review.js",
+    "export:offertory-gregobase": "node tools/export-offertory-gregobase.js"
   },
   "devDependencies": {
     "@prettier/sync": "^0.6.1",

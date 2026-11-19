@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-17",
+  "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "reason": "Distinguish a zero-space group boundary (!) from a printed neumatic cut (/).",
+  "allFourPitchAndNoteShapeSequencesUnchanged": true,
+  "chants": [
+    {
+      "id": "manual-039",
+      "previousReviewSha256": "0b0a6b21e8d18f9d6212a05f49d46eb129092ab80578141029f121aa21b55f11",
+      "reviewSha256": "6a3c6654817354c5c960a75f2f30cb5c88d85d4cbb20087497963fb2a8927c96",
+      "sourceFileSha256": "ad184c3c4fa301baa774ea33a870f14b7875b120f0c496272db74a2809c26b14",
+      "pitchesAndNoteShapesUnchanged": true,
+      "changes": [
+        {
+          "from": "di(ef/gwhf/gvFEf)",
+          "to": "di(ef!gwhf/gvFEf)"
+        },
+        {
+          "from": "runt(hi/jwkvJI)",
+          "to": "runt(hi!jwkvJI)"
+        },
+        {
+          "from": "fe(ef/hg)",
+          "to": "fe(ef!hg)"
+        },
+        {
+          "from": "jl/i/jwk/li",
+          "to": "jl/i!jwk/li"
+        },
+        {
+          "from": "/i/jwkk",
+          "to": "/i!jwkk"
+        }
+      ],
+      "renderedVirgas": 23,
+      "renderedQuilismas": 13
+    },
+    {
+      "id": "manual-048",
+      "previousReviewSha256": "96c5a259528c1cb5b846786816c692caa1219f2a4d283d1757114abf61fc4586",
+      "reviewSha256": "b2a4a09f60aefb6319ebea07fc9d262c6823cc90d5a56f029882d87297bcc0ef",
+      "sourceFileSha256": "050cacf75ffa6533266d8b8c7b747487b9e1aed58377396070fcb1d84f982524",
+      "pitchesAndNoteShapesUnchanged": true,
+      "changes": [
+        {
+          "from": "Fí(ixg!hih)",
+          "to": "Fí(ixg/hih)"
+        },
+        {
+          "from": "cum(ghGE/ixfg!hwih!hg)",
+          "to": "cum(ghGE/ixfg!hwih/hg)"
+        },
+        {
+          "from": "et(eg!hv/",
+          "to": "et(eg/hv/"
+        },
+        {
+          "from": "mus(gh!jh)",
+          "to": "mus(gh/jh)"
+        },
+        {
+          "from": "gh!iw!jkj",
+          "to": "gh!iwj/kj"
+        },
+        {
+          "from": "per(eg!hf/fe)",
+          "to": "per(eg/hf/fe)"
+        }
+      ],
+      "renderedVirgas": 19,
+      "renderedQuilismas": 8
+    }
+  ],
+  "zeroAddedSpaceAtReportedJoins": true
+}

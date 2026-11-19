@@ -1,0 +1,1068 @@
+{
+  "date": "2026-11-18",
+  "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "coordinateMethod": "2100px page renders (1623px wide). Strip origin x230, top staff minus45. Bar positions identified in a separate visual stroke pass; ink measured with gaps up to3px bridged. Quarter approximately29px, half58px, full90px. The independently read classification is not inferred from punctuation or the top of a stroke. Cue-panel closing doubles tagged separately. Complete system strip fingerprints use top staff minus75, not minus45, and include all high ledger heads. Musical start/end bounds exclude preceding/following chant from the offline excerpts.",
+  "chants": [
+    {
+      "bookNumber": 97,
+      "manualFileSha256": "5b827024ad4f328ba1faf8d4f37414edcb3e83529822d668018425f07287c327",
+      "checkedSourceSystems": [
+        {
+          "page": 165,
+          "systems": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 165,
+          "system": 5,
+          "topStaffLineY": 962,
+          "stripSha256": "6bb182be1fa5e91a81a64e4b58f21d5ab452d51f9bc1919ff26c64db42e80308",
+          "cropRect": [
+            230,
+            887,
+            1380,
+            1127
+          ]
+        },
+        {
+          "page": 165,
+          "system": 6,
+          "topStaffLineY": 1164,
+          "stripSha256": "e178464e03dccb0f4e620420a903a748b900ca56fd2b84a9ab9942a97e33b0ab",
+          "cropRect": [
+            230,
+            1089,
+            1380,
+            1329
+          ]
+        },
+        {
+          "page": 165,
+          "system": 7,
+          "topStaffLineY": 1358,
+          "stripSha256": "9e34a1945c7f96e0bae05e522cfa92bac33d84e73dce96ac0c9bbd9df2e9be37",
+          "cropRect": [
+            230,
+            1283,
+            1380,
+            1523
+          ]
+        },
+        {
+          "page": 165,
+          "system": 8,
+          "topStaffLineY": 1562,
+          "stripSha256": "9b22991441808512e5a01e0c99c09ba52d63a63d869d7786f7fb8586e08402df",
+          "cropRect": [
+            230,
+            1487,
+            1380,
+            1727
+          ]
+        },
+        {
+          "page": 165,
+          "system": 9,
+          "topStaffLineY": 1755,
+          "stripSha256": "1a664b40597212add7ed4be63ec521289c594aea5d54e2513e77c9785ec612c6",
+          "cropRect": [
+            230,
+            1680,
+            1380,
+            1920
+          ]
+        }
+      ],
+      "passes": [
+        "text, complete verse and cue boundaries",
+        "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+        "active clefs and accidental scope",
+        "actual connections, independent virgas, postfix quilismas and liquescents",
+        "separate bar-only stroke-length inventory",
+        "separate horizontal cuts and touching shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 165,
+          "system": 6,
+          "sourcePageX": 580,
+          "sourcePageYRange": [
+            1178,
+            1235
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 165,
+          "system": 6,
+          "sourcePageX": 892,
+          "sourcePageYRange": [
+            1179,
+            1236
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 165,
+          "system": 6,
+          "sourcePageX": 1138,
+          "sourcePageYRange": [
+            1179,
+            1236
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 165,
+          "system": 7,
+          "sourcePageX": 478,
+          "sourcePageYRange": [
+            1355,
+            1445
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 165,
+          "system": 7,
+          "sourcePageX": 780,
+          "sourcePageYRange": [
+            1343,
+            1371
+          ],
+          "inkHeightPx": 29,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 165,
+          "system": 7,
+          "sourcePageX": 1135,
+          "sourcePageYRange": [
+            1376,
+            1406
+          ],
+          "inkHeightPx": 31,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 165,
+          "system": 7,
+          "sourcePageX": 1323,
+          "sourcePageYRange": [
+            1356,
+            1446
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 165,
+          "system": 8,
+          "sourcePageX": 956,
+          "sourcePageYRange": [
+            1577,
+            1634
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 165,
+          "system": 8,
+          "sourcePageX": 1310,
+          "sourcePageYRange": [
+            1578,
+            1635
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 165,
+          "system": 9,
+          "sourcePageX": 816,
+          "sourcePageYRange": [
+            1753,
+            1843
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 165,
+          "system": 9,
+          "sourcePageX": 1032,
+          "sourcePageYRange": [
+            1754,
+            1844
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "sourceFindings": [
+        "One verse, p165 systems5–9; p164 contains only opening music. Verse clef C3 throughout.",
+        "Read independent i then jij porrectus in Dominus; ijg, hi, ji and jg actual groups in aurum; high k/l and each descending diamond read separately.",
+        "Quarter bars after eius and before vi, not half bars. Natural at g under C3. Custodivi splits before the final sung vi; no empty sung syllable.",
+        "Non contains iji, jh, hih, hf, hg and a separate h virga with F/E inclinata; final continuation hhhf/hh/hef/hhi retained."
+      ],
+      "pitchCount": 140,
+      "shapeCounts": {
+        "explicitVirgas": 5,
+        "quilismas": 3
+      },
+      "reviewSha256": "5ebdf70760efc88208f336a2905ee230cdc2ed9484f563395189a2a7d623a888",
+      "mode": 8,
+      "verseCount": 1,
+      "localIds": [
+        185
+      ]
+    },
+    {
+      "bookNumber": 98,
+      "manualFileSha256": "35db76b3029894b89d835b85f42a42903194a499dd4ae599d9df3467f47f2f45",
+      "checkedSourceSystems": [
+        {
+          "page": 166,
+          "systems": [
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "page": 167,
+          "systems": [
+            1,
+            2
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 166,
+          "system": 4,
+          "topStaffLineY": 905,
+          "stripSha256": "9179fa8463238ffcdfb1b57a4ab64423fdf49cba906b089b39d07e5fa0c6161d",
+          "cropRect": [
+            230,
+            830,
+            1380,
+            1070
+          ]
+        },
+        {
+          "page": 166,
+          "system": 5,
+          "topStaffLineY": 1110,
+          "stripSha256": "219002c8dad658e7d346ac82b98ceecefb437493b19b26d7d43bc76debb908f0",
+          "cropRect": [
+            230,
+            1035,
+            1380,
+            1275
+          ]
+        },
+        {
+          "page": 166,
+          "system": 6,
+          "topStaffLineY": 1316,
+          "stripSha256": "6ebaf3c5550c3e892f5e847a2e180d06fcc8e2dd4864e4b189b5c36e4f468ab2",
+          "cropRect": [
+            230,
+            1241,
+            1380,
+            1481
+          ]
+        },
+        {
+          "page": 166,
+          "system": 7,
+          "topStaffLineY": 1526,
+          "stripSha256": "ba17a4af1ecab82383476e2376df3c51d6f62db693f2097694183dca04dd03cd",
+          "cropRect": [
+            230,
+            1451,
+            1380,
+            1691
+          ]
+        },
+        {
+          "page": 166,
+          "system": 8,
+          "topStaffLineY": 1736,
+          "stripSha256": "db79c4a67cad57b35c6a870584b10b0a75ed0440e1024e1b39df432d932d9507",
+          "cropRect": [
+            230,
+            1661,
+            1380,
+            1901
+          ]
+        },
+        {
+          "page": 167,
+          "system": 1,
+          "topStaffLineY": 174,
+          "stripSha256": "46dd701498a4f1653a89b92cc3e53f48c3a625ba6586aecd17962635eff5b202",
+          "cropRect": [
+            230,
+            99,
+            1380,
+            339
+          ]
+        },
+        {
+          "page": 167,
+          "system": 2,
+          "topStaffLineY": 372,
+          "stripSha256": "da14ae7f3395d71f03c26eefc977cc1fd2b2bb695eafd4677ed306cf589fbef4",
+          "cropRect": [
+            230,
+            297,
+            1380,
+            537
+          ]
+        }
+      ],
+      "passes": [
+        "text, complete verse and cue boundaries",
+        "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+        "active clefs and accidental scope",
+        "actual connections, independent virgas, postfix quilismas and liquescents",
+        "separate bar-only stroke-length inventory",
+        "separate horizontal cuts and touching shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 166,
+          "system": 5,
+          "sourcePageX": 716,
+          "sourcePageYRange": [
+            1125,
+            1181
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 166,
+          "system": 5,
+          "sourcePageX": 1221,
+          "sourcePageYRange": [
+            1109,
+            1199
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 166,
+          "system": 6,
+          "sourcePageX": 1295,
+          "sourcePageYRange": [
+            1316,
+            1405
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 166,
+          "system": 7,
+          "sourcePageX": 488,
+          "sourcePageYRange": [
+            1525,
+            1614
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        },
+        {
+          "sequence": 5,
+          "page": 166,
+          "system": 7,
+          "sourcePageX": 1178,
+          "sourcePageYRange": [
+            1525,
+            1615
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 166,
+          "system": 8,
+          "sourcePageX": 636,
+          "sourcePageYRange": [
+            1722,
+            1751
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 166,
+          "system": 8,
+          "sourcePageX": 1092,
+          "sourcePageYRange": [
+            1737,
+            1826
+          ],
+          "inkHeightPx": 90,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 167,
+          "system": 1,
+          "sourcePageX": 538,
+          "sourcePageYRange": [
+            189,
+            245
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 167,
+          "system": 1,
+          "sourcePageX": 1044,
+          "sourcePageYRange": [
+            188,
+            245
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 167,
+          "system": 2,
+          "sourcePageX": 704,
+          "sourcePageYRange": [
+            373,
+            462
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 167,
+          "system": 2,
+          "sourcePageX": 922,
+          "sourcePageYRange": [
+            372,
+            461
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "sourceFindings": [
+        "Two verses, p166 systems4–8 and p167 systems1–2. C4 throughout, source flat ix and following natural iy in verse2.",
+        "Connected hjGE and ghGF retain direct pes spelling. Standalone g virgas before F/E diamonds are explicit; nomen contains hj/ki/jvHG.",
+        "Final terra/eius figures are hghf porrectus flexus, then hg and the g–d diminished liquescent; there is no duplicated h.",
+        "Both Cantate Domino phrases retain every syllable; bene nuntiate crosses the page turn. Both Sanctitas returns and closing blank-panel doubles retained."
+      ],
+      "pitchCount": 214,
+      "shapeCounts": {
+        "explicitVirgas": 4,
+        "quilismas": 0
+      },
+      "reviewSha256": "3f3a7bb66bea20f5d446a4f9b243e2de2bfdc95781f9c9fa29d8c2d96b74e56f",
+      "mode": 4,
+      "verseCount": 2,
+      "localIds": [
+        105
+      ]
+    },
+    {
+      "bookNumber": 99,
+      "manualFileSha256": "e69afd25c88f5368761bcbc499425faa3958b03f46fc3333e40ebb61b907b221",
+      "checkedSourceSystems": [
+        {
+          "page": 167,
+          "systems": [
+            7,
+            8
+          ]
+        },
+        {
+          "page": 168,
+          "systems": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 167,
+          "system": 7,
+          "topStaffLineY": 1540,
+          "stripSha256": "bb6bd3f85043dcc4de13cf4ba20b50d608e9c653633457937621cd84d030afcf",
+          "cropRect": [
+            230,
+            1465,
+            1380,
+            1705
+          ]
+        },
+        {
+          "page": 167,
+          "system": 8,
+          "topStaffLineY": 1748,
+          "stripSha256": "4fcc70c7468483177ae0d3f4978f44dced5fea20a6848765c8fcfce3aa91e9eb",
+          "cropRect": [
+            230,
+            1673,
+            1380,
+            1913
+          ]
+        },
+        {
+          "page": 168,
+          "system": 1,
+          "topStaffLineY": 210,
+          "stripSha256": "5172361846e41822f5c2ecff5f48569aecfba2a7a261d3cc7b2dad27c632a7ca",
+          "cropRect": [
+            230,
+            135,
+            1380,
+            375
+          ]
+        },
+        {
+          "page": 168,
+          "system": 2,
+          "topStaffLineY": 396,
+          "stripSha256": "de52e5e346c960a2a6a062171d66733808656a188aea05b429349f48e0c44fa9",
+          "cropRect": [
+            230,
+            321,
+            1380,
+            561
+          ]
+        },
+        {
+          "page": 168,
+          "system": 3,
+          "topStaffLineY": 580,
+          "stripSha256": "54ba88fc3d2dd4c48e13c16c67c16ab16b342aa73435f5a59075d28585d1f5e7",
+          "cropRect": [
+            230,
+            505,
+            1380,
+            745
+          ]
+        }
+      ],
+      "passes": [
+        "text, complete verse and cue boundaries",
+        "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+        "active clefs and accidental scope",
+        "actual connections, independent virgas, postfix quilismas and liquescents",
+        "separate bar-only stroke-length inventory",
+        "separate horizontal cuts and touching shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 167,
+          "system": 7,
+          "sourcePageX": 906,
+          "sourcePageYRange": [
+            1557,
+            1613
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 167,
+          "system": 7,
+          "sourcePageX": 1158,
+          "sourcePageYRange": [
+            1555,
+            1612
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 167,
+          "system": 8,
+          "sourcePageX": 1012,
+          "sourcePageYRange": [
+            1746,
+            1836
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 168,
+          "system": 1,
+          "sourcePageX": 837,
+          "sourcePageYRange": [
+            225,
+            282
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 168,
+          "system": 1,
+          "sourcePageX": 1056,
+          "sourcePageYRange": [
+            226,
+            282
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 168,
+          "system": 1,
+          "sourcePageX": 1324,
+          "sourcePageYRange": [
+            226,
+            281
+          ],
+          "inkHeightPx": 56,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 168,
+          "system": 2,
+          "sourcePageX": 577,
+          "sourcePageYRange": [
+            380,
+            409
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 168,
+          "system": 2,
+          "sourcePageX": 1081,
+          "sourcePageYRange": [
+            394,
+            483
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 168,
+          "system": 2,
+          "sourcePageX": 1313,
+          "sourcePageYRange": [
+            381,
+            409
+          ],
+          "inkHeightPx": 29,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 168,
+          "system": 3,
+          "sourcePageX": 629,
+          "sourcePageYRange": [
+            579,
+            668
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        }
+      ],
+      "sourceFindings": [
+        "One verse, p167 systems7–8 through p168 systems1–3; complete ending below Protege page heading. C4 throughout.",
+        "Read high k–l(quilisma)–m–k at Virginem, each klKI figure and the separate j virga descending H/G. Full-system crops extend75px above top staff to retain the high m head.",
+        "Paradisi flat ix; natural iy before ghf. Porta preserves d/ff/ghf/jj/hi; clausa hji/jkJH/gj/jh.",
+        "Iterum includes an internal half bar before ij; patefacta has an internal quarter bar after jij. Full notated Alleluia remains after the double; its internal quarter is retained."
+      ],
+      "pitchCount": 166,
+      "shapeCounts": {
+        "explicitVirgas": 6,
+        "quilismas": 3
+      },
+      "reviewSha256": "3131e46d1868be7fc5edff2f2ce513ceceec24fd71467a8b94f83ea0484ed13d",
+      "mode": 8,
+      "verseCount": 1,
+      "localIds": [
+        3317
+      ]
+    },
+    {
+      "bookNumber": 102,
+      "manualFileSha256": "c4c14059b01fd0a54251d09e227ef22b46df7cdd4563e7f2dc23116b491eaa61",
+      "checkedSourceSystems": [
+        {
+          "page": 172,
+          "systems": [
+            7
+          ]
+        },
+        {
+          "page": 173,
+          "systems": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 172,
+          "system": 7,
+          "topStaffLineY": 1749,
+          "stripSha256": "03c876973e6b1a6d2cdaf031d1ca8da5b19b0fa0f3c9d4ebcd75230b13053f0f",
+          "cropRect": [
+            230,
+            1674,
+            1380,
+            1914
+          ]
+        },
+        {
+          "page": 173,
+          "system": 1,
+          "topStaffLineY": 173,
+          "stripSha256": "a4c25320722b24c075acdf1bb84878ce6481073d96c3e379d4af3fae2cbc9324",
+          "cropRect": [
+            230,
+            98,
+            1380,
+            338
+          ]
+        },
+        {
+          "page": 173,
+          "system": 2,
+          "topStaffLineY": 378,
+          "stripSha256": "3a2a21cc97c6aac5e97b59492a369dc9a6d82db7f5cf4a8a9386856b11177b54",
+          "cropRect": [
+            230,
+            303,
+            1380,
+            543
+          ]
+        },
+        {
+          "page": 173,
+          "system": 3,
+          "topStaffLineY": 584,
+          "stripSha256": "22e583e64ede8113ee3d99d5d8526692af1ff76369061fa62e84eeaef47dbdfd",
+          "cropRect": [
+            230,
+            509,
+            1380,
+            749
+          ]
+        },
+        {
+          "page": 173,
+          "system": 4,
+          "topStaffLineY": 802,
+          "stripSha256": "e5dbe037e3a765e63251a041e95c1a42d1c9aafaa6483bd76ce0d256d7e310d0",
+          "cropRect": [
+            230,
+            727,
+            1380,
+            967
+          ]
+        }
+      ],
+      "passes": [
+        "text, complete verse and cue boundaries",
+        "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+        "active clefs and accidental scope",
+        "actual connections, independent virgas, postfix quilismas and liquescents",
+        "separate bar-only stroke-length inventory",
+        "separate horizontal cuts and touching shapes"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 173,
+          "system": 1,
+          "sourcePageX": 456,
+          "sourcePageYRange": [
+            188,
+            245
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 173,
+          "system": 1,
+          "sourcePageX": 709,
+          "sourcePageYRange": [
+            188,
+            244
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 173,
+          "system": 1,
+          "sourcePageX": 1078,
+          "sourcePageYRange": [
+            188,
+            245
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 173,
+          "system": 2,
+          "sourcePageX": 412,
+          "sourcePageYRange": [
+            394,
+            450
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 173,
+          "system": 2,
+          "sourcePageX": 918,
+          "sourcePageYRange": [
+            378,
+            467
+          ],
+          "inkHeightPx": 90,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 173,
+          "system": 2,
+          "sourcePageX": 1336,
+          "sourcePageYRange": [
+            396,
+            451
+          ],
+          "inkHeightPx": 56,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 173,
+          "system": 3,
+          "sourcePageX": 804,
+          "sourcePageYRange": [
+            599,
+            657
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 173,
+          "system": 3,
+          "sourcePageX": 1199,
+          "sourcePageYRange": [
+            600,
+            657
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 173,
+          "system": 4,
+          "sourcePageX": 717,
+          "sourcePageYRange": [
+            801,
+            890
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 173,
+          "system": 4,
+          "sourcePageX": 963,
+          "sourcePageYRange": [
+            801,
+            890
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "sourceFindings": [
+        "One verse, p172 system7 through p173 systems1–4, ending before Domine Deus meus music. C4 throughout.",
+        "Cumque and ecce have cd!ewf/fg~ with an actual f–g diminished liquescent. Rentur preserves repeated h/f heads, skipped descent ghFE, gdf porrectus, ef pes and de liquescent.",
+        "Euntem retains ix, jkJH, separate ivGE and gh diminished liquescent. In before vestibus descends from d to the very low liquescent a, below its ledger.",
+        "Dixerunt keeps f/fd/f/fd/dd/gf/fd/ec and final cd. Sic veniet is the printed return; final sung notes remain separate from the double bar."
+      ],
+      "pitchCount": 146,
+      "shapeCounts": {
+        "explicitVirgas": 1,
+        "quilismas": 5
+      },
+      "reviewSha256": "34e85cc9d98a6adfc003934f560a293d76830eb70ee6635ca212cb3be79a8903",
+      "mode": 1,
+      "verseCount": 1,
+      "localIds": [
+        3315
+      ]
+    }
+  ],
+  "riceComparison": {
+    "printedPage": 32,
+    "pdfPage": 36,
+    "result": "Alphabetical contents checked visually: none of these four titles is present. No corresponding simple text/cue setting."
+  },
+  "initialDrafts": {
+    "97": "4ee16901f27a1facc75f22c6c4b6e673bdb263a99f20763bc0bc467b9ca756c1",
+    "98": "8a61c63be315729369539318e1c1a1ab4381151d720481cb5c9cb026f6eab602",
+    "99": "6cbd7b36ae343db6e3296e89a0643760ce7e6982cac67c18fb871842e544c645",
+    "102": "fac5da7278e4075b8b4c41e6cfb3b3d62f459a157ba8fa695f21a8df31802a70",
+    "status": "Uncertified initial drafts, superseded before verification. Source rereading and rendered underlay inspection corrected syllable divisions, joined text, and two standalone g virgas in #98."
+  }
+}

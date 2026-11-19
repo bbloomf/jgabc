@@ -1,0 +1,1018 @@
+{
+  "checkedAt": "2026-11-18T22:24:14.650Z",
+  "comparison": "Exact verse GABC including clef, ignoring CRLF and surrounding whitespace; normalization comparison separately recorded.",
+  "checks": [
+    {
+      "id": "manual-039",
+      "name": "Benedictus qui venit",
+      "gregobaseId": 21011,
+      "url": "https://gregobase.selapa.net/chant.php?id=21011",
+      "checkedAt": "2026-11-18T22:24:03.117Z",
+      "proofreadFileSha256": "3e973f55768ff9df0163ceedbb8d61e349ab4b6bbdbb99d9635178f34a74e910",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "a2f33e7a6a77a667c454b8e618996eccd47ce9648d0c8d5d2ef075fd01197cf7",
+      "downloadedVerseSha256": "a2f33e7a6a77a667c454b8e618996eccd47ce9648d0c8d5d2ef075fd01197cf7",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-039-gregobase-21011.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 941,
+          "notes": 621,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 941,
+          "notes": 316,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 941,
+          "notes": 160,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-041",
+      "name": "Lauda anima",
+      "gregobaseId": 21012,
+      "url": "https://gregobase.selapa.net/chant.php?id=21012",
+      "checkedAt": "2026-11-18T22:51:27.042Z",
+      "proofreadFileSha256": "1e71ba18d4dcaf7b280ad5803d93d4b218e2805d90b3f8d4e353945972733a59",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "90ed6402a70b1e6bc36c5660fc30e5d150aa3a63d20882c4dbd24c8af9482489",
+      "downloadedVerseSha256": "90ed6402a70b1e6bc36c5660fc30e5d150aa3a63d20882c4dbd24c8af9482489",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "4",
+      "verseOnlyFile": "manual-041-gregobase-21012.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 668,
+          "notes": 599,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 668,
+          "notes": 326,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 668,
+          "notes": 207,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-044",
+      "name": "Confitebor Domino",
+      "gregobaseId": 21013,
+      "url": "https://gregobase.selapa.net/chant.php?id=21013",
+      "checkedAt": "2026-11-18T22:24:03.582Z",
+      "proofreadFileSha256": "ea34d92a125ef1eec81de550f5a658d26958e09223457fd23e4f5de4e76b880e",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "f4f68d0a6b0f05b56119b53d23d4d57c6459f89e4e1e42b99281ccb90d9a43ae",
+      "downloadedVerseSha256": "f4f68d0a6b0f05b56119b53d23d4d57c6459f89e4e1e42b99281ccb90d9a43ae",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "6",
+      "verseOnlyFile": "manual-044-gregobase-21013.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 584,
+          "notes": 526,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 584,
+          "notes": 340,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 584,
+          "notes": 184,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-048",
+      "name": "Benedictus sit",
+      "gregobaseId": 21014,
+      "url": "https://gregobase.selapa.net/chant.php?id=21014",
+      "checkedAt": "2026-11-18T22:24:03.844Z",
+      "proofreadFileSha256": "c7a905e13216c3804f4664a9a4a294e146a46108f8fff5e9bee1b07c18f93ed8",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "75851ba9113d4cf9d8db2e0f2e2401776a5758014ff60de29de52aac6fa4a601",
+      "downloadedVerseSha256": "75851ba9113d4cf9d8db2e0f2e2401776a5758014ff60de29de52aac6fa4a601",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "3",
+      "verseOnlyFile": "manual-048-gregobase-21014.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 1303,
+          "notes": 654,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 1303,
+          "notes": 315,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 1303,
+          "notes": 167,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-050",
+      "name": "Domine convertere",
+      "gregobaseId": 21015,
+      "url": "https://gregobase.selapa.net/chant.php?id=21015",
+      "checkedAt": "2026-11-18T22:24:04.097Z",
+      "proofreadFileSha256": "dc60dcb2d6a1080910135d18e07c9db9869f5d3b9d27159f26dfdd9ec0ac3a84",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "c496de8b62a3ea55e7a9bfd78f8a316e2addc9e826d95f7afedc174437e523ef",
+      "downloadedVerseSha256": "c496de8b62a3ea55e7a9bfd78f8a316e2addc9e826d95f7afedc174437e523ef",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "6",
+      "verseOnlyFile": "manual-050-gregobase-21015.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 848,
+          "notes": 311,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 848,
+          "notes": 171,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 848,
+          "notes": 129,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-067",
+      "name": "Domine Deus salutis",
+      "gregobaseId": 21016,
+      "url": "https://gregobase.selapa.net/chant.php?id=21016",
+      "checkedAt": "2026-11-18T22:24:04.373Z",
+      "proofreadFileSha256": "4124e1743fb631db87851fe10b8f875009234e8b33eaf782c243be3045b13da6",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "f4c42272e6fc25ab588dee9a3c2529ce6a534922abb02ec0f3e8cb542316c328",
+      "downloadedVerseSha256": "f4c42272e6fc25ab588dee9a3c2529ce6a534922abb02ec0f3e8cb542316c328",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-067-gregobase-21016.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 542,
+          "notes": 658,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 3
+        },
+        {
+          "id": 542,
+          "notes": 325,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 3
+        },
+        {
+          "id": 542,
+          "notes": 238,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 3
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-077",
+      "name": "Gloria et honore",
+      "gregobaseId": 21017,
+      "url": "https://gregobase.selapa.net/chant.php?id=21017",
+      "checkedAt": "2026-11-18T22:24:04.685Z",
+      "proofreadFileSha256": "f55c36569ab203f42aedae9a89f5b66c2041ae6299f7d782133a2449bc3477c9",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "e2d0d08aaa942fa4699fa7c2b8f790b23abfa4f4e90ffb095e31d4e9a2ff59cb",
+      "downloadedVerseSha256": "e2d0d08aaa942fa4699fa7c2b8f790b23abfa4f4e90ffb095e31d4e9a2ff59cb",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "1",
+      "verseOnlyFile": "manual-077-gregobase-21017.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 407,
+          "notes": 561,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 407,
+          "notes": 293,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 407,
+          "notes": 165,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-078",
+      "name": "Gloriabuntur",
+      "gregobaseId": 21018,
+      "url": "https://gregobase.selapa.net/chant.php?id=21018",
+      "checkedAt": "2026-11-18T22:24:05.025Z",
+      "proofreadFileSha256": "93d6add24f662381c94baff26838b12d80eeacf5cd184b65a23e0ec27c698dd3",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "384b985ea457c63463bdd198ca602c1ae36feba36ed3869521e67dc3af3fa6fc",
+      "downloadedVerseSha256": "384b985ea457c63463bdd198ca602c1ae36feba36ed3869521e67dc3af3fa6fc",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "6",
+      "verseOnlyFile": "manual-078-gregobase-21018.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "id": 1375,
+          "notes": 546,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 1375,
+          "notes": 275,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "id": 1375,
+          "notes": 142,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-079",
+      "name": "Posuisti",
+      "gregobaseId": 21019,
+      "url": "https://gregobase.selapa.net/chant.php?id=21019",
+      "checkedAt": "2026-11-18T22:24:05.353Z",
+      "proofreadFileSha256": "7af0d7f2ff285363dd0e08f594ce16792a7e921a2a894a97a528dba9be4887cd",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "62d54cdd5ecce447b20754eae153bdd3a4589113d972f69bfd0e8a20ae206ec0",
+      "downloadedVerseSha256": "62d54cdd5ecce447b20754eae153bdd3a4589113d972f69bfd0e8a20ae206ec0",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-079-gregobase-21019.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 487,
+          "notes": 520,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 487,
+          "notes": 303,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 487,
+          "notes": 137,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-081",
+      "name": "Laetamini",
+      "gregobaseId": 21020,
+      "url": "https://gregobase.selapa.net/chant.php?id=21020",
+      "checkedAt": "2026-11-18T22:24:05.802Z",
+      "proofreadFileSha256": "1f58a7e425689ab963f450a4833288e7bc85e1f1fc49221adef87157fd4589a3",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "c7c8d77b9b6f93ac4b78dda8919030511cbe6e76933408847caf70554f411e5d",
+      "downloadedVerseSha256": "c7c8d77b9b6f93ac4b78dda8919030511cbe6e76933408847caf70554f411e5d",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "1",
+      "verseOnlyFile": "manual-081-gregobase-21020.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 786,
+          "notes": 458,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 786,
+          "notes": 242,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 786,
+          "notes": 125,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-082",
+      "name": "Mirabilis Deus",
+      "gregobaseId": 21021,
+      "url": "https://gregobase.selapa.net/chant.php?id=21021",
+      "checkedAt": "2026-11-18T22:24:06.430Z",
+      "proofreadFileSha256": "cbf4680065fef9e051c32e51cc90defd50faf2349cc062d1e80db3b50f083a78",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "73e7a1b30f7bc8748b7735dfaad0e891d80f57f003b6f4494af85fee12242b17",
+      "downloadedVerseSha256": "73e7a1b30f7bc8748b7735dfaad0e891d80f57f003b6f4494af85fee12242b17",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-082-gregobase-21021.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 919,
+          "notes": 544,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 919,
+          "notes": 334,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 919,
+          "notes": 149,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-083",
+      "name": "Exsultabunt sancti",
+      "gregobaseId": 21022,
+      "url": "https://gregobase.selapa.net/chant.php?id=21022",
+      "checkedAt": "2026-11-18T22:24:07.365Z",
+      "proofreadFileSha256": "3a49fe105500feb671e4f2ecf5474305130f559d3333fbb80c0bc267a4cfb553",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "5c03642c33dfb5f099e6f401563dec0453d17c993ad65ff77ce914864b50c2a5",
+      "downloadedVerseSha256": "5c03642c33dfb5f099e6f401563dec0453d17c993ad65ff77ce914864b50c2a5",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "4",
+      "verseOnlyFile": "manual-083-gregobase-21022.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "1",
+          "id": 33,
+          "notes": 387,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 33,
+          "notes": 227,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 33,
+          "notes": 120,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 1
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-086",
+      "name": "Inveni David",
+      "gregobaseId": 21023,
+      "url": "https://gregobase.selapa.net/chant.php?id=21023",
+      "checkedAt": "2026-11-18T22:24:07.573Z",
+      "proofreadFileSha256": "26a43902e32516fac1e4b58f4d2028681899b70281a36ea8c19349ccea56530b",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "b15ea7aa5fd609c7dcce7a3a54960dc997daa082fa0daa2f5a0abb0837462f0e",
+      "downloadedVerseSha256": "b15ea7aa5fd609c7dcce7a3a54960dc997daa082fa0daa2f5a0abb0837462f0e",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-086-gregobase-21023.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 779,
+          "notes": 471,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 779,
+          "notes": 251,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 779,
+          "notes": 150,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-089",
+      "name": "In virtute tua",
+      "gregobaseId": 21027,
+      "url": "https://gregobase.selapa.net/chant.php?id=21027",
+      "checkedAt": "2026-11-18T22:24:07.782Z",
+      "proofreadFileSha256": "0b0a3af00be66ea4cc4f6b2b75fa922f75657d159b8d1ac15091c36cb8e81fb8",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "126e21d3c3ef0b6dcdfdb57a8f310319d6a5aa8ae7a8fa87e0b90ef766510253",
+      "downloadedVerseSha256": "126e21d3c3ef0b6dcdfdb57a8f310319d6a5aa8ae7a8fa87e0b90ef766510253",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "6",
+      "verseOnlyFile": "manual-089-gregobase-21027.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 667,
+          "notes": 510,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 667,
+          "notes": 249,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 667,
+          "notes": 150,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-090",
+      "name": "Desiderium animae",
+      "gregobaseId": 21028,
+      "url": "https://gregobase.selapa.net/chant.php?id=21028",
+      "checkedAt": "2026-11-18T22:24:08.755Z",
+      "proofreadFileSha256": "19399da3cfa329a36fc0e1f8ea06fd643a069df425cad881327ef53333b014ba",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "0449107269f50b6aa43f84cd55936f7c4fd2bd2b5d2256bd0478aef5fe18c81f",
+      "downloadedVerseSha256": "0449107269f50b6aa43f84cd55936f7c4fd2bd2b5d2256bd0478aef5fe18c81f",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "6",
+      "verseOnlyFile": "manual-090-gregobase-21028.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "3",
+          "id": 722,
+          "notes": 442,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 3
+        },
+        {
+          "count": "3",
+          "id": 722,
+          "notes": 282,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 3
+        },
+        {
+          "count": "3",
+          "id": 722,
+          "notes": 168,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 3
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-091",
+      "name": "Afferentur proximae",
+      "gregobaseId": 21029,
+      "url": "https://gregobase.selapa.net/chant.php?id=21029",
+      "checkedAt": "2026-11-18T22:24:09.643Z",
+      "proofreadFileSha256": "58dc1d187251543678a9e8307e1b215ea298a5528bbc07a9bccbba589813f6e8",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "5a346d032cdcefafa684fde9f1152b88e62bcbdffc59617401c5094c0ae78e73",
+      "downloadedVerseSha256": "5a346d032cdcefafa684fde9f1152b88e62bcbdffc59617401c5094c0ae78e73",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "4",
+      "verseOnlyFile": "manual-091-gregobase-21029.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 1107,
+          "notes": 580,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 1107,
+          "notes": 283,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 1107,
+          "notes": 171,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-094",
+      "name": "Domine Deus in simplicitate",
+      "gregobaseId": 21030,
+      "url": "https://gregobase.selapa.net/chant.php?id=21030",
+      "checkedAt": "2026-11-18T22:24:10.602Z",
+      "proofreadFileSha256": "e6c68cc51311e042ce6766777dc27297d25182036c08a64f64a3fc501ea9f397",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "47eec02cc32525c21edb2e0784e7b71d6869aab4886313bd8d8b98ffa3eca4cf",
+      "downloadedVerseSha256": "47eec02cc32525c21edb2e0784e7b71d6869aab4886313bd8d8b98ffa3eca4cf",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "6",
+      "verseOnlyFile": "manual-094-gregobase-21030.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 200,
+          "notes": 655,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 200,
+          "notes": 320,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 200,
+          "notes": 191,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-095",
+      "name": "Elegerunt Apostoli",
+      "gregobaseId": 21031,
+      "url": "https://gregobase.selapa.net/chant.php?id=21031",
+      "checkedAt": "2026-11-18T22:24:11.547Z",
+      "proofreadFileSha256": "75bf742ed86a619cbdb5d886cfb3ec06184a0ad71ab6a0184dc2e981e33dd80b",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "e65df62271dd6675188d521a842d4bf1d12742eb6535fa3c4072a01b4596bccc",
+      "downloadedVerseSha256": "e65df62271dd6675188d521a842d4bf1d12742eb6535fa3c4072a01b4596bccc",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-095-gregobase-21031.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "3",
+          "id": 462,
+          "notes": 485,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "3",
+          "id": 462,
+          "notes": 353,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "3",
+          "id": 462,
+          "notes": 150,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 1
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-096",
+      "name": "Afferentur S. Agathae post eam",
+      "gregobaseId": 21032,
+      "url": "https://gregobase.selapa.net/chant.php?id=21032",
+      "checkedAt": "2026-11-18T22:24:12.560Z",
+      "proofreadFileSha256": "bae6f51880cc13e38ce08591594aa0467ccd9368aae774a3fc44086e0d4986d7",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "f97dc34797971c8121bf13a7bb2b26c8d96c29dc7357aa7c277b2b895e0dda6f",
+      "downloadedVerseSha256": "f97dc34797971c8121bf13a7bb2b26c8d96c29dc7357aa7c277b2b895e0dda6f",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "1",
+      "verseOnlyFile": "manual-096-gregobase-21032.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 768,
+          "notes": 430,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 768,
+          "notes": 171,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 768,
+          "notes": 100,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-097",
+      "name": "Oratio mea",
+      "gregobaseId": 21024,
+      "url": "https://gregobase.selapa.net/chant.php?id=21024",
+      "checkedAt": "2026-11-18T22:24:13.107Z",
+      "proofreadFileSha256": "a1454dbbe44b43505dbc12a9b5d5cab0121734ea070356adb34084a08b7d3c03",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "b774de4f63034e1ab78ed75f0872f9681b57228ff1e6c485dcf286d4ffc4ae3a",
+      "downloadedVerseSha256": "b774de4f63034e1ab78ed75f0872f9681b57228ff1e6c485dcf286d4ffc4ae3a",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-097-gregobase-21024.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "1",
+          "id": 185,
+          "notes": 380,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 185,
+          "notes": 275,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 185,
+          "notes": 111,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 1
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": false,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-098",
+      "name": "Confessio et pulchritudo",
+      "gregobaseId": 21033,
+      "url": "https://gregobase.selapa.net/chant.php?id=21033",
+      "checkedAt": "2026-11-18T22:24:13.647Z",
+      "proofreadFileSha256": "f6c5b4544c64ac215b79ebc45e883e4b10383a925277bcb5392296191221f18b",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "a434f26ed77ec8bac47cbbca8d8f052d61e0be6a2925a90c8b9bc41dd4abdb2e",
+      "downloadedVerseSha256": "a434f26ed77ec8bac47cbbca8d8f052d61e0be6a2925a90c8b9bc41dd4abdb2e",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "4",
+      "verseOnlyFile": "manual-098-gregobase-21033.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "2",
+          "id": 105,
+          "notes": 395,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 105,
+          "notes": 244,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 2
+        },
+        {
+          "count": "2",
+          "id": 105,
+          "notes": 117,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 2
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-099",
+      "name": "Assumpta est",
+      "gregobaseId": 21025,
+      "url": "https://gregobase.selapa.net/chant.php?id=21025",
+      "checkedAt": "2026-11-18T22:24:14.238Z",
+      "proofreadFileSha256": "379f1aaa6a7e5b7dd7110bab3c3ca7e524acfc60b0e51d5e8ffb3670ea4dd0df",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "1a6afa83f6e6c5225439c33651796c939c702f69abe1c05be258808c9a60dd0b",
+      "downloadedVerseSha256": "1a6afa83f6e6c5225439c33651796c939c702f69abe1c05be258808c9a60dd0b",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "8",
+      "verseOnlyFile": "manual-099-gregobase-21025.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "1",
+          "id": 3317,
+          "notes": 376,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 3317,
+          "notes": 241,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 3317,
+          "notes": 79,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 1
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    },
+    {
+      "id": "manual-102",
+      "name": "Viri Galilaei",
+      "gregobaseId": 21026,
+      "url": "https://gregobase.selapa.net/chant.php?id=21026",
+      "checkedAt": "2026-11-18T22:24:14.646Z",
+      "proofreadFileSha256": "f07c2c6539b35d4d1e22727966dfcd23998046c5b69ae898d24c872172fe653e",
+      "proofreadFileUnchanged": true,
+      "localVerseSha256": "24ab170572c09961a52ef7a0bad0ea5b8afe3bbb260d355a42777af4f4c76007",
+      "downloadedVerseSha256": "24ab170572c09961a52ef7a0bad0ea5b8afe3bbb260d355a42777af4f4c76007",
+      "matchesLocalVerses": true,
+      "matchesAfterNormalization": true,
+      "downloadedMode": "1",
+      "verseOnlyFile": "manual-102-gregobase-21026.gabc",
+      "appSource": "gregobase",
+      "appReview": "verified",
+      "browserChecks": [
+        {
+          "count": "1",
+          "id": 3315,
+          "notes": 430,
+          "style": "full",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 3315,
+          "notes": 327,
+          "style": "toned-verses",
+          "svgs": 1,
+          "versicles": 1
+        },
+        {
+          "count": "1",
+          "id": 3315,
+          "notes": 122,
+          "style": "psalm-tone",
+          "svgs": 1,
+          "versicles": 1
+        }
+      ],
+      "proofreadMarkerPresentAtDownload": true,
+      "proofreadBasis": "User confirmed all chants proofread; exact local verse file recorded and raw extracted verses match."
+    }
+  ],
+  "browserMethod": "Real Exsurge SVG rendering in the app: full chant and verses, full chant with psalm-toned verses, psalm-toned chant and verses. Automated tests additionally exercise every count, including the Elegerunt alternative."
+}

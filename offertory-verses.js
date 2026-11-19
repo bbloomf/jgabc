@@ -1,0 +1,261 @@
+// Shared by the importer and the browser. The stored GABC starts at the first verse,
+// with its own clef; the opening offertory always comes from gabc/<id>.gabc.
+(function(root) {
+  function normalize(text) {
+    return text.replace(/[æÆǽǼ]/g, 'ae').replace(/[œŒ]/g, 'oe')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+      .replace(/j/g, 'i').replace(/[^a-z]/g, '');
+  }
+  function lyrics(gabc) {
+    return gabc.replace(/\([^)]*\)/g, '').replace(/<[^>]*>/g, '')
+      .replace(/~+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  function parse(gabc) {
+    // A few GregoBase records contain an extra header inside their body.
+    var body = gabc.slice(gabc.lastIndexOf('%%') + 2).trim()
+      .replace(/<sp>V<\/sp>/g, '<sp>V/</sp>');
+    var index = body.indexOf('<sp>V/</sp>');
+    if(index < 0) throw new Error('No offertory verse marker');
+    var antiphon = body.slice(0, index).trim();
+    var clefs = antiphon.match(/[cf]b?[1-4](?=\))/g);
+    if(!clefs) throw new Error('No clef before the first verse');
+    var verses = body.slice(index).trim();
+    if(!/\([^)]*::[^)]*\)/.test(verses)) throw new Error('Verse has no final double bar');
+    return { antiphon: antiphon, clef: clefs[clefs.length - 1], gabc: verses };
+  }
+  // Locate a cue in the current antiphon without depending on its syllabification,
+  // accents, i/j spelling, or rhythmic signs. Preserve a position in the GABC.
+  function cueInfo(gabc, cue, occurrence) {
+    if(typeof gabc != 'string' || typeof cue != 'string') return null;
+    var text = '', positions = [];
+    for(var i = (gabc.indexOf('%%') < 0 ? 0 : gabc.lastIndexOf('%%') + 2); i < gabc.length;) {
+      if(gabc[i] == '(' || gabc[i] == '<') {
+        var end = gabc.indexOf(gabc[i] == '(' ? ')' : '>', i);
+        if(end < 0) return null;
+        i = end + 1;
+      } else {
+        var normalized = normalize(gabc[i]);
+        for(var j = 0; j < normalized.length; ++j) { text += normalized[j]; positions.push(i); }
+        ++i;
+      }
+    }
+    var needle = normalize(cue.split(/…|\.{2,}/)[0]), at = -1;
+    if(!needle) return null;
+    for(var n = 0; n < (occurrence || 1); ++n) {
+      at = text.indexOf(needle, at + 1);
+      if(at < 0) return null;
+    }
+    var start = positions[at], finish = positions[at + needle.length - 1] + 1;
+    var note = /\(([^)]*)\)/g, match, pitch;
+    note.lastIndex = start;
+    while((match = note.exec(gabc)) && !pitch) {
+      var notes = match[1].replace(/\[[^\]]*\]/g, '');
+      if(!/^[cf]b?[1-4]$/.test(notes)) pitch = (notes.match(/[a-m]/i) || [])[0];
+    }
+    return { start: start, end: finish, pitch: pitch && pitch.toLowerCase(), clef: lastClef(gabc.slice(0, start)) };
+  }
+  function cueIndex(gabc, cue, occurrence) {
+    var info = cueInfo(gabc, cue, occurrence);
+    return info ? info.start : -1;
+  }
+  function lastClef(gabc) {
+    var clefs = gabc.match(/[cf]b?[1-4](?=\))/g);
+    return clefs && clefs[clefs.length - 1];
+  }
+  function removeRedundantClefs(gabc) {
+    var headerEnd = gabc.lastIndexOf('%%'), start = headerEnd < 0 ? 0 : headerEnd + 2, active;
+    // Each source needs its own opening clef. Once the sources are joined,
+    // retain only actual changes, including changes attached to a double bar.
+    return gabc.slice(0, start) + gabc.slice(start).replace(/\(([^)]*)\)/g, function(group, notes) {
+      var removed = false;
+      var result = notes.replace(/\[[^\]]*\]|[cf]b?[1-4]/g, function(token) {
+        if(token[0] == '[') return token;
+        if(token == active) { removed = true; return ''; }
+        active = token;
+        return token;
+      });
+      return removed && !result.trim() ? '' : '(' + result + ')';
+    });
+  }
+  function prepareClefChanges(gabc) {
+    gabc = removeRedundantClefs(gabc);
+    // Put a new verse's clef on the preceding double bar so z0 supplies
+    // its automatic custos in the old clef. Preserve existing explicit custodes.
+    gabc = gabc.replace(/\(([^()]*)::\)\s*\(([cf]b?[1-4])\)/g, '($1::$2)');
+    return gabc.replace(/\(([^()]*::\s*[cf]b?[1-4])\)/g, function(group, notes, index) {
+        if(/z0|[a-m]\+/i.test(notes) || /\([^)]*[a-m]\+[^)]*\)\s*$/i.test(gabc.slice(0, index))) return group;
+        return '(' + notes.replace('::', 'z0::') + ')';
+      });
+  }
+  function markResponse(gabc, cue, occurrence) {
+    return markResponseAt(gabc, cueInfo(gabc, cue, occurrence));
+  }
+  function markResponseAt(gabc, info) {
+    if(!info) return gabc;
+    var before = gabc.slice(0, info.start), words = gabc.slice(info.start, info.end);
+    // A return to the very beginning takes no star: before the first syllable
+    // it would take the place of the initial. Its words are still bold.
+    var bodyStart = before.lastIndexOf('%%'),
+        atBeginning = !normalize(lyrics(before.slice(bodyStart < 0 ? 0 : bodyStart + 2)));
+    // Bold each lyric syllable, just as for the Requiem repeat. Leave the star
+    // outside the bold span so that Exsurge keeps it red.
+    if(!/<b>$/.test(before)) words = words.replace(/(<[^>]*>|\([^)]*\))|([^<()]+)/g, function(all, notation, lyric) {
+      return notation || lyric.replace(/[^\s,;:.!?]+/g, '<b>$&</b>');
+    });
+    before = before.replace(/\*\(\)(\s*(?:<b>)?)$/, '*$1');
+    var marker = atBeginning || /\*(?:\([,;:]*\))?\s*(?:<b>)?$/.test(before) ? '' : '* ';
+    return before + marker + words + gabc.slice(info.end);
+  }
+  function responseCue(antiphon, cue, clef, occurrence) {
+    var info = cueInfo(antiphon, cue, occurrence);
+    if(!info || !info.pitch || !info.clef || !clef) return ' (::) <nlba>*~' + cue + '</nlba>() (Z)';
+    // F lies four diatonic steps below C. Using +3 preserves the pitch
+    // class but raises an F-to-C conversion by a whole octave.
+    var shift = 2 * (parseInt(clef.slice(-1), 10) - parseInt(info.clef.slice(-1), 10)) +
+      (info.clef[0] == 'f' ? -4 : 0) - (clef[0] == 'f' ? -4 : 0);
+    var pitch = String.fromCharCode(info.pitch.charCodeAt(0) + shift);
+    // If the return pitch is outside this staff, show it in its original clef
+    // and restore the verse clef afterwards; never substitute another octave.
+    var change = pitch < 'a' || pitch > 'm';
+    return (change ? ' (' + info.clef + ')' : '') + ' (::' + (change ? info.pitch : pitch) + '+) ' +
+      '<nlba>*~' + cue + '</nlba>() (Z)' + (change ? ' (' + clef + ')' : '');
+  }
+  // The text of every return that is printed between two double bars without
+  // notes of its own, with or without its star, and with each alternative.
+  function textReturns(verses) {
+    var cues = [];
+    verses.split(/\([^)]*::[^)]*\)/).forEach(function(section) {
+      var text = section.replace(/<i>\s*vel\s*<\/i>/gi, '\n').replace(/<i>[\s\S]*?<\/i>/g, '').replace(/<v>[\s\S]*?<\/v>/g, '');
+      if((text.match(/\([^)]*\)/g) || []).some(function(notes) { return !/^\([cf]b?[1-4]\)$/.test(notes) && /[a-m]/i.test(notes); })) return;
+      text.split('\n').forEach(function(reference) {
+        var cue = lyrics(reference).replace(/^[*~\s]+/, '').trim();
+        if(normalize(cue)) cues.push(cue);
+      });
+    });
+    return cues;
+  }
+  // allVerses is the whole verse score when verses is a shorter selection of it.
+  function prepareFull(antiphon, verses, defaultCue, cueOccurrences, allVerses) {
+    function occurrence(cue) { return cueOccurrences && cueOccurrences[normalize(cue)] || 1; }
+    // A respond sung in full can point inside the original antiphon even
+    // when its verse melody differs. Match the whole phrase to distinguish
+    // repeated words (e.g. the second "nimis" in Mihi autem), then mark its incipit.
+    var sungResponse = /\*([^*]*?)(?=\([^)]*::[^)]*\)|$)/g, sung;
+    while((sung = sungResponse.exec(verses))) {
+      var text = lyrics(sung[1]), words = text.match(/[^\s,;:.!?]+/g);
+      if(!words || words.length < 2) continue;
+      var target = cueInfo(antiphon, text);
+      if(!target) continue;
+      var firstWord = cueInfo(antiphon.slice(target.start), words[0]);
+      if(firstWord) antiphon = markResponseAt(antiphon, {
+        start: target.start + firstWord.start, end: target.start + firstWord.end
+      });
+    }
+    var bars = [], regex = /\([^)]*::[^)]*\)/g, match;
+    while((match = regex.exec(verses))) bars.push({ index: match.index, end: regex.lastIndex });
+    var replacements = [], cues = [];
+    for(var i = 0; i < bars.length - 1; ++i) {
+      var section = verses.slice(bars[i].end, bars[i + 1].index);
+      var withoutRubrics = section.replace(/<i>[\s\S]*?<\/i>/g, '').replace(/<v>[\s\S]*?<\/v>/g, '');
+      var hasNotes = (withoutRubrics.match(/\([^)]*\)/g) || []).some(function(notes) {
+        return !/^\([cf]b?[1-4]\)$/.test(notes) && /[a-m]/i.test(notes);
+      });
+      if(hasNotes || !/\*/.test(section)) continue;
+      var references = section.split(/<i>\s*vel\s*<\/i>/i).map(function(reference) {
+        return lyrics(reference.replace(/<i>[\s\S]*?<\/i>/g, '').replace(/<v>[\s\S]*?<\/v>/g, ''))
+          .replace(/^[*~\s]+/, '').trim();
+      });
+      var earlier = antiphon + '\n' + verses.slice(0, bars[i].index);
+      // The non-Paschal antiphon may omit an Alleluia that the book offers
+      // as an alternative return. Keep the alternatives present in this setting.
+      references = references.filter(function(cue) { return cue && cueIndex(earlier, cue, occurrence(cue)) >= 0; });
+      if(!references.length) continue;
+      var clef = lastClef(verses.slice(0, bars[i].end));
+      var replacement = references.map(function(cue, index) {
+        cues.push(cue);
+        var reference = responseCue(earlier, cue, clef, occurrence(cue));
+        // Alternative references belong to the same ending. Only the last
+        // alternative closes the line; an earlier Z makes an empty staff.
+        return index < references.length - 1 ? reference.replace(/\s*\(Z\)/, '') : reference;
+      }).join(' <i>vel</i>() ');
+      var closingClef = lastClef(verses.slice(bars[i + 1].index, bars[i + 1].end));
+      if(closingClef && closingClef != clef) replacement += ' (' + closingClef + ')';
+      replacements.push({ start: bars[i].index, end: bars[i + 1].end, text: replacement });
+      ++i;
+    }
+    for(var j = replacements.length - 1; j >= 0; --j) {
+      var r = replacements[j];
+      verses = verses.slice(0, r.start) + r.text + verses.slice(r.end);
+    }
+    if(!cues.length && defaultCue) {
+      // The book may print its return only after a later verse, or not at
+      // all. Mark the usual return only where these verses lead back to it.
+      var lastVerse = verses.slice(Math.max(0, verses.lastIndexOf('<sp>V/</sp>'))),
+          ownReturn = lastVerse.split(/\*(?![^()]*\))/).slice(1).pop(),
+          last = bars[bars.length - 1], before = bars[bars.length - 2],
+          closing = before ? verses.slice(before.end, last.index) : '';
+      // A return printed without its star (Benedíctus., no. 860) replaces the usual one in the same way.
+      if(ownReturn === undefined && before && !/\([^)]*[a-m][^)]*\)/i.test(closing) && normalize(lyrics(closing))) {
+        if(cueIndex(antiphon, lyrics(closing), occurrence(lyrics(closing))) >= 0) defaultCue = lyrics(closing);
+        last = { index: before.index, end: last.end };
+      }
+      if(ownReturn !== undefined) {
+        // This verse closes with its own respond: mark the usual return only if that is where it begins.
+        if(normalize(lyrics(ownReturn)).indexOf(normalize(defaultCue.split(/[\s,;:.!?]+/)[0])) == 0) cues.push(defaultCue);
+      } else if(last && !verses.slice(last.end).replace(/[~\s]/g, '') && cueIndex(antiphon, defaultCue, occurrence(defaultCue)) >= 0) {
+        // Print the return in place of the closing bar (and of a custos for a verse that is not sung), as the psalm toned verses do.
+        // Word it as the book does where a later verse prints the same return (Non móriar., no. 25).
+        var usual = cueIndex(antiphon, defaultCue, occurrence(defaultCue));
+        textReturns(allVerses || '').some(function(cue) {
+          return cueIndex(antiphon, cue, occurrence(cue)) == usual && (defaultCue = cue);
+        });
+        var sung = verses.slice(0, last.index).replace(/\s*\((?:\/|\[[^\]]*\])*[a-m]\+\)\s*$/i, '').replace(/\s+$/, '');
+        verses = sung + responseCue(antiphon, defaultCue, lastClef(sung), occurrence(defaultCue));
+        cues.push(defaultCue);
+      }
+    }
+    var boundary = '<offertory-verses-boundary>', combined = antiphon + '\n' + boundary + '\n' + verses;
+    cues.forEach(function(cue) { combined = markResponse(combined, cue, occurrence(cue)); });
+    var split = combined.indexOf(boundary);
+    return { antiphon: combined.slice(0, split).trim(), gabc: combined.slice(split + boundary.length).trim() };
+  }
+  function splitVerses(gabc) {
+    var starts = [], regex = /<sp>V\/<\/sp>/g, match;
+    while((match = regex.exec(gabc))) starts.push(match.index);
+    return starts.map(function(start, i) {
+      return { clef: lastClef(gabc.slice(0, start)), gabc: gabc.slice(start, starts[i + 1] || gabc.length).trim() };
+    });
+  }
+  // Printed alternatives can replace the preceding verses (Elegerunt, no. 95).
+  // Selection indices are one-based, matching the book's verse numbers.
+  function selectVerseItems(items, count, selections) {
+    return selections && selections[count] ? selections[count].map(function(n) { return items[n - 1]; }) : items.slice(0, count);
+  }
+  function takeVerses(gabc, count, selectionCues, selections) {
+    var starts = [], regex = /<sp>V\/<\/sp>/g, match;
+    while((match = regex.exec(gabc))) starts.push(match.index);
+    if(count <= 0) return '';
+    var selected = gabc.slice(0, starts[count] === undefined ? gabc.length : starts[count]).trim();
+    if(selections && selections[count]) selected = selectVerseItems(splitVerses(gabc), count, selections)
+      .map(function(verse) { return '(' + verse.clef + ') ' + verse.gabc; }).join('\n');
+    // A clef printed for the next verse does not belong to a shortened
+    // selection. Keeping it after a return cue creates an empty last staff.
+    if(starts[count] !== undefined) selected = selected
+      .replace(/\s*\([cf]b?[1-4]\)\s*$/, '')
+      .replace(/(\([^)]*::)[cf]b?[1-4](\))\s*$/, '$1$2');
+    // Some printed sets proceed directly from one verse to the next. An
+    // explicitly recorded return makes a shortened selection usable without
+    // inserting an unprinted cue into the authoritative transcription.
+    if(selectionCues && selectionCues[count]) selected += ' *() ' + selectionCues[count] + '() (::)';
+    return selected;
+  }
+  function psalmVerseText(gabc) {
+    // A newly composed respond after the verse is not part of its psalm text.
+    var verse = gabc.split(/\([^)]*::[^)]*\)/)[0].split(/\*(?![^()]*\))/)[0];
+    return lyrics(verse.replace(/<sp>V\/<\/sp>\.?\s*(?:\d+\.?\s*)?/, '')
+      .replace(/\(:\)/g, ' * ')).replace(/(?:\s+[*†])+\s*$/, '');
+  }
+  var api = { normalize: normalize, lyrics: lyrics, parse: parse, cueIndex: cueIndex, cueInfo: cueInfo, markResponse: markResponse, responseCue: responseCue, prepareFull: prepareFull, lastClef: lastClef, removeRedundantClefs: removeRedundantClefs, prepareClefChanges: prepareClefChanges, splitVerses: splitVerses, takeVerses: takeVerses, selectVerseItems: selectVerseItems, psalmVerseText: psalmVerseText };
+  if(typeof module == 'object' && module.exports) module.exports = api;
+  else root.offertoryVerseTools = api;
+})(typeof window == 'object' ? window : this);

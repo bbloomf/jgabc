@@ -40,10 +40,10 @@ const context = vm.createContext({
   addEventListener: () => {}, matchMedia: () => nothing, setTimeout: () => {}, clearTimeout: () => {}
 });
 context.window = context;
-for (const file of ['util.js', 'psalmtone.js', 'moment.min.js', 'moment.easter.js', 'propersdata.js', 'ordinarydata.js', 'miscChants.js', 'propersdatanovus.js', 'propers.js', 'jquery.hypher.js', 'patterns/la-hypher.js']) {
+for (const file of ['util.js', 'psalmtone.js', 'moment.min.js', 'moment.easter.js', 'propersdata.js', 'ordinarydata.js', 'miscChants.js', 'propersdatanovus.js', 'offertory-verses.js', 'offertory-verses-data.js', 'propers.js', 'jquery.hypher.js', 'patterns/la-hypher.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
 }
-const exported = ['runGabcReplaces', 'loadProperText', 'getPsalmToneForPart', 'updateExsurge'];
+const exported = ['runGabcReplaces', 'loadProperText', 'getPsalmToneForPart', 'updateExsurge', 'getOffertoryWithVerses', 'getGabcPathsForPart', 'getOffertoryVerseSettings', 'getOffertoryGregoBaseId'];
 vm.runInContext('(' + ready.toString().replace(/^function\s*\(\)\s*\{/, start =>
   start + 'window.propers = {' + exported.map(name => `get ${name}() { return ${name}; }`).join(', ') + '};') + ')()',
   context, { filename: 'propers.js' });
@@ -223,4 +223,166 @@ describe('the repeat of an earlier part of a chant', () => {
     }
     expect(failures).toEqual([]);
   });
+});
+
+
+describe('Offertoriale verses', () => {
+  const data = context.offertoryVerses;
+  const loadOffertory = id => {
+    const state = loadPart('offertorium', fs.readFileSync(path.join(root, 'gabc', id + '.gabc'), 'utf8'));
+    state.id = id;
+    return state;
+  };
+  test('links to the full Offertoriale source only while full-tone verses are used', () => {
+    for (const [id, sourceId] of Object.entries(data.fullById)) {
+      const state = loadOffertory(id), full = data.full[sourceId];
+      state.style = 'full'; state.psalmToneVerses = false;
+      state.verseCount = 0;
+      expect(propers.getOffertoryGregoBaseId()).toBe(id);
+      state.verseCount = full.verseCount;
+      expect(String(propers.getOffertoryGregoBaseId())).toBe(String(full.gregobaseId || sourceId));
+      state.psalmToneVerses = true;
+      expect(propers.getOffertoryGregoBaseId()).toBe(id);
+      state.psalmToneVerses = false; state.style = 'psalm-tone';
+      expect(propers.getOffertoryGregoBaseId()).toBe(id);
+    }
+    const state = loadOffertory(645);
+    state.style = 'full'; state.verseCount = 1; state.psalmToneVerses = false;
+    expect(propers.getOffertoryGregoBaseId()).toBe(645);
+  });
+  test('adds the full verses without changing the stored antiphon', () => {
+    for (const [id, sourceId] of Object.entries(data.fullById)) {
+      const state = loadOffertory(id);
+      state.style = 'full';
+      state.verseCount = data.full[sourceId].verseCount;
+      state.psalmToneVerses = false;
+      state.offertoryVerseGabc = fs.readFileSync(path.join(root, 'gabc/offertory-verses', sourceId + '.gabc'), 'utf8');
+      const original = state.gabc;
+      const gabc = propers.getOffertoryWithVerses();
+      expect(gabc).toContain('<sp>V/</sp>');
+      expect(state.gabc).toBe(original);
+      expect(gabc.indexOf('%%')).toBe(gabc.lastIndexOf('%%'));
+      expect(propers.getGabcPathsForPart('offertorium').length).toBe(2);
+      state.style = 'psalm-tone';
+      expect(propers.getGabcPathsForPart('offertorium').length).toBe(1);
+    }
+  });
+  test('Midnight Mass keeps each return star tied to Ante through browser conversion', () => {
+    const state = loadOffertory(811);
+    state.style = 'full';
+    state.verseCount = 2;
+    state.psalmToneVerses = false;
+    state.offertoryVerseGabc = fs.readFileSync(path.join(root, 'gabc/offertory-verses/17652.gabc'), 'utf8');
+    state.activeGabc = propers.getOffertoryWithVerses();
+    propers.updateExsurge('offertorium', '811');
+    expect(exsurgeGabc.match(/\*~Ante\./g)).toHaveLength(2);
+    expect(exsurgeGabc).not.toMatch(/\*\(\)\s*Ante\./);
+  });
+  for (const style of ['full', 'psalm-tone']) {
+    test('renders every simple setting in ' + style, () => {
+      for (const id of Object.keys(data.simpleById)) {
+        const state = loadOffertory(id);
+        state.style = style;
+        state.verseCount = 1;
+        state.psalmToneVerses = true;
+        const text = state.text, original = state.gabc;
+        const gabc = propers.getOffertoryWithVerses();
+        const simple = data.simple[data.simpleById[id]];
+        expect(gabc).toBeTruthy();
+        expect(gabc).toContain('<sp>V/</sp>');
+        expect(gabc).not.toContain('<i>V.</i>');
+        expect(gabc.indexOf('%%')).toBe(gabc.lastIndexOf('%%'));
+        expect(state.text).toBe(text);
+        expect(state.gabc).toBe(original);
+        expect(sel.offertoriumSimpleVerses).toBeUndefined();
+        const tonedText = context.offertoryVerseTools.normalize(lyrics(gabc.slice(gabc.indexOf('%%') + 2)));
+        expect(tonedText).toContain(context.offertoryVerseTools.normalize(simple.text));
+      }
+    });
+  }
+  test('supports a changed mode and peregrinus with simple verses', () => {
+    for (const mode of ['1', '4', '6', '8', 'per']) {
+      const state = loadOffertory(962);
+      state.style = 'psalm-tone';
+      state.verseCount = 1;
+      state.mode = mode;
+      expect(propers.getOffertoryWithVerses()).toContain('Dí');
+    }
+  });
+  test('renders every available verse count, with either verse setting', () => {
+    for (const [id, sourceId] of Object.entries(data.fullById)) {
+      for (const psalmToned of [false, true]) {
+        const state = loadOffertory(id);
+        state.style = 'full';
+        state.psalmToneVerses = psalmToned;
+        state.offertoryVerseGabc = fs.readFileSync(path.join(root, 'gabc/offertory-verses', sourceId + '.gabc'), 'utf8');
+        for (let count = 0; count <= data.full[sourceId].verseCount; ++count) {
+          state.verseCount = count;
+          const gabc = propers.getOffertoryWithVerses();
+          const selectedCount = context.offertoryVerseTools.selectVerseItems(data.full[sourceId].psalmVerses, count, data.full[sourceId].verseSelections).length;
+          expect((gabc.match(/<sp>V\/<\/sp>/g) || []).length).toBe(selectedCount);
+          if (selectedCount === 1) expect(gabc).not.toMatch(/<sp>V\/<\/sp>\.?\s*\d+\./);
+          if (!count) expect(gabc).toBe(state.gabc);
+        }
+      }
+    }
+  });
+  test('clamps counts and forces psalm-toned verses for a psalm-toned offertory', () => {
+    const state = loadOffertory(962);
+    state.style = 'full';
+    state.verseCount = 4;
+    state.psalmToneVerses = false;
+    expect(propers.getOffertoryVerseSettings().count).toBe(2);
+    expect(propers.getOffertoryVerseSettings().psalmToned).toBe(false);
+    state.style = 'psalm-tone';
+    expect(propers.getOffertoryVerseSettings().psalmToned).toBe(true);
+  });
+  test('one authentic verse ends before Respice, and two include it', () => {
+    const state = loadOffertory(962);
+    state.style = 'full';
+    state.offertoryVerseGabc = fs.readFileSync(path.join(root, 'gabc/offertory-verses/11393.gabc'), 'utf8');
+    state.verseCount = 1;
+    expect(lyrics(propers.getOffertoryWithVerses())).not.toContain('réspice');
+    state.verseCount = 2;
+    expect(lyrics(propers.getOffertoryWithVerses())).toContain('réspice');
+  });
+
+  test('does not repeat a later authentic verse chosen as the simple first verse', () => {
+    const state = loadOffertory(993);
+    state.style = 'full';
+    state.verseCount = 2;
+    state.psalmToneVerses = true;
+    const text = context.offertoryVerseTools.normalize(lyrics(propers.getOffertoryWithVerses()));
+    expect(text.split('exspectansexspectavidominum').length - 1).toBe(1);
+    expect(text).toContain('avertanturretrorsum');
+  });
+
+  test('the real sine Alleluia Confirma hoc only offers the applicable return', () => {
+    const state = loadOffertory(83);
+    state.style = 'full';
+    state.verseCount = 3;
+    state.offertoryVerseGabc = fs.readFileSync(path.join(root, 'gabc/offertory-verses/19909.gabc'), 'utf8');
+    const gabc = propers.getOffertoryWithVerses();
+    expect(gabc).toContain('Tibi ófferent.');
+    expect(gabc).not.toContain('Allelúia.');
+    expect(gabc).toMatch(/\(::[a-m]\+\) <nlba>\*~Tibi ófferent\./);
+  });
+
+  test('Elegerunt offers the printed single alternative in both verse styles', () => {
+    for (const psalmToned of [false, true]) {
+      const state = loadOffertory(462);
+      state.style = 'full';
+      state.psalmToneVerses = psalmToned;
+      state.offertoryVerseGabc = fs.readFileSync(path.join(root, 'gabc/offertory-verses/manual-095.gabc'), 'utf8');
+      state.verseCount = 3;
+      const gabc = propers.getOffertoryWithVerses(), text = context.offertoryVerseTools.normalize(lyrics(gabc).split('V/').pop());
+      expect(gabc.match(/<sp>V\/<\/sp>/g).length).toBe(1);
+      expect(gabc).not.toMatch(/<sp>V\/<\/sp>\.?\s*3\./);
+      expect(text).toContain('surrexeruntautem');
+      expect(text).not.toContain('positisautem');
+      state.verseCount = 2;
+      expect(propers.getOffertoryWithVerses().match(/<sp>V\/<\/sp>/g).length).toBe(2);
+    }
+  });
+
 });

@@ -1,0 +1,1426 @@
+{
+  "source": "Offertoriale cum versiculis.pdf",
+  "sourceSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "chants": [
+    {
+      "id": "manual-039",
+      "name": "Benedictus qui venit",
+      "bookNumber": 39,
+      "page": 64,
+      "pdfPages": [
+        64,
+        65
+      ],
+      "localIds": [
+        941
+      ],
+      "verseCount": 2,
+      "cue": "Benedíximus.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Benedíximus."
+      },
+      "verseReview": {
+        "date": "2026-11-17",
+        "pdfPages": [
+          64,
+          65
+        ],
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "sha256": "b232a180cc836e3e09558fa82ef71e9306b297473ea17363751868d7c75370a4",
+        "scope": [
+          "text",
+          "pitches",
+          "clefs",
+          "accidentals",
+          "repeated notes",
+          "neume grouping",
+          "barlines",
+          "printed repeat cues",
+          "integrated rendering",
+          "explicit virgas",
+          "quilisma pitch and visible glyph",
+          "printed note-head counts",
+          "neume boundaries",
+          "neumatic cuts and horizontal spacing"
+        ],
+        "result": "Compared notation with the 1935 scans, with a dedicated per-bar stroke-length inventory and horizontal-cut review. Rendered note shapes and integrated views checked separately; see comparison/render-audit.json.",
+        "supersedes": {
+          "sha256": "02188c9c27e261015bfcb6f46432ea52ef38efa905cfa5912a2a8019ea522a5c",
+          "reason": "The earlier pass missed note-shape and grouping errors; superseded after the user identified the Hæc dies defects."
+        },
+        "shapeReview": {
+          "date": "2026-11-17",
+          "explicitVirgas": 23,
+          "quilismas": 13,
+          "noteCount": 389
+        },
+        "spacingReview": {
+          "date": "2026-11-17",
+          "previousSha256": "0b0a6b21e8d18f9d6212a05f49d46eb129092ab80578141029f121aa21b55f11",
+          "corrections": 5,
+          "pitchesAndNoteShapesUnchanged": true,
+          "result": "Closed false cuts before the quilismas in dies and reprobaverunt, and touching groups at fecit and aedificantes. Kept the printed cuts after jwk and between ef/hf."
+        },
+        "fecitReview": {
+          "date": "2026-11-17",
+          "previousSha256": "6a3c6654817354c5c960a75f2f30cb5c88d85d4cbb20087497963fb2a8927c96",
+          "before": "ef!hg",
+          "after": "e!fhg",
+          "result": "User-identified correction: an independent e punctum precedes the fhg torculus. The earlier ef!hg incorrectly created an ef podatus followed by hg clivis. Pitch order is unchanged."
+        },
+        "barAndSpacingReview": "bar-review.json",
+        "pitchReview": "pitch-review.json"
+      },
+      "antiphonReviews": {
+        "941": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "pdfPages": [
+            64
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "12dc0d71e2b37eec8f3905337223a6324dd4b906c0f5134599a3798c0d207763",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 941 agree in normalized text and pitches. Local rhythmic signs and opening intonation star are retained. Printed repeat points are Benediximus and Et illuxit; integration marks both in the reused opening."
+        }
+      },
+      "selectionCueProvenance": "The book proceeds directly from verse 1 to verse 2. A selection ending after verse 1 returns editorially to Benediximus; the authoritative source file has no added cue."
+    },
+    {
+      "id": "manual-041",
+      "name": "Lauda anima",
+      "bookNumber": 41,
+      "page": 67,
+      "pdfPages": [
+        67,
+        68,
+        69
+      ],
+      "localIds": [
+        668
+      ],
+      "verseCount": 2,
+      "cue": "Allelúia.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "pdfPages": [
+          67,
+          68,
+          69
+        ],
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "sha256": "b4ee3d2dd79421c0bbf8cd8640372aca653fb53800273505cf928927ae7c70f7",
+        "scope": [
+          "text",
+          "pitches",
+          "clefs",
+          "accidentals",
+          "repeated notes",
+          "neume grouping",
+          "barlines",
+          "printed repeat cues",
+          "integrated rendering",
+          "explicit virgas",
+          "quilisma pitch and visible glyph",
+          "printed note-head counts",
+          "neume boundaries"
+        ],
+        "result": "Compared notation with the 1935 scans, with a dedicated per-bar stroke-length inventory and horizontal-cut review. Rendered note shapes and integrated views checked separately; see comparison/render-audit.json.",
+        "supersedes": {
+          "sha256": "74d2fc3223c1b9f07fbb56a3ffd810f4827b94204697118fe77ef8ba2d502ec2",
+          "reason": "The earlier pass missed note-shape and grouping errors; superseded after the user identified the Hæc dies defects."
+        },
+        "shapeReview": {
+          "date": "2026-11-17",
+          "explicitVirgas": 10,
+          "quilismas": 4,
+          "noteCount": 414
+        },
+        "porrectusReview": {
+          "date": "2026-11-17",
+          "previousSha256": "95c5ae4ccbe7477ce36b6239e51d02bfd9c0b618dbf43e9a4a6fbf44d51c2d99",
+          "endingBefore": "jjh/hgh",
+          "endingAfter": "j/jh/igh",
+          "result": "User-identified correction: the final porrectus of Qui custodit starts on i (ti), not h (la). Preceding groups are j/jh; note count remains 414."
+        },
+        "barAndSpacingReview": "bar-review.json",
+        "pitchReview": "pitch-review.json"
+      },
+      "antiphonReviews": {
+        "668": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "pdfPages": [
+            67
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "3f79ac33a46fcc117f7ae8888b07032da7c39b1ac8d3353d9e1d38c171cdd8ef",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 668 agree in normalized text, pitches and flat effects. Local rhythmic signs and opening intonation star are retained. Printed repeat points are Alleluia and Psallam; Rice intentionally uses Psallam with faciens instead of the full verse faciet."
+        }
+      }
+    },
+    {
+      "id": "manual-044",
+      "name": "Confitebor Domino",
+      "bookNumber": 44,
+      "page": 74,
+      "pdfPages": [
+        74,
+        75
+      ],
+      "localIds": [
+        584
+      ],
+      "verseCount": 2,
+      "cue": "Ut salvam.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "pdfPages": [
+          74,
+          75
+        ],
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "sha256": "cb8893c3f039a48d483d6861370b128d8b3633c65a208544cd3c817158befed0",
+        "scope": [
+          "text",
+          "pitches",
+          "clefs",
+          "accidentals",
+          "repeated notes",
+          "neume grouping",
+          "barlines",
+          "printed repeat cues",
+          "integrated rendering",
+          "explicit virgas",
+          "quilisma pitch and visible glyph",
+          "printed note-head counts",
+          "neume boundaries"
+        ],
+        "result": "Compared notation with the 1935 scans, with a dedicated per-bar stroke-length inventory and horizontal-cut review. Rendered note shapes and integrated views checked separately; see comparison/render-audit.json.",
+        "supersedes": {
+          "sha256": "4828ee94652ff08b46137e1fadb8724c2bbd33f8ac6c55e49010513f595b9301",
+          "reason": "The earlier pass missed note-shape and grouping errors; superseded after the user identified the Hæc dies defects."
+        },
+        "shapeReview": {
+          "date": "2026-11-17",
+          "explicitVirgas": 13,
+          "quilismas": 1,
+          "noteCount": 277
+        },
+        "barAndSpacingReview": "bar-review.json",
+        "pitchReview": "pitch-review.json"
+      },
+      "antiphonReviews": {
+        "584": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "pdfPages": [
+            74
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "8c34170bb37975efb7b3dd6e0b290d544a08f7eaf4144f81e1d06c7bfb3687e9",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 584 agree in normalized text and pitches. Local rhythmic signs and opening intonation star are retained. The printed return point is Ut salvam, marked in the reused opening."
+        }
+      }
+    },
+    {
+      "id": "manual-048",
+      "name": "Benedictus sit",
+      "bookNumber": 48,
+      "page": 81,
+      "pdfPages": [
+        81,
+        82
+      ],
+      "localIds": [
+        1303
+      ],
+      "verseCount": 2,
+      "cue": "Quia fecit.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "pdfPages": [
+          81,
+          82
+        ],
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "sha256": "877beab0622a1debc6161217f17eb0f37561d87b6567ff66de3c4f4814d163cc",
+        "scope": [
+          "text",
+          "pitches",
+          "clefs",
+          "accidentals",
+          "repeated notes",
+          "neume grouping",
+          "barlines",
+          "printed repeat cues",
+          "integrated rendering",
+          "explicit virgas",
+          "quilisma pitch and visible glyph",
+          "printed note-head counts",
+          "neume boundaries",
+          "neumatic cuts and horizontal spacing"
+        ],
+        "result": "Compared notation with the 1935 scans, with a dedicated per-bar stroke-length inventory and horizontal-cut review. Rendered note shapes and integrated views checked separately; see comparison/render-audit.json.",
+        "supersedes": {
+          "sha256": "9c5aaab47aa338283847ca3efe4332da665e825a7b18ae4d74eb26b9687b5db3",
+          "reason": "The earlier pass missed note-shape and grouping errors; superseded after the user identified the Hæc dies defects."
+        },
+        "shapeReview": {
+          "date": "2026-11-17",
+          "explicitVirgas": 19,
+          "quilismas": 8,
+          "noteCount": 426
+        },
+        "spacingReview": {
+          "date": "2026-11-17",
+          "previousSha256": "96c5a259528c1cb5b846786816c692caa1219f2a4d283d1757114abf61fc4586",
+          "corrections": 6,
+          "pitchesAndNoteShapesUnchanged": true,
+          "result": "Restored printed normal cuts in Filium, cum, et, exaltemus, Benedictus and superlaudabilis; retained zero-space joins where the source groups touch."
+        },
+        "barAndSpacingReview": "bar-review.json",
+        "pitchReview": "pitch-review.json"
+      },
+      "antiphonReviews": {
+        "1303": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "pdfPages": [
+            81
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "7f6d407bfaf398dfebe81d5b9d6eb1bfc446a61879535f52b17cd7ac2c246438",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and the first antiphon in local 1303 agree in normalized text and all 169 expanded pitches. Local rhythmic signs and opening intonation star are retained. The optional T.P. Alleluia after the first double bar is absent from the 1935 setting but preserved in the existing local file."
+        }
+      }
+    },
+    {
+      "id": "manual-050",
+      "name": "Domine convertere",
+      "bookNumber": 50,
+      "batch": 2,
+      "page": 84,
+      "pdfPages": [
+        84,
+        85
+      ],
+      "localIds": [
+        848
+      ],
+      "verseCount": 2,
+      "cue": "Salvum me fac.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Salvum me fac."
+      },
+      "selectionCueProvenance": "The book moves directly from verse 1 to verse 2. A shortened one-verse selection adds an editorial Salvum me fac return.",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          84,
+          85
+        ],
+        "sha256": "8de03ee4e801fd78b51d9dc3e5a36202dd2964898eebd89b82903d14d6b81006",
+        "scope": [
+          "text and verse/cue boundaries",
+          "every pitch against staff, including individual inclinata and porrectus endpoints",
+          "clefs, flats, naturals and their scope",
+          "explicit virgas, postfix quilismas, liquescents and note-head counts",
+          "bar-only physical-stroke pass",
+          "horizontal gaps and touching neume shapes"
+        ],
+        "result": "Renewed source reading after user-identified errors. Every batch-2 source system re-read for pitches, connections, note heads, inclinata, porrectus endpoints, accidentals, and liquescents. Corrected encoded figures and integrated views inspected separately. See batch-2-user-corrections.json; prior pitch/shape certification is superseded.",
+        "supersedes": {
+          "sha256": "71f208a20816cbfcf3e7e83c2af26c6b950483f8f3e96f0ab1d35d1d9ebb0a27",
+          "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+        }
+      },
+      "antiphonReviews": {
+        "848": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "666bb8ecd7e0be896f2cacf337e148ab0477163d2c742ada60da94bac3b40fc9",
+          "pdfPages": [
+            84
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 848 agree in normalized text and pitches. Local rhythmic signs and intonation star retained. Opening music is reused without replacement."
+        }
+      }
+    },
+    {
+      "id": "manual-067",
+      "name": "Domine Deus salutis",
+      "bookNumber": 67,
+      "batch": 2,
+      "page": 112,
+      "pdfPages": [
+        112,
+        113,
+        114
+      ],
+      "localIds": [
+        542,
+        987
+      ],
+      "verseCount": 3,
+      "cue": "Intret.",
+      "review": "verified",
+      "selectionCues": {
+        "2": "Intret."
+      },
+      "selectionCueProvenance": "Verse 1 has its printed In conspéctu return. The book moves directly from verse 2 to verse 3. A shortened two-verse selection adds an editorial Intret return.",
+      "psalmVerseCues": [
+        "In conspéctu.",
+        "Intret.",
+        "Intret."
+      ],
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          112,
+          113,
+          114
+        ],
+        "sha256": "fdfda45cd86b5edd61feda39febe1a6c55b03d95054cabb057a3022bbd817396",
+        "scope": [
+          "text and verse/cue boundaries",
+          "every pitch against staff, including individual inclinata and porrectus endpoints",
+          "clefs, flats, naturals and their scope",
+          "explicit virgas, postfix quilismas, liquescents and note-head counts",
+          "bar-only physical-stroke pass",
+          "horizontal gaps and touching neume shapes"
+        ],
+        "result": "Renewed source reading after user-identified errors. Every batch-2 source system re-read for pitches, connections, note heads, inclinata, porrectus endpoints, accidentals, and liquescents. Corrected encoded figures and integrated views inspected separately. See batch-2-user-corrections.json; prior pitch/shape certification is superseded.",
+        "supersedes": {
+          "sha256": "188d61029450b9969590157a6984a4f1f0a7e66b27e879616df51faa204d6292",
+          "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+        }
+      },
+      "antiphonReviews": {
+        "542": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "9131539609e453ba5b7c2221b65283be680183f11c92bffd96b1c2433ad4f754",
+          "pdfPages": [
+            112
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 542 agree in normalized text and pitches. Local rhythmic signs and intonation star retained. Opening music is reused without replacement."
+        },
+        "987": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "08560d082ec02729adccf47b9d4185d5c7c552e07b9375e82d36c560f7012405",
+          "pdfPages": [
+            112
+          ],
+          "comparison": "visual",
+          "textMatches": false,
+          "pitchesMatch": false,
+          "result": "Expected seasonal variant: local 987 changes the ending Dómine from source/local 542 mi(gh/jhi) to mi(g!hwihi), then adds Allelúia. Shared preceding opening agrees. Preserve all local music; the three verses and both return points work with either opening."
+        }
+      }
+    },
+    {
+      "id": "manual-077",
+      "name": "Gloria et honore",
+      "bookNumber": 77,
+      "batch": 2,
+      "page": 133,
+      "pdfPages": [
+        133,
+        134,
+        135
+      ],
+      "localIds": [
+        407
+      ],
+      "verseCount": 2,
+      "cue": "Et constituísti.",
+      "review": "verified",
+      "selectionCues": {},
+      "selectionCueProvenance": "Both return cues are printed.",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          133,
+          134,
+          135
+        ],
+        "sha256": "4a40b195f55d116a8dd087468a1629b4b5cd45c912fc6aa1ebe32864b8bef134",
+        "scope": [
+          "text and verse/cue boundaries",
+          "every pitch against staff, including individual inclinata and porrectus endpoints",
+          "clefs, flats, naturals and their scope",
+          "explicit virgas, postfix quilismas, liquescents and note-head counts",
+          "bar-only physical-stroke pass",
+          "horizontal gaps and touching neume shapes"
+        ],
+        "result": "Renewed source reading after user-identified errors. Every batch-2 source system re-read for pitches, connections, note heads, inclinata, porrectus endpoints, accidentals, and liquescents. Corrected encoded figures and integrated views inspected separately. See batch-2-user-corrections.json; prior pitch/shape certification is superseded.",
+        "supersedes": {
+          "sha256": "37f4992944256d9ccb7b127faba9ae9e2117a1644a0387dc090a4dedbcb002f9",
+          "reason": "User corrections exposed missed note heads, incorrect pitches and pes/inclinata figures misencoded with added virgas. The earlier batch-2 pitch/shape certification is superseded for these bodies."
+        }
+      },
+      "antiphonReviews": {
+        "407": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "f278aa09e8d9ebedcbc7bf84e8f341024546ddb260b1937cbdf339042b42f085",
+          "pdfPages": [
+            133,
+            134
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 407 agree in normalized text and pitches. Local rhythmic signs and intonation star retained. Opening music is reused without replacement."
+        }
+      }
+    },
+    {
+      "id": "manual-078",
+      "name": "Gloriabuntur",
+      "bookNumber": 78,
+      "batch": 3,
+      "page": 135,
+      "pdfPages": [
+        135,
+        136
+      ],
+      "localIds": [
+        1375
+      ],
+      "verseCount": 2,
+      "cue": "Dómine.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Dómine."
+      },
+      "selectionCueProvenance": "The printed source moves directly from verse 1 to verse 2. Only a shortened one-verse selection adds this editorial return.",
+      "cueOccurrences": {
+        "domine": 2
+      },
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          135,
+          136
+        ],
+        "sha256": "380b4102749e5e1b1031c06e0dd6b4a15e4cd9212bc966b561779c4008849127",
+        "scope": [
+          "text and all verse/cue boundaries",
+          "every pitch, individual inclinata and porrectus endpoints against source staff",
+          "clefs and accidental scope",
+          "note shapes, explicit virgas and postfix quilismas",
+          "bar-only physical stroke inventory",
+          "horizontal cuts and touching shape boundaries",
+          "renewed square-head-centre and connected-pes review after batch-2 correction guidance",
+          "rendered source comparison and every applicable integrated selection"
+        ],
+        "result": "All 34 batch-3 verse-bearing source systems re-read with enlarged staff-aligned crops. Read square-head centres, porrectus endpoints, actual connections and each diamond independently; added v only for actual separate virgas. Bar lengths measured separately. Final source and integrated renderings inspected; exact records in batch-3-review.json, batch-3-encoding-review.json and comparison/batch-3-render-audit.json."
+      },
+      "antiphonReviews": {
+        "1375": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "2a153e8245766af76b02b3143e4f131702288f11d0c733cfc62a33fb9d836142",
+          "pdfPages": [
+            135
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 1375 agree in normalized text and pitches; local rhythmic signs and intonation star retained. The printed return is the second Domine, after justo, not the earlier Domine after quoniam tu."
+        }
+      }
+    },
+    {
+      "id": "manual-079",
+      "name": "Posuisti",
+      "bookNumber": 79,
+      "batch": 3,
+      "page": 136,
+      "pdfPages": [
+        136,
+        137,
+        138
+      ],
+      "localIds": [
+        487
+      ],
+      "verseCount": 2,
+      "cue": "Allelúia.",
+      "review": "verified",
+      "psalmVerseCues": [
+        "Allelúia.",
+        "Allelúia."
+      ],
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          136,
+          137,
+          138
+        ],
+        "sha256": "ad5079cd0d38bbaeb3f2aef0d002ccfe251a466f10f359e7fba8eeef8fb58ae4",
+        "scope": [
+          "text and all verse/cue boundaries",
+          "every pitch, individual inclinata and porrectus endpoints against source staff",
+          "clefs and accidental scope",
+          "note shapes, explicit virgas and postfix quilismas",
+          "bar-only physical stroke inventory",
+          "horizontal cuts and touching shape boundaries",
+          "renewed square-head-centre and connected-pes review after batch-2 correction guidance",
+          "rendered source comparison and every applicable integrated selection"
+        ],
+        "result": "All 34 batch-3 verse-bearing source systems re-read with enlarged staff-aligned crops. Read square-head centres, porrectus endpoints, actual connections and each diamond independently; added v only for actual separate virgas. Bar lengths measured separately. Final source and integrated renderings inspected; exact records in batch-3-review.json, batch-3-encoding-review.json and comparison/batch-3-render-audit.json."
+      },
+      "antiphonReviews": {
+        "487": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "34da19150f2ec25da06116dbca195868c1a8aa4de2e6c47637ddee8ceb61074e",
+          "pdfPages": [
+            136,
+            137
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 487 agree in normalized text and pitches; local rhythmic signs and intonation star retained. Opening music reused without replacement."
+        }
+      }
+    },
+    {
+      "id": "manual-081",
+      "name": "Laetamini",
+      "bookNumber": 81,
+      "batch": 3,
+      "page": 140,
+      "pdfPages": [
+        140,
+        141
+      ],
+      "localIds": [
+        786,
+        870
+      ],
+      "verseCount": 2,
+      "cue": "Et gloriámini.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Et gloriámini."
+      },
+      "selectionCueProvenance": "The printed source moves directly from verse 1 to verse 2. Only a shortened one-verse selection adds this editorial return.",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          140,
+          141
+        ],
+        "sha256": "fd6fb2d8a87f46d6d91d8d61d796f6087fe39c1b80f8941ab78541631cd0442f",
+        "scope": [
+          "text and all verse/cue boundaries",
+          "every pitch, individual inclinata and porrectus endpoints against source staff",
+          "clefs and accidental scope",
+          "note shapes, explicit virgas and postfix quilismas",
+          "bar-only physical stroke inventory",
+          "horizontal cuts and touching shape boundaries",
+          "renewed square-head-centre and connected-pes review after batch-2 correction guidance",
+          "rendered source comparison and every applicable integrated selection"
+        ],
+        "result": "All 34 batch-3 verse-bearing source systems re-read with enlarged staff-aligned crops. Read square-head centres, porrectus endpoints, actual connections and each diamond independently; added v only for actual separate virgas. Bar lengths measured separately. Final source and integrated renderings inspected; exact records in batch-3-review.json, batch-3-encoding-review.json and comparison/batch-3-render-audit.json."
+      },
+      "antiphonReviews": {
+        "786": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "cc9f36b8af1b984a3d2a5fe6e6787ba11b50c86a07780a6e22d69bc9e7ec2df4",
+          "pdfPages": [
+            140
+          ],
+          "comparison": "visual",
+          "textMatches": false,
+          "pitchesMatch": false,
+          "result": "Non-Paschal local 786 omits the source Alleluia and supplies the longer closing corde cadence. Shared preceding music, including Et gfg, agrees. Preserve the local opening."
+        },
+        "870": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "1c6554164006a144d3a2435984eafbb8e2780daf3e57906250dfb220265c3b73",
+          "pdfPages": [
+            140
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Seasonal local 870 agrees with the printed opening in normalized text and pitches, including Et gfg and the Alleluia ending. Local rhythmic signs retained; opening unchanged."
+        }
+      }
+    },
+    {
+      "id": "manual-082",
+      "name": "Mirabilis Deus",
+      "bookNumber": 82,
+      "batch": 3,
+      "page": 141,
+      "pdfPages": [
+        141,
+        142,
+        143
+      ],
+      "localIds": [
+        919
+      ],
+      "verseCount": 2,
+      "cue": "Benedíctus.",
+      "review": "verified",
+      "selectionCues": {
+        "2": "Benedíctus."
+      },
+      "selectionCueProvenance": "Verse 1 prints Benedictus. Verse 2 ends at a double bar without repeating a cue; the integrated two-verse selection adds an editorial Benedictus return, leaving the authoritative ending unchanged.",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          141,
+          142,
+          143
+        ],
+        "sha256": "8aedc8b40e0a0ffff9a0f12fa77ca9d1b115af75fb717900dbe1864baedc8b97",
+        "scope": [
+          "text and all verse/cue boundaries",
+          "every pitch, individual inclinata and porrectus endpoints against source staff",
+          "clefs and accidental scope",
+          "note shapes, explicit virgas and postfix quilismas",
+          "bar-only physical stroke inventory",
+          "horizontal cuts and touching shape boundaries",
+          "renewed square-head-centre and connected-pes review after batch-2 correction guidance",
+          "rendered source comparison and every applicable integrated selection"
+        ],
+        "result": "All 34 batch-3 verse-bearing source systems re-read with enlarged staff-aligned crops. Read square-head centres, porrectus endpoints, actual connections and each diamond independently; added v only for actual separate virgas. Bar lengths measured separately. Final source and integrated renderings inspected; exact records in batch-3-review.json, batch-3-encoding-review.json and comparison/batch-3-render-audit.json."
+      },
+      "antiphonReviews": {
+        "919": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "a2d909896c9d09bf6d52208bffd51fc61e4e5afe9ea890f42fd8821cf83382ba",
+          "pdfPages": [
+            141,
+            142
+          ],
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Printed opening and local 919 agree in normalized text and pitches; local rhythmic signs and intonation star retained. Opening music reused without replacement."
+        }
+      }
+    },
+    {
+      "bookNumber": 83,
+      "name": "Exsultabunt sancti",
+      "page": 143,
+      "pdfPages": [
+        143,
+        144
+      ],
+      "localIds": [
+        33
+      ],
+      "verseCount": 1,
+      "cue": "Exsultábunt.",
+      "selectionCues": {
+        "1": "Exsultábunt."
+      },
+      "selectionCueProvenance": "No return is printed at the end of the sole verse. The integrated selection editorially returns to the beginning; authoritative verse-only music retains the printed ending.",
+      "id": "manual-083",
+      "batch": 4,
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          143,
+          144
+        ],
+        "sha256": "2a16080fa20be30ffffcfe4f95704c374eac63f57045b9bd25a253fa98185a61",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and source comparison"
+        ],
+        "result": "Reviewed all 33 verse-bearing systems in separate source passes for pitches and active clefs, individual head centres and diamonds, porrectus endpoints, actual neume connections, accidentals, liquescents, physical bar lengths and horizontal cuts. Final exact-body verse-only and integrated renderings inspected. Source evidence: batch-4-review.json; encoding evidence: comparison/batch-4-render-audit.json. Rendering validates the encoding, not the source reading."
+      },
+      "antiphonReviews": {
+        "33": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "pdfPages": [
+            143
+          ],
+          "localSha256": "ed49db61dcb2b339580f8b93b040aaf20f3e6e72dfc8f073f7dd67db2ee9b8d4",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "The printed opening and the first antiphon in local 33 agree in normalized text and pitches. Existing rhythmic signs and opening intonation star are retained."
+        }
+      }
+    },
+    {
+      "bookNumber": 86,
+      "name": "Inveni David",
+      "page": 147,
+      "pdfPages": [
+        147,
+        148
+      ],
+      "localIds": [
+        779
+      ],
+      "verseCount": 2,
+      "cue": "Manus.",
+      "id": "manual-086",
+      "batch": 4,
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          147,
+          148
+        ],
+        "sha256": "b69367e38ec29615a6e89c5ba2cd2874cfc25e7ec74378ac732fcd227153bbcf",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and source comparison"
+        ],
+        "result": "Reviewed all 33 verse-bearing systems in separate source passes for pitches and active clefs, individual head centres and diamonds, porrectus endpoints, actual neume connections, accidentals, liquescents, physical bar lengths and horizontal cuts. Final exact-body verse-only and integrated renderings inspected. Source evidence: batch-4-review.json; encoding evidence: comparison/batch-4-render-audit.json. Rendering validates the encoding, not the source reading."
+      },
+      "antiphonReviews": {
+        "779": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "pdfPages": [
+            147
+          ],
+          "localSha256": "875752a952f9d836adbd062e0c78c528f2eefc9039ed1e5427639b58198fdd56",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "The printed opening and the first antiphon in local 779 agree in normalized text and pitches. Existing rhythmic signs and opening intonation star are retained. The local optional T.P. Alleluia follows the first double bar and is absent from this printed opening; it remains unchanged."
+        }
+      }
+    },
+    {
+      "bookNumber": 89,
+      "name": "In virtute tua",
+      "page": 152,
+      "pdfPages": [
+        152,
+        153
+      ],
+      "localIds": [
+        667
+      ],
+      "verseCount": 2,
+      "cue": "Desidérium.",
+      "id": "manual-089",
+      "batch": 4,
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          152,
+          153
+        ],
+        "sha256": "ba32a434cc8882befa846ac75c89ba39111027616d5e5a3453075f33ba0357d2",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and source comparison"
+        ],
+        "result": "Reviewed all 33 verse-bearing systems in separate source passes for pitches and active clefs, individual head centres and diamonds, porrectus endpoints, actual neume connections, accidentals, liquescents, physical bar lengths and horizontal cuts. Final exact-body verse-only and integrated renderings inspected. Source evidence: batch-4-review.json; encoding evidence: comparison/batch-4-render-audit.json. Rendering validates the encoding, not the source reading."
+      },
+      "antiphonReviews": {
+        "667": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "pdfPages": [
+            152
+          ],
+          "localSha256": "4379a9e2969f1ca280c7c3e74c1f16e0ae040295708d24e77953332abd0ce1b0",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "The printed opening and the first antiphon in local 667 agree in normalized text and pitches. Existing rhythmic signs and opening intonation star are retained. The local optional T.P. Alleluia follows the first double bar and is absent from this printed opening; it remains unchanged."
+        }
+      }
+    },
+    {
+      "bookNumber": 90,
+      "name": "Desiderium animae",
+      "page": 153,
+      "pdfPages": [
+        153,
+        154
+      ],
+      "localIds": [
+        722
+      ],
+      "verseCount": 3,
+      "cue": "Et voluntáte.",
+      "psalmVerseCues": [
+        "Et voluntáte.",
+        "Posuísti.",
+        "Et voluntáte."
+      ],
+      "selectionCues": {
+        "3": "Et voluntáte."
+      },
+      "selectionCueProvenance": "Verse 3 ends without a return label. Only the integrated three-verse selection editorially adds Et voluntate; verses 1 and 2 preserve their distinct printed cues.",
+      "id": "manual-090",
+      "batch": 4,
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-17",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          153,
+          154
+        ],
+        "sha256": "aafc771e443d7e968fbccfcbca1845fe411114cb6d82ab4469da829e56644d5a",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and source comparison"
+        ],
+        "result": "Reviewed all 33 verse-bearing systems in separate source passes for pitches and active clefs, individual head centres and diamonds, porrectus endpoints, actual neume connections, accidentals, liquescents, physical bar lengths and horizontal cuts. Final exact-body verse-only and integrated renderings inspected. Source evidence: batch-4-review.json; encoding evidence: comparison/batch-4-render-audit.json. Rendering validates the encoding, not the source reading."
+      },
+      "antiphonReviews": {
+        "722": {
+          "status": "resolved",
+          "date": "2026-11-17",
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "pdfPages": [
+            153,
+            154
+          ],
+          "localSha256": "a11e1d6386786f10d43e605a3072550db4134f9a3b91626e00d6cfcf2822d3d7",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "The printed opening and the first antiphon in local 722 agree in normalized text and pitches. Existing rhythmic signs and opening intonation star are retained. The local optional T.P. Alleluia follows the first double bar and is absent from this printed opening; it remains unchanged."
+        }
+      }
+    },
+    {
+      "id": "manual-091",
+      "name": "Afferentur proximae",
+      "bookNumber": 91,
+      "batch": 5,
+      "page": 155,
+      "pdfPages": [
+        155,
+        156
+      ],
+      "localIds": [
+        1107
+      ],
+      "verseCount": 2,
+      "cue": "Adducéntur.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Adducéntur."
+      },
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          155,
+          156
+        ],
+        "sha256": "deb8a490ae19528bb8caa1746147981adbe59e8290bfcc33c5fb44020de96a3d",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and printed alternative"
+        ],
+        "result": "Source-based text, head-centre pitch, accidental, actual connection, shape, physical stroke-length and horizontal-cut passes cover all printed verses and continuations. Exact-source rendering and integration inspected separately. See batch-5-review.json and comparison/batch-5-render-audit.json; rendering counts validate the encoding and do not establish source correctness."
+      },
+      "selectionCueProvenance": "The source proceeds directly from verse1 to verse2. A shortened first-verse selection adds an editorial Adducéntur. return; the authoritative source preserves the direct transition.",
+      "antiphonReviews": {
+        "1107": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            155
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "887b961e2a1d5c6b9815c899b0b64c8d2caa3f5f3db62d3ff0a3455ec1f76bfa",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared the printed opening with local 1107 in text and pitches. No pitch discrepancy identified in this pass. Existing rhythmic signs, opening stars and grouping remain unchanged. The local optional T.P. Alleluia follows the first double and is absent from this printed opening; it is preserved."
+        }
+      }
+    },
+    {
+      "id": "manual-094",
+      "name": "Domine Deus in simplicitate",
+      "bookNumber": 94,
+      "batch": 5,
+      "page": 159,
+      "pdfPages": [
+        159,
+        160,
+        161
+      ],
+      "localIds": [
+        200
+      ],
+      "verseCount": 2,
+      "cue": "Deus Israel.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Deus Israel."
+      },
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          159,
+          160,
+          161
+        ],
+        "sha256": "954ceaefde7c32b717db4fc99221fbafb23bff1181797a53a198562d114203e3",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and printed alternative"
+        ],
+        "result": "Source-based text, head-centre pitch, accidental, actual connection, shape, physical stroke-length and horizontal-cut passes cover all printed verses and continuations. Exact-source rendering and integration inspected separately. See batch-5-review.json and comparison/batch-5-render-audit.json; rendering counts validate the encoding and do not establish source correctness."
+      },
+      "selectionCueProvenance": "The source proceeds directly from verse1 to verse2. A shortened first-verse selection adds an editorial Deus Israel. return; the authoritative source preserves the direct transition.",
+      "antiphonReviews": {
+        "200": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            159
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "63f7884aed4876c92e41b8dc856db88e0c01585dc07c105acdbf3764e40ad355",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared the printed opening with local 200 in text and pitches. No pitch discrepancy identified in this pass. Existing rhythmic signs, opening stars and grouping remain unchanged. The local optional T.P. Alleluia follows the first double and is absent from this printed opening; it is preserved."
+        }
+      }
+    },
+    {
+      "id": "manual-095",
+      "name": "Elegerunt Apostoli",
+      "bookNumber": 95,
+      "batch": 5,
+      "page": 161,
+      "pdfPages": [
+        161,
+        162,
+        163
+      ],
+      "localIds": [
+        462
+      ],
+      "verseCount": 3,
+      "cue": "Dómine.",
+      "review": "verified",
+      "selectionCues": {
+        "2": "Dómine.",
+        "3": "Dómine."
+      },
+      "verseSelections": {
+        "3": [
+          3
+        ]
+      },
+      "verseSelectionLabels": {
+        "3": "Alternative verse (3)"
+      },
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          161,
+          162,
+          163
+        ],
+        "sha256": "f915b3562cccec8d432d2993aa9829884f2cc2fc0847ea22b924a6deb0f64cda",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and printed alternative"
+        ],
+        "result": "Source-based text, head-centre pitch, accidental, actual connection, shape, physical stroke-length and horizontal-cut passes cover all printed verses and continuations. Exact-source rendering and integration inspected separately. See batch-5-review.json and comparison/batch-5-render-audit.json; rendering counts validate the encoding and do not establish source correctness."
+      },
+      "selectionCueProvenance": "The source offers verse3 in place of both preceding verses. Slot3 selects that single alternative. Only verse1 prints Domine; endings of verse2 and verse3 receive editorial returns during integration, without changing the authoritative source.",
+      "antiphonReviews": {
+        "462": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            161
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "5121fa0734740718e1ed47aff7267dc3f8049435fac09bb1d40e898d755fcde3",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared the printed opening with local 462 in text and pitches. No pitch discrepancy identified in this pass. Existing rhythmic signs, opening stars and grouping remain unchanged."
+        }
+      }
+    },
+    {
+      "id": "manual-096",
+      "name": "Afferentur S. Agathae post eam",
+      "bookNumber": 96,
+      "batch": 5,
+      "page": 163,
+      "pdfPages": [
+        163,
+        164
+      ],
+      "localIds": [
+        768
+      ],
+      "verseCount": 2,
+      "cue": "Afferéntur.",
+      "review": "verified",
+      "selectionCues": {
+        "1": "Afferéntur."
+      },
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          163,
+          164
+        ],
+        "sha256": "cf478f664cbe15e27e4e36ebbe2ef12ad769b999e214d782ea1e0c1a9ac84f38",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "all applicable integrated selections and printed alternative"
+        ],
+        "result": "Source-based text, head-centre pitch, accidental, actual connection, shape, physical stroke-length and horizontal-cut passes cover all printed verses and continuations. Exact-source rendering and integration inspected separately. See batch-5-review.json and comparison/batch-5-render-audit.json; rendering counts validate the encoding and do not establish source correctness."
+      },
+      "selectionCueProvenance": "The source proceeds directly from verse1 to verse2. A shortened first-verse selection adds an editorial Afferéntur. return; the authoritative source preserves the direct transition.",
+      "antiphonReviews": {
+        "768": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            163
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "aa6273ca6de1ae9ed99205aa2bbeacfe6ad46cfc6b99e3046784cef55932f91b",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared the printed opening with local 768 in text and pitches. No pitch discrepancy identified in this pass. Existing rhythmic signs, opening stars and grouping remain unchanged."
+        }
+      }
+    },
+    {
+      "id": "manual-097",
+      "name": "Oratio mea",
+      "bookNumber": 97,
+      "batch": 6,
+      "page": 164,
+      "pdfPages": [
+        164,
+        165
+      ],
+      "localIds": [
+        185
+      ],
+      "verseCount": 1,
+      "cue": "Ascéndat.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          164,
+          165
+        ],
+        "sha256": "5ebdf70760efc88208f336a2905ee230cdc2ed9484f563395189a2a7d623a888",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "every applicable integrated selection"
+        ],
+        "result": "Separate source passes cover complete text/boundaries, square-head centres, each diamond, porrectus endpoints, ledger notes, clefs/accidentals, actual connections and shapes, physical bar strokes and horizontal cuts. Final exact-body verse-only and integrated renders inspected. See batch-6-review.json and comparison/batch-6-render-audit.json. Render counts validate encoding only."
+      },
+      "antiphonReviews": {
+        "185": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            164,
+            165
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "36c941b3fe87fe5cafc50680dec2fa123e234e649fe5ff91a3880da619787058",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared printed opening with preserved local 185 in normalized text and pitches. No pitch discrepancy identified in this pass; existing rhythmic signs, intonation markers and grouping retained."
+        }
+      }
+    },
+    {
+      "id": "manual-098",
+      "name": "Confessio et pulchritudo",
+      "bookNumber": 98,
+      "batch": 6,
+      "page": 166,
+      "pdfPages": [
+        166,
+        167
+      ],
+      "localIds": [
+        105
+      ],
+      "verseCount": 2,
+      "cue": "Sánctitas.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          166,
+          167
+        ],
+        "sha256": "3f3a7bb66bea20f5d446a4f9b243e2de2bfdc95781f9c9fa29d8c2d96b74e56f",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "every applicable integrated selection"
+        ],
+        "result": "Separate source passes cover complete text/boundaries, square-head centres, each diamond, porrectus endpoints, ledger notes, clefs/accidentals, actual connections and shapes, physical bar strokes and horizontal cuts. Final exact-body verse-only and integrated renders inspected. See batch-6-review.json and comparison/batch-6-render-audit.json. Render counts validate encoding only."
+      },
+      "antiphonReviews": {
+        "105": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            166
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "705b34408c691c386ede999adce7363b3c3d5bd71abd5e8098a1408bf9481f93",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared printed opening with preserved local 105 in normalized text and pitches. No pitch discrepancy identified in this pass; existing rhythmic signs, intonation markers and grouping retained."
+        }
+      }
+    },
+    {
+      "id": "manual-099",
+      "name": "Assumpta est",
+      "bookNumber": 99,
+      "batch": 6,
+      "page": 167,
+      "pdfPages": [
+        167,
+        168
+      ],
+      "localIds": [
+        3317
+      ],
+      "verseCount": 1,
+      "cue": "Allelúia.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          167,
+          168
+        ],
+        "sha256": "3131e46d1868be7fc5edff2f2ce513ceceec24fd71467a8b94f83ea0484ed13d",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "every applicable integrated selection"
+        ],
+        "result": "Separate source passes cover complete text/boundaries, square-head centres, each diamond, porrectus endpoints, ledger notes, clefs/accidentals, actual connections and shapes, physical bar strokes and horizontal cuts. Final exact-body verse-only and integrated renders inspected. See batch-6-review.json and comparison/batch-6-render-audit.json. Render counts validate encoding only."
+      },
+      "antiphonReviews": {
+        "3317": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            167
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "798870e9922ed8a3cb26e9c306e3121e6d64fc3d732f5d6ef0b2ea352020e904",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared printed opening with preserved local 3317 in normalized text and pitches. No pitch discrepancy identified in this pass; existing rhythmic signs, intonation markers and grouping retained."
+        }
+      }
+    },
+    {
+      "id": "manual-102",
+      "name": "Viri Galilaei",
+      "bookNumber": 102,
+      "batch": 6,
+      "page": 172,
+      "pdfPages": [
+        172,
+        173
+      ],
+      "localIds": [
+        3315
+      ],
+      "verseCount": 1,
+      "cue": "Sic véniet.",
+      "review": "verified",
+      "verseReview": {
+        "date": "2026-11-18",
+        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+        "pdfPages": [
+          172,
+          173
+        ],
+        "sha256": "34e85cc9d98a6adfc003934f560a293d76830eb70ee6635ca212cb3be79a8903",
+        "scope": [
+          "text, complete verse and cue boundaries",
+          "square-head centres, individual diamonds, porrectus endpoints and ledger notes",
+          "active clefs and accidental scope",
+          "actual connections, independent virgas, postfix quilismas and liquescents",
+          "separate bar-only stroke-length inventory",
+          "separate horizontal cuts and touching shapes",
+          "rendered verse-only inspection",
+          "every applicable integrated selection"
+        ],
+        "result": "Separate source passes cover complete text/boundaries, square-head centres, each diamond, porrectus endpoints, ledger notes, clefs/accidentals, actual connections and shapes, physical bar strokes and horizontal cuts. Final exact-body verse-only and integrated renders inspected. See batch-6-review.json and comparison/batch-6-render-audit.json. Render counts validate encoding only."
+      },
+      "antiphonReviews": {
+        "3315": {
+          "status": "resolved",
+          "date": "2026-11-18",
+          "pdfPages": [
+            172
+          ],
+          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+          "localSha256": "08b8dda0aa973e50ae7b8aa42f210cd5b4a610f29b722d765b5bcfe780c540f5",
+          "comparison": "visual",
+          "textMatches": true,
+          "pitchesMatch": true,
+          "result": "Compared printed opening with preserved local 3315 in normalized text and pitches. No pitch discrepancy identified in this pass; existing rhythmic signs, intonation markers and grouping retained."
+        }
+      }
+    }
+  ],
+  "drafts": []
+}

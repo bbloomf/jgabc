@@ -1,0 +1,1531 @@
+{
+  "date": "2026-11-17",
+  "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "coordinateMethod": "Pages rendered 2100px high, 1623px wide. Strip x origin230; y origin top staff minus45. Staff j/h/f/d at strip y45/74/104/133. Bare bars identified visually independently of notes and custodes, then ink measured with scan gaps up to3px bridged. Quarter about29px, half58px, full90px. Cue-panel closing doubles separately tagged.",
+  "chants": [
+    {
+      "bookNumber": 78,
+      "manualFileSha256": "361f989f67e812aa173d5be1ba3310735b556a81a6a2e38399decae1f82d2cd7",
+      "checkedSourceSystems": [
+        {
+          "page": 135,
+          "systems": [
+            7,
+            8
+          ]
+        },
+        {
+          "page": 136,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 135,
+          "system": 7,
+          "topStaffLineY": 1544,
+          "stripSha256": "57ad7618365ad0d41c7c863d722c3a7392e782e19e34d371e01aa40ea846a802"
+        },
+        {
+          "page": 135,
+          "system": 8,
+          "topStaffLineY": 1748,
+          "stripSha256": "63d6253a24642d2ed34c6a2a4553c2edd08de92683a999c9894db3ed3da8691b"
+        },
+        {
+          "page": 136,
+          "system": 1,
+          "topStaffLineY": 174,
+          "stripSha256": "9c9e527af2dcdd9b45ad2f95ebaf99048a6930787983ef1bb5055f8b8a59b1b6"
+        },
+        {
+          "page": 136,
+          "system": 2,
+          "topStaffLineY": 382,
+          "stripSha256": "18860ec0aedd4c8ce5b3b6796cfbccc42ea71ab07f5e8d0799e9982e374e8027"
+        },
+        {
+          "page": 136,
+          "system": 3,
+          "topStaffLineY": 588,
+          "stripSha256": "d502b54db69accad70409b548085747b36d510210f661a1a5b48bf4bdb40e721"
+        },
+        {
+          "page": 136,
+          "system": 4,
+          "topStaffLineY": 792,
+          "stripSha256": "e1ed58005019c9baf2997a2f304a7ec0b1a105abc3ca1f55d5798e8bf250077d"
+        },
+        {
+          "page": 136,
+          "system": 5,
+          "topStaffLineY": 999,
+          "stripSha256": "4b52a71d45bcad7a3720dad84063317700ac68d906ce1bade2dee1e7200029ff"
+        },
+        {
+          "page": 136,
+          "system": 6,
+          "topStaffLineY": 1207,
+          "stripSha256": "d32374d2eeccd9d74fa63bfd1dd0db7b8b7e931c92ae1becd6639a0f666f6dc3"
+        },
+        {
+          "page": 136,
+          "system": 7,
+          "topStaffLineY": 1416,
+          "stripSha256": "2d15ead31cbf384d7a80afc15bf5f1bc03b31b428ad4db4de4874dd556bfe37c"
+        }
+      ],
+      "passes": [
+        "text and all verse/cue boundaries",
+        "every pitch, individual inclinata and porrectus endpoints against source staff",
+        "clefs and accidental scope",
+        "note shapes, explicit virgas and postfix quilismas",
+        "bar-only physical stroke inventory",
+        "horizontal cuts and touching shape boundaries",
+        "renewed square-head-centre, porrectus and connected-neume pass"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 135,
+          "system": 7,
+          "sourcePageX": 1334,
+          "sourcePageYRange": [
+            1531,
+            1560
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 135,
+          "system": 8,
+          "sourcePageX": 747,
+          "sourcePageYRange": [
+            1764,
+            1820
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 135,
+          "system": 8,
+          "sourcePageX": 1108,
+          "sourcePageYRange": [
+            1747,
+            1837
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 136,
+          "system": 1,
+          "sourcePageX": 644,
+          "sourcePageYRange": [
+            190,
+            246
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 136,
+          "system": 1,
+          "sourcePageX": 1135,
+          "sourcePageYRange": [
+            174,
+            264
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 136,
+          "system": 2,
+          "sourcePageX": 462,
+          "sourcePageYRange": [
+            396,
+            453
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 136,
+          "system": 2,
+          "sourcePageX": 642,
+          "sourcePageYRange": [
+            396,
+            453
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 136,
+          "system": 2,
+          "sourcePageX": 1014,
+          "sourcePageYRange": [
+            380,
+            470
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 136,
+          "system": 3,
+          "sourcePageX": 485,
+          "sourcePageYRange": [
+            602,
+            661
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 136,
+          "system": 3,
+          "sourcePageX": 1143,
+          "sourcePageYRange": [
+            588,
+            678
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 136,
+          "system": 4,
+          "sourcePageX": 544,
+          "sourcePageYRange": [
+            806,
+            863
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 136,
+          "system": 4,
+          "sourcePageX": 783,
+          "sourcePageYRange": [
+            806,
+            864
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 13,
+          "page": 136,
+          "system": 4,
+          "sourcePageX": 1050,
+          "sourcePageYRange": [
+            778,
+            806
+          ],
+          "inkHeightPx": 29,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 136,
+          "system": 5,
+          "sourcePageX": 853,
+          "sourcePageYRange": [
+            998,
+            1089
+          ],
+          "inkHeightPx": 92,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 136,
+          "system": 5,
+          "sourcePageX": 1230,
+          "sourcePageYRange": [
+            985,
+            1015
+          ],
+          "inkHeightPx": 31,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 136,
+          "system": 6,
+          "sourcePageX": 479,
+          "sourcePageYRange": [
+            1222,
+            1279
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 17,
+          "page": 136,
+          "system": 6,
+          "sourcePageX": 775,
+          "sourcePageYRange": [
+            1223,
+            1280
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 18,
+          "page": 136,
+          "system": 6,
+          "sourcePageX": 990,
+          "sourcePageYRange": [
+            1223,
+            1281
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 19,
+          "page": 136,
+          "system": 6,
+          "sourcePageX": 1133,
+          "sourcePageYRange": [
+            1194,
+            1223
+          ],
+          "inkHeightPx": 30,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 20,
+          "page": 136,
+          "system": 6,
+          "sourcePageX": 1344,
+          "sourcePageYRange": [
+            1224,
+            1282
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 21,
+          "page": 136,
+          "system": 7,
+          "sourcePageX": 486,
+          "sourcePageYRange": [
+            1430,
+            1488
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 22,
+          "page": 136,
+          "system": 7,
+          "sourcePageX": 789,
+          "sourcePageYRange": [
+            1431,
+            1490
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 23,
+          "page": 136,
+          "system": 7,
+          "sourcePageX": 945,
+          "sourcePageYRange": [
+            1433,
+            1490
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 24,
+          "page": 136,
+          "system": 7,
+          "sourcePageX": 1202,
+          "sourcePageYRange": [
+            1416,
+            1505
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 25,
+          "page": 136,
+          "system": 7,
+          "sourcePageX": 1347,
+          "sourcePageYRange": [
+            1416,
+            1505
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "pitchCount": 336,
+      "shapeCounts": {
+        "explicitVirgas": 8,
+        "quilismas": 4
+      },
+      "findings": [
+        "C3 verse clef; the printed second Domine in the opening is the return point, carried by cueOccurrences.",
+        "Mórem retains def/ef!gwh and its h–g diminished liquescent. Mea descends h–e and ends with a connected i–j pes and I–H inclinata.",
+        "The low Domine in verse 2 is Dó(d)mi(defED/e)ne(ed). The later Domine repeats d!ew!fef, with its porrectus low endpoint e.",
+        "The two six-note k groups each end at a printed half bar. The last groups are ghFE/fhG/E;fhFE/fvED/e before am(de)."
+      ],
+      "riceComparison": {
+        "printedPage": 32,
+        "pdfPage": 36,
+        "result": "No corresponding title in Rice 2008 alphabetical contents; no simple text/cue counterpart for these four settings."
+      }
+    },
+    {
+      "bookNumber": 79,
+      "manualFileSha256": "cbefb78af008b42f77d460323f6edf7bbd3d4e2be4cf4b1e374103485508b5f6",
+      "checkedSourceSystems": [
+        {
+          "page": 137,
+          "systems": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "page": 138,
+          "systems": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 137,
+          "system": 4,
+          "topStaffLineY": 762,
+          "stripSha256": "7b9c9704e2400a5a14d8eaef6cf07ec4490638aa746a57fa944b14964113685b"
+        },
+        {
+          "page": 137,
+          "system": 5,
+          "topStaffLineY": 950,
+          "stripSha256": "608d3bf5ea85bd1a9a5d64e2f84c5eb18414a4d03c864cc67273d25fc30052f1"
+        },
+        {
+          "page": 137,
+          "system": 6,
+          "topStaffLineY": 1181,
+          "stripSha256": "99a55efe33608fffa271e104d576eddee22d61da05d4a62342ed20b7cfe4d4fc"
+        },
+        {
+          "page": 137,
+          "system": 7,
+          "topStaffLineY": 1380,
+          "stripSha256": "e47783c3aa2a0973511f1075fd69f30f942f156497a948f4cb8c39bb3ea37b1a"
+        },
+        {
+          "page": 137,
+          "system": 8,
+          "topStaffLineY": 1566,
+          "stripSha256": "c638b9c66540653edf4dfba5d6d39e820e2c6b86ab90c745c2e6808712663ced"
+        },
+        {
+          "page": 137,
+          "system": 9,
+          "topStaffLineY": 1758,
+          "stripSha256": "f75b7bc02b5a4d4ecb1bbb46ce45f7fb22e703e89fbcb262628e2c0d8073313c"
+        },
+        {
+          "page": 138,
+          "system": 1,
+          "topStaffLineY": 188,
+          "stripSha256": "51d9d9a76c83dcf3e92552d9d8d94f9ced819724a92e3730ea5011b41590ed26"
+        },
+        {
+          "page": 138,
+          "system": 2,
+          "topStaffLineY": 390,
+          "stripSha256": "bdabc9ed1f359bafbb9e68a3250e7185b1f998130f61d14cc2bd0b615aed0b97"
+        },
+        {
+          "page": 138,
+          "system": 3,
+          "topStaffLineY": 593,
+          "stripSha256": "8edf9d72695acb66ed1750f0ffed56dc0ccb36c82b0904ddf695bf781fae895d"
+        }
+      ],
+      "passes": [
+        "text and all verse/cue boundaries",
+        "every pitch, individual inclinata and porrectus endpoints against source staff",
+        "clefs and accidental scope",
+        "note shapes, explicit virgas and postfix quilismas",
+        "bar-only physical stroke inventory",
+        "horizontal cuts and touching shape boundaries",
+        "renewed square-head-centre, porrectus and connected-neume pass"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 137,
+          "system": 5,
+          "sourcePageX": 603,
+          "sourcePageYRange": [
+            964,
+            1022
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 137,
+          "system": 5,
+          "sourcePageX": 825,
+          "sourcePageYRange": [
+            965,
+            1022
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 137,
+          "system": 5,
+          "sourcePageX": 1281,
+          "sourcePageYRange": [
+            967,
+            1024
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 137,
+          "system": 6,
+          "sourcePageX": 711,
+          "sourcePageYRange": [
+            1179,
+            1269
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 137,
+          "system": 6,
+          "sourcePageX": 1342,
+          "sourcePageYRange": [
+            1197,
+            1254
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 137,
+          "system": 7,
+          "sourcePageX": 624,
+          "sourcePageYRange": [
+            1395,
+            1452
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 137,
+          "system": 7,
+          "sourcePageX": 955,
+          "sourcePageYRange": [
+            1396,
+            1453
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 137,
+          "system": 8,
+          "sourcePageX": 548,
+          "sourcePageYRange": [
+            1564,
+            1654
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 137,
+          "system": 8,
+          "sourcePageX": 901,
+          "sourcePageYRange": [
+            1564,
+            1654
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        },
+        {
+          "sequence": 10,
+          "page": 137,
+          "system": 9,
+          "sourcePageX": 582,
+          "sourcePageYRange": [
+            1772,
+            1831
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 137,
+          "system": 9,
+          "sourcePageX": 883,
+          "sourcePageYRange": [
+            1773,
+            1831
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 137,
+          "system": 9,
+          "sourcePageX": 1316,
+          "sourcePageYRange": [
+            1774,
+            1830
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 13,
+          "page": 138,
+          "system": 1,
+          "sourcePageX": 672,
+          "sourcePageYRange": [
+            203,
+            260
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 138,
+          "system": 1,
+          "sourcePageX": 1183,
+          "sourcePageYRange": [
+            188,
+            278
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 138,
+          "system": 2,
+          "sourcePageX": 511,
+          "sourcePageYRange": [
+            404,
+            461
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 138,
+          "system": 2,
+          "sourcePageX": 1324,
+          "sourcePageYRange": [
+            378,
+            406
+          ],
+          "inkHeightPx": 29,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 17,
+          "page": 138,
+          "system": 3,
+          "sourcePageX": 546,
+          "sourcePageYRange": [
+            579,
+            607
+          ],
+          "inkHeightPx": 29,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 18,
+          "page": 138,
+          "system": 3,
+          "sourcePageX": 894,
+          "sourcePageYRange": [
+            593,
+            682
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 19,
+          "page": 138,
+          "system": 3,
+          "sourcePageX": 1081,
+          "sourcePageYRange": [
+            593,
+            683
+          ],
+          "inkHeightPx": 91,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "pitchCount": 283,
+      "shapeCounts": {
+        "explicitVirgas": 11,
+        "quilismas": 1
+      },
+      "findings": [
+        "All nine verse-bearing systems retained through the p. 138 ending under Confitebuntur caeli.",
+        "The Desiderium continuation is d/ff/gh/fhj/jh/ig; tribuisti has fg then gh; voluntate begins gk.",
+        "Labiorum descends l–K–I, skipping J. Its next j virga descends H–G. Connected klKI and jkJI are preserved without an added virga.",
+        "Porrectus endpoints checked independently: jhj within ejus, igh in its eum ending, jhi within gloria, hgh following the quilisma at impones, and gfh on the final eum."
+      ],
+      "riceComparison": {
+        "printedPage": 32,
+        "pdfPage": 36,
+        "result": "No corresponding title in Rice 2008 alphabetical contents; no simple text/cue counterpart for these four settings."
+      }
+    },
+    {
+      "bookNumber": 81,
+      "manualFileSha256": "bb17a456b5755d71ba045c84585c986c3c34b4bf8ac59a75d528aea4df80247a",
+      "checkedSourceSystems": [
+        {
+          "page": 140,
+          "systems": [
+            8
+          ]
+        },
+        {
+          "page": 141,
+          "systems": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 140,
+          "system": 8,
+          "topStaffLineY": 1750,
+          "stripSha256": "c636fd5c1d30364326e6dd692288fff8bb10856f3a0bf32ba196c50f2c9d57e8"
+        },
+        {
+          "page": 141,
+          "system": 1,
+          "topStaffLineY": 178,
+          "stripSha256": "22a32cb3c3ca4d0912b86e992bc6ac2096a799351ce28ad9e7815144928f859e"
+        },
+        {
+          "page": 141,
+          "system": 2,
+          "topStaffLineY": 382,
+          "stripSha256": "674170f22c24d2b270f02df19899789f3bce999c86376e3854ab3b9c35c49078"
+        },
+        {
+          "page": 141,
+          "system": 3,
+          "topStaffLineY": 578,
+          "stripSha256": "9a9965a94850f160187435d41febe66470d893e3a9ab7f15f42dcfb3c46e447a"
+        },
+        {
+          "page": 141,
+          "system": 4,
+          "topStaffLineY": 791,
+          "stripSha256": "6fc2b3d8a2dd5379d5a2e395d2223a22899359361b6416bd5742c86b17f56acc"
+        },
+        {
+          "page": 141,
+          "system": 5,
+          "topStaffLineY": 994,
+          "stripSha256": "3db049dd05d155b669d9de96c799f2264f7628fd3abf29353ec8e4fa83789201"
+        },
+        {
+          "page": 141,
+          "system": 6,
+          "topStaffLineY": 1200,
+          "stripSha256": "84a339dbcf25e5cf884077ec6581d0c09a37478f6e977407ccd6928b49c99f00"
+        },
+        {
+          "page": 141,
+          "system": 7,
+          "topStaffLineY": 1403,
+          "stripSha256": "cbedc79cb09af38d41be11df509a0183f8e38ce5c25548a2f6b6215602859f12"
+        }
+      ],
+      "passes": [
+        "text and all verse/cue boundaries",
+        "every pitch, individual inclinata and porrectus endpoints against source staff",
+        "clefs and accidental scope",
+        "note shapes, explicit virgas and postfix quilismas",
+        "bar-only physical stroke inventory",
+        "horizontal cuts and touching shape boundaries",
+        "renewed square-head-centre, porrectus and connected-neume pass"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 140,
+          "system": 8,
+          "sourcePageX": 666,
+          "sourcePageYRange": [
+            1764,
+            1822
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 140,
+          "system": 8,
+          "sourcePageX": 926,
+          "sourcePageYRange": [
+            1737,
+            1763
+          ],
+          "inkHeightPx": 27,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 140,
+          "system": 8,
+          "sourcePageX": 1203,
+          "sourcePageYRange": [
+            1765,
+            1824
+          ],
+          "inkHeightPx": 60,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 141,
+          "system": 1,
+          "sourcePageX": 649,
+          "sourcePageYRange": [
+            193,
+            249
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 141,
+          "system": 1,
+          "sourcePageX": 1083,
+          "sourcePageYRange": [
+            178,
+            267
+          ],
+          "inkHeightPx": 90,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 141,
+          "system": 2,
+          "sourcePageX": 905,
+          "sourcePageYRange": [
+            381,
+            470
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 141,
+          "system": 3,
+          "sourcePageX": 577,
+          "sourcePageYRange": [
+            593,
+            649
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 141,
+          "system": 3,
+          "sourcePageX": 998,
+          "sourcePageYRange": [
+            593,
+            650
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 9,
+          "page": 141,
+          "system": 4,
+          "sourcePageX": 434,
+          "sourcePageYRange": [
+            805,
+            863
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 141,
+          "system": 4,
+          "sourcePageX": 883,
+          "sourcePageYRange": [
+            806,
+            863
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 141,
+          "system": 4,
+          "sourcePageX": 1315,
+          "sourcePageYRange": [
+            791,
+            880
+          ],
+          "inkHeightPx": 90,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 141,
+          "system": 5,
+          "sourcePageX": 695,
+          "sourcePageYRange": [
+            1009,
+            1067
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 13,
+          "page": 141,
+          "system": 6,
+          "sourcePageX": 365,
+          "sourcePageYRange": [
+            1185,
+            1213
+          ],
+          "inkHeightPx": 29,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 141,
+          "system": 6,
+          "sourcePageX": 585,
+          "sourcePageYRange": [
+            1216,
+            1271
+          ],
+          "inkHeightPx": 56,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 141,
+          "system": 6,
+          "sourcePageX": 791,
+          "sourcePageYRange": [
+            1215,
+            1271
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 141,
+          "system": 6,
+          "sourcePageX": 1056,
+          "sourcePageYRange": [
+            1215,
+            1271
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 17,
+          "page": 141,
+          "system": 7,
+          "sourcePageX": 364,
+          "sourcePageYRange": [
+            1418,
+            1476
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 18,
+          "page": 141,
+          "system": 7,
+          "sourcePageX": 904,
+          "sourcePageYRange": [
+            1403,
+            1492
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 19,
+          "page": 141,
+          "system": 7,
+          "sourcePageX": 1179,
+          "sourcePageYRange": [
+            1404,
+            1493
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        }
+      ],
+      "pitchCount": 288,
+      "shapeCounts": {
+        "explicitVirgas": 7,
+        "quilismas": 3
+      },
+      "findings": [
+        "Beati repeats f!gw!hgh/giHG/gf with the flat renewed; connected giHG remains a pes with inclinata.",
+        "Both closing dfEC/d cadences skip D in the inclinata; approxima has a connected f–j pes followed by H–F.",
+        "Omnis has gfg; the long eum ends with i–f–g. The diminished liquescent on et is fe~.",
+        "Seasonal 870 agrees with the source opening; primary 786 omits Alleluia and gives corde its longer cadence. Et is gfg in source and both openings. All local opening music remains unchanged."
+      ],
+      "riceComparison": {
+        "printedPage": 32,
+        "pdfPage": 36,
+        "result": "No corresponding title in Rice 2008 alphabetical contents; no simple text/cue counterpart for these four settings."
+      }
+    },
+    {
+      "bookNumber": 82,
+      "manualFileSha256": "ffca01c02511a81365ba26bd217da2edf5d361d9ab6b8cb08a2e4a2e35c54ea6",
+      "checkedSourceSystems": [
+        {
+          "page": 142,
+          "systems": [
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "page": 143,
+          "systems": [
+            1,
+            2,
+            3
+          ]
+        }
+      ],
+      "sourceSystems": [
+        {
+          "page": 142,
+          "system": 5,
+          "topStaffLineY": 968,
+          "stripSha256": "f8e14a7c93acd455cf6a873db15168a64fdd78b66d7b9c7ce29e2822fe78abd4"
+        },
+        {
+          "page": 142,
+          "system": 6,
+          "topStaffLineY": 1163,
+          "stripSha256": "963702fc101ae4fb6a3c7966101fc3bfd99ce62d0136fcdbdab0878890f8d4e6"
+        },
+        {
+          "page": 142,
+          "system": 7,
+          "topStaffLineY": 1356,
+          "stripSha256": "e4800ff93f76654f9b97c9fedcf2cb6ffdb42c6729989b14cf511a18d921f53b"
+        },
+        {
+          "page": 142,
+          "system": 8,
+          "topStaffLineY": 1552,
+          "stripSha256": "a99bf91aa422cb9985e4b9b10c8fbfa7cfec8033b3b9738790700b7e70b1a8a1"
+        },
+        {
+          "page": 142,
+          "system": 9,
+          "topStaffLineY": 1752,
+          "stripSha256": "90824ba6d5632ea385d526a5363fabd260de03042619b65c7071db46befc5874"
+        },
+        {
+          "page": 143,
+          "system": 1,
+          "topStaffLineY": 174,
+          "stripSha256": "64f0646e69becdc0dac5b0a516024e442fdea5046e21703b31c84165ee581044"
+        },
+        {
+          "page": 143,
+          "system": 2,
+          "topStaffLineY": 351,
+          "stripSha256": "1aeca1c4cb39c99c7ca7f372bc03a21c93eae3c9908507fae5e0f421bac8a251"
+        },
+        {
+          "page": 143,
+          "system": 3,
+          "topStaffLineY": 528,
+          "stripSha256": "0ae0dfeaea09bef2dacc89029043e6cc98cc236dd0bf3d469469b64a1bbfb411"
+        }
+      ],
+      "passes": [
+        "text and all verse/cue boundaries",
+        "every pitch, individual inclinata and porrectus endpoints against source staff",
+        "clefs and accidental scope",
+        "note shapes, explicit virgas and postfix quilismas",
+        "bar-only physical stroke inventory",
+        "horizontal cuts and touching shape boundaries",
+        "renewed square-head-centre, porrectus and connected-neume pass"
+      ],
+      "bars": [
+        {
+          "sequence": 1,
+          "page": 142,
+          "system": 5,
+          "sourcePageX": 859,
+          "sourcePageYRange": [
+            984,
+            1041
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 2,
+          "page": 142,
+          "system": 5,
+          "sourcePageX": 1329,
+          "sourcePageYRange": [
+            983,
+            1041
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 3,
+          "page": 142,
+          "system": 6,
+          "sourcePageX": 969,
+          "sourcePageYRange": [
+            1162,
+            1252
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 4,
+          "page": 142,
+          "system": 7,
+          "sourcePageX": 464,
+          "sourcePageYRange": [
+            1372,
+            1429
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 5,
+          "page": 142,
+          "system": 7,
+          "sourcePageX": 977,
+          "sourcePageYRange": [
+            1372,
+            1429
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 6,
+          "page": 142,
+          "system": 8,
+          "sourcePageX": 666,
+          "sourcePageYRange": [
+            1566,
+            1623
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 7,
+          "page": 142,
+          "system": 8,
+          "sourcePageX": 898,
+          "sourcePageYRange": [
+            1551,
+            1640
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 8,
+          "page": 142,
+          "system": 8,
+          "sourcePageX": 1101,
+          "sourcePageYRange": [
+            1550,
+            1639
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": true
+        },
+        {
+          "sequence": 9,
+          "page": 142,
+          "system": 9,
+          "sourcePageX": 623,
+          "sourcePageYRange": [
+            1767,
+            1825
+          ],
+          "inkHeightPx": 59,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 10,
+          "page": 142,
+          "system": 9,
+          "sourcePageX": 1113,
+          "sourcePageYRange": [
+            1751,
+            1841
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 11,
+          "page": 143,
+          "system": 1,
+          "sourcePageX": 420,
+          "sourcePageYRange": [
+            187,
+            244
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 12,
+          "page": 143,
+          "system": 1,
+          "sourcePageX": 1042,
+          "sourcePageYRange": [
+            189,
+            246
+          ],
+          "inkHeightPx": 58,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 13,
+          "page": 143,
+          "system": 2,
+          "sourcePageX": 464,
+          "sourcePageYRange": [
+            365,
+            421
+          ],
+          "inkHeightPx": 57,
+          "gabc": ";",
+          "type": "half",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 14,
+          "page": 143,
+          "system": 2,
+          "sourcePageX": 1040,
+          "sourcePageYRange": [
+            350,
+            440
+          ],
+          "inkHeightPx": 91,
+          "gabc": ":",
+          "type": "whole",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 15,
+          "page": 143,
+          "system": 3,
+          "sourcePageX": 422,
+          "sourcePageYRange": [
+            512,
+            539
+          ],
+          "inkHeightPx": 28,
+          "gabc": ",",
+          "type": "quarter",
+          "cuePanelClosingBar": false
+        },
+        {
+          "sequence": 16,
+          "page": 143,
+          "system": 3,
+          "sourcePageX": 1104,
+          "sourcePageYRange": [
+            528,
+            617
+          ],
+          "inkHeightPx": 90,
+          "gabc": "::",
+          "type": "double",
+          "cuePanelClosingBar": false
+        }
+      ],
+      "pitchCount": 300,
+      "shapeCounts": {
+        "explicitVirgas": 13,
+        "quilismas": 7
+      },
+      "findings": [
+        "All five verse-bearing systems on p. 142 and three continuation systems on p. 143 retained. Exsurgat continues e/fe/fih; fug(i)ant descends through E before f.",
+        "Quilisma groups are f!gwhGFE and f!gwhg; connected hiHG, fgFE and egFD retain pes forms without added virgas.",
+        "Verse 2 res is j–i–j; Dei is ijIH/hhh followed by fgf. Epulentur has the i–h–i porrectus.",
+        "The last printed ending has no repeated return label. Only the integrated two-verse selection adds the editorial Benedictus return; its full final sung syllable is retained."
+      ],
+      "riceComparison": {
+        "printedPage": 32,
+        "pdfPage": 36,
+        "result": "No corresponding title in Rice 2008 alphabetical contents; no simple text/cue counterpart for these four settings."
+      }
+    }
+  ]
+}

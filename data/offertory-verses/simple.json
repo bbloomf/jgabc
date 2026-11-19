@@ -1,0 +1,574 @@
+[
+  {
+    "name": "Ad te Domine",
+    "page": 1,
+    "text": "Dírige me in veritáte tua et doce me, * quia tu es Deus salutáris meus: * et te sustínui tota die.",
+    "cue": "Etenim.",
+    "localIds": [
+      962
+    ]
+  },
+  {
+    "name": "Deus tu convertens",
+    "page": 1,
+    "text": "Benedixísti Dómine terram tuam: * avertísti captivitátem Jacob: * remisísti iniquitátem plebis tuæ.",
+    "cue": "Et salutáre.",
+    "localIds": [
+      631
+    ]
+  },
+  {
+    "name": "Benedixisti",
+    "page": 2,
+    "text": "Operuísti ómnia peccáta eórum: * mitigásti omnem iram tuam.",
+    "cue": "Remisísti.",
+    "localIds": [
+      113
+    ]
+  },
+  {
+    "name": "Ave Maria",
+    "page": 2,
+    "text": "Quómodo in me fiet hoc, † quæ virum non cognósco? * Spíritus Dómini supervéniet in te * et virtus Altíssimi obumbrábit tibi.",
+    "cue": "Benedícta.",
+    "localIds": [
+      843
+    ]
+  },
+  {
+    "name": "Tollite portas",
+    "page": 3,
+    "text": "Dómini est terra et plenitúdo ejus: * orbis terrárum et univérsi, † qui hábitant in eo.",
+    "cue": "Et introíbit.",
+    "localIds": [
+      171
+    ]
+  },
+  {
+    "name": "Lætentur cæli",
+    "page": 3,
+    "text": "Cantáte Dómino cánticum novum, * cantáte Dómino omnis terra.",
+    "cue": "Ante fáciem.",
+    "localIds": [
+      811
+    ]
+  },
+  {
+    "name": "Deus enim firmavit",
+    "page": 3,
+    "text": "Dóminus regnávit, decórem índuit: * índuit Dóminus fortitúdinem et præcínxit se virtúte.",
+    "cue": "Ex tunc.",
+    "localIds": [
+      979
+    ]
+  },
+  {
+    "name": "Tui sunt cæli",
+    "page": 4,
+    "text": "Magnus et metuéndus super omnes, † qui in circuítu ejus sunt: * tu domináris potestáti maris, * motum autem flúctuum ejus tu mítigas.",
+    "cue": "Justítia.",
+    "localIds": [
+      1274
+    ]
+  },
+  {
+    "name": "Confitebor tibi…et glorificabo",
+    "page": 4,
+    "text": "Omnes gentes, quascúmque fecísti, vénient, * et adorábunt coram te, Dómine, * et glorificábunt nomen tuum.",
+    "cue": "Quóniam tu.",
+    "localIds": [
+      980
+    ]
+  },
+  {
+    "name": "Reges Tharsis",
+    "page": 5,
+    "text": "Deus judícium tuum Regi da † et justítiam tuam Fílio Regis: * judicáre pópulum tuum cum justítia * et páuperes tuos in judício.",
+    "cue": "Omnes gentes.",
+    "localIds": [
+      1147
+    ]
+  },
+  {
+    "name": "Tulerunt Jesum",
+    "page": 5,
+    "text": "Sicut scriptum est in lege Dómini: * Omne masculínum adapériens vulvam † sanctum Dómino vocábitur.",
+    "cue": "Ut sísterent.",
+    "localIds": [
+      93
+    ]
+  },
+  {
+    "name": "Bonum est confiteri",
+    "page": 6,
+    "text": "Quam magnificáta sunt ópera tua Dómine: * nimis profúndæ factæ sunt cogitatiónes tuæ.",
+    "cue": "Et psállere",
+    "localIds": [
+      1194
+    ]
+  },
+  {
+    "name": "Perfice",
+    "page": 6,
+    "text": "Exáudi, Dómine, justítiam meam, * inténde deprecatiónem meam: * áuribus pércipe oratiónem meam.",
+    "cue": "Qui salvos.",
+    "localIds": [
+      265
+    ]
+  },
+  {
+    "name": "Benedictus es Domine",
+    "page": 7,
+    "text": "Beáti immaculáti in via, † qui ámbulant in lege Dómini: * beáti, qui scrutántur testimónia ejus: † in toto corde exquírunt eum.",
+    "cue": "In lábiis.",
+    "localIds": [
+      1317
+    ]
+  },
+  {
+    "name": "Exaltabo te",
+    "page": 7,
+    "text": "Dómine, abstraxísti ab ínferis ánimam meam: * salvásti me a descendéntibus in lacum.",
+    "cue": "Dómine clamávi.",
+    "localIds": [
+      648
+    ]
+  },
+  {
+    "name": "Scapulis suis",
+    "page": 8,
+    "text": "Dicet Dómino: Suscéptor meus es, * non timébis a timóre noctúrno † a sagítta volánte per diem.",
+    "cue": "Scuto.",
+    "localIds": [
+      294
+    ]
+  },
+  {
+    "name": "Meditabor",
+    "page": 8,
+    "text": "Pars mea Dómine, † dixi custodíre legem tuam: * precátus sum vultum tuum in toto corde meo.",
+    "cue": "Et levábo.",
+    "localIds": [
+      1218,
+      810
+    ]
+  },
+  {
+    "name": "Justitiæ Domini",
+    "page": 9,
+    "text": "Præcéptum Dómini lúcidum illúminans óculos: * timor Dei sanctus pérmanet in sǽculum sǽculi: * judícia Dómini vera.",
+    "cue": "Et dulcióra.",
+    "localIds": [
+      591
+    ]
+  },
+  {
+    "name": "Laudate Dominum",
+    "page": 9,
+    "text": "Qui statis in domo Dómini, † in atriis domus Dei nostri: * quia ego cognóvi, quod magnus est Dóminus * et Deus noster præ ómnibus diis.",
+    "cue": "Omnia.",
+    "localIds": [
+      899
+    ]
+  },
+  {
+    "name": "Confitebor tibi…retribue",
+    "page": 10,
+    "text": "Beáti immaculáti in via, † qui ámbulant in lege Dómini: * beáti, qui scrutántur testimónia ejus, † in toto corde exquírunt eum.",
+    "cue": "Vivífica.",
+    "localIds": [
+      318
+    ]
+  },
+  {
+    "name": "Improperium",
+    "page": 10,
+    "text": "Salvum me fac, Deus, † quóniam intravérunt aquæ * usque ad ánimam meam.",
+    "cue": "Et dedérunt.",
+    "localIds": [
+      486
+    ]
+  },
+  {
+    "name": "Dextera Domini",
+    "page": 11,
+    "text": "In tribulatióne invocávi Dóminum * et exaudívit me in latitúdine: * quia Dóminus adjútor meus est.",
+    "cue": "Non móriar.",
+    "localIds": [
+      448,
+      47
+    ]
+  },
+  {
+    "name": "Terra tremuit",
+    "page": 11,
+    "text": "Notus in Judǽa Deus, * in Israel magnum nomen ejus.",
+    "cue": "Dum resúrgeret.",
+    "localIds": [
+      725
+    ]
+  },
+  {
+    "name": "Angelus Domini",
+    "page": 12,
+    "text": "Eúntes dícite discípulis ejus: * Ecce præcédet vos in Galilǽam: * ibi eum vidébitis.",
+    "cue": "Sicut dixit.",
+    "localIds": [
+      789
+    ]
+  },
+  {
+    "name": "Deus, Deus meus",
+    "page": 12,
+    "text": "Sitívit in te ánima mea, * quam multiplíciter et caro mea, * ut vidérem virtútem tuam et glóriam tuam.",
+    "cue": "Et in nómine.",
+    "localIds": [
+      924
+    ]
+  },
+  {
+    "name": "Lauda anima mea",
+    "page": 13,
+    "text": "Qui custódit veritátem in sǽculum: * fáciens judícium injúriam patiéntibus: * dat escam esuriéntibus.",
+    "cue": "Psallam.",
+    "localIds": [
+      668
+    ]
+  },
+  {
+    "name": "Jubilate Deo universa",
+    "page": 13,
+    "text": "Reddam tibi vota mea, * reddam tibi vota mea, * quæ distinxérunt lábia mea.",
+    "cue": "Veníte.",
+    "localIds": [
+      937
+    ]
+  },
+  {
+    "name": "Benedicite gentes",
+    "page": 14,
+    "text": "Jubiláte Deo omnis terra, * psalmum dícite nómini ejus: * date glóriam laudi ejus.",
+    "cue": "Benedíctus.",
+    "localIds": [
+      860
+    ]
+  },
+  {
+    "name": "Ascendit Deus",
+    "page": 14,
+    "text": "Omnes gentes pláudite mánibus: * jubiláte Deo in voce exsultatiónis.",
+    "cue": "Allelúia.",
+    "localIds": [
+      211
+    ]
+  },
+  {
+    "name": "Confirma hoc Deus",
+    "page": 14,
+    "text": "Cantáte Dómino: † psalmum dícite nómini ejus: * iter fácite ei, † qui ascéndit super occásum: * Dóminus nomen est illi.",
+    "cue": "Tibi ófferent.",
+    "localIds": [
+      361,
+      83
+    ]
+  },
+  {
+    "name": "Benedictus sit",
+    "page": 15,
+    "text": "Benedicámus Patrem et Fílium cum Sancto Spíritu: * laudémus et superexaltémus eum in sǽcula.",
+    "cue": "Quia fecit.",
+    "localIds": [
+      1303
+    ]
+  },
+  {
+    "name": "Sacerdotes Domini",
+    "page": 15,
+    "text": "In ecclésiis benedícite Deo Dómino, * de fóntibus Israel.",
+    "cue": "Et non.",
+    "localIds": [
+      645
+    ]
+  },
+  {
+    "name": "Domine convertere",
+    "page": 16,
+    "text": "Dómine, ne in ira tua árguas me: * neque in furóre tuo corrípias me.",
+    "cue": "Salvum.",
+    "localIds": [
+      848
+    ]
+  },
+  {
+    "name": "Sperent in te",
+    "page": 16,
+    "text": "Sedes super thronum, qui júdicas æquitátem: * increpásti gentes et périit ímpius: * judicáre pópulum cum justítia: † et factus es refúgium páuperum.",
+    "cue": "Psállite.",
+    "localIds": [
+      1328
+    ]
+  },
+  {
+    "name": "Illumina",
+    "page": 17,
+    "text": "Usquequo Dómine obliviscéris me in finem? * Quámdiu ponam consília in ánima mea?",
+    "cue": "Nequándo dicat",
+    "localIds": [
+      708
+    ]
+  },
+  {
+    "name": "Benedicam Dominum",
+    "page": 17,
+    "text": "Consérva me, Dómine, † quóniam in te sperávi: * ego dixi: Deus meus es tu: * Dóminus pars hæreditátis meæ.",
+    "cue": "Quóniam",
+    "localIds": [
+      143
+    ]
+  },
+  {
+    "name": "Sicut in holocausto",
+    "page": 18,
+    "text": "Et nunc séquimur in toto corde et timémus te et quǽrimus fáciem tuam, Dómine: * ne confúndas nos, † sed fac nobis juxta mansuetúdinem tuam * et secúndum multitúdinem misericórdiæ tuæ.",
+    "cue": "Quia non.",
+    "localIds": [
+      675
+    ]
+  },
+  {
+    "name": "Populum humilem",
+    "page": 18,
+    "text": "Clamor meus in conspéctu ejus * introívit in aures ejus.",
+    "cue": "Quóniam.",
+    "localIds": [
+      1080
+    ]
+  },
+  {
+    "name": "Precatus est Moyses",
+    "page": 19,
+    "text": "Dixit Dóminus ad Móysen: Invenísti grátiam in conspéctu meo et scio te præ ómnibus: * et festínans Móyses inclinávit se in terram † et adorávit dicens: * Scio, quia miséricors es in míllibus, † áuferens iniquitátem et peccáta.",
+    "cue": "Et placátus.",
+    "localIds": [
+      325
+    ]
+  },
+  {
+    "name": "In te speravi",
+    "page": 20,
+    "text": "Illúmina fáciem tuam super servum tuum * et salvum me fac propter misericórdiam tuam: * Dómine, non confúndar, † quóniam invocávi te.",
+    "cue": "In mánibus.",
+    "localIds": [
+      967
+    ]
+  },
+  {
+    "name": "Immittet Angelus",
+    "page": 20,
+    "text": "Benedícam Dóminum in omni témpore: * semper laus ejus in ore meo.",
+    "cue": "Gustáte.",
+    "localIds": [
+      747
+    ]
+  },
+  {
+    "name": "Exspectans",
+    "page": 21,
+    "text": "Státuit supra petram pedes meos * et diréxit gressus meos.",
+    "cue": "Et immísit.",
+    "localIds": [
+      182
+    ]
+  },
+  {
+    "name": "Domine in auxilium",
+    "page": 21,
+    "text": "Exspéctans exspectávi Dóminum et respéxit me: * et exaudívit deprecationem meam.",
+    "cue": "Dómine…réspice.",
+    "localIds": [
+      993
+    ]
+  },
+  {
+    "name": "Oravi Deum meum",
+    "page": 21,
+    "text": "Adhuc me loquénte et oránte † et narránte peccáta mea * et delícta pópuli mei Israel.",
+    "cue": "Et propítius.",
+    "localIds": [
+      652
+    ]
+  },
+  {
+    "name": "Sanctificavit",
+    "page": 22,
+    "text": "Locútus est Dóminus ad Móysen dicens: * Ascénde ad me in montem Sina, * et stabis super cacúmen ejus.\nSurgens Móyses ascéndit in montem, † ubi constítuit ei Deus, * et descéndit ad eum Dóminus in nube † et ádstitit ante fáciem ejus.\nVidens Móyses prócidens adorávit dicens: * Obsecro, Dómine, dimítte peccáta pópuli tui.\nEt dixit ad eum Dóminus: † Fáciam secúndum verbum tuum.",
+    "cue": "Fecit.",
+    "localIds": [
+      838
+    ]
+  },
+  {
+    "name": "Si ambulavero",
+    "page": 23,
+    "text": "In quacúmque die invocávero te, exáudi me, Dómine: * multiplicábis in ánima mea virtútem tuam.",
+    "cue": "Et salvum.",
+    "localIds": [
+      616
+    ]
+  },
+  {
+    "name": "Super flumina",
+    "page": 24,
+    "text": "Quóniam illic interrogavérunt nos, † qui captívos duxérunt nos, verba canticórum * et, qui abduxérunt nos: † Hymnum cantáte nobis de cánticis Sion. * Quómodo cantábimus cánticum Dómini in terra aliéna?",
+    "cue": "Dum recordarémur.",
+    "localIds": [
+      812
+    ]
+  },
+  {
+    "name": "Vir erat",
+    "page": 24,
+    "text": "Utinam appenderéntur peccáta mea, † quibus iram mérui, * et calámitas, quam pátior: † hæc gravior apparéret.",
+    "cue": "Vir erat…tentáret.",
+    "localIds": [
+      1363
+    ]
+  },
+  {
+    "name": "Recordare",
+    "page": 25,
+    "text": "Evérte cor ejus in ódium repugnántium nobis * et in eos, qui conséntiunt eis: * nos autem líbera in manu tua, Deus noster, in ætérnum.",
+    "cue": "In conspéctu",
+    "localIds": [
+      67
+    ]
+  },
+  {
+    "name": "De profundis",
+    "page": 25,
+    "text": "Fiant aures tuæ intendéntes * in oratiónem servi tui.",
+    "cue": "De profundis.",
+    "localIds": [
+      986
+    ]
+  },
+  {
+    "name": "Diffusa est",
+    "page": 26,
+    "text": "Spécie tua et pulchritúdine tua * et inténde et próspere procéde et regna.",
+    "cue": "Et in sǽculum.",
+    "localIds": [
+      177
+    ]
+  },
+  {
+    "name": "Veritas mea",
+    "page": 26,
+    "text": "Pósui adjutórium meum super poténtem * et exaltávi eléctum de plebe mea.",
+    "cue": "Et in nómine.",
+    "localIds": [
+      630
+    ]
+  },
+  {
+    "name": "Bonitas Domini",
+    "page": 27,
+    "text": "Réspice in servos tuos et in ópera tua, * et dírige fílios eórum.",
+    "cue": "Et opus.",
+    "localIds": [
+      26
+    ],
+    "occurrence": 2
+  },
+  {
+    "name": "Justus ut palma",
+    "page": 27,
+    "text": "Bonum est confitéri Dómino: * et psállere nómini tuo Altíssime.",
+    "cue": "Sicut cedrus.",
+    "localIds": [
+      777
+    ]
+  },
+  {
+    "name": "Constitues eos",
+    "page": 27,
+    "text": "Eructávit cor meum verbum bonum: * dico ego ópera mea Regi.",
+    "cue": "In omni progénie.",
+    "localIds": [
+      1319
+    ]
+  },
+  {
+    "name": "Calix benedictionis",
+    "page": 28,
+    "text": "Quid retríbuam Dómino pro ómnibus quæ retríbuit mihi? * Cálicem salutáris accípiam, † et nomen Dómini invocábo.",
+    "cue": "Calix benedictiónis.",
+    "localIds": [
+      320
+    ]
+  },
+  {
+    "name": "Gloria et divitiæ",
+    "page": 28,
+    "text": "Exórtum est in ténebris lumen rectis: * miséricors, † et miserátor, et justus.",
+    "cue": "Et justítia.",
+    "localIds": [
+      125
+    ]
+  },
+  {
+    "name": "Inimicitias",
+    "page": 29,
+    "text": "Ipsa cónteret caput tuum, * et tu insidiáberis calcáneo ejus.",
+    "cue": "Inimicítias.",
+    "localIds": [
+      1083
+    ]
+  },
+  {
+    "name": "Protege",
+    "page": 29,
+    "text": "Te sancta Dei crux humíliter obsecrámus, * ut tua virtúte nostrum pectus múnias, † ánimas custódias, * cogitatiónes sanctífices per Christum Jesum, † qui pepéndit in te.",
+    "cue": "Ut tibi.",
+    "localIds": [
+      195
+    ]
+  },
+  {
+    "name": "Stetit Angelus",
+    "page": 30,
+    "text": "In conspéctu Angelórum psallam tibi, Dómine: * et adorábo ad templum sanctum tuum † et confitébor tibi, Dómine.",
+    "cue": "Et ascéndit.",
+    "localIds": [
+      302
+    ]
+  },
+  {
+    "name": "Postula",
+    "page": 30,
+    "text": "Reges eos in virga férrea, * et tamquam vas fíguli confrínges eos.",
+    "cue": "Et possessiónem.",
+    "localIds": [
+      390
+    ]
+  },
+  {
+    "name": "Justorum animæ",
+    "page": 31,
+    "text": "Et si coram homínibus torménta passi sunt, * spes illórum immortalitáte plena est.",
+    "cue": "Allelúia",
+    "localIds": [
+      835
+    ],
+    "fallbackCue": "Visi sunt."
+  },
+  {
+    "name": "Domine Deus",
+    "page": 31,
+    "text": "Fecit Salómon solemnitátem in témpore illo: * et prosperátus est † et appáruit ei Dóminus.",
+    "cue": "Deus Israel.",
+    "localIds": [
+      200
+    ]
+  }
+]

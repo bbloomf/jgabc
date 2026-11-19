@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-17",
+  "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
+  "reason": "Correct the incomplete earlier shape review and make every source continuation visible.",
+  "chants": [
+    {
+      "id": "manual-039",
+      "previousReviewSha256": "02188c9c27e261015bfcb6f46432ea52ef38efa905cfa5912a2a8019ea522a5c",
+      "reviewSha256": "0b0a6b21e8d18f9d6212a05f49d46eb129092ab80578141029f121aa21b55f11",
+      "sourceFileSha256": "31ba2afdc99ef07818dd192aae06ddad6c21367560b79b75b2c06116a8dac9a2",
+      "notesBefore": 389,
+      "notesAfter": 389,
+      "pitchSequenceUnchanged": true,
+      "explicitVirgas": 23,
+      "quilismas": 13,
+      "corrections": [
+        "Restored the f and g virgas and the g quilisma in Hæc dies; initial pitch sequence unchanged.",
+        "Restored climacus apices throughout both verses, including the two hhivHF groups.",
+        "Moved misplaced quilismas to their printed pitches and separated groups so every wave glyph renders.",
+        "Separated printed puncta, pes, clivis and climacus groups instead of allowing automatic regrouping."
+      ],
+      "renderedQuilismas": 13,
+      "renderedVirgas": 23
+    },
+    {
+      "id": "manual-041",
+      "previousReviewSha256": "74d2fc3223c1b9f07fbb56a3ffd810f4827b94204697118fe77ef8ba2d502ec2",
+      "reviewSha256": "95c5ae4ccbe7477ce36b6239e51d02bfd9c0b618dbf43e9a4a6fbf44d51c2d99",
+      "sourceFileSha256": "0ce42829cefeef8acbbb88c2a5fc41cc69f2d4af0d6bff8aca8f57099f279f1e",
+      "notesBefore": 413,
+      "notesAfter": 414,
+      "pitchSequenceUnchanged": false,
+      "explicitVirgas": 10,
+      "quilismas": 4,
+      "corrections": [
+        "Restored 10 explicit virgas and corrected three quilisma placements from hwij to hiwj.",
+        "Restored the omitted g in initial custó: fh becomes fgh."
+      ],
+      "renderedQuilismas": 4,
+      "renderedVirgas": 10
+    },
+    {
+      "id": "manual-044",
+      "previousReviewSha256": "4828ee94652ff08b46137e1fadb8724c2bbd33f8ac6c55e49010513f595b9301",
+      "reviewSha256": "2e68e6fb79945e028ec2d9fcf885e95b40de78aca3447cf2b95006c8687c9160",
+      "sourceFileSha256": "70d3e57775c300c29af947c157aad68d22021a6f6e7fc018cf4bb2ad42efd74f",
+      "notesBefore": 275,
+      "notesAfter": 277,
+      "pitchSequenceUnchanged": false,
+      "explicitVirgas": 13,
+      "quilismas": 1,
+      "corrections": [
+        "Restored 13 explicit virgas and the i quilisma in ut.",
+        "Restored g in con(dfd/fgh) and tu(d/fffghFE/...).",
+        "Corrected one f to g in the Ser rise and separated Ad, me, Ser and rén into their printed groups."
+      ],
+      "renderedQuilismas": 1,
+      "renderedVirgas": 13
+    },
+    {
+      "id": "manual-048",
+      "previousReviewSha256": "9c5aaab47aa338283847ca3efe4332da665e825a7b18ae4d74eb26b9687b5db3",
+      "reviewSha256": "96c5a259528c1cb5b846786816c692caa1219f2a4d283d1757114abf61fc4586",
+      "sourceFileSha256": "6d328bc02212d7d46a371e55bb471e84b3ed45df63adec35118fef6aa6a89044",
+      "notesBefore": 426,
+      "notesAfter": 426,
+      "pitchSequenceUnchanged": false,
+      "explicitVirgas": 19,
+      "quilismas": 8,
+      "corrections": [
+        "Restored 19 explicit virgas, including four at the ends of ascending groups.",
+        "Corrected lau from d,g(w),h to d,f(w),g,h; retained the printed final h virga.",
+        "Removed an extra j from the final saecula figure ijki, which is printed iki.",
+        "Added zero-gap group boundaries so the Cum and Benedictus figures retain their quilismas in the renderer."
+      ],
+      "renderedQuilismas": 8,
+      "renderedVirgas": 19
+    }
+  ],
+  "followUpReview": "spacing-review.json"
+}

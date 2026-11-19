@@ -415,3 +415,40 @@ syl.bold {
     page-break-before: always;
   }
 }
+/* The whole main row has one sticky background; separate verse rows scroll. */
+@media screen {
+  .offertory-sticky {
+    display: flex;
+    align-items: center;
+    gap: 0.4em 0.5em;
+    position: sticky;
+    top: -1px;
+    padding: 1px 0 2px;
+    width: 100%;
+    background: white;
+    z-index: 1;
+  }
+  .offertory-heading { order: 0; }
+  .offertory-style-options { order: 2; margin-left: auto; flex-shrink: 0; }
+  .offertory-style-options > .flex { display: flex; flex-wrap: nowrap; align-items: center; }
+  .offertory-style-options .child-main,
+  .offertory-style-options .child-other { flex-shrink: 0; white-space: nowrap; }
+  .offertory-content { min-width: 0; }
+  #offertory-verse-options {
+    order: 1;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  #lblOffertoryPsalmVerses { white-space: nowrap; }
+  .offertory-verses-inline #offertory-verse-options { margin-left: auto; }
+  .offertory-verses-below #offertory-verse-options { margin: 0.4em 0 0; }
+}
+@media screen and (max-width: 768px) {
+  .offertory-sticky { flex-wrap: wrap; }
+  .offertory-heading { flex-basis: 100%; }
+  .offertory-style-options { order: 1; margin-left: 0; }
+  .offertory-style-options .child-main { margin-bottom: 0; }
+  #offertory-verse-options { order: 2; }
+  .offertory-verses-inline #offertory-verse-options { margin-left: 0; }
+}
