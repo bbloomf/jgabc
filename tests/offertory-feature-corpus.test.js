@@ -50,7 +50,9 @@ test('every generated text return has a real earlier target', () => {
     const info = tools.cueInfo(earlier, m[2], occurrence);
     const label = `${c.id} ${c.style} count ${c.count}: ${m[2]}`;
     expect(info, label).toBeTruthy();
-    expect(earlier.slice(Math.max(0, info.start - 3), info.start), label).toBe('<b>');
+    // the target is bold; at the very beginning the bold starts after the large initial
+    const atBeginning = !tools.normalize(tools.lyrics(earlier.slice(0, info.start).split('%%').pop()));
+    expect(atBeginning ? earlier.slice(info.start + 1, info.start + 4) : earlier.slice(Math.max(0, info.start - 3), info.start), label).toBe('<b>');
     expect(c.formatted, label).toContain('*~' + m[2]);
     checked++;
   }

@@ -97,6 +97,14 @@ describe('return custodes', () => {
     expect(responseCue('(c1) Et(m)e(m)nim.(m) (::)', 'Etenim.', 'c4')).toContain('(c1) (::m+)');
     expect(responseCue('(c1) Et(m)e(m)nim.(m) (::)', 'Etenim.', 'c4')).toEndWith('(c4)');
   });
+  test('a return to the very beginning leaves the large initial out of the bold', () => {
+    const start = '(c4) DE(d) pro(f)fún(g)dis(f) *(,) cla(g)má(h)vi(g) (::)';
+    expect(markResponse(start, 'De profundis')).toBe('(c4) D<b>E</b>(d) <b>pro</b>(f)<b>fún</b>(g)<b>dis</b>(f) *(,) cla(g)má(h)vi(g) (::)');
+    expect(markResponse('(c4) A(d) te(f) le(g)vá(f)vi(g) (::)', 'A te')).toBe('(c4) A(d) <b>te</b>(f) le(g)vá(f)vi(g) (::)');
+    // with no large initial the first letter is bold like the rest
+    expect(markResponse('initial-style: 0;\n%%\n' + start, 'De profundis')).toContain('(c4) <b>DE</b>(d) <b>pro</b>');
+    expect(markResponse(start, 'clamavi')).toContain('<b>cla</b>(g)<b>má</b>(h)<b>vi</b>(g)');
+  });
   test('does not duplicate the asterisk or bold tags when a cue is used after two verses', () => {
     const once = markResponse('(c4) Et(h)e(g)nim.(f) (::)', 'Etenim.');
     expect(markResponse(once, 'Etenim.')).toBe(once);

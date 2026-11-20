@@ -101,9 +101,14 @@
     var bodyStart = before.lastIndexOf('%%'),
         atBeginning = !normalize(lyrics(before.slice(bodyStart < 0 ? 0 : bodyStart + 2)));
     // Bold each lyric syllable, just as for the Requiem repeat. Leave the star
-    // outside the bold span so that Exsurge keeps it red.
-    if(!/<b>$/.test(before)) words = words.replace(/(<[^>]*>|\([^)]*\))|([^<()]+)/g, function(all, notation, lyric) {
-      return notation || lyric.replace(/[^\s,;:.!?]+/g, '<b>$&</b>');
+    // outside the bold span so that Exsurge keeps it red, and leave the large
+    // initial as it is: at the very beginning the bold starts after it.
+    var initial = atBeginning && !/initial-style:\s*0/.test(before.slice(0, Math.max(bodyStart, 0)));
+    if(!/<b>$/.test(before) && words.indexOf('<b>') < 0) words = words.replace(/(<[^>]*>|\([^)]*\))|([^<()]+)/g, function(all, notation, lyric) {
+      if(notation) return notation;
+      var plain = initial ? (lyric.match(/^\s*\S/) || [''])[0] : '';
+      if(plain) initial = false;
+      return plain + lyric.slice(plain.length).replace(/[^\s,;:.!?]+/g, '<b>$&</b>');
     });
     before = before.replace(/\*\(\)(\s*(?:<b>)?)$/, '*$1');
     var marker = atBeginning || /\*(?:\([,;:]*\))?\s*(?:<b>)?$/.test(before) ? '' : '* ';
