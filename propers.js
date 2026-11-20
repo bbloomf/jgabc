@@ -497,42 +497,24 @@ $(function(){
     }
     return state.id;
   };
-  // Measure the actual controls so verses wrap before the mode selector does.
-  var offertoryOptionsObserver = window.ResizeObserver && new ResizeObserver(function() {
-    var layout = document.querySelector('.offertory-layout'),
-        options = document.getElementById('offertory-verse-options');
-    if(!layout || !layout.offsetWidth) return;
-    var sticky = layout.querySelector('.offertory-sticky'),
-        style = layout.querySelector('.offertory-style-options'),
-        heading = layout.querySelector('.offertory-heading'),
-        label = document.getElementById('lblOffertoryPsalmVerses'),
-        count = document.getElementById('selOffertoryVerseCount'),
-        gap = parseFloat(getComputedStyle(sticky).columnGap) || 0,
-        labelWidth = label.offsetWidth ? label.offsetWidth + (parseFloat(getComputedStyle(label).marginLeft) || 0) + 4 : 0,
-        headingWidth = getComputedStyle(document.getElementById('lblOffertorium')).display == 'none' ? 0 : heading.offsetWidth,
-        needed = style.offsetWidth + count.offsetWidth + labelWidth + headingWidth + gap * (headingWidth ? 2 : 1),
-        inline = options.offsetHeight > 0 && needed <= layout.clientWidth;
-    $(layout).toggleClass('offertory-verses-inline', inline).toggleClass('offertory-verses-below', !inline);
-    if(inline && options.parentNode !== sticky) sticky.insertBefore(options, style);
-    else if(!inline && options.parentNode === sticky) layout.insertBefore(options, sticky.nextSibling);
-  });
-  if(offertoryOptionsObserver) {
-    document.querySelectorAll('.offertory-layout, .offertory-heading, .offertory-style-options, #offertory-verse-options, #lblOffertoryPsalmVerses, #selOffertoryVerseCount').forEach(function(element) {
-      offertoryOptionsObserver.observe(element);
-    });
-  }
   var updateOffertoryVerseOptions = function(part) {
     if(part != 'offertorium') return;
     var settings = getOffertoryVerseSettings(), $count = $('#selOffertoryVerseCount');
     $('#offertory-verse-options').toggle(settings.total > 0);
-    $count.empty();
+    var labels = [];
     for(var n = 0; n <= settings.total; ++n) {
-      $count.append($('<option>').val(n).text(settings.full && settings.full.verseSelectionLabels && settings.full.verseSelectionLabels[n] || n + (n == 1 ? ' verse' : ' verses')));
+      labels.push(settings.full && settings.full.verseSelectionLabels && settings.full.verseSelectionLabels[n] || n + (n == 1 ? ' verse' : ' verses'));
+    }
+    // the choices only change with the offertory, so a change to the count or the style leaves the list alone
+    if($count.data('labels') != labels.join('\n')) {
+      $count.data('labels', labels.join('\n')).empty();
+      labels.forEach(function(label, n) { $count.append($('<option>').val(n).text(label)); });
     }
     sel.offertorium.verseCount = settings.count;
     $count.val(settings.count);
     $('#lblOffertoryPsalmVerses').toggle(settings.count > 0 && sel.offertorium.style != 'psalm-tone');
     $('#cbOffertoryPsalmVerses').prop('checked', settings.psalmToned).prop('disabled', !settings.full);
+    $('#lblOffertoryPsalmVerses').attr('title', settings.full ? null : 'This offertory has only a psalm toned verse.');
     var sourceId = getOffertoryGregoBaseId();
     $('#lblOffertorium').find('a').attr('href', sourceId && typeof sourceId != 'object' ? gregobaseUrlPrefix + sourceId : null);
   };

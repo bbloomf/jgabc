@@ -119,7 +119,7 @@ Deo universa is retained. The misspelling "possesiónem" in the Postula cue is
 corrected to "possessiónem".
 
 The offertory style dropdown retains its original Full Offertorium and Psalm
-Toned choices. A separate line, shown only for chants with verses, offers 0
+Toned choices. A separate select, shown only for chants with verses, offers 0
 through the available verse count. The count comes from the actual verse
 markers in each source (currently one to four verses). With a full offertory,
 a checkbox chooses whether to psalm tone the verses. With a psalm-toned

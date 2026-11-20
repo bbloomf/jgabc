@@ -415,10 +415,11 @@ syl.bold {
     page-break-before: always;
   }
 }
-/* The whole main row has one sticky background; separate verse rows scroll. */
+/* The offertory's heading, verse options and style options share one sticky row, which wraps where they do not fit. */
 @media screen {
   .offertory-sticky {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 0.4em 0.5em;
     position: sticky;
@@ -428,27 +429,25 @@ syl.bold {
     background: white;
     z-index: 1;
   }
-  .offertory-heading { order: 0; }
-  .offertory-style-options { order: 2; margin-left: auto; flex-shrink: 0; }
-  .offertory-style-options > .flex { display: flex; flex-wrap: nowrap; align-items: center; }
-  .offertory-style-options .child-main,
-  .offertory-style-options .child-other { flex-shrink: 0; white-space: nowrap; }
+  .offertory-style-options { order: 2; margin-left: auto; white-space: nowrap; }
   .offertory-content { min-width: 0; }
-  #offertory-verse-options {
-    order: 1;
-    flex: 0 0 auto;
-    white-space: nowrap;
-    padding-top: 1px;
-  }
-  #lblOffertoryPsalmVerses { white-space: nowrap; }
-  .offertory-verses-inline #offertory-verse-options { margin-left: auto; }
-  .offertory-verses-below #offertory-verse-options { margin: 0.4em 0 0; }
+  #offertory-verse-options { order: 1; white-space: nowrap; padding-top: 1px; }
+  #lblOffertoryPsalmVerses { margin-left: 0.5em; }
 }
+/* On a small screen the style options wrap as in the other parts and are all that stays in view:
+   the verse options have the row below, and scroll away with the chant. */
 @media screen and (max-width: 768px) {
-  .offertory-sticky { flex-wrap: wrap; }
-  .offertory-heading { flex-basis: 100%; }
-  .offertory-style-options { order: 1; margin-left: 0; }
+  .offertory-sticky { display: contents; }
+  .offertory-style-options {
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+    margin-left: 0;
+    padding: 1px 0 2px;
+    background: inherit;
+    white-space: normal;
+  }
+  .offertory-style-options > .flex { row-gap: 6px; }
   .offertory-style-options .child-main { margin-bottom: 0; }
-  #offertory-verse-options { order: 2; }
-  .offertory-verses-inline #offertory-verse-options { margin-left: 0; }
+  #offertory-verse-options { margin-top: 4px; }
 }

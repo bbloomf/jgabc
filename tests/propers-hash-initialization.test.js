@@ -23,6 +23,7 @@ function page(hash, { previousId, dayId } = {}) {
       id, value: id === 'selStyleOffertorium' ? 'full' : '', length: 1,
       checked: false, disabled: false, visible: true, options: [],
       val(value) { if (!arguments.length) return this.value; this.value = String(value); return this; },
+      data(key, value) { if (arguments.length < 2) return (this.stored || {})[key]; (this.stored = this.stored || {})[key] = value; return this; },
       empty() { this.options = []; return this; },
       append(option) { this.options.push(option.value); return this; },
       text() { return this; },
@@ -76,7 +77,7 @@ function page(hash, { previousId, dayId } = {}) {
   vm.runInContext([
     section('  var LocationHash =', '  function makeAnnotationArrayFromHeader'),
     section('  var getGabcPathsForPart =', '  // adds the Chants Abrégés'),
-    section('  var getOffertoryVerseSettings =', '  // Measure the actual controls'),
+    section('  var getOffertoryVerseSettings =', '  var updateOffertoryVerseOptions ='),
     section('  var updateOffertoryVerseOptions =', '  var getOffertoryWithVerses ='),
     section('  function hashChanged(', '  function isCustomPart(')
   ].join('\n'), context);
