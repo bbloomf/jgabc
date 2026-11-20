@@ -113,7 +113,6 @@ var offertoryVerses = {
       "name": "Benedixisti Domine",
       "page": 8,
       "cue": "Remisísti iniquitátem plebis",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -130,7 +129,6 @@ var offertoryVerses = {
       "name": "Confortamini",
       "page": 9,
       "cue": "Ipse véniet, et",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -147,7 +145,6 @@ var offertoryVerses = {
       "name": "In te speravi",
       "page": 101,
       "cue": "in mánibus tuis",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -164,7 +161,6 @@ var offertoryVerses = {
       "name": "Ad te Domine",
       "page": 5,
       "cue": "Etenim univérsi qui",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -181,7 +177,6 @@ var offertoryVerses = {
       "name": "Deus tu convertens",
       "page": 6,
       "cue": "Et salutáre tuum",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -198,7 +193,6 @@ var offertoryVerses = {
       "name": "Exsulta satis",
       "page": 11,
       "cue": "Ecce Rex tuus",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -215,7 +209,6 @@ var offertoryVerses = {
       "name": "O pie Deus",
       "page": 178,
       "cue": "Ne tradas béstiis",
-      "review": "pending",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -228,7 +221,6 @@ var offertoryVerses = {
       "name": "Erue",
       "page": 177,
       "cue": "Quia non inférnus",
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -241,7 +233,6 @@ var offertoryVerses = {
       "name": "In omnem terram",
       "page": 130,
       "cue": "Et in fines",
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -254,7 +245,6 @@ var offertoryVerses = {
       "name": "Anima nostra",
       "page": 145,
       "cue": "Láqueus contrítus est",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -271,7 +261,6 @@ var offertoryVerses = {
       "name": "Mihi autem",
       "page": 128,
       "cue": null,
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -292,7 +281,6 @@ var offertoryVerses = {
       "name": "Iustus ut palma",
       "page": 150,
       "cue": "Sicut cedrus, quæ",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -313,7 +301,6 @@ var offertoryVerses = {
       "name": "Scapulis suis",
       "page": 32,
       "cue": "Scuto circúmdabit te",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -334,7 +321,6 @@ var offertoryVerses = {
       "name": "Diffusa est",
       "page": 156,
       "cue": "Et in saéculum",
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -347,7 +333,6 @@ var offertoryVerses = {
       "name": "Dextera Domini",
       "page": 25,
       "cue": "Non móriar, sed",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -364,7 +349,6 @@ var offertoryVerses = {
       "name": "Bonum est confiteri",
       "page": 26,
       "cue": null,
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -385,7 +369,6 @@ var offertoryVerses = {
       "name": "Ave Maria",
       "page": 13,
       "cue": "Benedícta tu in",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -402,7 +385,6 @@ var offertoryVerses = {
       "name": "Tollite portas",
       "page": 14,
       "cue": "Et introíbit Rex",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -419,7 +401,6 @@ var offertoryVerses = {
       "name": "Domine vivifica",
       "page": 31,
       "cue": "Ut sciam testimónia",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -436,7 +417,6 @@ var offertoryVerses = {
       "name": "Iustitiae Domini",
       "page": 94,
       "cue": "Et dulcióra super",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -453,7 +433,6 @@ var offertoryVerses = {
       "name": "Laudate Dominum",
       "page": 40,
       "cue": "Omnia quæcúmque vóluit",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -474,7 +453,6 @@ var offertoryVerses = {
       "name": "Confitebor tibi... in toto",
       "page": 44,
       "cue": "Vivífica me secúndum",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -491,7 +469,6 @@ var offertoryVerses = {
       "name": "Improperium... et dederunt",
       "page": 49,
       "cue": "Et dedérunt in",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -512,7 +489,6 @@ var offertoryVerses = {
       "name": "Emitte Spiritum",
       "page": 77,
       "cue": "Sit glória Dómini",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -533,7 +509,6 @@ var offertoryVerses = {
       "name": "Terra tremuit",
       "page": 55,
       "cue": "Dum resúrgeret in",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -554,7 +529,6 @@ var offertoryVerses = {
       "name": "De profundis (verses)",
       "page": 126,
       "cue": null,
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -571,7 +545,6 @@ var offertoryVerses = {
       "name": "Vir erat (verses)",
       "page": 122,
       "cue": null,
-      "review": "verified",
       "verseCount": 4,
       "psalmVerses": [
         {
@@ -596,7 +569,6 @@ var offertoryVerses = {
       "name": "Iubilate Deo universa",
       "page": 69,
       "cue": "Veníte et audíte",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -613,7 +585,6 @@ var offertoryVerses = {
       "name": "In die solemnitatis",
       "page": 61,
       "cue": "In terram fluéntem",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -630,7 +601,6 @@ var offertoryVerses = {
       "name": "Constitues eos",
       "page": 131,
       "cue": "In omni progénie",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -651,7 +621,6 @@ var offertoryVerses = {
       "name": "Exaltabo te",
       "page": 96,
       "cue": "Dómine clamávi ad",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -668,7 +637,6 @@ var offertoryVerses = {
       "name": "Laetentur caeli",
       "page": 15,
       "cue": "Ante fáciem Dómini",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -685,7 +653,6 @@ var offertoryVerses = {
       "name": "Meditabor",
       "page": 109,
       "cue": "Et levábo manus",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -702,7 +669,6 @@ var offertoryVerses = {
       "name": "Benedic... et renovabitur",
       "page": 110,
       "cue": "Et renovábitur, sicut",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -719,7 +685,6 @@ var offertoryVerses = {
       "name": "Deus enim",
       "page": 16,
       "cue": "Paráta sedes tua",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -736,7 +701,6 @@ var offertoryVerses = {
       "name": "Tui sunt caeli",
       "page": 18,
       "cue": "Iustítia et iudícium",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -757,7 +721,6 @@ var offertoryVerses = {
       "name": "Reges Tharsis",
       "page": 21,
       "cue": "Omnes gentes sérvient",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -778,7 +741,6 @@ var offertoryVerses = {
       "name": "Iubilate Deo omnis",
       "page": 23,
       "cue": "Quia Dóminus ipse",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -795,7 +757,6 @@ var offertoryVerses = {
       "name": "Erit vobis",
       "page": 63,
       "cue": "In progénies vestras",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -812,7 +773,6 @@ var offertoryVerses = {
       "name": "Perfice gressus",
       "page": 90,
       "cue": "Qui salvos facis",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -833,7 +793,6 @@ var offertoryVerses = {
       "name": "Repleti sumus",
       "page": 175,
       "cue": "Et exsultávimus et",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -850,7 +809,6 @@ var offertoryVerses = {
       "name": "Populum humilem",
       "page": 93,
       "cue": "Quóniam quis Deus",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -867,7 +825,6 @@ var offertoryVerses = {
       "name": "Precatus est",
       "page": 97,
       "cue": "Et placátus factus",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -884,7 +841,6 @@ var offertoryVerses = {
       "name": "Domine in auxilium (verses)",
       "page": 106,
       "cue": null,
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -901,7 +857,6 @@ var offertoryVerses = {
       "name": "Oravi Deum (verses)",
       "page": 107,
       "cue": "Et propítius inténde",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -918,7 +873,6 @@ var offertoryVerses = {
       "name": "Sanctificavit (verses)",
       "page": 114,
       "cue": "Fecit sacrifícium vespertínum",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -935,7 +889,6 @@ var offertoryVerses = {
       "name": "Si ambulavero (verses)",
       "page": 118,
       "cue": "Et salvum me",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -952,7 +905,6 @@ var offertoryVerses = {
       "name": "Super flumina (verses)",
       "page": 119,
       "cue": null,
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -973,7 +925,6 @@ var offertoryVerses = {
       "name": "Recordare mei (verses)",
       "page": 125,
       "cue": null,
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -990,7 +941,6 @@ var offertoryVerses = {
       "name": "Stetit Angelus (Off, verses)",
       "page": 170,
       "cue": "Et ascéndit fumus",
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -1003,7 +953,6 @@ var offertoryVerses = {
       "name": "Benedictus es... in labiis",
       "page": 28,
       "cue": "In lábiis meis",
-      "review": "pending",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1024,7 +973,6 @@ var offertoryVerses = {
       "name": "Levabo oculos",
       "page": 34,
       "cue": "óculos meos, et",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1041,7 +989,6 @@ var offertoryVerses = {
       "name": "Miserere mihi",
       "page": 35,
       "cue": "Dele Dómine iniquitátem",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1058,7 +1005,6 @@ var offertoryVerses = {
       "name": "Exaudi Deus",
       "page": 36,
       "cue": "Inténde in me",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1075,7 +1021,6 @@ var offertoryVerses = {
       "name": "Domine fac mecum",
       "page": 37,
       "cue": "Quia suávis est",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1096,7 +1041,6 @@ var offertoryVerses = {
       "name": "Gressus meos",
       "page": 39,
       "cue": null,
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1113,7 +1057,6 @@ var offertoryVerses = {
       "name": "Domine ad adiuvandum",
       "page": 42,
       "cue": null,
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -1126,7 +1069,6 @@ var offertoryVerses = {
       "name": "Factus est",
       "page": 42,
       "cue": "Sperábo in eum",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1143,7 +1085,6 @@ var offertoryVerses = {
       "name": "Eripe me de inimicis... Deus",
       "page": 46,
       "cue": "Líbera me, Dómine",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1160,7 +1101,6 @@ var offertoryVerses = {
       "name": "Benedictus es... et non tradas",
       "page": 48,
       "cue": "Et non tradas",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1177,7 +1117,6 @@ var offertoryVerses = {
       "name": "Eripe me de inimicis... Domine",
       "page": 51,
       "cue": "Ad te confúgi",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1194,7 +1133,6 @@ var offertoryVerses = {
       "name": "Custodi me",
       "page": 52,
       "cue": "Et ab homínibus",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1215,7 +1153,6 @@ var offertoryVerses = {
       "name": "Domine exaudi... ne avertas",
       "page": 53,
       "cue": "Et clamor meus",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1236,7 +1173,6 @@ var offertoryVerses = {
       "name": "Justorum animae",
       "page": 144,
       "cue": "Allelúia",
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -1249,7 +1185,6 @@ var offertoryVerses = {
       "name": "Angelus Domini descendit (Off.)",
       "page": 57,
       "cue": "Sicut dixit, allelúia",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1266,7 +1201,6 @@ var offertoryVerses = {
       "name": "Protege Domine",
       "page": 168,
       "cue": "Ut tibi gratam",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1287,7 +1221,6 @@ var offertoryVerses = {
       "name": "Benedicite gentes",
       "page": 71,
       "cue": "Benedíctus Dóminus, qui",
-      "review": "pending",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1308,7 +1241,6 @@ var offertoryVerses = {
       "name": "Ascendit Deus",
       "page": 75,
       "cue": "Allelú{ia}",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1329,7 +1261,6 @@ var offertoryVerses = {
       "name": "Sicut in Holocausto",
       "page": 92,
       "cue": "Quia non est",
-      "review": "verified",
       "verseCount": 1,
       "psalmVerses": [
         {
@@ -1342,7 +1273,6 @@ var offertoryVerses = {
       "name": "Exspectans",
       "page": 104,
       "cue": "exspectávi Dóminum, et",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1363,7 +1293,6 @@ var offertoryVerses = {
       "name": "Veritas mea",
       "page": 148,
       "cue": "Et in nómine",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1380,7 +1309,6 @@ var offertoryVerses = {
       "name": "Deus, Deus meus",
       "page": 66,
       "cue": "Et in nómine",
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1397,7 +1325,6 @@ var offertoryVerses = {
       "name": "Confitebuntur",
       "page": 138,
       "cue": null,
-      "review": "pending",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1414,7 +1341,6 @@ var offertoryVerses = {
       "name": "Confirma hoc",
       "page": 79,
       "cue": "Tibi ófferent reges",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1435,7 +1361,6 @@ var offertoryVerses = {
       "name": "Intonuit de caelo",
       "page": 58,
       "cue": "Et apparuérunt fontes",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1452,7 +1377,6 @@ var offertoryVerses = {
       "name": "Illumina",
       "page": 87,
       "cue": null,
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1469,7 +1393,6 @@ var offertoryVerses = {
       "name": "Benedicam Dominum",
       "page": 88,
       "cue": "Quóniam a dextris",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1486,7 +1409,6 @@ var offertoryVerses = {
       "name": "Filiae regum",
       "page": 157,
       "cue": "Astitit regína a",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1503,7 +1425,6 @@ var offertoryVerses = {
       "name": "Portas caeli",
       "page": 60,
       "cue": "apéruit Dóminus ",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1520,7 +1441,6 @@ var offertoryVerses = {
       "name": "Sperent in te",
       "page": 85,
       "cue": "omnes, qui novérunt",
-      "review": "verified",
       "verseCount": 2,
       "psalmVerses": [
         {
@@ -1537,7 +1457,6 @@ var offertoryVerses = {
       "name": "Immittet Angelus",
       "page": 102,
       "cue": "Gustáte et vidéte",
-      "review": "verified",
       "verseCount": 3,
       "psalmVerses": [
         {
@@ -1558,8 +1477,6 @@ var offertoryVerses = {
       "name": "Benedictus qui venit",
       "page": 64,
       "cue": "Benedíximus.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21011,
       "verseCount": 2,
       "selectionCues": {
@@ -1580,8 +1497,6 @@ var offertoryVerses = {
       "name": "Lauda anima",
       "page": 67,
       "cue": "Allelúia.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21012,
       "verseCount": 2,
       "psalmVerses": [
@@ -1599,8 +1514,6 @@ var offertoryVerses = {
       "name": "Confitebor Domino",
       "page": 74,
       "cue": "Ut salvam.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21013,
       "verseCount": 2,
       "psalmVerses": [
@@ -1618,8 +1531,6 @@ var offertoryVerses = {
       "name": "Benedictus sit",
       "page": 81,
       "cue": "Quia fecit.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21014,
       "verseCount": 2,
       "psalmVerses": [
@@ -1637,8 +1548,6 @@ var offertoryVerses = {
       "name": "Domine convertere",
       "page": 84,
       "cue": "Salvum me fac.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21015,
       "verseCount": 2,
       "selectionCues": {
@@ -1659,8 +1568,6 @@ var offertoryVerses = {
       "name": "Domine Deus salutis",
       "page": 112,
       "cue": "Intret.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21016,
       "verseCount": 3,
       "selectionCues": {
@@ -1685,8 +1592,6 @@ var offertoryVerses = {
       "name": "Gloria et honore",
       "page": 133,
       "cue": "Et constituísti.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21017,
       "verseCount": 2,
       "selectionCues": {},
@@ -1705,8 +1610,6 @@ var offertoryVerses = {
       "name": "Gloriabuntur",
       "page": 135,
       "cue": "Dómine.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21018,
       "verseCount": 2,
       "selectionCues": {
@@ -1732,8 +1635,6 @@ var offertoryVerses = {
       "name": "Posuisti",
       "page": 136,
       "cue": "Allelúia.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21019,
       "verseCount": 2,
       "psalmVerses": [
@@ -1751,8 +1652,6 @@ var offertoryVerses = {
       "name": "Laetamini",
       "page": 140,
       "cue": "Et gloriámini.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21020,
       "verseCount": 2,
       "selectionCues": {
@@ -1773,8 +1672,6 @@ var offertoryVerses = {
       "name": "Mirabilis Deus",
       "page": 141,
       "cue": "Benedíctus.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21021,
       "verseCount": 2,
       "selectionCues": {
@@ -1795,8 +1692,6 @@ var offertoryVerses = {
       "name": "Exsultabunt sancti",
       "page": 143,
       "cue": "Exsultábunt.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21022,
       "verseCount": 1,
       "selectionCues": {
@@ -1813,8 +1708,6 @@ var offertoryVerses = {
       "name": "Inveni David",
       "page": 147,
       "cue": "Manus.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21023,
       "verseCount": 2,
       "psalmVerses": [
@@ -1832,8 +1725,6 @@ var offertoryVerses = {
       "name": "In virtute tua",
       "page": 152,
       "cue": "Desidérium.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21027,
       "verseCount": 2,
       "psalmVerses": [
@@ -1851,8 +1742,6 @@ var offertoryVerses = {
       "name": "Desiderium animae",
       "page": 153,
       "cue": "Et voluntáte.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21028,
       "verseCount": 3,
       "selectionCues": {
@@ -1877,8 +1766,6 @@ var offertoryVerses = {
       "name": "Afferentur proximae",
       "page": 155,
       "cue": "Adducéntur.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21029,
       "verseCount": 2,
       "selectionCues": {
@@ -1899,8 +1786,6 @@ var offertoryVerses = {
       "name": "Domine Deus in simplicitate",
       "page": 159,
       "cue": "Deus Israel.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21030,
       "verseCount": 2,
       "selectionCues": {
@@ -1921,8 +1806,6 @@ var offertoryVerses = {
       "name": "Elegerunt Apostoli",
       "page": 161,
       "cue": "Dómine.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21031,
       "verseCount": 3,
       "selectionCues": {
@@ -1956,8 +1839,6 @@ var offertoryVerses = {
       "name": "Afferentur S. Agathae post eam",
       "page": 163,
       "cue": "Afferéntur.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21032,
       "verseCount": 2,
       "selectionCues": {
@@ -1978,8 +1859,6 @@ var offertoryVerses = {
       "name": "Oratio mea",
       "page": 164,
       "cue": "Ascéndat.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21024,
       "verseCount": 1,
       "psalmVerses": [
@@ -1993,8 +1872,6 @@ var offertoryVerses = {
       "name": "Confessio et pulchritudo",
       "page": 166,
       "cue": "Sánctitas.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21033,
       "verseCount": 2,
       "psalmVerses": [
@@ -2012,8 +1889,6 @@ var offertoryVerses = {
       "name": "Assumpta est",
       "page": 167,
       "cue": "Allelúia.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21025,
       "verseCount": 1,
       "psalmVerses": [
@@ -2027,8 +1902,6 @@ var offertoryVerses = {
       "name": "Viri Galilaei",
       "page": 172,
       "cue": "Sic véniet.",
-      "review": "verified",
-      "provenance": "gregobase",
       "gregobaseId": 21026,
       "verseCount": 1,
       "psalmVerses": [

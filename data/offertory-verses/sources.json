@@ -41,2742 +41,487 @@
       "id": 11393,
       "name": "Ad te Domine",
       "page": 5,
-      "localIds": [
-        962
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-16",
-        "pdfPages": [
-          5,
-          6
-        ],
-        "sha256": "fba9a4d67f3732b84d3c68e2817c7f38a120ddcdb6db526ac4e8e0399f93654c",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume grouping",
-          "barlines",
-          "printed repeat cues"
-        ],
-        "result": "Matches the 1935 PDF; no verse correction needed."
-      }
+      "localIds": [962]
     },
     {
       "id": 11399,
       "name": "Deus tu convertens",
       "page": 6,
-      "localIds": [
-        631
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-16",
-        "pdfPages": [
-          6,
-          7,
-          8
-        ],
-        "sha256": "8fdcdc299488469caf6f283c67c6dd3d7eb5603ffafbe828b03e722b8053c44d",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume grouping",
-          "barlines",
-          "printed repeat cues"
-        ],
-        "result": "Matches the 1935 PDF; no verse correction needed."
-      }
+      "localIds": [631]
     },
     {
       "id": 9424,
       "name": "Benedixisti Domine",
       "page": 8,
-      "localIds": [
-        113
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-16",
-        "pdfPages": [
-          8,
-          9
-        ],
-        "sha256": "03a24e272535698f925fb3544c1557e08b9e3ac8afb66e906f52b03c4b423677",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume grouping",
-          "barlines",
-          "printed repeat cues"
-        ],
-        "result": "Matches the 1935 PDF; no verse correction needed."
-      }
+      "localIds": [113]
     },
     {
       "id": 9432,
       "name": "Confortamini",
       "page": 9,
-      "localIds": [
-        290
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-16",
-        "pdfPages": [
-          9,
-          10,
-          11
-        ],
-        "sha256": "1b134f0019fcf3266f44692570a4f86cb4903b0fd033e484ce5b4fa746c30499",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume grouping",
-          "barlines",
-          "printed repeat cues"
-        ],
-        "result": "Matches the 1935 PDF; no verse correction needed."
-      }
+      "localIds": [290]
     },
     {
       "id": 11725,
       "name": "Exsulta satis",
       "page": 11,
-      "localIds": [
-        929
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          11,
-          12,
-          13
-        ],
-        "sha256": "767c42ba9682e86c92147188934c3c72a0c7a7a9af885108d8bad311e55bf0f6",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-1/review.json",
-        "result": "Matches the 1935 PDF in this pass; no raw-source verse correction needed. Application spelling/underlay normalization differences recorded separately."
-      }
+      "localIds": [929]
     },
     {
       "id": 14211,
       "name": "Ave Maria",
       "page": 13,
-      "localIds": [
-        843
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          13,
-          14
-        ],
-        "sha256": "91353feea0b60d616190b31def964ad9e99768d41bb3e38f5cf057f3f8f0d011",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-1/review.json",
-        "result": "Matches the 1935 PDF in this pass; no raw-source verse correction needed. Application spelling/underlay normalization differences recorded separately."
-      }
+      "localIds": [843]
     },
     {
       "id": 14223,
       "name": "Tollite portas",
       "page": 14,
-      "localIds": [
-        171
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          14,
-          15
-        ],
-        "sha256": "efb42dd3e784fc632e2718c41709a9fa2b449145474f87bd30ebcc0e367d3211",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-1/review.json",
-        "result": "Matches the 1935 PDF in this pass; no raw-source verse correction needed. Application spelling/underlay normalization differences recorded separately."
-      }
+      "localIds": [171]
     },
     {
       "id": 17652,
       "name": "Laetentur caeli",
       "page": 15,
-      "localIds": [
-        811
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          15,
-          16
-        ],
-        "sha256": "7cc0a125cea797d4c1d6e39614f62971c8e00d382ce8639c430d29488e2898b3",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-1/review.json",
-        "result": "Matches the 1935 PDF in this pass; no raw-source verse correction needed. Application normalization and printed verse-to-verse pitch/cut variants recorded separately."
-      }
+      "localIds": [811]
     },
     {
       "id": 17680,
       "name": "Deus enim",
       "page": 16,
-      "localIds": [
-        979
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          16,
-          17,
-          18
-        ],
-        "sha256": "dc4758ae44655040c84607783a9d200a0e25c08baa35edb92e66df3bebdedb78",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-2/review.json",
-        "result": "Both verses match the 1935 PDF in this pass; no raw-source correction needed. Application normalization differences recorded separately."
-      }
+      "localIds": [979]
     },
     {
       "id": 17695,
       "name": "Tui sunt caeli",
       "page": 18,
-      "localIds": [
-        1274
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          18,
-          19,
-          20
-        ],
-        "sha256": "2594f66476fae4e84820a00a3399828786c66ef403b2d56119d39a53834a31e8",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-3/review.json",
-        "result": "All three verses match the 1935 PDF in this pass; no raw-source verse correction needed. Application normalization and opening-only findings recorded separately."
-      }
+      "localIds": [1274]
     },
     {
       "id": 17700,
       "name": "Reges Tharsis",
       "page": 21,
-      "localIds": [
-        1147
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "1147": {
-          "date": "2026-11-19",
-          "status": "resolved",
-          "sourceSha256": "054fabd28e5dbcd950096e5eb56e4dc649c7f6bd70d9953771318a8688f6906f",
-          "localSha256": "9d902135b308a9fcdf485c3ce4f4e9ad6dbfc0c56c770d7bf1fc03d02a4f5023",
-          "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-          "pdfPages": [
-            21
-          ],
-          "evidence": "imported-review/batch-3/review.json",
-          "result": "After adducent, PDF p.21 system 3 and local 1147 have a full bar (:); raw GregoBase opening has a half bar (;). Keep existing 1147; opening is excluded from verse import."
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          21,
-          22,
-          23
-        ],
-        "sha256": "2d9a25b891c094a8cc541d893dc93a0d20f952ead321b1d82385a29ef2fb192c",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-3/review.json",
-        "result": "All three verses match the 1935 PDF in this pass; no raw-source verse correction needed. Application normalization and opening-only findings recorded separately."
-      }
+      "localIds": [1147]
     },
     {
       "id": 17704,
       "name": "Iubilate Deo omnis",
       "page": 23,
-      "localIds": [
-        718
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "718": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "gregobase-antiphon-error",
-          "pdfPages": [
-            23
-          ],
-          "observation": "The final syllable of the second Iubilate is te(d) in the PDF and existing 718; GregoBase has te(e).",
-          "action": "Keep the existing antiphon; no opening-antiphon music is imported.",
-          "sourceSha256": "9bdfb10f0d6bffc72f2ec29be266abd51112a6abd085f55a2e397d1ae3398b8c",
-          "localSha256": "7de5b0a82584aa09f4491926c8e5841dfa7c66642bbe6780a72bcdbb5a27c20d"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          23,
-          24,
-          25
-        ],
-        "sha256": "7916b5edce45d8ae57af548ae392deb7ea416992d974e55f12e088ace4a13b7c",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-4/review.json",
-        "result": "Both verses match the 1935 PDF in this pass; no raw-source correction needed. Prior resolved opening differences and app normalization are recorded separately."
-      }
+      "localIds": [718]
     },
     {
       "id": 14203,
       "name": "Dextera Domini",
       "page": 25,
-      "localIds": [
-        47,
-        448
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "448": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "seasonal-variant",
-          "pdfPages": [
-            25
-          ],
-          "observation": "The PDF antiphon has no final Alleluia and agrees with 47. Existing 448 appends the seasonal Alleluia; the preceding note sequence is the same.",
-          "action": "Keep both local antiphons linked to these verses.",
-          "sourceSha256": "8015ee12e60b843c5610810a1db3ffe3f920efae429ff12711d510d6778eb034",
-          "localSha256": "b9b142c48a0528c26de985e2724324f5a0548cdf21032810761c6db7b7726d06"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          25,
-          26
-        ],
-        "sha256": "f578ab2eed88a108d7372e3250204a4e2ccdfef833b676aca996eff54e61b448",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-4/review.json",
-        "result": "Both verses match the 1935 PDF in this pass; no raw-source correction needed. Prior resolved opening differences and app normalization are recorded separately."
-      }
+      "localIds": [47, 448]
     },
     {
       "id": 14204,
       "name": "Bonum est confiteri",
       "page": 26,
-      "localIds": [
-        1194
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          26,
-          27,
-          28
-        ],
-        "sha256": "13824758a78f4990a651d41e8d1056309170be1024642e8f3b5ce1e0c5d26f4c",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-5/review.json",
-        "result": "All three verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1194]
     },
     {
       "id": 18146,
       "name": "Benedictus es... in labiis",
       "page": 28,
-      "localIds": [
-        1317
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "status": "correction-ready",
-        "pdfPages": [
-          28,
-          29,
-          30
-        ],
-        "sourceSha256": "06e2d76da03ce0c4233145d1f220f5d2e18d66ac5f147fd057639381f9c350a0",
-        "sha256": "941762b4dedc113f253dda76c18e4793adc2e6b59e21422400864861760d146c",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-5/review.json",
-        "result": "Complete source review found missing ih clivis on final i of mei, p.30 system 3. Correction is prepared; source remains pending until shared import integration."
-      }
+      "localIds": [1317]
     },
     {
       "id": 14323,
       "name": "Domine vivifica",
       "page": 31,
-      "localIds": [
-        109
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          31,
-          32
-        ],
-        "sha256": "f103b420f1b2fa4f8a878efb340a25152fe562f19c96a0ab5cede00ffac7a4f6",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-6/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [109]
     },
     {
       "id": 14200,
       "name": "Scapulis suis",
       "page": 32,
-      "localIds": [
-        294
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          32,
-          33
-        ],
-        "sha256": "8637269af365825fbfa45a8ad45fe27dff94ae182349599913b1fec84e8eba71",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-6/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [294]
     },
     {
       "id": 18147,
       "name": "Levabo oculos",
       "page": 34,
-      "localIds": [
-        1060
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          34,
-          35
-        ],
-        "sha256": "a0bf3673178b5539c0e53a74f9582936395e9a220e891e395f80c5c9b1ebc866",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-7/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1060]
     },
     {
       "id": 18148,
       "name": "Miserere mihi",
       "page": 35,
-      "localIds": [
-        922
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          35,
-          36
-        ],
-        "sha256": "9ef88aece70dda242d468376fc017b7f4ff5eb7b1663a3de36fbdf3dee1c14de",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-7/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [922]
     },
     {
       "id": 18150,
       "name": "Exaudi Deus",
       "page": 36,
-      "localIds": [
-        842
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          36,
-          37
-        ],
-        "sha256": "cb16baaf28828df58f5a6efae523f02203510737b6fb481063a19774f6c66ad7",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-8/review.json",
-        "result": "Complete review found an extra full bar after animam, p.37 system 4. Correction prepared; app score unchanged and pending.",
-        "status": "correction-ready",
-        "sourceSha256": "b50efb8ed45fb853dbfa57ef3f3ae8acc389c8ab4c35158a0f5b045f143d6690"
-      }
+      "localIds": [842]
     },
     {
       "id": 18151,
       "name": "Domine fac mecum",
       "page": 37,
-      "localIds": [
-        1369
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          37,
-          38
-        ],
-        "sha256": "31bfbe4e96017ca32028ac493223addcaef656fc1f9379115a2080d541146a64",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-8/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1369]
     },
     {
       "id": 18153,
       "name": "Gressus meos",
       "page": 39,
-      "localIds": [
-        1099
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          39,
-          40
-        ],
-        "sha256": "45f9e47dae2f1bad0ce0b2ef32d92afcc5b37f71ea5c4b3546300837d76c0c5f",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-9/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1099]
     },
     {
       "id": 14986,
       "name": "Laudate Dominum",
       "page": 40,
-      "localIds": [
-        899
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          40,
-          41
-        ],
-        "sha256": "a9755e6f142e338b8a60c86518770633e1d2b134e30ca4a7ee54188efe4f1ca8",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-9/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [899]
     },
     {
       "id": 18154,
       "name": "Domine ad adiuvandum",
       "page": 42,
-      "localIds": [
-        731
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          42
-        ],
-        "sha256": "c26d0f3384ddefae300238090134b9d65c0be0a3d8d3a921f64579b37065a2b5",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-10/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [731]
     },
     {
       "id": 18155,
       "name": "Factus est",
       "page": 42,
-      "localIds": [
-        223
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          42,
-          43,
-          44
-        ],
-        "sha256": "45c62bf54fc4d1cb4313b3cdedc126ae5e4bff9cc2c625ae3ce0d795627caab5",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-10/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [223]
     },
     {
       "id": 15006,
       "name": "Confitebor tibi... in toto",
       "page": 44,
-      "localIds": [
-        318
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          44,
-          45,
-          46
-        ],
-        "sha256": "352400ed62613cb86c3c40643230a543ab1509505a9e3fd435cddafa55ca977f",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-11/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [318]
     },
     {
       "id": 18157,
       "name": "Eripe me de inimicis... Deus",
       "page": 46,
-      "localIds": [
-        245
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          46,
-          47
-        ],
-        "sha256": "cfa978e009b05f241e471aeae4e5d84fa3ebee7ac1ef59c9da6ab99e0342a1a9",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-11/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [245]
     },
     {
       "id": 18158,
       "name": "Benedictus es... et non tradas",
       "page": 48,
-      "localIds": [
-        408
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          48,
-          49
-        ],
-        "sha256": "e835f2294719b3af7587a5416a11a974b35f1bdeb094f686c036ac51ee4cea31",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-12/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [408]
     },
     {
       "id": 15065,
       "name": "Improperium... et dederunt",
       "page": 49,
-      "localIds": [
-        486
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          49,
-          50,
-          51
-        ],
-        "sha256": "5503d01b8eb7e133615c9879322abf5e7adaf5dd9d4f737481384b4914e33989",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-12/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [486]
     },
     {
       "id": 18159,
       "name": "Eripe me de inimicis... Domine",
       "page": 51,
-      "localIds": [
-        411
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          51,
-          52
-        ],
-        "sha256": "7d9ea3ea263fa28649870c33db4b4a68d02e7007579ee218fe7db6ed2ad97fb6",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-13/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [411]
     },
     {
       "id": 18162,
       "name": "Custodi me",
       "page": 52,
-      "localIds": [
-        1322
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          52,
-          53
-        ],
-        "sha256": "e25ca2b171f8fb6462b52b8037ae42341827a9d8cc7d398f359c848e22139886",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-13/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1322]
     },
     {
       "id": 18165,
       "name": "Domine exaudi... ne avertas",
       "page": 53,
-      "localIds": [
-        461
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "461": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "antiphon-verse-boundary",
-          "pdfPages": [
-            53,
-            54
-          ],
-          "observation": "The PDF antiphon ends after perveniat. Ne avertas faciem tuam is its first verse. Existing 461 is that shorter antiphon; 867 already includes Ne avertas as part of its antiphon.",
-          "action": "Keep the mapping to 461 only, avoiding duplication of Ne avertas.",
-          "sourceSha256": "292ca663500eb2851a1450b00e29d9e1d5cb4a54674c63fbf56e2aab7cbbdfcd",
-          "localSha256": "2b65925ec8ca8c58ab680092f9506a3edf3962d4bff430d79f4fa692330bb364"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          53,
-          54
-        ],
-        "sha256": "8e388c6a06098d08f535bdd585c25a4ba7f9071c44f618406b3f3f7d84a1c68b",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-14/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [461]
     },
     {
       "id": 15229,
       "name": "Terra tremuit",
       "page": 55,
-      "localIds": [
-        725
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          55,
-          56
-        ],
-        "sha256": "4c4d2fe53840a2a9590c4053489b432a0f490c0043a66e13ed0377070725a881",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-14/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [725]
     },
     {
       "id": 18334,
       "name": "Angelus Domini descendit (Off.)",
       "page": 57,
-      "localIds": [
-        789
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "789": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "gregobase-antiphon-text-error",
-          "pdfPages": [
-            57
-          ],
-          "observation": "The PDF prints descendit, matching the existing 789. GregoBase descédit omits n.",
-          "action": "Keep the existing correct antiphon text; the imported verses do not contain the misspelling.",
-          "sourceSha256": "8e38ec3a53e0931669358fca2aca294bd75d1c8893fb24b2e3e22a1a32722d29",
-          "localSha256": "c71311481143128b76f7f1f7cc4324e81ef520e5322285fd5a3d0d311dcfbdae"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          57,
-          58
-        ],
-        "sha256": "d45d0096ff3fb584d8284b92951091406127066f59416f22f662e4d0909f88e3",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-15/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [789]
     },
     {
       "id": 19910,
       "name": "Intonuit de caelo",
       "page": 58,
-      "localIds": [
-        869
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          58,
-          59
-        ],
-        "sha256": "9e141dd44a1208e6214b3a935a7e190fb174bb0373de06b3d0ddc63ac400a291",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/batch-15/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [869]
     },
     {
       "id": 20496,
       "name": "Portas caeli",
       "page": 60,
-      "localIds": [
-        1361
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          60,
-          61
-        ],
-        "sha256": "33c3873bd15088abf777fef7314d75c4d088e0277b1b651a7458f86fe38e0864",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-16/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1361]
     },
     {
       "id": 17131,
       "name": "In die solemnitatis",
       "page": 61,
-      "localIds": [
-        1129
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          61,
-          62
-        ],
-        "sha256": "392848ae1393fe9d2c1be9b31bc542257c677eeea0af836071d864904d0340b6",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-16/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "4ec7c07b54405dee8a68fcc08b521625157a61e1cdb233e07860949863422694",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": [1129]
     },
     {
       "id": 17769,
       "name": "Erit vobis",
       "page": 63,
-      "localIds": [
-        151
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "151": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "gregobase-antiphon-error",
-          "pdfPages": [
-            63
-          ],
-          "observation": "In hic dies, di is hiHGh in the PDF and existing 151. GregoBase hiHG omits the last h.",
-          "action": "Keep the existing antiphon.",
-          "sourceSha256": "56794d89998cf014147f8a24861ff00b710899099f674fd886af30aafc5216da",
-          "localSha256": "75d13ec70946c10a6bf9dc33d3e29dac63dce498fed2b576e6a8ce32c8b72c35"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          63,
-          64
-        ],
-        "sha256": "c5b482e058fb3f9d1e3adcb1c82f14d7928979204f4431eaacec056c62ad1469",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-17/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [151]
     },
     {
       "id": 19813,
       "name": "Deus, Deus meus",
       "page": 66,
-      "localIds": [
-        924
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          66,
-          67
-        ],
-        "sha256": "4b213982cae3e3a9a22784254874283426fcb07eee414c167a38c46680ac7526",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-17/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "f8a977a3a60f44dcd37fad633c345ebc61758625cf70bcc8282162c9d1edb147",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration.",
-        "upstreamVerification": {
-          "date": "2026-11-19",
-          "sha256": "4b213982cae3e3a9a22784254874283426fcb07eee414c167a38c46680ac7526",
-          "evidence": "imported-review/upstream-verification/2026-11-19T20-11-36-167Z/verification.json",
-          "result": "Current upstream correction matches print; local application integration remains prepared."
-        }
-      }
+      "localIds": [924]
     },
     {
       "id": 16870,
       "name": "Iubilate Deo universa",
       "page": 69,
-      "localIds": [
-        937
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          69,
-          70,
-          71
-        ],
-        "sha256": "35010a6801f385191eaccfddac0e77ab05c569c84f24875ed08efe8e28bb6188",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-18/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "0d709ecfdf01cbf8593eaf86c77bb1f217f6cd84a76d8356ae011bbac17be3aa",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": [937]
     },
     {
       "id": 18710,
       "name": "Benedicite gentes",
       "page": 71,
-      "localIds": [
-        860
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          71,
-          72,
-          73,
-          74
-        ],
-        "sha256": "b16cf2d3b4e4726f304c060310c0e42757c4198e4bd3f4ba33eaeed731bd3c65",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-18/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "69b5485c12e279f336306472f346116f055aea022ef4800d7f9ff2f00fd34b75",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": [860]
     },
     {
       "id": 19280,
       "name": "Ascendit Deus",
       "page": 75,
-      "localIds": [
-        211
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          75,
-          76,
-          77
-        ],
-        "sha256": "dfe4a2899c3cc2b7d4d4e7d136d5a71d2c77b7ea8a62761579af9f6932a499c3",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-19/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [211]
     },
     {
       "id": 15176,
       "name": "Emitte Spiritum",
       "page": 77,
-      "localIds": [
-        1176
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          77,
-          78,
-          79
-        ],
-        "sha256": "4664483bd1a72e5f5555e6698537a730790380a7ca41b5f865c9de1a7dde7fda",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-19/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1176]
     },
     {
       "id": 19909,
       "name": "Confirma hoc",
       "page": 79,
-      "localIds": [
-        361,
-        83
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "83": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "seasonal-variant",
-          "pdfPages": [
-            79
-          ],
-          "observation": "The PDF gives the cum Alleluia setting, agreeing with 361. Existing 83 is explicitly sine Alleluia and has its corresponding shorter final cadence.",
-          "action": "Keep both settings; when a printed cue offers Tibi offerent vel Alleluia, omit the unavailable Alleluia alternative for 83.",
-          "sourceSha256": "82f397f90679dafa363dc9a02c735ffe838fd758e335a659c4ed2ecfc11121b8",
-          "localSha256": "655b2c932244be50b49500ad451a164324beab4c41c3febaaf4a2cfb8b0dd6c5"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          79,
-          80,
-          81
-        ],
-        "sha256": "21d7923ab1be73deaa2d23d29fbc5d21aba149c9e8db0e3777dbbcdfd37cb44f",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-20/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [361, 83]
     },
     {
       "id": 20670,
       "name": "Sperent in te",
       "page": 85,
-      "localIds": [
-        1328
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          85,
-          86,
-          87
-        ],
-        "sha256": "0101523f85913c8b99b3f531d9b47d14c2b644d7a14afc9765de490c461f52dd",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-20/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1328]
     },
     {
       "id": 19984,
       "name": "Illumina",
       "page": 87,
-      "localIds": [
-        708
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          87,
-          88
-        ],
-        "sha256": "19edda4536037233c301d3cc09e6e95cdab9f650153d205d56172dfdffc5da63",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-21/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [708]
     },
     {
       "id": 19987,
       "name": "Benedicam Dominum",
       "page": 88,
-      "localIds": [
-        143
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          88,
-          89,
-          90
-        ],
-        "sha256": "6875550e92512d3f42c5c3cb6b9bef0385058ac112801db1e13143df674249be",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-21/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [143]
     },
     {
       "id": 17856,
       "name": "Perfice gressus",
       "page": 90,
-      "localIds": [
-        265
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          90,
-          91
-        ],
-        "sha256": "541ba38c5516df52ef43eaefaebb40864ba9dc08bd566076f228523634bd2a16",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-22/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [265]
     },
     {
       "id": 19425,
       "name": "Sicut in Holocausto",
       "page": 92,
-      "localIds": [
-        675
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          92,
-          93
-        ],
-        "sha256": "7c260518e14ffe342be97e58fc10c70aba44185203c3ff21b214860f8f81aa8b",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-22/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [675]
     },
     {
       "id": 17933,
       "name": "Populum humilem",
       "page": 93,
-      "localIds": [
-        1080
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "1080": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "gregobase-antiphon-error",
-          "pdfPages": [
-            93
-          ],
-          "observation": "On the final Domine, the PDF and existing 1080 have the opening jkj/kijvHG figure followed by jkj/kijvHFg. GregoBase omits the first figure.",
-          "action": "Keep the existing antiphon.",
-          "sourceSha256": "c5ac1c989dce428bbc44524798ce5ff708d99810e27411a008da8918553fe788",
-          "localSha256": "080598b69edcad87884125db4819faa20d12af0b3c8698a7361b1368e344bd90"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          93,
-          94
-        ],
-        "sha256": "a5ffece84ec02db15c2132b936cf6c599c75df0e11176ebd8df5aac94618d794",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-23/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1080]
     },
     {
       "id": 14985,
       "name": "Iustitiae Domini",
       "page": 94,
-      "localIds": [
-        591
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          94,
-          95,
-          96
-        ],
-        "sha256": "e6367cbe7a47a812b92035678d0a697b9f186f50bd73c37a719fe90d84d1d89e",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-23/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [591]
     },
     {
       "id": 17550,
       "name": "Exaltabo te",
       "page": 96,
-      "localIds": [
-        648
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          96,
-          97
-        ],
-        "sha256": "3a009c813e26da5a96476c5a114c2b3eb3080e6d695a4624a22bb8fffb6fd4fe",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-24/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [648]
     },
     {
       "id": 18067,
       "name": "Precatus est",
       "page": 97,
-      "localIds": [
-        325
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          97,
-          98,
-          99,
-          100
-        ],
-        "sha256": "59421ba1675f44d4916a68e54b66e29d66fbd14ddc504f156ae4593f5c440816",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-24/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [325]
     },
     {
       "id": 10582,
       "name": "In te speravi",
       "page": 101,
-      "localIds": [
-        967
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          101,
-          102
-        ],
-        "sha256": "6d6c032760e16c1636c2784bde22675911a2676fe8251dcdd275ffeebe7013c4",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-25/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "618ba0f644e619d832378334861926dd041edafac4c2ab54f465fca4f80b8618",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": [967]
     },
     {
       "id": 20843,
       "name": "Immittet Angelus",
       "page": 102,
-      "localIds": [
-        747
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          102,
-          103,
-          104
-        ],
-        "sha256": "40591c9a1183d9057949f50ba1b0460223e773f8fb4b5f7c40b459267bbd403d",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-25/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [747]
     },
     {
       "id": 19513,
       "name": "Exspectans",
       "page": 104,
-      "localIds": [
-        182
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          104,
-          105,
-          106
-        ],
-        "sha256": "35e8905be98613ce012e15deedf7a236c56631e280de639235c02f5e2ab51520",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-26/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [182]
     },
     {
       "id": 18128,
       "name": "Domine in auxilium (verses)",
       "page": 106,
-      "localIds": [
-        993
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          106,
-          107
-        ],
-        "sha256": "94cc5a2dc9c805a4c80568bf4e8ce471a0298033be31786fe3541045cca578ce",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-26/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [993]
     },
     {
       "id": 18130,
       "name": "Oravi Deum (verses)",
       "page": 107,
-      "localIds": [
-        652
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          107,
-          108,
-          109
-        ],
-        "sha256": "cee27453e3020764281e3c00615ab74217894f4d66aaa2dbb9031647679a116c",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-27/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [652]
     },
     {
       "id": 17671,
       "name": "Meditabor",
       "page": 109,
-      "localIds": [
-        810,
-        1218
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "1218": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "seasonal-variant",
-          "pdfPages": [
-            109
-          ],
-          "observation": "The PDF agrees with 810 without the final Alleluia. Existing 1218 appends the seasonal Alleluia; preceding notes match.",
-          "action": "Keep both local antiphons linked to these verses.",
-          "sourceSha256": "d716a799dc93bfa0241a2a43ef2c377a3c3f4256c15f423208d1195f0af0db9f",
-          "localSha256": "6c63b62dd6d6d241a403b57a5ec63077b3842b0d52fb6afd7c5a6ffe8a002607"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          109,
-          110
-        ],
-        "sha256": "bf4eba8c4af82f360753083b557b8b4f7167d24d01d32389811d209ae0b39c05",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-27/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [810, 1218]
     },
     {
       "id": 17672,
       "name": "Benedic... et renovabitur",
       "page": 110,
-      "localIds": [
-        1359
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          110,
-          111,
-          112
-        ],
-        "sha256": "1395f2e37f87d7246c82a806d756efc9352656a3fc7bd821ee922ac7c8975bbe",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-28/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1359]
     },
     {
       "id": 18131,
       "name": "Sanctificavit (verses)",
       "page": 114,
-      "localIds": [
-        838
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          114,
-          115,
-          116,
-          117
-        ],
-        "sha256": "1d4125f2a263d1cc0525513607cc87c1cc9a1daa8969f0b7333735057d29cb5d",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-28/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "8208bd4c1d8f7afabee884ee5037c17778c36e946471f94a157afc39bd27e0ec",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": [838]
     },
     {
       "id": 18132,
       "name": "Si ambulavero (verses)",
       "page": 118,
-      "localIds": [
-        616
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          118,
-          119
-        ],
-        "sha256": "feb2322ae20656aac55eaf48a1bbb5f65defd947855827184a17fa17eca786db",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-29/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [616]
     },
     {
       "id": 18133,
       "name": "Super flumina (verses)",
       "page": 119,
-      "localIds": [
-        812
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          119,
-          120,
-          121,
-          122
-        ],
-        "sha256": "3fe6608e6cfb81b1cc69bba84d7cc5cbca529d305ac84af2ee2db17ce50ed8b1",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-29/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [812]
     },
     {
       "id": 16148,
       "name": "Vir erat (verses)",
       "page": 122,
-      "localIds": [
-        1363
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          122,
-          123,
-          124,
-          125
-        ],
-        "sha256": "400b192db22f19c4662a1aa814c9c9e02c30a19f0ce32806bd100cacfeacc684",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-30/review.json",
-        "result": "All 4 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1363]
     },
     {
       "id": 18135,
       "name": "Recordare mei (verses)",
       "page": 125,
-      "localIds": [
-        67
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "67": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "redundant-accidental",
-          "pdfPages": [
-            125
-          ],
-          "observation": "The PDF and GregoBase place one flat before rectum. Existing 67 repeats the same flat later in that same syllable (after GF, before fg). Both flats are ix, not a natural sign; the second does not change the pitch.",
-          "action": "Keep the existing antiphon. Correct the earlier review note that described a natural sign.",
-          "sourceSha256": "d98259b99ee8d9e81df87da0e5e2a702a8baf85a15ffe24d24772ca81dfdac45",
-          "localSha256": "8c34bbb3002c6390dd6ea2f9c14b87e75f9f9ce76d2123c10ee61569452ba344"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          125,
-          126
-        ],
-        "sha256": "6176c62bb1872dcdfd78f92b94c90e873a5ee1182472f1309f04b9001e11c58d",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-30/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [67]
     },
     {
       "id": 15783,
       "name": "De profundis (verses)",
       "page": 126,
-      "localIds": [
-        986
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          126,
-          127
-        ],
-        "sha256": "9d2210054f4f186cae50eaac3b286cd0403c810de41b980f55b5c3a012dfae8f",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-31/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [986]
     },
     {
       "id": 13363,
       "name": "Mihi autem",
       "page": 128,
-      "localIds": [
-        499
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "499": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "accidental-placement",
-          "pdfPages": [
-            128
-          ],
-          "observation": "The PDF/GregoBase flat precedes all of tu(ixfgFE//fg/hihhg)i. Existing 499 places it between F and E in the same syllable. No i is sung before either flat; the first affected i occurs later, so the pitches agree.",
-          "action": "Keep the existing antiphon; this is an engraving-position difference, not a pitch discrepancy.",
-          "sourceSha256": "a29f831a0fdbc0c1995dd9d1850f2315b5f0d34166c4587f8a964ac3c10b6c2e",
-          "localSha256": "5f5ab054ced427b3a5896b2790e86a507ff2e0a5c618cc1a632509e81cb6ee9d"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          128,
-          129,
-          130
-        ],
-        "sha256": "111108a951516659a5c6f795abc877a36c9eb78a89362fd08324f90e4829e1c0",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-31/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [499]
     },
     {
       "id": 13360,
       "name": "In omnem terram",
       "page": 130,
-      "localIds": [
-        570
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          130,
-          131
-        ],
-        "sha256": "3fad895e8be0ece6c58fb8063eb7b0882e709f633b9e2659923ebbfde2f43da1",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-32/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [570]
     },
     {
       "id": 17548,
       "name": "Constitues eos",
       "page": 131,
-      "localIds": [
-        1319
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          131,
-          132,
-          133
-        ],
-        "sha256": "c47ee41b30df455604e1b9981889beab8e6a3d1cfef73263989f4016955de32a",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-32/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1319]
     },
     {
       "id": 19815,
       "name": "Confitebuntur",
       "page": 138,
-      "localIds": [
-        1382
-      ],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          138,
-          139,
-          140
-        ],
-        "sha256": "1307dca8443579f3eab84ac74324e745c7d95cca8ba5fb3471e7416d7dd3b84e",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-33/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "e343afd9629b2f9e3c68cd6a0c75cba0e132ed671d794f28b84cbe336dd464e2",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": [1382]
     },
     {
       "id": 18173,
       "name": "Justorum animae",
       "page": 144,
-      "localIds": [
-        835
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "835": {
-          "status": "resolved",
-          "date": "2026-11-16",
-          "category": "gregobase-antiphon-error",
-          "pdfPages": [
-            144
-          ],
-          "observation": "The first syllable of tormentum is tor(d) in the PDF and existing 835, not GregoBase tor(e).",
-          "action": "Keep the existing antiphon.",
-          "sourceSha256": "1ff50874309defa67811fadc02e8bba18923d7bab7375608bd9d9c23625f3a22",
-          "localSha256": "985877fcdf1c86c3be81453302ad046fbe59744dcf3933728bc584d705a555c8"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          144,
-          145
-        ],
-        "sha256": "55b37c815832b5090bb875d3fa3725415ec856df4a37bfb05f554198f9c96b16",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-33/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [835]
     },
     {
       "id": 13362,
       "name": "Anima nostra",
       "page": 145,
-      "localIds": [
-        1031
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          145,
-          146,
-          147
-        ],
-        "sha256": "b58a69e0d318652714649e58636f9b87af068b19606f09dd02347ff0ba6b234d",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-34/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1031]
     },
     {
       "id": 19721,
       "name": "Veritas mea",
       "page": 148,
-      "localIds": [
-        630
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          148,
-          149
-        ],
-        "sha256": "07cecfa9b1038c28b5009291002e1d89602b5eb45de7c7cabd17d63e2458d360",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-34/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [630]
     },
     {
       "id": 13365,
       "name": "Iustus ut palma",
       "page": 150,
-      "localIds": [
-        777
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          150,
-          151
-        ],
-        "sha256": "44db5dfd84a3b7d3f8e52c748d7ec164e9665bd114d66ea92ff66b67e44d05dd",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-35/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [777]
     },
     {
       "id": 14202,
       "name": "Diffusa est",
       "page": 156,
-      "localIds": [
-        177
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          156,
-          157
-        ],
-        "sha256": "d8388090a93edfa2a732d784c2c9939f0631528269ce4daad5245ea67f1a117b",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-35/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [177]
     },
     {
       "id": 20008,
       "name": "Filiae regum",
       "page": 157,
-      "localIds": [
-        1333
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          157,
-          158,
-          159
-        ],
-        "sha256": "367a6525a13687d4221913dd2d6aed5b70df94e66ab38db9f0fc0732075d725a",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-36/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [1333]
     },
     {
       "id": 18708,
       "name": "Protege Domine",
       "page": 168,
-      "localIds": [
-        195
-      ],
-      "review": "verified",
-      "antiphonReviews": {
-        "195": {
-          "status": "resolved",
-          "date": "2026-11-19",
-          "category": "gregobase-antiphon-neume-error",
-          "pdfPages": [
-            168
-          ],
-          "observation": "Print ordinary rising g–h–i figure; raw has false h quilisma. Correct local retained; pitches agree.",
-          "action": "Preserve the existing correct local opening; no verse correction required.",
-          "sourceSha256": "034f8b61e4d01be138ef0f0e9e48ab89a448625af5f538205e31d9cfd7aae7c8",
-          "localSha256": "1b065fbcb9111788ac4c46193f99c7af904a3b7809718702e186a04e9c9e235b",
-          "evidence": "imported-review/session-batches/batch-36/review.json"
-        }
-      },
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          168,
-          169,
-          170
-        ],
-        "sha256": "7dbba5b3cc6de9ad599b7b2a11807f910c2169784e8ff5179b9ee25178dadd62",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-36/review.json",
-        "result": "All 3 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [195]
     },
     {
       "id": 18137,
       "name": "Stetit Angelus (Off, verses)",
       "page": 170,
-      "localIds": [
-        302
-      ],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          170,
-          171
-        ],
-        "sha256": "06d4c466ab6a7e7c9fbb1a12635fb5bb95fad2ee95a571a89026c210b1bd05a6",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-37/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": [302]
     },
     {
       "id": 17860,
       "name": "Repleti sumus",
       "page": 175,
-      "localIds": [],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          175,
-          176
-        ],
-        "sha256": "478564ef8197f75ca5ea4c4c8311f31f1763d21fd27a04421c191b8bba35ec5d",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-37/review.json",
-        "result": "All 2 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": []
     },
     {
       "id": 13359,
       "name": "Erue",
       "page": 177,
-      "localIds": [],
-      "review": "verified",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          177,
-          178
-        ],
-        "sha256": "9f00623670f6e25cad7549a6f0a3672dc364f9bb1d622e456288dc6bc5cf2d5d",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-38/review.json",
-        "result": "All 1 verses match the 1935 PDF in this pass; no raw-source correction needed."
-      }
+      "localIds": []
     },
     {
       "id": 13358,
       "name": "O pie Deus",
       "page": 178,
-      "localIds": [],
-      "review": "pending",
-      "verseReview": {
-        "date": "2026-11-19",
-        "pdfPages": [
-          178,
-          179,
-          180
-        ],
-        "sha256": "95a7456a1dbd2eb4c6a5b3ecb1d07d0deecfc1bf23da6042cb066439a5ec996a",
-        "sourcePdfSha256": "c73d049f5ba90d3ec57a3f97e367a913ff100d64bb2a1f4454fc378ada6d1c1f",
-        "scope": [
-          "text",
-          "pitches",
-          "clefs",
-          "accidentals",
-          "neume shapes and grouping",
-          "barlines",
-          "horizontal cuts",
-          "syllable underlay",
-          "printed repeat cues"
-        ],
-        "evidence": "imported-review/session-batches/batch-38/review.json",
-        "status": "correction-ready",
-        "sourceSha256": "21b2cdb38ffa4d93734600eb087f8998c252aebf637b228f031154a72551bbaf",
-        "result": "Source discrepancy confirmed against the 1935 PDF; exact corrected preview prepared. Shared application score awaits authorized integration."
-      }
+      "localIds": []
     }
   ]
 }
