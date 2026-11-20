@@ -5,5 +5,9 @@ initial-style: 0;
 book: Offertoriale Sive Versus Offertoriorum Cantus Gregoriani, 1935, p. 93;
 source: https://gregobase.selapa.net/download.php?format=gabc&elem=1&id=17933;
 %%
-(c3) <sp>V/</sp>. 1. Cla(hfhhvFEhhhjvIH)mor(h) me(gxhiHFgvED)(;)(fh!jvIHhhhhj!kvIHhf)(;)(hhhjvIH)us(h) (;) in(de) con(ef)spéc(f!hhhvEDfe/fef)tu(f!gwhGF) e(de)jus(d) (:) in(def)tro(ef)í(f!hhhvEDffef/hihi)vit(f) (;) in(eh) au(hhhhih)(;)(def!hh/ijhhf/h)(;)(gh/ijhi)res(h) e(ihhf/hg//fh/ihhf/hg)(;)(ef/hhe/f/hhvFDed)jus.(de) (::) ()~* Quóniam quis.() (::) 
-<sp>V/</sp>. 2. Li(d)be(f)rá(hiHFhhf/hf)tor(def) me(fffvEDefff/de)(;)(fffvEDef//hijHFfe)(;)(f/hhf/hg//fih/ihhf/hg)(;)(fih/ighvFDe)(;)(dhhefhighvFE)us(feed) (;) de(f) gén(hfhvED//fhhh//hhhv)ti(fgf)bus(f) (;) i(de/fe/f!gwh)ra(hf)cún(fhf/hhhhf)dis :(gf) (:) ab(f) in(e)sur(f)gén(hh)ti(ivHF)bus(hh) in(hih~) me(ivhhhhih/jijvIHih) (;) ex(d)al(f)tá(f!hh//hhh/f!gwh/ih)(;)(def!hh//hhh/f!gwh/ih)(;)(eh/ih//eh!ijji)(;)(h/jjhjvIHg/iigivHG)(;)(ef!hhhvFED)(,)(f!hhhvFED)(;)(f/hh//hh/f!gwh)bis(h) me.(hhhvGFhvFDe) (::) ()~~~* Quóniam.() (::)
+(c3) <sp>V/</sp>. 1. Cla(hfhhvFEhhhjvIH)mor(h) me(gxhiHFgvED;fh!jvIHhhhhj!kvIHhf;hhhjvIH)us(h) (;) in(de) con(ef)spéc(f!hhhvEDfe/fef)tu(f!gwhGF) e(de)jus(d) (:)
+in(def)tro(ef)í(f!hhhvEDffef/hihi)vit(f) (;) in(eh) au(hhhhih;def!hh/ijhhf/h;gh/ijhi)res(h) e(ihhf/hg//fh/ihhf/hg;ef/hhe/f/hhvFDed)jus.(de) (::)
+()* Quóniam quis.() (::)
+<sp>V/</sp>. 2. Li(d)be(f)rá(hiHFhhf/hf)tor(def) me(fffvEDefff/de;fffvEDef//hijHFfe;f/hhf/hg//fih/ihhf/hg;fih/ighvFDe;dhhefhighvFE)us(feed) (;) de(f) gén(hfhvED//fhhh//hhhv)ti(fgf)bus(f) (;) i(de/fe/f!gwh)ra(hf)cún(fhf/hhhhf)dis:(gf) (:)
+ab(f) in(e)sur(f)gén(hh)ti(ivHF)bus(hh) in(hih~) me(ivhhhhih/jijvIHih) (;) ex(d)al(f)tá(f!hh//hhh/f!gwh/ih;def!hh//hhh/f!gwh/ih;eh/ih//eh!ijji;h/jjhjvIHg/iigivHG;ef!hhhvFED,f!hhhvFED;f/hh//hh/f!gwh)bis(h) me.(hhhvGFhvFDe) (::)
+()* Quóniam.() (::)

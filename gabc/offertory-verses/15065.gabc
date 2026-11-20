@@ -5,6 +5,12 @@ initial-style: 0;
 book: Offertoriale Sive Versus Offertoriorum Cantus Gregoriani, 1935, p. 49;
 source: https://gregobase.selapa.net/download.php?format=gabc&elem=1&id=15065;
 %%
-(c4) <sp>V/</sp>. 1. Sal(df/ghg)vum(g) me(g) fac,(gjHGFefDCdfEDf) (,) De(df/ghg)us,(ghgh/gjh/ihhg) (:) quón(j)i(ji)am(jijvIHGhg) in(h)tra(ji)vé(jkh)runt(ghGF) (,) a(fhjvHGhjHG)(;)(hji/jjvIHjvHGF)(;)(h!jjjhivHGh)quæ(hg) (,) us(f/ghg)que(ixhg/hg/hih) ad(hg) á(iyhig/hg)ni(f!gwhg)mam(hj!kvJI) (;) me(jkj/kijvHGgf/gf)(;)(jj/kj/kijvHGgf)(;)(gjHGhvGFg)am.(fg) (::) 
-<sp>V/</sp>. 2. Ad(d)vér(ff)sum(fgfff) me(fghG//Dghffff/ghg) (;) (fg!hvjjh/jjvHGh!iwji) (;) ex(ii)er([oll:0{1]k/lj[oll:}]/jh)ce(ji)bán(iki/jhhf)tur,(g) (:) qui(f) se(h)dé(jkJ//GjijvHFg/f!gwhg/hg)(;)(ixh!jjjh/jjkvJHh/f/ghg/hg/ixihivGF)(;)(ghjvHFgwhg)bant(hg) (;) in(fh) por(hjhivHGh)ta,(hg) (:) et(df) in(ixf!gwh!iv) me(ixhiHGhgh) psal(gh)lé(g/jjjhhggf)bant,(gh) (;) qui(f!gwhg) bi(hg)bé(ixh/jkjk/jjjhhggf/g!hwiHGh)bant(gh) vi(h/jjh/jjvHGjvHGgf)(;)(gjHGhvGFg)rum.(fg) (z0::c3) 
-<sp>V/</sp>. 3. E(h)go(e@fhFEhe/hh) ve(hi)ro(ik/i!jwkkvJIji) (,) o(h)ra(hhh)ti(i!jwkj)ó(jvvIHghFE)(;)(hhivFEhhivhhivFEhvFE)(;)(f!hhhjvIH)nem(ihhf) (,) me(hi)am(ik/i!jwkkvJIji) (;) ad(h) te(hhh/ikJIHhf/h) (;) (hhhf/hhf/h!iwji/jwkj) (,) Do(jvvIHG)mi(giHG)ne :(g) (:) tem(j)pus(ji/ji/jkj) be(ijii)ne(f)plá(iijk)ci(i)ti,(iii/g!hwi) De(ijIGi)us,(g) (:) in(gf~) mul(iji)ti(j)tú(hh)di(ivHF)ne(f) (;) mi(i)se(iiif)ri(g)cór(gih)di(ii)æ(iii) tu(g/iivGF)æ.(f/iiivGFgi) (::) ()* Et dedérunt.() (::)
+(c4) <sp>V/</sp>. 1. Sal(df/ghg)vum(g) me(g) fac,(gjHGFefDCdfEDf) (,) De(df/ghg)us,(ghgh/gjh/ihhg) (:)
+quón(j)i(ji)am(jijvIHGhg) in(h)tra(ji)vé(jkh)runt(ghGF) (,) a(fhjvHGhjHG;hji/jjvIHjvHGF;h!jjjhivHGh)quæ(hg) (,) us(f/ghg)que(ixhg/hg/hih) ad(hg) á(iyhig/hg)ni(f!gwhg)mam(hj!kvJI) (;) me(jkj/kijvHGgf/gf;jj/kj/kijvHGgf;gjHGhvGFg)am.(fg) (::)
+<sp>V/</sp>. 2. Ad(d)vér(ff)sum(fgfff) me(fghG//Dghffff/ghg) (;) (fg!hvjjh/jjvHGh!iwji) (;) ex(ii)er(k/lj/jh)ce(ji)bán(iki/jhhf)tur,(g) (:)
+qui(f) se(h)dé(jkJ//GjijvHFg/f!gwhg/hg;ixh!jjjh/jjkvJHh/f/ghg/hg/ixihivGF;ghjvHFgwhg)bant(hg) (;) in(fh) por(hjhivHGh)ta,(hg) (:)
+et(df) in(ixf!gwh!iv) me(ixhiHGhgh) psal(gh)lé(g/jjjhhggf)bant,(gh) (;) qui(f!gwhg) bi(hg)bé(ixh/jkjk/jjjhhggf/g!hwiHGh)bant(gh) vi(h/jjh/jjvHGjvHGgf;gjHGhvGFg)rum.(fg) (z0::c3)
+<sp>V/</sp>. 3. E(h)go(e!fhFEhe/hh) ve(hi)ro(ik/i!jwkkvJIji) (,) o(h)ra(hhh)ti(i!jwkj)ó(jvvIHghFE;hhivFEhhivhhivFEhvFE;f!hhhjvIH)nem(ihhf) (,) me(hi)am(ik/i!jwkkvJIji) (;) ad(h) te(hhh/ikJIHhf/h) (;) (hhhf/hhf/h!iwji!jwkj) (,) Dó(jvvIHG)mi(giHG)ne:(g) (:)
+tem(j)pus(ji/ji/jkj) be(ijii)ne(f)plá(iijk)ci(i)ti,(iii/g!hwi) De(ijIGi)us,(g) (:)
+in(gf~) mul(iji)ti(j)tú(hh)di(ivHF)ne(f) (;) mi(i)se(iiif)ri(g)cór(gih)di(ii)æ(iii) tu(g/iivGF)æ.(f/iiivGFgi) (::)
+()* Et dedérunt.() (::)

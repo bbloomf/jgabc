@@ -822,22 +822,9 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
 }
-function getOffertoryPlaybackSections(score, source) {
-  var starts = new Set(), markers = [], match, regex = /V\/\./g;
-  while((match = regex.exec(source))) markers.push(match.index);
-  var notes = [].concat.apply([], score.notations.map(function(notation) { return notation.notes || []; }));
-  markers.forEach(function(index) {
-    var first = notes.find(function(note) { return note.sourceIndex > index; });
-    if(first) starts.add(first);
-  });
-  return starts;
-}
-function updateOffertoryPlaybackSections(score, source, enabled) {
-  // Attach provenance after parsing/reparsing and before either layout path.
-  score.playbackSections = enabled ? getOffertoryPlaybackSections(score, source) : undefined;
-}
 function getPlaybackPitches(score) {
-  // Exsurge shares this register calculation with automatic custodes.
+  // The pitch each note is sung at, which is not its written one after a change between a C and an F clef:
+  // exsurge takes the octave from the custos before the change.
   return score.getPlaybackPitches();
 }
 function getPlaybackPitchData(score) {

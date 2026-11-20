@@ -117,7 +117,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Operuísti ómnia peccáta eorum : * mitigásti omnem iram tuam.",
+          "text": "Operuísti ómnia peccáta eórum: * mitigásti omnem iram tuam.",
           "cue": "Remisísti iniquitátem plebis"
         },
         {
@@ -134,11 +134,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Tunc aperiéntur óculi cæcórum * et aures surdórum audient : * tunc ascéndet claudus quasi cervus * et clara erit lingua mutórum.",
+          "text": "Tunc aperiéntur óculi cæcórum * et aures surdórum áudient: * tunc ascéndet claudus quasi cervus * et clara erit lingua mutórum.",
           "cue": "Ipse véniet, et"
         },
         {
-          "text": "Audíte ítaque domus David : * Non pusíllum vobis certámen præstáre homínibus, quóniam Dóminus præstat certamen : * proptérea dabit vobis Dóminus signum : * Ecce Virgo in útero accípiet et páriet Fílium * et vocábitur nomen ejus Emmanuel.",
+          "text": "Audíte ítaque domus David: * Non pusíllum vobis certámen præstáre homínibus, quóniam Dóminus præstat certámen: * proptérea dabit vobis Dóminus signum: * Ecce Virgo in útero accípiet et páriet Fílium * et vocábitur nomen ejus Emmánuel.",
           "cue": "Ipse véniet, et"
         }
       ]
@@ -151,11 +151,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Illumina faciem tuam super servum tuum * et salvum me fac propter misericordiam tuam: * Domine, non confundar, quoniam invocávi te.",
+          "text": "Illúmina fáciem tuam super servum tuum * et salvum me fac propter misericórdiam tuam: * Dómine, non confúndar, quóniam invocávi te.",
           "cue": "in mánibus tuis"
         },
         {
-          "text": "Quam magna multitúdo dulcédinis tuæ, Domine, quam abscondísti timéntibus te: perfecísti autem sperantibus in te in conspéctu filiórum hóminum.",
+          "text": "Quam magna multitúdo dulcédinis tuæ, Dómine, quam abscondísti timéntibus te: perfecísti autem sperántibus in te in conspéctu filiórum hóminum.",
           "cue": "in mánibus tuis"
         }
       ]
@@ -168,7 +168,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Dírige me in veritáte tua * et doce me, * quia tu es Deus salutáris meus : * et te sustínui tota die.",
+          "text": "Dírige me in veritáte tua * et doce me, * quia tu es Deus salutáris meus: * et te sustínui tota die.",
           "cue": "Etenim univérsi qui"
         },
         {
@@ -185,11 +185,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Benedixísti Dómine terram tuam : * avertísti captivitátem Jacob : * remisísti iniquitátem plebis tuæ.",
+          "text": "Benedixísti Dómine terram tuam: * avertísti captivitátem Jacob: * remisísti iniquitátem plebis tuæ.",
           "cue": "Et salutáre tuum"
         },
         {
-          "text": "Misericórdia et véritas obviavérunt sibi : * véritas de terra orta est * et justítia de cælo prospéxit.",
+          "text": "Misericórdia et véritas obviavérunt sibi: * véritas de terra orta est * et justítia de cælo prospéxit.",
           "cue": "Et salutáre tuum"
         }
       ]
@@ -202,11 +202,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Loquétur pacem gentibus : * et potéstas ejus a mari usque ad mare : * et a flúmine usque ad términus orbis terræ.",
+          "text": "Loquétur pacem géntibus: * et potéstas ejus a mari usque ad mare: * et a flúmine usque ad términus orbis terræ.",
           "cue": "Ecce Rex tuus"
         },
         {
-          "text": "Quia ecce vénio * et habitábo in médio tui, dicit Dóminus omnípotens : * et confúgient ad te in illa die omnes gentes : * et erunt tibi in plebem.",
+          "text": "Quia ecce vénio * et habitábo in médio tui, dicit Dóminus omnípotens: * et confúgient ad te in illa die omnes gentes: * et erunt tibi in plebem.",
           "cue": "Ecce Rex tuus"
         }
       ]
@@ -245,7 +245,7 @@ var offertoryVerses = {
       "verseCount": 1,
       "psalmVerses": [
         {
-          "text": "Cæli enárrant glóriam Dei : * et ópera mánuum ejus annúntiat firmaméntum.",
+          "text": "Cæli enárrant glóriam Dei: * et ópera mánuum ejus annúntiat firmaméntum.",
           "cue": "Et in fines"
         }
       ]
@@ -258,11 +258,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Nisi quod Dóminus erat in nobis, * dicat nunc Israel : * nisi quia Dóminus erat in nobis,",
+          "text": "Nisi quod Dóminus erat in nobis, * dicat nunc Israel: * nisi quia Dóminus erat in nobis,",
           "cue": "Láqueus contrítus est"
         },
         {
-          "text": "Torréntem pertransívit ánima nostra : * fórsitan pertransísset ánima nostra aquam intolerábilem : * benedíctus Dóminus, * qui non dedit nos in captiónem déntibus eórum.",
+          "text": "Torréntem pertransívit ánima nostra: * fórsitan pertransísset ánima nostra aquam intolerábilem: * benedíctus Dóminus, * qui non dedit nos in captiónem déntibus eórum.",
           "cue": "Láqueus contrítus est"
         }
       ]
@@ -275,15 +275,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Dómine, probásti me * et cognovísti me : * tu cognovísti sessiónem meam * et resurrectiónem meam.",
+          "text": "Dómine, probásti me * et cognovísti me: * tu cognovísti sessiónem meam * et resurrectiónem meam.",
           "cue": "Mihi autem."
         },
         {
-          "text": "Intellexísti cogitatiónes meas a longe : * sémitam meam et directiónem meam investigásti.",
+          "text": "Intellexísti cogitatiónes meas a longe: * sémitam meam et directiónem meam investigásti.",
           "cue": "Mihi autem."
         },
         {
-          "text": "Ecce tu, Dómine, cognovísti ómnia, * novíssima et antiqua : * tu formásti me * et posuísti super me manum tuam.",
+          "text": "Ecce tu, Dómine, cognovísti ómnia, * novíssima et antíqua: * tu formásti me * et posuísti super me manum tuam.",
           "cue": "Mihi autem."
         }
       ]
@@ -296,11 +296,11 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Bonum est confitéri Domino : * et psállere nómini tuo Altíssime.",
+          "text": "Bonum est confitéri Dómino: * et psállere nómini tuo Altíssime.",
           "cue": "Sicut cedrus, quæ"
         },
         {
-          "text": "Ad adnuntiándum mane misericórdiam tuam : * et veritátem tuam per noctem.",
+          "text": "Ad adnuntiándum mane misericórdiam tuam: * et veritátem tuam per noctem.",
           "cue": "Sicut cedrus, quæ"
         },
         {
@@ -317,7 +317,7 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Dicet Domino : Suscéptor meus es, * non timébis a timóre noctúrno * a sagítta volánte per diem.",
+          "text": "Dicet Dómino: Suscéptor meus es, * non timébis a timóre noctúrno * a sagítta volánte per diem.",
           "cue": "Scuto circúmdabit te"
         },
         {
@@ -325,7 +325,7 @@ var offertoryVerses = {
           "cue": "Scuto circúmdabit te"
         },
         {
-          "text": "Super áspidem et basilíscum ambulábis : * et conculcábis leónem et draconem : * quóniam in me sperávit, liberábo eum.",
+          "text": "Super áspidem et basilíscum ambulábis: * et conculcábis leónem et dracónem: * quóniam in me sperávit, liberábo eum.",
           "cue": "Scuto circúmdabit te"
         }
       ]
@@ -351,11 +351,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "In tribulatióne invocávi Dóminum * et exaudívit me in latitúdine : * quia Dóminus adjútor meus est.",
+          "text": "In tribulatióne invocávi Dóminum * et exaudívit me in latitúdine: * quia Dóminus adjútor meus est.",
           "cue": "Non móriar, sed"
         },
         {
-          "text": "Impúlsus versátus sum ut caderem : * et Dóminus suscépit me : * et factus est mihi in salútem.",
+          "text": "Impúlsus versátus sum ut cáderem: * et Dóminus suscépit me: * et factus est mihi in salútem.",
           "cue": "Non móriar, sed"
         }
       ]
@@ -368,15 +368,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Quam magnificáta sunt ópera tua Domine : * nimis profúndæ factæ sunt cogitatiónes tuæ.",
+          "text": "Quam magnificáta sunt ópera tua Dómine: * nimis profúndæ factæ sunt cogitatiónes tuæ.",
           "cue": "Bonum est."
         },
         {
-          "text": "Ecce inimici tui Dómine períbunt * et dispergéntur omnes, qui operántur iniquitátem.",
+          "text": "Ecce inimíci tui Dómine períbunt * et dispergéntur omnes, qui operántur iniquitátem.",
           "cue": "Bonum est."
         },
         {
-          "text": "Exaltábitur sicut unicórnis cornu meum * et senéctus mea in misericórdia uberi : * quia respéxit óculus meus inimícos meos * et insurgéntes in me malignántes audívit auris tua.",
+          "text": "Exaltábitur sicut unicórnis cornu meum * et senéctus mea in misericórdia úberi: * quia respéxit óculus meus inimícos meos * et insurgéntes in me malignántes audívit auris tua.",
           "cue": "Bonum est."
         }
       ]
@@ -406,7 +406,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Dómini est terra et plenitúdo eius : * orbis terrárum et univérsi, qui hábitant in eo.",
+          "text": "Dómini est terra et plenitúdo ejus: * orbis terrárum et univérsi, qui hábitant in eo.",
           "cue": "Et introíbit Rex"
         },
         {
@@ -423,7 +423,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Fac cum servo tuo, Dómine, secúndum magnam misericórdiam tuam : * et ne áuferas de ore meo verbum veritátis.",
+          "text": "Fac cum servo tuo, Dómine, secúndum magnam misericórdiam tuam: * et ne áuferas de ore meo verbum veritátis.",
           "cue": "Ut sciam testimónia"
         },
         {
@@ -440,7 +440,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Præcéptum Dómini lúcidum illúminans oculos : * timor Dei sanctus pérmanet in sǽculum sæculi : * judícia Dómini vera.",
+          "text": "Præcéptum Dómini lúcidum illúminans óculos: * timor Dei sanctus pérmanet in sǽculum sǽculi: * judícia Dómini vera.",
           "cue": "Et dulcióra super"
         },
         {
@@ -457,15 +457,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Qui statis in domo Dómini, * in átriis domus Dei nostri : * quia ego cognóvi, quod magnus est Dóminus * et Deus noster præ ómnibus diis.",
+          "text": "Qui statis in domo Dómini, * in átriis domus Dei nostri: * quia ego cognóvi, quod magnus est Dóminus * et Deus noster præ ómnibus diis.",
           "cue": "Omnia quæcúmque vóluit"
         },
         {
-          "text": "Dómine, nomen tuum in ætérnum * et memoriále tuum in sǽcula sæculórum : * judicábit Dóminus pópulum suum * et in servis suis consolábitur.",
+          "text": "Dómine, nomen tuum in ætérnum * et memoriále tuum in sǽcula sæculórum: * judicábit Dóminus pópulum suum * et in servis suis consolábitur.",
           "cue": "Omnia quæcúmque vóluit"
         },
         {
-          "text": "Qui timétis Dóminum benedícite eum : * benedíctus Dóminus ex Sion, qui hábitat in Jerúsalem.",
+          "text": "Qui timétis Dóminum benedícite eum: * benedíctus Dóminus ex Sion, qui hábitat in Jerúsalem.",
           "cue": "Omnia quæcúmque vóluit"
         }
       ]
@@ -478,11 +478,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Beáti immaculáti in via, * qui ámbulant in lege Domini : * beáti, qui scrutántur testimónia ejus, * in toto corde exquírunt eum.",
+          "text": "Beáti immaculáti in via, * qui ámbulant in lege Dómini: * beáti, qui scrutántur testimónia ejus, * in toto corde exquírunt eum.",
           "cue": "Vivífica me secúndum"
         },
         {
-          "text": "Viam veritátis elégi, * da mihi intelléctum et scrutábor legem tuam : * et custódiam illam in toto corde meo : * Inclína cor meum in testimónia tua et non in avarítiam : * in via tua vivífica me : * judícia enim tua iucúnda : * Deprecátus sum vultum tuum in toto corde meo, * quia diléxi legem tuam.",
+          "text": "Viam veritátis elégi, * da mihi intelléctum et scrutábor legem tuam: * et custódiam illam in toto corde meo: * Inclína cor meum in testimónia tua et non in avarítiam: * in via tua vivífica me: * judícia enim tua jucúnda: * Deprecátus sum vultum tuum in toto corde meo, * quia diléxi legem tuam.",
           "cue": "Vivífica me secúndum"
         }
       ]
@@ -503,7 +503,7 @@ var offertoryVerses = {
           "cue": "Et dedérunt in"
         },
         {
-          "text": "Ego vero oratiónem meam ad te Domine : * tempus benepláciti, Deus, * in multitúdine misericórdiæ tuæ.",
+          "text": "Ego vero oratiónem meam ad te Dómine: * tempus benepláciti, Deus, * in multitúdine misericórdiæ tuæ.",
           "cue": "Et dedérunt in"
         }
       ]
@@ -516,15 +516,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Bénedic ánima mea Dominum : * Dómine, Deus meus, magnificátus es veheménter.",
+          "text": "Bénedic ánima mea Dóminum: * Dómine, Deus meus, magnificátus es veheménter.",
           "cue": "Sit glória Dómini"
         },
         {
-          "text": "Confessiónem et decórem induísti : * amíctus lumen sicut vestiméntum.",
+          "text": "Confessiónem et decórem induísti: * amíctus lumen sicut vestiméntum.",
           "cue": "Sit glória Dómini"
         },
         {
-          "text": "Exténdens cælum sicut pellem : * qui tegis in aquis superióra eius : * qui ponis nubem ascénsum tuum.",
+          "text": "Exténdens cælum sicut pellem: * qui tegis in aquis superióra ejus: * qui ponis nubem ascénsum tuum.",
           "cue": "Sit glória Dómini"
         }
       ]
@@ -537,7 +537,7 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Notus in Judǽa Deus, * in Israel magnum nomen ejus, * allelú{ia}.",
+          "text": "Notus in Judǽa Deus, * in Israel magnum nomen ejus, * allelúia.",
           "cue": "Dum resúrgeret in"
         },
         {
@@ -545,7 +545,7 @@ var offertoryVerses = {
           "cue": "Dum resúrgeret in"
         },
         {
-          "text": "Ibi confrégit cornu arcum, scutum et gládium et bellum : * illúminans tu mirabíliter a móntibus ætérnis",
+          "text": "Ibi confrégit cornu arcum, scutum et gládium et bellum: * illúminans tu mirabíliter a móntibus ætérnis",
           "cue": "Dum resúrgeret in"
         }
       ]
@@ -575,7 +575,7 @@ var offertoryVerses = {
       "verseCount": 4,
       "psalmVerses": [
         {
-          "text": "Utinam appenderéntur peccáta mea : * útinam appenderéntur peccáta mea, * quibus iram mérui, * quibus iram mérui, * et calámitas et calámitas et calámitas, quam pátior, et grávior apparéret.",
+          "text": "Utinam appenderéntur peccáta mea: * útinam appenderéntur peccáta mea, * quibus iram mérui, * quibus iram mérui, * et calámitas et calámitas et calámitas, quam pátior, et grávior apparéret.",
           "cue": "Vir erat."
         },
         {
@@ -604,7 +604,7 @@ var offertoryVerses = {
           "cue": "Veníte et audíte"
         },
         {
-          "text": "Locútum est os meum in tribulatióne mea : * locútum est os meum in tribulatióne mea : * holocáusta medulláta ófferam tibi.",
+          "text": "Locútum est os meum in tribulatióne mea: * locútum est os meum in tribulatióne mea: * holocáusta medulláta ófferam tibi.",
           "cue": "Veníte et audíte"
         }
       ]
@@ -617,11 +617,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Audi pópule meus et loquar : * Israel, * si me audíeris, dabo vobis desidéria cordis vestri.",
+          "text": "Audi pópule meus et loquar: * Israel, * si me audíeris, dabo vobis desidéria cordis vestri.",
           "cue": "In terram fluéntem"
         },
         {
-          "text": "Non adorábitis Deum aliénum : * quia ego sum Dóminus, Deus vester, * qui edúxi vos de terra Ægýpti.",
+          "text": "Non adorábitis Deum aliénum: * quia ego sum Dóminus, Deus vester, * qui edúxi vos de terra Ægýpti.",
           "cue": "In terram fluéntem"
         }
       ]
@@ -634,15 +634,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Eructávit cor meum verbum bonum : * dico ego ópera mea Regi.",
+          "text": "Eructávit cor meum verbum bonum: * dico ego ópera mea Regi.",
           "cue": "In omni progénie"
         },
         {
-          "text": "Lingua mea cálamus scribæ velóciter scribéntis. * Speciósus forma præ fíliis hominum : * diffúsa est grátia in lábiis tuis.",
+          "text": "Lingua mea cálamus scribæ velóciter scribéntis. * Speciósus forma præ fíliis hóminum: * diffúsa est grátia in lábiis tuis.",
           "cue": "In omni progénie"
         },
         {
-          "text": "Proptérea benedíxit te Deus in æternum : * accíngere gládio tuo circa femur potentíssime.",
+          "text": "Proptérea benedíxit te Deus in ætérnum: * accíngere gládio tuo circa femur potentíssime.",
           "cue": "In omni progénie"
         }
       ]
@@ -655,11 +655,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Dómine, abstraxísti ab ínferis ánimam meam : * salvásti me a descendéntibus in lacum.",
+          "text": "Dómine, abstraxísti ab ínferis ánimam meam: * salvásti me a descendéntibus in lacum.",
           "cue": "Dómine clamávi ad"
         },
         {
-          "text": "Ego autem dixi in mea abundántia : * Non movébor in æternum : * Dómine, in voluntáte tua præstitísti decóri meo virtútem.",
+          "text": "Ego autem dixi in mea abundántia: * Non movébor in ætérnum: * Dómine, in voluntáte tua præstitísti decóri meo virtútem.",
           "cue": "Dómine clamávi ad"
         }
       ]
@@ -676,7 +676,7 @@ var offertoryVerses = {
           "cue": "Ante fáciem Dómini"
         },
         {
-          "text": "Cantáte Domino : * benedícite nomen eius : * bene nuntiáte de die in diem salutáre ejus.",
+          "text": "Cantáte Dómino: * benedícite nomen ejus: * bene nuntiáte de die in diem salutáre ejus.",
           "cue": "Ante fáciem Dómini"
         }
       ]
@@ -689,7 +689,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Pars mea Dómine, * dixi custodíre legem tuam : * precátus sum vultum tuum * in toto corde meo.",
+          "text": "Pars mea Dómine, * dixi custodíre legem tuam: * precátus sum vultum tuum * in toto corde meo.",
           "cue": "Et levábo manus"
         },
         {
@@ -706,11 +706,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Qui propitiátur ómnibus iniquitátibus tuis * et rédimet de intéritu vitam tuam : * qui corónat te in miseratióne et misericórdia.",
+          "text": "Qui propitiátur ómnibus iniquitátibus tuis * et rédimet de intéritu vitam tuam: * qui corónat te in miseratióne et misericórdia.",
           "cue": "Et renovábitur, sicut"
         },
         {
-          "text": "Justítia ejus super fílios filiórum custodiéntium testaméntum ejus et mandáta ejus, * ut fáciant ea : * Dóminus in cælo parávit sedem suam : * et regnum ejus ómnium dominábitur.",
+          "text": "Justítia ejus super fílios filiórum custodiéntium testaméntum ejus et mandáta ejus, * ut fáciant ea: * Dóminus in cælo parávit sedem suam: * et regnum ejus ómnium dominábitur.",
           "cue": "Et renovábitur, sicut"
         }
       ]
@@ -723,11 +723,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Dóminus regnávit, * decórem induit : * índuit Dóminus fortitúdinem * et præcínxit se virtúte.",
+          "text": "Dóminus regnávit, * decórem índuit: * índuit Dóminus fortitúdinem * et præcínxit se virtúte.",
           "cue": "Paráta sedes tua"
         },
         {
-          "text": "Mirábilis in excélsis Dominus : * testimónia tua credibília facta sunt nimis : * domum tuam decent Sancta, Dómine, * in longitúdinem diérum.",
+          "text": "Mirábilis in excélsis Dóminus: * testimónia tua credibília facta sunt nimis: * domum tuam decent Sancta, Dómine, * in longitúdinem diérum.",
           "cue": "Paráta sedes tua"
         }
       ]
@@ -740,15 +740,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Magnus et metuéndus super omnes, qui in circuítu ejus sunt : * tu domináris potestáti maris, * motum autem flúctuum ejus tu mítigas.",
+          "text": "Magnus et metuéndus super omnes, qui in circuítu ejus sunt: * tu domináris potestáti maris, * motum autem flúctuum ejus tu mítigas.",
           "cue": "Iustítia et iudícium"
         },
         {
-          "text": "Misericórdia et véritas præíbunt ante fáciem tuam : * et in beneplácito tuo exaltábitur cornu nostrum.",
+          "text": "Misericórdia et véritas præíbunt ante fáciem tuam: * et in beneplácito tuo exaltábitur cornu nostrum.",
           "cue": "Iustítia et iudícium"
         },
         {
-          "text": "Tu humiliásti sicut vulnerátum superbum : * et in virtúte bráchii tui dispersísti inimícos tuos : * firmétur manus tua et exaltétur déxtera tua, Dómine.",
+          "text": "Tu humiliásti sicut vulnerátum supérbum: * et in virtúte bráchii tui dispersísti inimícos tuos: * firmétur manus tua et exaltétur déxtera tua, Dómine.",
           "cue": "Iustítia et iudícium"
         }
       ]
@@ -761,7 +761,7 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "De us judícium tuum Regi da * et justítiam tuam Fílio Regis : * judicáre pópulum tuum cum justítia * et páuperes tuos in judício : * omnes gentes sérvient ei.",
+          "text": "De us judícium tuum Regi da * et justítiam tuam Fílio Regis: * judicáre pópulum tuum cum justítia * et páuperes tuos in judício: * omnes gentes sérvient ei.",
           "cue": "Omnes gentes sérvient"
         },
         {
@@ -782,11 +782,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Ipse fecit nos et non ipsi nos : * nos autem pópulus ejus * et oves páscuæ ejus.",
+          "text": "Ipse fecit nos et non ipsi nos: * nos autem pópulus ejus * et oves páscuæ ejus.",
           "cue": "Quia Dóminus ipse"
         },
         {
-          "text": "Laudáte nomen ejus, * quóniam suávis est Dominus : * in ætérnum misericórdia ejus * et usque in sæculum sǽculi véritas ejus.",
+          "text": "Laudáte nomen ejus, * quóniam suávis est Dóminus: * in ætérnum misericórdia ejus * et usque in sǽculum sǽculi véritas ejus.",
           "cue": "Quia Dóminus ipse"
         }
       ]
@@ -799,11 +799,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Dixit Móyses ad populum : * Bono ánimo estóte * et véniet vobis salus a Dómino Deo * et pugnábit pro vobis.",
+          "text": "Dixit Móyses ad pópulum: * Bono ánimo estóte * et véniet vobis salus a Dómino Deo * et pugnábit pro vobis.",
           "cue": "In progénies vestras"
         },
         {
-          "text": "In mente habéte diem istum, * in quo exístis de terra Ægýpti, de domo servitútis : * in manu enim poténti liberávit vos Dóminus.",
+          "text": "In mente habéte diem istum, * in quo exístis de terra Ægýpti, de domo servitútis: * in manu enim poténti liberávit vos Dóminus.",
           "cue": "In progénies vestras"
         }
       ]
@@ -816,15 +816,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Exáudi, Dómine, justítiam meam, * inténde deprecatiónem meam : * áuribus pércipe oratiónem meam.",
+          "text": "Exáudi, Dómine, justítiam meam, * inténde deprecatiónem meam: * áuribus pércipe oratiónem meam.",
           "cue": "Qui salvos facis"
         },
         {
-          "text": "Custódi me Dómine ut pupíllam óculi, * sub umbra alárum tuárum prótege me : * éripe me Dómine ab ímpio.",
+          "text": "Custódi me Dómine ut pupíllam óculi, * sub umbra alárum tuárum prótege me: * éripe me Dómine ab ímpio.",
           "cue": "Qui salvos facis"
         },
         {
-          "text": "Ego autem cum justítia apparébo in conspéctu tuo : * satiábor, dum manifestábitur glória tua.",
+          "text": "Ego autem cum justítia apparébo in conspéctu tuo: * satiábor, dum manifestábitur glória tua.",
           "cue": "Qui salvos facis"
         }
       ]
@@ -858,7 +858,7 @@ var offertoryVerses = {
           "cue": "Quóniam quis Deus"
         },
         {
-          "text": "Liberátor meus de géntibus iracúndis : * ab insurgéntibus in me exaltábis me.",
+          "text": "Liberátor meus de géntibus iracúndis: * ab insurgéntibus in me exaltábis me.",
           "cue": "Quóniam quis Deus"
         }
       ]
@@ -871,11 +871,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Dixit Dóminus ad Moysen : * Invenísti grátiam in conspéctu meo * et scio te præ omnibus : * et festínans Móyses inclinávit se in terram * et adorávit dicens : * Scio, quia miséricors es in míllibus, * áuferens iniquitátem et peccáta.",
+          "text": "Dixit Dóminus ad Móysen: * Invenísti grátiam in conspéctu meo * et scio te præ ómnibus: * et festínans Móyses inclinávit se in terram * et adorávit dicens: * Scio, quia miséricors es in míllibus, * áuferens iniquitátem et peccáta.",
           "cue": "Et placátus factus"
         },
         {
-          "text": "Dixit Móyses et Aaron, * dixit Móyses et Aaron ad omnem synagógam filiórum Israel : * Accédite ante Deum : * majéstas Dómini appáruit in nube : * et exaudívit murmurátiónem vestram in témpore.",
+          "text": "Dixit Móyses et Aaron, * dixit Móyses et Aaron ad omnem synagógam filiórum Israel: * Accédite ante Deum: * majéstas Dómini appáruit in nube: * et exaudívit murmuratiónem vestram in témpore.",
           "cue": "Et placátus factus"
         }
       ]
@@ -892,7 +892,7 @@ var offertoryVerses = {
           "cue": "Dómine in."
         },
         {
-          "text": "Exspéctans exspectávi Dóminum et respéxit me : * et exaudívit deprecatiónem meam.",
+          "text": "Exspéctans exspectávi Dóminum et respéxit me: * et exaudívit deprecatiónem meam.",
           "cue": "Dómine in."
         }
       ]
@@ -909,7 +909,7 @@ var offertoryVerses = {
           "cue": "Et propítius inténde"
         },
         {
-          "text": "Audívi vocem dicéntem mihi : * Dániel, intéllege verba, quæ loquor tibi, * quia ego missus sum ad te. * Nam et Michael venit in adjutórium meum.",
+          "text": "Audívi vocem dicéntem mihi: * Dániel, intéllege verba, quæ loquor tibi, * quia ego missus sum ad te. * Nam et Míchael venit in adjutórium meum.",
           "cue": "Et propítius inténde"
         }
       ]
@@ -922,11 +922,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Locútus est Dóminus ad Móysen dicens : * Ascénde ad me in montem Sina * et statis super cacúmen eius : * Surgens Móyses ascéndit in montem, ubi constítuit ei Deus, * et descéndit ad eum Dóminus in nube * et ádstitit ante fáciem ejus. * Videns Móyses prócidens adorávit dicens : * Obsecro, Dómine, dimítte peccáta pópuli tui. * Et dixit ad eum Dominus : * Fáciam secúndum verbum tuum.",
+          "text": "Locútus est Dóminus ad Móysen dicens: * Ascénde ad me in montem Sina * et statis super cacúmen ejus: * Surgens Móyses ascéndit in montem, ubi constítuit ei Deus, * et descéndit ad eum Dóminus in nube * et ádstitit ante fáciem ejus. * Videns Móyses prócidens adorávit dicens: * Obsecro, Dómine, dimítte peccáta pópuli tui. * Et dixit ad eum Dóminus: * Fáciam secúndum verbum tuum.",
           "cue": "Fecit sacrifícium vespertínum"
         },
         {
-          "text": "Orávit Móyses Dóminum et dixit : * Si invéni grátiam in conspéctu tuo, * osténde mihi te ipsum maniféste, ut vídeam te. * Et locútus est ad eum Dóminus dicens : * Non enim vidébit me homo et vívere potest : * sed esto super altitúdinem lápidis et próteget te déxtera mea, donec pertránseam : * dum pertransíero, áuferam manum meam et tunc vidébis glóriam meam, fácies autem mea non vidébitur tibi, * quia ego sum Deus osténdens mirabília in terra.",
+          "text": "Orávit Móyses Dóminum et dixit: * Si invéni grátiam in conspéctu tuo, * osténde mihi te ipsum maniféste, ut vídeam te. * Et locútus est ad eum Dóminus dicens: * Non enim vidébit me homo et vívere potest: * sed esto super altitúdinem lápidis et próteget te déxtera mea, donec pertránseam: * dum pertransíero, áuferam manum meam et tunc vidébis glóriam meam, fácies autem mea non vidébitur tibi, * quia ego sum Deus osténdens mirabília in terra.",
           "cue": "Fecit sacrifícium vespertínum"
         }
       ]
@@ -939,7 +939,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "In quacúmque die invocávero te, exáudi me, Domine : * multiplicábis in ánima mea virtútem tuam.",
+          "text": "In quacúmque die invocávero te, exáudi me, Dómine: * multiplicábis in ánima mea virtútem tuam.",
           "cue": "Et salvum me"
         },
         {
@@ -956,11 +956,11 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "In salícibus in médio ejus suspéndimus órgana nostra. * Quóniam illic interrogavérunt nos, * qui captívos duxérunt nos, verba canticórum * et, qui abduxérunt nos : Hymnum cantáte nobis de cánticis Sion. * * Quómodo cantábimus cánticum Dómini in terra aliéna?",
+          "text": "In salícibus in médio ejus suspéndimus órgana nostra. * Quóniam illic interrogavérunt nos, * qui captívos duxérunt nos, verba canticórum * et, qui abduxérunt nos: Hymnum cantáte nobis de cánticis Sion. * * Quómodo cantábimus cánticum Dómini in terra aliéna?",
           "cue": "Super flúmina."
         },
         {
-          "text": "Si oblítus fúero tui, Jerúsalem, * obliviscátur me déxtera mea : * adhǽreat lingua mea fáucibus meis, * si tui non memínero.",
+          "text": "Si oblítus fúero tui, Jerúsalem, * obliviscátur me déxtera mea: * adhǽreat lingua mea fáucibus meis, * si tui non memínero.",
           "cue": "Super flúmina."
         },
         {
@@ -977,7 +977,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Evérte cor ejus in ódium repugnántium nobis * et in eos, qui conséntiunt eis : * nos autem líbera in manu tua, Deus noster, * in ætérnum.",
+          "text": "Evérte cor ejus in ódium repugnántium nobis * et in eos, qui conséntiunt eis: * nos autem líbera in manu tua, Deus noster, * in ætérnum.",
           "cue": "Recordáre mei."
         },
         {
@@ -994,7 +994,7 @@ var offertoryVerses = {
       "verseCount": 1,
       "psalmVerses": [
         {
-          "text": "In conspéctu Angelórum psallam tibi, Domine : * et adorábo ad templum sanctum tuum * et confitébor tibi, Dómine.",
+          "text": "In conspéctu Angelórum psallam tibi, Dómine: * et adorábo ad templum sanctum tuum * et confitébor tibi, Dómine.",
           "cue": "Et ascéndit fumus"
         }
       ]
@@ -1007,7 +1007,7 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Beáti immaculáti in via, * qui ámbulant in lege Domini : * beáti, qui scrutántur testimónia eius : * in toto corde exquírunt eum.",
+          "text": "Beáti immaculáti in via, * qui ámbulant in lege Dómini: * beáti, qui scrutántur testimónia ejus: * in toto corde exquírunt eum.",
           "cue": "In lábiis meis"
         },
         {
@@ -1015,7 +1015,7 @@ var offertoryVerses = {
           "cue": "In lábiis meis"
         },
         {
-          "text": "Viam iniquitátis, Dómine, amóve a me : * viam iniquitátis, Dómine, amóve a me * et de lege tua miserére mei : * viam veritátis elegi : * judícia tua, judícia tua non sum oblitus : * viam mandatórum tuórum cucúrri, * cum dilatáres cor meum.",
+          "text": "Viam iniquitátis, Dómine, amóve a me: * viam iniquitátis, Dómine, amóve a me * et de lege tua miserére mei: * viam veritátis elégi: * judícia tua, judícia tua non sum oblítus: * viam mandatórum tuórum cucúrri, * cum dilatáres cor meum.",
           "cue": "In lábiis meis"
         }
       ]
@@ -1028,7 +1028,7 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Legem pone mihi, Dómine, * et viam justificatiónum exquiram : * et in præcéptis tuis me exercébor.",
+          "text": "Legem pone mihi, Dómine, * et viam justificatiónum exquíram: * et in præcéptis tuis me exercébor.",
           "cue": "óculos meos, et"
         },
         {
@@ -1049,7 +1049,7 @@ var offertoryVerses = {
           "cue": "Dele Dómine iniquitátem"
         },
         {
-          "text": "Tibi soli peccávi et malum coram te feci : * miserére mei, ut justificéris, Dómine, in sermónibus tuis.",
+          "text": "Tibi soli peccávi et malum coram te feci: * miserére mei, ut justificéris, Dómine, in sermónibus tuis.",
           "cue": "Dele Dómine iniquitátem"
         }
       ]
@@ -1062,11 +1062,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Conturbátus sum a voce inimíci * et a tribulatióne peccatóris : * et exspectábam eum, qui me salvum fáceret.",
+          "text": "Conturbátus sum a voce inimíci * et a tribulatióne peccatóris: * et exspectábam eum, qui me salvum fáceret.",
           "cue": "Inténde in me"
         },
         {
-          "text": "Ego autem ad Deum clamavi : * líbera ánimam meam : * et exténdes manum tuam in retribuéndo illis.",
+          "text": "Ego autem ad Deum clamávi: * líbera ánimam meam: * et exténdes manum tuam in retribuéndo illis.",
           "cue": "Inténde in me"
         }
       ]
@@ -1083,7 +1083,7 @@ var offertoryVerses = {
           "cue": "Quia suávis est"
         },
         {
-          "text": "Pro eo, ut dilígerent me, detrahébant mihi : * ego autem orábam.",
+          "text": "Pro eo, ut dilígerent me, detrahébant mihi: * ego autem orábam.",
           "cue": "Quia suávis est"
         },
         {
@@ -1117,8 +1117,8 @@ var offertoryVerses = {
       "verseCount": 1,
       "psalmVerses": [
         {
-          "text": "Exspéctans exspectávi Dóminum et respéxit me : * et edúxit me de lacu misériæ * et de luto fæcis.",
-          "cue": "Domine ad."
+          "text": "Exspéctans exspectávi Dóminum et respéxit me: * et edúxit me de lacu misériæ * et de luto fæcis.",
+          "cue": "Dómine ad."
         }
       ]
     },
@@ -1134,7 +1134,7 @@ var offertoryVerses = {
           "cue": "Sperábo in eum"
         },
         {
-          "text": "Præcinxísti me virtúte ad bellum : * et supplantásti inimícos meos subter me * et inimicórum meórum dedísti mihi dorsum : * et odiéntes me disperdidísti.",
+          "text": "Præcinxísti me virtúte ad bellum: * et supplantásti inimícos meos subter me * et inimicórum meórum dedísti mihi dorsum: * et odiéntes me disperdidísti.",
           "cue": "Sperábo in eum"
         }
       ]
@@ -1168,7 +1168,7 @@ var offertoryVerses = {
           "cue": "Et non tradas"
         },
         {
-          "text": "Appropinquavérunt persequéntes me iniqui : * confundántur et revereántur, * quia injúste iniquitátem fecérunt in me.",
+          "text": "Appropinquavérunt persequéntes me iníqui: * confundántur et revereántur, * quia injúste iniquitátem fecérunt in me.",
           "cue": "Et non tradas"
         }
       ]
@@ -1181,11 +1181,11 @@ var offertoryVerses = {
       "verseCount": 2,
       "psalmVerses": [
         {
-          "text": "Exáudi me in tua justítia : * et ne intres in judício cum servo tuo Dómine.",
+          "text": "Exáudi me in tua justítia: * et ne intres in judício cum servo tuo Dómine.",
           "cue": "Ad te confúgi"
         },
         {
-          "text": "Velóciter exáudi me Domine : * defécit spíritus meus.",
+          "text": "Velóciter exáudi me Dómine: * defécit spíritus meus.",
           "cue": "Ad te confúgi"
         }
       ]
@@ -1198,15 +1198,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Eripe me, Dómine, ab hómine malo : * a viro iníquo líbera me.",
+          "text": "Eripe me, Dómine, ab hómine malo: * a viro iníquo líbera me.",
           "cue": "Et ab homínibus"
         },
         {
-          "text": "Qui cogitavérunt supplantáre gressus meos : * abscondérunt supérbi láqueos mihi.",
+          "text": "Qui cogitavérunt supplantáre gressus meos: * abscondérunt supérbi láqueos mihi.",
           "cue": "Et ab homínibus"
         },
         {
-          "text": "Dixi Domino : * Deus meus es : * exáudi, Dómine, vocem meam.",
+          "text": "Dixi Dómino: * Deus meus es: * exáudi, Dómine, vocem meam.",
           "cue": "Et ab homínibus"
         }
       ]
@@ -1227,7 +1227,7 @@ var offertoryVerses = {
           "cue": "Et clamor meus"
         },
         {
-          "text": "Tu exsúrgens miseréberis Sion : * quia tempus miseréndi ejus, * quia venit tempus.",
+          "text": "Tu exsúrgens miseréberis Sion: * quia tempus miseréndi ejus, * quia venit tempus.",
           "cue": "Et clamor meus"
         }
       ]
@@ -1274,7 +1274,7 @@ var offertoryVerses = {
           "cue": "Ut tibi gratam"
         },
         {
-          "text": "Qui pro mundi salúte in ligno crucis innocens pependísti, * miserere pópulo, quem redemísti: * ut sacro signáculo insignítus a perículis ómnibus sit secúrus.",
+          "text": "Qui pro mundi salúte in ligno crucis ínnocens pependísti, * miserére pópulo, quem redemísti: * ut sacro signáculo insignítus a perículis ómnibus sit secúrus.",
           "cue": "Ut tibi gratam"
         },
         {
@@ -1291,15 +1291,15 @@ var offertoryVerses = {
       "verseCount": 3,
       "psalmVerses": [
         {
-          "text": "Jubiláte Deo omnis terra, * psalmum dícite nómini eius : * date glóriam laudi ejus.",
+          "text": "Jubiláte Deo omnis terra, * psalmum dícite nómini ejus: * date glóriam laudi ejus.",
           "cue": "Benedíctus Dóminus, qui"
         },
         {
-          "text": "In multitúdine virtútis tuæ mentiéntur tibi inimíci tui : * omnis terra adóret te et psallat tibi, Altíssime.",
+          "text": "In multitúdine virtútis tuæ mentiéntur tibi inimíci tui: * omnis terra adóret te et psallat tibi, Altíssime.",
           "cue": "Benedíctus Dóminus, qui"
         },
         {
-          "text": "Veníte et vidéte ópera Domini : * quam terríbilis in consíliis super fílios hominum : * ad ipsum ore meo clamávi * et exsultávi sub lingua mea : * proptérea exaudívit me Deus * et inténdit voci oratiónis meæ.",
+          "text": "Veníte et vidéte ópera Dómini: * quam terríbilis in consíliis super fílios hóminum: * ad ipsum ore meo clamávi * et exsultávi sub lingua mea: * proptérea exaudívit me Deus * et inténdit voci oratiónis meæ.",
           "cue": "Benedíctus Dóminus, qui"
         }
       ]
@@ -1354,7 +1354,7 @@ var offertoryVerses = {
           "cue": "exspectávi Dóminum, et"
         },
         {
-          "text": "Dómine, Deus, tu cognovísti justítiam meam: * non abscóndi in corde meo veritátem tuam * et salutáre tuum dixi: * adjutor meus, Dómine, * et protéctor meus.",
+          "text": "Dómine, Deus, tu cognovísti justítiam meam: * non abscóndi in corde meo veritátem tuam * et salutáre tuum dixi: * adjútor meus, Dómine, * et protéctor meus.",
           "cue": "exspectávi Dóminum, et"
         }
       ]
@@ -1528,7 +1528,7 @@ var offertoryVerses = {
           "cue": "omnes, qui novérunt"
         },
         {
-          "text": "Cognoscétur Dóminus judícia fáciens, * quóniam patiéntia pauperum non períbit in finem: * desidérium páuperum exaudívit Deus.",
+          "text": "Cognoscétur Dóminus judícia fáciens, * quóniam patiéntia páuperum non períbit in finem: * desidérium páuperum exaudívit Deus.",
           "cue": "omnes, qui novérunt"
         }
       ]
@@ -1590,7 +1590,7 @@ var offertoryVerses = {
           "cue": "Allelúia."
         },
         {
-          "text": "Dóminus érigit elísos, * Dóminus solvit compedítos: * custódit Dóminus pupíllum et ádvenam et víduam suscípiet: * et viam peccatórum exterminábit: * regnábit Dóminus in ætérnum, * Deus tuus, Sion, in sæculum sæculi.",
+          "text": "Dóminus érigit elísos, * Dóminus solvit compedítos: * custódit Dóminus pupíllum et ádvenam et víduam suscípiet: * et viam peccatórum exterminábit: * regnábit Dóminus in ætérnum, * Deus tuus, Sion, in sǽculum sǽculi.",
           "cue": "Allelúia."
         }
       ]
@@ -2556,7 +2556,7 @@ var offertoryVerses = {
       "name": "De profundis",
       "page": 25,
       "text": "Fiant aures tuæ intendéntes * in oratiónem servi tui.",
-      "cue": "De profundis.",
+      "cue": "De profúndis.",
       "localIds": [
         986
       ]

@@ -48,11 +48,14 @@
     var start = positions[at], finish = positions[at + needle.length - 1] + 1;
     var note = /\(([^)]*)\)/g, match, pitch;
     note.lastIndex = start;
-    while((match = note.exec(gabc)) && !pitch) {
-      var notes = match[1].replace(/\[[^\]]*\]/g, '');
+    var pitchEnd;
+    while(!pitch && (match = note.exec(gabc))) {
+      // (a flat, natural or sharp before the first note is not that note)
+      var notes = match[1].replace(/\[[^\]]*\]|[a-m][xy#]/gi, '');
       if(!/^[cf]b?[1-4]$/.test(notes)) pitch = (notes.match(/[a-m]/i) || [])[0];
+      pitchEnd = note.lastIndex;
     }
-    return { start: start, end: finish, pitch: pitch && pitch.toLowerCase(), clef: lastClef(gabc.slice(0, start)) };
+    return { start: start, end: finish, pitch: pitch && pitch.toLowerCase(), pitchEnd: pitchEnd, clef: lastClef(gabc.slice(0, start)) };
   }
   function cueIndex(gabc, cue, occurrence) {
     var info = cueInfo(gabc, cue, occurrence);
@@ -106,19 +109,63 @@
     var marker = atBeginning || /\*(?:\([,;:]*\))?\s*(?:<b>)?$/.test(before) ? '' : '* ';
     return before + marker + words + gabc.slice(info.end);
   }
-  function responseCue(antiphon, cue, clef, occurrence) {
+  // The staff position of a GABC pitch letter: d, on the lowest line, is 1.
+  function staffPosition(letter) { return letter.toLowerCase().charCodeAt(0) - 99; }
+  // How high a staff position under a clef is sung, in diatonic steps. Both kinds of clef are written in one octave,
+  // as Gregorio and Exsurge reckon them (the fa of an F clef is the one above the do of a C clef); octaves says how
+  // many octaves from there each kind is sung (see clefOctaves).
+  function sungHeight(position, clef, octaves) {
+    return position - 2 * clef.slice(-1) + (clef[0] == 'f' ? 3 : 0) + 7 * (octaves[clef[0]] || 0);
+  }
+  // How many octaves from where it is written each kind of clef (c, f) is sung, once all of gabc has been sung.
+  // The notation does not say how the octave of a C clef relates to that of an F clef. Exsurge settles it at the first
+  // change between them, and this follows the same rule (ChantScore.getPlaybackPitches()): the first note after the
+  // change is sung where the custos before it shows it, which is where an explicit custos on that note is written,
+  // and otherwise where an automatic custos fits on the staff. Each kind of clef then keeps its octave.
+  function clefOctaves(gabc) {
+    var octaves = {}, clef, sungClef, custos, custosClef;
+    gabc.slice(gabc.indexOf('%%') < 0 ? 0 : gabc.lastIndexOf('%%') + 2).replace(/\(([^)]*)\)/g, function(group, notes) {
+      notes.replace(/\[[^\]]*\]|\|.*$/g, '').replace(/([cf]b?[1-4])|([a-mA-M])\+|[a-mA-M][xy#]|([a-mA-M])/g, function(token, newClef, shown, note) {
+        if(newClef) clef = newClef;
+        else if(shown) { custos = staffPosition(shown); custosClef = clef; }
+        else if(note && clef) {
+          var kind = clef[0], sungKind = sungClef && sungClef[0];
+          if(sungKind && kind != sungKind) {
+            // (an explicit custos after the new clef is drawn with that one, and says nothing of the change)
+            var explicit = custos !== undefined && custosClef && custosClef[0] == sungKind,
+                before = explicit ? custosClef : sungClef,
+                written = sungHeight(staffPosition(note), clef, {}) + 2 * before.slice(-1) - (before[0] == 'f' ? 3 : 0),
+                at;
+            if(explicit && (custos - written) % 7 == 0) at = custos;
+            else if(octaves[kind] === undefined) for(at = written; at < -2 || at > 10;) at += at < -2 ? 7 : -7;
+            if(at !== undefined) octaves[kind] = octaves[sungKind] + (at - written) / 7;
+          }
+          if(octaves[kind] === undefined) octaves[kind] = 0;
+          sungClef = clef;
+          custos = custosClef = undefined;
+        }
+      });
+    });
+    return octaves;
+  }
+  // The return to cue, with a custos at its first note under clef. The cue is looked for in antiphon; sung is whatever
+  // is sung after antiphon and before this return.
+  function responseCue(antiphon, cue, clef, occurrence, sung) {
     var info = cueInfo(antiphon, cue, occurrence);
     if(!info || !info.pitch || !info.clef || !clef) return ' (::) <nlba>*~' + cue + '</nlba>() (Z)';
-    // F lies four diatonic steps below C. Using +3 preserves the pitch
-    // class but raises an F-to-C conversion by a whole octave.
-    var shift = 2 * (parseInt(clef.slice(-1), 10) - parseInt(info.clef.slice(-1), 10)) +
-      (info.clef[0] == 'f' ? -4 : 0) - (clef[0] == 'f' ? -4 : 0);
-    var pitch = String.fromCharCode(info.pitch.charCodeAt(0) + shift);
+    // The custos is written where the first note of the return is sung, in the octave the clef has by now: after a
+    // change between a C and an F clef, that is not always the octave the two clefs are written in.
+    var height = sungHeight(staffPosition(info.pitch), info.clef, clefOctaves(antiphon.slice(0, info.pitchEnd))),
+        octaves = clefOctaves(antiphon + '\n' + (sung || ''));
+    function letter(clef) {
+      var position = height - sungHeight(0, clef, octaves);
+      return position < -2 || position > 10 ? '' : String.fromCharCode(position + 99);
+    }
     // If the return pitch is outside this staff, show it in its original clef
     // and restore the verse clef afterwards; never substitute another octave.
-    var change = pitch < 'a' || pitch > 'm';
-    return (change ? ' (' + info.clef + ')' : '') + ' (::' + (change ? info.pitch : pitch) + '+) ' +
-      '<nlba>*~' + cue + '</nlba>() (Z)' + (change ? ' (' + clef + ')' : '');
+    var pitch = letter(clef), original = !pitch && (letter(info.clef) || info.pitch);
+    return (original ? ' (' + info.clef + ')' : '') + ' (::' + (pitch || original) + '+) ' +
+      '<nlba>*~' + cue + '</nlba>() (Z)' + (original ? ' (' + clef + ')' : '');
   }
   // The text of every return that is printed between two double bars without
   // notes of its own, with or without its star, and with each alternative.
@@ -210,7 +257,7 @@
           return cueIndex(antiphon, cue, occurrence(cue)) == usual && (defaultCue = cue);
         });
         var sung = verses.slice(0, last.index).replace(/\s*\((?:\/|\[[^\]]*\])*[a-m]\+\)\s*$/i, '').replace(/\s+$/, '');
-        verses = sung + responseCue(antiphon, defaultCue, lastClef(sung), occurrence(defaultCue));
+        verses = sung + responseCue(antiphon, defaultCue, lastClef(sung), occurrence(defaultCue), sung);
         cues.push(defaultCue);
       }
     }
@@ -255,7 +302,7 @@
     return lyrics(verse.replace(/<sp>V\/<\/sp>\.?\s*(?:\d+\.?\s*)?/, '')
       .replace(/\(:\)/g, ' * ')).replace(/(?:\s+[*†])+\s*$/, '');
   }
-  var api = { normalize: normalize, lyrics: lyrics, parse: parse, cueIndex: cueIndex, cueInfo: cueInfo, markResponse: markResponse, responseCue: responseCue, prepareFull: prepareFull, lastClef: lastClef, removeRedundantClefs: removeRedundantClefs, prepareClefChanges: prepareClefChanges, splitVerses: splitVerses, takeVerses: takeVerses, selectVerseItems: selectVerseItems, psalmVerseText: psalmVerseText };
+  var api = { normalize: normalize, lyrics: lyrics, parse: parse, cueIndex: cueIndex, cueInfo: cueInfo, markResponse: markResponse, responseCue: responseCue, clefOctaves: clefOctaves, prepareFull: prepareFull, lastClef: lastClef, removeRedundantClefs: removeRedundantClefs, prepareClefChanges: prepareClefChanges, splitVerses: splitVerses, takeVerses: takeVerses, selectVerseItems: selectVerseItems, psalmVerseText: psalmVerseText };
   if(typeof module == 'object' && module.exports) module.exports = api;
   else root.offertoryVerseTools = api;
 })(typeof window == 'object' ? window : this);

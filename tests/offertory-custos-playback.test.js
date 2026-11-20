@@ -6,7 +6,6 @@ const { cases } = require('./helpers/offertory-feature-cases');
 function parse(source) {
   const ctxt = new exsurge.ChantContext();
   const score = new exsurge.ChantScore(ctxt, exsurge.Gabc.createMappingsFromSource(ctxt, source), false);
-  utilities.updateOffertoryPlaybackSections(score, source, true);
   return { ctxt, score };
 }
 
@@ -87,7 +86,7 @@ test('automatic custodes follow the shared register in both directions and after
   }
 });
 
-test('reparsing and enabling or clearing verse provenance refresh custodes and playback together', () => {
+test('custodes and playback follow an edit of the same score', () => {
   const sources = [
     '(c4) A(h) (z0::f3) V/. B(c)',
     '(f3) A(c) (z0::c4) V/. B(h)',
@@ -97,15 +96,7 @@ test('reparsing and enabling or clearing verse provenance refresh custodes and p
   for (const source of sources) {
     exsurge.Gabc.updateMappingsFromSource(ctxt, score.mappings, source);
     score.updateNotations(ctxt);
-    utilities.updateOffertoryPlaybackSections(score, source, true);
     layout(ctxt, score, 600);
-    expect(checkCustodes(score).automatic).toBe(1);
-    const notes = score.notations.flatMap(n => n.notes || []);
-    const played = utilities.getPlaybackPitches(score);
-    expect(played.get(notes[1])).toBe(played.get(notes[0]));
-    utilities.updateOffertoryPlaybackSections(score, source, false);
-    layout(ctxt, score, 600);
-    expect([...utilities.getPlaybackPitches(score).values()]).toEqual(notes.map(n => n.pitch.toInt()));
     expect(checkCustodes(score).automatic).toBe(1);
   }
 });

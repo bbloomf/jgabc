@@ -5,10 +5,12 @@ initial-style: 0;
 book: Offertoriale Sive Versus Offertoriorum Cantus Gregoriani, 1935, p. 102;
 source: https://gregobase.selapa.net/download.php?format=gabc&elem=1&id=20843;
 %%
-(c3) <sp>V/</sp>. 1 Be(d)ne(e)dí(e/hhh)cam(hih/ig/hvFEed) (;) Dó(de/fef)mi(f)num(fhffd) (;) in(fd) om(e)ni(fhg) tém(hih/ig/hvFEhvvGFh)po(efe)re:(e) (:) sem(h)per(hvf!gwh) laus(hig/hvFE,gxdf!gvFE) e(ef/dfe)jus(ef) (;) in(d) o(efe/ffe)re(f/hhvGF!gwhGF) me(ef!gvFEf)o.(fe) (::)
-
-<sp>V/</sp>. 2 In(e) Dó(ef)mi(fd/fe)no(e;) lau(fh)dá(hhh)bi(i)tur(h) á(h)ni(hvf!gwh)ma(hig/hvFE;hhvGF!gwhGF) me(ef!gvFEf)a:(fe) (:) áu(h)di(hvf!gwh)ant(high) man(f)su(ed)é(ef!gvFE)ti(ef) (;) et(d) læ(e)tén(e/hhf/hhvFEf!gwh!iv)tur:(g) (:) ma(e)gni(e/hhhi)fi(h)cá(h)te(hvf!gwh) Dó(high)mi(f)num(ed~) me(ef!gvFEf)cum(fe) (;) et(d) ex(e)al(f)té(f/hhh)mus(e) no(f)men(e) e(hh)jus(hhg) (;) in(h) ín(hih/ig/hvFE;hhvGF!gwhGF)vi(efgFEf)cem.(fe) (::)
-
-<sp>V/</sp>. 3 Ac(i)cé(ivf!gwh!iv)di(j)te(i) (;) ad(iki) e(ki/kvJIj)um,(ji) (;) et(i) il(i)lu(i)mi(ig)ná(ij)mi(ijIHGh)ni(hg) (:) et(ig) vul(ih)tus(h) ves(hhhvGEf!gwh/ihhgh)tri(hg) (;) non(gh) e(gh)ru(h)bé(hhhvGF,e!gwhhvGF;e!gwhGFgvFEf)scent.(fe) (:)  Is(h)te(i) pau(k)per(kkk) cla(ikj)má(kj/kvJIj)vit(ji) (;) et(iki) Dó(kkvJI)mi(j)nus(i) ex(iji)au(ih)dí(kj)vit(kl) e(ih/klj/kvIH)um(ihhg) (;) et(hg) ex(h) óm(ivghi)ni(ihhvGFgh)bus(h) tri(h)bu(h)la(g)ti(h)ó(ih)ni(h)bus(h) e(hi)jus(h) (;) li(h)be(h)rá(hvf!gwh/ih)vit(hhvGF!gwhGF) e(ef!gvFEf)um.(fe::) 
-
+(c3) <sp>V/</sp>. 1 Be(d)ne(e)dí(e/hhh)cam(hih/ig/hvFEed) (;) Dó(de/fef)mi(f)num(fhffd) (;) in(fd) om(e)ni(fhg) tém(hih/ig/hvFEhvvGFh)po(efe)re:(e) (:)
+sem(h)per(hvf!gwh) laus(hig/hvFE,gxdf!gvFE) e(ef/dfe)jus(ef) (;) in(d) o(efe/ffe)re(f/hhvGF!gwhGF) me(ef!gvFEf)o.(fe) (::)
+<sp>V/</sp>. 2 In(e) Dó(ef)mi(fd/fe)no(e;) lau(fh)dá(hhh)bi(i)tur(h) á(h)ni(hvf!gwh)ma(hig/hvFE;hhvGF!gwhGF) me(ef!gvFEf)a:(fe) (:)
+áu(h)di(hvf!gwh)ant(high) man(f)su(ed)é(ef!gvFE)ti(ef) (;) et(d) læ(e)tén(e/hhf/hhvFEf!gwh!iv)tur:(g) (:)
+ma(e)gni(e/hhhi)fi(h)cá(h)te(hvf!gwh) Dó(high)mi(f)num(ed~) me(ef!gvFEf)cum(fe) (;) et(d) ex(e)al(f)té(f/hhh)mus(e) no(f)men(e) e(hh)jus(hhg) (;) in(h) ín(hih/ig/hvFE;hhvGF!gwhGF)vi(efgFEf)cem.(fe) (::)
+<sp>V/</sp>. 3 Ac(i)cé(ivf!gwh!iv)di(j)te(i) (;) ad(iki) e(ki/kvJIj)um,(ji) (;) et(i) il(i)lu(i)mi(ig)ná(ij)mi(ijIHGh)ni(hg) (:)
+et(ig) vul(ih)tus(h) ves(hhhvGEf!gwh/ihhgh)tri(hg) (;) non(gh) e(gh)ru(h)bé(hhhvGF,e!gwhhvGF;e!gwhGFgvFEf)scent.(fe) (:)
+Is(h)te(i) pau(k)per(kkk) cla(ikj)má(kj/kvJIj)vit(ji) (;) et(iki) Dó(kkvJI)mi(j)nus(i) ex(iji)au(ih)dí(kj)vit(kl) e(ih/klj/kvIH)um(ihhg) (;) et(hg) ex(h) óm(ivghi)ni(ihhvGFgh)bus(h) tri(h)bu(h)la(g)ti(h)ó(ih)ni(h)bus(h) e(hi)jus(h) (;) li(h)be(h)rá(hvf!gwh/ih)vit(hhvGF!gwhGF) e(ef!gvFEf)um.(fe::)
 () *Quóniam. <i>vel</i> Gustáte.() (::)

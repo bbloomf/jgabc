@@ -10,6 +10,7 @@ const simple = require('./data/offertory-verses/simple.json');
 const manual = require('./data/offertory-verses/manual.json');
 const root = __dirname;
 const { normalizeGabcLatin, normalizeLatinLyrics } = require('./gabc-latin-normalization');
+const { accentLatinWord } = require('./gabc-latin-accents');
 
 function fetchText(url, redirects = 0) {
   return new Promise((resolve, reject) => {
@@ -63,11 +64,35 @@ function incipitCue(parsed, name) {
   const words = lyrics(parsed.antiphon).match(word) || [];
   if (words.length < 2) return name.split(' ').slice(0, 2).join(' ') + '.';
   // The enlarged initial capitalizes the second letter too, which costs it its
-  // accent. Restore it from the same word where it is sung again.
+  // accent. Restore it from the same word where it is sung again, or as any other missing accent is.
   const first = words[0][0] + words[0].slice(1).toLowerCase();
   const accented = !accent.test(first) && (lyrics(parsed.antiphon + ' ' + parsed.gabc).match(word) || [])
     .find(other => accent.test(other) && normalize(other) === normalize(first));
-  return normalizeLatinLyrics((accented ? first[0] + accented.slice(1) : first) + ' ' + words[1] + '.');
+  return normalizeLatinLyrics((accented ? first[0] + accented.slice(1) : accentLatinWord(first)) + ' ' + accentLatinWord(words[1]) + '.');
+}
+// What the opening offertory of an Offertoriale score has to share with the local offertory its verses are sung
+// with: the words, and the first and last note. A note is counted in steps above the do of its clef, so that the
+// same melody under another clef compares equal. Everything after the first double bar is left out.
+function antiphonSummary(body) {
+  const end = /\([^)]*::[^)]*\)/.exec(body);
+  if (end) body = body.slice(0, end.index);
+  let clef, firstPitch, lastPitch;
+  for (const group of body.matchAll(/\(([^)]*)\)/g)) {
+    const notes = group[1].replace(/\[[^\]]*\]|\|.*$/g, '');
+    for (const token of notes.matchAll(/([cf])b?([1-4])|[a-mA-M][xy#+]|([a-mA-M])/g)) {
+      if (token[1]) clef = token;
+      else if (token[3] && clef) {
+        lastPitch = token[3].toLowerCase().charCodeAt(0) - 2 * clef[2] - (clef[1] == 'f' ? 4 : 0) - 98;
+        if (firstPitch === undefined) firstPitch = lastPitch;
+      }
+    }
+  }
+  return { text: lyrics(body), firstPitch, lastPitch };
+}
+// The seasonal Alleluia at the end is in some local offertories and not in others that use the same verses.
+function sameAntiphon(a, b) {
+  const words = summary => normalize(summary.text).replace(/(alleluia)+$/, '');
+  return words(a) === words(b) && a.firstPitch === b.firstPitch && a.lastPitch === b.lastPitch;
 }
 function headerField(gabc, field) {
   return ((new RegExp('^' + field + ':\\s*([^;]+);', 'm')).exec(gabc) || [])[1];
@@ -129,7 +154,7 @@ async function main() {
   const cacheDir = cacheAt >= 0 ? args[cacheAt + 1] : null;
   if (cacheAt >= 0 && !cacheDir) throw new Error('--cache-dir needs a directory');
   const output = path.join(root, 'gabc/offertory-verses');
-  const full = {}, fullById = {}, simpleById = {}, audit = [];
+  const full = {}, fullById = {}, simpleById = {}, audit = [], antiphons = {};
   const pending = [], normalizationIssues = [];
   const appScore = (source, id) => { const issues=[]; const result=normalizeGabcLatin(source, issues); normalizationIssues.push(...issues.map(issue=>({id,...issue}))); return result; };
   // Complete parsing and validation before replacing any repository files.
@@ -139,6 +164,7 @@ async function main() {
     const source = cacheFile && fs.existsSync(cacheFile) ? fs.readFileSync(cacheFile, 'utf8') : await fetchText(url);
     if (!source.trim()) throw new Error(`Empty download for ${entry.id}`);
     const parsed = parse(source);
+    antiphons[entry.id] = antiphonSummary(parsed.antiphon);
     const cue = primaryCue(parsed.antiphon);
     const review = verseReviewStatus(entry, parsed);
     const mode = headerField(source, 'mode');
@@ -164,6 +190,7 @@ async function main() {
   // Retain stable manual keys, editorial cues and the original local sources.
   for (const entry of manual.chants) {
     const { source, parsed, provenance, gregobaseId, proofread } = await loadManualSource(entry, { cacheDir });
+    if (parsed.antiphon) antiphons[entry.id] = antiphonSummary(parsed.antiphon);
     const review = proofread ? 'verified' : verseReviewStatus(entry, parsed);
     const verseParts = splitVerses(normalizeGabcLatin('(' + parsed.clef + ') ' + parsed.gabc));
     if (verseParts.length !== entry.verseCount) throw new Error(`Wrong manual verse count: ${entry.id}`);
@@ -200,9 +227,13 @@ async function main() {
   fs.mkdirSync(output, { recursive: true });
   pending.forEach(([file, content]) => fs.writeFileSync(file, content));
   fs.writeFileSync(path.join(root, 'offertory-verses-data.js'), js);
+  fs.writeFileSync(path.join(root, 'data/offertory-verses/antiphons.json'), JSON.stringify(antiphons, null, 2) + '\n');
+  for (const [sourceId, summary] of Object.entries(antiphons)) for (const id of [...manifest.chants, ...manual.chants].find(entry => String(entry.id) === sourceId).localIds) {
+    if (!sameAntiphon(summary, antiphonSummary(firstAntiphon(fs.readFileSync(path.join(root, 'gabc', id + '.gabc'), 'utf8'))))) console.warn(`The offertory of ${sourceId} differs from gabc/${id}.gabc in its words or in its first or last note.`);
+  }
   fs.writeFileSync(path.join(root, 'data/offertory-verses/antiphon-audit.json'), JSON.stringify(audit, null, 2) + '\n');
   fs.writeFileSync(path.join(root, 'data/offertory-verses/normalization-audit.json'), JSON.stringify(normalizationIssues, null, 2) + '\n');
-  if (normalizationIssues.length) console.warn(`${normalizationIssues.length} words need syllabification review; notation retained unchanged. See data/offertory-verses/normalization-audit.json.`);
+  if (normalizationIssues.length) console.warn(`${normalizationIssues.length} words need review of their syllables or accent; they are kept as the source has them. See data/offertory-verses/normalization-audit.json.`);
   console.log(`Saved ${pending.length} verse-only scores (${Object.keys(fullById).length} existing antiphons) and ${simple.length} simple settings.`);
   const flagged = audit.filter(row => row.provenance !== 'manual' && (!row.textMatches || !row.pitchesMatch));
   const unresolved = flagged.filter(row => !row.antiphonReview || row.antiphonReview.status !== 'resolved');
@@ -211,4 +242,4 @@ async function main() {
   console.log(`PDF verse review: ${verified} verified, ${pending.length - verified} pending.`);
 }
 if (require.main === module) main().catch(error => { console.error(error); process.exitCode = 1; });
-module.exports = { fetchText, firstAntiphon, pitches, primaryCue, bodyHash, verseReviewStatus, antiphonReviewStatus, readManual, loadManualSource };
+module.exports = { fetchText, firstAntiphon, antiphonSummary, sameAntiphon, pitches, primaryCue, bodyHash, verseReviewStatus, antiphonReviewStatus, readManual, loadManualSource };

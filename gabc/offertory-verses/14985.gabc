@@ -5,5 +5,10 @@ initial-style: 0;
 book: Offertoriale Sive Versus Offertoriorum Cantus Gregoriani, 1935, p. 94;
 source: https://gregobase.selapa.net/download.php?format=gabc&elem=1&id=14985;
 %%
-(c4) <sp>V/</sp>. 1. Præ(f)cép(hgg/fhGFfff/hjh/jf/gf)tum(f) (;) Dó(fgffc/ff/ghjh!iwj)mi(gfh)ni(h) lú(h/jjj)ci(h!iwjIHGh)dum(hg) (;) il(h!iwj)lú(jvIH)mi(f)nans(fg/hghg) o(f)cu(fg!hvGFg)los :(gf) (:) ti(fhg/jij)mor(fg) De(fg//fff//fgf/ghg/hf/gf)i(f) sanc(hg~)tus(hg) (;) pér(h/jjj)ma(hf)net(fgfg) (,) in(d) sǽ(fg)cu(h)lum(f) sæ(fgff)cu(d!ewfEDCd)li :(dc) (:) ju(f)dí(d/fff)ci(f)a(fffd/fff) Dó(f!gwhg)mi(hg)ni(g) ve(hjGFfd/fgf)ra.(gf) (::) ()* Et dulcióra.() (z0::c3) 
-<sp>V/</sp>. 2. Et(df) e(hhh/jijvIHi)runt,(ih) (;) ut(d) com(f)plá(fh/ih/ih/ij//hhhvFE)(;)(hh/ih/ih/ij//hhhvFE)(;)(hfh/ghFEhvFE)(;)(hv/f!gwh!iv)ce(ih)ant(hh!iwjij/h!iwjijvIHih) (;) e(h)ló(h)qui(hhh)a(he) o(f)ris(h) me(hf/hhh/f!gwhGF)i(gf) (:) et(fd~) me(efe)di(fh)tá(h)ti(hhhf)o(f) cor(f!gwhGF)dis(ef) me(f!gwh/ihhgh)i(hg) (;) in(hh) con(h)spéc(hf/hhhe/fe/fef)tu(f!gwhGF) tu(ded)o(d) (;) sem(gxhiHFgvED)(;)(fh!jvIHhhh)(,)(hj!kvIHhf)(;)(hhhjIHihhf/hhfivHFfd)(;)(gxdf!hvhhhfgvFE)(;)(gxfi//hi/hhhhhhfgvFDef)(;)(gydef/hh/ijHFhvGEf)(;)(f/hh//hhh/f!gwh)per.(hhhvGFhf/de) (::) ()* Et dulcióra.() (::)
+(c4) <sp>V/</sp>. 1. Præ(f)cép(hgg/fhGFfff/hjh/jf/gf)tum(f) (;) Dó(fgffc/ff/ghjh!iwj)mi(gfh)ni(h) lú(h/jjj)ci(h!iwjIHGh)dum(hg) (;) il(h!iwj)lú(jvIH)mi(f)nans(fg/hghg) ó(f)cu(fg!hvGFg)los:(gf) (:)
+ti(fhg/jij)mor(fg) De(fg//fff//fgf/ghg/hf/gf)i(f) sanc(hg~)tus(hg) (;) pér(h/jjj)ma(hf)net(fgfg) (,) in(d) sǽ(fg)cu(h)lum(f) sǽ(fgff)cu(d!ewfEDCd)li:(dc) (:)
+ju(f)dí(d/fff)ci(f)a(fffd/fff) Dó(f!gwhg)mi(hg)ni(g) ve(hjGFfd/fgf)ra.(gf) (::)
+()* Et dulcióra.() (z0::c3)
+<sp>V/</sp>. 2. Et(df) e(hhh/jijvIHi)runt,(ih) (;) ut(d) com(f)plá(fh/ih/ih/ij//hhhvFE;hh/ih/ih/ij//hhhvFE;hfh/ghFEhvFE;hv/f!gwh!iv)ce(ih)ant(hh!iwjij/h!iwjijvIHih) (;) e(h)ló(h)qui(hhh)a(he) o(f)ris(h) me(hf/hhh/f!gwhGF)i(gf) (:)
+et(fd~) me(efe)di(fh)tá(h)ti(hhhf)o(f) cor(f!gwhGF)dis(ef) me(f!gwh/ihhgh)i(hg) (;) in(hh) con(h)spéc(hf/hhhe/fe/fef)tu(f!gwhGF) tu(ded)o(d) (;) sem(gxhiHFgvED;fh!jvIHhhh,hj!kvIHhf;hhhjIHihhf/hhfivHFfd;gxdf!hvhhhfgvFE;gxfi//hi/hhhhhhfgvFDef;gydef/hh/ijHFhvGEf;f/hh//hhh/f!gwh)per.(hhhvGFhf/de) (::)
+()* Et dulcióra.() (::)

@@ -5,5 +5,9 @@ initial-style: 0;
 book: Offertoriale Sive Versus Offertoriorum Cantus Gregoriani, 1935, p. 96;
 source: https://gregobase.selapa.net/download.php?format=gabc&elem=1&id=17550;
 %%
-(c3) <sp>V/</sp>. 1. Dó(hh)mi(hg)ne,(hhhf/hhf/hhvFEfe) (,) abs(ef)tra(fhFE)xís(f!hh/ih)ti(h) (,) ab(h) ín(hji)fe(hg)ris(hhh/fgf) (;) á(f)ni(fe)mam(f!gwhg/hg/hgg) me(fg!hvGFg)am :(gf) (:) sal(hi)vás(i)ti(f) me(hhh/ji/jhh/fgf) (;) a(fc) de(ef)scen(f)dén(hh)ti(ivHG)bus(fge) (;) in(ec) la(ef!hih/ihhhhvFEf!gwhhvGF)cum.(gf) (z0::c4) 
-<sp>V/</sp>. 2. E(f)go(gh) au(hg!hwihi)tem(ih) di(h/jjh)xi(hiGFg) (;) in(fg) me(gh!iwjIH)a(h) ab(hg/hf/gh/jhh)un(gf)dán(fgffe)ti(fgFE)a :(e) (:) Non(eg/hgh) mo(g)vé(ghf)bor(d) in(fe) æ(egffe)ter(d!ewfef)num :(ed) (:) Dó(hj)mi(gfh)ne,(h) (,) in(gf~) vo(ghg)lun(h)tá(h!iwjIG)te(gf) tu(hhghjv//h!iwjh)a(h) (;) præ(d)sti(g)tís(gih)ti(h) de(h)có(jvijh/jjg/igh)(;)(jklJHjjvHGjjh)(;)(fgh/jjh/jjvHGhf)(;)(ghj/ijh/jjvHGhiGFghFDf)(;)(e!gwhgh)ri(h) me(hjHG)o(gf) vir(fg)tú(fgFE)tem.(fff/ded) (::) ()* Dómine.() (::)
+(c3) <sp>V/</sp>. 1. Dó(hh)mi(hg)ne,(hhhf/hhf/hhvFEfe) (,) abs(ef)tra(fhFE)xís(f!hh/ih)ti(h) (,) ab(h) ín(hji)fe(hg)ris(hhh/fgf) (;) á(f)ni(fe)mam(f!gwhg/hg/hgg) me(fg!hvGFg)am:(gf) (:)
+sal(hi)vás(i)ti(f) me(hhh/ji/jhh/fgf) (;) a(fc) de(ef)scen(f)dén(hh)ti(ivHG)bus(fge) (;) in(ec) la(ef!hih/ihhhhvFEf!gwhhvGF)cum.(gf) (z0::c4)
+<sp>V/</sp>. 2. E(f)go(gh) au(hg!hwihi)tem(ih) di(h/jjh)xi(hiGFg) (;) in(fg) me(gh!iwjIH)a(h) ab(hg/hf/gh/jhh)un(gf)dán(fgffe)ti(fgFE)a:(e) (:)
+Non(eg/hgh) mo(g)vé(ghf)bor(d) in(fe) æ(egffe)tér(d!ewfef)num:(ed) (:)
+Dó(hj)mi(gfh)ne,(h) (,) in(gf~) vo(ghg)lun(h)tá(h!iwjIG)te(gf) tu(hhghjv//h!iwjh)a(h) (;) præ(d)sti(g)tís(gih)ti(h) de(h)có(jvijh/jjg/igh;jklJHjjvHGjjh;fgh/jjh/jjvHGhf;ghj/ijh/jjvHGhiGFghFDf;e!gwhgh)ri(h) me(hjHG)o(gf) vir(fg)tú(fgFE)tem.(fff/ded) (::)
+()* Dómine.() (::)

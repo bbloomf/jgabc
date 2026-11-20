@@ -597,7 +597,7 @@ $(function(){
         gabc: 'initial-style: 0;\n%%\n(' + verseClef + ')', mode: mode, repeatIntonation: true, introitTone: true
       };
       var gabc = getPsalmToneForPart('offertoriumSimpleVerses', tone, false, verseState), body = gabc.slice(getHeaderLen(gabc)),
-          reference = offertoryVerseTools.responseCue(earlier, cue, offertoryVerseTools.lastClef(body), verse.occurrence);
+          reference = offertoryVerseTools.responseCue(earlier, cue, offertoryVerseTools.lastClef(body), verse.occurrence, result.join('\n') + '\n' + body);
       result.push(body.replace(/\s*\(::\)\s*$/, '') + reference);
     });
     return offertoryVerseTools.prepareClefChanges(antiphon + '\n' + result.join('\n'));
@@ -2932,8 +2932,6 @@ $(function(){
       var mappings = exsurge.Gabc.createMappingsFromSource(ctxt, gabc);
       score = prop.score = new exsurge.ChantScore(ctxt, mappings, !prop.noDropCap);
     }
-    // Playback registers belong to assembled verses, not to the written score.
-    updateOffertoryPlaybackSections(score, gabc, part == 'offertorium' && getOffertoryVerseSettings().count);
     ctxt.width = 0;
     prop.mapExsurgeToGabc = makeExsurgeToGabcMapper(gabc, prop.activeGabc);
     var annotation = makeAnnotation(part, ctxt);

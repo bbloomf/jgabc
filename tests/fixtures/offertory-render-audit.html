@@ -20,7 +20,6 @@ document.getElementById('run').onclick=async function(){
   const result={id:input.id,sourceId:input.sourceId,style:input.style,count:input.count,width};
   try{
    const ctxt=makeExsurgeChantContext(),mappings=exsurge.Gabc.createMappingsFromSource(ctxt,input.gabc),score=new exsurge.ChantScore(ctxt,mappings,true);
-   updateOffertoryPlaybackSections(score,input.gabc,input.count > 0);
    score.performLayout(ctxt);score.layoutChantLines(ctxt,width);
    const svg=score.createSvgNode(ctxt);document.getElementById('preview').replaceChildren(svg);
    const xml=svg.outerHTML,rect=svg.getBoundingClientRect();

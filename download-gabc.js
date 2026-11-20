@@ -5,12 +5,11 @@ var https  = require('https'),
     { addPtAlleluia } = require("./alleluias-in-of-co.js"),
     { wrapRepeatCueInNlba } = require("./repeat-cue.js");
 require('./gabc-refs.js');
-const { normalizeLatinLyrics } = require('./gabc-latin-normalization');
-const { consonantalJ, hyphenateLatin } = require('./gabc-latin-syllables');
+const { cleanGregobaseGabc, moveStarsBeforeBars, resyllabifyLatin, accentFirstWord } = require('./gabc-latin-normalization');
+const { accentLatinWord } = require('./gabc-latin-accents');
 
 const addAlleluiasTo = new Set([145, 690, 1286, 349, 1303, 391, 523, 426, 84, 529, 1080, 1290, 575, 1272, 147, 1294, 339, 899, 942, 535, 723, 902, 533, 1314, 265, 479, 904, 842, 640, 1072, 1318, 389, 616, 696]);
 const addAlleluias = new Set([1319]);
-const regexTag = /<\/?[^>]*>/g;
 
 gabcRefs["507&elem=2"] = "Ps 117: 1";
 gabcRefs["2060"] = "Ex 15: 1-2";
@@ -178,24 +177,6 @@ https.get('https://raw.githubusercontent.com/gregorio-project/hyphen-la/gh-pages
     callback();
   });
 });
-var removeAcuteAccents = (word) => (word.replace(/[ǽáéíóúý]|œ́/gi, (v => ({
-  "Ǽ": "Æ",
-  "Œ́": "Œ",
-  "Á": "A",
-  "É": "E",
-  "Í": "I",
-  "Ó": "O",
-  "Ú": "U",
-  "Ý": "Y",
-  "ǽ": "æ",
-  "œ́": "œ",
-  "á": "a",
-  "é": "e",
-  "í": "i",
-  "ó": "o",
-  "ú": "u",
-  "ý": "y"
-})[v])));
 var path = 'gabc/',
     active = 0,
     max = 15,
@@ -292,67 +273,7 @@ var path = 'gabc/',
                         mode.push(ids[i]);
                       }
                     }
-                    content = normalizeLatinLyrics(content)
-                      // a ~ in the lyrics is a non-breaking space, so keep a single one that joins a word to what is next to it (as in *~Quam, +~in, o~: and <i>Ps.~50.</i>),
-                      // and remove the rest, which only add space (as in ~~~<i>T. P.</i>, ~*, {~} and <v>~</v>) and keep the regexes here and in propers.js from finding things
-                      .replace(/(?<=(.?))(?:<v>~+<\/v>|~+)(?=([^()]?)[^()]*\()/g, (tildes, before, after) =>
-                        (tildes == '~' && /[^\s)]/.test(before) && /\S/.test(after) && /[a-zæœǽœ́áéíóúýäëïöüÿ\d]/i.test(before + after)) ? tildes : '')
-                      // remove empty {}; an asterisk before them becomes its own syllable, as in the other Kyries, or goes before the bar it follows, as in the other Alleluias (only in 1266.gabc)
-                      .replace(/(\([,;:]+\)\s+)?\*\{\s*\}(?=\()/g, (_, bar) => bar ? `*${bar}` : '*() ')
-                      .replace(/\{\s*\}(?=[^()]*\()/g, '')
-                      .replace(/@/g,'!') // TODO: support @ in Exsurge
-                      .replace(/([A-M])[0-2]/g, '$1') // TODO?: right now 0 in this exsurge shifts the vertical position, and it doesn't support https://gregorio-project.github.io/tips/inclinatum.html
-                      .replace(/\/\[-[^\]]+\]/g, '!') // TODO: support variable neumatic cuts, for now, any negatives must be removed
-                      .replace(/\[[uo](?:h|ll)(?::[^\]]*|})?\]/g, '') // TODO: support in Exsurge
-                      .replace(/<\/?nlba>/g, '') // GregoBase's no-line-break areas keep the line breaks of a printed page, which a page of any width doesn't need (an introit's Glória Patri gets its own below)
-                      .replace(/(<\/?)e>/g, '$1i>') // TODO: support in Exsurge
-                      .replace(/<clear>/g, '') // TODO: what does this even do in Exsurge?
-                      .replace(/\*{2,}/g,'<c>$&</c>')
-                      .replace(/<i>\s+/g,'<i>')
-                      .replace(/\s+<\/i>/g,'</i>')
-                      .replace(/^([^)]*\)?\s*[A-Z]*)(<sc>.*?\)\s)/, (_, start, firstWord) =>
-                        // get rid of small caps in initial word
-                        start + firstWord.replace(/<sc>([\wáéíóúæœǽœ́ýÁÉÍÓÚÆŒǼŒ́Ý]+)<\/sc>/g, '$1')
-                      )
-                      .replace(/([^)])\s+\*(\([a-m][^)]*\))/,"$1 <c>*</c>$2") // asterisks being kept with the previous word
-                      .replace(/\)\s+\*(?=\([a-m])/,") *() ") // asterisks being under the melody
-                      .replace(/\)\(([,;])\)\(/g,'$1')
-                      .replace(/<b><\/b>/g,'')
-                      .replace(/<v>\\greheightstar<\/v>/g,'*')
-                      .replace(/\s*((?:<sp>v\/<\/sp>\.?\s*)?\d+\.)\(\)\s*/gi,' $1 ')
-                      .replace(/\s*(<sp>v\/<\/sp>\.?|<i>Ps.<\/i>|(?:<sp>v\/<\/sp>\.?\s*)?\d+\.)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
-                      .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)\(\)\s*/gi,' $1 ')
-                      .replace(/\s*(<sp>[vra]\/<\/sp>\.?\s*)(\((?:z0|[a-m]\+)?::(z|[cf][1-4])?\))\s*/gi,' $2\n$1 ')
-                      .replace(/(\w)(\([^)]+\)\s+):/g,'$1:$2')
-                      .replace(/[/ ]+\)/g,')')
-                      .replace(/!\//g,'/')
-                      .replace(/<v>\$\\guillemotright\$<\/v>/g,'»')
-                      .replace(/<v>\$\\guillemotleft\$<\/v>/g,'«')
-                      .replace(/<v>\s*\\kern[^<]*<\/v>/g,'')
-                      .replace(/\s+([»’”"':;!?.,]+)\s*([(<])/g,'$1$2')
-                      .replace(/([«‘“"']+)\s+(?=[a-zæœǽǽœ́áéíóúýäëïöüÿ])/gi,'$1')
-                      .replace(/(\((?:z0|[a-m]\+)?:+(z|[cf][1-4])?\))\s+/gi,'$1\n')
-                      .replace(/\/+([a-m]w)/g,'!$1') // don't put space before a quilisma
-                      .replace(/\s+$/,'')
-                      .replace(/\+(?=[^()]*\()/g,'†')
-                      .replace(/(\S)(\([a-m]\+[^)]*\))/g,'$1() $2') // put any lyrics after a manual custos
-                      .replace(/(\s+)(\([a-m]\+[^)]*\))\s+([^(\s][^(]*\(\))/g,'$1$3 $2') // put any lyrics after a manual custos
-                      // some gregobase chants are encoded this way (two underscores for three note episema), and in Gregorio and Exsurge, this does not work as desired.
-                      .replace(/(a'?b'?a|[a-b]'?c'?[a-b]|[a-c]'?d'?[a-c]|[a-d]'?e'?[a-d]|[a-e]'?f'?[a-e]|[a-f]'?g'?[a-f]|[a-g]'?h'?[a-g]|[a-h]'?i'?[a-h]|[a-i]'?j'?[a-i]|[a-j]'?k'?[a-j]|[a-k]'?l'?[a-k]|[a-l]'?m'?[a-l])[.']*__(?!_)/g,'$&_')
-                      .replace(/!\//g,'/') // some gregobase chants are encoded this way for some reason
-                      .replace(/(\w)(\s+)([^()|a-z†*]+(<\/?\w+>)*\([^)]*\))/gi,'$1$3$2') // change things like "et :(gabc)" to "et:(gabc) "
-                      .replace(/(\s[^()\w†*,;:]+) +(\w+[^\(\s]*\()/g,'$1$2') // change things like "« hoc" to "«hoc"
-                      .replace(/\s*\n\s*/g,'\n')
-                      .replace(/\s{2,}/g,' ')
-                      .replace(/<i>\((.*?)\)<\/i>/g, '<i>$1</i>') // these parenthetical italicised notes are rubrics, found in 635 and 1236.gabc
-                      .replace(/\)\s*<i>(?:<v>[()]<\/v>|[^()])+\(\)$/,')') // get rid of things like  <i>at Mass only.</i><v>)</v>() that come at the very end.  This is only in 30.gabc and 308.gabc
-                      .replace(/\bi[{}]?j[{}]?\.[{}]?(?=\W)/, (whole) => !(whole.includes('{') && whole.includes('}')) ? whole : whole.replace(/[{}]/g, ''));
-                      content = content
-                      .replace(/(?:\s+(\([,;:]*\)\s)|\s)\s*\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi, ' {*}~<i>$3</i>$2$1(')
-                      // .replace(/\s\*(\([,;:]*\)\s)?[\s{}]*<i>\{?(ij\.|non\s+rep[eé]titur\.?)\}?<\/i>([\s{}]*)\(/gi,' {*}~<i>$2</i>$1(')
-                      .replace(/<i>(i+j)\.?<\/i>\(:/g,'<i>$1.</i>() (:')
-                      .replace(/\(\s+(?:\)\s*\()?(Z)\)/g, '() (Z)')
-                      .replace(/(\s)(\([`,;:]*\))(\s*)(\{?\*+\}?(?:\s*<i>[^<]*<\/i>)?)(?:(\()|\s+)/g, '$1$4$2\n$5'); /// TODO: this should be removed and fixed in Exsurge (pushing * back to before the last bar)
+                    content = moveStarsBeforeBars(cleanGregobaseGabc(content));
                     if(h.officePart == 'Introitus') {
                       content = content
                         .replace(regexIntroitGloriaPatri, '<nlba>$1</nlba>$2')
@@ -375,120 +296,9 @@ var path = 'gabc/',
                     if(ids[i] == 8152) {
                       content = content.replace("Lu(f)do(h)ví(hiH'F)co.(f.)",`Lu|Sté|Jo(f)do||(h)ví|pha|sé|Pe(hiH'F)co.|no. |pho. |tro. (f.)`);
                     }
-                    var text = [];
-                    var checkTextRepeat = 0;
-                    content = content.replace(/<(?:i|sp)>(Ps|V\/|Cant)\.?<\/(?:i|sp)>\.?|((?:~+(?:<c>)?\*+(?:<\/c>)?|[a-zæœǽǽœ́áéíóúýäëïöüÿ|{}*<>\/]+)([,.;:!?*+†\s»"'‘’“”]*(?:<\/[a-z]+>)*(\([^)]*\))+))+/gi, function(whole, psalmMark, lastSyl, toIgnore, lastParens, index, content){
-                      // figure out syllabification...
-                      // 1. build word
-                      // 2. syllabify
-                      // 3. verify same number of syllables
-                      // 4. verify that each syllable has at least one vowel.
-                      // replace...
-                      if(psalmMark) text.push("℣");
-                      if(whole.match(/\||<\/?alt>/)) return whole;
-                      // for now, just ignore ij marked words.
-                      if (/\bi+j\.?(?=[\s\(<])/.test(whole)) return whole;
-                      // ignore any words that have nothing in their parentheses or start with a space:
-                      if(whole == lastSyl && /^\(([Zz\s)]|[a-g]\+)/.test(lastParens)) {
-                        return whole;
-                      }
-                      var regex = /((?:<i>[^<]*<\/i>|<sp>'?(?:[ao]e|æ|œ)<\/sp>|[a-zæœǽœ́áéíóúýäëïöüÿ{}])+)(?=[,.;:!?*+†\s»"'‘’“”]*(?:<\/?[a-z]+>)*\([^)]*\))/gi;
-                      var match,
-                          syls = [];
-                      while(match = regex.exec(whole.replace(/<\/?sc>|V\/\.?|℣\.?/g, ''))) {
-                        let match1 = match[1] || '';
-                        var braces = match1.match(/[{}]/g) || [];
-                        if(braces.length % 2 === 0) match1 = match1.replace(/[{}]/g,'');
-                        let syl = match1.replace(/(<sp>)?ae(<\/sp>)?/,'æ').replace(/aé|<sp>'(ae|æ)<\/sp>/,'ǽ').replace(/A[Ee]/,'Æ').replace(/(<sp>'?)?o[eé](<\/sp>)?/,'œ').replace(/O[Ee]/,'Œ');
-                        syls.push(syl);
-                      }
-                      var word = syls.join('');
-                      // ignore any words that have no syllables:
-                      if(/^[^a-zæœǽœ́áéíóúýäëïöüÿ]*$/i.test(word)) return whole;
-                      var accents = whole.match(/[áéíóú]|ǽ|œ́|ý/g);
-                      if(accents && accents.length > 1) throw ids[i] + ":" + ids[i] + ": " + whole;
-                      if(!/^(allel[uú]ia|[eé]ia)$/i.test(word.toLowerCase())) {
-                        syls = consonantalJ(syls);
-                        if(word != syls.join('')) {
-                          console.info(word, file);
-                          errors.push(file + ': ' + word + '; replaced with ' + JSON.stringify(syls));
-                        }
-                        word = syls.join('');
-                      }
-                      if(word) text.push(removeAcuteAccents(word.toLowerCase().replace(regexTag, '')));
-                      if(checkTextRepeat == text.length) {
-                        if(text.slice(0,text.length / 2).join(' ') == text.slice(text.length / 2).join(' ')) {
-                          text = text.slice(0, text.length / 2);
-                        }
-                        checkTextRepeat = Infinity;
-                      } else if(text.length > 4 && !checkTextRepeat && text[0] == text.slice(-1)[0]) {
-                        checkTextRepeat = 2 * (text.length - 1);
-                      }
-                      var accentCount = (word.match(/[ǽ́áéíóúý]|œ́/gi)||[]).length;
-                      var vowelCount = (word.match(/(?![^<]*>)(?:[aá]u|(qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ])/gi)||[]).length;
-                      var vowelCountIJ  = (word.match(/(?![^<]*>)(?:[aá]u|(i|qu|ngu)?[aeiouyæœǽáéíóúýäëïöüÿ])/gi)||[]).length;
-                      // words with <i> are elisions or rubrics, so a vowel count mismatch is expected
-                      if(word.toLowerCase() !== 'cui' && !/<\/?i>/.test(whole) && vowelCount !== syls.length && vowelCountIJ !== syls.length) {
-                        console.warn(word, vowelCount, vowelCountIJ, "!=", syls.length, syls);
-                        console.info({lastParens, whole, lastSyl, file});
-                        if(vowelCount && !/^(c[uú]i|euge|ceu|Allelúia)$|<[ie]>/i.test(word)) throw 1;
-                      }
-                      const finalSyl = syls.length && syls.slice(-1)[0];
-                      if(finalSyl && !/<[ie]>/.test(finalSyl) && finalSyl.match(/[ǽœ́áéíóúý](?![aeiouyæœǽœ́áéíóúýäëïöüÿ])/)) {
-                        console.error(word, 'accent on final syllable', file, content.slice(index, index + 100));
-                        throw 1;
-                      }
-                      if(accentCount && vowelCount === 2) {
-                        word = removeAcuteAccents(word);
-                      }
-                      if(syls.length > 2 && (syls.slice(-3,-1).join('').match(/[ǽ́áéíóúýæœǼ́ÁÉÍÓÚÝÆŒAEIOUY]|œ́|Œ́/gi) || []).length == 0) {
-                        throw `strangely accented: ${word} (${syls.join('~')})`;
-                      }
-                      var otherSyls = hyphenateLatin(word.replace(regexTag, ''));
-                      if(otherSyls.length != syls.length ||
-                         (otherSyls.length > 0 && otherSyls[0].length > 0 && !otherSyls.every(syl => syl.match(/[æœǽœ́aeiouyáéíóúýäëïöüÿ]/i)))) {
-                        if(syls.length && (syls.length > 1 || syls[0] != '}') && word.toLowerCase() !== 'cui') {
-                          console.error(file, syls, otherSyls);
-                          errors.push(file + ': ' + JSON.stringify(syls) + '::' + JSON.stringify(otherSyls));
-                        }
-                        return whole;
-                      } else {
-                        var key = syls.join('-').toLowerCase(),
-                            val = otherSyls.join('-').toLowerCase();
-                        if(key != val) {
-                          if (regexTag.test(key)) {
-                            if (val === removeAcuteAccents(key.replace(regexTag, ''))) {
-                              val = removeAcuteAccents(key);
-                              otherSyls = syls.map(removeAcuteAccents);
-                            } else if (val === key.replace(regexTag, '')) {
-                              val = key;
-                              otherSyls = syls;
-                            } else {
-                              for (let i = 0; i < syls.length; ++i) {
-                                const sylLen = syls[i].replace(regexTag, '').length;
-                                const otherSylLen = otherSyls[i].length;
-                                const missingSyllables = otherSylLen - sylLen;
-                                if (missingSyllables < 0) {
-                                  syls[i + 1] = syls[i].slice(missingSyllables) + syls[i + 1];
-                                  syls[i] = syls[i].slice(0, missingSyllables);
-                                } else if (missingSyllables > 0) {
-                                  syls[i] = syls[i] + syls[i + 1].slice(0, missingSyllables);
-                                  syls[i + 1] = syls[i + 1].slice(missingSyllables);
-                                }
-                              }
-                              val = syls.join('-').toLowerCase();
-                              otherSyls = syls;
-                            }
-                          }
-                          sylReplacements[key] = val;
-                        }
-                        var i = 0;
-                        //return whole; // don't actually perform the replacement for now
-                        return whole.replace(regex, function(match, first){
-                          return otherSyls[i++];
-                        });
-                      }
-                    });
+                    var resyllabified = resyllabifyLatin(content, { id: ids[i], file, errors, sylReplacements, accentWord: accentLatinWord });
+                    content = resyllabified.content;
+                    var text = resyllabified.text;
                     if(Object.keys(texts).includes(h.officePart)) {
                       var id = ids[i];
                       var match = id.match && id.match(/^(\d+)&elem=(\d+)$/);
@@ -539,6 +349,7 @@ var path = 'gabc/',
                       function(match, beginning, replacePart){
                         return beginning + replacePart.toUpperCase();
                       });
+                    content = accentFirstWord(content, accentLatinWord);
                     content = wrapRepeatCueInNlba(content);
                     if (addAlleluiasTo.has(Number(ids[i]))) {
                       content = addPtAlleluia(content, h);

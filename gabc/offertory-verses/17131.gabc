@@ -5,5 +5,11 @@ initial-style: 0;
 book: Offertoriale Sive Versus Offertoriorum Cantus Gregoriani, 1935, p. 61;
 source: https://gregobase.selapa.net/download.php?format=gabc&elem=1&id=17131;
 %%
-(c4) <sp>V/</sp>. 1. Au(fffvDCd/ff)di(df) (;) pó(df/ggf/gh//ff//ff/ef/ghgh)pu(fgf)le(f) me(fvegffvED)us(dfddc) (;) et(cdf) lo(fd/fff)quar :(ded) (:) Is(c)ra(d)el,(fgfg/hjhhg) (:) si(g) me(fgffe) au(fg)dí(gfg)e(gvFEfvEDe)ris,(ed) (;) da(dfd/fffddc)bo(c) vo(bxdb/cd!gvFE)bis(fff/ded) (;) de(c)si(d)dé(df/hg/hg)(;)(fgh/jjg/hhghvGF)(;)(hhghvGFhhg/hgh)ri(g)a(gh) (;) cor(hg)dis(hvGFEC) (;) (eg//ef/gf/ge/fgffff) ves(fffvECddd/f!gwhghvGFg)tri.(dge) (::) ()* In terram.() (::) 
-<sp>V/</sp>. 2. Non(f) ad(ffe)o(ed)rá(e/dfd/fff)bi(d)tis(cd) (;) De(cd!fvgvFD)um(d) a(d)li(fddcd)é(cd/ffgvDCd/ffgvFD)num :(d) (:) qui(d)a(dfe) e(fvegfg/fhg/hgh)go(gef) sum(d!ewf) Dó(fgh)mi(ge)nus,(gff) (;) De(dfcd)us(d) ves(dfDCd/ff/[1]{bx}fvDC/!cb/ced)ter,(d) (:) qui(d) e(fe)dú(fvegfg)(,)(fhg/hgh)xi(gh/jjjvHGFEfwgfg) vos(gf) (;) de(f) ter(gvfgFE)(;)(fgh/jjvHFghGF)ra(fe) Æ(fe)gýp(gf)ti.(gff) (::) ()* In terram.() (::)
+(c4) <sp>V/</sp>. 1. Au(fffvDCd/ff)di(df) (;) pó(df/ggf/gh//ff//ff/ef/ghgh)pu(fgf)le(f) me(fvegffvED)us(dfddc) (;) et(cdf) lo(fd/fff)quar:(ded) (:)
+Is(c)ra(d)el,(fgfg/hjhhg) (:)
+si(g) me(fgffe) au(fg)dí(gfg)e(gvFEfvEDe)ris,(ed) (;) da(dfd/fffddc)bo(c) vo(bxdb/cd!gvFE)bis(fff/ded) (;) de(c)si(d)dé(df/hg/hg;fgh/jjg/hhghvGF;hhghvGFhhg/hgh)ri(g)a(gh) (;) cor(hg)dis(hvGFEC) (;) (eg//ef/gf/ge/fgffff) ves(fffvECddd/f!gwhghvGFg)tri.(dge) (::)
+()* In terram.() (::)
+<sp>V/</sp>. 2. Non(f) ad(ffe)o(ed)rá(e/dfd/fff)bi(d)tis(cd) (;) De(cd!fvgvFD)um(d) a(d)li(fddcd)é(cd/ffgvDCd/ffgvFD)num:(d) (:)
+qui(d)a(dfe) e(fvegfg/fhg/hgh)go(gef) sum(d!ewf) Dó(fgh)mi(ge)nus,(gff) (;) De(dfcd)us(d) ves(dfDCd/ff/[1]{bx}fvDC/!cb/ced)ter,(d) (:)
+qui(d) e(fe)dú(fvegfg,fhg/hgh)xi(gh/jjjvHGFEfwgfg) vos(gf) (;) de(f) ter(gvfgFE;fgh/jjvHFghGF)ra(fe) Æ(fe)gýp(gf)ti.(gff) (::)
+()* In terram.() (::)

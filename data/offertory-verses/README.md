@@ -1,30 +1,23 @@
 # Offertory verses
 
-## Repository layout and local archives
+## What is in this directory
 
-Keep this directory's maintained inputs in Git: `sources.json`, `simple.json`,
-`manual.json`, `manual/`, `corrections.json`, `system-alignment.json`, and
-`publication/review-state.json` (saved GregoBase IDs and exact proofreading
-checks). The review notes and alignment instructions remain available here.
+- `sources.json`, `simple.json`, `manual.json`, `manual/` and
+  `publication/review-state.json` are what the importer reads. They are
+  described below.
+- `antiphons.json` is written by the importer and read by a test (see Tests).
+- `antiphon-audit.json` and `normalization-audit.json` are importer reports and
+  are ignored by Git.
+- `gregobase-plan.md` goes with `npm run export:offertory-gregobase`.
 
-Permanent regression fixtures now live in
-[`tests/fixtures/offertory/`](../../../tests/fixtures/offertory/README.md): accepted
-proofread baselines, extracted published downloads, correction source examples,
-and historical batch review/render records. Historical prose elsewhere may use
-their old paths; consult that fixture directory for the relocated records.
+The scanned Offertoriale, the proofreading page and server, and the review
+records and notes that were kept here were removed on 20 November 2026.
+Corrections to verses now go to GregoBase, and the importer brings them in.
+What was in Git is in commit `1581cc61`.
 
-The large `imported-review/`, dated feature/playback reports, and
-`publication/history/` are local working archives excluded by `.gitignore`.
-They have been preserved on disk. Back them up separately if you need their
-source images, original review evidence or saved editing history. The optional
-`node tools/check-imported-offertory-review.js` checks that local evidence and
-requires the archive and source PDF; ordinary regression tests do not require
-the working archive. The correction ledger is maintained outside the archive.
-
-Comparison HTML, scan crops/crop reports, upload GABC/manifest/ZIP files, and
-`antiphon-audit.json`/`normalization-audit.json` are reproducible outputs and are
-ignored. Export commands and the downloader regenerate their respective files.
-Generated browser-test inputs remain retained for now, as requested.
+`tests/fixtures/offertory-feature-inputs.json` is a generated input for the
+browser audit page beside it; rebuild it with
+`node tools/build-offertory-feature-fixture.js` before using that page.
 
 ### Cordova branch
 
@@ -49,42 +42,59 @@ verses, their clefs, and the responses/cues printed with them to
 `gabc/offertory-verses/`. The opening offertory is never copied: the browser
 continues to load `gabc/<existing ID>.gabc`.
 
-Application copies use the same Latin ligature spelling as the regular chant
-downloader: `ae` → `æ`, `oe` → `œ`, and their accented/capital variants,
-including Gregorio special-character spellings. Syllable boundaries use the
-same local Hypher Latin patterns as the regular downloader, along with its
-consonantal i-to-j rules (preserving Alleluia and eia) and removal of acute
-accents on disyllabic words. Resyllabification retains all note groups in
-order and only proceeds when their syllable count matches the expected count.
-Words with a mismatch remain unchanged and are listed in
-`normalization-audit.json` for source review. These rules are shared in
-`gabc-latin-normalization.js` and `gabc-latin-syllables.js`, and apply only to lyrics, never pitch groups or
-headers. Verse extraction and exact-body review/comparison checks use the raw
-source first. Authoritative manual files, GregoBase submission text, and saved
-raw download comparisons retain source spelling. Saving a correction likewise
-normalizes only the app copy and its psalm-tone text.
+Application copies get what the regular chant downloader (`download-gabc.js`)
+gives a chant of the Graduale. The shared code is in
+`gabc-latin-normalization.js`, and both importers call it:
 
-All 23 manual settings are now registered to GregoBase IDs 21011–21033.
-The 2026-11-18 download pass matches every extracted raw verse body to the
-user's proofread local source (line endings/surrounding whitespace excluded).
-`../../../tests/fixtures/offertory/published/comparison.json` records exact hashes, application
-provenance and 69 real browser render checks, covering each set in full,
-psalm-toned-verse and completely psalm-toned configurations. The existing local
-keys, antiphon links, selection cues and Elegerunt alternative are retained.
-User proofreading of a published set transfers to the generated index only
-when the recorded local file hash and the downloaded raw verse body still
-match; source spelling remains independent of app normalization.
+- `cleanGregobaseGabc`: Latin ligature spelling (`ae` → `æ`, `oe` → `œ`, and
+  their accented/capital variants, including Gregorio special-character
+  spellings), punctuation joined to its word (`nostra :` → `nostra:`), a line
+  break after each bar, `(…)(;)(…)` merged into one group, and the notation the
+  older Exsurge could not draw rewritten or removed (`/[-2]` and `@` → `!`, no
+  `/` before a quilisma, `[oll:…]` ledger signs, the digit of `H0`).
+- `resyllabifyLatin`: syllable boundaries from the local Hypher Latin patterns,
+  consonantal i-to-j (preserving Alleluia and eia), and removal of acute
+  accents on disyllabic words. Where a word of three or more sung syllables has
+  no accent, `gabc-latin-accents.js` supplies it from the Accenteur dictionary
+  the transcriber uses, or from its short list of words the dictionary cannot
+  settle; a capital is left without one, as in the Graduale (Angelis, Israel).
 
-Regression expectations for the completed proofreading are recorded in
-`../../../tests/fixtures/offertory/proofread-baseline.json`: exact source/verse hashes and the current
-ordered bar tokens. The tests check this accepted baseline against the source
-files and app copies. Earlier batch measurements and renderer reports remain
-unchanged historical records; their hashes are checked against each other,
-not asserted to describe later corrected files. Lauda anima's final reference
-panel was refreshed from GregoBase after its closing double bar was added.
+Only `moveStarsBeforeBars` is left to the Graduale. It moves an asterisk in
+front of the bar it follows, which would take the star of a return printed as
+words alone (`()* Quóniam quis.() (::)`) away from those words.
 
-The importer also regenerates `offertory-verses-data.js` (the browser's index)
-and `antiphon-audit.json`. Run from any directory; paths resolve relative to the
+Resyllabification retains all note groups in order and only proceeds when their
+syllable count matches the expected count. Where the Graduale downloader stops,
+the verse importer leaves the word unchanged (a syllable mismatch, two accents,
+or an accent it cannot place) and lists it in `normalization-audit.json` for
+source review. Headers are never changed.
+The review flag (see below) is worked out from the downloaded source before any
+of this is applied, and the files in `manual/` keep their source spelling.
+
+## Tests
+
+The tests say whether the app can put the verses on an offertory. None of them
+compares a verse's words or melody with a recorded copy, so a correction on
+GregoBase or a change to the import rules needs no test or fixture update.
+
+- `tests/offertory-antiphons.test.js`: the Offertoriale prints each offertory
+  before its verses, and the app sings the verses after the offertory it already
+  has. The importer records the words and the first and last note of each
+  printed offertory in `antiphons.json`; the test compares them with every
+  linked `gabc/<ID>.gabc`. A seasonal Alleluia at the end may be in one and not
+  the other. The importer prints a warning for the same difference.
+- `tests/offertory-feature-corpus.test.js`: every linked offertory at every
+  verse count in all three settings: no verse is lost, each return points at
+  words that are in the offertory and at their pitch, and clef changes are
+  prepared.
+- `tests/offertory-playback-pitches.test.js` and
+  `tests/offertory-custos-playback.test.js`: playback and custodes where the
+  offertory and its verses have different clefs.
+- `tests/offertory-verses.test.js`: the functions that split, select and join
+  verses, on short examples.
+
+The importer also regenerates `offertory-verses-data.js` (the browser's index),
+`antiphons.json` and the ignored `antiphon-audit.json`. Run from any directory; paths resolve relative to the
 script. To repeat an import without downloading again:
 
 ```sh
@@ -126,214 +136,57 @@ additional verses use the authentic texts in the corresponding Introit tone.
 When Rice chose a later verse, it is moved to the front so that it is not
 printed twice. All settings reuse the existing antiphon. The repeat words in
 that antiphon are bold; a custos before the reference gives the return pitch,
-converted to the verse's current clef. Styling is also included in exported
-GABC and PDFs.
+converted to the verse's current clef. Between a C and an F clef it is written
+in the octave Exsurge sings that clef in, which the custos at the first change
+between them settles (`clefOctaves` in `offertory-verses.js` follows the same
+rule, and `tests/offertory-playback-pitches.test.js` compares the two). Styling
+is also included in exported GABC and PDFs.
 
 Verse count and the checkbox preference are saved in share links as
 `offertoriumVerseCount` and `offertoriumPsalmVerses`. Links using the previous
 combined style names still restore their corresponding style and verses.
 
-## Interactive review and GregoBase drafts
+## Manual settings
 
-Run `npm run review:offertory` and open <http://127.0.0.1:8766/review/>.
-Compare each printed verse system directly above its own SVG, click a note
-to select its GABC, and save corrections to the authoritative manual sources.
-Review-only Z breaks preserve the printed systems, including breaks inside
-melismas. The proofreading interface covers verses only; GregoBase openings
-are a separate preparation step. See [system alignment](system-alignment.md).
+Twenty-three settings of the Offertoriale were not on GregoBase. They were
+transcribed from the 1935 print, proofread against it, and published as
+GregoBase IDs 21011–21033. Those IDs are saved in
+`publication/review-state.json`, and the importer downloads the verses from
+them like any other.
 
-See [the GregoBase plan](gregobase-plan.md) for exact-file review checks,
-Vatican opening provenance, revision backups, and the manual upload steps.
-`npm run export:offertory-gregobase` regenerates complete non-rhythmic drafts
-and metadata under `publication/`; the review page also downloads a ZIP. These
-exports are generated on demand and are not retained in the checkout.
+`manual.json` lists the 23 under the keys `manual-NNN`, where NNN is the number
+printed in the book, and holds what GregoBase does not:
 
-The obsolete six-batch comparison HTML pages and their scan crops have been
-removed. Use the [interactive proofreading tool](http://127.0.0.1:8766/review/)
-after starting the review server above. The retained comparison builder can
-produce fresh offline pages when needed: `node build-offertory-comparison.js`
-for batch 1, or add `--batch=2` through `--batch=6`. These reflect current
-sources, rather than reproducing the removed historical snapshots.
+- `localIds`: the existing offertories the verses are sung with.
+- `cue`, and `psalmVerseCues` where the verses return to different places: the
+  words of the return.
+- `selectionCues`: a return that the book does not print, added only when a
+  shorter selection of verses ends where the book goes straight on to the next.
+- `cueOccurrences`, keyed by the normalized cue: which occurrence of a repeated
+  word the return goes to. Gloriabuntur uses `{ "domine": 2 }`.
+- `verseSelections` and `verseSelectionLabels`: Elegerunt prints one
+  alternative verse 3 in place of verses 1–2, so its third choice selects that
+  verse alone. The numbers are one-based verse indices.
 
+`manual/manual-NNN.gabc` are the transcriptions as they were proofread, verses
+only. The importer never writes them. It still reads each one, to check the
+mode of the download and to set the review flag.
 
-## Review status
+`npm run export:offertory-gregobase` regenerates complete drafts for upload
+under `publication/` from those files. See [the GregoBase plan](gregobase-plan.md).
 
-**All six transcription batches are complete: 23 manual sets and 45 printed verses.**
-Batch 6 adds Oratio mea, Confessio et pulchritudo, Assumpta est and Viri Galilaei:
-five verses across 22 source systems, with 42 measured bars. See the
-[interactive proofreading tool](http://127.0.0.1:8766/review/),
-[source review](../../../tests/fixtures/offertory/historical-reviews/batch-6-review.json) and [comparison log](review-notes.md).
-Regeneration reports 104 full sets: 24 verified and 80 pending (the same 77 imported
-sources plus manual-039, manual-041 and manual-044, whose current bodies do not
-match their earlier review hashes). Published source registrations and concurrent
-corrections remain in effect. Earlier review records are preserved; obsolete comparison pages are generated on demand.
+## Review flags
 
-Ad te Domine, Deus tu convertens, Benedixisti, and Confortamini
-match the scanned 1935 PDF in this pass; no verse corrections were needed.
+`sources.json` and `manual.json` carry a record of each proofreading against
+the print: the pages, and a hash of the verse body that was checked. A setting
+is `verified` in `offertory-verses-data.js` while its download still has that
+hash, and `pending` once GregoBase changes it. The app does not read the flag.
 
-The eight antiphon settings flagged by the automatic comparison have recorded
-resolutions. Four are errors in GregoBase's opening music, one is its missing n
-in descéndit, and three are expected seasonal variants. The existing local
-antiphons already have the correct music/text and remain unchanged. Mihi
-autem's differently placed flat, Recordare's redundant flat (previously
-misdescribed as a natural), and Domine exaudi's antiphon/verse boundary are also
-explained in the comparison log. Confirma hoc's sine Alleluia setting now drops
-the unavailable Alleluia alternative from its ending return cue.
+`antiphon-audit.json` lists every linked offertory with whether its words and
+pitches match the opening of the GregoBase score. The differences found were
+errors in GregoBase's openings or seasonal variants; the local offertories were
+correct and are unchanged.
 
-The comparison ignores accents, punctuation, i/j and ae/æ spelling, rhythmic
-signs, and neume grouping; repeated virgas/strophas are expanded. It flags
-differences rather than replacing antiphons. Resolving an opening-antiphon
-flag is separate from verifying that chant's verses.
-
-Manual review records in `sources.json` include page references and hashes of
-the exact GABC bodies compared. Changed source verses revert to pending;
-changed source or local antiphons make their resolutions need review again.
-The importer reports the effective statuses in the generated data and audit.
-
-The simple text was extracted from the actual lyric font in the second PDF,
-not OCR of its musical font. The simple collection also contains material
-absent from source 32. Its departures from the longer authentic verses should
-be checked as editorial adaptations rather than automatically "corrected" to
-the longer text.
-
-## Manual transcription batches
-
-The [six-batch checklist](batch-plan.md) tracks 23 missing source settings (after correcting the Sacerdotes inventory error) separately
-from review of the 81 imported sets. `manual.json` has two separate lists:
-`chants` contains sources included in regeneration; `drafts` inventories working
-files that are **not included in browser data**. No draft is certified merely
-because it parses or renders.
-
-Authoritative manual verse-only GABC belongs in `manual/manual-NNN.gabc`, where
-NNN is the printed book number, not a GregoBase ID. The importer copies included
-sources to `gabc/offertory-verses/manual-NNN.gabc`, indexes their existing local
-antiphons, and derives their verse counts and psalm text through the same shared
-helpers used for downloaded material. It validates mode, office part, duplicate
-local mappings, and the recorded verse count before writing any outputs.
-The downloader never writes to the authoritative manual directory.
-
-A completed manual record needs the printed pages, source PDF hash, all printed
-cues, a verse review hash, and an antiphon comparison tied to the existing local
-body hash. The verse hash uses the same clef/newline/body format as imported
-reviews. Editing that body invalidates verification; editing the reused opening
-invalidates its comparison. Opening antiphons must never be copied into these
-files. See the comparison log for current draft limitations.
-
-Batch 1 is complete and `drafts` is empty. To reproduce its source/notation
-comparison, run `node build-offertory-comparison.js` (requires Poppler and Python 3 with Pillow). The
-result embeds all 11 verse excerpts from nine source pages, fonts and renderer
-and opens offline. All continuation excerpts are shown together.
-Its controls compare the authentic verses, the reused opening, and one- or
-two-verse integrations. The book prints no intervening cue after the first
-Benedictus qui venit verse; only a shortened one-verse selection adds its
-documented Benediximus return. Alternative return cues share one ending.
-
-The batch-1 note-shape pass corrected missing virgas, misplaced or swallowed
-quilismas, several omitted/extra note heads, and neume grouping. See
-[the correction record](shape-review.json) and the comparison log. Superseded
-review hashes remain recorded; the comparison derives effective status from
-the current source body.
-
-
-## Bar lengths and horizontal cuts: required source checks
-
-For each future transcription, make a separate bar-only pass through every
-printed system, including bars inside melismas and beside clef changes.
-Determine quarter (`,`), half (`;`), full (`:`), and double (`::`) bars from
-the stroke's physical length relative to the staff. Latin punctuation is not
-evidence of bar length; neither is the stroke's top position alone. In the
-batch-1 reference strips, quarter bars span about one staff interval, half
-bars two, and full bars all three. Record each bar's source location and
-compare the rendered form with that stroke before marking the source checked.
-Keep structural separators after unnotated return cues distinct from printed
-musical bars.
-
-Review horizontal cuts separately: `/` represents a real small printed gap;
-`!` separates neume shapes without adding a gap. Check repeated puncta before
-a virga with inclinata, including `hh/ivHF` in both Exsultémus and Lætémur.
-Do not join or split all repeated-note groups by a general rule: compare each
-with the scan. Keep the touching pes–quilisma joins in dies and reprobaverunt,
-and the separate initial punctum in `fe(e!fhg)cit`. Regression and rendering
-checks preserve a source decision; they do not establish its accuracy.
-
-
-Pitch review must check every note against the staff, including diamonds
-within a climacus. Do not assume a descending series is stepwise: the k
-virga in verse 2 Lápidem is followed by i–h inclinata (`kvIH`), skipping j.
-Check the first diamond independently against the staff before reading the
-rest of each descending group. Confirm porrectus endpoints, ledger notes,
-clef changes, and accidental scope in the same dedicated pitch pass.
-
-
-## Batch 2
-
-Three further sets are complete: #50 Domine convertere (two verses), #67
-Domine Deus salutis (three), and #77 Gloria et honore (two). The initially
-proposed fourth item was an inventory error: #49 is Intende voci, and
-Sacerdotes Domini is absent from the 1935 index. Its existing Rice simple
-setting remains available for local 645.
-
-Use the [interactive proofreading tool](http://127.0.0.1:8766/review/) for
-current source systems and editable GABC, including the seasonal 987 opening.
-For an offline comparison, generate a fresh page with
-`node build-offertory-comparison.js --batch=2`.
-`../../../tests/fixtures/offertory/historical-reviews/batch-2-review.json` records every covered source system and all 75 measured
-bars; `../../../tests/fixtures/offertory/historical-reviews/batch-2-render-audit.json` retains the historical encoding checks.
-
-The book moves directly between verses 1–2 of #50 and verses 2–3 of #67.
-Only shortened integrated selections add their documented editorial return.
-The authoritative source files retain the printed sequence. For psalm-toned
-#67, the first verse uses its printed In conspéctu cue; later verses use Intret.
-
-The initial batch-2 pitch/shape review was superseded after user corrections.
-[The renewed correction record](batch-2-user-corrections.json) lists every
-changed notation group and the current exact-body hashes. In particular,
-a pes with inclinata must retain its connected shape (`fhGF`, `fiHG`,
-`hiHF`, `ehFE`), without mechanically adding v. The proofreading tool loads the current corrected bodies; the earlier review
-records remain historical.
-
-## Batch 3
-
-Gloriabuntur (#78), Posuisti (#79), Laetamini (#81) and Mirabilis Deus (#82)
-are complete, with two verses each and all continuation endings. The
-[interactive proofreading tool](http://127.0.0.1:8766/review/) pairs each
-source system with editable GABC. For an offline comparison, generate a fresh
-page with `node build-offertory-comparison.js --batch=3`.
-
-`../../../tests/fixtures/offertory/historical-reviews/batch-3-review.json` records all 34 source systems and 79 physical bars.
-`batch-3-encoding-review.json` records the renewed head-centre and connected
-neume review; `../../../tests/fixtures/offertory/historical-reviews/batch-3-render-audit.json` records the final encoding
-checks, including 16 connected pes/inclinata cases without added virgas.
-
-A manual entry may provide `cueOccurrences`, keyed by normalized cue text.
-The importer carries it into full integration and each psalm verse occurrence;
-Gloriabuntur uses `{ "domine": 2 }`. Printed direct transitions stay in the
-authoritative files. Only selected integrations add the documented returns
-after verse 1 of #78/#81 and after verse 2 of #82.
-
-
-## Batch 4
-
-Exsultabunt sancti (#83, one verse), Inveni David (#86, two), In virtute tua
-(#89, two) and Desiderium animae (#90, three) are integrated. The
-[interactive proofreading tool](http://127.0.0.1:8766/review/) shows the current
-verses beside the source systems. An offline comparison can be generated with
-`node build-offertory-comparison.js --batch=4`.
-
-The source-system and ordered physical-bar inventories are in
-`../../../tests/fixtures/offertory/historical-reviews/batch-4-review.json`; separate encoding and rendered-bounds evidence is in
-`../../../tests/fixtures/offertory/historical-reviews/batch-4-render-audit.json`. Return labels not printed at the endings
-of #83 and #90 are added only through documented selectionCues. Distinct #90
-psalm-tone returns use psalmVerseCues. All existing openings, including optional
-T.P. Alleluias, remain unchanged. Rice’s contents contain none of these four
-settings.
-
-
-Batch 5's Elegerunt prints a single alternative verse 3 in place of verses 1–2.
-Its third choice is labelled “Alternative verse (3)” and selects that verse
-alone in both full and psalm-toned styles. `verseSelections` records the
-one-based source verse indices; `verseSelectionLabels` supplies the control
-label. The authoritative file retains all three printed verses in order.
-`selectionCues` supplies only documented editorial returns during integration.
-See `../../../tests/fixtures/offertory/historical-reviews/batch-5-review.json` for the separate source-reading evidence and
-`../../../tests/fixtures/offertory/historical-reviews/batch-5-render-audit.json` for exact-source rendering checks.
+The text of `simple.json` was extracted from the lyric font of Rice's PDF, not
+by OCR. Where it departs from the longer authentic verses, that is his
+adaptation and should not be "corrected" to the longer text.
