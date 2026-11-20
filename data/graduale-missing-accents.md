@@ -8,7 +8,7 @@ download, so the fix belongs upstream. The prints were not checked.
 
 | GregoBase ID | Chant | Source given | As transcribed | Should be | Edit |
 | --- | --- | --- | --- | --- | --- |
-| 2999 | O sola magnarum (hymn, v. 4) | Liber Usualis 1961, p. 456 | `De(f)um(gh)q<e>u{e}</e>(d)` | Deúmque | <https://gregobase.selapa.net/chant_edit.php?id=2999> |
+| 2999 | O sola magnarum (hymn, v. 4) | Liber Usualis 1961, p. 456 | `De(f)um(gh)q<e>u{e}</e>(d)` | Deúmque | corrected 20 November 2026 |
 | 3968 | Jesu dulcis memoria (hymn, last line) | Chants of the Church 1956, p. 99 | `sae(g')cu(h)la.(h.)` | sǽcula | <https://gregobase.selapa.net/chant_edit.php?id=3968> |
 | 7366 | Stella cæli | none | `fi(k')li(j)us(i)` | fílius | <https://gregobase.selapa.net/chant_edit.php?id=7366> |
 | 8041 | Alleluia Emitte Spiritum (altera melodia) | Graduale Romanum 1974, p. 249 | `Spi(f)ri(f)tum(f)` | Spíritum | <https://gregobase.selapa.net/chant_edit.php?id=8041> |
@@ -19,9 +19,11 @@ download, so the fix belongs upstream. The prints were not checked.
 | 10579 | same | same | `pur(ef)pu(dc)ra,(cd..)` | púrpura | same |
 | 19929 | Alleluia Hoc erit signum fœderis | none | `fœ(f/hh/…)de(fe)ris(e.)` | fœ́deris | <https://gregobase.selapa.net/chant_edit.php?id=19929> |
 
-All but `Deúmque` now have their accent in the local files, because
-`download-gabc.js` supplies it (see `gabc-latin-accents.js`). `Deúmque` is
-written with an elided vowel in tags, which that step leaves alone.
+All of these now have their accent in the local files. `Deúmque` was corrected
+on GregoBase on 20 November 2026 (it is written with an elided vowel in tags,
+which the downloader leaves alone, so it could only be fixed there) and no
+longer needs an edit. `download-gabc.js` supplies the others (see
+`gabc-latin-accents.js`) until they are corrected upstream.
 
 ## Not upstream errors
 
