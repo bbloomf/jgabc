@@ -44,6 +44,8 @@ context.window = context;
 for (const file of ['util.js', 'psalmtone.js', 'moment.min.js', 'moment.easter.js', 'propersdata.js', 'ordinarydata.js', 'miscChants.js', 'propersdatanovus.js', 'offertory-verses.js', 'offertory-verses-data.js', 'propers.js', 'jquery.hypher.js', 'patterns/la-hypher.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
 }
+// exsurge is a stand-in here, and the verse tools ask the real one how clefs relate, so they are loaded as a module
+context.offertoryVerseTools = require(path.join(root, 'offertory-verses.js'));
 const exported = ['runGabcReplaces', 'loadProperText', 'getPsalmToneForPart', 'updateExsurge', 'getOffertoryWithVerses', 'getGabcPathsForPart', 'getOffertoryVerseSettings'];
 vm.runInContext('(' + ready.toString().replace(/^function\s*\(\)\s*\{/, start =>
   start + 'window.propers = {' + exported.map(name => `get ${name}() { return ${name}; }`).join(', ') + '};') + ')()',

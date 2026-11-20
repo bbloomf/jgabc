@@ -55,7 +55,7 @@ describe('respond cues', () => {
 
 
 describe('return custodes', () => {
-  const { responseCue, prepareFull, clefOctaves } = require('../offertory-verses');
+  const { responseCue, prepareFull } = require('../offertory-verses');
   test('uses the return pitch in the verse clef, rather than the verse final', () => {
     const antiphon = 'name: Etenim;\n%%\n(f3) A(c) (:) ét(fe)e(fgf)nim(fc) (::)';
     const result = prepareFull(antiphon, '(c4) <sp>V/</sp>. Di(h)ri(g)ge.(h) (::) *() Etenim.() (::)', 'Etenim');
@@ -64,28 +64,31 @@ describe('return custodes', () => {
     expect(result.gabc).toContain('(::k+) <nlba>*~Etenim.</nlba>() (Z)');
     expect(result.gabc).not.toContain('(::h+)');
   });
+  // (which octave that is, is exsurge's rule; these are the three ways it can come out)
   test('writes the return in the octave the verse clef is sung in after a change between C and F clefs', () => {
     // As written (Dextera Domini): the verse's c under f3 is the h it follows under c4.
     expect(responseCue('(c4) Non(h) mó(j)ri(h)ar.(h) (::)', 'Non móriar.', 'f3', 1, '(f3) <sp>V/</sp>. In(c) tri(e)bu(f) (::)')).toContain('(::c+)');
     // An octave from where it is written (Ad te Domine): the verse's d under c4 would be below a custos under f3,
     // so it is sung an octave higher, where the offertory's f is.
-    const adTe = '(f3) Ad(f) te(e) le(f)vá(h)vi.(f) (::)', verse = '(c4) <sp>V/</sp>. Dí(d)ri(f)ge(d) (::)';
-    expect(clefOctaves(adTe + verse)).toEqual({ f: 0, c: 1 });
-    expect(responseCue(adTe, 'Ad te', 'c4', 1, verse)).toContain('(::d+)');
+    expect(responseCue('(f3) Ad(f) te(e) le(f)vá(h)vi.(f) (::)', 'Ad te', 'c4', 1, '(c4) <sp>V/</sp>. Dí(d)ri(f)ge(d) (::)')).toContain('(::d+)');
     // Where an explicit custos before the change shows it: c+ under c4 puts the verse's e an octave down.
-    const shown = '(c4) A(d)men.(d) (c+) (::)';
-    expect(clefOctaves(shown + '(f3) Ver(e)sus.(f) (::)')).toEqual({ c: 0, f: -1 });
-    expect(responseCue(shown, 'Amen.', 'f3', 1, '(f3) Ver(e)sus.(f) (::)')).toContain('(::f+)');
-    // A custos for another note, or one drawn after the new clef, says nothing of the change.
-    expect(clefOctaves('(c4) A(d)men.(d) (d+) (::) (f3) Ver(e)sus.(f) (::)')).toEqual({ c: 0, f: 0 });
-    expect(clefOctaves('(c4) A(d)men.(d) (::f3) (c+) Ver(e)sus.(f) (::)')).toEqual({ c: 0, f: 0 });
+    expect(responseCue('(c4) A(d)men.(d) (c+) (::)', 'Amen.', 'f3', 1, '(f3) Ver(e)sus.(f) (::)')).toContain('(::f+)');
   });
-  test('each kind of clef keeps its octave through later changes', () => {
+  test('each kind of clef keeps its octave through later changes, and one kind of clef needs none', () => {
     const score = '(f3) Ad(f) te(e) le(f)vá(h)vi.(f) (::) (c4) Dí(d)ri(f)ge(d) (::) (f2) Et(f) (::) (c3) in(h) (::)';
-    expect(clefOctaves(score)).toEqual({ f: 0, c: 1 });
     expect(responseCue(score, 'Ad te', 'c3', 1)).toContain('(::b+)'); // d under c4, two steps lower under c3
     expect(responseCue('(f3) Et(f)e(f)nim.(f) (::)', 'Etenim.', 'f3')).toContain('(::f+)');
+    expect(responseCue('(c4) Et(f)e(f)nim.(f) (::)', 'Etenim.', 'c2', 1, '(c2) Ver(d)sus.(d) (::)')).toContain('(::b+)');
     expect(responseCue('(fb3) Et(f)e(f)nim.(f) (::)', 'Etenim.', 'cb4', 1, '(cb4) Ver(d)sus.(d) (::)')).toContain('(::d+)');
+  });
+  test('keeps the custos for the next verse where the bar after a return changes the clef', () => {
+    const antiphon = '(c3) Tól(f)li(f)te.(f) (:) Et(h) in(h)tro(i)í(h)bit.(f) (::)';
+    // as Tollite portas has it on GregoBase, and with the note written out
+    for (const [bar, custos] of [['(z0::f3)', 'z0'], ['(d+::f3)', 'd+']]) {
+      const result = prepareFull(antiphon, `(c3) <sp>V/</sp>. 1. Dó(h)mi(h)ni.(e) (::) ()* Et introíbit.() ${bar} <sp>V/</sp>. 2. Ip(b)se.(c) (::) ()* Et introíbit.() (::)`);
+      expect(result.gabc).toContain(`(::h+) <nlba>*~Et introíbit.</nlba>() (Z${custos}f3) <sp>V/</sp>. 2.`);
+      expect(result.gabc).toEndWith('(::e+) <nlba>*~Et introíbit.</nlba>() (Z)'); // h under c3, as b is e
+    }
   });
   test('takes the first note of the return, not a flat before it', () => {
     expect(responseCue('(c4) DO(ixfh!iv)mi(h)ne.(h) (::)', 'Dómine.', 'c4')).toContain('(::f+)');

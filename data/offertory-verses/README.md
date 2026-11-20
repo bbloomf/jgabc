@@ -2,18 +2,17 @@
 
 ## What is in this directory
 
-- `sources.json`, `simple.json`, `manual.json`, `manual/` and
-  `publication/review-state.json` are what the importer reads. They are
-  described below.
+- `sources.json`, `simple.json` and `manual.json` are what the importer reads.
+  They are described below.
 - `antiphons.json` is written by the importer and read by a test (see Tests).
-- `antiphon-audit.json` and `normalization-audit.json` are importer reports and
-  are ignored by Git.
-- `gregobase-plan.md` goes with `npm run export:offertory-gregobase`.
+- `normalization-audit.json` is the importer's list of words it left as the
+  source has them, and is ignored by Git.
 
-The scanned Offertoriale, the proofreading page and server, and the review
-records and notes that were kept here were removed on 20 November 2026.
+Every verse comes from GregoBase. The scanned Offertoriale, the proofreading
+page and server, the transcriptions made here before they were published
+there, and the review records and notes were removed on 20 November 2026.
 Corrections to verses now go to GregoBase, and the importer brings them in.
-What was in Git is in commit `1581cc61`.
+What was in Git is in commits `1581cc61` and `b9a1bca9`.
 
 `tests/fixtures/offertory-feature-inputs.json` is a generated input for the
 browser audit page beside it; rebuild it with
@@ -29,8 +28,7 @@ The Cordova app needs the runtime files under `www/`:
 
 No file in `data/` is read by the running app. Keep download inputs and tools
 outside `www/` if you want to regenerate chants on that branch. Tests and their
-fixtures are development files and also belong outside `www/`. The proofreading
-UI/server, source PDFs and working archives are not required in the app bundle.
+fixtures are development files and also belong outside `www/`.
 `config.xml` on the Cordova branch starts `www/propers.html`; the existing merge
 workflow relies on rename detection to put web assets under `www/`. Verify the
 new runtime files land there when merging; newly added files may need moving.
@@ -68,8 +66,6 @@ syllable count matches the expected count. Where the Graduale downloader stops,
 the verse importer leaves the word unchanged (a syllable mismatch, two accents,
 or an accent it cannot place) and lists it in `normalization-audit.json` for
 source review. Headers are never changed.
-The review flag (see below) is worked out from the downloaded source before any
-of this is applied, and the files in `manual/` keep their source spelling.
 
 ## Tests
 
@@ -93,8 +89,8 @@ GregoBase or a change to the import rules needs no test or fixture update.
 - `tests/offertory-verses.test.js`: the functions that split, select and join
   verses, on short examples.
 
-The importer also regenerates `offertory-verses-data.js` (the browser's index),
-`antiphons.json` and the ignored `antiphon-audit.json`. Run from any directory; paths resolve relative to the
+The importer also regenerates `offertory-verses-data.js` (the browser's index)
+and `antiphons.json`. Run from any directory; paths resolve relative to the
 script. To repeat an import without downloading again:
 
 ```sh
@@ -138,26 +134,29 @@ printed twice. All settings reuse the existing antiphon. The repeat words in
 that antiphon are bold; a custos before the reference gives the return pitch,
 converted to the verse's current clef. Between a C and an F clef it is written
 in the octave Exsurge sings that clef in, which the custos at the first change
-between them settles (`clefOctaves` in `offertory-verses.js` follows the same
-rule, and `tests/offertory-playback-pitches.test.js` compares the two). Styling
-is also included in exported GABC and PDFs.
+between them settles; `offertory-verses.js` asks Exsurge, and
+`tests/offertory-playback-pitches.test.js` checks every return against it.
+Where the bar after a return changes the clef for the next verse (Tollite
+portas), the custos for that verse's first note is kept: the next line starts
+with it and the new clef, written as one group such as `(Zz0f3)`.
+Styling is also included in exported GABC and PDFs.
 
 Verse count and the checkbox preference are saved in share links as
 `offertoriumVerseCount` and `offertoriumPsalmVerses`. Links using the previous
 combined style names still restore their corresponding style and verses.
 
-## Manual settings
+## Settings transcribed for this project
 
 Twenty-three settings of the Offertoriale were not on GregoBase. They were
 transcribed from the 1935 print, proofread against it, and published as
-GregoBase IDs 21011–21033. Those IDs are saved in
-`publication/review-state.json`, and the importer downloads the verses from
-them like any other.
+GregoBase IDs 21011–21033. The importer downloads them like any other.
 
 `manual.json` lists the 23 under the keys `manual-NNN`, where NNN is the number
-printed in the book, and holds what GregoBase does not:
+printed in the book; the index and `gabc/offertory-verses/` keep those names.
+Each entry has its `gregobaseId`, and what GregoBase does not hold:
 
 - `localIds`: the existing offertories the verses are sung with.
+- `verseCount`: how many verses the download must have.
 - `cue`, and `psalmVerseCues` where the verses return to different places: the
   words of the return.
 - `selectionCues`: a return that the book does not print, added only when a
@@ -167,25 +166,6 @@ printed in the book, and holds what GregoBase does not:
 - `verseSelections` and `verseSelectionLabels`: Elegerunt prints one
   alternative verse 3 in place of verses 1–2, so its third choice selects that
   verse alone. The numbers are one-based verse indices.
-
-`manual/manual-NNN.gabc` are the transcriptions as they were proofread, verses
-only. The importer never writes them. It still reads each one, to check the
-mode of the download and to set the review flag.
-
-`npm run export:offertory-gregobase` regenerates complete drafts for upload
-under `publication/` from those files. See [the GregoBase plan](gregobase-plan.md).
-
-## Review flags
-
-`sources.json` and `manual.json` carry a record of each proofreading against
-the print: the pages, and a hash of the verse body that was checked. A setting
-is `verified` in `offertory-verses-data.js` while its download still has that
-hash, and `pending` once GregoBase changes it. The app does not read the flag.
-
-`antiphon-audit.json` lists every linked offertory with whether its words and
-pitches match the opening of the GregoBase score. The differences found were
-errors in GregoBase's openings or seasonal variants; the local offertories were
-correct and are unchanged.
 
 The text of `simple.json` was extracted from the lyric font of Rice's PDF, not
 by OCR. Where it departs from the longer authentic verses, that is his

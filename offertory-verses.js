@@ -111,41 +111,31 @@
   }
   // The staff position of a GABC pitch letter: d, on the lowest line, is 1.
   function staffPosition(letter) { return letter.toLowerCase().charCodeAt(0) - 99; }
-  // How high a staff position under a clef is sung, in diatonic steps. Both kinds of clef are written in one octave,
-  // as Gregorio and Exsurge reckon them (the fa of an F clef is the one above the do of a C clef); octaves says how
-  // many octaves from there each kind is sung (see clefOctaves).
-  function sungHeight(position, clef, octaves) {
-    return position - 2 * clef.slice(-1) + (clef[0] == 'f' ? 3 : 0) + 7 * (octaves[clef[0]] || 0);
-  }
-  // How many octaves from where it is written each kind of clef (c, f) is sung, once all of gabc has been sung.
-  // The notation does not say how the octave of a C clef relates to that of an F clef. Exsurge settles it at the first
-  // change between them, and this follows the same rule (ChantScore.getPlaybackPitches()): the first note after the
-  // change is sung where the custos before it shows it, which is where an explicit custos on that note is written,
-  // and otherwise where an automatic custos fits on the staff. Each kind of clef then keeps its octave.
-  function clefOctaves(gabc) {
-    var octaves = {}, clef, sungClef, custos, custosClef;
-    gabc.slice(gabc.indexOf('%%') < 0 ? 0 : gabc.lastIndexOf('%%') + 2).replace(/\(([^)]*)\)/g, function(group, notes) {
-      notes.replace(/\[[^\]]*\]|\|.*$/g, '').replace(/([cf]b?[1-4])|([a-mA-M])\+|[a-mA-M][xy#]|([a-mA-M])/g, function(token, newClef, shown, note) {
-        if(newClef) clef = newClef;
-        else if(shown) { custos = staffPosition(shown); custosClef = clef; }
-        else if(note && clef) {
-          var kind = clef[0], sungKind = sungClef && sungClef[0];
-          if(sungKind && kind != sungKind) {
-            // (an explicit custos after the new clef is drawn with that one, and says nothing of the change)
-            var explicit = custos !== undefined && custosClef && custosClef[0] == sungKind,
-                before = explicit ? custosClef : sungClef,
-                written = sungHeight(staffPosition(note), clef, {}) + 2 * before.slice(-1) - (before[0] == 'f' ? 3 : 0),
-                at;
-            if(explicit && (custos - written) % 7 == 0) at = custos;
-            else if(octaves[kind] === undefined) for(at = written; at < -2 || at > 10;) at += at < -2 ? 7 : -7;
-            if(at !== undefined) octaves[kind] = octaves[sungKind] + (at - written) / 7;
-          }
-          if(octaves[kind] === undefined) octaves[kind] = 0;
-          sungClef = clef;
-          custos = custosClef = undefined;
+  // Exsurge, which the page loads and Node finds beside this file. It says how clefs relate, so that nothing here does.
+  var library;
+  function exsurgeLibrary() { return library || (library = typeof module == 'object' && module.exports ? require('./exsurge.min.js') : root.exsurge); }
+  function exsurgeClef(clef) { return exsurgeLibrary().Gabc.createClef(clef[0], Number(clef.slice(-1)), false); }
+  // How many octaves from where they are written Exsurge sings the note at info (target) and, by the end of gabc, the
+  // notes under each kind of clef (c, f). The notation does not say how the octave of a C clef relates to that of an
+  // F clef; Exsurge takes it from the custos at a change between them (ChantScore.getPlaybackPitches()).
+  function sungOctaves(gabc, info) {
+    var exsurge = exsurgeLibrary(), start = gabc.indexOf('%%') < 0 ? 0 : gabc.lastIndexOf('%%') + 2,
+        ctxt = new exsurge.ChantContext(),
+        score = new exsurge.ChantScore(ctxt, exsurge.Gabc.createMappingsFromSource(ctxt, gabc.slice(start)), false),
+        sung = score.getPlaybackPitches(), clef = score.startingClef, octaves = {}, found = false;
+    score.notations.forEach(function(notation) {
+      if(notation.isClef) clef = notation;
+      (notation.notes || []).forEach(function(note) {
+        if(!sung.has(note)) return;
+        var octave = (sung.get(note) - note.pitch.toInt()) / 12;
+        octaves[clef instanceof exsurge.FaClef ? 'f' : 'c'] = octave;
+        if(!found && note.sourceIndex >= info.start - start && note.sourceIndex < info.pitchEnd - start) {
+          octaves.target = octave;
+          found = true;
         }
       });
     });
+    if(!found) octaves.target = octaves[info.clef[0]] || 0;
     return octaves;
   }
   // The return to cue, with a custos at its first note under clef. The cue is looked for in antiphon; sung is whatever
@@ -153,18 +143,20 @@
   function responseCue(antiphon, cue, clef, occurrence, sung) {
     var info = cueInfo(antiphon, cue, occurrence);
     if(!info || !info.pitch || !info.clef || !clef) return ' (::) <nlba>*~' + cue + '</nlba>() (Z)';
-    // The custos is written where the first note of the return is sung, in the octave the clef has by now: after a
-    // change between a C and an F clef, that is not always the octave the two clefs are written in.
-    var height = sungHeight(staffPosition(info.pitch), info.clef, clefOctaves(antiphon.slice(0, info.pitchEnd))),
-        octaves = clefOctaves(antiphon + '\n' + (sung || ''));
+    // The custos is written where the first note of the return is sung, in the octave the clef has by now. Only a
+    // score with both kinds of clef has that to ask of Exsurge.
+    var score = antiphon + '\n' + (sung || ''),
+        kinds = (score.slice(score.lastIndexOf('%%') + 1).match(/[cf]b?[1-4](?=\))/g) || []).concat(clef).map(function(c) { return c[0]; }),
+        octaves = kinds.indexOf('c') >= 0 && kinds.indexOf('f') >= 0 ? sungOctaves(score, info) : { target: 0 },
+        pitch = exsurgeClef(info.clef).staffPositionToPitch(staffPosition(info.pitch));
     function letter(clef) {
-      var position = height - sungHeight(0, clef, octaves);
+      var position = exsurgeClef(clef).pitchToStaffPosition(pitch) + 7 * (octaves.target - (octaves[clef[0]] || 0));
       return position < -2 || position > 10 ? '' : String.fromCharCode(position + 99);
     }
     // If the return pitch is outside this staff, show it in its original clef
     // and restore the verse clef afterwards; never substitute another octave.
-    var pitch = letter(clef), original = !pitch && (letter(info.clef) || info.pitch);
-    return (original ? ' (' + info.clef + ')' : '') + ' (::' + (pitch || original) + '+) ' +
+    var custos = letter(clef), original = !custos && (letter(info.clef) || info.pitch);
+    return (original ? ' (' + info.clef + ')' : '') + ' (::' + (custos || original) + '+) ' +
       '<nlba>*~' + cue + '</nlba>() (Z)' + (original ? ' (' + clef + ')' : '');
   }
   // The text of every return that is printed between two double bars without
@@ -225,8 +217,12 @@
         // alternative closes the line; an earlier Z makes an empty staff.
         return index < references.length - 1 ? reference.replace(/\s*\(Z\)/, '') : reference;
       }).join(' <i>vel</i>() ');
-      var closingClef = lastClef(verses.slice(bars[i + 1].index, bars[i + 1].end));
-      if(closingClef && closingClef != clef) replacement += ' (' + closingClef + ')';
+      // Where the bar that closes the return changes the clef for the next verse, the book has a custos before it
+      // for that verse's first note. Keep it (GregoBase has z0 or the note): the next line starts with it and the
+      // new clef, so that it does not stand beside the custos of the return.
+      var closing = verses.slice(bars[i + 1].index, bars[i + 1].end), closingClef = lastClef(closing);
+      if(closingClef && closingClef != clef) replacement = replacement.replace(/\s*\(Z\)(\s*\([cf]b?[1-4]\))?$/, '$1') +
+        ' (Z' + ((closing.match(/[a-m]\+/i) || ['z0'])[0]) + closingClef + ')';
       replacements.push({ start: bars[i].index, end: bars[i + 1].end, text: replacement });
       ++i;
     }
@@ -302,7 +298,7 @@
     return lyrics(verse.replace(/<sp>V\/<\/sp>\.?\s*(?:\d+\.?\s*)?/, '')
       .replace(/\(:\)/g, ' * ')).replace(/(?:\s+[*†])+\s*$/, '');
   }
-  var api = { normalize: normalize, lyrics: lyrics, parse: parse, cueIndex: cueIndex, cueInfo: cueInfo, markResponse: markResponse, responseCue: responseCue, clefOctaves: clefOctaves, prepareFull: prepareFull, lastClef: lastClef, removeRedundantClefs: removeRedundantClefs, prepareClefChanges: prepareClefChanges, splitVerses: splitVerses, takeVerses: takeVerses, selectVerseItems: selectVerseItems, psalmVerseText: psalmVerseText };
+  var api = { normalize: normalize, lyrics: lyrics, parse: parse, cueIndex: cueIndex, cueInfo: cueInfo, markResponse: markResponse, responseCue: responseCue, prepareFull: prepareFull, lastClef: lastClef, removeRedundantClefs: removeRedundantClefs, prepareClefChanges: prepareClefChanges, splitVerses: splitVerses, takeVerses: takeVerses, selectVerseItems: selectVerseItems, psalmVerseText: psalmVerseText };
   if(typeof module == 'object' && module.exports) module.exports = api;
   else root.offertoryVerseTools = api;
 })(typeof window == 'object' ? window : this);

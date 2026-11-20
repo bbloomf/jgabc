@@ -122,6 +122,7 @@ test('clef cleanup preserves notes, bars, annotations and real clef changes incl
   expect(tools.removeRedundantClefs(expected)).toBe(expected);
 });
 
+let afterReturn = 0;
 for (const style of ['full', 'toned-verses', 'psalm-tone']) {
   test('clef changes at double bars have a custos: ' + style, () => {
     for (const c of all.filter(c => c.style === style && c.count > 0)) {
@@ -132,10 +133,19 @@ for (const style of ['full', 'toned-verses', 'psalm-tone']) {
           const precedingCustos = /\([^)]*[a-m]\+[^)]*\)\s*$/i.test(body.slice(0, m.index));
           expect(/z0::|[a-m]\+/i.test(m[1]) || precedingCustos, `${c.id} ${style} ${c.count} ${stage}: ${m[0]}`).toBe(true);
         }
+        // a return takes the place of the bar that changed the clef for the next verse, and keeps its custos at
+        // the start of the next line (Tollite portas)
+        expect(body, `${c.id} ${style} ${c.count} ${stage}`).not.toMatch(/\(Z\)\s*\([cf]b?[1-4]\)\s*\S/);
+        for (const m of body.matchAll(/\(Z([^)]*)[cf]b?[1-4]\)/g)) {
+          expect(m[1], `${c.id} ${style} ${c.count} ${stage}: ${m[0]}`).toMatch(/^(z0|[a-m]\+)$/i);
+          afterReturn++;
+        }
       }
     }
   });
 }
+
+test('some returns are followed by a clef change', () => expect(afterReturn).toBeGreaterThan(0));
 
 test('Ad te Domine introduces the full verse with an automatic custos and C4 clef', () => {
   const c = all.find(c => c.id === '962' && c.style === 'full' && c.count === 1);
