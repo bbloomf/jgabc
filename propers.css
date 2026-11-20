@@ -415,3 +415,39 @@ syl.bold {
     page-break-before: always;
   }
 }
+/* The offertory's heading, verse options and style options share one sticky row, which wraps where they do not fit. */
+@media screen {
+  .offertory-sticky {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4em 0.5em;
+    position: sticky;
+    top: -1px;
+    padding: 1px 0 2px;
+    width: 100%;
+    background: white;
+    z-index: 1;
+  }
+  .offertory-style-options { order: 2; margin-left: auto; white-space: nowrap; }
+  .offertory-content { min-width: 0; }
+  #offertory-verse-options { order: 1; white-space: nowrap; padding-top: 1px; }
+  #lblOffertoryPsalmVerses { margin-left: 0.5em; }
+}
+/* On a small screen the style options wrap as in the other parts and are all that stays in view:
+   the verse options have the row below, and scroll away with the chant. */
+@media screen and (max-width: 768px) {
+  .offertory-sticky { display: contents; }
+  .offertory-style-options {
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+    margin-left: 0;
+    padding: 1px 0 2px;
+    background: inherit;
+    white-space: normal;
+  }
+  .offertory-style-options > .flex { row-gap: 6px; }
+  .offertory-style-options .child-main { margin-bottom: 0; }
+  #offertory-verse-options { margin-top: 4px; }
+}

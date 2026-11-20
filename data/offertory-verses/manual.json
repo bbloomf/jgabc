@@ -1,0 +1,273 @@
+{
+  "source": "https://gregobase.selapa.net/source.php?id=32",
+  "chants": [
+    {
+      "id": "manual-039",
+      "name": "Benedictus qui venit",
+      "gregobaseId": 21011,
+      "page": 64,
+      "localIds": [941],
+      "verseCount": 2,
+      "cue": "Benedíximus.",
+      "selectionCues": {
+        "1": "Benedíximus."
+      }
+    },
+    {
+      "id": "manual-041",
+      "name": "Lauda anima",
+      "gregobaseId": 21012,
+      "page": 67,
+      "localIds": [668],
+      "verseCount": 2,
+      "cue": "Allelúia."
+    },
+    {
+      "id": "manual-044",
+      "name": "Confitebor Domino",
+      "gregobaseId": 21013,
+      "page": 74,
+      "localIds": [584],
+      "verseCount": 2,
+      "cue": "Ut salvam."
+    },
+    {
+      "id": "manual-048",
+      "name": "Benedictus sit",
+      "gregobaseId": 21014,
+      "page": 81,
+      "localIds": [1303],
+      "verseCount": 2,
+      "cue": "Quia fecit."
+    },
+    {
+      "id": "manual-050",
+      "name": "Domine convertere",
+      "gregobaseId": 21015,
+      "page": 84,
+      "localIds": [848],
+      "verseCount": 2,
+      "cue": "Salvum me fac.",
+      "selectionCues": {
+        "1": "Salvum me fac."
+      }
+    },
+    {
+      "id": "manual-067",
+      "name": "Domine Deus salutis",
+      "gregobaseId": 21016,
+      "page": 112,
+      "localIds": [542, 987],
+      "verseCount": 3,
+      "cue": "Intret.",
+      "psalmVerseCues": [
+        "In conspéctu.",
+        "Intret.",
+        "Intret."
+      ],
+      "selectionCues": {
+        "2": "Intret."
+      }
+    },
+    {
+      "id": "manual-077",
+      "name": "Gloria et honore",
+      "gregobaseId": 21017,
+      "page": 133,
+      "localIds": [407],
+      "verseCount": 2,
+      "cue": "Et constituísti.",
+      "selectionCues": {}
+    },
+    {
+      "id": "manual-078",
+      "name": "Gloriabuntur",
+      "gregobaseId": 21018,
+      "page": 135,
+      "localIds": [1375],
+      "verseCount": 2,
+      "cue": "Dómine.",
+      "selectionCues": {
+        "1": "Dómine."
+      },
+      "cueOccurrences": {
+        "domine": 2
+      }
+    },
+    {
+      "id": "manual-079",
+      "name": "Posuisti",
+      "gregobaseId": 21019,
+      "page": 136,
+      "localIds": [487],
+      "verseCount": 2,
+      "cue": "Allelúia.",
+      "psalmVerseCues": [
+        "Allelúia.",
+        "Allelúia."
+      ]
+    },
+    {
+      "id": "manual-081",
+      "name": "Laetamini",
+      "gregobaseId": 21020,
+      "page": 140,
+      "localIds": [786, 870],
+      "verseCount": 2,
+      "cue": "Et gloriámini.",
+      "selectionCues": {
+        "1": "Et gloriámini."
+      }
+    },
+    {
+      "id": "manual-082",
+      "name": "Mirabilis Deus",
+      "gregobaseId": 21021,
+      "page": 141,
+      "localIds": [919],
+      "verseCount": 2,
+      "cue": "Benedíctus.",
+      "selectionCues": {
+        "2": "Benedíctus."
+      }
+    },
+    {
+      "id": "manual-083",
+      "name": "Exsultabunt sancti",
+      "gregobaseId": 21022,
+      "page": 143,
+      "localIds": [33],
+      "verseCount": 1,
+      "cue": "Exsultábunt.",
+      "selectionCues": {
+        "1": "Exsultábunt."
+      }
+    },
+    {
+      "id": "manual-086",
+      "name": "Inveni David",
+      "gregobaseId": 21023,
+      "page": 147,
+      "localIds": [779],
+      "verseCount": 2,
+      "cue": "Manus."
+    },
+    {
+      "id": "manual-089",
+      "name": "In virtute tua",
+      "gregobaseId": 21027,
+      "page": 152,
+      "localIds": [667],
+      "verseCount": 2,
+      "cue": "Desidérium."
+    },
+    {
+      "id": "manual-090",
+      "name": "Desiderium animae",
+      "gregobaseId": 21028,
+      "page": 153,
+      "localIds": [722],
+      "verseCount": 3,
+      "cue": "Et voluntáte.",
+      "psalmVerseCues": [
+        "Et voluntáte.",
+        "Posuísti.",
+        "Et voluntáte."
+      ],
+      "selectionCues": {
+        "3": "Et voluntáte."
+      }
+    },
+    {
+      "id": "manual-091",
+      "name": "Afferentur proximae",
+      "gregobaseId": 21029,
+      "page": 155,
+      "localIds": [1107],
+      "verseCount": 2,
+      "cue": "Adducéntur.",
+      "selectionCues": {
+        "1": "Adducéntur."
+      }
+    },
+    {
+      "id": "manual-094",
+      "name": "Domine Deus in simplicitate",
+      "gregobaseId": 21030,
+      "page": 159,
+      "localIds": [200],
+      "verseCount": 2,
+      "cue": "Deus Israel.",
+      "selectionCues": {
+        "1": "Deus Israel."
+      }
+    },
+    {
+      "id": "manual-095",
+      "name": "Elegerunt Apostoli",
+      "gregobaseId": 21031,
+      "page": 161,
+      "localIds": [462],
+      "verseCount": 3,
+      "cue": "Dómine.",
+      "selectionCues": {
+        "2": "Dómine.",
+        "3": "Dómine."
+      },
+      "verseSelections": {
+        "3": [3]
+      },
+      "verseSelectionLabels": {
+        "3": "Alternative verse (3)"
+      }
+    },
+    {
+      "id": "manual-096",
+      "name": "Afferentur S. Agathae post eam",
+      "gregobaseId": 21032,
+      "page": 163,
+      "localIds": [768],
+      "verseCount": 2,
+      "cue": "Afferéntur.",
+      "selectionCues": {
+        "1": "Afferéntur."
+      }
+    },
+    {
+      "id": "manual-097",
+      "name": "Oratio mea",
+      "gregobaseId": 21024,
+      "page": 164,
+      "localIds": [185],
+      "verseCount": 1,
+      "cue": "Ascéndat."
+    },
+    {
+      "id": "manual-098",
+      "name": "Confessio et pulchritudo",
+      "gregobaseId": 21033,
+      "page": 166,
+      "localIds": [105],
+      "verseCount": 2,
+      "cue": "Sánctitas."
+    },
+    {
+      "id": "manual-099",
+      "name": "Assumpta est",
+      "gregobaseId": 21025,
+      "page": 167,
+      "localIds": [3317],
+      "verseCount": 1,
+      "cue": "Allelúia."
+    },
+    {
+      "id": "manual-102",
+      "name": "Viri Galilaei",
+      "gregobaseId": 21026,
+      "page": 172,
+      "localIds": [3315],
+      "verseCount": 1,
+      "cue": "Sic véniet."
+    }
+  ]
+}

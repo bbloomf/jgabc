@@ -822,6 +822,19 @@ var internationalTextBoxKeyDown = makeInternationalTextBoxKeyDown(true);
 function calculateDefaultStartPitch(startPitch, lowPitch, highPitch) {
   return new exsurge.Pitch(startPitch + ((4 * 12 + 7) - Math.floor((lowPitch + highPitch) / 2)));
 }
+function getPlaybackPitches(score) {
+  // The pitch each note is sung at, which is not its written one after a change between a C and an F clef:
+  // exsurge takes the octave from the custos before the change.
+  return score.getPlaybackPitches();
+}
+function getPlaybackPitchData(score) {
+  var pitches = getPlaybackPitches(score), values = Array.from(pitches.values());
+  var data = { pitches: pitches, startPitch: values[0], lowPitch: Math.min.apply(null, values), highPitch: Math.max.apply(null, values) };
+  var rangeKey = [data.startPitch, data.lowPitch, data.highPitch].join(',');
+  if(score.playbackRangeKey && score.playbackRangeKey !== rangeKey && !score.playbackStartPitchIsManual) delete score.defaultStartPitch;
+  score.playbackRangeKey = rangeKey;
+  return data;
+}
 var Tone;
 if(typeof window=='object') (function(window) {
   var synth;
@@ -861,6 +874,8 @@ if(typeof window=='object') (function(window) {
       return (localStorage.isUsingSolesmesLengths = !getIsUsingSolesmesLengths());
     }
     window.playScore = function(score, firstPitch, startNote){
+      var playback = getPlaybackPitchData(score);
+      if(!playback.pitches.size) return;
       Tone.Transport.clear(timeoutNextNote);
       Tone.Transport.start();
       if($('#mediaControls').length == 0) {
@@ -893,17 +908,14 @@ if(typeof window=='object') (function(window) {
         dropCap.classList.add('active');
       var noteId = 0;
       var notes = [].concat.apply([],score.notations.map(function(notation) { return notation.notes || notation; })).filter(function(notation) { return !notation.isAccidental; });
+      var playbackPitches = playback.pitches;
       if(startNote) noteId = Math.max(0, notes.indexOf(startNote));
       if(!firstPitch) firstPitch = score.defaultStartPitch;
       if(!firstPitch) {
-        var startPitch = notes[0].pitch.toInt(),
-            pitches = notes.filter(function(note){return note.pitch;}).map(function(note) { return note.pitch && note.pitch.toInt(); }),
-            lowPitch = Math.min.apply(null, pitches),
-            highPitch = Math.max.apply(null, pitches);
-        firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
+        firstPitch = score.defaultStartPitch = calculateDefaultStartPitch(playback.startPitch, playback.lowPitch, playback.highPitch);
       }
       if(firstPitch.toInt) firstPitch = firstPitch.toInt();
-      transpose = firstPitch - notes[0].pitch.toInt();
+      transpose = firstPitch - playback.startPitch;
       _isPlaying = true;
 
       function getArePitchesEqual () {
@@ -1064,7 +1076,7 @@ if(typeof window=='object') (function(window) {
           var isUsingSolesmesLengths = getIsUsingSolesmesLengths();
           var isApostropha = getIsApostropha(note);
           var pressus = getPressus(notes, noteId);
-          var noteName = tones.getNoteName(note.pitch, transpose);
+          var noteName = tones.getNoteName(new exsurge.Pitch(playbackPitches.get(note)), transpose);
           if (isApostropha || pressus) {
             var totalDuration = 0;
             if (isApostropha && note.neume.notes[0] === note) {
@@ -1549,29 +1561,20 @@ if(typeof $=='function') $(function($) {
     'Ti'
   ]
   window.addPitchButtonsToToolbar = function($toolbar, noteProperties, score, showToolbarForNoteArgs) {
-    var isFirstPitch = !noteProperties;
-    var lowPitch = 100000, highPitch = 0;
-    var startPitch = null;
-    var thisPitch = null;
-    score.notations.forEach(function(notation) {
-      if(notation.notes) notation.notes.forEach(function(note) {
-        var pitch = note.pitch.toInt()
-        if(startPitch == null) {
-          startPitch = pitch;
-          if(!isFirstPitch && noteProperties.note === note) isFirstPitch = true;
-          if(isFirstPitch) thisPitch = startPitch;
-        } else if(noteProperties && noteProperties.note === note) {
-          thisPitch = note.pitch.toInt();
-        }
-        lowPitch = Math.min(lowPitch, pitch);
-        highPitch = Math.max(highPitch, pitch);
-      });
-    });
+    var playback = getPlaybackPitchData(score);
+    if(!playback.pitches.size) return;
+    var firstNote = playback.pitches.keys().next().value;
+    var isFirstPitch = !noteProperties || noteProperties.note === firstNote;
+    var lowPitch = playback.lowPitch, highPitch = playback.highPitch, startPitch = playback.startPitch;
+    var thisPitch = isFirstPitch ? startPitch : playback.pitches.get(noteProperties.note);
     // default to putting the middle pitch at G above middle C
     score.defaultStartPitch = score.defaultStartPitch || calculateDefaultStartPitch(startPitch, lowPitch, highPitch);
 
     function changePitch(offset) {
-      if(offset) score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+      if(offset) {
+        score.defaultStartPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() + offset);
+        score.playbackStartPitchIsManual = true;
+      }
       var lowestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + lowPitch);
       var highestPitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + highPitch);
       var pitch = new exsurge.Pitch(score.defaultStartPitch.toInt() - startPitch + thisPitch);

@@ -188,7 +188,7 @@ $(function(){
     }
     return
   }
-  var gregobaseUrlPrefix = 'http://gregobase.selapa.net/chant.php?id=';
+  var gregobaseUrlPrefix = 'https://gregobase.selapa.net/chant.php?id=';
   var $gradualeOptions = $('#selStyleGraduale>option').clone();
   var $alleluiaOptions = $('#selStyleAlleluia>option').clone();
   var NBSP = '\xA0';
@@ -454,6 +454,10 @@ $(function(){
   var getGabcPathsForPart = function(part) {
     var fullPath = 'gabc/' + sel[part].id + '.gabc',
         abregesFile = /^chants-abreges/.test(sel[part].style) && getChantsAbregesFile(part, sel[part].id);
+    if(part == 'offertorium' && getOffertoryVerseSettings().count && !getOffertoryVerseSettings().psalmToned &&
+        typeof offertoryVerses != 'undefined' && offertoryVerses.fullById[sel[part].id]) {
+      return [fullPath, 'gabc/offertory-verses/' + offertoryVerses.fullById[sel[part].id] + '.gabc'];
+    }
     if(!abregesFile) return [fullPath];
     var abregesPath = 'gabc/chants-abreges/' + abregesFile;
     return sel[part].style == 'chants-abreges-verse'? [fullPath, abregesPath] : [abregesPath];
@@ -475,6 +479,112 @@ $(function(){
     }
     return hasAbreges;
   };
+  var getOffertoryVerseSettings = function() {
+    var state = sel.offertorium,
+        data = typeof offertoryVerses == 'undefined' ? {} : offertoryVerses,
+        full = data.full && data.full[data.fullById[state.id]],
+        simple = data.simple && data.simple[data.simpleById[state.id]],
+        total = full ? full.verseCount : (simple ? 1 : 0);
+    return { full: full, simple: simple, total: total,
+      count: Math.min(total, Math.max(0, Number(state.verseCount) || 0)),
+      psalmToned: state.style == 'psalm-tone' || !!state.psalmToneVerses || !full };
+  };
+  var getOffertoryGregoBaseId = function() {
+    var state = sel.offertorium, settings = getOffertoryVerseSettings(),
+        sourceId = typeof offertoryVerses == 'undefined' ? null : offertoryVerses.fullById[state.id];
+    if(settings.full && settings.count > 0 && !settings.psalmToned) {
+      return settings.full.gregobaseId || (/^[1-9]\d*$/.test(String(sourceId)) ? sourceId : state.id);
+    }
+    return state.id;
+  };
+  var updateOffertoryVerseOptions = function(part) {
+    if(part != 'offertorium') return;
+    var settings = getOffertoryVerseSettings(), $count = $('#selOffertoryVerseCount');
+    $('#offertory-verse-options').toggle(settings.total > 0);
+    var labels = [];
+    for(var n = 0; n <= settings.total; ++n) {
+      labels.push(settings.full && settings.full.verseSelectionLabels && settings.full.verseSelectionLabels[n] || n + (n == 1 ? ' verse' : ' verses'));
+    }
+    // the choices only change with the offertory, so a change to the count or the style leaves the list alone
+    if($count.data('labels') != labels.join('\n')) {
+      $count.data('labels', labels.join('\n')).empty();
+      labels.forEach(function(label, n) { $count.append($('<option>').val(n).text(label)); });
+    }
+    sel.offertorium.verseCount = settings.count;
+    $count.val(settings.count);
+    $('#lblOffertoryPsalmVerses').toggle(settings.count > 0 && sel.offertorium.style != 'psalm-tone');
+    $('#cbOffertoryPsalmVerses').prop('checked', settings.psalmToned).prop('disabled', !settings.full);
+    $('#lblOffertoryPsalmVerses').attr('title', settings.full ? null : 'This offertory has only a psalm toned verse.');
+    var sourceId = getOffertoryGregoBaseId();
+    $('#lblOffertorium').find('a').attr('href', sourceId && typeof sourceId != 'object' ? gregobaseUrlPrefix + sourceId : null);
+  };
+  // antiphon is the offertory as its style renders it, when the caller has already worked that out
+  var getOffertoryWithVerses = function(antiphon) {
+    var state = sel.offertorium, settings = getOffertoryVerseSettings();
+    if(antiphon === undefined) antiphon = state.style == 'psalm-tone' ? getPsalmToneForPart('offertorium') : state.gabc;
+    if(!antiphon || !settings.count) return antiphon;
+    // Resolve seasonal endings before attaching a verse clef to their double bar.
+    antiphon = removeNotApplicableFromGabc(antiphon);
+    if(!settings.psalmToned) {
+      var verses = state.offertoryVerseGabc;
+      if(!settings.full || !verses) return antiphon;
+      var verseBody = offertoryVerseTools.takeVerses(verses.slice(getHeaderLen(verses)), settings.count, settings.full.selectionCues, settings.full.verseSelections),
+          simpleEntry = settings.simple;
+      if(simpleEntry && simpleEntry.fallbackCue && offertoryVerseTools.cueIndex(antiphon, simpleEntry.cue) < 0) {
+        verseBody = verseBody.replace(/\*\s*(?:\(\)\s*)?Allel[uú][ij]a\.(?:\(\))?/gi, '*() ' + simpleEntry.fallbackCue + '()');
+      }
+      if(offertoryVerseTools.splitVerses(verseBody).length == 1) verseBody = verseBody.replace(/(<sp>V\/<\/sp>)\.?\s*\d+\.?\s*/, '$1 ');
+      var prepared = offertoryVerseTools.prepareFull(antiphon, verseBody, settings.full.cue, settings.full.cueOccurrences, verses.slice(getHeaderLen(verses)));
+      return offertoryVerseTools.prepareClefChanges(prepared.antiphon + '\n' + runGabcReplaces(prepared.gabc, getHeader(verses)));
+    }
+    var psalmVerses = settings.full ? settings.full.psalmVerses.slice() : [settings.simple];
+    // Preserve Rice's adaptation. If he chose a later authentic verse, move
+    // that verse to the front instead of printing it twice.
+    if(settings.simple && settings.full) {
+      var simpleText = offertoryVerseTools.normalize(settings.simple.text), sameVerse = -1;
+      psalmVerses.forEach(function(verse, index) {
+        if(offertoryVerseTools.normalize(verse.text) == simpleText) sameVerse = index;
+      });
+      if(sameVerse > 0) {
+        psalmVerses.splice(sameVerse, 1);
+        psalmVerses.unshift(settings.simple);
+      } else psalmVerses[0] = settings.simple;
+    }
+    psalmVerses = offertoryVerseTools.selectVerseItems(psalmVerses, settings.count, settings.full && settings.full.verseSelections);
+    var result = [], earlier = antiphon;
+    psalmVerses.forEach(function(verse, index) {
+      var cue = verse.cue;
+      if(verse.fallbackCue && offertoryVerseTools.cueIndex(antiphon, cue) < 0) cue = verse.fallbackCue;
+      antiphon = offertoryVerseTools.markResponse(antiphon, cue, verse.occurrence);
+      var mode = state.style == 'psalm-tone' ? state.mode : state.originalMode,
+          tone = g_tones['Introit ' + mode] || g_tones[mode + '.'];
+      // A transposed respond may use do in place of fa. Reuse the same
+      // interval-safe clef substitution as the other psalm-tone paths, and
+      // keep the verse on the respond's staff when its final agrees.
+      var respondClef = offertoryVerseTools.lastClef(antiphon),
+          verseClef = tone.clef,
+          swappedClef = (verseClef[0] == 'f' ? 'c' : 'f') + verseClef.slice(1),
+          toneNotes = [tone.mediant, tone.termination || Object.values(tone.terminations || {}).join(' ')].join(' '),
+          finalNote = (toneNotes.match(/[a-m]/gi) || []).pop(),
+          respondFinal = getLastNote(antiphon);
+      if(respondClef && respondFinal && finalNote && respondClef[0] != verseClef[0] &&
+          swapDoFaClef(toneNotes, verseClef).clefShift == 0 &&
+          getScaleDegree(respondFinal, respondClef) == getScaleDegree(finalNote, swappedClef)) {
+        tone = $.extend({}, tone, {clef: swappedClef});
+        verseClef = respondClef;
+      }
+      // The verses are not a part of their own, so their state is handed to the psalm toner rather than kept in sel.
+      var verseState = {
+        text: '<sp>V/</sp> ' + (psalmVerses.length > 1 ? (index + 1) + '. ' : '') + verse.text,
+        gabc: 'initial-style: 0;\n%%\n(' + verseClef + ')', mode: mode, repeatIntonation: true, introitTone: true
+      };
+      var gabc = getPsalmToneForPart('offertoriumSimpleVerses', tone, false, verseState), body = gabc.slice(getHeaderLen(gabc)),
+          reference = offertoryVerseTools.responseCue(earlier, cue, offertoryVerseTools.lastClef(body), verse.occurrence, result.join('\n') + '\n' + body);
+      result.push(body.replace(/\s*\(::\)\s*$/, '') + reference);
+    });
+    return offertoryVerseTools.prepareClefChanges(antiphon + '\n' + result.join('\n'));
+  };
+
   var getLastClef = function(gabc) {
     var regex = /\((?:[^()]*::)?([cf]b?[1-4])\)/g,
         clef = null,
@@ -785,16 +895,28 @@ $(function(){
           $extraChantsPlaceholder.remove();
           sel[part].id = id;
           updateChantsAbregesOptions(part);
+          updateOffertoryVerseOptions(part);
           var gabcPaths = getGabcPathsForPart(part),
               gabcPathsKey = sel[part].gabcPaths = gabcPaths.join(' ');
-          Promise.all(gabcPaths.map(function(path) { return $.get(path); })).then(function(gabcs) {
+          Promise.all(gabcPaths.map(function(path, i) {
+            // the offertory verses are optional: if they fail to load, the antiphon is still shown without them
+            return i && part == 'offertorium'? Promise.resolve($.get(path)).catch(function() { return null; }) : $.get(path);
+          })).then(function(gabcs) {
             // ignore these responses if another version of the chant has been requested since
             if(gabcPathsKey != sel[part].gabcPaths) return;
-            updateGabc(gabcs.length > 1? spliceChantsAbregesVerse(gabcs[0], gabcs[1]) : gabcs[0]);
+            if(part == 'offertorium') {
+              sel[part].offertoryVerseGabc = gabcs[1] || null;
+              updateGabc(gabcs[0]);
+            } else {
+              updateGabc(gabcs.length > 1? spliceChantsAbregesVerse(gabcs[0], gabcs[1]) : gabcs[0]);
+            }
           });
         }
       } else {
         $extraChantsPlaceholder.remove();
+        // forget the previous chant, so that its offertory verse options and link are not offered for an empty part
+        sel[part].id = null;
+        updateOffertoryVerseOptions(part);
         updateGabc('');
       }
     } else {
@@ -1927,6 +2049,7 @@ $(function(){
       addToHash(part+'Pattern','');
     }
     sel[part].style = style;
+    updateOffertoryVerseOptions(part);
     sel[part].overrideTone = sel[part].overrideToneEnding = null;
     var $selToneEnding = $('#selToneEnding' + capPart),
         $selTone = $('#selTone' + capPart),
@@ -2316,21 +2439,23 @@ $(function(){
   
   // when pointed is set, only the first verse is in the gabc (with bold, italics and open notes), and the rest of the verses
   // are left in sel[part].pointedHtml as html text with bold and italics
-  var getPsalmToneForPart = function(part, tone, pointed){
-    var text = sel[part].text;
+  // state stands in for sel[part] when the verses are not a part of their own, as with the psalm toned verses of an offertory
+  var getPsalmToneForPart = function(part, tone, pointed, state){
+    var prop = state || sel[part];
+    var text = prop.text;
     if(!text) return;
-    var header = getHeader(sel[part].gabc||'');
-    var termination = sel[part].termination;
-    var mode = sel[part].mode;
-    var altTone = sel[part].altTone;
-    var solemn = sel[part].solemn;
+    var header = getHeader(prop.gabc||'');
+    var termination = prop.termination;
+    var mode = prop.mode;
+    var altTone = prop.altTone;
+    var solemn = prop.solemn;
     var isAl = isAlleluia(part,text);
-    var endOfVerse = sel[part].endOfVerse || '(::)';
-    var startOfVerse = sel[part].startOfVerse || '';
+    var endOfVerse = prop.endOfVerse || '(::)';
+    var startOfVerse = prop.startOfVerse || '';
     var introitTone = false;
     var $psalmEditor = $('[part='+part+'] .psalm-editor');
     $psalmEditor.find('syl.bold,syl.prep').removeClass('bold prep');
-    if((/^(introitus|communioVerses)/.test(part) && !isPsalmVerseTone(sel[part].verseTone)) || (isAl && sel[part].style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
+    if(((/^(introitus|communioVerses)/.test(part) || (prop.introitTone && g_tones['Introit ' + mode])) && !isPsalmVerseTone(prop.verseTone)) || (isAl && prop.style != 'psalm-tone2') || (header.officePart == 'Hymnus')) {
       tone = tone || g_tones['Introit ' + mode];
       introitTone = true;
     } else {
@@ -2369,8 +2494,8 @@ $(function(){
     var gabc;
     var lines;
     var useOriginalClef = /Verses$/.test(part) || text.indexOf('@') >= 0;
-    var fullGabc = (sel[part].gabc||'').slice(getHeaderLen(sel[part].gabc||''));
-    var header = getHeader(sel[part].gabc||'');
+    var fullGabc = (prop.gabc||'').slice(getHeaderLen(prop.gabc||''));
+    var header = getHeader(prop.gabc||'');
     header.mode = mode;
     delete header.annotationArray;
     delete header.annotation;
@@ -2388,7 +2513,7 @@ $(function(){
     if(originalClef) originalClef = originalClef[1];
       
     if(isAl) {
-      if(sel[part].style=='psalm-tone1') {
+      if(prop.style=='psalm-tone1') {
         lines = text.split('\n');
         var i = lines.length - 1;
         if(part == 'alleluia' && !selPropers.seqID && !selPropers.sequentiaID) {
@@ -2434,7 +2559,7 @@ $(function(){
           // update graduale so that it doesn't end with an extra "alleluia"
           $('#selStyleGraduale').change();
         }
-        if(sel[part].style=='psalm-tone-sal') {
+        if(prop.style=='psalm-tone-sal') {
           gabc = "mode: " + mode + ";\n%%\n" + alleluiaChantsAbreges[mode];
           originalClef = gabc.match(regexGabcClef);
           if(originalClef) originalClef = originalClef[1];
@@ -2443,20 +2568,20 @@ $(function(){
           }
         } else {
           $('[part='+part+']').addClass('full-alleluia');
-          var match = sel[part].gabc.match(regexGabcFirstDoubleBar);
-          gabc = sel[part].gabc.slice(0,match.index+match[0].length)+'\n';
+          var match = prop.gabc.match(regexGabcFirstDoubleBar);
+          gabc = prop.gabc.slice(0,match.index+match[0].length)+'\n';
         }
         useOriginalClef = true
-        lines = sel[part].text.split('\n');
+        lines = prop.text.split('\n');
       }
       lines.splice(0,1);
     } else {
       // not alleluia
-      lines = sel[part].text;
+      lines = prop.text;
       if(useBigInitial) lines = capitalizeForBigInitial(lines);
       lines = lines.split('\n');
       gabc = header;
-      if(sel[part].style == 'psalm-tone1') {
+      if(prop.style == 'psalm-tone1') {
         // the first verse is to be full tone.
         var firstVerse = /^([\s\S]*?\S*)(\([^)]*::[^)]*\))(?:\s+([^(]+(?:\(\))?\s))?/g.exec(fullGabc);
         if(firstVerse) {
@@ -2464,7 +2589,7 @@ $(function(){
           gabc += firstVerse;
           useOriginalClef = true;
           lines.shift();  // shift away the first verse, since we are using the full tone for it.
-          var firstVersePattern = sel[part].pattern[0];
+          var firstVersePattern = prop.pattern[0];
           for(var i=0; i < firstVersePattern.length; ++i) {
             if(firstVersePattern[i]=='℣') lines.shift(); // shift away any artificial verses so that the psalm toned part starts at the actual verse.
           }
@@ -2487,7 +2612,7 @@ $(function(){
     var firstVerse = true;
     var asGabc = true;
     var wroteFullVerse = false;
-    var pointedHtml = sel[part].pointedHtml = [];
+    var pointedHtml = prop.pointedHtml = [];
     var wordsInLine = function(line) {
       return ((line || '').match(/[a-zœæǽáéíóúýäëïöüÿāēīōūȳăĕĭŏŭ]+/ig) || []).length;
     }
@@ -2495,7 +2620,7 @@ $(function(){
     var countWordsBefore = isAl? 1 : 0;
     for(var i=0; i<lines.length; ++i) {
       var countWordsInVerse = wordsInLine(lines[i]);
-      var fullVerseGabc = sel[part].originalWords && sel[part].originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
+      var fullVerseGabc = prop.originalWords && prop.originalWords.slice(countWordsBefore, countWordsBefore + countWordsInVerse);
       var nextNewClef = regexGabcClef.exec(fullVerseGabc);
       nextNewClef = nextNewClef && nextNewClef[1];
       countWordsBefore += countWordsInVerse;
@@ -2524,7 +2649,7 @@ $(function(){
         // if one of the first two segments has less than 8 syllables, use a pause instead:
         line = [line[0] + ' † ' + line[1], line[2]];
       }
-      var italicNote = line[0].match(/^\s*<i>[^<]+<\/i>\s*/);
+      var italicNote = line[0].match(/^\s*(?:<i>[^<]+<\/i>|<sp>V\/<\/sp>(?:\s+\d+\.)?)\s*/);
       if(italicNote) {
         italicNote = italicNote[0];
         line[0] = line[0].slice(italicNote.length);
@@ -2535,7 +2660,7 @@ $(function(){
       if(part=='introitus' && removeDiacritics(line[0]).match(/^\s*gloria patri/i) &&
           lines[i+1] && removeDiacritics(lines[i+1]).replace(/<eu>/,'').match(/^\s*[sa.\s]*e[c.\s]*u[l.\s]*o[r.\s]*u[m.*\s]*a[m.\s]*e/i)) {
         var gAmenTones;
-        var originalGabc = sel[part].gabc;
+        var originalGabc = prop.gabc;
         var header;
         if(originalGabc && (header = getHeader(originalGabc)) && header.mode == mode) {
           gAmenTones = regexGabcGloriaPatri.exec(originalGabc);
@@ -2581,7 +2706,7 @@ $(function(){
           line.splice(1,1);
         } else {
           var mediant = gMediant;
-          if(!firstVerse && !introitTone && sel[part].repeatIntonation === false) {
+          if(!firstVerse && !introitTone && prop.repeatIntonation === false) {
             // only the first verse has the intonation
             mediant = removeIntonation(getGabcTones(gMediant,undefined,false,clef));
           }
@@ -2702,6 +2827,7 @@ $(function(){
       default:
         return;
     }
+    if(part == 'offertorium' && getOffertoryVerseSettings().count) gabc = getOffertoryWithVerses(gabc);
     // while the Introit's verses ad libitum are showing and end with the Glória Patri, the Introit doesn't show its own
     // (only in the chant, not in the gabc that can be edited)
     sel[part].hidingGloriaPatri = !!sel[part].hideGloriaPatri;
@@ -2772,7 +2898,7 @@ $(function(){
       .replace(/\\hspace{[^}]*}/g,'')
       .replace(/(?:\(Z\)\s*)?<alt>(.*?\\emph.*?)<\/alt>/gi, '^_$1_^() (Z)\n')
       .replace(/\[[ou]ll:[01]?[{}][01]?\]/ig,'') // oll ledger line indications
-      .replace(/\s(<nlba>)?\^?\*\^?(?=\s*[^(])/g,' $1*()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)  It may start a no line break area, as before the cue of a repeat.
+      .replace(/\s(<nlba>)?\^?\*\^?(?!~[^<(]*<\/nlba>|\^?\s*<b>)(?=\s*[^(])/g,' $1*()') // currently * before a syllable causes the syllable to be bolded.  (TODO: this should be fixed in Exsurge)  It may start a no line break area, as before the cue of a repeat.
       .replace(/(\))\s*\(\)/g,")"); // replace any worthless empty parentheses.
   }
   function updateFromActiveExsurge(part, id, updateFromOldScore) {
@@ -3590,6 +3716,15 @@ $(function(){
       updateTextAndChantForPart(part, true);
     }
   }
+  $('#selOffertoryVerseCount,#cbOffertoryPsalmVerses').change(function() {
+    sel.offertorium.verseCount = Number($('#selOffertoryVerseCount').val()) || 0;
+    if(this.id == 'cbOffertoryPsalmVerses') sel.offertorium.psalmToneVerses = this.checked;
+    addToHash('offertoriumVerseCount', sel.offertorium.verseCount || '');
+    addToHash('offertoriumPsalmVerses', sel.offertorium.psalmToneVerses ? '1' : '');
+    updateOffertoryVerseOptions('offertorium');
+    if(needsGabcReload('offertorium')) updatePart('offertorium');
+    else updateTextAndChantForPart('offertorium');
+  });
   $('select[id^=selStyle]').change(selStyleChanged);
   $('#selStyle').change();
   $('select.endings').change(selEndingsChanged);
@@ -4215,6 +4350,10 @@ console.info(JSON.stringify(selPropers));
       lastHandledHash = location.hash;
       allowAddToHash = false;
       var hash = parseHash();
+      var oldOffertoryStyle = (hash.styleOffertorium || '').split(';')[0],
+          legacyVerses = /^(full-verses|full-psalm-verses|psalm-tone-verses)$/.test(oldOffertoryStyle);
+      if(legacyVerses) hash.styleOffertorium = hash.styleOffertorium.replace(oldOffertoryStyle, oldOffertoryStyle == 'psalm-tone-verses' ? 'psalm-tone' : 'full');
+
       ['sunday', 'sundayNovus', 'saint', 'mass', 'common',
        'tempus', 'yearNovus',
        'ordinary', 'custom1', 'custom2', 'custom3', 'custom4'].concat(ordinaryParts).forEach(function(key, i) {
@@ -4235,6 +4374,12 @@ console.info(JSON.stringify(selPropers));
           if($elem.val() != val) $elem.val(val).change();
         }
       });
+      // Day/season changes refresh the controls before the URL's custom chant is selected.
+      // Restore its verse settings afterwards so an empty or previous offertory cannot clamp them.
+      var oldOffertoryVerseCount = sel.offertorium.verseCount || 0,
+          oldOffertoryPsalmVerses = !!sel.offertorium.psalmToneVerses;
+      sel.offertorium.verseCount = Number(hash.offertoriumVerseCount || (legacyVerses ? (oldOffertoryStyle == 'full-verses' ? Infinity : 1) : 0));
+      sel.offertorium.psalmToneVerses = hash.offertoriumPsalmVerses == '1' || oldOffertoryStyle == 'full-psalm-verses';
       if(hash.mass == 'custom') {
         $('input.sel-custom').each(function(){
           var $this=$(this),
@@ -4245,6 +4390,14 @@ console.info(JSON.stringify(selPropers));
             updatePart(part);
           }
         });
+      }
+      updateOffertoryVerseOptions('offertorium');
+      if(legacyVerses && sel.offertorium.verseCount) {
+        // Write the old combined style into the URL as the settings that replaced it, so that they outlast the next change to the hash.
+        hash.offertoriumVerseCount = sel.offertorium.verseCount;
+        hash.offertoriumPsalmVerses = sel.offertorium.psalmToneVerses ? '1' : '';
+        location.hash = hash.toString();
+        lastHandledHash = location.hash;
       }
       $('select[id^=selStyle]').each(function(){
         var $this=$(this),
@@ -4298,6 +4451,11 @@ console.info(JSON.stringify(selPropers));
             repeatIntonation: hash[part+'VersesRepeatIntonation'] != '0'});
         }
       });
+      // Only a change to the verse settings needs the offertory rendered again here; any other change renders what it affects.
+      if(sel.offertorium.gabc && ((sel.offertorium.verseCount || 0) != oldOffertoryVerseCount || !!sel.offertorium.psalmToneVerses != oldOffertoryPsalmVerses)) {
+        if(needsGabcReload('offertorium')) updatePart('offertorium');
+        else updateTextAndChantForPart('offertorium');
+      }
     }
     setTimeout(() => allowAddToHash = true);
   }

@@ -37,6 +37,8 @@
   <script src="miscChants.js"></script>
   <script src="propersdatanovus.js"></script>
   <script src="verseRef.js"></script>
+  <script src="offertory-verses.js"></script>
+  <script src="offertory-verses-data.js"></script>
   <script src="propers.js"></script>
   <script src="exsurge.min.js"></script>
   <script src="js/chant-pdf.js"></script>
@@ -454,32 +456,48 @@
     </div>
   </div>
   <div id='divOffertorium' part='offertorium' style='display:none;'>
-    <div class='block hide-print'>
-      <label class="hide-ss" id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
-      <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
-      <input id="txtCustomOffertorium" placeholder="Offertorium Search Text" class="sel-custom" style="display:none"/>
-      <span class='novus-options offertorium' id='offertoriumOptions'>
-        <label for='selOptionsOffertorium'>&mdash; Pick One: </label>
-        <select id='selOptionsOffertorium'></select>
-      </span>
-      <div class='flex right'>
-        <span class='child-other'>
-          <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
-          <label for="selToneOffertorium" class='sel-label'>Mode</label>
-          <select id="selToneOffertorium" class='sel-style tones'></select>
-          <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
-          <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
-        </span>
-        <span class='child-main'>
-          <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
-        </span>
+    <div class='offertory-layout'>
+      <div class='offertory-sticky hide-print'>
+        <div class='offertory-heading hide-print'>
+          <label class="hide-ss" id="lblOffertorium" for="txtOffertorium"><a target="_blank">Offertorium</a></label>
+          <a class='toggleShowGabc hide-ss'>(<span class='showHide'>Show</span> Text Editor)</a>
+          <input id="txtCustomOffertorium" placeholder="Offertorium Search Text" class="sel-custom" style="display:none"/>
+          <span class='novus-options offertorium' id='offertoriumOptions'>
+            <label for='selOptionsOffertorium'>&mdash; Pick One: </label>
+            <select id='selOptionsOffertorium'></select>
+          </span>
+        </div>
+        <div class='offertory-style-options hide-print'>
+          <div class='flex'>
+            <span class='child-other'>
+              <button class='btn btn-xs btn-default remove-modifications'>Remove Modifications</button>
+              <label for="selToneOffertorium" class='sel-label'>Mode</label>
+              <select id="selToneOffertorium" class='sel-style tones'></select>
+              <select id="selToneEndingOffertorium" class='sel-style endings offertorium'></select>
+              <input id='cbSolemnOffertorium' type='checkbox' class='cbSolemn offertorium' title='Check this box to use the solemn psalm tone.'>
+            </span>
+            <span class='child-main'>
+              <select id="selStyleOffertorium" class='sel-style'><option value='full'>Full Offertory</option><option value='psalm-tone'>Psalm Toned</option></select>
+            </span>
+          </div>
+        </div>
+        <div id="offertory-verse-options" style="display:none;">
+          <select id="selOffertoryVerseCount" aria-label="Number of offertory verses"></select>
+          <label id="lblOffertoryPsalmVerses">
+            <input id="cbOffertoryPsalmVerses" type="checkbox"> Psalm Toned Verses
+          </label>
+        </div>
       </div>
-    <textarea id="txtOffertorium" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
-    </div>
-    <div class='block right'>
-      <div class='chant-parent'>
-        <div id="offertorium-preview-container" class='preview-container'>
-          <div id="offertorium-preview" class='chant-preview'></div>
+      <div class='offertory-content'>
+        <div class='block hide-print'>
+          <textarea id="txtOffertorium" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+        </div>
+        <div class='block right'>
+          <div class='chant-parent'>
+            <div id="offertorium-preview-container" class='preview-container'>
+              <div id="offertorium-preview" class='chant-preview'></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

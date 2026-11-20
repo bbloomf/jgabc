@@ -1,0 +1,527 @@
+{
+  "source": "https://gregobase.selapa.net/source.php?id=32",
+  "choices": [
+    {
+      "selected": 14211,
+      "excluded": 18437,
+      "reason": "Use the Vatican notation without added rhythmic signs."
+    },
+    {
+      "selected": 18153,
+      "excluded": 18152,
+      "reason": "Same melody transposed; keep c4, matching the existing antiphon."
+    },
+    {
+      "selected": 20496,
+      "excluded": 20497,
+      "reason": "The downloaded GABC bodies are identical."
+    },
+    {
+      "selected": 16148,
+      "excluded": 16149,
+      "reason": "Use the Vatican notation without added rhythmic signs."
+    },
+    {
+      "selected": 15783,
+      "excluded": 15784,
+      "reason": "Use the Vatican notation without added rhythmic signs."
+    },
+    {
+      "selected": 18137,
+      "excluded": 19896,
+      "reason": "Omit the version with manuscript neumes."
+    },
+    {
+      "selected": 14200,
+      "reason": "Scapulis suis occurs twice in the source index; download it once."
+    }
+  ],
+  "chants": [
+    {
+      "id": 11393,
+      "name": "Ad te Domine",
+      "page": 5,
+      "localIds": [962]
+    },
+    {
+      "id": 11399,
+      "name": "Deus tu convertens",
+      "page": 6,
+      "localIds": [631]
+    },
+    {
+      "id": 9424,
+      "name": "Benedixisti Domine",
+      "page": 8,
+      "localIds": [113]
+    },
+    {
+      "id": 9432,
+      "name": "Confortamini",
+      "page": 9,
+      "localIds": [290]
+    },
+    {
+      "id": 11725,
+      "name": "Exsulta satis",
+      "page": 11,
+      "localIds": [929]
+    },
+    {
+      "id": 14211,
+      "name": "Ave Maria",
+      "page": 13,
+      "localIds": [843]
+    },
+    {
+      "id": 14223,
+      "name": "Tollite portas",
+      "page": 14,
+      "localIds": [171]
+    },
+    {
+      "id": 17652,
+      "name": "Laetentur caeli",
+      "page": 15,
+      "localIds": [811]
+    },
+    {
+      "id": 17680,
+      "name": "Deus enim",
+      "page": 16,
+      "localIds": [979]
+    },
+    {
+      "id": 17695,
+      "name": "Tui sunt caeli",
+      "page": 18,
+      "localIds": [1274]
+    },
+    {
+      "id": 17700,
+      "name": "Reges Tharsis",
+      "page": 21,
+      "localIds": [1147]
+    },
+    {
+      "id": 17704,
+      "name": "Iubilate Deo omnis",
+      "page": 23,
+      "localIds": [718]
+    },
+    {
+      "id": 14203,
+      "name": "Dextera Domini",
+      "page": 25,
+      "localIds": [47, 448]
+    },
+    {
+      "id": 14204,
+      "name": "Bonum est confiteri",
+      "page": 26,
+      "localIds": [1194]
+    },
+    {
+      "id": 18146,
+      "name": "Benedictus es... in labiis",
+      "page": 28,
+      "localIds": [1317]
+    },
+    {
+      "id": 14323,
+      "name": "Domine vivifica",
+      "page": 31,
+      "localIds": [109]
+    },
+    {
+      "id": 14200,
+      "name": "Scapulis suis",
+      "page": 32,
+      "localIds": [294]
+    },
+    {
+      "id": 18147,
+      "name": "Levabo oculos",
+      "page": 34,
+      "localIds": [1060]
+    },
+    {
+      "id": 18148,
+      "name": "Miserere mihi",
+      "page": 35,
+      "localIds": [922]
+    },
+    {
+      "id": 18150,
+      "name": "Exaudi Deus",
+      "page": 36,
+      "localIds": [842]
+    },
+    {
+      "id": 18151,
+      "name": "Domine fac mecum",
+      "page": 37,
+      "localIds": [1369]
+    },
+    {
+      "id": 18153,
+      "name": "Gressus meos",
+      "page": 39,
+      "localIds": [1099]
+    },
+    {
+      "id": 14986,
+      "name": "Laudate Dominum",
+      "page": 40,
+      "localIds": [899]
+    },
+    {
+      "id": 18154,
+      "name": "Domine ad adiuvandum",
+      "page": 42,
+      "localIds": [731]
+    },
+    {
+      "id": 18155,
+      "name": "Factus est",
+      "page": 42,
+      "localIds": [223]
+    },
+    {
+      "id": 15006,
+      "name": "Confitebor tibi... in toto",
+      "page": 44,
+      "localIds": [318]
+    },
+    {
+      "id": 18157,
+      "name": "Eripe me de inimicis... Deus",
+      "page": 46,
+      "localIds": [245]
+    },
+    {
+      "id": 18158,
+      "name": "Benedictus es... et non tradas",
+      "page": 48,
+      "localIds": [408]
+    },
+    {
+      "id": 15065,
+      "name": "Improperium... et dederunt",
+      "page": 49,
+      "localIds": [486]
+    },
+    {
+      "id": 18159,
+      "name": "Eripe me de inimicis... Domine",
+      "page": 51,
+      "localIds": [411]
+    },
+    {
+      "id": 18162,
+      "name": "Custodi me",
+      "page": 52,
+      "localIds": [1322]
+    },
+    {
+      "id": 18165,
+      "name": "Domine exaudi... ne avertas",
+      "page": 53,
+      "localIds": [461]
+    },
+    {
+      "id": 15229,
+      "name": "Terra tremuit",
+      "page": 55,
+      "localIds": [725]
+    },
+    {
+      "id": 18334,
+      "name": "Angelus Domini descendit (Off.)",
+      "page": 57,
+      "localIds": [789]
+    },
+    {
+      "id": 19910,
+      "name": "Intonuit de caelo",
+      "page": 58,
+      "localIds": [869]
+    },
+    {
+      "id": 20496,
+      "name": "Portas caeli",
+      "page": 60,
+      "localIds": [1361]
+    },
+    {
+      "id": 17131,
+      "name": "In die solemnitatis",
+      "page": 61,
+      "localIds": [1129]
+    },
+    {
+      "id": 17769,
+      "name": "Erit vobis",
+      "page": 63,
+      "localIds": [151]
+    },
+    {
+      "id": 19813,
+      "name": "Deus, Deus meus",
+      "page": 66,
+      "localIds": [924]
+    },
+    {
+      "id": 16870,
+      "name": "Iubilate Deo universa",
+      "page": 69,
+      "localIds": [937]
+    },
+    {
+      "id": 18710,
+      "name": "Benedicite gentes",
+      "page": 71,
+      "localIds": [860]
+    },
+    {
+      "id": 19280,
+      "name": "Ascendit Deus",
+      "page": 75,
+      "localIds": [211]
+    },
+    {
+      "id": 15176,
+      "name": "Emitte Spiritum",
+      "page": 77,
+      "localIds": [1176]
+    },
+    {
+      "id": 19909,
+      "name": "Confirma hoc",
+      "page": 79,
+      "localIds": [361, 83]
+    },
+    {
+      "id": 20670,
+      "name": "Sperent in te",
+      "page": 85,
+      "localIds": [1328]
+    },
+    {
+      "id": 19984,
+      "name": "Illumina",
+      "page": 87,
+      "localIds": [708]
+    },
+    {
+      "id": 19987,
+      "name": "Benedicam Dominum",
+      "page": 88,
+      "localIds": [143]
+    },
+    {
+      "id": 17856,
+      "name": "Perfice gressus",
+      "page": 90,
+      "localIds": [265]
+    },
+    {
+      "id": 19425,
+      "name": "Sicut in Holocausto",
+      "page": 92,
+      "localIds": [675]
+    },
+    {
+      "id": 17933,
+      "name": "Populum humilem",
+      "page": 93,
+      "localIds": [1080]
+    },
+    {
+      "id": 14985,
+      "name": "Iustitiae Domini",
+      "page": 94,
+      "localIds": [591]
+    },
+    {
+      "id": 17550,
+      "name": "Exaltabo te",
+      "page": 96,
+      "localIds": [648]
+    },
+    {
+      "id": 18067,
+      "name": "Precatus est",
+      "page": 97,
+      "localIds": [325]
+    },
+    {
+      "id": 10582,
+      "name": "In te speravi",
+      "page": 101,
+      "localIds": [967]
+    },
+    {
+      "id": 20843,
+      "name": "Immittet Angelus",
+      "page": 102,
+      "localIds": [747]
+    },
+    {
+      "id": 19513,
+      "name": "Exspectans",
+      "page": 104,
+      "localIds": [182]
+    },
+    {
+      "id": 18128,
+      "name": "Domine in auxilium (verses)",
+      "page": 106,
+      "localIds": [993]
+    },
+    {
+      "id": 18130,
+      "name": "Oravi Deum (verses)",
+      "page": 107,
+      "localIds": [652]
+    },
+    {
+      "id": 17671,
+      "name": "Meditabor",
+      "page": 109,
+      "localIds": [810, 1218]
+    },
+    {
+      "id": 17672,
+      "name": "Benedic... et renovabitur",
+      "page": 110,
+      "localIds": [1359]
+    },
+    {
+      "id": 18131,
+      "name": "Sanctificavit (verses)",
+      "page": 114,
+      "localIds": [838]
+    },
+    {
+      "id": 18132,
+      "name": "Si ambulavero (verses)",
+      "page": 118,
+      "localIds": [616]
+    },
+    {
+      "id": 18133,
+      "name": "Super flumina (verses)",
+      "page": 119,
+      "localIds": [812]
+    },
+    {
+      "id": 16148,
+      "name": "Vir erat (verses)",
+      "page": 122,
+      "localIds": [1363]
+    },
+    {
+      "id": 18135,
+      "name": "Recordare mei (verses)",
+      "page": 125,
+      "localIds": [67]
+    },
+    {
+      "id": 15783,
+      "name": "De profundis (verses)",
+      "page": 126,
+      "localIds": [986]
+    },
+    {
+      "id": 13363,
+      "name": "Mihi autem",
+      "page": 128,
+      "localIds": [499]
+    },
+    {
+      "id": 13360,
+      "name": "In omnem terram",
+      "page": 130,
+      "localIds": [570]
+    },
+    {
+      "id": 17548,
+      "name": "Constitues eos",
+      "page": 131,
+      "localIds": [1319]
+    },
+    {
+      "id": 19815,
+      "name": "Confitebuntur",
+      "page": 138,
+      "localIds": [1382]
+    },
+    {
+      "id": 18173,
+      "name": "Justorum animae",
+      "page": 144,
+      "localIds": [835]
+    },
+    {
+      "id": 13362,
+      "name": "Anima nostra",
+      "page": 145,
+      "localIds": [1031]
+    },
+    {
+      "id": 19721,
+      "name": "Veritas mea",
+      "page": 148,
+      "localIds": [630]
+    },
+    {
+      "id": 13365,
+      "name": "Iustus ut palma",
+      "page": 150,
+      "localIds": [777]
+    },
+    {
+      "id": 14202,
+      "name": "Diffusa est",
+      "page": 156,
+      "localIds": [177]
+    },
+    {
+      "id": 20008,
+      "name": "Filiae regum",
+      "page": 157,
+      "localIds": [1333]
+    },
+    {
+      "id": 18708,
+      "name": "Protege Domine",
+      "page": 168,
+      "localIds": [195]
+    },
+    {
+      "id": 18137,
+      "name": "Stetit Angelus (Off, verses)",
+      "page": 170,
+      "localIds": [302]
+    },
+    {
+      "id": 17860,
+      "name": "Repleti sumus",
+      "page": 175,
+      "localIds": []
+    },
+    {
+      "id": 13359,
+      "name": "Erue",
+      "page": 177,
+      "localIds": []
+    },
+    {
+      "id": 13358,
+      "name": "O pie Deus",
+      "page": 178,
+      "localIds": []
+    }
+  ]
+}
