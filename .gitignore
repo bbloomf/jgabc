@@ -25,3 +25,6 @@ pac.bak*
 psalms and canticles/ps*
 gabc/chants-abreges/previews
 gabc/chants-abreges/tools
+
+# The verse importer's list of words to look at on GregoBase.
+**/data/offertory-verses/normalization-audit.json

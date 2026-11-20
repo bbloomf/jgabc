@@ -1,6 +1,6 @@
 {
   "name": "jgabc",
-  "version": "1.17.0",
+  "version": "1.18.0",
   "description": "Chant Tools",
   "homepage": "https://github.com/bbloomf/jgabc#readme",
   "bugs": {
@@ -32,7 +32,9 @@
   },
   "scripts": {
     "test": "bun test",
+    "download-offertory-verses": "node download-offertory-verses.js",
     "download-gabc": "node download-gabc.js && bun test",
+    "download-chant": "node download-gabc.js && node download-offertory-verses.js && bun test",
     "vendor:pdf": "cp node_modules/jspdf/dist/jspdf.umd.min.js node_modules/svg2pdf.js/dist/svg2pdf.umd.min.js js/",
     "postversion": "git push && git push --tags",
     "update-cordova": "bash tools/update-cordova.sh"
@@ -40,13 +42,13 @@
   "devDependencies": {
     "@prettier/sync": "^0.6.1",
     "cordova-android": "^15.1.0",
-    "cordova-ios": "^8.1.1",
+    "cordova-ios": "^8.2.0",
     "cordova-plugin-file": "^8.1.3",
     "cordova-plugin-file-opener2": "^4.0.0",
     "cordova-webintent": "github:cordova-misc/cordova-webintent",
     "hypher": "^0.2.5",
     "jspdf": "^4.2.1",
-    "prettier": "^3.9.9",
-    "svg2pdf.js": "^2.8.1"
+    "prettier": "^3.9.10",
+    "svg2pdf.js": "^2.9.0"
   }
 }

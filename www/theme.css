@@ -73,6 +73,7 @@ svg.Exsurge {
   /* white surfaces */
   html.dark .sticky,
   html.dark div[part] > div.block:first-child,
+  html.dark .offertory-sticky,
   html.dark #chant-parent2.noeditor {
     background: #000;
   }
