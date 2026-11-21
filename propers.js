@@ -3644,7 +3644,7 @@ $(function(){
   var $adLibTemplate = $('#divCustom1').clone(),
       nextAdLibIndex = 5,
       adLibGroups = [1, 2, 3, 4];
-  $('[part^=custom] .child-main').append(
+  $('[part^=custom] .child-main').addClass('ad-lib-menu').append(
     $('<button class="btn btn-xs btn-default btn-ad-lib-add" title="Add another ad libitum chant here"><span class="glyphicon glyphicon-plus"></span></button>'));
   function addAdLibExtra(group, id) {
     var i = nextAdLibIndex++,
@@ -3657,7 +3657,7 @@ $(function(){
     $div.attr('id', rename).attr('part', part).attr('ad-lib-group', group);
     $div.find('[id^=custom],[id*=Custom]').attr('id', rename);
     $div.find('[for*=Custom]').attr('for', rename);
-    $div.find('.child-main').append(
+    $div.find('.child-main').addClass('ad-lib-menu').append(
       $('<button class="btn btn-xs btn-default btn-ad-lib-remove" title="Remove this ad libitum chant"><span class="glyphicon glyphicon-remove"></span></button>'));
     // a litany's other chants follow its part in .extra-chants, so the new part goes after them
     if($after.next('.extra-chants').length) $after = $after.next('.extra-chants');
