@@ -451,3 +451,16 @@ syl.bold {
   .offertory-style-options .child-main { margin-bottom: 0; }
   #offertory-verse-options { margin-top: 4px; }
 }
+/* an ad libitum chant's menu keeps its + (or ×) button on its line, shrinking to make room for it */
+.child-main.ad-lib-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.child-main.ad-lib-menu > select {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.child-main.ad-lib-menu > .btn {
+  flex: none;
+}
