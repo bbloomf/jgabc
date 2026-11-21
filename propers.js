@@ -1434,6 +1434,8 @@ $(function(){
       this.selectedIndex = 0;
       hash[this.id] = false;
     });
+    removeAllAdLibExtras();
+    $.extend(hash, getAdLibExtrasHash());
     selDay = "";
     clearHash(hash);
     updateDay();
@@ -3636,6 +3638,94 @@ $(function(){
     addToHash(part, $(this.options[this.selectedIndex]).attr('default')? false : this.value);
     updatePart(part, this.options[this.selectedIndex].innerText);
   });
+  // Extra ad libitum chants: the + beside each of the four ad libitum chants adds another one after it (and after the extras already there),
+  // so that several chants can be sung at that point of the Mass, e.g. at Communion; the × beside an extra removes it.
+  // The extras are parts named custom5, custom6, ...; the URL keeps the ones after custom<n> as custom<n>more=<id>,<id>,... with "no" for one with no chant selected.
+  var $adLibTemplate = $('#divCustom1').clone(),
+      nextAdLibIndex = 5,
+      adLibGroups = [1, 2, 3, 4];
+  $('[part^=custom] .child-main').append(
+    $('<button class="btn btn-xs btn-default btn-ad-lib-add" title="Add another ad libitum chant here"><span class="glyphicon glyphicon-plus"></span></button>'));
+  function addAdLibExtra(group, id) {
+    var i = nextAdLibIndex++,
+        part = 'custom' + i,
+        capPart = 'Custom' + i,
+        rename = function(x, s) { return s && s.replace(/(custom)\d*/i, '$1' + i); },
+        $div = $adLibTemplate.clone(),
+        $after = $('[part=custom' + group + '],[ad-lib-group=' + group + ']').last(),
+        afterPart = $after.attr('part');
+    $div.attr('id', rename).attr('part', part).attr('ad-lib-group', group);
+    $div.find('[id^=custom],[id*=Custom]').attr('id', rename);
+    $div.find('[for*=Custom]').attr('for', rename);
+    $div.find('.child-main').append(
+      $('<button class="btn btn-xs btn-default btn-ad-lib-remove" title="Remove this ad libitum chant"><span class="glyphicon glyphicon-remove"></span></button>'));
+    // a litany's other chants follow its part in .extra-chants, so the new part goes after them
+    if($after.next('.extra-chants').length) $after = $after.next('.extra-chants');
+    $div.insertAfter($after);
+    $('<li class="disabled ordinary"><a href="#" id="include' + capPart + '"><span class="glyphicon glyphicon-check"></span> <span class="lbl">Ad libitum</span><span class="pull-right toggle-page-break glyphicon glyphicon-file"></span></a></li>')
+      .insertAfter($('#include' + afterPart[0].toUpperCase() + afterPart.slice(1)).parent('li'));
+    includePropers.push(part);
+    sel[part] = {};
+    makeChantContextForSel(sel[part]);
+    var $select = $div.find('select').val(id || '');
+    selCustom[part + 'ID'] = id || '';
+    updatePart(part, id? $select.find('option:selected').text() : undefined);
+    return $div;
+  }
+  function removeAdLibExtra(part) {
+    var capPart = part[0].toUpperCase() + part.slice(1),
+        $div = $('#div' + capPart),
+        i = includePropers.indexOf(part);
+    $div.next('.extra-chants').remove();
+    $div.remove();
+    $('#include' + capPart).parent('li').remove();
+    if(i >= 0) includePropers.splice(i, 1);
+    delete sel[part];
+    delete selCustom[part + 'ID'];
+    updateQuickPdf();
+  }
+  function removeAllAdLibExtras() {
+    $('[ad-lib-group]').each(function() { removeAdLibExtra($(this).attr('part')); });
+  }
+  // the URL's custom<n>more keys for the extras on the page
+  function getAdLibExtrasHash() {
+    var result = {};
+    adLibGroups.forEach(function(group) {
+      var ids = $('[ad-lib-group=' + group + '] select').map(function() { return this.value || 'no'; }).toArray();
+      result['custom' + group + 'more'] = ids.length? ids.join(',') : false;
+    });
+    return result;
+  }
+  // adds, removes and selects extras to match the URL's custom<n>more keys
+  function syncAdLibExtras(hash) {
+    adLibGroups.forEach(function(group) {
+      var value = hash['custom' + group + 'more'],
+          ids = typeof(value) == 'string'? value.split(',').map(function(id) { return id == 'no'? '' : id; }) : [],
+          $extras = $('[ad-lib-group=' + group + ']');
+      $extras.slice(ids.length).each(function() { removeAdLibExtra($(this).attr('part')); });
+      ids.forEach(function(id, j) {
+        var $select = $extras.eq(j).find('select');
+        if(!$select.length) addAdLibExtra(group, id);
+        else if(($select.val() || '') != id) $select.val(id).change();
+      });
+    });
+  }
+  $(document).on('change', '[ad-lib-group] select', function() {
+    var part = $(this).parents('[part]').attr('part');
+    selCustom[part + 'ID'] = this.value;
+    $('div[part=' + part + ']').removeClass('modified');
+    updatePart(part, this.options[this.selectedIndex].innerText);
+    addToHash(getAdLibExtrasHash());
+  }).on('click', '.btn-ad-lib-add', function(e) {
+    e.preventDefault();
+    var $part = $(this).parents('[part]');
+    addAdLibExtra($part.attr('ad-lib-group') || $part.attr('part').slice(6), '').find('select').focus();
+    addToHash(getAdLibExtrasHash());
+  }).on('click', '.btn-ad-lib-remove', function(e) {
+    e.preventDefault();
+    removeAdLibExtra($(this).parents('[part]').attr('part'));
+    addToHash(getAdLibExtrasHash());
+  });
   $('#btnCalendar').click(function(e){
     var $this = $(this);
     isNovus = !isNovus;
@@ -4374,6 +4464,7 @@ console.info(JSON.stringify(selPropers));
           if($elem.val() != val) $elem.val(val).change();
         }
       });
+      syncAdLibExtras(hash);
       // Day/season changes refresh the controls before the URL's custom chant is selected.
       // Restore its verse settings afterwards so an empty or previous offertory cannot clamp them.
       var oldOffertoryVerseCount = sel.offertorium.verseCount || 0,
