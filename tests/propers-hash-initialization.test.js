@@ -63,6 +63,8 @@ function page(hash, { previousId, dayId } = {}) {
     selPropers: {}, ordinaryParts: [], lastHandledHash: undefined,
     allowAddToHash: true, gregobaseUrlPrefix: 'https://gregobase.selapa.net/chant.php?id=',
     setTimeout() {},
+    // hashChanged also syncs the ad libitum extras, which these tests don't cover.
+    syncAdLibExtras() {},
     updatePart(part) {
       const state = context.sel[part];
       state.id = context.selPropers[part + 'ID'];
