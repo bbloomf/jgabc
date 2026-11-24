@@ -434,6 +434,9 @@ $(function(){
   function runGabcReplaces(gabc, gabcHeader) {
     // TODO: some of these should be run within download-gabc instead...
     gabc = gabc.replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1');
+    // text on a line break, as in GregoBase's "Parce Dómine.( Z-)", goes before it, on a syllable of its own: exsurge
+    // doesn't lay out the lyrics of a line break (it draws the chant with NaN positions, or leaves the text out)
+    gabc = gabc.replace(/([^\s()])\(\s*([zZ][-+]?)\)/g, '$1() ($2)');
     var match = gabc.match(/<sp>V\/<\/sp>(?! \d)/g);
     if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\.?/)) {
       var count = 2;
