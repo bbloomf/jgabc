@@ -388,3 +388,29 @@ describe('Offertoriale verses', () => {
   });
 
 });
+
+describe('the Introit tones in the psalm tone tool', () => {
+  const text = 'Amen. Dóminus regnávit decórem índuit';
+  const italicInGabc = gabc => (gabc.match(/<i>[^<]*<\/i>/g) || []).join('');
+  const boldItalic = (tone, format, onlyVowel) => {
+    const tones = context.getGabcTones(tone.termination, undefined, false, tone.clef);
+    return context.addBoldItalic(text, tones.accents, tones.preparatory, tones.afterLastAccent, format, onlyVowel, 1, false, false, 0, false);
+  };
+
+  // Introit 1, 2, 3, 4 and 7 end with preparatory syllables and no accent after an intonation (issue #129)
+  for (const mode of [1, 2, 3, 4, 7]) {
+    test(`marks the preparatory syllables of the Introit ${mode} termination in html and tex as in gabc`, () => {
+      const tone = context.g_tones['Introit ' + mode];
+      const tones = context.getGabcTones(tone.termination, undefined, false, tone.clef);
+      expect(tones.accents).toBe(0);
+      expect(tones.preparatory).toBeGreaterThan(0);
+      for (const onlyVowel of [false, true]) {
+        const gabc = context.applyPsalmTone({ text, gabc: tone.termination, clef: tone.clef, useOpenNotes: false, useBoldItalic: true, onlyVowel, format: context.bi_formats.gabc });
+        const expected = italicInGabc(gabc);
+        expect(expected).not.toBe('');
+        expect(italicInGabc(boldItalic(tone, 'html', onlyVowel))).toBe(expected);
+        expect(boldItalic(tone, 'tex', onlyVowel)).toBe(boldItalic(tone, 'html', onlyVowel).replace(/<i>([^<]*)<\/i>/g, '\\textit{$1}'));
+      }
+    });
+  }
+});

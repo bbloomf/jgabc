@@ -1001,7 +1001,9 @@ function applyPsalmTone(options) {
       if(ti==0 && tones[ti].open) {
         finished = true;
       } else {
-        if(++ti < toneList.preparatory) {
+        // a tone without accents that has an intonation (such as an Introit termination) loses its intonation
+        // rather than any notes of its cadence when there are too few syllables
+        if(++ti < toneList.preparatory && (toneList.accents || !toneList.intonation)) {
           tones = tones.slice(0,intonationLength+1).concat(tones.slice(intonationLength+1 + ti));
         } else if(!favor.intonation && toneList.variableIntonation && toneList.variableIntonationLength >= ti && syl[0].accent) {
           tones = tones.slice(toneList.variableIntonationLength);
@@ -1126,7 +1128,9 @@ function getGabcTones(gabc,prefix,flexEqualsTenor,clef) {
     else if(ton.open) {
       toneTenor = ton.all[0];
       if(state==3) {
-        if(accents==0 && i==0) {
+        // with no accent after the last reciting tone, the syllables after it are all preparatory,
+        // whether or not the reciting tone has an intonation before it (as in the Introit terminations)
+        if(accents==0) {
           preparatory = afterLastAccent;
         }
         afterLastAccent = 0;
