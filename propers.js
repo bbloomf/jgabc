@@ -434,6 +434,9 @@ $(function(){
   function runGabcReplaces(gabc, gabcHeader) {
     // TODO: some of these should be run within download-gabc instead...
     gabc = gabc.replace(/(<sp>[arvARV]\/<\/sp>)\./g,'$1');
+    // text on a line break, as in GregoBase's "Parce Dómine.( Z-)", goes before it, on a syllable of its own: exsurge
+    // doesn't lay out the lyrics of a line break (it draws the chant with NaN positions, or leaves the text out)
+    gabc = gabc.replace(/([^\s()])\(\s*([zZ][-+]?)\)/g, '$1() ($2)');
     var match = gabc.match(/<sp>V\/<\/sp>(?! \d)/g);
     if(match && match.length > 1 && !gabc.match(/<sp>R\/<\/sp>\.?/)) {
       var count = 2;
@@ -747,9 +750,9 @@ $(function(){
       var updateGabc = function(gabc){
         var header = getHeader(gabc);
         gabc = gabc.slice(header.original.length);
-        var refrainMatch = /((\([cf]b?[1-4]\)|<sp>R\/<\/sp>\.)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^^]*?\(:+\)[^^]*?\([^)]*z\))[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(:*(?:\)\s*\()?z\)/i.exec(gabc);
+        var refrainMatch = /((\([cf]b?[1-4]\)|<sp>R\/<\/sp>\.)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)\s*([b-df-hj-np-tv-xz,;]*)[aeiouyáéíóúäëïöü]([b-df-hj-np-tv-xz,;]*)\(([a-m])[^)]*\)[^^]*?\(:+\)[^^]*?\([^)]*z-?\))[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(\s*:*(?:\)\s*\()?\s*z-?\)[^^]*?\(:+\)(?:[^(]+(?:\(\)|\s+))*\s*(\3[aeiouyáéíóúäëïöü]\4(?:\(\5[^)]*\)|)\s*\6[aeiouyáéíóúäëïöü]\7(?:\(\8[^)]*\)|)\s*(?:[a-zaeiouyáéíóúäëïöü,;.?:\s]+(?:\([^)]*\))?){0,3})\s*\(\s*:*(?:\)\s*\()?\s*z-?\)/i.exec(gabc);
         if(refrainMatch) {
-          reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(:+(?:\\)\\s*\\()?|\\((?=[zZ]))?([zZ]\\))?\\)?', 'g');
+          reReplace = new RegExp('(' + refrainMatch[9].replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&') + '\\s*)(\\(\\s*:+(?:\\)\\s*\\()?|\\((?=\\s*[zZ]))?\\s*([zZ]-?\\))?\\)?', 'g');
           var numParts = refrainMatch[2] === '<sp>R/</sp>.'? 3 : 2;
           var clef = numParts === 2? refrainMatch[2] : gabc.match(/\([cf]b?[1-4]\)/)[0];
           var index = refrainMatch.index + refrainMatch[1].length;
@@ -780,6 +783,8 @@ $(function(){
               gabc: prePart
             });
           }
+          // (the PDF has the whole chant, from effectiveGabc, rather than its pieces; Quick PDF prints the pieces, as shown)
+          gabc.forEach(function(chant) { chant.notInPdf = true; });
           $extraChantsPlaceholder.remove();
           $extraChantsPlaceholder = $('<div>').addClass('extra-chants').insertAfter($div);
           renderExtraChants($extraChantsPlaceholder, gabc, '-'+part);
@@ -1304,7 +1309,8 @@ $(function(){
           id: chant.id,
           style: 'full',
           noDropCap: !!chant.gabc || (typeof(chant.id)=='string' && chant.id.match(/-/)),
-          sticky: chant.sticky === 0
+          sticky: chant.sticky === 0,
+          notInPdf: !!chant.notInPdf
         };
         var $curElement;
         $curElement = $('<div>').attr('part',part).addClass('full showing-chant').
@@ -3961,7 +3967,7 @@ $(function(){
     var name = pdfParts.name;
     var result=[];
     var processSolesmes = getProcessSolesmes();
-    pdfParts.parts.forEach(function(pdfPart, i){
+    pdfParts.parts.filter(function(pdfPart) { return !sel[pdfPart.part].notInPdf; }).forEach(function(pdfPart, i){
       var gabc = pdfPart.gabc,
           verses = sel[pdfPart.part+"Verses"],
           gabcVerses = verses && (verses.pdfGabc || verses.activeGabc), // pointed verses are written out in full, as gabc can't have the pointed text
